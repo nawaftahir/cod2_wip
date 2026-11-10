@@ -24,12 +24,19 @@ static DpvsConfig dpvsConfig;
 DpvsScene dpvsScene;
 void ExpandBounds(const vec3_t mins, const vec3_t maxs, vec3_t outMins, vec3_t outMaxs);
 
-// PINNED 10008570/139; the limit test is equality, not >=.
-
 // Name unconfirmed; PINNED out-of-line copy 10005c30.
 inline void R_DpvsPlaneSetDist(DpvsPlane *plane, const float *point, float dist)
 {
     plane->coeffs[3] = dist - DotProduct(point, plane->coeffs);
+}
+
+// Name unconfirmed; PINNED out-of-line copy 10005c50.
+inline void R_DpvsPlaneSetDistAndSides(DpvsPlane *plane, const float *point, float dist)
+{
+    R_DpvsPlaneSetDist(plane, point, dist);
+    plane->side[0] = FloatAsInt(plane->coeffs[0]) > 0 ? 12 : 0;
+    plane->side[1] = FloatAsInt(plane->coeffs[1]) > 0 ? 16 : 4;
+    plane->side[2] = FloatAsInt(plane->coeffs[2]) > 0 ? 20 : 8;
 }
 
 // Name unconfirmed; PINNED out-of-line copy 10005cb0.
@@ -38,126 +45,35 @@ inline float R_DpvsPlaneDistToPoint(const DpvsPlane *plane, const float *point)
     return DotProduct(plane->coeffs, point) + plane->coeffs[3];
 }
 
-
-static void R_LinkEntityToCell(GfxCell *cell, int entIndex, const vec_t *mins, const vec_t *maxs)
+// Name unconfirmed; PINNED out-of-line copy 10005cd0.
+inline float R_DpvsPlaneNearCornerDist(const DpvsPlane *plane, const float *bounds)
 {
-    if (dpvsScene.modelRefCount == 4096)
-    {
-        ri.Printf(1, "^1Max xmodel refs (%i) exceeded\n", 4096);
-        return;
-    }
-    GfxSceneModelCellRef *ref = cell->modelRefs;
-    while (ref)
-    {
-        if (ref->entIndex == entIndex)
-        {
-            ExpandBounds(mins, maxs, ref->mins, ref->maxs);
-            return;
-        }
-        ref = (GfxSceneModelCellRef *)ref->next;
-    }
-    ref = &dpvsScene.modelRefs[dpvsScene.modelRefCount++];
-    ref->entIndex = entIndex;
-    VectorCopy(mins, ref->mins);
-    VectorCopy(maxs, ref->maxs);
-    ref->next = (intptr_t)cell->modelRefs;
-    cell->modelRefs = ref;
+    return *(const float *)((const byte *)bounds + plane->side[1]) * plane->coeffs[1]
+        + *(const float *)((const byte *)bounds + plane->side[0]) * plane->coeffs[0]
+        + *(const float *)((const byte *)bounds + plane->side[2]) * plane->coeffs[2]
+        + plane->coeffs[3];
 }
 
-// PINNED 10008600/335; Mac name agrees with the BSP/cell behavior.
-int R_FilterEntityIntoCells_r(mnode_t *node, int entIndex, const vec_t *mins, const vec_t *maxs)
+// Name unconfirmed; PINNED out-of-line copy 10005d00.
+inline float R_DpvsPlaneFarCornerDist(const DpvsPlane *plane, const float *bounds)
 {
-    while (node->cellIndex == -2)
-    {
-        int side = BoxOnPlaneSide((float *)mins, (float *)maxs, node->u.node.plane);
-        if (side == 3)
-        {
-            int front, back;
-            if (node->u.node.plane->type < 3)
-            {
-                vec3_t localMins, localMaxs;
-                VectorCopy(mins, localMins);
-                localMins[node->u.node.plane->type] = node->u.node.plane->dist;
-                VectorCopy(maxs, localMaxs);
-                localMaxs[node->u.node.plane->type] = node->u.node.plane->dist;
-                back = R_FilterEntityIntoCells_r(node->u.node.children[1], entIndex, mins, localMaxs);
-                front = back;
-                if (localMins[node->u.node.plane->type] < maxs[node->u.node.plane->type])
-                    front = R_FilterEntityIntoCells_r(node->u.node.children[0], entIndex, localMins, maxs);
-            }
-            else
-            {
-                front = R_FilterEntityIntoCells_r(node->u.node.children[0], entIndex, mins, maxs);
-                back = R_FilterEntityIntoCells_r(node->u.node.children[1], entIndex, mins, maxs);
-            }
-            return front == back ? front : -2;
-        }
-        node = node->u.node.children[side - 1];
-    }
-    if (node->cellIndex >= 0)
-        R_LinkEntityToCell(&rgp.world->cells[node->cellIndex], entIndex, mins, maxs);
-    return node->cellIndex;
+    return *(const float *)((const byte *)bounds + 12 - plane->side[0]) * plane->coeffs[0]
+        + *(const float *)((const byte *)bounds + 20 - plane->side[1]) * plane->coeffs[1]
+        + *(const float *)((const byte *)bounds + 28 - plane->side[2]) * plane->coeffs[2]
+        + plane->coeffs[3];
+}
+
+// Name unconfirmed; PINNED out-of-line copy 10005d40.
+inline float R_DpvsPlaneViewDist(const DpvsPlane *plane)
+{
+    return dpvsViewOrg[1] * plane->coeffs[1] + dpvsViewOrg[2] * plane->coeffs[2]
+        + dpvsViewOrg[3] * plane->coeffs[3] + dpvsViewOrg[0] * plane->coeffs[0];
 }
 
 // Brush entity bounds and cell routing.
 extern GfxScene scene;
 void R_AddBModelSurfaces(GfxSceneEntity *sceneEnt, int entIndex);
 bool R_IsBoundsOutsideViewNoStack(DpvsPlane *planes, int planeCount, const float *bounds);
-#pragma optimize("p", on)
-/* Target 0x100088c0; descriptive name, historical symbol unconfirmed. */
-static void R_TransformBoundsCorners(const GfxEntity *entity, vec3_t mins, vec3_t maxs, const vec3_t *bounds)
-{
-    mins[0] = 131072.0f;
-    mins[1] = 131072.0f;
-    mins[2] = 131072.0f;
-    maxs[0] = -131072.0f;
-    maxs[1] = -131072.0f;
-    maxs[2] = -131072.0f;
-
-#define TEST_BOUNDS_CORNER(x, y, z) \
-    do { \
-        vec3_t corner; \
-        vec3_t transformed; \
-        corner[0] = bounds[x][0]; \
-        corner[1] = bounds[y][1]; \
-        corner[2] = bounds[z][2]; \
-        VectorCopy(entity->origin, transformed); \
-        VectorMA(transformed, corner[0], entity->axis[0], transformed); \
-        VectorMA(transformed, corner[1], entity->axis[1], transformed); \
-        VectorMA(transformed, corner[2], entity->axis[2], transformed); \
-        if (transformed[0] < mins[0]) mins[0] = transformed[0]; \
-        if (transformed[0] > maxs[0]) maxs[0] = transformed[0]; \
-        if (transformed[1] < mins[1]) mins[1] = transformed[1]; \
-        if (transformed[1] > maxs[1]) maxs[1] = transformed[1]; \
-        if (transformed[2] < mins[2]) mins[2] = transformed[2]; \
-        if (transformed[2] > maxs[2]) maxs[2] = transformed[2]; \
-    } while (0)
-
-    TEST_BOUNDS_CORNER(0, 0, 0);
-    TEST_BOUNDS_CORNER(1, 0, 0);
-    TEST_BOUNDS_CORNER(0, 1, 0);
-    TEST_BOUNDS_CORNER(1, 1, 0);
-    TEST_BOUNDS_CORNER(0, 0, 1);
-    TEST_BOUNDS_CORNER(1, 0, 1);
-    TEST_BOUNDS_CORNER(0, 1, 1);
-    TEST_BOUNDS_CORNER(1, 1, 1);
-
-#undef TEST_BOUNDS_CORNER
-}
-
-// PINNED 100091d0/117; descriptive name, historical symbol unconfirmed.
-void R_CullBrushEntity(int entIndex, DpvsPlane *planes, int planeCount)
-{
-    GfxEntity *entity = &scene.def.entities[entIndex];
-    GfxSceneEntity *sceneEnt = &scene.sceneEnts[entIndex];
-    vec3_t mins, maxs;
-    R_TransformBoundsCorners(entity, mins, maxs, sceneEnt->u.bmodel->bounds);
-    if (!R_IsBoundsOutsideViewNoStack(planes, planeCount, mins))
-        if (R_FilterEntityIntoCells_r(rgp.world->nodes, entIndex, mins, maxs) == -1)
-            R_AddBModelSurfaces(sceneEnt, entIndex);
-}
-
-#pragma optimize("p", off)
 
 // PINNED: free-list pointer 101ce5e8; each entry holds 64 vec2 points.
 union GfxHullPointsPool
@@ -282,11 +198,11 @@ void R_SetupOccludersForCell(const GfxCell *cell, const DpvsPlane *planes, int p
 void R_DrawModel(int entIndex);
 int R_CellForPoint(const vec_t *origin);
 void R_CullSceneLights(const DpvsPlane *planes, int planeCount);
-static bool R_IsBoundsOutsideView(DpvsPlane *planes, int planeCount,
+__declspec(noinline) bool R_IsBoundsOutsideView(DpvsPlane *planes, int planeCount,
     const float *bounds, int stackLevel);
-static bool R_IsAabbOutsideView(DpvsPlane *planes, int planeCount,
+__declspec(noinline) bool R_IsAabbOutsideView(DpvsPlane *planes, int planeCount,
     const float *bounds, int stackLevel);
-static bool R_AabbNeedsChildClipping(DpvsPlane *planes, int planeCount,
+__declspec(noinline) bool R_AabbNeedsChildClipping(DpvsPlane *planes, int planeCount,
     const float *bounds, int stackLevel);
 static void R_AddWorldSurfaceDirect(int surfIndex);
 static void R_AddWorldSurfaceWithCull(int surfIndex, DpvsPlane *planes,
@@ -305,7 +221,7 @@ static void R_CullSceneEntities(DpvsPlane *planes, int planeCount);
 static void R_DrawCellEntities(const GfxCell *cell, DpvsPlane *planes, int planeCount);
 static void R_AddVisibleSurfacesInCell(const GfxCell *cell, DpvsPlane *planes, int planeCount);
 static void R_AddSkySurfaces(DpvsPlane *planes, int planeCount);
-static int R_AppendNearFarPlanes(DpvsPlane *planes, int planeCount);
+__declspec(noinline) int R_AppendNearFarPlanes(DpvsPlane *planes, int planeCount);
 static void R_DrawFurtherCells(const GfxCell *cell, const DpvsPlane *parentPlane,
     DpvsPlane *planes, int planeCount);
 static void R_VisitPortalsForCell(const GfxCell *cell, GfxPortal *parentPortal,
@@ -317,6 +233,31 @@ static void R_AddWorldSurfacesByCell(int cameraCell, DpvsPlane *planes, int plan
 void R_FrustumClipPlanes(const D3DMATRIX *viewProjection, const vec4_t *sides,
     int sideCount, DpvsPlane *planes);
 void R_AddWorldSurfacesDpvs(const GfxViewParms *viewParms, int cameraCell);
+
+static void R_CreateOccluderEdgePlane(const float *v0, const float *v1, DpvsPlane *plane)
+{
+    vec3_t delta0, delta1;
+    if (dpvsViewOrg[3] != 0.0f)
+    {
+        VectorSubtract(v0, dpvsViewOrg, delta0);
+        VectorSubtract(v1, dpvsViewOrg, delta1);
+        plane->coeffs[0] = delta0[2] * delta1[1] - delta0[1] * delta1[2];
+        plane->coeffs[1] = delta1[2] * delta0[0] - delta1[0] * delta0[2];
+        plane->coeffs[2] = delta1[0] * delta0[1] - delta0[0] * delta1[1];
+    }
+    else
+    {
+        VectorSubtract(v1, v0, delta0);
+        Vec3Cross(dpvsViewOrg, delta0, plane->coeffs);
+    }
+    Vec3Normalize(plane->coeffs);
+    plane->u.frontal = 255;
+    plane->coeffs[3] = 0.0f - (plane->coeffs[1] * v0[1]
+        + v0[0] * plane->coeffs[0] + v0[2] * plane->coeffs[2]);
+    plane->side[0] = FloatAsInt(plane->coeffs[0]) > 0 ? 12 : 0;
+    plane->side[1] = FloatAsInt(plane->coeffs[1]) > 0 ? 16 : 4;
+    plane->side[2] = FloatAsInt(plane->coeffs[2]) > 0 ? 20 : 8;
+}
 
 void R_GetSidePlaneNormals(const vec3_t *winding, int vertexCount, vec3_t *normals)
 {
@@ -348,8 +289,24 @@ void R_GetSidePlaneNormals(const vec3_t *winding, int vertexCount, vec3_t *norma
     }
 }
 
+// Names unconfirmed; PINNED out-of-line copies 100061d0, 10006210, 10006260.
+inline bool R_DpvsPlaneNearCornerBehind(const DpvsPlane *plane, const float *bounds)
+{
+    return R_DpvsPlaneNearCornerDist(plane, bounds) <= 0.0f;
+}
+
+inline bool R_DpvsPlaneFarCornerNotBehind(const DpvsPlane *plane, const float *bounds)
+{
+    return R_DpvsPlaneFarCornerDist(plane, bounds) >= 0.0f;
+}
+
+inline bool R_DpvsPlaneNearCornerInFront(const DpvsPlane *plane, const float *bounds)
+{
+    return R_DpvsPlaneNearCornerDist(plane, bounds) > 0.0f;
+}
+
 // PINNED 100062a0/95: near then far; input count is preserved when both absent.
-static int R_AppendNearFarPlanes(DpvsPlane *planes, int planeCount)
+__declspec(noinline) int R_AppendNearFarPlanes(DpvsPlane *planes, int planeCount)
 {
     if (portalNearPlane)
         planes[planeCount++] = *portalNearPlane;
@@ -359,7 +316,7 @@ static int R_AppendNearFarPlanes(DpvsPlane *planes, int planeCount)
 }
 
 // PINNED 10006300/214: stack stamps skip planes proved inside by an ancestor.
-static bool R_IsBoundsOutsideView(DpvsPlane *planes, int planeCount,
+__declspec(noinline) bool R_IsBoundsOutsideView(DpvsPlane *planes, int planeCount,
     const float *bounds, int stackLevel)
 {
     for (int i = 0; i < planeCount; ++i)
@@ -389,11 +346,7 @@ static bool R_IsBoundsOutsideView(DpvsPlane *planes, int planeCount,
             if (stackLevel > plane->u.frontal)
                 continue;
             plane->u.frontal = 255;
-            float distance = *(const float *)((const byte *)bounds + plane->side[1]) * plane->coeffs[1];
-            distance += *(const float *)((const byte *)bounds + plane->side[0]) * plane->coeffs[0];
-            distance += *(const float *)((const byte *)bounds + plane->side[2]) * plane->coeffs[2];
-            distance += plane->coeffs[3];
-            if (distance > 0.0f)
+            if (R_DpvsPlaneNearCornerInFront(plane, bounds))
                 break;
         }
     }
@@ -437,7 +390,7 @@ bool R_IsBoundsOutsideViewNoStack(DpvsPlane *planes, int planeCount, const float
 }
 
 // PINNED 100064b0/264: rejected occluder planes keep their parent stack stamp.
-static bool R_IsAabbOutsideView(DpvsPlane *planes, int planeCount,
+__declspec(noinline) bool R_IsAabbOutsideView(DpvsPlane *planes, int planeCount,
     const float *bounds, int stackLevel)
 {
     for (int i = 0; i < planeCount; ++i)
@@ -465,11 +418,7 @@ static bool R_IsAabbOutsideView(DpvsPlane *planes, int planeCount,
             if (stackLevel > plane->u.frontal)
                 continue;
             plane->u.frontal = 255;
-            float distance = *(const float *)((const byte *)bounds + plane->side[0]) * plane->coeffs[0];
-            distance += *(const float *)((const byte *)bounds + plane->side[1]) * plane->coeffs[1];
-            distance += *(const float *)((const byte *)bounds + plane->side[2]) * plane->coeffs[2];
-            distance += plane->coeffs[3];
-            if (distance <= 0.0f)
+            if (R_DpvsPlaneNearCornerBehind(plane, bounds))
                 plane->u.frontal = (byte)stackLevel;
             else
                 occluded = false;
@@ -481,7 +430,7 @@ static bool R_IsAabbOutsideView(DpvsPlane *planes, int planeCount,
 }
 
 // PINNED 100065c0/157: unordered near-corner distances require child clipping.
-static bool R_AabbNeedsChildClipping(DpvsPlane *planes, int planeCount,
+__declspec(noinline) bool R_AabbNeedsChildClipping(DpvsPlane *planes, int planeCount,
     const float *bounds, int stackLevel)
 {
     bool partial = false;
@@ -490,11 +439,7 @@ static bool R_AabbNeedsChildClipping(DpvsPlane *planes, int planeCount,
         DpvsPlane *plane = &planes[i];
         if (stackLevel > plane->u.frontal)
             continue;
-        float distance = *(const float *)((const byte *)bounds + 12 - plane->side[0]) * plane->coeffs[0];
-        distance += *(const float *)((const byte *)bounds + 20 - plane->side[1]) * plane->coeffs[1];
-        distance += *(const float *)((const byte *)bounds + 28 - plane->side[2]) * plane->coeffs[2];
-        distance += plane->coeffs[3];
-        if (!(distance >= 0.0f))
+        if (!R_DpvsPlaneFarCornerNotBehind(plane, bounds))
             partial = true;
         else
             plane->u.frontal = (byte)stackLevel;
@@ -516,6 +461,78 @@ static void R_AddWorldSurfaceDirect(int surfIndex)
     R_AddDrawSurf(surf->material, surf->sortGroup + 2048, surf->lightmapIndex, surf->data);
 }
 
+// Convex winding extrema.
+/* PINNED 1.0 convex-winding search and plane coefficients at offsets 0..12. */
+double R_FurthestPointOnWinding(const vec3_t *points, int pointCount, const float *plane)
+{
+    int index;
+    float furthest;
+    float first;
+    float last;
+
+    first = DotProduct(plane, points[0]) + plane[3];
+    last = DotProduct(plane, points[pointCount - 1]) + plane[3];
+
+    if (first > last)
+    {
+        furthest = first;
+        for (index = 1; index < pointCount - 1; ++index)
+        {
+            float distance = DotProduct(plane, points[index]) + plane[3];
+            if (furthest > distance)
+                break;
+            furthest = distance;
+        }
+    }
+    else
+    {
+        furthest = last;
+        for (index = pointCount - 2; index > 0; --index)
+        {
+            float distance = DotProduct(plane, points[index]) + plane[3];
+            if (furthest > distance)
+                break;
+            furthest = distance;
+        }
+    }
+    return furthest;
+}
+
+double R_NearestPointOnWinding(const vec3_t *points, int pointCount, const float *plane)
+{
+    int index;
+    float nearest;
+    float first;
+    float last;
+
+    first = DotProduct(plane, points[0]) + plane[3];
+    last = DotProduct(plane, points[pointCount - 1]) + plane[3];
+
+    if (first < last)
+    {
+        nearest = first;
+        for (index = 1; index < pointCount - 1; ++index)
+        {
+            float distance = DotProduct(plane, points[index]) + plane[3];
+            if (nearest < distance)
+                break;
+            nearest = distance;
+        }
+    }
+    else
+    {
+        nearest = last;
+        for (index = pointCount - 2; index > 0; --index)
+        {
+            float distance = DotProduct(plane, points[index]) + plane[3];
+            if (nearest < distance)
+                break;
+            nearest = distance;
+        }
+    }
+    return nearest;
+}
+
 // PINNED 10006be0/446: transform homogeneous clipping planes and normalize XYZ.
 void R_FrustumClipPlanes(const D3DMATRIX *viewProjection, const vec4_t *sides,
     int sideCount, DpvsPlane *planes)
@@ -527,9 +544,7 @@ void R_FrustumClipPlanes(const D3DMATRIX *viewProjection, const vec4_t *sides,
         for (int j = 0; j < 4; ++j)
             coeffs[j] = matrix[j * 4] * sides[i][0] + matrix[j * 4 + 2] * sides[i][2]
                 + matrix[j * 4 + 1] * sides[i][1] + matrix[j * 4 + 3] * sides[i][3];
-        float invLength = 1.0f / sqrtf(coeffs[2] * coeffs[2] + coeffs[0] * coeffs[0] + coeffs[1] * coeffs[1]);
-        for (int j = 0; j < 4; ++j)
-            coeffs[j] *= invLength;
+        VectorScale4(coeffs, 1.0f / VectorLength(coeffs), coeffs);
         planes[i].side[0] = FloatAsInt(coeffs[0]) > 0 ? 12 : 0;
         planes[i].side[1] = FloatAsInt(coeffs[1]) > 0 ? 16 : 4;
         planes[i].side[2] = FloatAsInt(coeffs[2]) > 0 ? 20 : 8;
@@ -671,7 +686,7 @@ int R_PortalClipPlanes(DpvsPlane *planes, int vertexCount, const vec3_t *winding
         *clipChildren = DPVS_CLIP_CHILDREN;
     if (useNormalPlanes)
         for (int index = 0; index < vertexCount; ++index)
-            if (DotProduct(normals[index], normals[index]) != 0.0f)
+            if (VectorLengthSquared(normals[index]) != 0.0f)
             {
                 DpvsPlane *plane = &planes[planeCount];
                 VectorCopy(normals[index], plane->coeffs);
@@ -718,30 +733,6 @@ static bool R_IsOccluderOutsideView(const GfxOccluder *occluder,
     return false;
 }
 
-static void R_CreateOccluderEdgePlane(const float *v0, const float *v1, DpvsPlane *plane)
-{
-    vec3_t delta0, delta1;
-    if (dpvsViewOrg[3] != 0.0f)
-    {
-        VectorSubtract(v0, dpvsViewOrg, delta0);
-        VectorSubtract(v1, dpvsViewOrg, delta1);
-        plane->coeffs[0] = delta0[2] * delta1[1] - delta0[1] * delta1[2];
-        plane->coeffs[1] = delta1[2] * delta0[0] - delta1[0] * delta0[2];
-        plane->coeffs[2] = delta1[0] * delta0[1] - delta0[0] * delta1[1];
-    }
-    else
-    {
-        VectorSubtract(v1, v0, delta0);
-        Vec3Cross(dpvsViewOrg, delta0, plane->coeffs);
-    }
-    Vec3Normalize(plane->coeffs);
-    plane->u.frontal = 255;
-    plane->coeffs[3] = 0.0f - (plane->coeffs[1] * v0[1]
-        + v0[0] * plane->coeffs[0] + v0[2] * plane->coeffs[2]);
-    plane->side[0] = FloatAsInt(plane->coeffs[0]) > 0 ? 12 : 0;
-    plane->side[1] = FloatAsInt(plane->coeffs[1]) > 0 ? 16 : 4;
-    plane->side[2] = FloatAsInt(plane->coeffs[2]) > 0 ? 20 : 8;
-}
 
 static void R_AddOccluderDebugLine(DebugGlobals *debug, const float *start, const float *end)
 {
@@ -775,7 +766,7 @@ void R_SetupOccludersForCell(const GfxCell *cell, const DpvsPlane *planes, int p
         for (int planeIndex = 0; planeIndex < occluder->planeCount; ++planeIndex)
         {
             occluder->planes[planeIndex].u.frontal = 0;
-            if (DotProduct4(dpvsViewOrg, occluder->planes[planeIndex].coeffs) > 0.0f)
+            if (R_DpvsPlaneViewDist(&occluder->planes[planeIndex]) > 0.0f)
             {
                 occluder->planes[planeIndex].u.frontal = 1;
                 if (activeOccluderPlanes.count == 6144)
@@ -1059,6 +1050,68 @@ static void R_GetModelEntityBounds(int entIndex, float *mins, float *maxs)
         maxs[i] = localMaxs[i] * scale + ent->origin[i];
 }
 
+// PINNED 10008570/139; the limit test is equality, not >=.
+
+static void R_LinkEntityToCell(GfxCell *cell, int entIndex, const vec_t *mins, const vec_t *maxs)
+{
+    if (dpvsScene.modelRefCount == 4096)
+    {
+        ri.Printf(1, "^1Max xmodel refs (%i) exceeded\n", 4096);
+        return;
+    }
+    GfxSceneModelCellRef *ref = cell->modelRefs;
+    while (ref)
+    {
+        if (ref->entIndex == entIndex)
+        {
+            ExpandBounds(mins, maxs, ref->mins, ref->maxs);
+            return;
+        }
+        ref = (GfxSceneModelCellRef *)ref->next;
+    }
+    ref = &dpvsScene.modelRefs[dpvsScene.modelRefCount++];
+    ref->entIndex = entIndex;
+    VectorCopy(mins, ref->mins);
+    VectorCopy(maxs, ref->maxs);
+    ref->next = (intptr_t)cell->modelRefs;
+    cell->modelRefs = ref;
+}
+
+// PINNED 10008600/335; Mac name agrees with the BSP/cell behavior.
+int R_FilterEntityIntoCells_r(mnode_t *node, int entIndex, const vec_t *mins, const vec_t *maxs)
+{
+    while (node->cellIndex == -2)
+    {
+        int side = BoxOnPlaneSide((float *)mins, (float *)maxs, node->u.node.plane);
+        if (side == 3)
+        {
+            int front, back;
+            if (node->u.node.plane->type < 3)
+            {
+                vec3_t localMins, localMaxs;
+                VectorCopy(mins, localMins);
+                localMins[node->u.node.plane->type] = node->u.node.plane->dist;
+                VectorCopy(maxs, localMaxs);
+                localMaxs[node->u.node.plane->type] = node->u.node.plane->dist;
+                back = R_FilterEntityIntoCells_r(node->u.node.children[1], entIndex, mins, localMaxs);
+                front = back;
+                if (localMins[node->u.node.plane->type] < maxs[node->u.node.plane->type])
+                    front = R_FilterEntityIntoCells_r(node->u.node.children[0], entIndex, localMins, maxs);
+            }
+            else
+            {
+                front = R_FilterEntityIntoCells_r(node->u.node.children[0], entIndex, mins, maxs);
+                back = R_FilterEntityIntoCells_r(node->u.node.children[1], entIndex, mins, maxs);
+            }
+            return front == back ? front : -2;
+        }
+        node = node->u.node.children[side - 1];
+    }
+    if (node->cellIndex >= 0)
+        R_LinkEntityToCell(&rgp.world->cells[node->cellIndex], entIndex, mins, maxs);
+    return node->cellIndex;
+}
+
 // PINNED 100087a0/283: bypass cell splitting only for two oversized dimensions.
 static void R_CullModelEntity(int entIndex, DpvsPlane *planes, int planeCount)
 {
@@ -1079,6 +1132,62 @@ static void R_CullModelEntity(int entIndex, DpvsPlane *planes, int planeCount)
     sceneEnt->cullState = 5;
     R_AddXModelSurfaces(entIndex);
 }
+
+#pragma optimize("p", on)
+/* Target 0x100088c0; descriptive name, historical symbol unconfirmed. */
+static void R_TransformBoundsCorners(const GfxEntity *entity, vec3_t mins, vec3_t maxs, const vec3_t *bounds)
+{
+    mins[0] = 131072.0f;
+    mins[1] = 131072.0f;
+    mins[2] = 131072.0f;
+    maxs[0] = -131072.0f;
+    maxs[1] = -131072.0f;
+    maxs[2] = -131072.0f;
+
+#define TEST_BOUNDS_CORNER(x, y, z) \
+    do { \
+        vec3_t corner; \
+        vec3_t transformed; \
+        corner[0] = bounds[x][0]; \
+        corner[1] = bounds[y][1]; \
+        corner[2] = bounds[z][2]; \
+        VectorCopy(entity->origin, transformed); \
+        VectorMA(transformed, corner[0], entity->axis[0], transformed); \
+        VectorMA(transformed, corner[1], entity->axis[1], transformed); \
+        VectorMA(transformed, corner[2], entity->axis[2], transformed); \
+        if (transformed[0] < mins[0]) mins[0] = transformed[0]; \
+        if (transformed[0] > maxs[0]) maxs[0] = transformed[0]; \
+        if (transformed[1] < mins[1]) mins[1] = transformed[1]; \
+        if (transformed[1] > maxs[1]) maxs[1] = transformed[1]; \
+        if (transformed[2] < mins[2]) mins[2] = transformed[2]; \
+        if (transformed[2] > maxs[2]) maxs[2] = transformed[2]; \
+    } while (0)
+
+    TEST_BOUNDS_CORNER(0, 0, 0);
+    TEST_BOUNDS_CORNER(1, 0, 0);
+    TEST_BOUNDS_CORNER(0, 1, 0);
+    TEST_BOUNDS_CORNER(1, 1, 0);
+    TEST_BOUNDS_CORNER(0, 0, 1);
+    TEST_BOUNDS_CORNER(1, 0, 1);
+    TEST_BOUNDS_CORNER(0, 1, 1);
+    TEST_BOUNDS_CORNER(1, 1, 1);
+
+#undef TEST_BOUNDS_CORNER
+}
+
+// PINNED 100091d0/117; descriptive name, historical symbol unconfirmed.
+void R_CullBrushEntity(int entIndex, DpvsPlane *planes, int planeCount)
+{
+    GfxEntity *entity = &scene.def.entities[entIndex];
+    GfxSceneEntity *sceneEnt = &scene.sceneEnts[entIndex];
+    vec3_t mins, maxs;
+    R_TransformBoundsCorners(entity, mins, maxs, sceneEnt->u.bmodel->bounds);
+    if (!R_IsBoundsOutsideViewNoStack(planes, planeCount, mins))
+        if (R_FilterEntityIntoCells_r(rgp.world->nodes, entIndex, mins, maxs) == -1)
+            R_AddBModelSurfaces(sceneEnt, entIndex);
+}
+
+#pragma optimize("p", off)
 
 // PINNED 10009250/88: only model and brush entities participate in cell routing.
 static void R_CullSceneEntities(DpvsPlane *planes, int planeCount)
@@ -1450,10 +1559,7 @@ void R_SetupDpvsForPoint(const GfxViewParms *viewParms)
     VectorCopy(viewParms->origin, dpvsViewOrg);
     dpvsViewOrg[3] = 1.0f;
     VectorCopy(viewParms->axis[0], portalViewPlane.coeffs);
-    R_DpvsPlaneSetDist(&portalViewPlane, dpvsViewOrg, 0.1f);
-    portalViewPlane.side[0] = FloatAsInt(portalViewPlane.coeffs[0]) > 0 ? 12 : 0;
-    portalViewPlane.side[1] = FloatAsInt(portalViewPlane.coeffs[1]) > 0 ? 16 : 4;
-    portalViewPlane.side[2] = FloatAsInt(portalViewPlane.coeffs[2]) > 0 ? 20 : 8;
+    R_DpvsPlaneSetDistAndSides(&portalViewPlane, dpvsViewOrg, 0.1f);
     portalViewPlane.u.frontal = 255;
     portalNearPlane = &portalViewPlane;
     float zfar = R_GetFarPlaneDist();
@@ -1626,77 +1732,7 @@ GfxPortal *R_PortalQueuePopMin()
     return top;
 }
 
-// Convex winding extrema.
-/* PINNED 1.0 convex-winding search and plane coefficients at offsets 0..12. */
-double R_FurthestPointOnWinding(const vec3_t *points, int pointCount, const float *plane)
-{
-    int index;
-    float furthest;
-    float first;
-    float last;
 
-    first = DotProduct(plane, points[0]) + plane[3];
-    last = DotProduct(plane, points[pointCount - 1]) + plane[3];
-
-    if (first > last)
-    {
-        furthest = first;
-        for (index = 1; index < pointCount - 1; ++index)
-        {
-            float distance = DotProduct(plane, points[index]) + plane[3];
-            if (furthest > distance)
-                break;
-            furthest = distance;
-        }
-    }
-    else
-    {
-        furthest = last;
-        for (index = pointCount - 2; index > 0; --index)
-        {
-            float distance = DotProduct(plane, points[index]) + plane[3];
-            if (furthest > distance)
-                break;
-            furthest = distance;
-        }
-    }
-    return furthest;
-}
-
-double R_NearestPointOnWinding(const vec3_t *points, int pointCount, const float *plane)
-{
-    int index;
-    float nearest;
-    float first;
-    float last;
-
-    first = DotProduct(plane, points[0]) + plane[3];
-    last = DotProduct(plane, points[pointCount - 1]) + plane[3];
-
-    if (first < last)
-    {
-        nearest = first;
-        for (index = 1; index < pointCount - 1; ++index)
-        {
-            float distance = DotProduct(plane, points[index]) + plane[3];
-            if (nearest < distance)
-                break;
-            nearest = distance;
-        }
-    }
-    else
-    {
-        nearest = last;
-        for (index = pointCount - 2; index > 0; --index)
-        {
-            float distance = DotProduct(plane, points[index]) + plane[3];
-            if (nearest < distance)
-                break;
-            nearest = distance;
-        }
-    }
-    return nearest;
-}
 
 // PINNED: view projection 101ce5b8, inverse view projection 101ce5bc.
 
