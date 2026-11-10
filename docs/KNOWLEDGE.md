@@ -407,3 +407,11 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   same users in retail) sits at ours 0x5c4460, retail 0x5c44a0: retail compiles its first user between CG_PlayerFloatSprite (F#5581) and
   Particle::Die (F#5635), ours compiles CL_DemoCompleted at F#5436. Float 720.0 (fire_grenade) ours 0x5c44c4, retail 0x5c44e8: retail
   compiles fire_grenade after Mantle_CreateAnims (F#6041), ours at F#6035. Call-graph DFS order shifts, no source lever with evidence.
+- METRIC CHANGE (n1, 11-10, 26a2aaaf): same-offset (tools/shameter.py, read by ratchet13.sh and meter.py) now counts the PE heade
+  (SizeOfHeaders, 4096 B) as well as every section; it was sections only, so header fixes showed +0. On the same build the number moved
+  1967119 -> 1971211 (+4092 = header bytes already equal) with no source change. meter-1.3.json gains `sections.header`. Self-test
+  tools/test_shameter.py (anchor vs itself = full total; one flipped header byte = total - 1) runs in ratchet13.sh.
+- Rich (25,9466)/(28,9466) order: the original Miles mss32.lib is not in dev/sdk or the reference trees (opencod1 and KisakCOD ship othe
+  Miles versions with no 9466 objects). In the link, mss_auto.obj (28) loads BEFORE the mss32 import descriptor objects (25), yet the Rich
+  lists 25 first, and our archive already has mss_auto.obj as its first member, so neither link load order nor member order explains it.
+  Open; no lib rebuild tried beyond the two variants in TRIED.
