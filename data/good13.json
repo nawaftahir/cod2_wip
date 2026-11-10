@@ -5706,8 +5706,9 @@
 "name": "?CM_Trace@@YAXPAUtrace_t@@PBM111HH@Z",
 "obj": "cm_trace.obj",
 "size": 1422,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x41d120"
+]
 },
 {
 "name": "?CM_BoxTrace@@YAXPAUtrace_t@@PBM111HH@Z",
@@ -35436,7 +35437,7 @@
 ]
 },
 {
-"name": "$L132215",
+"name": "$L132214",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -35444,7 +35445,7 @@
 ]
 },
 {
-"name": "$L132217",
+"name": "$L132216",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -35538,7 +35539,7 @@
 ]
 },
 {
-"name": "$L147621",
+"name": "$L147620",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -42113,7 +42114,7 @@
 {
 "name": "?CG_DrawScoreboard_Objective@@YAMPBMM@Z",
 "obj": "cg_scoreboard_mp.obj",
-"size": 1552,
+"size": 1540,
 "hits": [],
 "reason": "no masked match"
 },
@@ -54961,7 +54962,7 @@
 {
 "name": "?Item_Text_AutoWrapped_Paint@@YAXPAUitemDef_s@@PBDPAM@Z",
 "obj": "ui_shared_mp.obj",
-"size": 805,
+"size": 813,
 "hits": [],
 "reason": "no masked match"
 },

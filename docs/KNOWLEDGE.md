@@ -310,3 +310,14 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   strncpy 0x57b5e0, toupper 0x57b704, ieee87. Same code bytes as the inlined I_strncpyz, so retail cannot show which cl_keys function
   was the direct caller; any one compiled between toupper's and tolower's first direct users would do (Mac 1.3 shows I_strncpyz, but
   that file is a decompile). Tool: relink with /VERBOSE (Found / Referenced in / Loaded lines) to see which module pulls a member.
+- PINNED (n1, retail bytes + clean gate 1962208 -> 1963501): CG_DrawScoreboard_Objective Asian wrap draws `len` chars when too wide
+  (retail pushes the len slot), not the UI_TextWidth result: ours drew `width` chars, a behaviour bug. With that fix len lives in a
+  stack slot like retail. Loop is `while (textStart && *textStart && textEnd)` (retail tests *textStart, textEnd at the top, textStart at
+  the bottom). Too-wide and newline tails both written `textStart = textEnd; y += ...; goto resetLen;` so MSVC cross-jumps them: 1552 B
+  exact. Left: slot permutation only (ours textEnd/len/textStart at 0x10/0x1c/0x20, retail len/textStart/textEnd) + one mov order at 0x4f2.
+- PINNED (n1, clean gate 1963501 -> 1963602): Item_Text_AutoWrapped_Paint line step is
+  `y += (height < 16) ? (float)(height + 1) : (float)(height + 4);` (retail does fild in each arm, one fadd): 816 B exact. Left: y and one
+  int swap slots 0x24/0x28.
+- PINNED (n1, clean gate matched-fn 1548509 -> 1549931, CM_Trace matched): CM_ClipHandleToModel in CM_Trace is written with the
+  submodel arm first, `if (model < cm.numSubModels) cmod = &cm.cmodels[model]; else { CM_GetBox; cmod = box_model; }` (retail `jge` to
+  the box arm). Section 14's box-first order was a size fix from before; the callers keep their match with this order.
