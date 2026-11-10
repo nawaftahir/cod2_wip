@@ -63,7 +63,7 @@ typedef enum {
 
 PRIVATE HTList * HashTable [HT_M_HASH_SIZE]; 
 PRIVATE HTList * EventOrderList = NULL;
-PRIVATE int HTPumpState = 0; PRIVATE int HTEndLoop = 0;		       /* If !0 then exit event loop */
+PRIVATE int HTPumpState; PRIVATE int HTEndLoop = 0;		       /* If !0 then exit event loop */
 PRIVATE BOOL HTInLoop = NO;
 
 #ifdef WWW_WIN_ASYNC
