@@ -579,7 +579,7 @@ Tooling: tools/ra13.sh TAG, then lab/ra.sh TAG MANGLED (split_all + cpick for on
   (ours edi 1 vs ebx 400, ebx cost = 100 * n16 of single-free-reg neighbours, section 25). Both point at different web shapes around the
   copy arms, not at a colour tie. CoD4 (KisakCOD dl_main.cpp, Hex-Rays) has the same body with HT_FREE-style `x = 0` after every free and
   one merged if/else for the copy; the merged form is already TRIED (765 B). No source form derived; DEFER.
-- (w9-dl, 11-11, PINNED by lab) The zero piece needs BOTH post-join NULL stores: with only the success store the piece is not made and the store is an imm like retail. So in retail the two stores do not form a 2-use zero temp. The edi/ebx scheme/hostSeparator swap and retail  (localName to HTLoadToFile) are independent of the zero piece (both stay in the 1-store lab).
+- (w9-dl, 11-11, PINNED by lab) The zero piece needs BOTH post-join NULL stores: with only the success store the piece is not made and the store is an imm like retail. So in retail the two stores do not form a 2-use zero temp. The edi/ebx scheme/hostSeparator swap and retail's `mov ecx,edi; push ecx` (localName to HTLoadToFile) are independent of the zero piece (both stay in the 1-store lab).
 - (w7-b, 11-11, PINNED by probe lab/cp) The crosshair yaw copy is NOT a crosshair spelling: our exact CG_CalcCrosshairPosition source compiled in a
   standalone probe (/O2, and /GL + link /LTCG with AngleVectors in a second TU, real AngleVectors body, inline-asm FastSinCos, `cg_t * const cg`,
   align(128) cgArray) gives retail's start byte for byte (`fld [gunYaw]; mov eax,[gunPitch]; fmul; lea ecx,[esp+4]; lea edx,[esp+8];
