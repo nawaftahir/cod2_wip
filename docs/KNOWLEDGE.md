@@ -567,3 +567,13 @@ Tooling: tools/ra13.sh TAG, then lab/ra.sh TAG MANGLED (split_all + cpick for on
   (ours edi 1 vs ebx 400, ebx cost = 100 * n16 of single-free-reg neighbours, section 25). Both point at different web shapes around the
   copy arms, not at a colour tie. CoD4 (KisakCOD dl_main.cpp, Hex-Rays) has the same body with HT_FREE-style `x = 0` after every free and
   one merged if/else for the copy; the merged form is already TRIED (765 B). No source form derived; DEFER.
+- (w7-b, 11-11, PINNED by probe lab/cp) The crosshair yaw copy is NOT a crosshair spelling: our exact CG_CalcCrosshairPosition source compiled in a
+  standalone probe (/O2, and /GL + link /LTCG with AngleVectors in a second TU, real AngleVectors body, inline-asm FastSinCos, `cg_t * const cg`,
+  align(128) cgArray) gives retail's start byte for byte (`fld [gunYaw]; mov eax,[gunPitch]; fmul; lea ecx,[esp+4]; lea edx,[esp+8];
+  mov [esp+0x24],eax`). Linking the same probe against our REAL build/obj/universal/com_math.obj reproduces our yaw copy (lab/cp/r.sh), and
+  adding `#pragma optimize("p", on)` to the probe's AngleVectors TU does too (lab/cp/l.sh). Cause: com_math.cpp's file-wide /Op pragma rides
+  along with the LTCG-inlined AngleVectors and blocks the yaw store-to-load forward.
+- Toggling "p" off around AngleVectors only (in-tree lab): crosshair now starts `fld [cg->gunYaw]` like retail, but the fn shrinks 440 -> 406 B
+  (retail 448) and standalone AngleVectors loses retail's `fstp [esp+0x18]` / reload pairs (108 vs 106 insns). So retail's AngleVectors is /Op
+  standalone but its inlined copy in the crosshair is not, or retail's /Op region in com_math is shaped differently (e.g. ends before some
+  fns, or comes from a per-function pragma). Next: find which com_math fns really need "p" (fdiff each with it off) and the retail region shape.
