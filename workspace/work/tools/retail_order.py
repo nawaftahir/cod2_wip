@@ -72,6 +72,7 @@ def items(text):
 def fn_name(head):
     """Name of the function a definition header declares, or None."""
     code = re.sub(r'//[^\n]*|/\*.*?\*/', '', head, flags=re.S)
+    code = re.sub(r'__declspec\s*\([^)]*\)', '', code)
     m = re.search(r'([A-Za-z_]\w*(?:::\w+)*)\s*\([^;{]*\)\s*(?:const\s*)?$', code.strip())
     return m.group(1).split('::')[-1] if m else None
 
