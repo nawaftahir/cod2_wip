@@ -541,12 +541,12 @@ Tooling: tools/ra13.sh TAG, then lab/al.sh TAG (split_all + cpick for this fn). 
   -> eax piece (call-result affinity -3), the rest stays in [esp+0x28]. Then g_currentAsian id 62 n3 -276 n16 8 -> edi
   (free {edi 0, ebp 3200}), off id 46 n3 -288 n16 20 -> ebp (only ebp, 9600), the zero temp id 5 n3 -152 -> ebp.
   ebp 3200 for charWidth = 100 * n16 of single-free-register neighbours (off alone gives 2000).
-- Retail (fdiff): off is ebp in the wrap loop on both sides (), and retail ALSO keeps charWidth in ebp
-  ( after re.TextWidth,  for curWidth += charWidth), zero in edi, curWidth = 0 as an immediate
-  store, and textBuffer as a memory operand () where ours loads it into ebp/edi first.
+- Retail (fdiff): off is ebp in the wrap loop on both sides (`inc ebp; cmp ebp,eax`), and retail ALSO keeps charWidth in ebp
+  (`mov ebp,eax` after re.TextWidth, `add edx,ebp` for curWidth += charWidth), zero in edi, curWidth = 0 as an immediate
+  store, and textBuffer as a memory operand (`add eax,[con.textBuffer]`) where ours loads it into ebp/edi first.
   So in retail charWidth and off do NOT interfere and charWidth is a pass-1 candidate kept whole.
 - Flip condition (derived): charWidth must survive pass 1 as a candidate (n16 > 0) with a live range that does not
   overlap off/g_currentAsian; with eax excluded (call-spanning) and edi taken by g_currentAsian, ebp is then its cheapest
   free reg. HYPOTHESIS: ours makes the line-746 (wrap loop) and line-762 defs one web or keeps it live across the
-  wrap loop; earlier tries with a separate inner  were byte-identical (TRIED w2), so the merge happens below the
+  wrap loop; earlier tries with a separate inner `cw` were byte-identical (TRIED w2), so the merge happens below the
   source variable level (IL copy propagation). No source form found this session; DEFER.
