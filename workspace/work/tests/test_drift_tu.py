@@ -3,7 +3,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
-from drift_tu import drift_by_object, net_deltas, parse_map
+from drift_tu import drift_by_object, modal_drifts, net_deltas, parse_map
 
 
 class DriftTuTest(unittest.TestCase):
@@ -28,6 +28,8 @@ class DriftTuTest(unittest.TestCase):
             addr = 0x10001000 + i * 0x100
             rows.append(' 0001:%08x       ?f%d@@YAXXZ  %08x f   %s' % (addr - 0x10000000, i, addr, obj))
             bind['?f%d@@YAXXZ' % i] = {'t': hex(addr - drift), 'why': []}
+        # d.obj has a single function: no run, scrambled
+        self.assertEqual(modal_drifts(bind, parse_map(rows))[1], ['d.obj'])
         # a and b run at drift 0 despite outliers; c is +0x40; d has no run and is skipped
         self.assertEqual(net_deltas(bind, parse_map(rows)), [(0x40, 'b.obj'), (0, 'a.obj')])
 
