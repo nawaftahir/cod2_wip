@@ -1374,8 +1374,9 @@
 "name": "?CL_ConsoleFixPosition@@YAXXZ",
 "obj": "cl_console_mp.obj",
 "size": 150,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4051f0"
+]
 },
 {
 "name": "?CL_AddConsoleChar@@YAXHE@Z",
