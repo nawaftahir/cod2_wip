@@ -35539,7 +35539,7 @@
 ]
 },
 {
-"name": "$L147618",
+"name": "$L147619",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -36658,9 +36658,10 @@
 {
 "name": "?DL_BeginDownload@@YAHPADPBD@Z",
 "obj": "dl_main.obj",
-"size": 783,
-"hits": [],
-"reason": "no masked match"
+"size": 781,
+"hits": [
+"0x4b5ad0"
+]
 },
 {
 "name": "?DL_BeginDownload@@YAHPBD@Z",
