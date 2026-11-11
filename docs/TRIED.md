@@ -4403,3 +4403,9 @@ retail_order --across --write: only rb_shade moved (4 defs); the other four were
 rb_shade drift: -7424 step gone, new -6192 step appears (5 steps, was 5). Same-offset 275244 (bar 275239).
 Remaining drift: rb_light -6160 -6096 -6064 -6000 -5808 -5376; rb_sky -8064 -7552; rb_imagefilter -5056
 (non-/GL emits 538 vs 543, see above); rb_imagetouch -5424. No size probes run (time limit).
+
+# r_model frontend dispatch (w-model2, 2026-11-11)
+Retail 10020be0 callers: 1001fa4d (R_SkinXModel), 1001fd51 (R_SkinSceneDObj), 10020ca5 (R_AddFrontendCmd, itself uncalled); no data reference to 10020be0 or 10020ca0 anywhere, so not a table/address-taken case. Baseline (gfx/main merge) same-offset 275233.
+- Probe 1: R_ProcessFrontendCmdInternal non-static, all 4 r_model call sites (incl. rigid R_SkinXModel case) call it directly with context 0: sizes unchanged (906/835), same-offset 275233, still ecx/edx custom convention.
+- Probe 2: plus __declspec(noinline) on the definition: R_SkinXModel 887 (retail 886), SceneDObj 833, still register convention; same-offset 273854 (worse). Reverted.
+- Probe 3: #pragma optimize("g", off) around the definition: R_SkinXModel 948, SceneDObj 838, Process 167 (retail 144), AddFrontendCmd 13 (retail 16). Gate green, same-offset 275717 (bar 275244). Kept as a byte gain, not a match; body is 23 B bigger than retail.

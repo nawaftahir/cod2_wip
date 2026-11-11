@@ -249,7 +249,7 @@ void R_AddCmdDrawLines(short lineCount, short width, const GfxPointVertex *verts
 void R_AddCmdDrawTriangles(Material *material, MaterialTechniqueType techType,
     short indexCount, const unsigned short *indices, short vertexCount,
     const float (*xyzw)[4], const float (*normal)[3], const byte (*color)[4], const float (*st)[2]);
-static void R_ProcessFrontendCmdInternal(int type, void *data, int context);
+void R_ProcessFrontendCmdInternal(int type, void *data, int context);
 void R_AddFrontendCmd(int type, void *data);
 void R_AddCmdLightProperties(int lightIndex, const GfxLight *light);
 void R_AddCmdSetRenderTarget(GfxRenderTargetId renderTargetId);
@@ -258,7 +258,8 @@ void R_AddCmdBeginView(int viewCount, const GfxSceneDef *sceneDef,
     const GfxViewParms *viewParms, const GfxLodParms *lodParms);
 
 // PINNED 10020be0/153: the PC renderer executes all eight frontend cases inline.
-static void R_ProcessFrontendCmdInternal(int type, void *data, int context)
+#pragma optimize("g", off)
+void R_ProcessFrontendCmdInternal(int type, void *data, int context)
 {
     switch (type)
     {
@@ -286,6 +287,7 @@ static void R_ProcessFrontendCmdInternal(int type, void *data, int context)
         return;
     }
 }
+#pragma optimize("g", on)
 
 // SUPPORTED Mac wrapper; PC callers fold this context-zero dispatch.
 void R_AddFrontendCmd(int type, void *data)

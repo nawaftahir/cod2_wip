@@ -142,7 +142,7 @@ typedef char modelPublicationLayoutCheck[(offsetof(GfxScene, sceneEntMaterialCou
     && sizeof(((GfxBackEndData *)0)->surfsBuffer) == 0x20000) ? 1 : -1];
 
 extern const dvar_t *r_xdebug;
-void R_AddFrontendCmd(int type, void *data);
+void R_ProcessFrontendCmdInternal(int type, void *data, int context);
 void R_ConvertAnimMatToSkelMat(const DObjAnimMat *in, DObjSkelMat *out);
 __declspec(noinline) void R_GetRigidTransform(const DObjSkelMat *bone, const float *origin,
     const vec3_t *axis, float scale, vec3_t *boneAxis);
@@ -1176,7 +1176,7 @@ static void R_SkinXModel(GfxSceneEntity *sceneEnt, GfxEntity *ent, int smodelInd
         command.surfCount = surfaceCount;
         command.e = ent;
         command.mat = *boneMatrix;
-        R_SkinRigidXModelCmd(&command);
+        R_ProcessFrontendCmdInternal(2, &command, 0);
     }
     else
     {
@@ -1188,7 +1188,7 @@ static void R_SkinXModel(GfxSceneEntity *sceneEnt, GfxEntity *ent, int smodelInd
         command.mat = boneMatrix;
         command.surfCount = (byte)surfaceCount;
         command.boneCount = (byte)boneCount;
-        R_AddFrontendCmd(surfaceCount > 10 ? 7 : 6, &command);
+        R_ProcessFrontendCmdInternal(surfaceCount > 10 ? 7 : 6, &command, 0);
     }
     *state = 4;
 }
@@ -1291,7 +1291,7 @@ void R_SkinSceneDObj(GfxSceneEntity *sceneEnt, GfxEntity *ent)
         command.surfCount = surfaceCount;
         command.e = ent;
         command.mat = *boneMatrix;
-        R_AddFrontendCmd(2, &command);
+        R_ProcessFrontendCmdInternal(2, &command, 0);
     }
     else
     {
@@ -1304,7 +1304,7 @@ void R_SkinSceneDObj(GfxSceneEntity *sceneEnt, GfxEntity *ent)
         memcpy(command.surfacePartBits, partBits, sizeof(partBits));
         command.surfCount = (byte)surfaceCount;
         command.boneCount = (byte)boneCount;
-        R_AddFrontendCmd(surfaceCount > 10 ? 7 : 6, &command);
+        R_ProcessFrontendCmdInternal(surfaceCount > 10 ? 7 : 6, &command, 0);
     }
     *state = 4;
 }
