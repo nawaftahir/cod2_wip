@@ -4389,3 +4389,9 @@ Probe 1 (kept): Com_Parse -> Com_ParseInternal at the three token reads (ParseRu
 - retail_order --across --write: no-op on r_staticmodel, r_staticmodel_load_obj, r_staticmodelcache, r_surfbounds, r_texturemem; r_utils moved 2 definitions (drift 4 values -> 3).
 - r_staticmodel_load_obj R_AddStaticModelToCell: swapped parameter order to (smodelInst, cellIndex, world) to get retail registers (eax=cellIndex, ecx=inst). No size change; build still pushes ebx/edi and is 3 B bigger. Drift steps (16 B each) at R_FilterStaticModelIntoCells_r (build 274 B vs retail ~268 B, ends 0x1002a35c) unresolved.
 - r_staticmodelcache: R_SkinCachedVertices (PINNED 1002adb0) is 830 B vs retail 784 B max (R_LightCachedVertex at 1002b0c0); not probed yet.
+
+# R_DownsamplePixelData probe - 2026-11-11 (w-shot)
+
+Target `R_DownsamplePixelData` (retail `0x100259a0`, 363 bytes, frame 0x44; ours 369, frame 0x38). Retail keeps nextSample in ebp, spills color2 to [esp+0x4c], uses separate int temps 0x44/0x48/0x4c and float temp 0x60; ours keeps nextSample in ebx and spills color0.
+- Probe 1: `int weight = newSize - residual; color0 += src[0]*weight;` then `scaled0 = colorScale*color0`, same for color1/2. Size stayed 369, bytes unchanged. Reverted.
+Stopped at 1 probe (time limit). r_screenshot.cpp = w-cmds retail-order baseline.
