@@ -7,6 +7,14 @@ s=(w/'src/gfx_d3d/rb_sky.cpp').read_text()
 types=s[s.index('union GfxColor'):s.index('GfxTess tess;')]
 quads=s[s.index('// Sun fade and quads.'):s.index('// Sun rendering and visibility.')]
 source=s[s.index('// Sun rendering and visibility.'):].replace('#include "r_permanent.h"','')
+def drop(src,sig):
+    i=src.find(sig)
+    if i<0: return src
+    j=src.index('{',i);d=0
+    for k in range(j,len(src)):
+        d+=src[k]=='{';d-=src[k]=='}'
+        if d==0: return src[:i]+src[k+1:]
+source=drop(source,'float RB_SunSpriteScreenFraction(').replace('extern vidConfig_t vidConfig;','')  # stubbed below
 backend=(w/'src/gfx_d3d/rb_backend.h').read_text().replace('#pragma once','').replace('__declspec(align(16)) struct','struct alignas(16)')
 sun=(w/'src/gfx_d3d/r_sun_state.h').read_text().replace('#pragma once','')
 tess=(w/'src/gfx_d3d/rb_tess.h').read_text().replace('#pragma once','')
