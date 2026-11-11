@@ -75,7 +75,7 @@ static __declspec(noinline) void R_CopyCubemapShot(const byte *source, byte *tar
 static __declspec(noinline) void R_WriteCubemapShotAlpha(int shotIndex, float n0, float n1, byte *targa);
 static __declspec(noinline) void R_WriteCubemapShot(int shotIndex, const char *filename, float n0, float n1);
 void R_SaveCubemapShot(const char *filename, int shotIndex, float n0, float n1);
-static void R_GetDirForCubemapPixel(int faceIndex, float x, float y, float *dir);
+static __forceinline void R_GetDirForCubemapPixel(int faceIndex, float x, float y, float *dir);
 void R_CubemapLightingForDir(float (**linearColors)[3], int width, int height, const float *dir, const float *baseColor, unsigned char *pixel);
 void R_CubemapLighting(float (**linearColors)[3], int width, int height, const float *baseColor, unsigned char **pixels);
 static void R_CubemapShotExtractLinearLight(unsigned char **pixels, int width, int height, float (**linearColors)[3]);
@@ -515,6 +515,28 @@ static __declspec(noinline) void R_FlipCubemapShot(byte *buffer)
     }
 }
 
+// Name unconfirmed; PINNED 10026760/65: retail keeps a standalone copy of the capture tail.
+static __forceinline void R_FinishCubemapShotCapture(int bufferSize, byte *buffer)
+{
+    R_GetFrontBufferData(dx.cubemapShotPixelBorder, dx.cubemapShotPixelBorder,
+        dx.cubemapShotRes, dx.cubemapShotRes, 4, buffer);
+    R_FlipCubemapShot(buffer);
+    if (r_overbrightBits->current.integer > 0 && vidConfig.deviceSupportsGamma)
+        R_GammaCorrect(bufferSize, buffer);
+}
+
+// Name unconfirmed; PINNED 100267b0/46: retail keeps a standalone copy of the TGA header init.
+static __forceinline void R_InitCubemapShotHeader(byte *targa, int resolution)
+{
+    memset(targa, 0, 18);
+    targa[2] = 2;
+    targa[12] = (byte)resolution;
+    targa[13] = (byte)(resolution >> 8);
+    targa[14] = (byte)resolution;
+    targa[15] = (byte)(resolution >> 8);
+    targa[16] = 32;
+}
+
 // PINNED 100267e0: preserve BGRA channel order after the18-byte TGA header.
 static __declspec(noinline) void R_CopyCubemapShot(const byte *source, byte *targa)
 {
@@ -551,11 +573,7 @@ static __declspec(noinline) void R_CaptureCubemapShot(int shotIndex)
     int bufferSize = dx.cubemapShotRes * dx.cubemapShotRes * 4;
     byte *buffer = (byte *)ri.Z_MallocInternal(bufferSize);
     cubeShotGlob.pixels[shotIndex - 1] = buffer;
-    R_GetFrontBufferData(dx.cubemapShotPixelBorder, dx.cubemapShotPixelBorder,
-        dx.cubemapShotRes, dx.cubemapShotRes, 4, buffer);
-    R_FlipCubemapShot(buffer);
-    if (r_overbrightBits->current.integer > 0 && vidConfig.deviceSupportsGamma)
-        R_GammaCorrect(bufferSize, buffer);
+    R_FinishCubemapShotCapture(bufferSize, buffer);
 }
 
 // PINNED 10026920: release both buffers without clearing the saved face pointer.
@@ -564,13 +582,7 @@ static __declspec(noinline) void R_WriteCubemapShot(int shotIndex, const char *f
     int fileSize = dx.cubemapShotRes * dx.cubemapShotRes * 4 + 18;
     byte *targa = (byte *)ri.Z_MallocInternal(fileSize);
     int resolution = dx.cubemapShotRes;
-    memset(targa, 0, 18);
-    targa[2] = 2;
-    targa[12] = (byte)resolution;
-    targa[13] = (byte)(resolution >> 8);
-    targa[14] = (byte)resolution;
-    targa[15] = (byte)(resolution >> 8);
-    targa[16] = 32;
+    R_InitCubemapShotHeader(targa, resolution);
     R_CopyCubemapShot(cubeShotGlob.pixels[shotIndex - 1], targa);
     R_WriteCubemapShotAlpha(shotIndex, n0, n1, targa);
     ri.FS_WriteFile(filename, targa, fileSize);
@@ -606,7 +618,8 @@ void R_SaveCubemapShot(const char *filename, int shotIndex, float n0, float n1)
     R_WriteCubemapShot(shotIndex, filename, n0, n1);
 }
 
-static void R_GetDirForCubemapPixel(int faceIndex, float x, float y, float *dir)
+// Name unconfirmed; PINNED 10026ab0: uncalled retail copy.
+static __forceinline void R_GetDirForCubemapPixel(int faceIndex, float x, float y, float *dir)
 {
     VectorMA(cubemapShotAxis[faceIndex + 1][0], x, cubemapShotAxis[faceIndex + 1][1], dir);
     VectorMA(dir, y, cubemapShotAxis[faceIndex + 1][2], dir);

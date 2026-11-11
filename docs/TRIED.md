@@ -4440,3 +4440,4 @@ Same-offset 274181 (bar 275244, not landable alone). rb_sky -8000 -7488 not touc
 Retail hoists a vec3 origin initialised from the centre cell before the loops; z centre is I_ffloor(z - -131072.0f) >> 6
 (fsub qword), dz loop is dz <= 1. Source: origin declared once outside the loops, centre-cell init, I_ffloor, <=.
 Show now 184 insns = retail; one register-load order diff remains (not a size diff). Same-offset 275037 (bar 275244).
+2026-11-11 r_screenshot (w-shot2): capture tail 10026760/65 and TGA header init 100267b0/47 now standalone static __forceinline copies (tail takes bufferSize in ebx like retail); Capture stays 99. Drift -3360/-3136/-3024/-3008 -> -3232/-3024/-3008. R_GetDirForCubemapPixel (retail 10026ab0, uncalled copy) as static __forceinline: unused, no copy emitted, open (probe 1). r_sky.obj const -3072 (was -3200), no work done. Skipped R_DownsamplePixelData.
