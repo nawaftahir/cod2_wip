@@ -86,3 +86,6 @@ r_image 1000c8e0 (hash & 0x7ff), 1000ccb0, 1000ccf0.
   gfx/w-guid cb2d8bf1 (local) defines only IID_IDirectDraw7: .rdata raw size equals retail, .rdata
   section-relative +10.7 KB, but whole-file drops to 260,953 until .text grows ~0x26f0 B. Stack it
   with the .text work; see TRIED.md.
+- .text shortfall by drift step on the best stack (drift_tu.py): r_image_load_obj -464, r_material
+  -384, r_material_load_obj ~-340, r_model ~-1100 (largest), r_scene/r_screenshot ~-300 each.
+  r_specularityimage reports -101136: placed far from retail, check its link position first.
