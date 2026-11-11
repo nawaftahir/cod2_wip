@@ -3,13 +3,6 @@
 #include <stddef.h>
 void R_UpdateXModelBounds(GfxSceneEntity *sceneEnt, const GfxEntity *ent);
 
-// PC 1.0 10023d40: resolve the scene record from the entity-array index.
-__declspec(noinline) void R_UpdateGfxEntityBounds(GfxEntity *ent)
-{
-    int entIndex = ent - scene.def.entities;
-    R_UpdateXModelBounds(&scene.sceneEnts[entIndex], ent);
-}
-
 GfxScene scene;
 
 extern const dvar_t *r_lockPvs;
@@ -24,65 +17,6 @@ void MatrixInverse44(const float *matrix, float *out);
 
 // PINNED 10696a68: retained camera used when r_lockPvs is enabled.
 static GfxViewParms lockPvsViewParms;
-
-// PINNED 10025570: shared by the LOD callback and scene submission.
-static __declspec(noinline) void R_SetViewParmsForScene(GfxViewParms *viewParms, const refdef_t *refdef)
-{
-    float zNear;
-
-    memset(viewParms, 0, sizeof(*viewParms));
-    viewParms->viewport.X = refdef->x;
-    viewParms->viewport.Y = refdef->y;
-    viewParms->viewport.Width = refdef->width;
-    viewParms->viewport.Height = refdef->height;
-    viewParms->viewport.MinZ = 0.0f;
-    viewParms->viewport.MaxZ = 1.0f;
-    VectorCopy(refdef->vieworg, viewParms->origin);
-    VectorCopy(refdef->viewaxis[0], viewParms->axis[0]);
-    VectorCopy(refdef->viewaxis[1], viewParms->axis[1]);
-    VectorCopy(refdef->viewaxis[2], viewParms->axis[2]);
-    MatrixForViewer((float (*)[4])&viewParms->viewMatrix, viewParms->origin, viewParms->axis);
-    if (refdef->zNear > 0.0f)
-        zNear = refdef->zNear;
-    else
-        zNear = I_fmax(0.01f, r_znear->current.value);
-    InfinitePerspectiveMatrix((float (*)[4])&viewParms->projectionMatrix,
-        refdef->fov_x, refdef->fov_y, zNear);
-    viewParms->depthHackNearClip = r_znear_depthhack->current.value;
-    MatrixMultiply44((const float (*)[4])&viewParms->viewMatrix,
-        (const float (*)[4])&viewParms->projectionMatrix,
-        (float (*)[4])&viewParms->viewProjectionMatrix);
-    MatrixInverse44((const float *)&viewParms->viewProjectionMatrix,
-        (float *)&viewParms->inverseViewProjectionMatrix);
-}
-
-#pragma intrinsic(tan)
-// PINNED 100256c0: API59 slot107; the reference FOV uses single-precision arithmetic.
-void R_SetLodOrigin(const refdef_t *refdef)
-{
-    float invFovScale;
-
-    if (r_lockPvs->modified)
-    {
-        ri.Dvar_ClearModified(r_lockPvs);
-        R_SetViewParmsForScene(&lockPvsViewParms, refdef);
-    }
-    if (r_lockPvs->current.enabled)
-        VectorCopy(lockPvsViewParms.origin, rg.lodParms.origin);
-    else
-        VectorCopy(refdef->vieworg, rg.lodParms.origin);
-    rg.lodParms.scale = r_lodScale->current.value;
-    rg.lodParms.bias = r_lodBias->current.value;
-    if (refdef->fov_x != 80.0f)
-    {
-        float halfFov = refdef->fov_x * 0.5f;
-        invFovScale = (float)(tan(halfFov * (M_PI / 180.0f))
-            / tan(DEG2RAD(80.0f * 0.5f)));
-        rg.lodParms.scale *= invFovScale;
-        rg.lodParms.bias *= invFovScale;
-    }
-}
-#pragma function(tan)
 
 extern const dvar_t *fx_sort;
 extern const dvar_t *r_drawBModels;
@@ -247,52 +181,6 @@ void R_RenderSceneMode(int viewIndex, const GfxViewParms *viewParms,
 static void R_GenerateSceneCommands(const GfxViewParms *cullView, int viewIndex,
     const GfxViewParms *viewParms, const GfxSceneRenderOptions *options);
 void R_RenderScene(const refdef_t *refdef);
-
-// PINNED 10024380/117; unsigned arithmetic preserves packed-key wraparound.
-__declspec(noinline) void R_AddDrawSurf(const Material *material, int entIndex, int lmapIndex, const surfaceType_t *surface)
-{
-    GfxBackEndData *data = frontEndDataOut;
-    if (data->drawSurfCount >= 65536)
-        return;
-    GfxDrawSurf *drawSurf = &data->drawSurfs[data->drawSurfCount];
-    unsigned int type = *surface;
-    unsigned int sort;
-    if (type == 2 && fx_sort->current.enabled)
-        sort = (((((unsigned int)entIndex - 4096) << 10) + material->info.sortedIndex)
-            * 32 + lmapIndex) * 16;
-    else
-        sort = (((material->info.sortedIndex * 32u + lmapIndex) << 12)
-            + entIndex) * 16;
-    drawSurf->sort = sort + type;
-    drawSurf->surface = surface;
-    ++scene.drawSurfCount;
-    ++data->drawSurfCount;
-}
-
-void R_AddPolyToScene(Material *material, int lmapIndex,
-    unsigned short vertCount, const GfxWorldVertex *verts)
-{
-    if (!rg.registered)
-        return;
-    if (!material)
-        material = rgp.defaultMaterial;
-    GfxBackEndData *data = frontEndDataOut;
-    int count = (unsigned short)vertCount;
-    if (data->polyVertCount + count > 8192 || data->polyCount >= 2048)
-        return;
-    srfPoly_t *poly = &data->polys[data->polyCount];
-    poly->lmapIndex = (unsigned short)lmapIndex;
-    poly->material = material;
-    poly->vertCount = (unsigned short)vertCount;
-    poly->surfaceType = SF_POLY;
-    poly->verts = &data->polyVerts[data->polyVertCount];
-    memcpy(poly->verts, verts, count * sizeof(*verts));
-    R_AddDrawSurf(material, scene.polyCount % 2048 + 2048, (unsigned short)lmapIndex,
-        &poly->surfaceType);
-    ++data->polyCount;
-    data->polyVertCount += count;
-    ++scene.polyCount;
-}
 
 // PINNED 10023780/128; private helper name unconfirmed.
 void R_CopyRefEntityToScene(int entIndex, const GfxEntity *refEnt, GfxModel sceneModel)
@@ -495,6 +383,22 @@ static GfxEntity *R_AddModelRefEntity(const GfxEntity *refEnt, GfxModel sceneMod
     return ent;
 }
 
+// PC 1.0 10023d40: resolve the scene record from the entity-array index.
+__declspec(noinline) void R_UpdateGfxEntityBounds(GfxEntity *ent)
+{
+    int entIndex = ent - scene.def.entities;
+    R_UpdateXModelBounds(&scene.sceneEnts[entIndex], ent);
+}
+
+// PINNED 10023d70/61: bounds must precede DObj surface publication.
+void R_SkinGfxEntity(GfxEntity *ent)
+{
+    int entIndex = ent - scene.def.entities;
+    GfxSceneEntity *sceneEnt = &scene.sceneEnts[entIndex];
+    R_UpdateXModelBounds(sceneEnt, ent);
+    R_SkinSceneDObj(sceneEnt, ent);
+}
+
 // PINNED 10023db0/209: higher entity types warn before allocation is attempted.
 GfxEntity *R_AddRefEntityToScene(const GfxEntity *refEnt, GfxModel sceneModel,
     const centity_s *cent)
@@ -546,6 +450,31 @@ void R_ResetEntries(int count, float (*entries)[17])
     }
 }
 
+void R_AddPolyToScene(Material *material, int lmapIndex,
+    unsigned short vertCount, const GfxWorldVertex *verts)
+{
+    if (!rg.registered)
+        return;
+    if (!material)
+        material = rgp.defaultMaterial;
+    GfxBackEndData *data = frontEndDataOut;
+    int count = (unsigned short)vertCount;
+    if (data->polyVertCount + count > 8192 || data->polyCount >= 2048)
+        return;
+    srfPoly_t *poly = &data->polys[data->polyCount];
+    poly->lmapIndex = (unsigned short)lmapIndex;
+    poly->material = material;
+    poly->vertCount = (unsigned short)vertCount;
+    poly->surfaceType = SF_POLY;
+    poly->verts = &data->polyVerts[data->polyVertCount];
+    memcpy(poly->verts, verts, count * sizeof(*verts));
+    R_AddDrawSurf(material, scene.polyCount % 2048 + 2048, (unsigned short)lmapIndex,
+        &poly->surfaceType);
+    ++data->polyCount;
+    data->polyVertCount += count;
+    ++scene.polyCount;
+}
+
 void R_AddLightToScene(const vec_t *org, float radius, float r, float g, float b)
 {
     GfxLight *light;
@@ -570,15 +499,6 @@ void R_AddLightToScene(const vec_t *org, float radius, float r, float g, float b
     light->color[0] = r;
     light->color[1] = g;
     light->color[2] = b;
-}
-
-// PINNED 10023d70/61: bounds must precede DObj surface publication.
-void R_SkinGfxEntity(GfxEntity *ent)
-{
-    int entIndex = ent - scene.def.entities;
-    GfxSceneEntity *sceneEnt = &scene.sceneEnts[entIndex];
-    R_UpdateXModelBounds(sceneEnt, ent);
-    R_SkinSceneDObj(sceneEnt, ent);
 }
 
 // PINNED 10024050/37; KisakCOD name.
@@ -624,6 +544,27 @@ void R_UpdateFrameFog()
         frontEndDataOut->fogSettings = rg.fogSettings[2];
     else
         frontEndDataOut->fogSettings.techniqueOffset = FOG_OFFSET_NONE;
+}
+
+// PINNED 10024380/117; unsigned arithmetic preserves packed-key wraparound.
+__declspec(noinline) void R_AddDrawSurf(const Material *material, int entIndex, int lmapIndex, const surfaceType_t *surface)
+{
+    GfxBackEndData *data = frontEndDataOut;
+    if (data->drawSurfCount >= 65536)
+        return;
+    GfxDrawSurf *drawSurf = &data->drawSurfs[data->drawSurfCount];
+    unsigned int type = *surface;
+    unsigned int sort;
+    if (type == 2 && fx_sort->current.enabled)
+        sort = (((((unsigned int)entIndex - 4096) << 10) + material->info.sortedIndex)
+            * 32 + lmapIndex) * 16;
+    else
+        sort = (((material->info.sortedIndex * 32u + lmapIndex) << 12)
+            + entIndex) * 16;
+    drawSurf->sort = sort + type;
+    drawSurf->surface = surface;
+    ++scene.drawSurfCount;
+    ++data->drawSurfCount;
 }
 
 // PINNED 10024460/70: selection sort swaps the entire surface record.
@@ -727,6 +668,39 @@ void R_AddBModelSurfaces(GfxSceneEntity *sceneEnt, int entIndex)
         GfxSurface *surf = &rgp.world->surfaces[surfIndex];
         R_AddDrawSurf(surf->material, entIndex, surf->lightmapIndex, surf->data);
     }
+}
+
+void R_AddXModelSurfaces(int entIndex)
+{
+    GfxSceneEntity *sceneEnt = &scene.sceneEnts[entIndex];
+    GfxEntity *ent = &scene.def.entities[entIndex];
+    GfxModelSurface *surface = (GfxModelSurface *)sceneEnt->surfs;
+    int triCount = 0;
+    int vertCount = 0;
+    for (int index = 0; index < sceneEnt->surfCount; ++index)
+    {
+        const Material *material = sceneEnt->materials[index];
+        if (!material)
+            continue;
+        R_AddDrawSurf(material, surface->surfType == 5 ? 2047 : entIndex,
+            31, &surface->surfType);
+        if (r_showTriCounts->current.enabled)
+            triCount += surface->xsurf->triCount;
+        else if (r_showVertCounts->current.enabled)
+            vertCount += surface->xsurf->vertCount;
+        surface = (GfxModelSurface *)((byte *)surface + s_XModelSurfaceSize[surface->surfType]);
+    }
+    int count;
+    if (r_showTriCounts->current.enabled)
+        count = triCount;
+    else if (r_showVertCounts->current.enabled)
+        count = vertCount;
+    else if (r_showSurfCounts->current.enabled)
+        count = sceneEnt->surfCount;
+    else
+        return;
+    R_AddScaledDebugString(&frontEndDataOut->debugGlobals, rg.debugViewParms,
+        ent->origin, colorCyan, va("%i", count));
 }
 
 // PINNED 100247f0/296: capture each partition before emitting its commands.
@@ -979,6 +953,65 @@ void R_ClearScene()
     R_ClearDpvsScene();
 }
 
+// PINNED 10025570: shared by the LOD callback and scene submission.
+static __declspec(noinline) void R_SetViewParmsForScene(GfxViewParms *viewParms, const refdef_t *refdef)
+{
+    float zNear;
+
+    memset(viewParms, 0, sizeof(*viewParms));
+    viewParms->viewport.X = refdef->x;
+    viewParms->viewport.Y = refdef->y;
+    viewParms->viewport.Width = refdef->width;
+    viewParms->viewport.Height = refdef->height;
+    viewParms->viewport.MinZ = 0.0f;
+    viewParms->viewport.MaxZ = 1.0f;
+    VectorCopy(refdef->vieworg, viewParms->origin);
+    VectorCopy(refdef->viewaxis[0], viewParms->axis[0]);
+    VectorCopy(refdef->viewaxis[1], viewParms->axis[1]);
+    VectorCopy(refdef->viewaxis[2], viewParms->axis[2]);
+    MatrixForViewer((float (*)[4])&viewParms->viewMatrix, viewParms->origin, viewParms->axis);
+    if (refdef->zNear > 0.0f)
+        zNear = refdef->zNear;
+    else
+        zNear = I_fmax(0.01f, r_znear->current.value);
+    InfinitePerspectiveMatrix((float (*)[4])&viewParms->projectionMatrix,
+        refdef->fov_x, refdef->fov_y, zNear);
+    viewParms->depthHackNearClip = r_znear_depthhack->current.value;
+    MatrixMultiply44((const float (*)[4])&viewParms->viewMatrix,
+        (const float (*)[4])&viewParms->projectionMatrix,
+        (float (*)[4])&viewParms->viewProjectionMatrix);
+    MatrixInverse44((const float *)&viewParms->viewProjectionMatrix,
+        (float *)&viewParms->inverseViewProjectionMatrix);
+}
+
+#pragma intrinsic(tan)
+// PINNED 100256c0: API59 slot107; the reference FOV uses single-precision arithmetic.
+void R_SetLodOrigin(const refdef_t *refdef)
+{
+    float invFovScale;
+
+    if (r_lockPvs->modified)
+    {
+        ri.Dvar_ClearModified(r_lockPvs);
+        R_SetViewParmsForScene(&lockPvsViewParms, refdef);
+    }
+    if (r_lockPvs->current.enabled)
+        VectorCopy(lockPvsViewParms.origin, rg.lodParms.origin);
+    else
+        VectorCopy(refdef->vieworg, rg.lodParms.origin);
+    rg.lodParms.scale = r_lodScale->current.value;
+    rg.lodParms.bias = r_lodBias->current.value;
+    if (refdef->fov_x != 80.0f)
+    {
+        float halfFov = refdef->fov_x * 0.5f;
+        invFovScale = (float)(tan(halfFov * (M_PI / 180.0f))
+            / tan(DEG2RAD(80.0f * 0.5f)));
+        rg.lodParms.scale *= invFovScale;
+        rg.lodParms.bias *= invFovScale;
+    }
+}
+#pragma function(tan)
+
 // PINNED 100257a0/371: genuine API59 slot36; refdef's view index is at+84.
 void R_RenderScene(const refdef_t *refdef)
 {
@@ -1010,35 +1043,3 @@ void R_RenderScene(const refdef_t *refdef)
     }
 }
 
-void R_AddXModelSurfaces(int entIndex)
-{
-    GfxSceneEntity *sceneEnt = &scene.sceneEnts[entIndex];
-    GfxEntity *ent = &scene.def.entities[entIndex];
-    GfxModelSurface *surface = (GfxModelSurface *)sceneEnt->surfs;
-    int triCount = 0;
-    int vertCount = 0;
-    for (int index = 0; index < sceneEnt->surfCount; ++index)
-    {
-        const Material *material = sceneEnt->materials[index];
-        if (!material)
-            continue;
-        R_AddDrawSurf(material, surface->surfType == 5 ? 2047 : entIndex,
-            31, &surface->surfType);
-        if (r_showTriCounts->current.enabled)
-            triCount += surface->xsurf->triCount;
-        else if (r_showVertCounts->current.enabled)
-            vertCount += surface->xsurf->vertCount;
-        surface = (GfxModelSurface *)((byte *)surface + s_XModelSurfaceSize[surface->surfType]);
-    }
-    int count;
-    if (r_showTriCounts->current.enabled)
-        count = triCount;
-    else if (r_showVertCounts->current.enabled)
-        count = vertCount;
-    else if (r_showSurfCounts->current.enabled)
-        count = sceneEnt->surfCount;
-    else
-        return;
-    R_AddScaledDebugString(&frontEndDataOut->debugGlobals, rg.debugViewParms,
-        ent->origin, colorCyan, va("%i", count));
-}
