@@ -9,6 +9,7 @@ from inplace import symbols
 ver, cmpf, shaf, mbytes = sys.argv[1], sys.argv[2], sys.argv[3], int(sys.argv[4])
 rows = json.load(open(cmpf))
 matched = [x for x in rows if x['hits']]
+inplace = [x for x in matched if x.get('sameva')]
 
 sha = open(shaf).read()
 sec = {}
@@ -47,6 +48,8 @@ m = {
     'text_bytes': sec['.text']['vsize'], 'matched_bytes': mbytes,
     'file_bytes': int(allm.group(2)), 'same_offset_bytes': int(allm.group(1)),
     'game_functions': len(rows), 'matched_functions': len(matched),
+    # subset of matched_functions credited only by the identical-in-place rule (same VA, raw bytes equal)
+    'functions_identical_in_place': len(inplace), 'bytes_identical_in_place': sum(x['size'] for x in inplace),
     'tus_total': len(tus), 'tus_matched': len(in_src), 'unverified_in_src': len(bad),
     'functions_identical': sum(ok for _, ok in fns), 'functions_total': len(fns),
     'tus_identical': sum(tu_ok.values()),
@@ -56,7 +59,8 @@ m = {
     'text_same_offset_bytes': sec['.text']['same_offset'],
     'sections': {k: ({'matched': mbytes} if k == '.text' else {}) | {'same_offset': v['same_offset']} for k, v in sec.items()},
     'commit': subprocess.run(['git', 'rev-parse', '--short', 'HEAD'], capture_output=True, text=True).stdout.strip(),
-    'note': 'matched_bytes/matched_functions = referee; functions_identical = referee match or same bytes at the same offset '
+    'note': 'matched_bytes/matched_functions = referee; functions/bytes_identical_in_place = the part of that credited only by '
+            'raw identity at our own VA (already inside the matched totals, never added twice);functions_identical = referee match or same bytes at the same offset '
             '(every .text map symbol); tus_identical = source TUs whose functions are all identical '
             '(data-only TUs: data identical in place; CRT/lib objs separate); tus_identical_with_data = also every data symbol in place; tus_empty = TUs with no symbol in the image (never identical); '
             'tus_matched = TUs in src/; same-offset over the PE header and all sections (shameter; header counted since 11-10)',
