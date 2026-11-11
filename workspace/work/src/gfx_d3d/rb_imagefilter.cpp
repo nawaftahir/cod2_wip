@@ -191,6 +191,26 @@ static void RB_SetFilterConstants(const GfxImageFilterPass *pass)
             backEnd.codeConsts[33 + index][component] = pass->tapOffsetsAndWeights[index][component];
 }
 
+// Pass target selection, shared by RB_ApplyFilterPasses and its uncalled retail copy.
+#define RB_BIND_PASS_TARGET(filter, index) \
+    do { \
+        backEnd.currentFeedbackImage = (index) \
+            ? dx.renderTargets[(filter)->pingPongTargets[1 - ((index) & 1)]].image : (filter)->sourceImage; \
+        RB_SetRenderTarget((index) == (filter)->passCount - 1 ? (filter)->finalTarget \
+            : (filter)->pingPongTargets[(index) & 1]); \
+    } while (0)
+
+// Name unconfirmed; PINNED 10035430/64: uncalled retail copy of the pass target selection.
+void RB_BindFilterPassTarget(GfxImageFilter *filter, int index)
+{
+    RB_BIND_PASS_TARGET(filter, index);
+}
+
+// Name unconfirmed; PINNED 10035480/1: uncalled retail empty function.
+void RB_FilterNoOp()
+{
+}
+
 // PINNED 10035490: live count, source from the preceding ping-pong target.
 static void RB_ApplyFilterPasses(GfxImageFilter *filter)
 {
@@ -198,9 +218,8 @@ static void RB_ApplyFilterPasses(GfxImageFilter *filter)
     {
         GfxImageFilterPass *pass = &filter->passes[index];
         int pingPong = index & 1;
-        backEnd.currentFeedbackImage = index
-            ? dx.renderTargets[filter->pingPongTargets[1 - pingPong]].image : filter->sourceImage;
-        RB_SetRenderTarget(index == filter->passCount - 1 ? filter->finalTarget : filter->pingPongTargets[pingPong]);
+        (void)pingPong;
+        RB_BIND_PASS_TARGET(filter, index);
         RB_SetFilterConstants(pass);
         RB_DrawStretchPic(pass->material, 0.0f, 0.0f, (float)pass->dstWidth,
             (float)pass->dstHeight, 0.0f, 0.0f, pass->srcWidth, pass->srcHeight, 0xffffffff);
