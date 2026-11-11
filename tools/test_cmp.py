@@ -32,6 +32,15 @@ shutil.copyfile(exe, tmp)
 off = pe.get_offset_from_rva(va[fn['name']] - base)
 with open(tmp, 'r+b') as f:
     f.seek(off); b = f.read(1); f.seek(off); f.write(bytes([b[0] ^ 0xff]))
-again = next(x for x in run(tmp) if x['name'] == fn['name'])
-assert not again['hits'], 'flipped byte still matched'
-print('referee self-check OK: %s matches itself, flipped copy does not; %d rows all scored or reasoned' % (fn['name'], len(rows)))
+# identical-in-place rule (cmp13 'sameva'): a short fn credited only at its own address; one flipped byte drops it
+ip = next((x for x in rows if x.get('sameva') and x['size'] >= 6 and x['hits'] == [hex(va.get(x['name'], -1))]), None)
+assert ip or '13' not in os.path.basename(ref), 'no identical-in-place row'
+if ip:
+    off = pe.get_offset_from_rva(va[ip['name']] - base)
+    with open(tmp, 'r+b') as f:
+        f.seek(off); b = f.read(1); f.seek(off); f.write(bytes([b[0] ^ 0xff]))
+out = {x['name']: x for x in run(tmp)}
+assert not out[fn['name']]['hits'], 'flipped byte still matched'
+assert not ip or not out[ip['name']]['hits'], 'flipped in-place fn still credited'
+print('referee self-check OK: %s matches itself, flipped copy does not; in-place %s; %d rows all scored or reasoned' % (
+    fn['name'], ip['name'] + ' credited, flipped copy not' if ip else 'n/a', len(rows)))
