@@ -1,6 +1,6 @@
 #!/bin/sh
 # oall.sh: probe under each optimisation setting
-cd /home/nawaf/cod2/test/dev/cod2_wip/.worktrees/w10-os/lab_dl/zp
+cd /home/nawaf/cod2/test/dev/cod2_wip/.worktrees/w11-zs/lab_dl/zp
 sh o.sh o2 "/O2"
 sh o.sh os "/Os"
 sh o.sh o1 "/O1"

@@ -651,6 +651,14 @@ Tooling: tools/ra13.sh TAG, then lab/ra.sh TAG MANGLED (split_all + cpick for on
   DL_BeginDownload: 783 -> 678 B, fdiff 143 -> 350 lines, same-offset collapses to 771557 .text. Around exactly AddLine:
   fdiff 26 -> 608 lines, function ~1 KB smaller. Both reverted, nothing gated.
 
+- (w11-zs, 11-11, PINNED by probe lab_dl/zp + retail bytes) Retail DL_BeginDownload's non-http path still has esi = 0 at the
+  join (esi is only overwritten by host in the http arm), yet both later NULL stores are imm: retail has no zero temp for them at
+  all, it is not a pressure spill. The stored object does not matter (volatile local, volatile-cast store, memset, store through a
+  pointer local, 1-element array, 1-field struct: all share the register), nor C vs C++, nor /GL on either TU. Only reducing the
+  post-join constant stores to one (V2, or one shared free+NULL between two `ok != 1` tests, V44, which adds a cmp) gives the imm.
+  CL_ConsolePrint_AddLine is a different case: retail keeps a zero register there (edi) and its imm curWidth stores sit where edi
+  is busy (colour residue, section 25).
+
 ## 27. __real pool slot = LTCG compile order of the first user (w8-a, 11-11, PINNED on ra13 F lines vs our pool 0x5c4430-0x5c44b0)
 - Each __real@ slot sits in the compile order of its first-compiled user. __real@408f400000000000 (1000.0): ours first user CL_DemoCompleted at F#73854; retail slot needs it between Pickup_Health and Particle::Die. Fix = delay CL_DemoCompleted's compile, not touch the constant.
 - Follow-up (dfs13): CL_DemoCompleted compiles right after CL_NextDemo, which compiles in the pass after Cbuf_ExecuteInternal (5329 -> 5430/5435 of 6727). Retail wants it in 5604..5634. No cut under CL_DemoCompleted differs from what matched callers imply, so the cause is the peel-pass position, not a header decl order (SUPPORTED, not proven on retail).

@@ -1,6 +1,6 @@
 #!/bin/sh
 # it.sh FN TAG: same-offset of the current build, then (after an incremental rebuild if TAG given) fdiff FN size/diff lines
-cd /home/nawaf/cod2/test/dev/cod2_wip/.worktrees/w10-os
+cd /home/nawaf/cod2/test/dev/cod2_wip/.worktrees/w11-zs
 export ANCHOR=/home/nawaf/cod2/test/dev/cod2_wip/binaries/windows/1.3/CoD2MP_s.exe DXSDK=/home/nawaf/cod2/test/dev/sdk/sum2004
 [ -n "$2" ] && { make release > build/it.log 2>&1 || grep -a -m5 error build/it.log; }
 python3 tools/shameter.py build/release/CoD2MP_s.exe $ANCHOR | grep -i same | head -2

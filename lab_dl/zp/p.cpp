@@ -28,7 +28,15 @@ static void FreeNull(char **p) { Free(*p); *p = NULL; }
 #endif
 int probe(char *localName, const char *remoteUrl)
 {
-#if V == 15
+#if V == 41
+    char *ru[1] = { NULL };
+#define requestUrl ru[0]
+#elif V == 42
+    struct { char *p; } ru = { NULL };
+#define requestUrl ru.p
+#elif V == 30
+    char * volatile requestUrl = NULL;
+#elif V == 15
     void *requestUrl = NULL;
 #elif V == 7
     char *requestUrl;
@@ -36,6 +44,9 @@ int probe(char *localName, const char *remoteUrl)
     char *requestUrl = NULL;
 #endif
     char *scheme, *host, *path, *sep;
+#if V == 38
+    char **pu = &requestUrl;
+#endif
 
     if (running)
         Cancel();
@@ -76,18 +87,45 @@ int probe(char *localName, const char *remoteUrl)
             Free(host);
             Free(path);
         }
+#if V == 43
+        else
+            goto copy;
+    }
+    else
+    {
+copy:
+        SACopy((char **)&requestUrl, remoteUrl);
+    }
+#else
         else
             SACopy((char **)&requestUrl, remoteUrl);
     }
     else
         SACopy((char **)&requestUrl, remoteUrl);
+#endif
 
     Free(scheme);
     Create(localName);
 #if V == 1
     // stores via global pointer instead of the local
 #endif
+#if V == 44
+    {
+        int ok = Load(requestUrl, req, localName);
+        if (ok != 1)
+            Print("fail\n");
+        Free(requestUrl);
+        requestUrl = NULL;
+        if (ok != 1)
+        {
+            Prof();
+            return 0;
+        }
+    }
+    if (0)
+#else
     if (Load(requestUrl, req, localName) != 1)
+#endif
     {
 #if V == 4
         Free(requestUrl);
@@ -107,6 +145,12 @@ int probe(char *localName, const char *remoteUrl)
         *(int *)&requestUrl = 0;
 #elif V == 16
         gp = NULL;
+#elif V == 31
+        *(char * volatile *)&requestUrl = NULL;
+#elif V == 38
+        *pu = NULL;
+#elif V == 32
+        memset(&requestUrl, 0, sizeof(requestUrl));
 #elif V != 2
         requestUrl = NULL;
 #endif
@@ -116,9 +160,16 @@ int probe(char *localName, const char *remoteUrl)
     }
 #if V == 28
     FreeNull((char **)&requestUrl);
+#elif V == 44
 #else
     Free(requestUrl);
-#if V != 3
+#if V == 31
+    *(char * volatile *)&requestUrl = NULL;
+#elif V == 38
+    *pu = NULL;
+#elif V == 32
+    memset(&requestUrl, 0, sizeof(requestUrl));
+#elif V != 3 && V != 44
     requestUrl = NULL;
 #endif
 #endif

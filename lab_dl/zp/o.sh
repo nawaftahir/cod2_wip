@@ -1,6 +1,6 @@
 #!/bin/sh
 # o.sh TAG "OPT" [V]: build probe with OPT instead of /O2 (p.cpp only), disasm to o_TAG.txt
-cd /home/nawaf/cod2/test/dev/cod2_wip/.worktrees/w10-os/lab_dl/zp
+cd /home/nawaf/cod2/test/dev/cod2_wip/.worktrees/w11-zs/lab_dl/zp
 docker run --rm -e V=${3:-0} -e OPT="$2" -v $(pwd):/p -w /p cod2-msvc71-vs2003 sh -c '
 wine /opt/msvc710/Vc7/bin/cl.exe /nologo /c $OPT /GL /DV=$V p.cpp >l.log 2>&1
 wine /opt/msvc710/Vc7/bin/cl.exe /nologo /c /O2 x.cpp >>l.log 2>&1
