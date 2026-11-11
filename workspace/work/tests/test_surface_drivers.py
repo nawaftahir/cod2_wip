@@ -4,8 +4,12 @@ import subprocess
 import tempfile
 
 work=Path(__file__).resolve().parents[1]
-source=(work/'src/gfx_d3d/rb_surface.cpp').read_text()
-source=source[source.index('/* Read-only views'):]
+source=(work/'src/gfx_d3d/rb_shade.cpp').read_text()
+def helper(name):
+    start=source.rindex('\ninline ',0,source.index(name+'('))+1
+    return source[start:source.index('\n}\n',start)+3]
+helpers=''.join(helper(n) for n in ('RB_GetSModelCacheVb','RB_GetSModelCacheVertexSize','RB_CheckDynamicVbSpace','RB_SetStreamSource'))
+source=source[source.index('/* Read-only views'):source.index('// SUPPORTED Mac rb_shade.c name; PINNED 1003a9a0')]
 args=(work/'src/gfx_d3d/rb_drawargs.h').read_text()
 args=args[args.index('struct GfxDrawPrimArgs'):]
 tess=(work/'src/gfx_d3d/rb_tess.h').read_text()
@@ -33,7 +37,7 @@ void RB_SetVertexData(unsigned,const void *,int,int);
 void RB_ChangeStreamSource(int,IDirect3DVertexBuffer9 *,int,int);
 void RB_DrawTechnique(int,const GfxDrawPrimArgs *);
 void RB_UpdateViewport();void RB_LogPrint(const char *);
-''' + source + r'''
+''' + helpers + source + r'''
 struct r_global_permanent_t {byte beforeWorld[0x109c];const SurfaceWorldView *world;} rgp;
 SurfaceTechniqueView technique,otherTechnique;
 SurfaceTechniqueSetView techniqueSet;

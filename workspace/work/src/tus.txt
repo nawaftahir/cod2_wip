@@ -58,7 +58,6 @@ gfx_d3d/rb_logfile.cpp
 gfx_d3d/rb_shade.cpp
 gfx_d3d/rb_sky.cpp
 gfx_d3d/rb_state.cpp
-gfx_d3d/rb_surface.cpp
 gfx_d3d/rb_tess.cpp
 jpeg-6b/jcapimin.c
 jpeg-6b/jcapistd.c
