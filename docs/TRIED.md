@@ -4418,3 +4418,25 @@ Remaining drift: rb_light -6160 -6096 -6064 -6000 -5808 -5376; rb_sky -8064 -755
 2026-11-11 gfx/w-front2: r_fog helpers 1000bae0/32 (R_PackFogColor) and 1000bb00/16 (R_CallArchiveProc) added as static __forceinline, used by R_SetFog / R_ArchiveFogState; both emitted standalone at the retail slots, r_flares/r_fog/r_dvars now one drift (-160). r_font: retail has two uncalled copies after R_DuplicateFont, 1000bf20 (empty, 1 B) and 1000bf30 (registeredFontCount = 0, 11 B); added as R_FontNoOp / R_ResetRegisteredFonts; r_font now constant -144. Same-offset 274087 (fog step), 274943 (font step); below the 275244 bar. r_image gaps are the already deferred 1000c8e0 / 1000ccb0 / 1000ccf0 helpers (no name evidence). r_dpvs not touched.
 2026-11-11 gfx/w-front2 r_image: added Image_HashBucket (1000c8e0, uncalled retail copy of R_HashAssetName & 0x7ff) after R_GetMinSpecImageMemory; lands at retail address, r_image drift now -96 +0 +32, same-offset 275431. 1000ccb0 (Hunk alloc using a global read at address 0x20, literal copy) and 1000ccf0 (Image_Release then call of ri import 0x101d49e0) still deferred: no name or body evidence.
 2026-11-11 R_AddDrawSurf probes 2-3 (gfx/w-cmds, after merging gfx/main d883dd2c): the earlier "exit 2 empty log" was a paren typo in the signed probe (r_scene.cpp C2143), not a compiler verdict. Probe 2: entIndex + 0xfffff000u computed inside the fx_sort branch, material index hoisted. Probe 3: ent/mat locals hoisted before the test. Both build green with identical output (ours: entIndex on stack, surface in ebx, 112 B in objlist; retail: material eax, entIndex ecx->ebx, lmap esi, surface on stack). Source shape does not change the LTCG register convention. Reverted. 3 probes used on this function; DEFER.
+# rb_light: move RB_ShowLightVisCachePoints to retail 10035cd0 (2026-11-11, w-rblight)
+Retail 10035cd0..10035f6d (669 B, calls GridVisLogIndex 10035c40) is Show; ours is 607 B. Moved it (move only,
+no __asm line touched, source_coverage hash refreshed) between RB_GridVisLogIndex and RB_FindGridPoint.
+Internal drift span 784 -> 352 B (-5552 -5488 -5456 -5392 -5376 -5200), same-offset 275165 (below 275244: not landable alone).
+Still missing: Show is 62 B short; retail 10035f70 (58 B, packs x/y/z grid key into 2 outputs, LTCG regs, name unconfirmed) has no body;
+RB_GetLightingAtPoint still 776/784. No size probes (time).
+
+# rb_light: 58 B key-pack at 10035f70 (2026-11-11, wrl)
+Retail 10035f70..10035fa9 (edx=x, eax=y, ecx=z, two pointer outs) = RB_FindGridPoint's key packing as its own copy. Added
+RB_PackGridKey (Name unconfirmed, PINNED 10035f70/58 B, layout row added); body 58 B + pad to 64 as retail.
+Probe 1: static __forceinline helper used by RB_FindGridPoint: copy emitted at the end of rb_light.obj (+81632) and
+FindGridPoint lost its checkpoint (call, not inline). Probe 2: extern helper called by FindGridPoint: slot right, FindGridPoint
+still lost the checkpoint. Kept: extern uncalled copy, FindGridPoint keeps its own inline expression (checkpoint retained).
+Drift span still 352 B (-5488 -5424 -5392 -5376 -5328 -5136): the 6 values shifted by +64 for the helper, Show still 62 B short.
+Show probe 1: "origin - -131072.0f" instead of "+ 131072.0f" for the center cell (retail uses fsub): no size change.
+Retail Show also builds the three (x-4096)<<5 / (z-2048)<<6 floats before the x bounds test (hoisted); ours builds them later.
+Same-offset 274181 (bar 275244, not landable alone). rb_sky -8000 -7488 not touched (time).
+
+# rb_light: RB_ShowLightVisCachePoints to retail size (2026-11-11, wrl)
+Retail hoists a vec3 origin initialised from the centre cell before the loops; z centre is I_ffloor(z - -131072.0f) >> 6
+(fsub qword), dz loop is dz <= 1. Source: origin declared once outside the loops, centre-cell init, I_ffloor, <=.
+Show now 184 insns = retail; one register-load order diff remains (not a size diff). Same-offset 275037 (bar 275244).

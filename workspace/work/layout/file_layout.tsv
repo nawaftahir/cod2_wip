@@ -1099,6 +1099,7 @@ gfx_d3d/rb_light.cpp	?RB_DrawGridPointBox@@YAXPBMM0@Z	10035a50	bind	-	-	unknown
 gfx_d3d/rb_light.cpp	?RB_IsGridPointVisible@@YA_NPBUGfxLightGridPoint@@IPBM1@Z	10035ac0	pinned	-	-	unknown
 gfx_d3d/rb_light.cpp	?RB_InsertGridVisLog@@YA_NHGGG@Z	10035bd0	pinned	-	-	unknown
 gfx_d3d/rb_light.cpp	?RB_GridVisLogIndex@@YAHHHHH@Z	10035c40	hit	-	-	unknown
+gfx_d3d/rb_light.cpp	?RB_PackGridKey@@YAXHHHPAIPAE@Z	10035f70	pinned	-	-	unknown
 gfx_d3d/rb_light.cpp	?RB_FindGridPoint@@YA_NPBUGfxLightGrid@@HHHPAH@Z	10035fb0	bind	-	-	unknown
 gfx_d3d/rb_light.cpp	?RB_GetValidGridPoint@@YAPBUGfxLightGridPoint@@PBUGfxLightGrid@@HHHIPBM@Z	10036040	hit	-	-	unknown
 gfx_d3d/rb_light.cpp	?RB_AccumulateGridColors@@YAXPAY03MPBUGfxLightGridColors@@M@Z	10036100	bind	-	-	unknown
