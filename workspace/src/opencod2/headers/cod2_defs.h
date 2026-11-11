@@ -5307,10 +5307,12 @@ union MaterialPassArray {
     MaterialPassDx9 dx9[1];
 };
 
+#ifndef COD2_SDK_TYPES
 union MaterialShaderPtr {
     GfxVertexShader *vs;
     GfxPixelShader *ps;
 };
+#endif
 
 struct MaterialStateMapRule {
     int stateBitsMask[2];

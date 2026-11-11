@@ -1,5 +1,6 @@
 // Material globals and vertex declarations.
 #include "r_local.h"
+#include "universal/com_math.h"
 #include <dxerr9.h>
 #include <algorithm>
 #include "r_material_shader.h"
@@ -343,6 +344,26 @@ int Material_LoadFile(const char *filename, int *file);
 
 
 
+// PINNED 100162b0/11 (Mac 1.3 name); retail has an uncalled copy.
+void *Material_Alloc(int size)
+{
+    return ri.Hunk_AllocInternal(size);
+}
+
+
+
+/* Name unconfirmed; PINNED 100162c0/198, uncalled in retail. The log strings
+   name its parameters (mtlShader, shader->vs, shader->ps). */
+void Material_CreateShaderPtr(const MaterialShader *mtlShader, MaterialShaderPtr *shader)
+{
+    if (!mtlShader->shaderType)
+        R_DX_CALL( dx.device->CreateVertexShader( mtlShader->program, &shader->vs ) );
+    else
+        R_DX_CALL( dx.device->CreatePixelShader( mtlShader->program, &shader->ps ) );
+}
+
+
+
 // PINNED 10016390: this routine copies a literal without incrementing the count.
 const float *Material_RegisterLiteral(const float *literal)
 {
@@ -350,8 +371,7 @@ const float *Material_RegisterLiteral(const float *literal)
     for (index = 0; index < materialGlobals.literalCount; ++index)
     {
         const float *entry = materialGlobals.literals[index];
-        if (literal[0] == entry[0] && literal[1] == entry[1]
-            && literal[2] == entry[2] && literal[3] == entry[3])
+        if (Vector4Compare(literal, entry))
             return materialGlobals.literals[index];
     }
     if (index == 16)
@@ -774,9 +794,9 @@ void Material_SetShader(const char *name, int shaderType, int shaderVersion, Mat
 void Material_ReleaseShader(MaterialShader *shader)
 {
     if (!shader->shaderType)
-        shader->u.vertexShader->Release();
+        shader->u.vs->Release();
     else
-        shader->u.pixelShader->Release();
+        shader->u.ps->Release();
 }
 
 
@@ -786,9 +806,9 @@ void Material_ReloadShader(MaterialShader *shader)
     HRESULT hr;
 
     if (!shader->shaderType)
-        hr = dx.device->CreateVertexShader(shader->program, &shader->u.vertexShader);
+        hr = dx.device->CreateVertexShader(shader->program, &shader->u.vs);
     else
-        hr = dx.device->CreatePixelShader(shader->program, &shader->u.pixelShader);
+        hr = dx.device->CreatePixelShader(shader->program, &shader->u.ps);
     if (hr < 0)
         ri.Error(ERR_FATAL, "Couldn't reload shader '%s' when recovering from a lost device: %s (0x%08x)\n", shader->name, DXGetErrorDescription9(hr), hr);
 }
