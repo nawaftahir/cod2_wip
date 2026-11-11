@@ -963,9 +963,10 @@ static void R_AddAabbTreeSurfaces_r(GfxAabbTree *tree, DpvsPlane *planes,
         if (dpvsGlob.debug.drawSModels)
             for (int i = 0; i < tree->staticModelCount; ++i)
                 R_AddStaticModelDirect(tree->staticModels[i]);
+        int startSurfIndex = tree->startSurfIndex;
         for (int i = 0; i < tree->surfaceCount; ++i)
-            if (rg.surfaces[tree->startSurfIndex + i].viewCount != scene.viewCount)
-                R_AddWorldSurfaceDirect(tree->startSurfIndex + i);
+            if (rg.surfaces[startSurfIndex + i].viewCount != scene.viewCount)
+                R_AddWorldSurfaceDirect(startSurfIndex + i);
     }
     else if (tree->childCount)
     {
