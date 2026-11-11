@@ -50,3 +50,12 @@ r_image 1000c8e0 (hash & 0x7ff), 1000ccb0, 1000ccf0.
 - build.sh can print PASS lines after a compile error and leave a stale DLL: check build.log.
 - In wsl.exe bash -lc '...', $vars and quotes get mangled; put logic in a script file.
 - Some sources are CRLF; match line endings in scripted edits.
+
+## 2026-11-11 night
+- Landed: retail definition order for 22 TUs (same-offset 253888 -> 253921 local compare), drift_tu.py, retail_order.py, bindcheck extent self-test.
+- gfx/w-front: retail_order --across (functions cross data slots, pinned addresses from layout/file_layout.tsv). Dry run moves 58 in r_dpvs, 68 in r_material_load_obj. Build failed in ~12 TUs (definitions moved above statics they use); next: hoist only the failing statics or add static prototypes, per TU.
+- Parked, lose same-offset until front sizes close: gfx/w-bsp e7c61e05, gfx/w-imgload 65a41186 (stack 250997). Front blocker: R_LoadLightmaps 16 B short.
+
+## r_dpvs (work branch gfx/w-dpvshead, 2026-11-11)
+Whole TU now follows retail order, including the unreferenced out-of-line copies (portal queue helpers, hull alloc/free, portal-culled test, ancestor loops, view planes setup, by-cell+sky wrapper, cell split bounds test; names unconfirmed). Same-offset f1b62783 on merged base e18c3986: 274772, which is 463 below the gfx/main bar 275235. Do not land until it beats the bar. Remaining diffs are register allocation / LTCG choices; stopped there.
+Sizes (ours vs retail): FrustumClipPlanes 400/448, ProjectPortal 592/608, PortalClipPlanes 1488/1440 (far plane struct copy missing at tail, extra mov in normal-copy loops), SetupOccludersForCell 688/704 (retail index in ebp, occluder in esi), AabbTree_r 448/464, AddCullGroup 192/224 (hoist overshoots to 256), PortalQueuePush 160/161 (retail stack arg), PopMin 192/160 (retail reloads count after stores), VisitPortalsForCell 512/560 (retail recomputes view distance, no CSE). AddVisibleSurfacesInCell 240/240. TU end drift -0x30. Probes in TRIED.md 2026-11-11 r_dpvs entries.
