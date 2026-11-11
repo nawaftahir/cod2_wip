@@ -40,7 +40,6 @@ typedef HRESULT (__stdcall *CacheCreateVertexBufferFn)(void *, UINT, DWORD,
 
 typedef char smodelCacheIndicesCheck[offsetof(DxGlobals, smodelCacheIndices) == 0x2dc8 ? 1 : -1];
 
-void R_QuantizeCachedColor(const float *color, byte *out);
 static void R_LightCachedVertex(const float *normal, const byte *color,
     const D3DLIGHT9 *lights, int lightCount, byte *out);
 static __forceinline void R_UploadCachedVertices(int baseVert, int size,
@@ -67,15 +66,6 @@ void R_InitStaticModelIndexCache();
 void R_StaticModelCacheStats_f();
 void R_StaticModelCacheFlush_f();
 
-
-// PINNED 1000f180: round and clamp each RGBA channel, store BGRA.
-void R_QuantizeCachedColor(const float *color, byte *out)
-{
-    out[2] = (byte)I_max(0, I_min(255, I_fround(color[0] * 255.0f)));
-    out[1] = (byte)I_max(0, I_min(255, I_fround(color[1] * 255.0f)));
-    out[0] = (byte)I_max(0, I_min(255, I_fround(color[2] * 255.0f)));
-    out[3] = (byte)I_max(0, I_min(255, I_fround(color[3] * 255.0f)));
-}
 
 static void SMC_FreeCachedSurface_r(static_model_cache_t *cache, static_model_tree_t *tree, int nodeIndex, int levelsToLeaf)
 {

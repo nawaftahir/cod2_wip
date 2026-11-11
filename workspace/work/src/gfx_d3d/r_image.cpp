@@ -540,18 +540,12 @@ void Image_PicmipForSemantic(unsigned char semantic, Picmip *picmip)
     picmip->platform[0] = (unsigned char)picmipUsed;
 }
 
-// PINNED 1000d0f0: category5 is the dynamic water texture, not a file reload.
-void Image_BuildWaterMap(GfxImage *image)
+/* Name unconfirmed (role of KisakCOD R_RebuildLostImage); PINNED 1000d0f0/74.
+   Category 5 is the dynamic water texture; Image_BuildWaterMap is inlined here. */
+void R_RebuildLostImage(GfxImage *image)
 {
     if (image->category == 5)
-    {
-        if (r_rendererInUse->current.integer == 2)
-            Image_Create2DTexture(image, image->width, image->height, 1,
-                D3DUSAGE_DYNAMIC, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT);
-        else
-            Image_Create2DTexture(image, image->width, image->height, 0,
-                D3DUSAGE_DYNAMIC, D3DFMT_L8, D3DPOOL_DEFAULT);
-    }
+        Image_BuildWaterMap(image);
 }
 
 // PINNED 1000d140: byte-sized predicate, then a normalized mask selects the pointer.
@@ -607,7 +601,7 @@ void R_ReloadLostImages()
     {
         GfxImage *image = imageGlobals.imageHashTable[index];
         if (image && image->category >= 5 && !image->texture.basemap && !Image_IsCodeImage(image))
-            Image_BuildWaterMap(image);
+            R_RebuildLostImage(image);
     }
 }
 

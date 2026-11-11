@@ -8,10 +8,15 @@ text = (work / 'src/gfx_d3d/r_image.cpp').read_text()
 local = (work / 'src/gfx_d3d/r_local.h').read_text()
 types = local[local.index('union GfxTexture'):local.index('// Stringized after expansion')]
 globals_type = text[text.index('struct ImageGlobals\n'):text.index('ImageGlobals imageGlobals;')]
-predicate = text[text.index('inline bool Image_IsCodeImage('):text.index('GfxImage *Image_FindExisting(')]
 load = (work / 'src/gfx_d3d/r_image_load_obj.cpp').read_text()
-water = load[load.index('// PINNED 1000d0f0:'):load.index('// Light-grid cubemap weights.')]
-source = water + text[text.index('// PINNED 1000d2e0:'):text.index('Bool Image_LoadFromFile(')]
+def cut(src, start, end):
+    i = src.index(start)
+    return src[i:src.index(end, i)]
+water = cut(load, 'void Image_BuildWaterMap(GfxImage *image)\n{', 'GfxImage *R_CreateWaterMap(char')
+rebuild = cut(text, 'void R_RebuildLostImage(', '// PINNED 1000d140:')
+body = text.index('inline bool Image_IsCodeImage(const GfxImage *image)\n{')
+predicate = text[body:text.index('\n}\n', body) + 3]
+source = water + rebuild + cut(text, '// PINNED 1000d2e0:', 'void Image_RebuildCosinePowerMap(')
 program = r'''
 #include <cassert>
 #include <cstdio>
@@ -41,7 +46,7 @@ int main() {
     for(int category=0;category<256;++category)for(int mode=0;mode<2;++mode)for(unsigned dimensions:{0u,1u,65535u}) {
         GfxImage image={};image.category=category;image.width=dimensions;image.height=65535-dimensions;
         image.texture.basemap=&oldTexture;renderer.current.integer=mode?2:0;calls.clear();mutation=0;
-        Image_BuildWaterMap(&image);assert(calls.size()==unsigned(category==5));
+        R_RebuildLostImage(&image);assert(calls.size()==unsigned(category==5));
         if(category==5){auto c=calls[0];assert(c.image==&image&&c.width==int(dimensions)&&c.height==int(65535-dimensions)&&c.mips==mode&&c.format==(mode?22:50));}
         else assert(image.texture.basemap==&oldTexture);++direct;
     }
