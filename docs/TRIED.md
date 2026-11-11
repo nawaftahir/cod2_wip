@@ -4406,3 +4406,5 @@ retail_order --across --write: only rb_shade moved (4 defs); the other four were
 rb_shade drift: -7424 step gone, new -6192 step appears (5 steps, was 5). Same-offset 275244 (bar 275239).
 Remaining drift: rb_light -6160 -6096 -6064 -6000 -5808 -5376; rb_sky -8064 -7552; rb_imagefilter -5056
 (non-/GL emits 538 vs 543, see above); rb_imagetouch -5424. No size probes run (time limit).
+
+2026-11-11 gfx/w-front2: r_fog helpers 1000bae0/32 (R_PackFogColor) and 1000bb00/16 (R_CallArchiveProc) added as static __forceinline, used by R_SetFog / R_ArchiveFogState; both emitted standalone at the retail slots, r_flares/r_fog/r_dvars now one drift (-160). r_font: retail has two uncalled copies after R_DuplicateFont, 1000bf20 (empty, 1 B) and 1000bf30 (registeredFontCount = 0, 11 B); added as R_FontNoOp / R_ResetRegisteredFonts; r_font now constant -144. Same-offset 274087 (fog step), 274943 (font step); below the 275244 bar. r_image gaps are the already deferred 1000c8e0 / 1000ccb0 / 1000ccf0 helpers (no name evidence). r_dpvs not touched.
