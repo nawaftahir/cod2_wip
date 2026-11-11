@@ -4440,3 +4440,4 @@ Same-offset 274181 (bar 275244, not landable alone). rb_sky -8000 -7488 not touc
 Retail hoists a vec3 origin initialised from the centre cell before the loops; z centre is I_ffloor(z - -131072.0f) >> 6
 (fsub qword), dz loop is dz <= 1. Source: origin declared once outside the loops, centre-cell init, I_ffloor, <=.
 Show now 184 insns = retail; one register-load order diff remains (not a size diff). Same-offset 275037 (bar 275244).
+rb_state order (w-state): RB_UpdateViewportConstants moved after RB_PopMatrixStack (retail 1003e690) and RB_ChangedWorldMatrix after RB_InitImages (retail 1003de30). Drift steps -6960/-6976/-7088 collapse to -7312..-7808. Probe: FloatAsInt as a #define macro (to drop the 16 B standalone copy) lost the RB_ChangeState_1 match (gate red, 273702); kept the static inline. Retail thunks 1003e220 (64 B projection copy then jmp 1003e130), 1003ec20/1003ec30 (esi=0 calls to 10038430/100384a0) have no direct callers (scan of E8/E9 in .text).
