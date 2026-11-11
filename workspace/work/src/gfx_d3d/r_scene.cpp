@@ -590,6 +590,17 @@ void R_UpdateFrameFog()
         frontEndDataOut->fogSettings.techniqueOffset = FOG_OFFSET_NONE;
 }
 
+// Mac name R_DecomposeSort; retail 10024310/102, uncalled here.
+void R_DecomposeSort(unsigned int sortValue, int *entIndex, const Material **material, int *lmapIndex)
+{
+    int ent = (int)sortValue >= 0 ? (sortValue >> 4) & 0xfff : (sortValue >> 19) & 0xfff;
+    if (ent >= 0x800)
+        ent = 0x7fe;
+    *entIndex = ent;
+    *material = rgp.sortedMaterials[(int)sortValue >= 0 ? (sortValue >> 21) & 0x3ff : (sortValue >> 9) & 0x3ff];
+    *lmapIndex = (int)sortValue >= 0 ? (sortValue >> 16) & 0x1f : (sortValue >> 4) & 0x1f;
+}
+
 // PINNED 10024380/117; unsigned arithmetic preserves packed-key wraparound.
 __declspec(noinline) void R_AddDrawSurf(const Material *material, int entIndex, int lmapIndex, const surfaceType_t *surface)
 {
@@ -609,6 +620,26 @@ __declspec(noinline) void R_AddDrawSurf(const Material *material, int entIndex, 
     drawSurf->surface = surface;
     ++scene.drawSurfCount;
     ++data->drawSurfCount;
+}
+
+// Names unconfirmed; retail 10024400/21, uncalled copy of R_AddDrawSurf with lmapIndex 31.
+void R_AddDrawSurfLmap31(const surfaceType_t *surface, int entIndex, const Material *material)
+{
+    R_AddDrawSurf(material, entIndex, 31, surface);
+}
+
+// Name unconfirmed; retail 10024420/25, uncalled copy taking a world surface.
+void R_AddWorldSurfaceDrawSurf(const GfxSurface *surf, int entIndex)
+{
+    R_AddDrawSurf(surf->material, entIndex, surf->lightmapIndex, surf->data);
+}
+
+// Name unconfirmed; retail 10024440/25, uncalled copy that swaps two draw surfaces.
+void R_SwapDrawSurfs(GfxDrawSurf *a, GfxDrawSurf *b)
+{
+    GfxDrawSurf temp = *a;
+    *a = *b;
+    *b = temp;
 }
 
 // PINNED 10024460/70: selection sort swaps the entire surface record.
