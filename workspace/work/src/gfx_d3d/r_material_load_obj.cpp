@@ -1546,9 +1546,9 @@ MaterialShader *Material_CreateShader(const char *name, int shaderType, int shad
     shader->shaderType = (byte)shaderType;
     shader->shaderVersion = (byte)shaderVersion;
     if (!shader->shaderType)
-        result = dx.device->CreateVertexShader(shader->program, &shader->u.vertexShader);
+        result = dx.device->CreateVertexShader(shader->program, &shader->u.vs);
     else
-        result = dx.device->CreatePixelShader(shader->program, &shader->u.pixelShader);
+        result = dx.device->CreatePixelShader(shader->program, &shader->u.ps);
     if (result < 0)
     {
         Com_ScriptWarning("shader creation failed for %s %s %s: %s\n",
