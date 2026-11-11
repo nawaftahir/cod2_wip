@@ -584,6 +584,17 @@ void RB_ChangeState_1(int stateBits1)
 	dxState.activeStateBits[1] = stateBits1;
 }
 
+// Name unconfirmed; PINNED 1003d210/29. Uncalled retail copy, inlined in RB_ChangeTextureStageState.
+static __forceinline DWORD RB_DecodeTextureStageArg(int argBits)
+{
+	DWORD texArg = s_textureArgTable[argBits & 7];
+	if (argBits & 8)
+		texArg |= 0x10;
+	if (argBits & 0x10)
+		texArg |= 0x20;
+	return texArg;
+}
+
 static void RB_ChangeTextureStageState(int stageIndex, const DxTextureStageEnums *texStageEnums, int texStageBits, int *activeTexStageBits)
 {
 	int changedBits;
@@ -607,11 +618,7 @@ static void RB_ChangeTextureStageState(int stageIndex, const DxTextureStageEnums
 			if (texOp->usedArgs & (1 << argIndex))
 			{
 				argBits = (texStageBits >> argShift) & 0x1f;
-				texArg = s_textureArgTable[argBits & 7];
-				if (argBits & 8)
-					texArg |= 0x10;
-				if (argBits & 0x10)
-					texArg |= 0x20;
+				texArg = RB_DecodeTextureStageArg(argBits);
 				R_DX_CALL(dx.device->SetTextureStageState( stageIndex, texStageEnums->arg[argIndex], texArg ));
 			}
 			else
