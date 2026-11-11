@@ -191,7 +191,8 @@ for r in res:
 # same-VA bind (owner, 11-11): raw bytes equal at our own map VA (reloc fields included), body ends where retail's
 # does, every code target already bound at its same VA (fixpoint); tagged 'sameva'
 starts = {v for v, _, _ in syms}
-hitat = {r['va'] for r in res if r['hits'] and 'va' in r and int(r['hits'][0], 16) == r['va']}
+# a referee match counts as bound here when its own VA is among its hits (template twins list several)
+hitat = {r['va'] for r in res if 'va' in r and hex(r['va']) in r['hits']}
 def ctargets(va, code):
     ts = []
     for a, n, _, _ in md.disasm_lite(code, va):
