@@ -4403,3 +4403,4 @@ retail_order --across --write: only rb_shade moved (4 defs); the other four were
 rb_shade drift: -7424 step gone, new -6192 step appears (5 steps, was 5). Same-offset 275244 (bar 275239).
 Remaining drift: rb_light -6160 -6096 -6064 -6000 -5808 -5376; rb_sky -8064 -7552; rb_imagefilter -5056
 (non-/GL emits 538 vs 543, see above); rb_imagetouch -5424. No size probes run (time limit).
+2026-11-11 r_screenshot (w-shot2): capture tail 10026760/65 and TGA header init 100267b0/47 now standalone static __forceinline copies (tail takes bufferSize in ebx like retail); Capture stays 99. Drift -3360/-3136/-3024/-3008 -> -3232/-3024/-3008. R_GetDirForCubemapPixel (retail 10026ab0, uncalled copy) as static __forceinline: unused, no copy emitted, open (probe 1). r_sky.obj const -3072 (was -3200), no work done. Skipped R_DownsamplePixelData.
