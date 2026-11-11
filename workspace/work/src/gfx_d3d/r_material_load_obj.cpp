@@ -1853,10 +1853,10 @@ Bool Material_LoadPassSamplersDx7(const char **text, MaterialPassDx7 *pass)
     const char *token;
     do
     {
-        token = Com_Parse(text);
+        token = Com_ParseInternal(text);
         if (strcmp(token, "texture"))
             goto expected_texture;
-        token = Com_Parse(text);
+        token = Com_ParseInternal(text);
         if (strcmp(token, "["))
             goto expected_index;
         int index = Com_ParseInt(text);
@@ -1867,7 +1867,7 @@ Bool Material_LoadPassSamplersDx7(const char **text, MaterialPassDx7 *pass)
         }
         if (!Material_MatchToken(text, "]"))
             return 0;
-        token = Com_Parse(text);
+        token = Com_ParseInternal(text);
         if (strcmp(token, "="))
             goto expected_assignment;
         if (!Material_ParseSamplerSource(text, &pass->samplers[samplerIndex])
@@ -1878,7 +1878,7 @@ Bool Material_LoadPassSamplersDx7(const char **text, MaterialPassDx7 *pass)
         ++samplerIndex;
         if (samplerIndex == 2)
             break;
-        token = Com_Parse(text);
+        token = Com_ParseInternal(text);
         Bool another = strcmp(token, "texture") == 0;
         Com_UngetToken();
         if (!another)
@@ -1922,7 +1922,7 @@ Bool Material_LoadPassStagesDx7(const char **text, MaterialPassDx7 *pass)
         ++stageIndex;
         if (stageIndex == 8)
             break;
-        Bool another = Com_Parse(text)[0] != '}';
+        Bool another = Com_ParseInternal(text)[0] != '}';
         Com_UngetToken();
         if (!another)
             break;
