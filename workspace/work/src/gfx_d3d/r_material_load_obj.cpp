@@ -1864,13 +1864,13 @@ Bool Material_LoadPassTextureStateDx7(const char **text, int samplerIndex,
 }
 
 // Name unconfirmed. PINNED 1001b300 (63 B), inlined into Material_LoadPassStagesDx7.
-Bool Material_LoadPassStageDx7(const char **text, int stageIndex, int *colorBits, int *alphaBits)
+bool Material_LoadPassStageDx7(const char **text, int stageIndex, int *colorBits, int *alphaBits)
 {
     *colorBits = 0;
     if (!Material_LoadPassTextureStateDx7(text, stageIndex, "rgb", 1, colorBits))
-        return 0;
+        return false;
     *alphaBits = 0;
-    return Material_LoadPassTextureStateDx7(text, stageIndex, "a", 2, alphaBits) != 0;
+    return Material_LoadPassTextureStateDx7(text, stageIndex, "a", 2, alphaBits);
 }
 
 // PINNED1001b360: require one sampler, allow two, default unused slots to white.
@@ -2076,6 +2076,24 @@ MaterialTechnique *Material_LoadTechniqueDx7(const char *name)
     technique->passCount = count;
     memcpy(&technique->passArray, passes, passSize);
     return technique;
+}
+
+// PINNED 1001bcc0 (97 B); KisakCOD (CoD4) name, inlined into Material_FixupBinary.
+bool Material_RegisterWaterImage(MaterialWaterDef *definition)
+{
+    water_t water;
+    water.M = (unsigned short)definition->textureWidth;
+    water.N = water.M;
+    water.Lx = definition->horizontalWorldLength;
+    water.Lz = definition->verticalWorldLength;
+    water.gravity = 800.0f;
+    water.windvel = definition->windSpeed;
+    water.winddir[0] = definition->windDirection[0];
+    water.winddir[1] = definition->windDirection[1];
+    water.amplitude = definition->amplitude;
+    water.image = 0;
+    definition->map = R_LoadWaterSetup(&water);
+    return definition->map != 0;
 }
 
 // PINNED 1001bde0: cached techniques bypass renderer selection and file loading.
@@ -2350,21 +2368,8 @@ bool Material_FixupBinary(Material *material, int imageTrack)
         texture->name = Material_RegisterString((const char *)(base + (uintptr_t)texture->name));
         if (texture->semantic == 5)
         {
-            MaterialWaterDef *definition = (MaterialWaterDef *)(base + (uintptr_t)texture->u.water);
-            texture->u.water = definition;
-            water_t water;
-            water.M = (unsigned short)definition->textureWidth;
-            water.N = water.M;
-            water.Lx = definition->horizontalWorldLength;
-            water.Lz = definition->verticalWorldLength;
-            water.gravity = 800.0f;
-            water.windvel = definition->windSpeed;
-            water.winddir[0] = definition->windDirection[0];
-            water.winddir[1] = definition->windDirection[1];
-            water.amplitude = definition->amplitude;
-            water.image = 0;
-            definition->map = R_LoadWaterSetup(&water);
-            loaded = definition->map != 0;
+            texture->u.water = (MaterialWaterDef *)(base + (uintptr_t)texture->u.water);
+            loaded = Material_RegisterWaterImage(texture->u.water);
         }
         else if (r_rendererInUse->current.integer == 2 &&
             (texture->semantic == 3 || texture->semantic == 4))
