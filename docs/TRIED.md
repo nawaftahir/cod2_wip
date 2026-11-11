@@ -4401,6 +4401,25 @@ Probe 1 (kept): Com_Parse -> Com_ParseInternal at the three token reads (ParseRu
 2026-11-11 r_dpvs (w-dpvshead, after merging gfx/main e18c3986): R_AddVisibleSurfacesInCell now 240 B = retail (startSurfIndex hoisted into a local in the flat loop). Probes not kept: R_AddCullGroup same hoist 192 -> 256 B (retail 224, extra spill; reverted); R_PortalQueuePopMin using the global count and a while loop 192 -> 176 B (retail 160, retail reloads the count after node stores, ours keeps it in a register; same-offset fell, reverted). Same-offset 274772 on merged base (gfx/main 275235): not above the bar; sizes still short: R_FrustumClipPlanes 48, ProjectPortal 16, SetupOccludersForCell 16, AabbTree 16, AddCullGroup 32, VisitPortalsForCell 48, PopMin +32, PortalClipPlanes +48.
 2026-11-11 r_screenshot (gfx/w-cmds): definitions put in retail order (layout/bind, unbound glued), R_TakeScreenshotJpeg as `static __forceinline` leaves the standalone copy retail has at 10026240/78 while ScreenShotCmd stays 567 (probe 1 plain `inline` un-inlined it into the call: 512, worse). Retail 100259a0/363 is R_DownsamplePixelData (frame 0x44, bias double at [esp+0x28]; ours 369, frame 0x38), 10025d10 is R_ResampleImage (calls 100259a0). Internal drift const -3472 from Filename through Jpeg; -16 after Downsample (6 B too long), then missing orphans: 10026760/65 (capture tail: GetFront+Flip+gamma), 100267b0/46 (TGA header init), 10026f60/~100 (R_GetDirForCubemapPixel copy), still open. r_sky already const (-3664). r_shadowcookie order already retail; drifts -3776/-3744/-3600/-3728 need per-function size work, not started.
 
+## 2026-11-12 r_water / r_xsurface drift survey (gfx/w-xsurf2, no source change)
+- retail_order.py --across on r_water, r_water_load_obj, r_xsurface, r_xsurface_load_obj,
+  r_xsurface_optimize: 0 moved (order already retail). Drift is size, not order.
+- r_water: drift -3296 at HeightMap; Hkt starts -3328, so the 32 B inside the object is
+  R_WaterHkt (264 vs retail 1002c470 252) and R_WaterFFT (179 vs 1002c570 165), 16 B each after padding.
+- R_WaterHkt: body is the same instruction stream as retail except (a) ours keeps water->N in ebp
+  and loads it once, retail reloads [esi+0x10] twice (push ebx between), and (b) ours emits
+  jmp + 9 B loop-align padding before the inner loop (our 1002b7b5..c0), retail has none
+  (inner loop at 1002c4b4 unaligned). No probe built yet; cause of the loop-align decision unknown.
+- Retail 1002c370 (201 B x87 sin/tan helper, constants 1019bc88/1019beb8/1019beb0) and
+  stubs 1002c440/c450/c460 (calls through [101d4a10/14/18]) sit before Hkt: not in r_water.cpp,
+  owner unknown (precede the object; likely other TU).
+
+## 2026-11-12 R_WaterHkt / R_WaterFFT probes (gfx/w-xsurf2)
+- Probe 1: Hkt `-(water->N / 2)` / `-(water->M / 2)` instead of `-water->N / 2`: no change (264/179).
+- Probe 2: Hkt `0.0f == water->wTerm[index]`, FFT `water->N != (1 << log2N)` (and M): Hkt 264 -> 253
+  (retail 252; slot now 256 = retail), FFT stays 179 (retail 165, slot 192 vs retail 176). Gate passed.
+  Operand order in the compare decides the register/loop-align outcome. FFT still has water in edi
+  (retail esi) and log2N spilled to the stack; not solved.
 ## 2026-11-12 smodel/utils offset pass (gfx/w-smodel)
 - retail_order --across --write: no-op on r_staticmodel, r_staticmodel_load_obj, r_staticmodelcache, r_surfbounds, r_texturemem; r_utils moved 2 definitions (drift 4 values -> 3).
 - r_staticmodel_load_obj R_AddStaticModelToCell: swapped parameter order to (smodelInst, cellIndex, world) to get retail registers (eax=cellIndex, ecx=inst). No size change; build still pushes ebx/edi and is 3 B bigger. Drift steps (16 B each) at R_FilterStaticModelIntoCells_r (build 274 B vs retail ~268 B, ends 0x1002a35c) unresolved.
@@ -4417,3 +4436,18 @@ Remaining drift: rb_light -6160 -6096 -6064 -6000 -5808 -5376; rb_sky -8064 -755
 
 2026-11-11 gfx/w-front2: r_fog helpers 1000bae0/32 (R_PackFogColor) and 1000bb00/16 (R_CallArchiveProc) added as static __forceinline, used by R_SetFog / R_ArchiveFogState; both emitted standalone at the retail slots, r_flares/r_fog/r_dvars now one drift (-160). r_font: retail has two uncalled copies after R_DuplicateFont, 1000bf20 (empty, 1 B) and 1000bf30 (registeredFontCount = 0, 11 B); added as R_FontNoOp / R_ResetRegisteredFonts; r_font now constant -144. Same-offset 274087 (fog step), 274943 (font step); below the 275244 bar. r_image gaps are the already deferred 1000c8e0 / 1000ccb0 / 1000ccf0 helpers (no name evidence). r_dpvs not touched.
 2026-11-11 R_AddDrawSurf probes 2-3 (gfx/w-cmds, after merging gfx/main d883dd2c): the earlier "exit 2 empty log" was a paren typo in the signed probe (r_scene.cpp C2143), not a compiler verdict. Probe 2: entIndex + 0xfffff000u computed inside the fx_sort branch, material index hoisted. Probe 3: ent/mat locals hoisted before the test. Both build green with identical output (ours: entIndex on stack, surface in ebx, 112 B in objlist; retail: material eax, entIndex ecx->ebx, lmap esi, surface on stack). Source shape does not change the LTCG register convention. Reverted. 3 probes used on this function; DEFER.
+## 2026-11-12 r_water / r_xsurface (gfx/w-xsurf2, second pass)
+- R_WaterFFT (179 vs 165): root cause is the callee, not the caller. Retail FFT 1005ee60 takes data on the stack (4 pushes
+  at the call: bitswap, trig, stride, data; log2 in edx); ours (universal/fft.cpp) takes data in esi with 3 pushes, so the
+  caller must keep water in edi and spill log2N. Fixing it means matching FFT's own convention first (see the FFT notes above). No probe built.
+- Retail 1002c370 (201 B) and stubs 1002c440/c450/c460 have no callers in .text. The stubs are LargeLocal's ctor (this in esi,
+  size in eax: *this = ri.HiAlloc(size)), GetBuf (ri.HiOffToPtr(*this)) and dtor (ri.HiSetOffset(*this)) = slots 18/19/20
+  (CHUNKS.md labels them R_PickMaterial; that label is just the nearest named function). All real users are in r_dpvs
+  (1000a02f, 1000a8db, 1000aa45). 1002c370 is an x87 sin/tan routine of unknown owner. Not placed.
+- r_xsurface: reordered to retail (TransformPos, RotateNormal, GetNumVerts, GetNumTris, GetTris, GetVerts, Transfer, TransferDx7);
+  XSurfaceGetVertexInfoArray / XSurfaceGetBoneOffset deleted (no callers, no retail copy); XSurfaceTransformPosWeighted is a macro.
+- r_xsurface_load_obj + r_xsurface_optimize interleave (not merged): retail order is ReadBlendInfo d420, ReadSurface d4a0,
+  OptimizeRigid da90, FreeVertexBuffer db50, Optimize db80, FreeBuffers dc40, XModelOptimize dc80. The split does not allow a
+  plain move: load_obj builds on gfx.h (opencod2 types) and optimize on r_local.h (SDK COM interfaces) with its own XSurface_s
+  view; tests/test_xsurface_stream.py slices load_obj.cpp and work_queue.py names r_xsurface_optimize. Needs the two type
+  universes unified first. Not attempted.
