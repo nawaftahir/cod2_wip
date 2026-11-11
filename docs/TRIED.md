@@ -4389,3 +4389,9 @@ Probe 1 (kept): Com_Parse -> Com_ParseInternal at the three token reads (ParseRu
 - retail_order --across --write: no-op on r_staticmodel, r_staticmodel_load_obj, r_staticmodelcache, r_surfbounds, r_texturemem; r_utils moved 2 definitions (drift 4 values -> 3).
 - r_staticmodel_load_obj R_AddStaticModelToCell: swapped parameter order to (smodelInst, cellIndex, world) to get retail registers (eax=cellIndex, ecx=inst). No size change; build still pushes ebx/edi and is 3 B bigger. Drift steps (16 B each) at R_FilterStaticModelIntoCells_r (build 274 B vs retail ~268 B, ends 0x1002a35c) unresolved.
 - r_staticmodelcache: R_SkinCachedVertices (PINNED 1002adb0) is 830 B vs retail 784 B max (R_LightCachedVertex at 1002b0c0); not probed yet.
+
+# rb_light/rb_shade/rb_sky/rb_imagefilter/rb_imagetouch retail_order (2026-11-11, w-rblight)
+retail_order --across --write: only rb_shade moved (4 defs); the other four were already in retail order.
+rb_shade drift: -7424 step gone, new -6192 step appears (5 steps, was 5). Same-offset 275244 (bar 275239).
+Remaining drift: rb_light -6160 -6096 -6064 -6000 -5808 -5376; rb_sky -8064 -7552; rb_imagefilter -5056
+(non-/GL emits 538 vs 543, see above); rb_imagetouch -5424. No size probes run (time limit).
