@@ -83,6 +83,8 @@ void R_UsedCachedStaticModelSurface(GfxStaticModelSurfaceCached *surface);
 void R_CreateSmodelCacheVertexBuffer();
 void SMC_ClearCache();
 void R_FlushStaticModelCache();
+void R_InitStaticModelCache();
+void R_ShutdownStaticModelCache();
 void R_InitStaticModelIndexCache();
 void R_StaticModelCacheStats_f();
 void R_StaticModelCacheFlush_f();
@@ -298,6 +300,19 @@ static void R_SkinCachedVerticesDx7(const vec3_t *axis, const vec3_t *normalAxis
     R_UploadCachedVertices(baseVert, vertCount * sizeof(*out), out, sizeof(*out));
 }
 
+// Name unconfirmed; PINNED 1002b630/82: uncalled retail copy of the renderer dispatch inlined into the skin command.
+static __forceinline void R_SkinCachedVerticesForRenderer(const vec3_t *axis, const vec3_t *normalAxis,
+    int smodelIndex, int baseVert, int vertCount, const XVertexInfo *src,
+    const Material *material, SkinBuffers *skinBuffers)
+{
+    if (r_rendererInUse->current.integer == 2)
+        R_SkinCachedVerticesDx7(axis, normalAxis, smodelIndex,
+            baseVert, vertCount, src, material, skinBuffers->verts.dx7);
+    else
+        R_SkinCachedVertices(axis, normalAxis, smodelIndex,
+            baseVert, vertCount, src, skinBuffers->verts.dx9);
+}
+
 void R_SkinStaticModelCachedCmd(SkinStaticModelCachedCmd *skinCmd, SkinBuffers *skinBuffers)
 {
     GfxStaticModelSurfaceCached *cached = skinCmd->cached;
@@ -316,12 +331,8 @@ void R_SkinStaticModelCachedCmd(SkinStaticModelCachedCmd *skinCmd, SkinBuffers *
     int vertexCount = surface->vertCount;
     int baseVertex = cached->baseVertIndex;
     int modelIndex = skinCmd->smodelIndex;
-    if (r_rendererInUse->current.integer == 2)
-        R_SkinCachedVerticesDx7(axis, normalAxis, modelIndex,
-            baseVertex, vertexCount, vertices, skinCmd->material, skinBuffers->verts.dx7);
-    else
-        R_SkinCachedVertices(axis, normalAxis, modelIndex,
-            baseVertex, vertexCount, vertices, skinBuffers->verts.dx9);
+    R_SkinCachedVerticesForRenderer(axis, normalAxis, modelIndex,
+        baseVertex, vertexCount, vertices, skinCmd->material, skinBuffers);
 }
 
 // PINNED 1002b790/82: each iteration copies two packed triangles.
@@ -418,6 +429,13 @@ void SMC_ClearCache()
     }
 }
 
+// PINNED 1002bac0/10: uncalled retail copy; r_init inlines the same two calls (name from the Mac client).
+void R_InitStaticModelCache()
+{
+    R_CreateSmodelCacheVertexBuffer();
+    SMC_ClearCache();
+}
+
 // PINNED 100016fd: inlined into R_LoadWorld.
 void R_InitStaticModelIndexCache()
 {
@@ -446,6 +464,18 @@ void R_FlushStaticModelCache()
         ((static_model_node_list_t *)freenode->next)->prev = (intptr_t)freenode;
     }
     SMC_ClearCache();
+}
+
+// PINNED 1002bb60/44: uncalled retail copy; r_init inlines the same flush and release (name from the Mac client).
+void R_ShutdownStaticModelCache()
+{
+    R_FlushStaticModelCache();
+    if (dx.smodelCacheVb)
+        do
+        {
+            ((CachedBufferUnlockFn)(*(void ***)(void *)dx.smodelCacheVb)[2])((void *)dx.smodelCacheVb);
+            dx.smodelCacheVb = 0;
+        } while (alwaysfails);
 }
 
 // PINNED 1002bb90/84: the denominator is the fixed65536-vertex cache capacity.
