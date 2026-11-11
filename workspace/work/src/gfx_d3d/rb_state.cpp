@@ -182,20 +182,10 @@ void RB_SetInitialDx7State();
 void RB_SetInitialState();
 void RB_UpdateViewportConstants();
 
-void RB_DecideDefaultSamplerState()
-{
-	backEnd.defaultSamplerState = defaultSamplerStateTable[r_textureMode->current.integer];
-}
-
 void RB_InitSceneViewport()
 {
 	backEnd.sceneViewport.width = vidConfig.width;
 	backEnd.sceneViewport.height = vidConfig.height;
-}
-
-static GfxCodeMatrices *RB_GetActiveCodeMatrices()
-{
-	return &backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel];
 }
 
 static void RB_InvalidateCodeMatrix(GfxCodeMatrix *matrix)
@@ -435,11 +425,6 @@ void RB_ChangeState_0(int stateBits0)
 	dxState.activeStateBits[0] = stateBits0;
 }
 
-static inline DWORD FloatAsInt(const float *value)
-{
-	return *(const DWORD *)value;
-}
-
 void RB_ChangeState_1(int stateBits1)
 {
 	int changedBits;
@@ -633,6 +618,11 @@ void RB_ChangeGenTexCoords(int samplerIndex, int genTexCoords)
 	dxState.genTexCoords[samplerIndex] = (unsigned char)genTexCoords;
 }
 
+void RB_DecideDefaultSamplerState()
+{
+	backEnd.defaultSamplerState = defaultSamplerStateTable[r_textureMode->current.integer];
+}
+
 void RB_SetAnisotropy()
 {
 	int anisotropy;
@@ -748,6 +738,11 @@ void RB_InitImages()
 		for (samplerIndex = 0; samplerIndex < vidConfig.maxTextureMaps; samplerIndex++)
 			RB_SetSampler(samplerIndex, 0, NULL);
 	}
+}
+
+static GfxCodeMatrices *RB_GetActiveCodeMatrices()
+{
+	return &backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel];
 }
 
 void RB_ChangedWorldMatrix(float worldScale)
@@ -1025,4 +1020,10 @@ void RB_ClearAllStreamSources()
 {
     if (dxState.streams[0].vb || dxState.streams[0].offset || dxState.streams[0].stride)
         RB_ChangeStreamSource(0, 0, 0, 0);
+}
+
+// Retail has no copy before RB_ChangeState_1; the standalone copy lands at the end of the object.
+static inline DWORD FloatAsInt(const float *value)
+{
+	return *(const DWORD *)value;
 }
