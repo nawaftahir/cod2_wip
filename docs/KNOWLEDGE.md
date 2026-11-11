@@ -654,6 +654,19 @@ Tooling: tools/ra13.sh TAG, then lab/ra.sh TAG MANGLED (split_all + cpick for on
 ## 27. __real pool slot = LTCG compile order of the first user (w8-a, 11-11, PINNED on ra13 F lines vs our pool 0x5c4430-0x5c44b0)
 - Each __real@ slot sits in the compile order of its first-compiled user. __real@408f400000000000 (1000.0): ours first user CL_DemoCompleted at F#73854; retail slot needs it between Pickup_Health and Particle::Die. Fix = delay CL_DemoCompleted's compile, not touch the constant.
 - Follow-up (dfs13): CL_DemoCompleted compiles right after CL_NextDemo, which compiles in the pass after Cbuf_ExecuteInternal (5329 -> 5430/5435 of 6727). Retail wants it in 5604..5634. No cut under CL_DemoCompleted differs from what matched callers imply, so the cause is the peel-pass position, not a header decl order (SUPPORTED, not proven on retail).
+- (w11-pp, 11-11) Compile-order model tools/peel13.py (SUPPORTED: replays dfs13 ord.txt, 6681/6727 fns in oracle order, LIS;
+  the 46 misses are the 512 map-less COMDAT/compiler fns, placed by fitting, and the 12 duplicate `_$E` names the oracle cannot tell
+  apart). Rule: symbol list = objs in reverse link order (objs.rsp then lw.rsp), each obj's functions in reverse order of their name
+  in the obj string table (= definition order); each pass walks the list and emits a fn as soon as all uncut callees are emitted,
+  INCLUDING ones emitted earlier in the same pass (a plain level-peel matches only 23 fns). So a call chain advances inside one pass
+  wherever the caller sits later in the list than its callee; pass breaks come from list order, not chain length alone.
+- (w11-pp) The model reproduces our whole __real pool order. Passes: UI_Update 17, Sys_HasInfoChanged 18, CL_DemoCompleted 19,
+  BG_RunLerpFrameRate 20 ... CG_PlayerFloatSprite 23, Pickup_Health 24, Particle::Die 25, CG_FxTest 26. Retail's 1000.0 slot needs
+  CL_DemoCompleted in pass 24 (after Pickup_Health in list order; pass 25 would follow Die), i.e. 5 passes later. Its critical path is
+  CL_NextDemo < Cbuf_Execute < Cbuf_ExecuteInternal < Cmd_ExecuteString < Dvar_Command < ... < Com_GetParseThreadInfo (27 fns over 19
+  passes). CL_DemoCompleted, CL_NextDemo, CL_Disconnect, Cbuf_*, Cmd_ExecuteString are all matched at retail addresses, so their
+  bodies, callees and (by layout) list positions equal retail. Every cut edge out of the closure lands on Com_Error or
+  UI_SetActiveMenu (pass 56): no single uncut gives pass 24. The shift is not explained by this model; DEFER (nothing gated).
 - (w9-ch, 11-11, PINNED by probe lab/cp9: a.c AngleVectors+DotProduct TU, b.c crosshair, /GL + /LTCG) The yaw forward dies whenever the
   crosshair function contains ANY "p" code, wherever it comes from: host-only `#pragma optimize("p", on)` with AngleVectors/DotProduct no-p,
   DotProduct-only "p", the /Op command-line flag (both TUs or only the AngleVectors TU) all give the `mov ecx,[gunYaw]; mov [esp+0x28],ecx`
