@@ -4425,3 +4425,8 @@ Remaining drift: rb_light -6160 -6096 -6064 -6000 -5808 -5376; rb_sky -8064 -755
   (1000a02f, 1000a8db, 1000aa45). 1002c370 is an x87 sin/tan routine of unknown owner. Not placed.
 - r_xsurface: reordered to retail (TransformPos, RotateNormal, GetNumVerts, GetNumTris, GetTris, GetVerts, Transfer, TransferDx7);
   XSurfaceGetVertexInfoArray / XSurfaceGetBoneOffset deleted (no callers, no retail copy); XSurfaceTransformPosWeighted is a macro.
+- r_xsurface_load_obj + r_xsurface_optimize interleave (not merged): retail order is ReadBlendInfo d420, ReadSurface d4a0,
+  OptimizeRigid da90, FreeVertexBuffer db50, Optimize db80, FreeBuffers dc40, XModelOptimize dc80. The split does not allow a
+  plain move: load_obj builds on gfx.h (opencod2 types) and optimize on r_local.h (SDK COM interfaces) with its own XSurface_s
+  view; tests/test_xsurface_stream.py slices load_obj.cpp and work_queue.py names r_xsurface_optimize. Needs the two type
+  universes unified first. Not attempted.
