@@ -77,11 +77,11 @@ static const DxStencilDecode s_stencilOpDecode[6] =
 	{ 8, (D3DRENDERSTATETYPE)55 }, { 11, (D3DRENDERSTATETYPE)53 }, { 14, (D3DRENDERSTATETYPE)54 },
 	{ 20, (D3DRENDERSTATETYPE)188 }, { 23, (D3DRENDERSTATETYPE)186 }, { 26, (D3DRENDERSTATETYPE)187 }
 };
+static inline DWORD FloatAsInt(const float *value);
 static const DxStencilDecode s_stencilFuncDecode[2] =
 {
 	{ 17, (D3DRENDERSTATETYPE)56 }, { 29, (D3DRENDERSTATETYPE)189 }
 };
-static inline DWORD FloatAsInt(const float *value);
 void RB_ChangeState_1(int stateBits1);
 void RB_SetViewport(const GfxViewport *viewport);
 void RB_ChangeIndices(IDirect3DIndexBuffer9 *ib);
@@ -346,44 +346,6 @@ void RB_SetInitialState()
 	dxState.textureFactor = 0xffffffff;
 	memset(dxState.vertexShaderConsts, 0xff, sizeof(dxState.vertexShaderConsts));
 	memset(dxState.pixelShaderConsts, 0xff, sizeof(dxState.pixelShaderConsts));
-}
-
-// Viewport calculation.
-void RB_UpdateViewportConstants()
-{
-	float renderTargetSize[2];
-	float invRenderTargetSize[2];
-	float halfViewportSize[2];
-	float viewportCenter[2];
-	float normalizedViewport[2];
-	GfxViewport viewport;
-
-	backEnd.projection2D = 0;
-	backEnd.viewportIsDirty = 1;
-	renderTargetSize[0] = (float)dxState.renderTargetWidth;
-	invRenderTargetSize[0] = 1.0f / renderTargetSize[0];
-	renderTargetSize[1] = (float)dxState.renderTargetHeight;
-	invRenderTargetSize[1] = 1.0f / renderTargetSize[1];
-	if (dxState.viewportBehavior == GFX_USE_VIEWPORT_FULL)
-	{
-		viewport.x = 0;
-		viewport.y = 0;
-		viewport.width = dxState.renderTargetWidth;
-		viewport.height = dxState.renderTargetHeight;
-	}
-	else
-		viewport = backEnd.sceneViewport;
-	normalizedViewport[0] = viewport.width * invRenderTargetSize[0];
-	normalizedViewport[1] = viewport.height * invRenderTargetSize[1];
-	halfViewportSize[0] = normalizedViewport[0] * 0.5f;
-	halfViewportSize[1] = normalizedViewport[1] * 0.5f;
-	viewportCenter[0] = viewport.x * invRenderTargetSize[0] + halfViewportSize[0];
-	viewportCenter[1] = viewport.y * invRenderTargetSize[1] + halfViewportSize[1];
-	viewportCenter[0] += invRenderTargetSize[0] * 0.5f;
-	viewportCenter[1] += invRenderTargetSize[1] * 0.5f;
-	RB_SetCodeConstant(43, renderTargetSize[0], renderTargetSize[1], invRenderTargetSize[0], invRenderTargetSize[1]);
-	RB_SetCodeConstant(46, halfViewportSize[0], -halfViewportSize[1], 0.0f, 1.0f);
-	RB_SetCodeConstant(47, viewportCenter[0], viewportCenter[1], 0.0f, 0.0f);
 }
 
 void RB_SetAlphaAntiAliasingState(int stateBits0)
@@ -716,30 +678,6 @@ void RB_ChangeGenTexCoords(int samplerIndex, int genTexCoords)
 	dxState.genTexCoords[samplerIndex] = (unsigned char)genTexCoords;
 }
 
-void RB_ChangedWorldMatrix(float worldScale)
-{
-	GfxCodeMatrices *activeMatrices;
-	const dvar_t *rendererInUse;
-
-	rendererInUse = r_rendererInUse;
-	activeMatrices = RB_GetActiveCodeMatrices();
-	activeMatrices->worldScale = worldScale;
-	activeMatrices->world.valid[0] = 1;
-	activeMatrices->world.valid[1] = 0;
-	activeMatrices->world.valid[2] = 0;
-	activeMatrices->world.valid[3] = 0;
-	RB_InvalidateCodeMatrix(&activeMatrices->worldView);
-	RB_InvalidateCodeMatrix(&activeMatrices->worldViewProjection);
-	RB_InvalidateCodeMatrix(&activeMatrices->normalizedWorld);
-	RB_InvalidateCodeMatrix(&activeMatrices->normalizedWorldView);
-	RB_InvalidateCodeMatrix(&activeMatrices->normalizedWorldViewProjection);
-	RB_InvalidateCodeMatrix(&activeMatrices->shadowLookupMatrix);
-	RB_InvalidateCodeMatrix(&activeMatrices->lightGridLookupMatrix);
-	RB_InvalidateCodeMatrix(&activeMatrices->worldOutdoorLookup);
-	if (rendererInUse->current.integer == 2)
-		R_DX_CALL(dx.device->SetTransform( (D3DTRANSFORMSTATETYPE)(0 + 256), &activeMatrices->world.matrix[0] ));
-}
-
 void RB_SetAnisotropy()
 {
 	int anisotropy;
@@ -857,6 +795,30 @@ void RB_InitImages()
 	}
 }
 
+void RB_ChangedWorldMatrix(float worldScale)
+{
+	GfxCodeMatrices *activeMatrices;
+	const dvar_t *rendererInUse;
+
+	rendererInUse = r_rendererInUse;
+	activeMatrices = RB_GetActiveCodeMatrices();
+	activeMatrices->worldScale = worldScale;
+	activeMatrices->world.valid[0] = 1;
+	activeMatrices->world.valid[1] = 0;
+	activeMatrices->world.valid[2] = 0;
+	activeMatrices->world.valid[3] = 0;
+	RB_InvalidateCodeMatrix(&activeMatrices->worldView);
+	RB_InvalidateCodeMatrix(&activeMatrices->worldViewProjection);
+	RB_InvalidateCodeMatrix(&activeMatrices->normalizedWorld);
+	RB_InvalidateCodeMatrix(&activeMatrices->normalizedWorldView);
+	RB_InvalidateCodeMatrix(&activeMatrices->normalizedWorldViewProjection);
+	RB_InvalidateCodeMatrix(&activeMatrices->shadowLookupMatrix);
+	RB_InvalidateCodeMatrix(&activeMatrices->lightGridLookupMatrix);
+	RB_InvalidateCodeMatrix(&activeMatrices->worldOutdoorLookup);
+	if (rendererInUse->current.integer == 2)
+		R_DX_CALL(dx.device->SetTransform( (D3DTRANSFORMSTATETYPE)(0 + 256), &activeMatrices->world.matrix[0] ));
+}
+
 void RB_SetViewMatrix(const D3DMATRIX *matrix)
 {
 	GfxCodeMatrices *activeMatrices;
@@ -960,6 +922,44 @@ void RB_PopMatrixStack()
 	R_DX_CALL(dx.device->SetTransform( (D3DTRANSFORMSTATETYPE)(0 + 256), &backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel].world.matrix[0] ));
 	R_DX_CALL(dx.device->SetTransform( D3DTS_VIEW, &backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel].view.matrix[0] ));
 	R_DX_CALL(dx.device->SetTransform( D3DTS_PROJECTION, &backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel].projection.matrix[0] ));
+}
+
+// Viewport calculation.
+void RB_UpdateViewportConstants()
+{
+	float renderTargetSize[2];
+	float invRenderTargetSize[2];
+	float halfViewportSize[2];
+	float viewportCenter[2];
+	float normalizedViewport[2];
+	GfxViewport viewport;
+
+	backEnd.projection2D = 0;
+	backEnd.viewportIsDirty = 1;
+	renderTargetSize[0] = (float)dxState.renderTargetWidth;
+	invRenderTargetSize[0] = 1.0f / renderTargetSize[0];
+	renderTargetSize[1] = (float)dxState.renderTargetHeight;
+	invRenderTargetSize[1] = 1.0f / renderTargetSize[1];
+	if (dxState.viewportBehavior == GFX_USE_VIEWPORT_FULL)
+	{
+		viewport.x = 0;
+		viewport.y = 0;
+		viewport.width = dxState.renderTargetWidth;
+		viewport.height = dxState.renderTargetHeight;
+	}
+	else
+		viewport = backEnd.sceneViewport;
+	normalizedViewport[0] = viewport.width * invRenderTargetSize[0];
+	normalizedViewport[1] = viewport.height * invRenderTargetSize[1];
+	halfViewportSize[0] = normalizedViewport[0] * 0.5f;
+	halfViewportSize[1] = normalizedViewport[1] * 0.5f;
+	viewportCenter[0] = viewport.x * invRenderTargetSize[0] + halfViewportSize[0];
+	viewportCenter[1] = viewport.y * invRenderTargetSize[1] + halfViewportSize[1];
+	viewportCenter[0] += invRenderTargetSize[0] * 0.5f;
+	viewportCenter[1] += invRenderTargetSize[1] * 0.5f;
+	RB_SetCodeConstant(43, renderTargetSize[0], renderTargetSize[1], invRenderTargetSize[0], invRenderTargetSize[1]);
+	RB_SetCodeConstant(46, halfViewportSize[0], -halfViewportSize[1], 0.0f, 1.0f);
+	RB_SetCodeConstant(47, viewportCenter[0], viewportCenter[1], 0.0f, 0.0f);
 }
 
 void RB_SetDepthRange(float nearValue, float farValue)

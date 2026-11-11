@@ -4395,3 +4395,5 @@ retail_order --across --write: only rb_shade moved (4 defs); the other four were
 rb_shade drift: -7424 step gone, new -6192 step appears (5 steps, was 5). Same-offset 275244 (bar 275239).
 Remaining drift: rb_light -6160 -6096 -6064 -6000 -5808 -5376; rb_sky -8064 -7552; rb_imagefilter -5056
 (non-/GL emits 538 vs 543, see above); rb_imagetouch -5424. No size probes run (time limit).
+
+rb_state order (w-state): RB_UpdateViewportConstants moved after RB_PopMatrixStack (retail 1003e690) and RB_ChangedWorldMatrix after RB_InitImages (retail 1003de30). Drift steps -6960/-6976/-7088 collapse to -7312..-7808. Probe: FloatAsInt as a #define macro (to drop the 16 B standalone copy) lost the RB_ChangeState_1 match (gate red, 273702); kept the static inline. Retail thunks 1003e220 (64 B projection copy then jmp 1003e130), 1003ec20/1003ec30 (esi=0 calls to 10038430/100384a0) have no direct callers (scan of E8/E9 in .text).
