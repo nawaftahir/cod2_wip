@@ -22,6 +22,10 @@ static DpvsConfig dpvsConfig;
 #define portalViewProjectionMatrix dpvsGlob.projection.viewProjectionMatrix
 #define portalInverseViewProjectionMatrix dpvsGlob.projection.inverseViewProjectionMatrix
 DpvsScene dpvsScene;
+// PINNED retail passes this table from .rdata (10182948) instead of building it on the stack.
+extern const vec4_t standardFrustumSidePlanes[4];
+const vec4_t standardFrustumSidePlanes[4] = {{-1.0f, 0.0f, 0.0f, 1.0f}, {1.0f, 0.0f, 0.0f, 1.0f},
+    {0.0f, -1.0f, 0.0f, 1.0f}, {0.0f, 1.0f, 0.0f, 1.0f}};
 void ExpandBounds(const vec3_t mins, const vec3_t maxs, vec3_t outMins, vec3_t outMaxs);
 
 // Name unconfirmed; PINNED out-of-line copy 10005c30.
@@ -142,6 +146,7 @@ void R_SkinStaticModel(GfxSceneEntity *sceneEnt, GfxEntity *ent, int smodelIndex
 void R_AddDebugString(DebugGlobals *debug, const float *origin, const float *color,
     float scale, const char *text);
 void R_AddDebugBox(DebugGlobals *debug, const float *mins, const float *maxs, const float *color);
+void R_AddDebugLine(DebugGlobals *debug, const float *start, const float *end, const float *color);
 
 // Portal visitation.
 extern const dvar_t *r_portalWalkLimit;
@@ -180,8 +185,6 @@ void R_SetCullDist(float dist);
 GfxPortal *R_PortalQueuePopMin();
 double R_FurthestPointOnWinding(const vec3_t *points, int pointCount, const float *plane);
 double R_NearestPointOnWinding(const vec3_t *points, int pointCount, const float *plane);
-static __forceinline void R_UnprojectPoint(const float *projected, float *unprojected);
-static __forceinline void R_AddPortalDebugLine(const float *start, const float *end, float cyan);
 static void R_ProjectPortal(int vertexCount, const vec3_t *winding, float *mins,
     float *maxs, DpvsClipChildren *clipChildren);
 static int R_AddBevelPlanes(DpvsPlane *planes, int vertexCount, const vec3_t *windingNormals,
@@ -193,7 +196,6 @@ static bool R_OccluderBehindPlane(const GfxOccluder *occluder, const DpvsPlane *
 static bool R_IsOccluderOutsideView(const GfxOccluder *occluder,
     const DpvsPlane *planes, int planeCount);
 static void R_CreateOccluderEdgePlane(const float *v0, const float *v1, DpvsPlane *plane);
-static void R_AddOccluderDebugLine(DebugGlobals *debug, const float *start, const float *end);
 void R_SetupOccludersForCell(const GfxCell *cell, const DpvsPlane *planes, int planeCount);
 void R_DrawModel(int entIndex);
 int R_CellForPoint(const vec_t *origin);
@@ -205,10 +207,9 @@ __declspec(noinline) bool R_IsAabbOutsideView(DpvsPlane *planes, int planeCount,
 __declspec(noinline) bool R_AabbNeedsChildClipping(DpvsPlane *planes, int planeCount,
     const float *bounds, int stackLevel);
 static void R_AddWorldSurfaceDirect(int surfIndex);
+static void R_AddStaticModelDirect(int smodelIndex);
 static void R_AddWorldSurfaceWithCull(int surfIndex, DpvsPlane *planes,
     int planeCount, int stackLevel);
-static void R_PublishStaticModel(int smodelIndex, const GfxStaticModelInstance *instance);
-static void R_AddStaticModelDirect(int smodelIndex);
 static void R_AddStaticModelWithCull(int smodelIndex, DpvsPlane *planes,
     int planeCount, int stackLevel);
 static void R_AddAabbTreeSurfaces_r(GfxAabbTree *tree, DpvsPlane *planes,
@@ -411,9 +412,9 @@ __declspec(noinline) bool R_IsAabbOutsideView(DpvsPlane *planes, int planeCount,
         if (stackLevel > occluder->ignoreStackLevel)
             continue;
         bool occluded = true;
-        for (int j = 0; j < occluder->viewPlaneCount; ++j)
+        DpvsPlane *plane = occluder->viewPlanes;
+        for (int j = 0; j < occluder->viewPlaneCount; ++j, ++plane)
         {
-            DpvsPlane *plane = &occluder->viewPlanes[j];
             if (stackLevel > plane->u.frontal)
                 continue;
             plane->u.frontal = 255;
@@ -433,9 +434,9 @@ __declspec(noinline) bool R_AabbNeedsChildClipping(DpvsPlane *planes, int planeC
     const float *bounds, int stackLevel)
 {
     bool partial = false;
-    for (int i = 0; i < planeCount; ++i)
+    for (; planeCount; --planeCount, ++planes)
     {
-        DpvsPlane *plane = &planes[i];
+        DpvsPlane *plane = planes;
         if (stackLevel > plane->u.frontal)
             continue;
         if (!R_DpvsPlaneFarCornerNotBehind(plane, bounds))
@@ -451,14 +452,6 @@ __declspec(noinline) bool R_AabbNeedsChildClipping(DpvsPlane *planes, int planeC
     return false;
 }
 
-static void R_AddWorldSurfaceDirect(int surfIndex)
-{
-    if (rg.surfaces[surfIndex].viewCount == scene.viewCount)
-        return;
-    rg.surfaces[surfIndex].viewCount = scene.viewCount;
-    const GfxSurface *surf = &rgp.world->surfaces[surfIndex];
-    R_AddDrawSurf(surf->material, surf->sortGroup + 2048, surf->lightmapIndex, surf->data);
-}
 
 // Convex winding extrema.
 /* PINNED 1.0 convex-winding search and plane coefficients at offsets 0..12. */
@@ -532,17 +525,31 @@ double R_NearestPointOnWinding(const vec3_t *points, int pointCount, const float
     return nearest;
 }
 
+static void R_AddWorldSurfaceDirect(int surfIndex)
+{
+    rg.surfaces[surfIndex].viewCount = scene.viewCount;
+    const GfxSurface *surf = &rgp.world->surfaces[surfIndex];
+    R_AddDrawSurf(surf->material, surf->sortGroup + 2048, surf->lightmapIndex, surf->data);
+}
+
 // PINNED 10006be0/446: transform homogeneous clipping planes and normalize XYZ.
 void R_FrustumClipPlanes(const D3DMATRIX *viewProjection, const vec4_t *sides,
     int sideCount, DpvsPlane *planes)
 {
     const float *matrix = (const float *)viewProjection;
+    // Reproduces retail's unread stores; PINNED 10006be0.
+    DpvsPlane axisPlanes[8];
     for (int i = 0; i < sideCount; ++i)
     {
         float *coeffs = planes[i].coeffs;
+        float axisSign = (i & 1) ? 1.0f : -1.0f;
+        int axis = (i >> 1) & 1;
         for (int j = 0; j < 4; ++j)
-            coeffs[j] = matrix[j * 4] * sides[i][0] + matrix[j * 4 + 2] * sides[i][2]
-                + matrix[j * 4 + 1] * sides[i][1] + matrix[j * 4 + 3] * sides[i][3];
+        {
+            axisPlanes[i].coeffs[j] = axisSign * matrix[j * 4 + axis] + matrix[j * 4 + 3];
+            coeffs[j] = sides[i][1] * matrix[j * 4 + 1] + sides[i][3] * matrix[j * 4 + 3]
+                + sides[i][0] * matrix[j * 4] + sides[i][2] * matrix[j * 4 + 2];
+        }
         VectorScale4(coeffs, 1.0f / VectorLength(coeffs), coeffs);
         planes[i].side[0] = FloatAsInt(coeffs[0]) > 0 ? 12 : 0;
         planes[i].side[1] = FloatAsInt(coeffs[1]) > 0 ? 16 : 4;
@@ -577,16 +584,17 @@ static void R_ProjectPortal(int vertexCount, const vec3_t *winding, float *mins,
             return;
         }
         float invW = 1.0f / w;
-        screenSpaceWinding[index][0] = (portalViewProjectionMatrix->m[2][0] * xyz[2]
+        float *screen = screenSpaceWinding[index];
+        screen[0] = (portalViewProjectionMatrix->m[2][0] * xyz[2]
             + portalViewProjectionMatrix->m[1][0] * xyz[1] + xyz[0] * portalViewProjectionMatrix->m[0][0]
             + portalViewProjectionMatrix->m[3][0]) * invW;
-        screenSpaceWinding[index][1] = (portalViewProjectionMatrix->m[0][1] * xyz[0]
+        screen[1] = (portalViewProjectionMatrix->m[0][1] * xyz[0]
             + portalViewProjectionMatrix->m[2][1] * xyz[2] + portalViewProjectionMatrix->m[1][1] * xyz[1]
             + portalViewProjectionMatrix->m[3][1]) * invW;
-        if (mins[0] > screenSpaceWinding[index][0]) mins[0] = screenSpaceWinding[index][0];
-        if (maxs[0] < screenSpaceWinding[index][0]) maxs[0] = screenSpaceWinding[index][0];
-        if (mins[1] > screenSpaceWinding[index][1]) mins[1] = screenSpaceWinding[index][1];
-        if (maxs[1] < screenSpaceWinding[index][1]) maxs[1] = screenSpaceWinding[index][1];
+        if (mins[0] > screen[0]) mins[0] = screen[0];
+        if (maxs[0] < screen[0]) maxs[0] = screen[0];
+        if (mins[1] > screen[1]) mins[1] = screen[1];
+        if (maxs[1] < screen[1]) maxs[1] = screen[1];
     }
     if ((maxs[1] - mins[1]) * (maxs[0] - mins[0]) * 0.25f < r_portalMinClipArea->current.value)
     {
@@ -603,6 +611,32 @@ static void R_ProjectPortal(int vertexCount, const vec3_t *winding, float *mins,
     else
         *clipChildren = DPVS_CLIP_CHILDREN;
 }
+
+/* Retail has no standalone copy of these two, so they are macros. */
+#define R_UnprojectPoint(projected, unprojected) \
+    do { \
+        const D3DMATRIX *matrix = portalInverseViewProjectionMatrix; \
+        (unprojected)[0] = matrix->m[0][0] * (projected)[0] + matrix->m[1][0] * (projected)[1] + matrix->m[3][0]; \
+        (unprojected)[1] = matrix->m[0][1] * (projected)[0] + matrix->m[1][1] * (projected)[1] + matrix->m[3][1]; \
+        (unprojected)[2] = matrix->m[0][2] * (projected)[0] + matrix->m[1][2] * (projected)[1] + matrix->m[3][2]; \
+        (unprojected)[3] = matrix->m[0][3] * (projected)[0] + matrix->m[1][3] * (projected)[1] + matrix->m[3][3]; \
+    } while (0)
+
+#define R_AddPortalDebugLine(from, to, cyan) \
+    do { \
+        DebugGlobals *debug = &frontEndDataOut->debugGlobals; \
+        if (debug->lineCount + 1 <= debug->lineLimit) \
+        { \
+            if (!debug->lines) \
+                debug->lines = (trDebugLine_t *)ri.Z_MallocInternal(debug->lineLimit * sizeof(trDebugLine_t)); \
+            trDebugLine_t *line = &debug->lines[debug->lineCount]; \
+            VectorCopy((from), line->start); \
+            VectorCopy((to), line->end); \
+            Vector4Set(line->color, 0.0f, (cyan), (cyan), 1.0f); \
+            line->depthTest = 0; \
+            ++debug->lineCount; \
+        } \
+    } while (0)
 
 static int R_AddBevelPlanes(DpvsPlane *planes, int vertexCount, const vec3_t *windingNormals,
     const float *mins, const float *maxs, DpvsForceBevels forceBevels)
@@ -663,15 +697,14 @@ int R_PortalClipPlanes(DpvsPlane *planes, int vertexCount, const vec3_t *winding
     bool useNormalPlanes = vertexCount <= 10;
     DpvsForceBevels forceBevels;
     bool useBevelPlanes;
+    forceBevels = DPVS_FORCE_BEVELS;
+    useBevelPlanes = true;
     if (useNormalPlanes && !r_portalBevelsOnly->current.enabled)
     {
         forceBevels = DPVS_DONT_FORCE_BEVELS;
-        useBevelPlanes = r_portalBevels->current.value > 0.0f;
-    }
-    else
-    {
-        forceBevels = DPVS_FORCE_BEVELS;
-        useBevelPlanes = true;
+        useBevelPlanes = false;
+        if (r_portalBevels->current.value > 0.0f)
+            useBevelPlanes = true;
     }
     R_GetSidePlaneNormals(winding, vertexCount, normals);
     int planeCount = 0;
@@ -688,7 +721,7 @@ int R_PortalClipPlanes(DpvsPlane *planes, int vertexCount, const vec3_t *winding
             if (VectorLengthSquared(normals[index]) != 0.0f)
             {
                 DpvsPlane *plane = &planes[planeCount];
-                VectorCopy(normals[index], plane->coeffs);
+                memcpy(plane->coeffs, normals[index], sizeof(vec3_t));
                 plane->coeffs[3] = 0.001f - DotProduct(winding[index], plane->coeffs);
                 plane->side[0] = FloatAsInt(plane->coeffs[0]) > 0 ? 12 : 0;
                 plane->side[1] = FloatAsInt(plane->coeffs[1]) > 0 ? 16 : 4;
@@ -700,7 +733,7 @@ int R_PortalClipPlanes(DpvsPlane *planes, int vertexCount, const vec3_t *winding
     {
         planes[planeCount] = *portalNearPlane;
         double nearest = R_NearestPointOnWinding(winding, vertexCount, planes[planeCount].coeffs);
-        if (nearest > 0.0f)
+        if (nearest > 0.0)
             planes[planeCount].coeffs[3] = (float)(planes[planeCount].coeffs[3] - nearest);
         ++planeCount;
     }
@@ -733,25 +766,12 @@ static bool R_IsOccluderOutsideView(const GfxOccluder *occluder,
 }
 
 
-static void R_AddOccluderDebugLine(DebugGlobals *debug, const float *start, const float *end)
-{
-    if (debug->lineCount + 1 > debug->lineLimit)
-        return;
-    if (!debug->lines)
-        debug->lines = (trDebugLine_t *)ri.Z_MallocInternal(debug->lineLimit * sizeof(trDebugLine_t));
-    trDebugLine_t *line = &debug->lines[debug->lineCount];
-    VectorCopy(start, line->start);
-    VectorCopy(end, line->end);
-    VectorCopy4(colorMagenta, line->color);
-    line->depthTest = false;
-    ++debug->lineCount;
-}
-
 void R_SetupOccludersForCell(const GfxCell *cell, const DpvsPlane *planes, int planeCount)
 {
-    activeOccluders.count = 0;
-    activeOccluderPlanes.count = 0;
-    for (int occluderIndex = 0; occluderIndex < cell->occluderCount; ++occluderIndex)
+    int occluderIndex = 0;
+    activeOccluders.count = occluderIndex;
+    activeOccluderPlanes.count = occluderIndex;
+    for (; occluderIndex < cell->occluderCount; ++occluderIndex)
     {
         GfxOccluder *occluder = cell->occluders[occluderIndex];
         if (R_IsOccluderOutsideView(occluder, planes, planeCount))
@@ -780,7 +800,7 @@ void R_SetupOccludersForCell(const GfxCell *cell, const DpvsPlane *planes, int p
             if (edge->plane[0]->u.frontal == edge->plane[1]->u.frontal)
                 continue;
             if (r_showPortals->current.integer)
-                R_AddOccluderDebugLine(&frontEndDataOut->debugGlobals, *edge->vertex[0], *edge->vertex[1]);
+                R_AddDebugLine(&frontEndDataOut->debugGlobals, *edge->vertex[0], *edge->vertex[1], colorMagenta);
             int side = edge->plane[0]->u.frontal;
             R_CreateOccluderEdgePlane(*edge->vertex[!side], *edge->vertex[side],
                 &activeOccluderPlanes.planes[activeOccluderPlanes.count]);
@@ -788,18 +808,6 @@ void R_SetupOccludersForCell(const GfxCell *cell, const DpvsPlane *planes, int p
         }
         occluder->viewPlaneCount = activeOccluderPlanes.count - occluder->viewPlaneCount;
     }
-}
-
-void R_DrawModel(int entIndex)
-{
-    if (!dpvsGlob.debug.drawXModels)
-        return;
-    GfxEntity *ent = &scene.def.entities[entIndex];
-    GfxSceneEntity *sceneEnt = &scene.sceneEnts[entIndex];
-    R_UpdateXModelBounds(sceneEnt, ent);
-    R_SkinSceneEnt(sceneEnt, ent);
-    sceneEnt->cullState = 5;
-    R_AddXModelSurfaces(entIndex);
 }
 
 // PINNED 10007d60/93: equality and unordered plane distances take child1.
@@ -820,16 +828,6 @@ int R_CellForPoint(const vec_t *origin)
             node = node->u.node.children[1];
     }
     return node->cellIndex;
-}
-
-void R_CullSceneLights(const DpvsPlane *planes, int planeCount)
-{
-    for (int i = 0; i < scene.dlightCount; ++i)
-    {
-        const GfxLight *light = &scene.dlights[i];
-        scene.dlightCulled[i] = R_CullPointAndRadius(light->position,
-            light->position[3], planes, planeCount) == 2;
-    }
 }
 
 // PINNED 10007dc0/66; name SUPPORTED by KisakCOD.
@@ -874,16 +872,6 @@ static bool R_PortalBehindAllPlanes(const GfxPortal *portal, const DpvsPlane *pl
 }
 
 // PINNED adjacent active count/list at 101ce5c0/101ce5c4.
-
-// PINNED 10009700/58; descriptive name, not recovered debug information.
-static __declspec(noinline) bool R_IsPortalOccluded(const GfxPortal *portal)
-{
-    for (int index = 0; index < activeOccluders.count; ++index)
-        if (R_PortalBehindAllPlanes(portal, activeOccluders.list[index]->viewPlanes,
-                activeOccluders.list[index]->viewPlaneCount))
-            return true;
-    return false;
-}
 
 // PINNED 10007ef0; side and distance arrays include the closing vertex.
 static const vec3_t *R_ChopPortalWinding(const vec3_t *vertsIn, int *vertexCount,
@@ -975,8 +963,10 @@ static void R_AddAabbTreeSurfaces_r(GfxAabbTree *tree, DpvsPlane *planes,
         if (dpvsGlob.debug.drawSModels)
             for (int i = 0; i < tree->staticModelCount; ++i)
                 R_AddStaticModelDirect(tree->staticModels[i]);
+        int startSurfIndex = tree->startSurfIndex;
         for (int i = 0; i < tree->surfaceCount; ++i)
-            R_AddWorldSurfaceDirect(tree->startSurfIndex + i);
+            if (rg.surfaces[startSurfIndex + i].viewCount != scene.viewCount)
+                R_AddWorldSurfaceDirect(startSurfIndex + i);
     }
     else if (tree->childCount)
     {
@@ -991,6 +981,18 @@ static void R_AddAabbTreeSurfaces_r(GfxAabbTree *tree, DpvsPlane *planes,
         for (int i = 0; i < tree->surfaceCount; ++i)
             R_AddWorldSurfaceWithCull(tree->startSurfIndex + i, planes, planeCount, stackLevel + 1);
     }
+}
+
+void R_DrawModel(int entIndex)
+{
+    if (!dpvsGlob.debug.drawXModels)
+        return;
+    GfxEntity *ent = &scene.def.entities[entIndex];
+    GfxSceneEntity *sceneEnt = &scene.sceneEnts[entIndex];
+    R_UpdateXModelBounds(sceneEnt, ent);
+    R_SkinSceneEnt(sceneEnt, ent);
+    sceneEnt->cullState = 5;
+    R_AddXModelSurfaces(entIndex);
 }
 
 // PINNED 100083a0/288: pose hints and visibility are client callbacks, not DObj calls.
@@ -1111,6 +1113,19 @@ int R_FilterEntityIntoCells_r(mnode_t *node, int entIndex, const vec_t *mins, co
     return node->cellIndex;
 }
 
+// Name unconfirmed; PINNED out-of-line copy at 10008750, no direct callers in retail.
+Bool R_BoundsTooLargeForCellSplit(const vec_t *mins, const vec_t *maxs)
+{
+    if (maxs[0] - mins[0] > 1536.0f)
+    {
+        if (maxs[1] - mins[1] > 1536.0f || maxs[2] - mins[2] > 1536.0f)
+            return 1;
+    }
+    else if (maxs[1] - mins[1] > 1536.0f && maxs[2] - mins[2] > 1536.0f)
+        return 1;
+    return 0;
+}
+
 // PINNED 100087a0/283: bypass cell splitting only for two oversized dimensions.
 static void R_CullModelEntity(int entIndex, DpvsPlane *planes, int planeCount)
 {
@@ -1218,8 +1233,9 @@ static void R_AddVisibleSurfacesInCell(const GfxCell *cell, DpvsPlane *planes, i
             if (dpvsGlob.debug.drawSModels)
                 for (int i = 0; i < tree->staticModelCount; ++i)
                     R_AddStaticModelWithCull(tree->staticModels[i], planes, planeCount, 0);
+            int startSurfIndex = tree->startSurfIndex;
             for (int i = 0; i < tree->surfaceCount; ++i)
-                R_AddWorldSurfaceWithCull(tree->startSurfIndex + i, planes, planeCount, 0);
+                R_AddWorldSurfaceWithCull(startSurfIndex + i, planes, planeCount, 0);
         }
     }
     if (dpvsGlob.debug.drawEntities)
@@ -1244,21 +1260,23 @@ static void R_AddCullGroup(int groupIndex, DpvsPlane *planes, int planeCount)
     }
 }
 
-// PINNED 10009480/234 and10009570/283 share this actual model publication path.
-static void R_PublishStaticModel(int smodelIndex, const GfxStaticModelInstance *instance)
-{
-    if (r_showSModelNames->current.enabled)
-        R_AddDebugString(&frontEndDataOut->debugGlobals, instance->origin, colorWhite,
-            0.3f, ri.XModelGetName(instance->model));
-    int entIndex = R_AddStaticModelToScene(smodelIndex);
-    if (entIndex < 0)
-        return;
-    GfxSceneEntity *sceneEnt = &scene.sceneEnts[entIndex];
-    R_SkinStaticModel(sceneEnt, &scene.def.entities[entIndex], smodelIndex);
-    sceneEnt->cullState = 5;
-    R_AddXModelSurfaces(entIndex);
-}
+/* Retail has no out-of-line copy of this; both static model adders carry it inline. */
+#define R_PUBLISH_STATIC_MODEL(smodelIndex, instance) \
+    do { \
+        if (r_showSModelNames->current.enabled) \
+            R_AddDebugString(&frontEndDataOut->debugGlobals, (instance)->origin, colorWhite, \
+                0.3f, ri.XModelGetName((instance)->model)); \
+        int entIndex = R_AddStaticModelToScene(smodelIndex); \
+        if (entIndex >= 0) \
+        { \
+            GfxSceneEntity *sceneEnt = &scene.sceneEnts[entIndex]; \
+            R_SkinStaticModel(sceneEnt, &scene.def.entities[entIndex], (smodelIndex)); \
+            sceneEnt->cullState = 5; \
+            R_AddXModelSurfaces(entIndex); \
+        } \
+    } while (0)
 
+// PINNED 10009480/234.
 static void R_AddStaticModelDirect(int smodelIndex)
 {
     if (rg.smodelDyncs[smodelIndex].viewCount == scene.viewCount)
@@ -1268,7 +1286,7 @@ static void R_AddStaticModelDirect(int smodelIndex)
     if (instance->cullDist != 0.0f && instance->cullDist <
         Vec3Distance(instance->origin, rg.lodParms.origin) * rg.lodParms.scale + rg.lodParms.bias)
         return;
-    R_PublishStaticModel(smodelIndex, instance);
+    R_PUBLISH_STATIC_MODEL(smodelIndex, instance);
 }
 
 static void R_AddStaticModelWithCull(int smodelIndex, DpvsPlane *planes,
@@ -1287,7 +1305,7 @@ static void R_AddStaticModelWithCull(int smodelIndex, DpvsPlane *planes,
     if (R_IsBoundsOutsideView(planes, planeCount, instance->mins, stackLevel))
         return;
     rg.smodelDyncs[smodelIndex].viewCount = scene.viewCount;
-    R_PublishStaticModel(smodelIndex, instance);
+    R_PUBLISH_STATIC_MODEL(smodelIndex, instance);
 }
 
 // PINNED 10009690/55.
@@ -1300,6 +1318,106 @@ static void R_AddCellCullGroups(const GfxCell *cell, DpvsPlane *planes, int plan
         if (rg.cullGroups[groupIndex].viewCount != scene.viewCount)
             R_AddCullGroup(groupIndex, planes, planeCount);
     }
+}
+
+// PINNED 10009700/58; descriptive name, not recovered debug information.
+static __declspec(noinline) bool R_IsPortalOccluded(const GfxPortal *portal)
+{
+    for (int index = 0; index < activeOccluders.count; ++index)
+        if (R_PortalBehindAllPlanes(portal, activeOccluders.list[index]->viewPlanes,
+                activeOccluders.list[index]->viewPlaneCount))
+            return true;
+    return false;
+}
+
+// Names unconfirmed; PINNED out-of-line copies 10009740, 10009750, 10009760, no direct callers in retail.
+int R_PortalQueueParent(int index)
+{
+    return (index - 1) >> 1;
+}
+
+int R_PortalQueueFirstChild(int index)
+{
+    return index * 2 + 1;
+}
+
+void R_PortalQueueCheck()
+{
+}
+
+// PINNED 10009770/161.
+void R_PortalQueuePush(GfxPortal *portal)
+{
+    int index;
+    int parent;
+    float distance;
+
+    if (portalQueueCount >= 256)
+        R_Error(ERR_DROP, "More than %i queued portals", 256);
+    portal->writable.isQueued = 1;
+    distance = R_FurthestPointOnWinding(portal->vertices, portal->vertexCount, portalViewPlane.coeffs);
+    index = portalQueueCount;
+    for (;;)
+    {
+        parent = (index - 1) >> 1;
+        if (parent < 0 || distance >= portalQueue[parent].dist)
+            break;
+        portalQueue[index].portal = portalQueue[parent].portal;
+        portalQueue[index].dist = portalQueue[parent].dist;
+        index = parent;
+    }
+    portalQueue[index].portal = portal;
+    portalQueue[index].dist = distance;
+    ++portalQueueCount;
+}
+
+// PINNED 10009820/156.
+GfxPortal *R_PortalQueuePopMin()
+{
+    GfxPortal *top;
+    int count;
+    int hole;
+    int index;
+    int child;
+
+    top = portalQueue[0].portal;
+    *(unsigned char *)top = 0;
+    portalQueueCount--;
+    count = portalQueueCount;
+    hole = 0;
+    index = 1;
+    if (count > 0)
+    {
+        do
+        {
+            child = index;
+            if (index < count && portalQueue[index + 1].dist < portalQueue[index].dist)
+                child = index + 1;
+            if (portalQueue[count].dist <= portalQueue[child].dist)
+                break;
+            portalQueue[hole] = portalQueue[child];
+            index = child * 2 + 1;
+            hole = child;
+        } while (index <= count);
+    }
+    portalQueue[hole] = portalQueue[portalQueueCount];
+    return top;
+}
+
+// Names unconfirmed; PINNED out-of-line copies 100098c0 and 10009900, no direct callers in retail.
+GfxHullPointsPool *R_AllocHullPoints()
+{
+    GfxHullPointsPool *pool = nextFreeHullPoints;
+    if (!pool)
+        R_Error(ERR_DROP, "more than %i queued portals", 256);
+    nextFreeHullPoints = nextFreeHullPoints->nextFree;
+    return pool;
+}
+
+void R_FreeHullPoints(GfxHullPointsPool *pool)
+{
+    pool->nextFree = nextFreeHullPoints;
+    nextFreeHullPoints = pool;
 }
 
 // PINNED: 10009910; descriptive name SUPPORTED by KisakCOD.
@@ -1330,6 +1448,22 @@ void R_AddVertToPortalHullPoints(GfxPortal *portal, const float *v)
     portal->hullPoints[portal->hullPointCount][1] =
         portal->hullAxis[1][0] * v[0] + (portal->hullAxis[1][1] * v[1] + portal->hullAxis[1][2] * v[2]);
     ++portal->hullPointCount;
+}
+
+// Name unconfirmed; PINNED out-of-line copy at 10009a10, no direct callers in retail.
+bool R_IsPortalCulled(const GfxPortal *portal, const DpvsPlane *planes, int planeCount)
+{
+    if (portal->writable.isAncestor)
+        return true;
+    float distance = dpvsViewOrg[0] * portal->plane.coeffs[0]
+        + dpvsViewOrg[3] * portal->plane.coeffs[3]
+        + dpvsViewOrg[2] * portal->plane.coeffs[2]
+        + dpvsViewOrg[1] * portal->plane.coeffs[1];
+    if (distance > 0.0f)
+        return true;
+    if (R_PortalBehindAnyPlane(portal, planes, planeCount))
+        return true;
+    return R_IsPortalOccluded(portal);
 }
 
 static int R_ChopPortal(const GfxPortal *portal, const DpvsPlane *parentPlane,
@@ -1381,6 +1515,13 @@ static bool R_IsCellInList(const GfxCell *cell, const GfxCell **list, int count)
     return false;
 }
 
+// Name unconfirmed; PINNED out-of-line copy at 10009bb0, no direct callers in retail.
+int R_AppendCellToList(const GfxCell **list, int count, const GfxCell *cell)
+{
+    list[count] = cell;
+    return count + 1;
+}
+
 int R_GetFurtherCellList_r(const GfxCell *cell, const DpvsPlane *parentPlane,
     const DpvsPlane *planes, int planeCount, vec3_t v[2][128], const GfxCell **list, int count)
 {
@@ -1402,31 +1543,6 @@ int R_GetFurtherCellList_r(const GfxCell *cell, const DpvsPlane *parentPlane,
     return count;
 }
 
-void R_PortalQueuePush(GfxPortal *portal)
-{
-    int index;
-    int parent;
-    float distance;
-
-    if (portalQueueCount >= 256)
-        R_Error(ERR_DROP, "More than %i queued portals", 256);
-    portal->writable.isQueued = 1;
-    distance = R_FurthestPointOnWinding(portal->vertices, portal->vertexCount, portalViewPlane.coeffs);
-    index = portalQueueCount;
-    for (;;)
-    {
-        parent = (index - 1) >> 1;
-        if (parent < 0 || distance >= portalQueue[parent].dist)
-            break;
-        portalQueue[index].portal = portalQueue[parent].portal;
-        portalQueue[index].dist = portalQueue[parent].dist;
-        index = parent;
-    }
-    portalQueue[index].portal = portal;
-    portalQueue[index].dist = distance;
-    ++portalQueueCount;
-}
-
 // PINNED 10009cf0/167: cells beyond an unclipped opening reuse the current frustum.
 static void R_DrawFurtherCells(const GfxCell *cell, const DpvsPlane *parentPlane,
     DpvsPlane *planes, int planeCount)
@@ -1440,6 +1556,25 @@ static void R_DrawFurtherCells(const GfxCell *cell, const DpvsPlane *parentPlane
         if (dpvsGlob.debug.drawWorld)
             R_AddCellCullGroups(cells[i], planes, planeCount);
     }
+}
+
+// Names unconfirmed; PINNED out-of-line copies 10009da0, 10009db0, 10009dd0, no direct callers in retail.
+void R_SetPortalAncestorFlags(GfxPortal *portal, byte value)
+{
+    for (; portal; portal = portal->writable.queuedParent)
+        portal->writable.isAncestor = value;
+}
+
+void R_MarkPortalAncestors(GfxPortal *portal)
+{
+    for (; portal; portal = portal->writable.queuedParent)
+        portal->writable.isAncestor = true;
+}
+
+void R_ClearPortalAncestors(GfxPortal *portal)
+{
+    for (; portal; portal = portal->writable.queuedParent)
+        portal->writable.isAncestor = false;
 }
 
 // PINNED 10009df0/547: ancestors are marked only while visiting this cell.
@@ -1456,6 +1591,9 @@ static void R_VisitPortalsForCell(const GfxCell *cell, GfxPortal *parentPortal,
     if (clipChildren == DPVS_DONT_CLIP_CHILDREN)
     {
         R_DrawFurtherCells(cell, parentPlane, planes, planeCount);
+        for (GfxPortal *ancestor = parentPortal; ancestor; ancestor = ancestor->writable.queuedParent)
+            ancestor->writable.isAncestor = false;
+        return;
     }
     else
     {
@@ -1468,7 +1606,7 @@ static void R_VisitPortalsForCell(const GfxCell *cell, GfxPortal *parentPortal,
                 + dpvsViewOrg[3] * portal->plane.coeffs[3]
                 + dpvsViewOrg[2] * portal->plane.coeffs[2]
                 + dpvsViewOrg[1] * portal->plane.coeffs[1];
-            if (!(distance <= 0.0f) || R_PortalBehindAnyPlane(portal, planes, planeCount)
+            if (distance > 0.0f || R_PortalBehindAnyPlane(portal, planes, planeCount)
                 || R_IsPortalOccluded(portal))
                 continue;
             if (dpvsViewOrg[3] == 0.0f || distance <= -0.125f)
@@ -1593,6 +1731,19 @@ void R_SetupDpvsForDir(const GfxViewParms *viewParms)
     portalFarPlane = 0;
 }
 
+// Name unconfirmed; PINNED out-of-line copy at 1000a620, no direct callers in retail.
+void R_SetupViewPlanes(const GfxViewParms *viewParms, const vec4_t *sides, int sideCount, DpvsPlane *planes)
+{
+    portalInverseViewProjectionMatrix = &viewParms->inverseViewProjectionMatrix;
+    activeOccluders.count = 0;
+    portalViewProjectionMatrix = &viewParms->viewProjectionMatrix;
+    R_FrustumClipPlanes(&viewParms->viewProjectionMatrix, sides, sideCount, planes);
+    if (viewParms->projectionMatrix.m[3][3] == 0.0f)
+        R_SetupDpvsForPoint(viewParms);
+    else
+        R_SetupDpvsForDir(viewParms);
+}
+
 // PINNED 1000a680/248: route entities before walking all/single/connected cells.
 static void R_AddWorldSurfacesByCell(int cameraCell, DpvsPlane *planes, int planeCount)
 {
@@ -1633,6 +1784,13 @@ static void R_AddSkySurfaces(DpvsPlane *planes, int planeCount)
         R_AddWorldSurfaceWithCull(rgp.world->skyStartSurfs[i], planes, planeCount - 1, 0);
 }
 
+// Name unconfirmed; PINNED out-of-line copy at 1000a7d0, no direct callers in retail.
+void R_AddWorldSurfacesAndSky(int cameraCell, DpvsPlane *planes, int planeCount)
+{
+    R_AddWorldSurfacesByCell(cameraCell, planes, planeCount);
+    R_AddSkySurfaces(planes, planeCount);
+}
+
 void R_ClearDpvsScene()
 {
     int cellIndex;
@@ -1642,6 +1800,16 @@ void R_ClearDpvsScene()
     {
         for (cellIndex = 0; cellIndex < rgp.world->cellCount; cellIndex++)
             rgp.world->cells[cellIndex].modelRefs = 0;
+    }
+}
+
+void R_CullSceneLights(const DpvsPlane *planes, int planeCount)
+{
+    for (int i = 0; i < scene.dlightCount; ++i)
+    {
+        const GfxLight *light = &scene.dlights[i];
+        scene.dlightCulled[i] = R_CullPointAndRadius(light->position,
+            light->position[3], planes, planeCount) == 2;
     }
 }
 
@@ -1660,10 +1828,8 @@ void R_AddWorldSurfacesDpvs(const GfxViewParms *viewParms, int cameraCell)
     activeOccluders.count = 0;
     portalViewProjectionMatrix = &viewParms->viewProjectionMatrix;
     portalInverseViewProjectionMatrix = &viewParms->inverseViewProjectionMatrix;
-    const vec4_t sides[4] = {{-1.0f, 0.0f, 0.0f, 1.0f}, {1.0f, 0.0f, 0.0f, 1.0f},
-        {0.0f, -1.0f, 0.0f, 1.0f}, {0.0f, 1.0f, 0.0f, 1.0f}};
     DpvsPlane planes[6];
-    R_FrustumClipPlanes(&viewParms->viewProjectionMatrix, sides, 4, planes);
+    R_FrustumClipPlanes(&viewParms->viewProjectionMatrix, standardFrustumSidePlanes, 4, planes);
     if (viewParms->projectionMatrix.m[3][3] == 0.0f)
         R_SetupDpvsForPoint(viewParms);
     else
@@ -1699,62 +1865,6 @@ void R_SetCullDist(float dist)
         dpvsCullDist = dist;
 }
 
-GfxPortal *R_PortalQueuePopMin()
-{
-    GfxPortal *top;
-    int count;
-    int hole;
-    int index;
-    int child;
-
-    top = portalQueue[0].portal;
-    *(unsigned char *)top = 0;
-    portalQueueCount--;
-    count = portalQueueCount;
-    hole = 0;
-    index = 1;
-    if (count > 0)
-    {
-        do
-        {
-            child = index;
-            if (index < count && portalQueue[index + 1].dist < portalQueue[index].dist)
-                child = index + 1;
-            if (portalQueue[count].dist <= portalQueue[child].dist)
-                break;
-            portalQueue[hole] = portalQueue[child];
-            index = child * 2 + 1;
-            hole = child;
-        } while (index <= count);
-    }
-    portalQueue[hole] = portalQueue[portalQueueCount];
-    return top;
-}
 
 
 
-// PINNED: view projection 101ce5b8, inverse view projection 101ce5bc.
-
-static __forceinline void R_UnprojectPoint(const float *projected, float *unprojected)
-{
-    const D3DMATRIX *matrix = portalInverseViewProjectionMatrix;
-    unprojected[0] = matrix->m[0][0] * projected[0] + matrix->m[1][0] * projected[1] + matrix->m[3][0];
-    unprojected[1] = matrix->m[0][1] * projected[0] + matrix->m[1][1] * projected[1] + matrix->m[3][1];
-    unprojected[2] = matrix->m[0][2] * projected[0] + matrix->m[1][2] * projected[1] + matrix->m[3][2];
-    unprojected[3] = matrix->m[0][3] * projected[0] + matrix->m[1][3] * projected[1] + matrix->m[3][3];
-}
-
-static __forceinline void R_AddPortalDebugLine(const float *start, const float *end, float cyan)
-{
-    DebugGlobals *debug = &frontEndDataOut->debugGlobals;
-    if (debug->lineCount + 1 > debug->lineLimit)
-        return;
-    if (!debug->lines)
-        debug->lines = (trDebugLine_t *)ri.Z_MallocInternal(debug->lineLimit * sizeof(trDebugLine_t));
-    trDebugLine_t *line = &debug->lines[debug->lineCount];
-    VectorCopy(start, line->start);
-    VectorCopy(end, line->end);
-    Vector4Set(line->color, 0.0f, cyan, cyan, 1.0f);
-    line->depthTest = 0;
-    ++debug->lineCount;
-}

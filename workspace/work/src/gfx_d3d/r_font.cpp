@@ -118,6 +118,17 @@ void R_DuplicateFont(Font_s *fontCopy, const char *name)
     registeredFontCount++;
 }
 
+// Name unconfirmed; PINNED 1000bf20/1. Empty uncalled retail function.
+void R_FontNoOp()
+{
+}
+
+// Name unconfirmed; PINNED 1000bf30/11. Uncalled retail copy of R_ShutdownFonts.
+void R_ResetRegisteredFonts()
+{
+    registeredFontCount = 0;
+}
+
 float R_NormalizedTextScale(Font_s *font, float scale)
 {
     return scale * 48.0f / font->pixelHeight;

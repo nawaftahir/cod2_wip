@@ -53,7 +53,7 @@ byte *R_TakeResampledScreenshot(int width, int height, int bytesPerPixel, int he
 void R_SaveJpg(const char *filename, int quality, int width, int height, byte *pixels);
 Bool R_GetFrontBufferData(int x, int y, int width, int height, int bytesPerPixel, byte *buffer);
 void R_TakeScreenshotTga(int x, int y, int width, int height, const char *filename);
-__forceinline void R_TakeScreenshotJpeg(int x, int y, int width, int height, const char *filename);
+static __forceinline void R_TakeScreenshotJpeg(int x, int y, int width, int height, const char *filename);
 void R_SaveGameShot(const char *name);
 void R_ScreenshotFilename(int number, const char *extension, char *filename);
 void R_ScreenShotCmd(int type);
@@ -85,7 +85,7 @@ void R_ScreenshotFilename(int number, const char *extension, char *filename);
 void R_ScreenShotCmd(int type);
 void R_ScreenShot_f();
 void R_ScreenShotJpeg_f();
-__forceinline void R_TakeScreenshotJpeg(int x, int y, int width, int height, const char *filename);
+static __forceinline void R_TakeScreenshotJpeg(int x, int y, int width, int height, const char *filename);
 void R_SaveGameShot(const char *name);
 
 // PINNED 100052a0/9: type1 is TGA.
@@ -109,64 +109,39 @@ void R_ScreenshotFilename(int number, const char *extension, char *filename)
         Com_sprintf(filename, 256, "screenshots/shot9999.%s", extension);
 }
 
-// PINNED 100263a0/567: preserve the original9999 rejection and negative-counter fallback.
-void R_ScreenShotCmd(int type)
+void R_DownsamplePixelData(int oldSize, int newSize, int stride, int bytesPerPixel, byte *src, byte *dst)
 {
-    const char *extension;
-    switch (type)
+    float colorScale = 1.0f / oldSize;
+    int nextSample = bytesPerPixel * stride;
+    int residual = newSize;
+    int column;
+    int color0;
+    int color1;
+    int color2;
+
+    for (column = 0; column < newSize; ++column)
     {
-    case 0:
-        extension = "jpg";
-        break;
-    case 1:
-        extension = "tga";
-        break;
-    default:
-        return;
-    }
-    if (!strcmp(ri.Cmd_Argv(1), "levelshot"))
-    {
-        R_LevelShot();
-        return;
-    }
-    if (!strcmp(ri.Cmd_Argv(1), "savegame") && ri.Cmd_Argc() == 3 && ri.Cmd_Argv(2)[0])
-    {
-        R_SaveGameShot(ri.Cmd_Argv(2));
-        return;
-    }
-    int silent = !strcmp(ri.Cmd_Argv(1), "silent");
-    char filename[256];
-    if (ri.Cmd_Argc() == 2 && !silent)
-        Com_sprintf(filename, sizeof(filename), "screenshots/%s.%s", ri.Cmd_Argv(1), extension);
-    else
-    {
-        while (lastScreenShotNumber <= 9999)
+        color0 = residual * src[0];
+        color1 = residual * src[1];
+        color2 = residual * src[2];
+        src += nextSample;
+        while (newSize + residual - oldSize <= 0)
         {
-            R_ScreenshotFilename(lastScreenShotNumber, extension, filename);
-            if (!ri.FS_FileExists(filename))
-                break;
-            ++lastScreenShotNumber;
+            color0 += newSize * src[0];
+            color1 += newSize * src[1];
+            color2 += newSize * src[2];
+            residual += newSize;
+            src += nextSample;
         }
-        if (lastScreenShotNumber >= 9999)
-        {
-            ri.Printf(0, "ScreenShot: Couldn't create a file\n");
-            return;
-        }
-        ++lastScreenShotNumber;
+        residual = newSize + residual - oldSize;
+        float scaledColor0 = colorScale * (color0 + src[0] * (newSize - residual));
+        color1 += src[1] * (newSize - residual);
+        color2 += src[2] * (newSize - residual);
+        dst[0] = (byte)I_fround(scaledColor0);
+        dst[1] = (byte)I_fround(colorScale * color1);
+        dst[2] = (byte)I_fround(colorScale * color2);
+        dst += nextSample;
     }
-    switch (type)
-    {
-    case 0:
-        R_TakeScreenshotJpeg(0, 0, vidConfig.width, vidConfig.height, filename);
-        break;
-    case 1:
-        R_TakeScreenshotTga(0, 0, vidConfig.width, vidConfig.height, filename);
-        break;
-    default:
-        return;
-    }
-    if (!silent)
-        ri.Printf(0, "Wrote %s\n", filename);
 }
 
 void R_UpsamplePixelData(int oldSize, int newSize, int stride, int bytesPerPixel, byte *src, byte *dst)
@@ -260,21 +235,6 @@ void R_ResampleImage(int oldWidth, int oldHeight, int newWidth, int newHeight, i
             dst -= bytesPerPixel;
         }
     }
-}
-
-byte *R_TakeResampledScreenshot(int width, int height, int bytesPerPixel, int headerSize)
-{
-    int allocWidth = I_max(width, vidConfig.width);
-    int allocHeight = I_max(height, vidConfig.height);
-    byte *buffer = (byte *)ri.Z_MallocInternal(allocWidth * allocHeight * bytesPerPixel + headerSize);
-    // Retail captures at the buffer start, then resamples after the header.
-    if (!R_GetFrontBufferData(0, 0, vidConfig.width, vidConfig.height, bytesPerPixel, buffer))
-    {
-        ri.Z_FreeInternal(buffer);
-        return NULL;
-    }
-    R_ResampleImage(vidConfig.width, vidConfig.height, width, height, bytesPerPixel, buffer + headerSize);
-    return buffer;
 }
 
 // PINNED: retail 0x10025e80; the PC path captures the D3D front buffer.
@@ -393,39 +353,19 @@ createError:
     return 0;
 }
 
-void R_DownsamplePixelData(int oldSize, int newSize, int stride, int bytesPerPixel, byte *src, byte *dst)
+byte *R_TakeResampledScreenshot(int width, int height, int bytesPerPixel, int headerSize)
 {
-    float colorScale = 1.0f / oldSize;
-    int nextSample = bytesPerPixel * stride;
-    int residual = newSize;
-    int column;
-    int color0;
-    int color1;
-    int color2;
-
-    for (column = 0; column < newSize; ++column)
+    int allocWidth = I_max(width, vidConfig.width);
+    int allocHeight = I_max(height, vidConfig.height);
+    byte *buffer = (byte *)ri.Z_MallocInternal(allocWidth * allocHeight * bytesPerPixel + headerSize);
+    // Retail captures at the buffer start, then resamples after the header.
+    if (!R_GetFrontBufferData(0, 0, vidConfig.width, vidConfig.height, bytesPerPixel, buffer))
     {
-        color0 = residual * src[0];
-        color1 = residual * src[1];
-        color2 = residual * src[2];
-        src += nextSample;
-        while (newSize + residual - oldSize <= 0)
-        {
-            color0 += newSize * src[0];
-            color1 += newSize * src[1];
-            color2 += newSize * src[2];
-            residual += newSize;
-            src += nextSample;
-        }
-        residual = newSize + residual - oldSize;
-        float scaledColor0 = colorScale * (color0 + src[0] * (newSize - residual));
-        color1 += src[1] * (newSize - residual);
-        color2 += src[2] * (newSize - residual);
-        dst[0] = (byte)I_fround(scaledColor0);
-        dst[1] = (byte)I_fround(colorScale * color1);
-        dst[2] = (byte)I_fround(colorScale * color2);
-        dst += nextSample;
+        ri.Z_FreeInternal(buffer);
+        return NULL;
     }
+    R_ResampleImage(vidConfig.width, vidConfig.height, width, height, bytesPerPixel, buffer + headerSize);
+    return buffer;
 }
 
 void R_TakeScreenshotTga(int x, int y, int width, int height, const char *filename)
@@ -445,6 +385,120 @@ void R_TakeScreenshotTga(int x, int y, int width, int height, const char *filena
     ri.Z_FreeInternal(buffer);
 }
 
+// PINNED 10026240/78: capture failure still frees the pixel allocation.
+static __forceinline void R_TakeScreenshotJpeg(int x, int y, int width, int height, const char *filename)
+{
+    byte *buffer = (byte *)ri.Z_MallocInternal(width * height * 3);
+    if (R_GetFrontBufferData(x, y, width, height, 3, buffer))
+        R_SaveJpg(filename, 90, width, height, buffer);
+    ri.Z_FreeInternal(buffer);
+}
+
+// PINNED: retail 0x10026290 reads GfxWorld::baseName at +4.
+void R_LevelShot()
+{
+    char filename[256];
+    byte *buffer;
+    sprintf(filename, "levelshots/%s.tga", rgp.world->baseName);
+    buffer = R_TakeResampledScreenshot(128, 128, 3, 18);
+    if (buffer)
+    {
+        memset(buffer, 0, 18);
+        buffer[2] = 2;
+        buffer[12] = 128;
+        buffer[14] = 128;
+        buffer[16] = 24;
+        ri.FS_WriteFile(filename, buffer, 49170);
+        ri.Z_FreeInternal(buffer);
+        ri.Printf(0, "Wrote %s\n", filename);
+    }
+}
+
+// PINNED 10026330/101: savegame thumbnails use512-square resampled JPEGs.
+void R_SaveGameShot(const char *name)
+{
+    char filename[256];
+    sprintf(filename, "%s.jpg", name);
+    byte *buffer = R_TakeResampledScreenshot(512, 512, 3, 0);
+    if (buffer)
+    {
+        R_SaveJpg(filename, 90, 512, 512, buffer);
+        ri.Z_FreeInternal(buffer);
+    }
+}
+
+// PINNED 100263a0/567: preserve the original9999 rejection and negative-counter fallback.
+void R_ScreenShotCmd(int type)
+{
+    const char *extension;
+    switch (type)
+    {
+    case 0:
+        extension = "jpg";
+        break;
+    case 1:
+        extension = "tga";
+        break;
+    default:
+        return;
+    }
+    if (!strcmp(ri.Cmd_Argv(1), "levelshot"))
+    {
+        R_LevelShot();
+        return;
+    }
+    if (!strcmp(ri.Cmd_Argv(1), "savegame") && ri.Cmd_Argc() == 3 && ri.Cmd_Argv(2)[0])
+    {
+        R_SaveGameShot(ri.Cmd_Argv(2));
+        return;
+    }
+    int silent = !strcmp(ri.Cmd_Argv(1), "silent");
+    char filename[256];
+    if (ri.Cmd_Argc() == 2 && !silent)
+        Com_sprintf(filename, sizeof(filename), "screenshots/%s.%s", ri.Cmd_Argv(1), extension);
+    else
+    {
+        while (lastScreenShotNumber <= 9999)
+        {
+            R_ScreenshotFilename(lastScreenShotNumber, extension, filename);
+            if (!ri.FS_FileExists(filename))
+                break;
+            ++lastScreenShotNumber;
+        }
+        if (lastScreenShotNumber >= 9999)
+        {
+            ri.Printf(0, "ScreenShot: Couldn't create a file\n");
+            return;
+        }
+        ++lastScreenShotNumber;
+    }
+    switch (type)
+    {
+    case 0:
+        R_TakeScreenshotJpeg(0, 0, vidConfig.width, vidConfig.height, filename);
+        break;
+    case 1:
+        R_TakeScreenshotTga(0, 0, vidConfig.width, vidConfig.height, filename);
+        break;
+    default:
+        return;
+    }
+    if (!silent)
+        ri.Printf(0, "Wrote %s\n", filename);
+}
+
+// PINNED 100265e0: the ray is normalized before using its Z for Fresnel alpha.
+static __declspec(noinline) byte R_CubemapShotAlpha(int shotIndex, int column, int row, float n0, float n1)
+{
+    float halfSize = dx.cubemapShotRes * 0.5f;
+    vec3_t direction;
+    VectorScale(cubemapShotAxis[shotIndex][0], halfSize, direction);
+    VectorMA(direction, column - halfSize + 0.5f, cubemapShotAxis[shotIndex][1], direction);
+    VectorMA(direction, row - halfSize + 0.5f, cubemapShotAxis[shotIndex][2], direction);
+    Vec3Normalize(direction);
+    return (byte)I_fround(FresnelTerm(n0, n1, direction[2]) * 255.0f);
+}
+
 // PINNED 100266f0: flip complete BGRA words, leaving the odd middle row alone.
 static __declspec(noinline) void R_FlipCubemapShot(byte *buffer)
 {
@@ -459,53 +513,6 @@ static __declspec(noinline) void R_FlipCubemapShot(byte *buffer)
             *(unsigned int *)(buffer + bottomOffset) = pixel;
         }
     }
-}
-
-// PINNED 100268b0: failed capture still follows the flip/gamma path.
-static __declspec(noinline) void R_CaptureCubemapShot(int shotIndex)
-{
-    int bufferSize = dx.cubemapShotRes * dx.cubemapShotRes * 4;
-    byte *buffer = (byte *)ri.Z_MallocInternal(bufferSize);
-    cubeShotGlob.pixels[shotIndex - 1] = buffer;
-    R_GetFrontBufferData(dx.cubemapShotPixelBorder, dx.cubemapShotPixelBorder,
-        dx.cubemapShotRes, dx.cubemapShotRes, 4, buffer);
-    R_FlipCubemapShot(buffer);
-    if (r_overbrightBits->current.integer > 0 && vidConfig.deviceSupportsGamma)
-        R_GammaCorrect(bufferSize, buffer);
-}
-
-// PINNED 100269c0; descriptive name, historical helper name unconfirmed.
-static __declspec(noinline) void R_ClearForCubemapShot()
-{
-    RB_SetRenderTarget(R_RENDERTARGET_FRAME_BUFFER);
-    R_DX_CALL(dx.device->Clear( 0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, D3DCOLOR_ARGB(255,255,0,255), 1, 0 ));
-}
-
-// PINNED 10026a50: API59 slot64 narrows both arguments to unsigned shorts.
-void R_BeginCubemapShot(int pixelWidthHeight, int pixelBorder)
-{
-    dx.cubemapShotRes = (unsigned short)pixelWidthHeight;
-    dx.cubemapShotPixelBorder = (unsigned short)pixelBorder;
-    R_ClearForCubemapShot();
-}
-
-// PINNED 10026a70: API59 slot65 restores the framebuffer after capture.
-void R_EndCubemapShot(int shotIndex)
-{
-    R_CaptureCubemapShot(shotIndex);
-    RB_SetRenderTarget(R_RENDERTARGET_FRAME_BUFFER);
-}
-
-// PINNED 100265e0: the ray is normalized before using its Z for Fresnel alpha.
-static __declspec(noinline) byte R_CubemapShotAlpha(int shotIndex, int column, int row, float n0, float n1)
-{
-    float halfSize = dx.cubemapShotRes * 0.5f;
-    vec3_t direction;
-    VectorScale(cubemapShotAxis[shotIndex][0], halfSize, direction);
-    VectorMA(direction, column - halfSize + 0.5f, cubemapShotAxis[shotIndex][1], direction);
-    VectorMA(direction, row - halfSize + 0.5f, cubemapShotAxis[shotIndex][2], direction);
-    Vec3Normalize(direction);
-    return (byte)I_fround(FresnelTerm(n0, n1, direction[2]) * 255.0f);
 }
 
 // PINNED 100267e0: preserve BGRA channel order after the18-byte TGA header.
@@ -538,6 +545,19 @@ static __declspec(noinline) void R_WriteCubemapShotAlpha(int shotIndex, float n0
     }
 }
 
+// PINNED 100268b0: failed capture still follows the flip/gamma path.
+static __declspec(noinline) void R_CaptureCubemapShot(int shotIndex)
+{
+    int bufferSize = dx.cubemapShotRes * dx.cubemapShotRes * 4;
+    byte *buffer = (byte *)ri.Z_MallocInternal(bufferSize);
+    cubeShotGlob.pixels[shotIndex - 1] = buffer;
+    R_GetFrontBufferData(dx.cubemapShotPixelBorder, dx.cubemapShotPixelBorder,
+        dx.cubemapShotRes, dx.cubemapShotRes, 4, buffer);
+    R_FlipCubemapShot(buffer);
+    if (r_overbrightBits->current.integer > 0 && vidConfig.deviceSupportsGamma)
+        R_GammaCorrect(bufferSize, buffer);
+}
+
 // PINNED 10026920: release both buffers without clearing the saved face pointer.
 static __declspec(noinline) void R_WriteCubemapShot(int shotIndex, const char *filename, float n0, float n1)
 {
@@ -556,6 +576,28 @@ static __declspec(noinline) void R_WriteCubemapShot(int shotIndex, const char *f
     ri.FS_WriteFile(filename, targa, fileSize);
     ri.Z_FreeInternal(targa);
     ri.Z_FreeInternal(cubeShotGlob.pixels[shotIndex - 1]);
+}
+
+// PINNED 100269c0; descriptive name, historical helper name unconfirmed.
+static __declspec(noinline) void R_ClearForCubemapShot()
+{
+    RB_SetRenderTarget(R_RENDERTARGET_FRAME_BUFFER);
+    R_DX_CALL(dx.device->Clear( 0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, D3DCOLOR_ARGB(255,255,0,255), 1, 0 ));
+}
+
+// PINNED 10026a50: API59 slot64 narrows both arguments to unsigned shorts.
+void R_BeginCubemapShot(int pixelWidthHeight, int pixelBorder)
+{
+    dx.cubemapShotRes = (unsigned short)pixelWidthHeight;
+    dx.cubemapShotPixelBorder = (unsigned short)pixelBorder;
+    R_ClearForCubemapShot();
+}
+
+// PINNED 10026a70: API59 slot65 restores the framebuffer after capture.
+void R_EndCubemapShot(int shotIndex)
+{
+    R_CaptureCubemapShot(shotIndex);
+    RB_SetRenderTarget(R_RENDERTARGET_FRAME_BUFFER);
 }
 
 // PINNED 10026a90: API59 slot66 adapts the public filename-first parameter order.
@@ -650,28 +692,6 @@ void R_CubemapLighting(float (**linearColors)[3], int width, int height, const f
     }
 }
 
-// PINNED 10026240/78: capture failure still frees the pixel allocation.
-__forceinline void R_TakeScreenshotJpeg(int x, int y, int width, int height, const char *filename)
-{
-    byte *buffer = (byte *)ri.Z_MallocInternal(width * height * 3);
-    if (R_GetFrontBufferData(x, y, width, height, 3, buffer))
-        R_SaveJpg(filename, 90, width, height, buffer);
-    ri.Z_FreeInternal(buffer);
-}
-
-// PINNED 10026330/101: savegame thumbnails use512-square resampled JPEGs.
-void R_SaveGameShot(const char *name)
-{
-    char filename[256];
-    sprintf(filename, "%s.jpg", name);
-    byte *buffer = R_TakeResampledScreenshot(512, 512, 3, 0);
-    if (buffer)
-    {
-        R_SaveJpg(filename, 90, 512, 512, buffer);
-        ri.Z_FreeInternal(buffer);
-    }
-}
-
 static void R_CubemapShotExtractLinearLight(unsigned char **pixels, int width, int height, float (**linearColors)[3])
 {
     int faceIndex;
@@ -712,22 +732,3 @@ void R_LightingFromCubemapShots(const float *baseColor)
     ri.Z_FreeInternal(linearColors[0]);
 }
 
-// PINNED: retail 0x10026290 reads GfxWorld::baseName at +4.
-void R_LevelShot()
-{
-    char filename[256];
-    byte *buffer;
-    sprintf(filename, "levelshots/%s.tga", rgp.world->baseName);
-    buffer = R_TakeResampledScreenshot(128, 128, 3, 18);
-    if (buffer)
-    {
-        memset(buffer, 0, 18);
-        buffer[2] = 2;
-        buffer[12] = 128;
-        buffer[14] = 128;
-        buffer[16] = 24;
-        ri.FS_WriteFile(filename, buffer, 49170);
-        ri.Z_FreeInternal(buffer);
-        ri.Printf(0, "Wrote %s\n", filename);
-    }
-}

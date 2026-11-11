@@ -5,6 +5,7 @@
 #include "rb_backend.h"
 #include "rb_drawargs.h"
 #include "r_permanent.h"
+#include "r_entity.h"
 #include "universal/com_math.h"
 
 DxState dxState;
@@ -77,11 +78,11 @@ static const DxStencilDecode s_stencilOpDecode[6] =
 	{ 8, (D3DRENDERSTATETYPE)55 }, { 11, (D3DRENDERSTATETYPE)53 }, { 14, (D3DRENDERSTATETYPE)54 },
 	{ 20, (D3DRENDERSTATETYPE)188 }, { 23, (D3DRENDERSTATETYPE)186 }, { 26, (D3DRENDERSTATETYPE)187 }
 };
+static inline DWORD FloatAsInt(const float *value);
 static const DxStencilDecode s_stencilFuncDecode[2] =
 {
 	{ 17, (D3DRENDERSTATETYPE)56 }, { 29, (D3DRENDERSTATETYPE)189 }
 };
-static inline DWORD FloatAsInt(const float *value);
 void RB_ChangeState_1(int stateBits1);
 void RB_SetViewport(const GfxViewport *viewport);
 void RB_ChangeIndices(IDirect3DIndexBuffer9 *ib);
@@ -104,6 +105,7 @@ static const unsigned char defaultSamplerStateTable[] = { 1, 2, 6, 10, 11 };
 
 void MatrixInverse44(const float *mat, float *dst);
 void MatrixIdentity44(float out[4][4]);
+void MatrixSet44(float out[4][4], const vec3_t origin, const vec3_t axis[3], float scale);
 
 struct DxTextureOpDecode
 {
@@ -181,74 +183,6 @@ void RB_SetRenderTarget(GfxRenderTargetId newTargetId);
 void RB_SetInitialDx7State();
 void RB_SetInitialState();
 void RB_UpdateViewportConstants();
-
-// PINNED 10038430/104, 100384a0/104 and 10038510/114.
-void RB_ChangePixelShader(IDirect3DPixelShader9 *shader)
-{
-	if (dxState.pixelShader != shader)
-	{
-		R_DX_CALL(dx.device->SetPixelShader( shader ));
-		dxState.pixelShader = shader;
-	}
-}
-
-void RB_ChangeVertexShader(IDirect3DVertexShader9 *shader)
-{
-	if (dxState.vertexShader != shader)
-	{
-		R_DX_CALL(dx.device->SetVertexShader( shader ));
-		dxState.vertexShader = shader;
-	}
-}
-
-void RB_ChangeVertexDeclaration(IDirect3DVertexDeclaration9 *decl)
-{
-	if (dxState.vertexDecl != decl)
-	{
-		R_DX_CALL(dx.device->SetVertexDeclaration( decl ));
-		dxState.vertexDecl = decl;
-		dxState.fvf = 0;
-	}
-}
-
-void RB_SetFVF(DWORD fvf)
-{
-	if (!dxState.vertexDecl && dxState.fvf == fvf)
-		return;
-	R_DX_CALL(dx.device->SetFVF( fvf ));
-	dxState.fvf = fvf;
-	dxState.vertexDecl = NULL;
-}
-
-// PINNED 10038610/150: the triangle limits do not apply to 2D draws.
-void RB_DrawIndexedPrimitive(const GfxDrawPrimArgs *args)
-{
-	if (!backEnd.projection2D)
-	{
-		if (args->primCount < r_drawPrimFloor->current.integer)
-			return;
-		if (r_drawPrimCap->current.integer
-			&& args->primCount > r_drawPrimCap->current.integer)
-			return;
-	}
-	R_DX_CALL(dx.device->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, args->u.buf.baseVertex, args->firstVertexFromBase, args->vertexCount, args->u.buf.baseIndex, args->primCount ));
-}
-
-void RB_DecideDefaultSamplerState()
-{
-	backEnd.defaultSamplerState = defaultSamplerStateTable[r_textureMode->current.integer];
-}
-
-void RB_InitSceneViewport()
-{
-	backEnd.sceneViewport.width = vidConfig.width;
-	backEnd.sceneViewport.height = vidConfig.height;
-}
-
-static GfxCodeMatrices *RB_GetActiveCodeMatrices()
-{
-	return &backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel];
-}
 
 static void RB_InvalidateCodeMatrix(GfxCodeMatrix *matrix)
 {
@@ -346,44 +280,6 @@ void RB_SetInitialState()
 	dxState.textureFactor = 0xffffffff;
 	memset(dxState.vertexShaderConsts, 0xff, sizeof(dxState.vertexShaderConsts));
 	memset(dxState.pixelShaderConsts, 0xff, sizeof(dxState.pixelShaderConsts));
-}
-
-// Viewport calculation.
-void RB_UpdateViewportConstants()
-{
-	float renderTargetSize[2];
-	float invRenderTargetSize[2];
-	float halfViewportSize[2];
-	float viewportCenter[2];
-	float normalizedViewport[2];
-	GfxViewport viewport;
-
-	backEnd.projection2D = 0;
-	backEnd.viewportIsDirty = 1;
-	renderTargetSize[0] = (float)dxState.renderTargetWidth;
-	invRenderTargetSize[0] = 1.0f / renderTargetSize[0];
-	renderTargetSize[1] = (float)dxState.renderTargetHeight;
-	invRenderTargetSize[1] = 1.0f / renderTargetSize[1];
-	if (dxState.viewportBehavior == GFX_USE_VIEWPORT_FULL)
-	{
-		viewport.x = 0;
-		viewport.y = 0;
-		viewport.width = dxState.renderTargetWidth;
-		viewport.height = dxState.renderTargetHeight;
-	}
-	else
-		viewport = backEnd.sceneViewport;
-	normalizedViewport[0] = viewport.width * invRenderTargetSize[0];
-	normalizedViewport[1] = viewport.height * invRenderTargetSize[1];
-	halfViewportSize[0] = normalizedViewport[0] * 0.5f;
-	halfViewportSize[1] = normalizedViewport[1] * 0.5f;
-	viewportCenter[0] = viewport.x * invRenderTargetSize[0] + halfViewportSize[0];
-	viewportCenter[1] = viewport.y * invRenderTargetSize[1] + halfViewportSize[1];
-	viewportCenter[0] += invRenderTargetSize[0] * 0.5f;
-	viewportCenter[1] += invRenderTargetSize[1] * 0.5f;
-	RB_SetCodeConstant(43, renderTargetSize[0], renderTargetSize[1], invRenderTargetSize[0], invRenderTargetSize[1]);
-	RB_SetCodeConstant(46, halfViewportSize[0], -halfViewportSize[1], 0.0f, 1.0f);
-	RB_SetCodeConstant(47, viewportCenter[0], viewportCenter[1], 0.0f, 0.0f);
 }
 
 void RB_SetAlphaAntiAliasingState(int stateBits0)
@@ -525,11 +421,6 @@ void RB_ChangeState_0(int stateBits0)
 	dxState.activeStateBits[0] = stateBits0;
 }
 
-static inline DWORD FloatAsInt(const float *value)
-{
-	return *(const DWORD *)value;
-}
-
 void RB_ChangeState_1(int stateBits1)
 {
 	int changedBits;
@@ -622,6 +513,17 @@ void RB_ChangeState_1(int stateBits1)
 	dxState.activeStateBits[1] = stateBits1;
 }
 
+// Name unconfirmed; PINNED 1003d210/29. Uncalled retail copy, inlined in RB_ChangeTextureStageState.
+static __forceinline DWORD RB_DecodeTextureStageArg(int argBits)
+{
+	DWORD texArg = s_textureArgTable[argBits & 7];
+	if (argBits & 8)
+		texArg |= 0x10;
+	if (argBits & 0x10)
+		texArg |= 0x20;
+	return texArg;
+}
+
 static void RB_ChangeTextureStageState(int stageIndex, const DxTextureStageEnums *texStageEnums, int texStageBits, int *activeTexStageBits)
 {
 	int changedBits;
@@ -645,11 +547,7 @@ static void RB_ChangeTextureStageState(int stageIndex, const DxTextureStageEnums
 			if (texOp->usedArgs & (1 << argIndex))
 			{
 				argBits = (texStageBits >> argShift) & 0x1f;
-				texArg = s_textureArgTable[argBits & 7];
-				if (argBits & 8)
-					texArg |= 0x10;
-				if (argBits & 0x10)
-					texArg |= 0x20;
+				texArg = RB_DecodeTextureStageArg(argBits);
 				R_DX_CALL(dx.device->SetTextureStageState( stageIndex, texStageEnums->arg[argIndex], texArg ));
 			}
 			else
@@ -716,28 +614,9 @@ void RB_ChangeGenTexCoords(int samplerIndex, int genTexCoords)
 	dxState.genTexCoords[samplerIndex] = (unsigned char)genTexCoords;
 }
 
-void RB_ChangedWorldMatrix(float worldScale)
+void RB_DecideDefaultSamplerState()
 {
-	GfxCodeMatrices *activeMatrices;
-	const dvar_t *rendererInUse;
-
-	rendererInUse = r_rendererInUse;
-	activeMatrices = RB_GetActiveCodeMatrices();
-	activeMatrices->worldScale = worldScale;
-	activeMatrices->world.valid[0] = 1;
-	activeMatrices->world.valid[1] = 0;
-	activeMatrices->world.valid[2] = 0;
-	activeMatrices->world.valid[3] = 0;
-	RB_InvalidateCodeMatrix(&activeMatrices->worldView);
-	RB_InvalidateCodeMatrix(&activeMatrices->worldViewProjection);
-	RB_InvalidateCodeMatrix(&activeMatrices->normalizedWorld);
-	RB_InvalidateCodeMatrix(&activeMatrices->normalizedWorldView);
-	RB_InvalidateCodeMatrix(&activeMatrices->normalizedWorldViewProjection);
-	RB_InvalidateCodeMatrix(&activeMatrices->shadowLookupMatrix);
-	RB_InvalidateCodeMatrix(&activeMatrices->lightGridLookupMatrix);
-	RB_InvalidateCodeMatrix(&activeMatrices->worldOutdoorLookup);
-	if (rendererInUse->current.integer == 2)
-		R_DX_CALL(dx.device->SetTransform( (D3DTRANSFORMSTATETYPE)(0 + 256), &activeMatrices->world.matrix[0] ));
+	backEnd.defaultSamplerState = defaultSamplerStateTable[r_textureMode->current.integer];
 }
 
 void RB_SetAnisotropy()
@@ -857,6 +736,43 @@ void RB_InitImages()
 	}
 }
 
+// Mac name; PINNED 1003dde0/44. Uncalled in retail (rb_backend repeats the body inline).
+void RB_SetWorldMatrixForEntity(const GfxEntity *entity)
+{
+	MatrixSet44(backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel].world.matrix[0].m,
+		entity->origin, entity->axis, entity->scale);
+	RB_ChangedWorldMatrix(entity->scale);
+}
+
+static GfxCodeMatrices *RB_GetActiveCodeMatrices()
+{
+	return &backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel];
+}
+
+void RB_ChangedWorldMatrix(float worldScale)
+{
+	GfxCodeMatrices *activeMatrices;
+	const dvar_t *rendererInUse;
+
+	rendererInUse = r_rendererInUse;
+	activeMatrices = RB_GetActiveCodeMatrices();
+	activeMatrices->worldScale = worldScale;
+	activeMatrices->world.valid[0] = 1;
+	activeMatrices->world.valid[1] = 0;
+	activeMatrices->world.valid[2] = 0;
+	activeMatrices->world.valid[3] = 0;
+	RB_InvalidateCodeMatrix(&activeMatrices->worldView);
+	RB_InvalidateCodeMatrix(&activeMatrices->worldViewProjection);
+	RB_InvalidateCodeMatrix(&activeMatrices->normalizedWorld);
+	RB_InvalidateCodeMatrix(&activeMatrices->normalizedWorldView);
+	RB_InvalidateCodeMatrix(&activeMatrices->normalizedWorldViewProjection);
+	RB_InvalidateCodeMatrix(&activeMatrices->shadowLookupMatrix);
+	RB_InvalidateCodeMatrix(&activeMatrices->lightGridLookupMatrix);
+	RB_InvalidateCodeMatrix(&activeMatrices->worldOutdoorLookup);
+	if (rendererInUse->current.integer == 2)
+		R_DX_CALL(dx.device->SetTransform( (D3DTRANSFORMSTATETYPE)(0 + 256), &activeMatrices->world.matrix[0] ));
+}
+
 void RB_SetViewMatrix(const D3DMATRIX *matrix)
 {
 	GfxCodeMatrices *activeMatrices;
@@ -902,6 +818,13 @@ void RB_ProjectionMatrixChanged()
 	RB_InvalidateCodeMatrix(&activeMatrices->normalizedWorldViewProjection);
 	if (rendererInUse->current.integer == 2)
 		R_DX_CALL(dx.device->SetTransform( D3DTS_PROJECTION, &activeMatrices->projection.matrix[0] ));
+}
+
+// Mac name; PINNED 1003e220/64. Uncalled in retail.
+void RB_SetProjectionMatrix(const D3DMATRIX *matrix)
+{
+	memcpy(&RB_GetActiveCodeMatrices()->projection.matrix[0], matrix, sizeof(D3DMATRIX));
+	RB_ProjectionMatrixChanged();
 }
 
 void RB_SetDepthHackNearClip(float nearClip)
@@ -960,6 +883,67 @@ void RB_PopMatrixStack()
 	R_DX_CALL(dx.device->SetTransform( (D3DTRANSFORMSTATETYPE)(0 + 256), &backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel].world.matrix[0] ));
 	R_DX_CALL(dx.device->SetTransform( D3DTS_VIEW, &backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel].view.matrix[0] ));
 	R_DX_CALL(dx.device->SetTransform( D3DTS_PROJECTION, &backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel].projection.matrix[0] ));
+}
+
+void RB_InitSceneViewport()
+{
+	backEnd.sceneViewport.width = vidConfig.width;
+	backEnd.sceneViewport.height = vidConfig.height;
+}
+
+// Mac name; PINNED 1003e630/80. Uncalled in retail.
+bool RB_GetViewport(GfxViewport *outViewport)
+{
+	if (dxState.viewportBehavior == GFX_USE_VIEWPORT_FULL)
+	{
+		outViewport->x = 0;
+		outViewport->y = 0;
+		outViewport->width = dxState.renderTargetWidth;
+		outViewport->height = dxState.renderTargetHeight;
+	}
+	else
+	{
+		*outViewport = backEnd.sceneViewport;
+	}
+	return true;
+}
+
+// Viewport calculation.
+void RB_UpdateViewportConstants()
+{
+	float renderTargetSize[2];
+	float invRenderTargetSize[2];
+	float halfViewportSize[2];
+	float viewportCenter[2];
+	float normalizedViewport[2];
+	GfxViewport viewport;
+
+	backEnd.projection2D = 0;
+	backEnd.viewportIsDirty = 1;
+	renderTargetSize[0] = (float)dxState.renderTargetWidth;
+	invRenderTargetSize[0] = 1.0f / renderTargetSize[0];
+	renderTargetSize[1] = (float)dxState.renderTargetHeight;
+	invRenderTargetSize[1] = 1.0f / renderTargetSize[1];
+	if (dxState.viewportBehavior == GFX_USE_VIEWPORT_FULL)
+	{
+		viewport.x = 0;
+		viewport.y = 0;
+		viewport.width = dxState.renderTargetWidth;
+		viewport.height = dxState.renderTargetHeight;
+	}
+	else
+		viewport = backEnd.sceneViewport;
+	normalizedViewport[0] = viewport.width * invRenderTargetSize[0];
+	normalizedViewport[1] = viewport.height * invRenderTargetSize[1];
+	halfViewportSize[0] = normalizedViewport[0] * 0.5f;
+	halfViewportSize[1] = normalizedViewport[1] * 0.5f;
+	viewportCenter[0] = viewport.x * invRenderTargetSize[0] + halfViewportSize[0];
+	viewportCenter[1] = viewport.y * invRenderTargetSize[1] + halfViewportSize[1];
+	viewportCenter[0] += invRenderTargetSize[0] * 0.5f;
+	viewportCenter[1] += invRenderTargetSize[1] * 0.5f;
+	RB_SetCodeConstant(43, renderTargetSize[0], renderTargetSize[1], invRenderTargetSize[0], invRenderTargetSize[1]);
+	RB_SetCodeConstant(46, halfViewportSize[0], -halfViewportSize[1], 0.0f, 1.0f);
+	RB_SetCodeConstant(47, viewportCenter[0], viewportCenter[1], 0.0f, 0.0f);
 }
 
 void RB_SetDepthRange(float nearValue, float farValue)
@@ -1047,6 +1031,13 @@ void RB_BindWhiteImages()
 		RB_SetSampler(index, dxState.samplerState[index], rgp.whiteImage);
 }
 
+// Mac name; PINNED 1003ec80/36. Same body as RB_BindWhiteImages, uncalled in retail.
+void RB_BindDefaultImages()
+{
+	for (int index = 0; index < 16; ++index)
+		RB_SetSampler(index, dxState.samplerState[index], rgp.whiteImage);
+}
+
 void RB_ChangeIndices(IDirect3DIndexBuffer9 *ib)
 {
 	dxState.indexBufferDeselecting = dxState.indexBuffer;
@@ -1070,4 +1061,10 @@ void RB_ClearAllStreamSources()
 {
     if (dxState.streams[0].vb || dxState.streams[0].offset || dxState.streams[0].stride)
         RB_ChangeStreamSource(0, 0, 0, 0);
+}
+
+// Retail has no copy before RB_ChangeState_1; the standalone copy lands at the end of the object.
+static inline DWORD FloatAsInt(const float *value)
+{
+	return *(const DWORD *)value;
 }

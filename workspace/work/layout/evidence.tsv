@@ -411,7 +411,7 @@ accepted	gfx_d3d/rb_debug.cpp	VectorSet	10001860	bind
 accepted	gfx_d3d/rb_fog.cpp	RB_FogOffset	100348f0	mac
 accepted	gfx_d3d/rb_fog.cpp	RB_SetIteratorFog	10034910	mac
 accepted	gfx_d3d/rb_fog.cpp	RB_UpdateFogColor	10034bb0	mac
-accepted	gfx_d3d/rb_fog.cpp	R_ConvertPackedColorToFloat	100236c0	bind
+accepted	gfx_d3d/r_scene.cpp	Byte4UnpackBgra	100236c0	bind
 accepted	gfx_d3d/rb_imagefilter.cpp	RB_GaussianFilterPoints1D	10034ca0	mac
 accepted	gfx_d3d/rb_imagefilter.cpp	RB_GenerateGaussianFilter1D	10034ec0	bind
 accepted	gfx_d3d/rb_imagetouch.cpp	RB_CompareTouchImages	10035850	mac
@@ -460,15 +460,15 @@ accepted	gfx_d3d/rb_state.cpp	RB_ChangeAlphaStageState	1003d410	mac
 accepted	gfx_d3d/rb_state.cpp	RB_ChangeColorStageState	1003d3d0	mac
 accepted	gfx_d3d/rb_state.cpp	RB_ChangeGenTexCoords	1003d4c0	mac
 accepted	gfx_d3d/rb_state.cpp	RB_ChangeIndices	1003ecb0	mac
-accepted	gfx_d3d/rb_state.cpp	RB_ChangePixelShader	10038430	bind
+accepted	gfx_d3d/rb_shade.cpp	RB_ChangePixelShader	10038430	bind
 accepted	gfx_d3d/rb_state.cpp	RB_ChangeState_0	1003c430	mac
 accepted	gfx_d3d/rb_state.cpp	RB_ChangeState_1	1003cc60	mac
 accepted	gfx_d3d/rb_state.cpp	RB_ChangeStreamSource	1003ed20	mac
 accepted	gfx_d3d/rb_state.cpp	RB_ChangeTextureStageState	1003d230	mac
-accepted	gfx_d3d/rb_state.cpp	RB_ChangeVertexDeclaration	10038510	bind
-accepted	gfx_d3d/rb_state.cpp	RB_ChangeVertexShader	100384a0	bind
+accepted	gfx_d3d/rb_shade.cpp	RB_ChangeVertexDeclaration	10038510	bind
+accepted	gfx_d3d/rb_shade.cpp	RB_ChangeVertexShader	100384a0	bind
 accepted	gfx_d3d/rb_state.cpp	RB_CopyViewParmsMatrices	1003e2a0	doubt
-accepted	gfx_d3d/rb_state.cpp	RB_DrawIndexedPrimitive	10038610	bind
+accepted	gfx_d3d/rb_shade.cpp	RB_DrawIndexedPrimitive	10038610	bind
 accepted	gfx_d3d/rb_state.cpp	RB_GetSamplerFilterModes	1003d920	mac
 accepted	gfx_d3d/rb_state.cpp	RB_InitImages	1003ddb0	mac
 accepted	gfx_d3d/rb_state.cpp	RB_PopMatrixStack	1003e4b0	mac
@@ -476,7 +476,7 @@ accepted	gfx_d3d/rb_state.cpp	RB_PushMatrixStack	1003e480	mac
 accepted	gfx_d3d/rb_state.cpp	RB_SetAlphaAntiAliasingState	1003c3a0	mac
 accepted	gfx_d3d/rb_state.cpp	RB_SetAnisotropy	1003d860	mac
 accepted	gfx_d3d/rb_state.cpp	RB_SetDepthRange	1003e800	mac
-accepted	gfx_d3d/rb_state.cpp	RB_SetFVF	10038590	bind
+accepted	gfx_d3d/rb_shade.cpp	RB_SetFVF	10038590	bind
 accepted	gfx_d3d/rb_state.cpp	RB_SetInitialDx7State	1003c100	doubt
 accepted	gfx_d3d/rb_state.cpp	RB_SetSampler	1003d950	mac
 accepted	gfx_d3d/rb_state.cpp	RB_SetSamplerConstantDx7	1003d450	mac

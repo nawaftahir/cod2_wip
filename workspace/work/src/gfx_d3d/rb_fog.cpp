@@ -37,7 +37,7 @@ typedef char rbFogLayoutCheck[(offsetof(r_backEndGlobals_t, fogColor) == 0x4c8
         ((SetState)(*(void ***)device)[57])(device, state, value); \
     } while (alwaysfails)
 static DWORD FloatAsInt(const float *value);
-__declspec(noinline) void R_ConvertPackedColorToFloat(const byte *color, float *out);
+void Byte4UnpackBgra(const byte *from, float *to);
 GfxFogOffset RB_FogOffset();
 void RB_UpdateFogColor(FogColorSrcEnum source);
 void RB_SetIteratorFog();
@@ -45,15 +45,6 @@ void RB_SetIteratorFog();
 static DWORD FloatAsInt(const float *value)
 {
     return *(const DWORD *)value;
-}
-
-// The binary has this genuine out-of-line conversion call; no new assembly.
-__declspec(noinline) void R_ConvertPackedColorToFloat(const byte *color, float *out)
-{
-    out[0] = color[2] * (1.0f / 255.0f);
-    out[1] = color[1] * (1.0f / 255.0f);
-    out[2] = color[0] * (1.0f / 255.0f);
-    out[3] = color[3] * (1.0f / 255.0f);
 }
 
 GfxFogOffset RB_FogOffset()
@@ -73,7 +64,7 @@ void RB_SetIteratorFog()
     backEnd.fogColor = fog->color;
     RB_UpdateFogColor(FOG_COLOR_SRC_UNSPECIFIED);
     float color[4];
-    R_ConvertPackedColorToFloat(fog->color.array, color);
+    Byte4UnpackBgra(fog->color.array, color);
     backEnd.codeConsts[29][0] = color[0];
     backEnd.codeConsts[29][1] = color[1];
     backEnd.codeConsts[29][2] = color[2];

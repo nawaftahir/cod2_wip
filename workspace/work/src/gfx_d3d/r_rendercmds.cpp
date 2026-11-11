@@ -3,6 +3,66 @@
 #include "rb_tess.h"
 #include "r_scene_commands.h"
 #include <stddef.h>
+#define RC_FIRST_NONCRITICAL 0xf
+void R_InitRenderCmds();
+void R_ShutdownBackendData();
+static void R_ProcessFrontendCmdInternal(int type, void *data, int context);
+void R_AddFrontendCmd(int type, void *data);
+void R_UpdateEffectsBolt();
+void R_UpdateEffectsNonBolt();
+void R_UpdateGfxEntityBoundsCmd(GfxEntity *ent);
+void R_SkinGfxEntityCmd(GfxEntity *ent);
+void R_IssueRenderCommands();
+void R_AbortRenderCommands();
+void R_SyncRenderThread();
+static GfxCmdHeader *R_GetCommandBuffer(int renderCmd, int bytes);
+static void *R_GrowCommandBuffer(int bytes);
+void R_AddCmdTouchAllImages();
+void R_AddCmdEndOfList();
+int R_BeginDelayedDrawing();
+void R_EndDelayedDrawing(int marker);
+void R_IssueDelayedDrawing(int marker);
+void R_InitFrameBackendData();
+GfxViewParms *R_AllocViewParms();
+void R_AddCmdDrawStretchPic(float x, float y, float w, float h, float s0, float t0, float s1, float t1, const vec_t *color, MaterialHandle material);
+void R_AddCmdDrawStretchPicRotate(float x, float y, float w, float h, float s0, float t0, float s1, float t1, float angle, const vec_t *color, MaterialHandle material);
+void R_AddCmdDrawStretchRaw(int x, int y, int w, int h, int cols, int rows, const byte *data, int client, qboolean dirty);
+void R_AddCmdDrawTextWithCursor(const char *text, int maxChars, FontHandle font, float x, float y, float xScale, float yScale, const vec_t *color, int style, int cursorPos, char cursor);
+void R_AddCmdDrawTextInSpace(const char *text, FontHandle font, const vec_t *org, const vec_t *xPixelStep, const vec_t *yPixelStep, const vec_t *color);
+void R_AddCmdDrawQuadPic(vec2_t *verts, const vec_t *color, MaterialHandle material);
+void R_AddCmdDrawSprite(MaterialHandle material, const byte *rgbaColor, const vec_t *pos, float radius, float minScreenRadius, int renderFxFlags);
+void R_AddCmdDrawFullScreenColoredQuad(float s0, float t0, float s1, float t1, const vec_t *color, MaterialHandle material);
+void R_AddCmdSetMaterialColor(const vec_t *color);
+void R_AddCmdLightProperties(int lightIndex, const GfxLight *light);
+void R_AddCmdSetRenderTarget(GfxRenderTargetId renderTargetId);
+void R_AddCmdDrawSurfs(GfxDrawSurf *drawSurfs, int drawSurfCount,
+    MaterialTechniqueType techType, GfxDrawSurfOrder order);
+void R_AddCmdDrawSun(int viewIndex);
+void R_AddCmdId9(const RcWords16 *data, int extra);
+void R_AddCmdBeginView(int viewCount, const GfxSceneDef *sceneDef,
+    const GfxViewParms *viewParms, const GfxLodParms *lodParms);
+void R_AddCmdSetViewport(int x, int y, int width, int height);
+static bool R_ClearModifiedDvar(const dvar_t *dvar);
+bool R_ClearModifiedLightDvars();
+bool R_ClearModifiedGpuSyncDvars();
+static void R_UpdateLodDistances();
+static void R_UpdateFrameDvars();
+void R_BeginFrame();
+void R_EndFrame();
+void R_BeginDebugFrame();
+void R_EndDebugFrame();
+void R_AddCmdApplyEarlyPostEffects();
+void R_AddCmdApplyLatePostEffects(float blurRadius);
+void R_AddCmdDrawSunPostEffects(int viewIndex);
+void R_AddCmdHeaderOnly1C();
+void R_AddCmdClearScreen(int whichToClear, const float *color, float depth, int stencil);
+void R_AddCmdSaveScreen();
+void R_AddCmdBlendSavedScreen(int fadeMsec);
+void R_AddCmdDrawPoints(short pointCount, short size, const GfxPointVertex *verts);
+void R_AddCmdDrawLines(short lineCount, short width, const GfxPointVertex *verts);
+void R_AddCmdDrawTriangles(Material *material, MaterialTechniqueType techType,
+    short indexCount, const unsigned short *indices, short vertexCount,
+    const float (*xyzw)[4], const float (*normal)[3], const byte (*color)[4], const float (*st)[2]);
 
 GfxBackEndData *frontEndDataOut;
 
@@ -11,16 +71,6 @@ typedef char effectImportOffsets[
     (offsetof(refimport_t, FX_UpdateBolt) == 166 * 4 &&
      offsetof(refimport_t, FX_UpdateNonBolt) == 165 * 4 &&
      sizeof(refimport_t) == 169 * 4) ? 1 : -1];
-
-void R_UpdateEffectsBolt()
-{
-    ri.FX_UpdateBolt();
-}
-
-void R_UpdateEffectsNonBolt()
-{
-    ri.FX_UpdateNonBolt();
-}
 
 // PINNED 101e4a00: saved frame pointers, lock flag and the debug frame payload.
 GfxDebugFrameGlob s_debugFrameGlob;
@@ -49,82 +99,10 @@ typedef char normalFrameLayoutCheck[
     offsetof(DxGlobals, skinnedCacheVbPool) == 0x2d90 &&
     offsetof(DxGlobals, dynamicBufferFrame) == 0x2dcc ? 1 : -1];
 
-// PINNED 10021040/143: selecting a normal frame does not reset command counters.
-void R_InitFrameBackendData()
-{
-    GfxBackEndData *data = &s_backEndData;
-    frontEndDataOut = data;
-    data->frameCount = ++rg.frameCountInternal;
-    R_UnlockSkinnedCache();
-    int bufferFrame = (dx.dynamicBufferFrame + 1) % 2;
-    *(volatile int *)&dx.dynamicBufferFrame = bufferFrame;
-    data->skinnedCacheVb = &dx.skinnedCacheVbPool[bufferFrame];
-    data->skinnedCacheVb->used = 0;
-    data->drawSurfCount = 0;
-    data->surfPos = 0;
-    data->entityCount = 0;
-    data->polyCount = 0;
-    data->polyVertCount = 0;
-    data->viewParmCount = 0;
-    s_cmdList = &data->commands;
-    data->debugGlobals.lineCount = 0;
-    data->debugGlobals.stringCount = 0;
-    data->debugGlobals.vertCount = 0;
-}
-
-// PINNED 10020b50/126: both index allocations belong to tess, not frame storage.
-void R_InitRenderCmds()
-{
-    memset(&s_backEndData.debugGlobals, 0, sizeof(s_backEndData.debugGlobals));
-    s_backEndData.debugGlobals.vertLimit = 4096;
-    s_backEndData.debugGlobals.polyLimit = 512;
-    s_backEndData.debugGlobals.stringLimit = 4096;
-    s_backEndData.debugGlobals.lineLimit = 16384;
-    s_backEndData.debugGlobals.plumeLimit = 4096;
-    tess.indices = (unsigned short *)ri.Hunk_AllocInternal(0x200000);
-    tess.secondaryIndices = (unsigned short *)ri.Hunk_AllocInternal(0x200000);
-    if (!frontEndDataOut)
-        R_InitFrameBackendData();
-    else
-    {
-        frontEndDataOut->commands.usedTotal = 0;
-        frontEndDataOut->commands.usedCritical = 0;
-        frontEndDataOut->commands.lastCmd = 0;
-    }
-}
-
 // PINNED in 10013080: release the normal frame's debug storage first.
 void R_ShutdownDebugEntry(DebugGlobals *entry);
 
-void R_ShutdownBackendData()
-{
-    R_ShutdownDebugEntry(&s_backEndData.debugGlobals);
-}
-
-// SUPPORTED KisakCOD name; PINNED 100210d0/35.
-GfxViewParms *R_AllocViewParms()
-{
-    return &frontEndDataOut->viewParms[frontEndDataOut->viewParmCount++];
-}
-
-// PINNED 10021ff0: API59 slot49; save before unlocking the original cache.
-void R_BeginDebugFrame()
-{
-    if (!rg.registered)
-        return;
-    s_debugFrameGlob.restoreCmdList = s_cmdList;
-    s_debugFrameGlob.restoreFrontEndDataOut = frontEndDataOut;
-    if (dx.skinnedCacheLockAddr)
-    {
-        s_debugFrameGlob.restoreSkinnedCache = 1;
-        R_UnlockSkinnedCache();
-    }
-    s_cmdList = &s_debugFrameGlob.frontEndDataOut.commands;
-    frontEndDataOut = &s_debugFrameGlob.frontEndDataOut;
-}
-
 // Retail: ids <= 0xe count as critical, 0x15+ reserve space; the exact split in 0xf..0x15 is unobservable.
-#define RC_FIRST_NONCRITICAL 0xf
 
 void R_ConvertColorToBytes(const vec_t *colorFloat, byte *colorBytes);
 
@@ -257,6 +235,32 @@ void R_AddCmdDrawSun(int viewIndex);
 void R_AddCmdBeginView(int viewCount, const GfxSceneDef *sceneDef,
     const GfxViewParms *viewParms, const GfxLodParms *lodParms);
 
+// PINNED 10020b50/126: both index allocations belong to tess, not frame storage.
+void R_InitRenderCmds()
+{
+    memset(&s_backEndData.debugGlobals, 0, sizeof(s_backEndData.debugGlobals));
+    s_backEndData.debugGlobals.vertLimit = 4096;
+    s_backEndData.debugGlobals.polyLimit = 512;
+    s_backEndData.debugGlobals.stringLimit = 4096;
+    s_backEndData.debugGlobals.lineLimit = 16384;
+    s_backEndData.debugGlobals.plumeLimit = 4096;
+    tess.indices = (unsigned short *)ri.Hunk_AllocInternal(0x200000);
+    tess.secondaryIndices = (unsigned short *)ri.Hunk_AllocInternal(0x200000);
+    if (!frontEndDataOut)
+        R_InitFrameBackendData();
+    else
+    {
+        frontEndDataOut->commands.usedTotal = 0;
+        frontEndDataOut->commands.usedCritical = 0;
+        frontEndDataOut->commands.lastCmd = 0;
+    }
+}
+
+void R_ShutdownBackendData()
+{
+    R_ShutdownDebugEntry(&s_backEndData.debugGlobals);
+}
+
 // PINNED 10020be0/153: the PC renderer executes all eight frontend cases inline.
 static void R_ProcessFrontendCmdInternal(int type, void *data, int context)
 {
@@ -292,10 +296,38 @@ void R_AddFrontendCmd(int type, void *data)
 {
     R_ProcessFrontendCmdInternal(type, data, 0);
 }
+
+void R_UpdateEffectsBolt()
+{
+    ri.FX_UpdateBolt();
+}
+
+void R_UpdateEffectsNonBolt()
+{
+    ri.FX_UpdateNonBolt();
+}
+
+// PINNED refapi callback 10020cd0/12; the internal worker receives ESI. Mac r_rendercmds.c: R_UpdateXModelBoundsDelayed.
+void R_UpdateGfxEntityBoundsCmd(GfxEntity *ent)
+{
+    R_UpdateGfxEntityBounds(ent);
+}
 // PINNED 10020ce0/12: API59's wrapper calls the shared entity skinning body.
 void R_SkinGfxEntityCmd(GfxEntity *ent)
 {
     R_SkinGfxEntity(ent);
+}
+
+// PINNED 10020d50: counters reset before execution, while command bytes remain.
+void R_IssueRenderCommands()
+{
+    R_AddCmdEndOfList();
+    frontEndDataOut->commands.usedTotal = 0;
+    frontEndDataOut->commands.usedCritical = 0;
+    frontEndDataOut->commands.lastCmd = 0;
+    RB_ExecuteRenderCommands(frontEndDataOut);
+    RB_EndFrame();
+    R_InitFrameBackendData();
 }
 
 void R_AbortRenderCommands()
@@ -360,40 +392,6 @@ void R_AddCmdEndOfList()
     R_GetCommandBuffer(0, sizeof(GfxCmdHeader));
 }
 
-// PINNED 10020d50: counters reset before execution, while command bytes remain.
-void R_IssueRenderCommands()
-{
-    R_AddCmdEndOfList();
-    frontEndDataOut->commands.usedTotal = 0;
-    frontEndDataOut->commands.usedCritical = 0;
-    frontEndDataOut->commands.lastCmd = 0;
-    RB_ExecuteRenderCommands(frontEndDataOut);
-    RB_EndFrame();
-    R_InitFrameBackendData();
-}
-
-// PINNED 10022040: restore saved pointers before relocking the normal frame.
-void R_EndDebugFrame()
-{
-    if (!rg.registered)
-        return;
-    R_AddCmdEndOfList();
-    frontEndDataOut->commands.usedTotal = 0;
-    frontEndDataOut->commands.usedCritical = 0;
-    frontEndDataOut->commands.lastCmd = 0;
-    RB_ExecuteRenderCommands(frontEndDataOut);
-    RB_EndFrame();
-    s_cmdList = s_debugFrameGlob.restoreCmdList;
-    frontEndDataOut = s_debugFrameGlob.restoreFrontEndDataOut;
-    if (s_debugFrameGlob.restoreSkinnedCache)
-    {
-        s_debugFrameGlob.restoreSkinnedCache = 0;
-        R_LockSkinnedCache(1);
-    }
-    s_debugFrameGlob.restoreCmdList = 0;
-    s_debugFrameGlob.restoreFrontEndDataOut = 0;
-}
-
 int R_BeginDelayedDrawing()
 {
     int marker;
@@ -417,6 +415,35 @@ void R_IssueDelayedDrawing(int marker)
 
     cmd = (RcCmdDelayedBegin *)R_GetCommandBuffer(2, sizeof(RcCmdDelayedBegin));
     cmd->marker = (int)((byte *)s_cmdList + 8 + marker);
+}
+
+// PINNED 10021040/143: selecting a normal frame does not reset command counters.
+void R_InitFrameBackendData()
+{
+    GfxBackEndData *data = &s_backEndData;
+    frontEndDataOut = data;
+    data->frameCount = ++rg.frameCountInternal;
+    R_UnlockSkinnedCache();
+    int bufferFrame = (dx.dynamicBufferFrame + 1) % 2;
+    *(volatile int *)&dx.dynamicBufferFrame = bufferFrame;
+    data->skinnedCacheVb = &dx.skinnedCacheVbPool[bufferFrame];
+    data->skinnedCacheVb->used = 0;
+    data->drawSurfCount = 0;
+    data->surfPos = 0;
+    data->entityCount = 0;
+    data->polyCount = 0;
+    data->polyVertCount = 0;
+    data->viewParmCount = 0;
+    s_cmdList = &data->commands;
+    data->debugGlobals.lineCount = 0;
+    data->debugGlobals.stringCount = 0;
+    data->debugGlobals.vertCount = 0;
+}
+
+// SUPPORTED KisakCOD name; PINNED 100210d0/35.
+GfxViewParms *R_AllocViewParms()
+{
+    return &frontEndDataOut->viewParms[frontEndDataOut->viewParmCount++];
 }
 
 void R_AddCmdDrawStretchPic(float x, float y, float w, float h, float s0, float t0, float s1, float t1, const vec_t *color, MaterialHandle material)
@@ -797,6 +824,44 @@ void R_EndFrame()
         ri.Z_VirtualDecommitInternal(dx.tempSkinBuf, dx.tempSkinPos);
         dx.tempSkinPos = 0;
     }
+}
+
+// PINNED 10021ff0: API59 slot49; save before unlocking the original cache.
+void R_BeginDebugFrame()
+{
+    if (!rg.registered)
+        return;
+    s_debugFrameGlob.restoreCmdList = s_cmdList;
+    s_debugFrameGlob.restoreFrontEndDataOut = frontEndDataOut;
+    if (dx.skinnedCacheLockAddr)
+    {
+        s_debugFrameGlob.restoreSkinnedCache = 1;
+        R_UnlockSkinnedCache();
+    }
+    s_cmdList = &s_debugFrameGlob.frontEndDataOut.commands;
+    frontEndDataOut = &s_debugFrameGlob.frontEndDataOut;
+}
+
+// PINNED 10022040: restore saved pointers before relocking the normal frame.
+void R_EndDebugFrame()
+{
+    if (!rg.registered)
+        return;
+    R_AddCmdEndOfList();
+    frontEndDataOut->commands.usedTotal = 0;
+    frontEndDataOut->commands.usedCritical = 0;
+    frontEndDataOut->commands.lastCmd = 0;
+    RB_ExecuteRenderCommands(frontEndDataOut);
+    RB_EndFrame();
+    s_cmdList = s_debugFrameGlob.restoreCmdList;
+    frontEndDataOut = s_debugFrameGlob.restoreFrontEndDataOut;
+    if (s_debugFrameGlob.restoreSkinnedCache)
+    {
+        s_debugFrameGlob.restoreSkinnedCache = 0;
+        R_LockSkinnedCache(1);
+    }
+    s_debugFrameGlob.restoreCmdList = 0;
+    s_debugFrameGlob.restoreFrontEndDataOut = 0;
 }
 
 // Retail 1.0 header-only commands; ids 0x19/0xa match the Mac R_AddCmdApplyEarlyPostEffects/R_AddCmdSaveScreen.
