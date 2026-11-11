@@ -53,6 +53,8 @@ def main():
     proofs = {}
     log = []
     for script, mode, files in CHECKS:
+        # a file is audited only once it is back in src/ (owner rule, 2026-11-10)
+        if not all((ROOT / (n if n.startswith('src/') else 'src/radiant/' + n + '.cpp')).exists() for n in files): continue
         command = [sys.executable, script if script.startswith('workspace/research/') else 'workspace/research/gemini_review/' + script]
         if mode: command.append(mode)
         run = subprocess.run(command, cwd=ROOT, capture_output=True, text=True)
