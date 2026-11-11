@@ -4398,3 +4398,8 @@ Probe 1 (kept): Com_Parse -> Com_ParseInternal at the three token reads (ParseRu
 2026-11-11 R_CopyRefEntityToScene 129/128 (gfx/w-cmds): retail 10023780 passes material in eax, entIndex in ecx, 31 in esi, &surface on stack, into R_AddDrawSurf 10024380 (117 B); ours passes entIndex in eax, material in ebx. Probe 1: swapped the first two R_AddDrawSurf parameters (entIndex, material, ...) at all 6 call sites. Result: CopyRef 126 B (worse, different prologue), R_AddDrawSurf still 108 B, same-offset 273920 (below the 275239 bar). Reverted. Next: the retail R_AddDrawSurf body also differs (push ebp/pop ebp around the r_ dvar load, entIndex-0x1000 via add ebx,0xfffff000 after the dvar test), so a source change inside R_AddDrawSurf (e.g. entIndex-2048 computed per branch) is more likely the lever than parameter order.
 
 2026-11-11 R_AddDrawSurf body probe (gfx/w-cmds): changed `(unsigned int)entIndex - 4096` to signed `entIndex - 4096` in the fx_sort branch. Build exited 2 with an empty log (not a source verdict, not measured); reverted. Still open. Committed d75ca34e (uncalled retail copies): R_DecomposeSort 96 B (retail 102), R_AddDrawSurfLmap31 21 (21), R_AddWorldSurfaceDrawSurf 27 (25), R_SwapDrawSurfs 25 (25); same-offset 274641.
+# rb_light/rb_shade/rb_sky/rb_imagefilter/rb_imagetouch retail_order (2026-11-11, w-rblight)
+retail_order --across --write: only rb_shade moved (4 defs); the other four were already in retail order.
+rb_shade drift: -7424 step gone, new -6192 step appears (5 steps, was 5). Same-offset 275244 (bar 275239).
+Remaining drift: rb_light -6160 -6096 -6064 -6000 -5808 -5376; rb_sky -8064 -7552; rb_imagefilter -5056
+(non-/GL emits 538 vs 543, see above); rb_imagetouch -5424. No size probes run (time limit).
