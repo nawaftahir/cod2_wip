@@ -646,19 +646,23 @@ int R_AllocSkinnedCachedVerts(int vertCount)
     return offset;
 }
 
+inline __m128 Vec4SplatX(const __m128 &v);
+inline __m128 Vec4SplatY(const __m128 &v);
+inline __m128 Vec4SplatZ(const __m128 &v);
+
 static __forceinline __m128 R_SkinPositionSse(const __m128 &in, const DObjSkelMat *bone)
 {
-    return _mm_add_ps(_mm_add_ps(_mm_mul_ps(_mm_load_ps(bone->axis[0]), _mm_shuffle_ps(in, in, 0)),
-        _mm_mul_ps(_mm_load_ps(bone->axis[1]), _mm_shuffle_ps(in, in, 0x55))),
-        _mm_add_ps(_mm_mul_ps(_mm_load_ps(bone->axis[2]), _mm_shuffle_ps(in, in, 0xaa)),
+    return _mm_add_ps(_mm_add_ps(_mm_mul_ps(_mm_load_ps(bone->axis[0]), Vec4SplatX(in)),
+        _mm_mul_ps(_mm_load_ps(bone->axis[1]), Vec4SplatY(in))),
+        _mm_add_ps(_mm_mul_ps(_mm_load_ps(bone->axis[2]), Vec4SplatZ(in)),
             _mm_load_ps(bone->origin)));
 }
 
 static __forceinline __m128 R_SkinVectorSse(const __m128 &in, const DObjSkelMat *bone)
 {
-    return _mm_add_ps(_mm_add_ps(_mm_mul_ps(_mm_load_ps(bone->axis[0]), _mm_shuffle_ps(in, in, 0)),
-        _mm_mul_ps(_mm_load_ps(bone->axis[1]), _mm_shuffle_ps(in, in, 0x55))),
-        _mm_mul_ps(_mm_load_ps(bone->axis[2]), _mm_shuffle_ps(in, in, 0xaa)));
+    return _mm_add_ps(_mm_add_ps(_mm_mul_ps(_mm_load_ps(bone->axis[0]), Vec4SplatX(in)),
+        _mm_mul_ps(_mm_load_ps(bone->axis[1]), Vec4SplatY(in))),
+        _mm_mul_ps(_mm_load_ps(bone->axis[2]), Vec4SplatZ(in)));
 }
 
 // PINNED 1001e6e0/567: aligned loads, position weights and four streaming stores.
@@ -1559,4 +1563,20 @@ void R_OptimizeAllModels()
     if (!r_optimizeXModels->current.integer)
         return;
     ri.DB_EnumXAssets(1, R_OptimizeModel, 0, 1);
+}
+
+// Name unconfirmed; PINNED out-of-line copies 100203d0/100203e0/100203f0 (r_model tail).
+inline __m128 Vec4SplatX(const __m128 &v)
+{
+    return _mm_shuffle_ps(v, v, 0);
+}
+
+inline __m128 Vec4SplatY(const __m128 &v)
+{
+    return _mm_shuffle_ps(v, v, 0x55);
+}
+
+inline __m128 Vec4SplatZ(const __m128 &v)
+{
+    return _mm_shuffle_ps(v, v, 0xaa);
 }
