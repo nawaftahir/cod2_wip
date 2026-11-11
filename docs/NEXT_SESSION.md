@@ -52,7 +52,12 @@ r_image 1000c8e0 (hash & 0x7ff), 1000ccb0, 1000ccf0.
 - Some sources are CRLF; match line endings in scripted edits.
 
 ## 2026-11-12 morning: land the stack first
-- Best measured stack: local branch gfx/w-combo6 (a61d9dc0, worktree .worktrees/gfx-recon):
+- NEW BEST: local branch gfx/w-logfog (58b9db0e, worktree .worktrees/gfx-wstate) = gfx/w-combo6 +
+  rb_state c6622abb + rb_logfile/rb_fog/rb_shade/rb_state work. Gate green, same-offset 277,946.
+  To land: `git push origin gfx/w-logfog` from .worktrees/gfx-wstate, then
+  `wsl.exe bash -l /tmp/gfx_land.sh gfx/w-logfog 58b9db0e`. Its rb_state copies use Mac names but
+  plain calling conventions (retail esi/ecx), so they size-match without byte-matching.
+- Previous best stack: local branch gfx/w-combo6 (a61d9dc0, worktree .worktrees/gfx-recon):
   gfx/main + gfx/w-front2 4becf89a (r_fog/r_font/r_image helpers) + gfx/w-cmds 121e4559 (r_scene
   copies) + rb_light b45d08a0. Gate green, same-offset 277,281 vs gfx/main 275,244 (local byte
   compare). Not pushed: subagent pushes were refused by the permission check, so the coordinator did
