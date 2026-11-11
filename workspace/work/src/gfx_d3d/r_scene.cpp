@@ -182,7 +182,7 @@ static void R_GenerateSceneCommands(const GfxViewParms *cullView, int viewIndex,
     const GfxViewParms *viewParms, const GfxSceneRenderOptions *options);
 void R_RenderScene(const refdef_t *refdef);
 
-// Names from CoD4 q_shared (SUPPORTED); PINNED 10023670/77 and 100236c0/77, uncalled retail copies.
+// Names from CoD4 q_shared (SUPPORTED); PINNED 10023670/77 (uncalled retail copy) and 100236c0/77 (called by RB_SetIteratorFog).
 void Byte4UnpackRgba(const byte *from, float *to)
 {
     const float oneOver255 = 0.003921568859368563f;
@@ -192,7 +192,7 @@ void Byte4UnpackRgba(const byte *from, float *to)
     to[3] = from[3] * oneOver255;
 }
 
-void Byte4UnpackBgra(const byte *from, float *to)
+__declspec(noinline) void Byte4UnpackBgra(const byte *from, float *to)
 {
     const float oneOver255 = 0.003921568859368563f;
     to[0] = from[2] * oneOver255;

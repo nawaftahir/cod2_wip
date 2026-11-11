@@ -830,7 +830,7 @@ gfx_d3d/r_rendertarget.cpp	?R_InitRenderTargets@@YAXXZ	10022d20	hit	gfx_d3d/r_re
 gfx_d3d/r_rendertarget.cpp	?R_ShutdownRenderTargets@@YAXXZ	10023560	bind	gfx_d3d/r_rendertarget	gfx_d3d/r_rendertarget	mac-name
 gfx_d3d/r_scene.cpp	?I_fsel@@YAMMMM@Z	10023630	bind	-	-	unknown
 gfx_d3d/r_scene.cpp	?I_fmax@@YAMMM@Z	10023650	bind	-	-	unknown
-gfx_d3d/rb_fog.cpp	?R_ConvertPackedColorToFloat@@YAXPBEPAM@Z	100236c0	bind	-	-	unknown
+gfx_d3d/r_scene.cpp	?Byte4UnpackBgra@@YAXPBEPAM@Z	100236c0	bind	-	-	unknown
 gfx_d3d/r_scene.cpp	?R_CopyRefEntityToScene@@YAXHPBUGfxEntity@@TGfxModel@@@Z	10023780	pinned	-	-	unknown
 gfx_d3d/r_scene.cpp	?R_CompareDumpSceneEntities@@YAHPBX0@Z	10023800	bind	gfx_d3d/r_scene	gfx_d3d/r_scene	mac-name
 gfx_d3d/r_scene.cpp	?R_AllocSceneEntity@@YAHXZ	10023af0	bind	-	gfx_d3d/r_scene	interval

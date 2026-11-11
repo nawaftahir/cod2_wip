@@ -606,7 +606,7 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x10023560	FUN_10023560	162	162	VERIFIED_EXTENT	gfx_d3d/r_rendertarget.cpp	bind	r_rendertarget.obj	?R_ShutdownRenderTargets@@YAXXZ
 0x10023630	-		27	VERIFIED_EXTENT	gfx_d3d/r_scene.cpp	bind	r_scene.obj	?I_fsel@@YAMMMM@Z
 0x10023650	-		31	VERIFIED_EXTENT	gfx_d3d/r_scene.cpp	bind	r_scene.obj	?I_fmax@@YAMMM@Z
-0x100236c0	FUN_100236c0	77	77	VERIFIED_EXTENT	gfx_d3d/rb_fog.cpp	bind	rb_fog.obj	?R_ConvertPackedColorToFloat@@YAXPBEPAM@Z
+0x100236c0	FUN_100236c0	77	77	VERIFIED_EXTENT	gfx_d3d/r_scene.cpp	bind	r_scene.obj	?Byte4UnpackBgra@@YAXPBEPAM@Z
 0x10023780	FUN_10023780	128		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_scene.cpp	pinned		?R_CopyRefEntityToScene@@YAXHPBUGfxEntity@@TGfxModel@@@Z
 0x10023800	FUN_10023800	183	200	VERIFIED_EXTENT	gfx_d3d/r_scene.cpp	bind	r_scene.obj	?R_CompareDumpSceneEntities@@YAHPBX0@Z
 0x10023920	FUN_10023920	442		NO_SOURCE_OWNER		-		

@@ -411,7 +411,7 @@ accepted	gfx_d3d/rb_debug.cpp	VectorSet	10001860	bind
 accepted	gfx_d3d/rb_fog.cpp	RB_FogOffset	100348f0	mac
 accepted	gfx_d3d/rb_fog.cpp	RB_SetIteratorFog	10034910	mac
 accepted	gfx_d3d/rb_fog.cpp	RB_UpdateFogColor	10034bb0	mac
-accepted	gfx_d3d/rb_fog.cpp	R_ConvertPackedColorToFloat	100236c0	bind
+accepted	gfx_d3d/r_scene.cpp	Byte4UnpackBgra	100236c0	bind
 accepted	gfx_d3d/rb_imagefilter.cpp	RB_GaussianFilterPoints1D	10034ca0	mac
 accepted	gfx_d3d/rb_imagefilter.cpp	RB_GenerateGaussianFilter1D	10034ec0	bind
 accepted	gfx_d3d/rb_imagetouch.cpp	RB_CompareTouchImages	10035850	mac
