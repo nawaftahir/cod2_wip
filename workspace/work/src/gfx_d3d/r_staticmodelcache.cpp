@@ -256,17 +256,16 @@ static void R_LightCachedVertex(const float *normal, const byte *color,
     vec4_t result;
     for (int lightIndex = 0; lightIndex < lightCount; ++lightIndex)
     {
-        const D3DLIGHT9 *light = &lights[lightIndex];
-        lighting[0] += light->Ambient.r;
-        lighting[1] += light->Ambient.g;
-        lighting[2] += light->Ambient.b;
-        float xz = light->Direction.x * normal[0] + light->Direction.z * normal[2];
-        float diffuse = -(xz + light->Direction.y * normal[1]);
+        lighting[0] += lights[lightIndex].Ambient.r;
+        lighting[1] += lights[lightIndex].Ambient.g;
+        lighting[2] += lights[lightIndex].Ambient.b;
+        float xz = lights[lightIndex].Direction.x * normal[0] + lights[lightIndex].Direction.z * normal[2];
+        float diffuse = -(xz + lights[lightIndex].Direction.y * normal[1]);
         if (diffuse > 0.0f)
         {
-            lighting[0] += diffuse * light->Diffuse.r;
-            lighting[1] += diffuse * light->Diffuse.g;
-            lighting[2] += diffuse * light->Diffuse.b;
+            lighting[0] += diffuse * lights[lightIndex].Diffuse.r;
+            lighting[1] += diffuse * lights[lightIndex].Diffuse.g;
+            lighting[2] += diffuse * lights[lightIndex].Diffuse.b;
         }
     }
     result[0] = (float)color[2] * lighting[0] * (1.0f / 255.0f);

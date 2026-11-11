@@ -4399,3 +4399,4 @@ retail_order --across --write: only rb_shade moved (4 defs); the other four were
 rb_shade drift: -7424 step gone, new -6192 step appears (5 steps, was 5). Same-offset 275244 (bar 275239).
 Remaining drift: rb_light -6160 -6096 -6064 -6000 -5808 -5376; rb_sky -8064 -7552; rb_imagefilter -5056
 (non-/GL emits 538 vs 543, see above); rb_imagetouch -5424. No size probes run (time limit).
+- r_staticmodelcache R_LightCachedVertex: reading light fields as lights[lightIndex].X (no local light pointer) gives 764 B = retail 1002b0c0..1002b3bb, bound. Pointer-increment loop was worse (712 B). Drift 0xcb0 through Dx7 (623 B).
