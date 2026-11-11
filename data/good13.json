@@ -28457,57 +28457,73 @@
 "name": "??3Effect@@SAXPAX@Z",
 "obj": "FxPrimitives.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x493b20"
+],
+"sameva": 1
 },
 {
 "name": "??3Light@@SAXPAX@Z",
 "obj": "FxPrimitives.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x493b30"
+],
+"sameva": 1
 },
 {
 "name": "??3Particle@@SAXPAX@Z",
 "obj": "FxPrimitives.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x493b40"
+],
+"sameva": 1
 },
 {
 "name": "??3Cloud@@SAXPAX@Z",
 "obj": "FxPrimitives.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x493b50"
+],
+"sameva": 1
 },
 {
 "name": "??3Line@@SAXPAX@Z",
 "obj": "FxPrimitives.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x493b60"
+],
+"sameva": 1
 },
 {
 "name": "??3OrientedParticle@@SAXPAX@Z",
 "obj": "FxPrimitives.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x493b70"
+],
+"sameva": 1
 },
 {
 "name": "??3Tail@@SAXPAX@Z",
 "obj": "FxPrimitives.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x493b80"
+],
+"sameva": 1
 },
 {
 "name": "??3Cylinder@@SAXPAX@Z",
 "obj": "FxPrimitives.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x493b90"
+],
+"sameva": 1
 },
 {
 "name": "?RandomizeEmitDist@Emitter@@QAEXXZ",
@@ -28521,8 +28537,10 @@
 "name": "??3Emitter@@SAXPAX@Z",
 "obj": "FxPrimitives.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x493be0"
+],
+"sameva": 1
 },
 {
 "name": "?IsReading@FxArchive@@QAE_NXZ",
@@ -30571,8 +30589,10 @@
 "name": "??3ScheduledEffect@@SAXPAX@Z",
 "obj": "FxScheduler.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4993f0"
+],
+"sameva": 1
 },
 {
 "name": "?FX_SchedulerUnused@@YAXXZ",
@@ -32252,8 +32272,10 @@
 "name": "??2OrientedParticle@@SAPAXI@Z",
 "obj": "FxUtil.obj",
 "size": 12,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x49eb50"
+],
+"sameva": 1
 },
 {
 "name": "?SetEndpoint@Tail@@QAEXQBM@Z",
@@ -32286,8 +32308,10 @@
 "name": "??2Cylinder@@SAPAXI@Z",
 "obj": "FxUtil.obj",
 "size": 12,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x49ebb0"
+],
+"sameva": 1
 },
 {
 "name": "?SetModel@Emitter@@QAEXPAUXModel@@@Z",
