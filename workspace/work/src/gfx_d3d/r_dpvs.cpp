@@ -1233,8 +1233,9 @@ static void R_AddVisibleSurfacesInCell(const GfxCell *cell, DpvsPlane *planes, i
             if (dpvsGlob.debug.drawSModels)
                 for (int i = 0; i < tree->staticModelCount; ++i)
                     R_AddStaticModelWithCull(tree->staticModels[i], planes, planeCount, 0);
+            int startSurfIndex = tree->startSurfIndex;
             for (int i = 0; i < tree->surfaceCount; ++i)
-                R_AddWorldSurfaceWithCull(tree->startSurfIndex + i, planes, planeCount, 0);
+                R_AddWorldSurfaceWithCull(startSurfIndex + i, planes, planeCount, 0);
         }
     }
     if (dpvsGlob.debug.drawEntities)
