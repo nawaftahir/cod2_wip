@@ -1590,6 +1590,9 @@ static void R_VisitPortalsForCell(const GfxCell *cell, GfxPortal *parentPortal,
     if (clipChildren == DPVS_DONT_CLIP_CHILDREN)
     {
         R_DrawFurtherCells(cell, parentPlane, planes, planeCount);
+        for (GfxPortal *ancestor = parentPortal; ancestor; ancestor = ancestor->writable.queuedParent)
+            ancestor->writable.isAncestor = false;
+        return;
     }
     else
     {
@@ -1602,7 +1605,7 @@ static void R_VisitPortalsForCell(const GfxCell *cell, GfxPortal *parentPortal,
                 + dpvsViewOrg[3] * portal->plane.coeffs[3]
                 + dpvsViewOrg[2] * portal->plane.coeffs[2]
                 + dpvsViewOrg[1] * portal->plane.coeffs[1];
-            if (!(distance <= 0.0f) || R_PortalBehindAnyPlane(portal, planes, planeCount)
+            if (distance > 0.0f || R_PortalBehindAnyPlane(portal, planes, planeCount)
                 || R_IsPortalOccluded(portal))
                 continue;
             if (dpvsViewOrg[3] == 0.0f || distance <= -0.125f)
