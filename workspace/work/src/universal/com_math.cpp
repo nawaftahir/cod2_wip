@@ -4,62 +4,6 @@
 // Keep precise math separate from the shared quaternion instances.
 #pragma optimize("p", on)
 
-void PerpendicularVector(const vec3_t src, vec3_t dst);
-
-void RotatePointAroundVector( vec3_t dst, const vec3_t dir, const vec3_t point, float degrees )
-{
-	float m[3][3];
-	float im[3][3];
-	float zrot[3][3];
-	float tmpmat[3][3];
-	float rot[3][3];
-	int i;
-	vec3_t vr, vup, vf;
-
-	vf[0] = dir[0];
-	vf[1] = dir[1];
-	vf[2] = dir[2];
-
-	PerpendicularVector(dir, vr);
-	Vec3Cross(vr, vf, vup);
-
-	m[0][0] = vr[0];
-	m[1][0] = vr[1];
-	m[2][0] = vr[2];
-
-	m[0][1] = vup[0];
-	m[1][1] = vup[1];
-	m[2][1] = vup[2];
-
-	m[0][2] = vf[0];
-	m[1][2] = vf[1];
-	m[2][2] = vf[2];
-
-	memcpy(im, m, sizeof(im));
-
-	im[0][1] = m[1][0];
-	im[0][2] = m[2][0];
-	im[1][0] = m[0][1];
-	im[1][2] = m[2][1];
-	im[2][0] = m[0][2];
-	im[2][1] = m[1][2];
-
-	memset(zrot, 0, sizeof(zrot));
-	zrot[0][0] = zrot[1][1] = zrot[2][2] = 1.0f;
-
-	FastSinCos(degrees * 0.017453292519943295f, &zrot[0][1], &zrot[0][0]);
-	zrot[1][0] = -zrot[0][1];
-	zrot[1][1] = zrot[0][0];
-
-	MatrixMultiply(m, zrot, tmpmat);
-	MatrixMultiply(tmpmat, im, rot);
-
-	for ( i = 0; i < 3; i++ )
-	{
-		dst[i] = DotProduct(rot[i], point);
-	}
-}
-
 void PerpendicularVector( const vec3_t src, vec3_t dst );
 
 const vec2_t vec2_origin = { 0, 0 };
@@ -1082,8 +1026,61 @@ void MatrixTransformVectorCols( const vec3_t in, const vec3_t mat[3], vec3_t out
 RotatePointAroundVector
 ==============
 */
-// RotatePointAroundVector is built in com_rotate.cpp.
-void RotatePointAroundVector(vec3_t dst, const vec3_t dir, const vec3_t point, float degrees);
+// PINNED 10059530 (525 B): retail places it here, after MatrixTransformVectorCols.
+void RotatePointAroundVector( vec3_t dst, const vec3_t dir, const vec3_t point, float degrees )
+{
+	float m[3][3];
+	float im[3][3];
+	float zrot[3][3];
+	float tmpmat[3][3];
+	float rot[3][3];
+	int i;
+	vec3_t vr, vup, vf;
+
+	vf[0] = dir[0];
+	vf[1] = dir[1];
+	vf[2] = dir[2];
+
+	PerpendicularVector(dir, vr);
+	Vec3Cross(vr, vf, vup);
+
+	m[0][0] = vr[0];
+	m[1][0] = vr[1];
+	m[2][0] = vr[2];
+
+	m[0][1] = vup[0];
+	m[1][1] = vup[1];
+	m[2][1] = vup[2];
+
+	m[0][2] = vf[0];
+	m[1][2] = vf[1];
+	m[2][2] = vf[2];
+
+	memcpy(im, m, sizeof(im));
+
+	im[0][1] = m[1][0];
+	im[0][2] = m[2][0];
+	im[1][0] = m[0][1];
+	im[1][2] = m[2][1];
+	im[2][0] = m[0][2];
+	im[2][1] = m[1][2];
+
+	memset(zrot, 0, sizeof(zrot));
+	zrot[0][0] = zrot[1][1] = zrot[2][2] = 1.0f;
+
+	FastSinCos(degrees * 0.017453292519943295f, &zrot[0][1], &zrot[0][0]);
+	zrot[1][0] = -zrot[0][1];
+	zrot[1][1] = zrot[0][0];
+
+	MatrixMultiply(m, zrot, tmpmat);
+	MatrixMultiply(tmpmat, im, rot);
+
+	for ( i = 0; i < 3; i++ )
+	{
+		dst[i] = DotProduct(rot[i], point);
+	}
+}
+
 /*
 ==============
 AxisFromForwardYaw
@@ -1385,26 +1382,6 @@ void YawVectors( const float yaw, vec3_t forward, vec3_t right )
 		right[1] = -cy;
 		right[2] = 0;
 	}
-}
-
-/*
-==============
-VectorAngleMultiply
-==============
-*/
-void VectorAngleMultiply( float *vec, float angle )
-{
-	float x;
-	float temp;
-	float radians;
-	float y;
-
-	radians = angle * (float)( M_PI * 2 / 360 );
-	FastSinCos( radians, &y, &x );
-
-	temp = vec[0] * x - vec[1] * y;
-	vec[1] = vec[0] * y + vec[1] * x;
-	vec[0] = temp;
 }
 
 /*
@@ -1961,6 +1938,26 @@ void MatrixTransformVector43Equals( vec3_t inout, const float in2[4][3] )
 	inout[2] = inout[0] * in2[0][2] + inout[1] * in2[1][2] + inout[2] * in2[2][2] + in2[3][2];
 	inout[0] = temp[0];
 	inout[1] = temp[1];
+}
+
+/*
+==============
+VectorAngleMultiply
+==============
+*/
+void VectorAngleMultiply( float *vec, float angle )
+{
+	float x;
+	float temp;
+	float radians;
+	float y;
+
+	radians = angle * (float)( M_PI * 2 / 360 );
+	FastSinCos( radians, &y, &x );
+
+	temp = vec[0] * x - vec[1] * y;
+	vec[1] = vec[0] * y + vec[1] * x;
+	vec[0] = temp;
 }
 
 /*
@@ -3132,7 +3129,7 @@ void AxisToSignedAngles( const vec3_t axis[3], vec3_t angles )
 
 	if ( right[1] < 0 )
 	{
-		angles[ROLL] = pitch < 0 ? pitch + 180.0f : pitch + -180.0f;
+		angles[ROLL] = ( pitch < 0 ? 180.0f : -180.0f ) + pitch;
 	}
 	else
 	{
@@ -3148,7 +3145,42 @@ Point shared by three planes; false when they are nearly parallel.
 ==============
 */
 #pragma intrinsic(fabs)
-// IntersectPlanes is tested separately in com_plane.cpp.
+// PINNED 1005cdd0 (399 B): retail keeps it inside com_math, before SnapPointToIntersectingPlanes.
+int IntersectPlanes( const float **plane, vec3_t xyz )
+{
+	double v[3];
+	double det;
+	double invDet;
+
+	v[0] = plane[0][0] * (plane[1][1] * plane[2][2] - plane[2][1] * plane[1][2]);
+	v[1] = plane[1][0] * (plane[2][1] * plane[0][2] - plane[0][1] * plane[2][2]);
+	v[2] = plane[2][0] * (plane[0][1] * plane[1][2] - plane[1][1] * plane[0][2]);
+	det = v[0] + v[1] + v[2];
+
+	if ( fabs(det) < 0.001f )
+	{
+		return 0;
+	}
+
+	invDet = 1.0f / det;
+
+	v[0] = plane[0][3] * (plane[1][1] * plane[2][2] - plane[2][1] * plane[1][2]);
+	v[1] = plane[1][3] * (plane[2][1] * plane[0][2] - plane[0][1] * plane[2][2]);
+	v[2] = plane[2][3] * (plane[0][1] * plane[1][2] - plane[1][1] * plane[0][2]);
+	xyz[0] = (v[0] + v[1] + v[2]) * invDet;
+
+	v[0] = plane[0][3] * (plane[1][2] * plane[2][0] - plane[2][2] * plane[1][0]);
+	v[1] = plane[1][3] * (plane[2][2] * plane[0][0] - plane[0][2] * plane[2][0]);
+	v[2] = plane[2][3] * (plane[0][2] * plane[1][0] - plane[1][2] * plane[0][0]);
+	xyz[1] = (v[0] + v[1] + v[2]) * invDet;
+
+	v[0] = plane[0][3] * (plane[1][0] * plane[2][1] - plane[2][0] * plane[1][1]);
+	v[1] = (plane[2][0] * plane[0][1] - plane[0][0] * plane[2][1]) * plane[1][3];
+	v[2] = plane[2][3] * (plane[0][0] * plane[1][1] - plane[1][0] * plane[0][1]);
+	xyz[2] = (v[0] + v[1] + v[2]) * invDet;
+
+	return 1;
+}
 
 /*
 ==============
@@ -3733,6 +3765,14 @@ int irand( int min, int max )
 	return result;
 }
 
+// PINNED 1005e2b0: retail's jmp to 10058310 sits between irand and AxisToQuat.
+#pragma optimize("p", off)
+void TransformVectorByAnimMat(const float *in, const DObjAnimMat *mat, float *out)
+{
+    MatrixTransformVectorQuatTrans(in, mat, out);
+}
+#pragma optimize("p", on)
+
 /*
 ==============
 AxisToQuat
@@ -3876,13 +3916,3 @@ float SnapFloatToGrid( float value, float grid, float epsilon )
 
 	return value;
 }
-// PINNED 1001d660/10058310: retain the non-/Op shared quaternion instances.
-#pragma optimize("p", off)
-// Existing wrapper, grouped with its non-/Op transform calculation.
-void TransformVectorByAnimMat(const float *in, const DObjAnimMat *mat, float *out)
-{
-    MatrixTransformVectorQuatTrans(in, mat, out);
-}
-
-
-#pragma optimize("p", on)

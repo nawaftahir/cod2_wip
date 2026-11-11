@@ -25,7 +25,7 @@ labels = [(va, name, obj) for va, kind, name, obj in syms(str(build / 'gfx.dll')
           if kind == 'ldata' and name.startswith('UnwindUpVec$')]
 assert len(labels) == 2 and len({name for va, name, obj in labels}) == 2, labels
 assert all(archive.lower() == obj.lower() for va, name, obj in labels)
-owners = {'I_strlen': 'gfx_d3d/common.cpp', 'Com_Printf': 'qcommon/common.cpp', 'Com_Error': 'qcommon/common.cpp'}
+owners = {'I_strlen': 'universal/com_shared.cpp', 'Com_Printf': 'qcommon/common.cpp', 'Com_Error': 'qcommon/common.cpp'}
 procedures = {name: obj.replace('\\', '/').lower()
               for va, kind, name, obj in syms(str(build / 'gfx.dll'), str(build / 'gfx.pdb'))
               if kind in ('lproc', 'gproc') and name in owners}
