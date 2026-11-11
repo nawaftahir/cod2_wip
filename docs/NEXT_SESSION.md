@@ -1,4 +1,39 @@
-# Renderer next session (written 2026-11-12)
+# Renderer next session (written 2026-11-11 evening)
+
+## Start here
+- Helper scripts were in /tmp and get wiped on WSL restart. Copies: ~/gfx_tools (gfx_land.sh,
+  gfx_build.sh, gfx_stack.sh, gfx_push.sh, gfx_so.py, gfx_brief.md). Copy them to /tmp first.
+- gfx/main 4cc07a48 (= w-best + test fix + w-imgobj2). CI meter was 279,684 at 4b7b29b1;
+  4cc07a48 measured 279,707 locally.
+- The threshold: whole-file same-offset stays flat or drops until .text reaches retail size, so
+  .rdata starts at retail file 0x10c000 (ours 0x109000). Single-region branches score lower alone.
+  Judge by .text bytes restored. Target objects by drift_tu.py "net size delta" (missing bytes).
+
+## Stack waiting: gfx/w-stack3 566f1bd6 (pushed)
+gfx/main + w-scene3 4c4ec1bf + w-mat3 35fe6ba6 + w-shot3 a19a3ca3 + w-model4 c793e82f.
+.text 0x107f70 vs retail 0x10a090: 0x2120 B short (threshold ~0x2090). Whole-file 276,202 alone.
+Do not land until .text crosses; then also stack w-guid + w-specpos (parked, pushed).
+Each branch's report and next steps are in docs/TRIED.md (2026-11-12 sections).
+
+## Largest missing bytes (net size delta on w-stack2)
+r_utils -2080, rb_logfile -1344, r_material -1008 (w-mat3 restores 304), com_convexhull -816,
+r_outdoor -688, rb_state -496, r_marks -384, r_font -336, r_sky -304, rb_imagefilter -304.
+Agents were running on r_utils, rb_logfile, com_convexhull, r_marks, r_material_load_obj at the
+end of the session: check branches gfx/w-utils, w-logfile, w-hull, w-marks3, w-matload.
+
+## Per-object leftovers
+- r_scene: RenderSceneDepth -32 (inlining of R_BeginDrawGroupLoop, lives in r_splitscreen),
+  AddClear 96/97 and its Fullbright copy, R_AddDrawSurf deferred.
+- r_material: two 1 B ret bodies (likely LittleShort/LittleLong, no evidence where used); tail
+  ~192 B larger than retail (R_ApplyPicmip_f belongs at 10005290 in another object; sort templates).
+- r_screenshot: R_DownsamplePixelData ~350 vs 363 (try the two-variable residual loop);
+  CubemapLighting 336/384 and ForDir 784/816 (retail keeps faceIndex as int index, stack args).
+- r_model: 1001d800 (4 B) and 1001e640 (31 B) bodies with no name; Blended/Rigid skinners 16 B
+  short each (loop alignment); R_SkinSceneDObj +80.
+- r_image_load_obj: 1000f160 32 B uncalled byte setter, no name.
+
+## Previous handoff
+
 
 ## Measured state (CI meter, gfx/main b0b6bfd3)
 - same-offset 273,475 / 1,851,392 = 14.77% (was 253,888 at the start of 2026-11-11)
