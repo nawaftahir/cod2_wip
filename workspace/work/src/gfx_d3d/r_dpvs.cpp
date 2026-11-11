@@ -744,9 +744,10 @@ static bool R_IsOccluderOutsideView(const GfxOccluder *occluder,
 
 void R_SetupOccludersForCell(const GfxCell *cell, const DpvsPlane *planes, int planeCount)
 {
-    activeOccluders.count = 0;
-    activeOccluderPlanes.count = 0;
-    for (int occluderIndex = 0; occluderIndex < cell->occluderCount; ++occluderIndex)
+    int occluderIndex = 0;
+    activeOccluders.count = occluderIndex;
+    activeOccluderPlanes.count = occluderIndex;
+    for (; occluderIndex < cell->occluderCount; ++occluderIndex)
     {
         GfxOccluder *occluder = cell->occluders[occluderIndex];
         if (R_IsOccluderOutsideView(occluder, planes, planeCount))
@@ -1085,6 +1086,19 @@ int R_FilterEntityIntoCells_r(mnode_t *node, int entIndex, const vec_t *mins, co
     if (node->cellIndex >= 0)
         R_LinkEntityToCell(&rgp.world->cells[node->cellIndex], entIndex, mins, maxs);
     return node->cellIndex;
+}
+
+// Name unconfirmed; PINNED out-of-line copy at 10008750, no direct callers in retail.
+Bool R_BoundsTooLargeForCellSplit(const vec_t *mins, const vec_t *maxs)
+{
+    if (maxs[0] - mins[0] > 1536.0f)
+    {
+        if (maxs[1] - mins[1] > 1536.0f || maxs[2] - mins[2] > 1536.0f)
+            return 1;
+    }
+    else if (maxs[1] - mins[1] > 1536.0f && maxs[2] - mins[2] > 1536.0f)
+        return 1;
+    return 0;
 }
 
 // PINNED 100087a0/283: bypass cell splitting only for two oversized dimensions.
