@@ -27,11 +27,23 @@ for sym, va in ours.items():
     m = re.search(r"FUN_([0-9a-fA-F]{8})", sym)
     if m:
         by_retail.setdefault(int(m.group(1), 16), va)
-for row in tsv("ledger/matches.tsv"):
+matched = tsv("ledger/matches.tsv")
+for row in matched + tsv("ledger/compiler.tsv"):
     if row["symbol"] in ours:
         by_retail[int(row["addr"], 16)] = ours[row["symbol"]]
 
 rows = tsv("data/tu_map.tsv")
+# AUTO deleting destructors have no ledger row: pair each with ??_G of the one class its TU's matches name
+classes = {}
+for row in matched:
+    tu = row["source"].removeprefix("src/")
+    classes.setdefault(tu, set()).update(re.findall(r"@(C\w+?)@@", row["symbol"]))
+for r in rows:
+    a = int(r["addr"], 16)
+    if r["evidence"] == "AUTO" and a not in by_retail and 30 <= int(r["size"]) <= 40:
+        hits = [s for c in classes.get(r["tu"], ()) for s in ours if s.startswith(f"??_G{c}@@")]
+        if len(hits) == 1:
+            by_retail[a] = ours[hits[0]]
 if TU:
     starts = sorted(set(ours.values()))
     nxt = {a: b for a, b in zip(starts, starts[1:])}
