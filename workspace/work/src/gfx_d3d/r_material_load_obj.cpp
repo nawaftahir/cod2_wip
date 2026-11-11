@@ -1966,7 +1966,7 @@ MaterialTechnique *Material_LoadTechniqueDx9(const char *name)
     Bool error = 0;
     do
     {
-        const char *token = Com_Parse(&text);
+        const char *token = Com_ParseInternal(&text);
         if (!token[0])
             break;
         if (token[0] != '{')
@@ -2023,7 +2023,7 @@ MaterialTechnique *Material_LoadTechniqueDx7(const char *name)
     Bool error = 0;
     do
     {
-        const char *token = Com_Parse(&text);
+        const char *token = Com_ParseInternal(&text);
         if (!token[0])
             break;
         if (token[0] != '{')
@@ -2153,7 +2153,8 @@ MaterialTechniqueSet *Material_LoadTechniqueSet(const char *name)
     Bool used = 0;
     for (;;)
     {
-        const char *token = Com_Parse(&text);
+        const char *token = Com_ParseInternal(&text);
+        const char *separator;
         if (!token[0])
             break;
         if (token[0] == '"')
@@ -2171,25 +2172,27 @@ MaterialTechniqueSet *Material_LoadTechniqueSet(const char *name)
             if (g_useTechnique[type])
                 used = 1;
             ++labelCount;
-            if (!Com_MatchToken(&text, ":", 1))
-                goto parse_error;
-            continue;
+            separator = ":";
         }
-        if (!labelCount)
-            goto unknown_type;
-        if (used)
+        else
         {
-            MaterialTechnique *technique = Material_LoadCachedTechnique(token);
-            if (!technique)
-                goto parse_error;
-            for (int index = 0; index < labelCount; ++index)
-                set->techniques[labels[index]] = technique;
+            if (!labelCount)
+                goto unknown_type;
+            if (used)
+            {
+                MaterialTechnique *technique = Material_LoadCachedTechnique(token);
+                if (!technique)
+                    goto parse_error;
+                for (int index = 0; index < labelCount; ++index)
+                    set->techniques[labels[index]] = technique;
+            }
+            labelCount = 0;
+            used = 0;
+            separator = ";";
         }
-        labelCount = 0;
-        used = 0;
-        if (!Com_MatchToken(&text, ";", 1))
-            goto parse_error;
-        continue;
+        if (Com_MatchToken(&text, separator, 1))
+            continue;
+        goto parse_error;
 unknown_type:
         Com_ScriptWarning("Unknown technique type '%s'\n", token);
 parse_error:
