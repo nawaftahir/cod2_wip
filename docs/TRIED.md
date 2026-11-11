@@ -4417,3 +4417,10 @@ Remaining drift: rb_light -6160 -6096 -6064 -6000 -5808 -5376; rb_sky -8064 -755
 - r_staticmodelcache R_SkinCachedVertices: xyz via MatrixTransformVector43(in->offset, axis, xyz) instead of AxisTransformVector + VectorAdd: 830 -> 777 B, equals retail 1002adb0..1002b0b8. Drift now constant 0xcb0 through R_LightCachedVertex.
 - r_staticmodel_load_obj R_FilterStaticModelIntoCells_r: hoisted plane->type into a local for the compare: 274 -> 272 B, same 0x110 slot as retail, so R_StaticModelBounds is at retail offset (drift 0xde0 like R_AddStaticModelToCell). R_AddStaticModelToCell: local GfxCell *cell folded away by the compiler, still 66 B, retail has world in esi + push edi (usercall form not reproduced).
 - r_staticmodelcache: R_SkinCachedVerticesDx7 xyz via MatrixTransformVector43: 671 -> 623 B but retail has no out-of-line R_UploadCachedVertices (179 B, between R_LightCachedVertex and Dx7, retail Dx7 follows at 1002b3c0). Dropping `static` from the __forceinline Upload did not remove the copy (map address unchanged); whole-file same-offset 273599 -> 273030 while the gap is unresolved. Not committed. Next: find why the unreferenced inline body is still emitted.
+
+# rb_light: move RB_ShowLightVisCachePoints to retail 10035cd0 (2026-11-11, w-rblight)
+Retail 10035cd0..10035f6d (669 B, calls GridVisLogIndex 10035c40) is Show; ours is 607 B. Moved it (move only,
+no __asm line touched, source_coverage hash refreshed) between RB_GridVisLogIndex and RB_FindGridPoint.
+Internal drift span 784 -> 352 B (-5552 -5488 -5456 -5392 -5376 -5200), same-offset 275165 (below 275244: not landable alone).
+Still missing: Show is 62 B short; retail 10035f70 (58 B, packs x/y/z grid key into 2 outputs, LTCG regs, name unconfirmed) has no body;
+RB_GetLightingAtPoint still 776/784. No size probes (time).
