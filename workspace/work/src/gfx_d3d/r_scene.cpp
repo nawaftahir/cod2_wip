@@ -182,6 +182,50 @@ static void R_GenerateSceneCommands(const GfxViewParms *cullView, int viewIndex,
     const GfxViewParms *viewParms, const GfxSceneRenderOptions *options);
 void R_RenderScene(const refdef_t *refdef);
 
+// Names from CoD4 q_shared (SUPPORTED); PINNED 10023670/77 and 100236c0/77, uncalled retail copies.
+void Byte4UnpackRgba(const byte *from, float *to)
+{
+    const float oneOver255 = 0.003921568859368563f;
+    to[0] = from[0] * oneOver255;
+    to[1] = from[1] * oneOver255;
+    to[2] = from[2] * oneOver255;
+    to[3] = from[3] * oneOver255;
+}
+
+void Byte4UnpackBgra(const byte *from, float *to)
+{
+    const float oneOver255 = 0.003921568859368563f;
+    to[0] = from[2] * oneOver255;
+    to[1] = from[1] * oneOver255;
+    to[2] = from[0] * oneOver255;
+    to[3] = from[3] * oneOver255;
+}
+
+// Names unconfirmed; PINNED 10023710/30 and 10023730/36, uncalled retail copies of the sort-key decode.
+int R_SortKeyEntIndex(unsigned int sortKey)
+{
+    int entIndex = (int)sortKey >= 0 ? (sortKey >> 4) & 0xfff : (sortKey >> 19) & 0xfff;
+    if (entIndex >= 0x800)
+        entIndex = 0x7fe;
+    return entIndex;
+}
+
+Material *R_SortKeyMaterial(unsigned int sortKey)
+{
+    return rgp.sortedMaterials[(int)sortKey >= 0 ? (sortKey >> 21) & 0x3ff : (sortKey >> 9) & 0x3ff];
+}
+
+// Names unconfirmed; PINNED 10023760/13 and 10023770/29, uncalled retail copies (zero 52 and 116 bytes).
+void R_ClearSceneEntityRecord(GfxSceneEntity *sceneEnt)
+{
+    memset(sceneEnt, 0, sizeof(*sceneEnt));
+}
+
+void R_ClearEntityRecord(GfxEntity *ent)
+{
+    memset(ent, 0, sizeof(*ent));
+}
+
 // PINNED 10023780/128; private helper name unconfirmed.
 void R_CopyRefEntityToScene(int entIndex, const GfxEntity *refEnt, GfxModel sceneModel)
 {
