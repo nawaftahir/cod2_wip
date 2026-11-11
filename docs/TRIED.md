@@ -4395,3 +4395,14 @@ Probe 1 (kept): Com_Parse -> Com_ParseInternal at the three token reads (ParseRu
 - R_ReleaseModel (retail 10020330, 30 B) and R_ReleaseAllModels (10020350, 21 B) sit after R_DObjReplaceMaterial and before R_OptimizeModel (10020380), not after R_FinishLoadingModels. Moved in r_model.cpp; the 1001d8c0..1001d8f0 span now equals retail (48 B). Drift groups unchanged (-2416 -2304 -2288 -2256 -2096 -2064: uniform shift), same-offset 275235.
 - r_model size table vs retail (ours -> retail): R_SkinXSurfaceBlendedSse 575/552, R_BlendSkinPosition 104/337 (ours is a different body split), R_SkinXSurfaceBlendedDx7Sse 399/408, R_PreSkinXSurface 336/347, R_PreSkinStaticSurface 451/479, R_SkinXModel 906/886, R_SkinSceneDObj 835/766. Unbound retail bodies not in ours: 1001da80 (985 B), 1001de60 (959 B), 1001e260 (310), 1001e3a0 (151), 1001ec20 (324), 1001ed70 (137), 1001ee00 (105), 1001f030 (195), 1001f5b0 (84), 10020530 (33). Not started.
 2026-11-11 r_dpvs (w-dpvshead, after merging gfx/main e18c3986): R_AddVisibleSurfacesInCell now 240 B = retail (startSurfIndex hoisted into a local in the flat loop). Probes not kept: R_AddCullGroup same hoist 192 -> 256 B (retail 224, extra spill; reverted); R_PortalQueuePopMin using the global count and a while loop 192 -> 176 B (retail 160, retail reloads the count after node stores, ours keeps it in a register; same-offset fell, reverted). Same-offset 274772 on merged base (gfx/main 275235): not above the bar; sizes still short: R_FrustumClipPlanes 48, ProjectPortal 16, SetupOccludersForCell 16, AabbTree 16, AddCullGroup 32, VisitPortalsForCell 48, PopMin +32, PortalClipPlanes +48.
+
+## 2026-11-12 smodel/utils offset pass (gfx/w-smodel)
+- retail_order --across --write: no-op on r_staticmodel, r_staticmodel_load_obj, r_staticmodelcache, r_surfbounds, r_texturemem; r_utils moved 2 definitions (drift 4 values -> 3).
+- r_staticmodel_load_obj R_AddStaticModelToCell: swapped parameter order to (smodelInst, cellIndex, world) to get retail registers (eax=cellIndex, ecx=inst). No size change; build still pushes ebx/edi and is 3 B bigger. Drift steps (16 B each) at R_FilterStaticModelIntoCells_r (build 274 B vs retail ~268 B, ends 0x1002a35c) unresolved.
+- r_staticmodelcache: R_SkinCachedVertices (PINNED 1002adb0) is 830 B vs retail 784 B max (R_LightCachedVertex at 1002b0c0); not probed yet.
+
+# rb_light/rb_shade/rb_sky/rb_imagefilter/rb_imagetouch retail_order (2026-11-11, w-rblight)
+retail_order --across --write: only rb_shade moved (4 defs); the other four were already in retail order.
+rb_shade drift: -7424 step gone, new -6192 step appears (5 steps, was 5). Same-offset 275244 (bar 275239).
+Remaining drift: rb_light -6160 -6096 -6064 -6000 -5808 -5376; rb_sky -8064 -7552; rb_imagefilter -5056
+(non-/GL emits 538 vs 543, see above); rb_imagetouch -5424. No size probes run (time limit).
