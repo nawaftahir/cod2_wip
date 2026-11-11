@@ -230,10 +230,10 @@ void R_ClearEntityRecord(GfxEntity *ent)
 void R_CopyRefEntityToScene(int entIndex, const GfxEntity *refEnt, GfxModel sceneModel)
 {
     GfxEntity *ent = &scene.def.entities[entIndex];
-    GfxSceneEntity *sceneEnt = &scene.sceneEnts[entIndex];
     *ent = *refEnt;
     if (refEnt->scale == 0.0f)
         ent->scale = 1.0f;
+    GfxSceneEntity *sceneEnt = &scene.sceneEnts[entIndex];
     memset(sceneEnt, 0, sizeof(*sceneEnt));
     if (refEnt->reType >= 4)
         R_AddDrawSurf(refEnt->customMaterial, entIndex, 31, &s_entitySurface);
@@ -615,12 +615,13 @@ void R_SetViewParmsViewProjection(GfxViewParms *viewParms)
 // Mac name R_DecomposeSort; retail 10024310/102, uncalled here.
 void R_DecomposeSort(unsigned int sortValue, int *entIndex, const Material **material, int *lmapIndex)
 {
-    int ent = (int)sortValue >= 0 ? (sortValue >> 4) & 0xfff : (sortValue >> 19) & 0xfff;
+    unsigned int fxSort = sortValue & 0x80000000;
+    int ent = fxSort ? (sortValue >> 19) & 0xfff : (sortValue >> 4) & 0xfff;
     if (ent >= 0x800)
         ent = 0x7fe;
     *entIndex = ent;
-    *material = rgp.sortedMaterials[(int)sortValue >= 0 ? (sortValue >> 21) & 0x3ff : (sortValue >> 9) & 0x3ff];
-    *lmapIndex = (int)sortValue >= 0 ? (sortValue >> 16) & 0x1f : (sortValue >> 4) & 0x1f;
+    *material = rgp.sortedMaterials[fxSort ? (sortValue >> 9) & 0x3ff : (sortValue >> 21) & 0x3ff];
+    *lmapIndex = fxSort ? (sortValue >> 4) & 0x1f : (sortValue >> 16) & 0x1f;
 }
 
 // PINNED 10024380/117; unsigned arithmetic preserves packed-key wraparound.
@@ -650,8 +651,8 @@ void R_AddDrawSurfLmap31(const surfaceType_t *surface, int entIndex, const Mater
     R_AddDrawSurf(material, entIndex, 31, surface);
 }
 
-// Name unconfirmed; retail 10024420/25, uncalled copy taking a world surface.
-void R_AddWorldSurfaceDrawSurf(const GfxSurface *surf, int entIndex)
+// Mac name R_AddDrawSurfForSurface (r_scene.c); retail 10024420/25, uncalled here.
+void R_AddDrawSurfForSurface(const GfxSurface *surf, int entIndex)
 {
     R_AddDrawSurf(surf->material, entIndex, surf->lightmapIndex, surf->data);
 }
@@ -752,6 +753,20 @@ void qsortDrawSurfs(GfxDrawSurf *drawSurfs, int drawSurfCount)
     }
 }
 
+// Name unconfirmed; PINNED 100245e0/30, the dynamic shadow test of R_GenerateSceneCommands.
+int R_SceneDynamicShadowsEnabled()
+{
+    if (r_rendererInUse->current.integer == 2)
+        return 0;
+    return sc_enable->current.enabled != 0;
+}
+
+// Name unconfirmed; PINNED 10024600/5, uncalled forward to qsortDrawSurfs.
+void R_SortDrawSurfs(GfxDrawSurf *drawSurfs, int drawSurfCount)
+{
+    qsortDrawSurfs(drawSurfs, drawSurfCount);
+}
+
 // PINNED 10024610/99; disabled brush drawing still updates cullState.
 void R_AddBModelSurfaces(GfxSceneEntity *sceneEnt, int entIndex)
 {
@@ -798,6 +813,21 @@ void R_AddXModelSurfaces(int entIndex)
         return;
     R_AddScaledDebugString(&frontEndDataOut->debugGlobals, rg.debugViewParms,
         ent->origin, colorCyan, va("%i", count));
+}
+
+// Name unconfirmed; PINNED 100247b0/30, the world surface step of R_GenerateSceneCommands.
+void R_SceneAddWorldSurfaces(const GfxViewParms *viewParms, int cameraCell)
+{
+    if (rgp.world && rgp.world->cells)
+        R_AddWorldSurfacesDpvs(viewParms, cameraCell);
+}
+
+// Name unconfirmed; PINNED 100247d0/32, the lit technique choice of R_RenderSceneNormal.
+MaterialTechniqueType R_SceneLitTechnique()
+{
+    if (r_zFeather->current.enabled && dx.renderTargets[6].colorSurface)
+        return (MaterialTechniqueType)0x18;
+    return (MaterialTechniqueType)0x15;
 }
 
 // PINNED 100247f0/296: capture each partition before emitting its commands.
@@ -863,6 +893,12 @@ void R_ClearFloatZ()
         colorWhite, rgp.shadowClearMaterial);
 }
 
+// Name unconfirmed; PINNED 10024a80/14, uncalled multisample test.
+int R_SceneNoMultiSample()
+{
+    return !dx.multiSampleQuality;
+}
+
 // PINNED 10024a90/456: floatZ precedes shadow depth when available.
 void R_RenderSceneDepth(int viewIndex, const GfxViewParms *viewParms,
     GfxDrawSurf *drawSurfs, int drawSurfCount, int dynamicShadowType)
@@ -894,6 +930,14 @@ void R_RenderSceneDepth(int viewIndex, const GfxViewParms *viewParms,
         R_EndDrawGroupLoop(0, viewIndex);
         R_EndDrawGroupSection(0);
     }
+}
+
+// Name unconfirmed; PINNED 10024c60/29, the point light test of R_GenerateSceneCommands.
+bool R_ScenePointLightsEnabled()
+{
+    if (r_rendererInUse->current.integer == 2)
+        return false;
+    return r_dlightLimit->current.integer != 0;
 }
 
 // PINNED 10024c80/261: DX7 base, lighting and emissive passes share one view.
@@ -970,10 +1014,7 @@ void R_RenderSceneNormal(int viewIndex, const GfxViewParms *viewParms,
     R_BeginDrawGroupLoop(3, viewIndex);
     R_AddCmdBeginView(scene.viewCount, &scene.def, viewParms, &rg.lodParms);
     R_DrawPointLightSurfs(lightCount, partitions);
-    MaterialTechniqueType technique = (MaterialTechniqueType)0x15;
-    if (r_zFeather->current.enabled && dx.renderTargets[6].colorSurface)
-        technique = (MaterialTechniqueType)0x18;
-    R_AddCmdDrawSurfs(drawSurfs, drawSurfCount, technique, (GfxDrawSurfOrder)0);
+    R_AddCmdDrawSurfs(drawSurfs, drawSurfCount, R_SceneLitTechnique(), (GfxDrawSurfOrder)0);
     R_EndDrawGroupLoop(3, viewIndex);
     R_EndDrawGroupSection(3);
     R_BeginDrawGroupSection(4);
@@ -1006,8 +1047,7 @@ static void R_GenerateSceneCommands(const GfxViewParms *cullView, int viewIndex,
     const GfxViewParms *viewParms, const GfxSceneRenderOptions *options)
 {
     int cell = R_CellForPoint(cullView->origin);
-    if (rgp.world && rgp.world->cells)
-        R_AddWorldSurfacesDpvs(cullView, cell);
+    R_SceneAddWorldSurfaces(cullView, cell);
     ri.CG_AddMarks();
     ri.FX_UpdateAndDraw();
     int drawSurfCount = scene.drawSurfCount;
@@ -1015,7 +1055,7 @@ static void R_GenerateSceneCommands(const GfxViewParms *cullView, int viewIndex,
     qsortDrawSurfs(drawSurfs, drawSurfCount);
     int dynamicShadowType = 0;
     ShadowCookieList shadows;
-    if (r_rendererInUse->current.integer != 2 && sc_enable->current.enabled)
+    if (R_SceneDynamicShadowsEnabled())
     {
         ShadowCandidate candidates[24];
         dynamicShadowType = 1;
@@ -1025,7 +1065,7 @@ static void R_GenerateSceneCommands(const GfxViewParms *cullView, int viewIndex,
     }
     PointLightPartition partitions[256];
     int lightCount = 0;
-    if (r_rendererInUse->current.integer != 2 && r_dlightLimit->current.integer)
+    if (R_ScenePointLightsEnabled())
         lightCount = R_GetPointLightPartitions(drawSurfs, drawSurfCount, partitions, 256);
     R_RenderSceneMode(viewIndex, viewParms, options, drawSurfs, drawSurfCount,
         dynamicShadowType, &shadows, partitions, lightCount);
@@ -1087,6 +1127,13 @@ static __declspec(noinline) void R_SetViewParmsForScene(GfxViewParms *viewParms,
         (float *)&viewParms->inverseViewProjectionMatrix);
 }
 
+// Name unconfirmed; PINNED 10025690/46, the options setup of R_RenderScene.
+void R_SetSceneRenderOptions(const refdef_t *refdef, GfxSceneRenderOptions *options)
+{
+    options->blurRadius = refdef->blurRadius;
+    options->fullScreen = refdef->width == vidConfig.width && refdef->height == vidConfig.height;
+}
+
 #pragma intrinsic(tan)
 // PINNED 100256c0: API59 slot107; the reference FOV uses single-precision arithmetic.
 void R_SetLodOrigin(const refdef_t *refdef)
@@ -1126,15 +1173,14 @@ void R_RenderScene(const refdef_t *refdef)
     if (!rgp.world)
         R_Error(ERR_DROP, "\x15R_RenderScene: NULL worldmodel");
     scene.def.time = refdef->time;
-    scene.def.floatTime = (float)refdef->time * 0.001f;
+    scene.def.floatTime = (float)scene.def.time * 0.001f;
     VectorCopy(refdef->vieworg, rg.viewOrg);
     VectorCopy(refdef->viewaxis[0], rg.viewDir);
     GfxBackEndData *data = frontEndDataOut;
     GfxViewParms *viewParms = &data->viewParms[data->viewParmCount++];
     R_SetViewParmsForScene(viewParms, refdef);
     GfxSceneRenderOptions options;
-    options.blurRadius = refdef->blurRadius;
-    options.fullScreen = refdef->width == vidConfig.width && refdef->height == vidConfig.height;
+    R_SetSceneRenderOptions(refdef, &options);
     const GfxViewParms *cullView = r_lockPvs->current.enabled ? &lockPvsViewParms : viewParms;
     R_UpdateFrameFog();
     R_GenerateSceneCommands(cullView, refdef->viewIndex, viewParms, &options);
