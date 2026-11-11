@@ -185,8 +185,6 @@ void R_SetCullDist(float dist);
 GfxPortal *R_PortalQueuePopMin();
 double R_FurthestPointOnWinding(const vec3_t *points, int pointCount, const float *plane);
 double R_NearestPointOnWinding(const vec3_t *points, int pointCount, const float *plane);
-static __forceinline void R_UnprojectPoint(const float *projected, float *unprojected);
-static __forceinline void R_AddPortalDebugLine(const float *start, const float *end, float cyan);
 static void R_ProjectPortal(int vertexCount, const vec3_t *winding, float *mins,
     float *maxs, DpvsClipChildren *clipChildren);
 static int R_AddBevelPlanes(DpvsPlane *planes, int vertexCount, const vec3_t *windingNormals,
@@ -613,6 +611,32 @@ static void R_ProjectPortal(int vertexCount, const vec3_t *winding, float *mins,
     else
         *clipChildren = DPVS_CLIP_CHILDREN;
 }
+
+/* Retail has no standalone copy of these two, so they are macros. */
+#define R_UnprojectPoint(projected, unprojected) \
+    do { \
+        const D3DMATRIX *matrix = portalInverseViewProjectionMatrix; \
+        (unprojected)[0] = matrix->m[0][0] * (projected)[0] + matrix->m[1][0] * (projected)[1] + matrix->m[3][0]; \
+        (unprojected)[1] = matrix->m[0][1] * (projected)[0] + matrix->m[1][1] * (projected)[1] + matrix->m[3][1]; \
+        (unprojected)[2] = matrix->m[0][2] * (projected)[0] + matrix->m[1][2] * (projected)[1] + matrix->m[3][2]; \
+        (unprojected)[3] = matrix->m[0][3] * (projected)[0] + matrix->m[1][3] * (projected)[1] + matrix->m[3][3]; \
+    } while (0)
+
+#define R_AddPortalDebugLine(from, to, cyan) \
+    do { \
+        DebugGlobals *debug = &frontEndDataOut->debugGlobals; \
+        if (debug->lineCount + 1 <= debug->lineLimit) \
+        { \
+            if (!debug->lines) \
+                debug->lines = (trDebugLine_t *)ri.Z_MallocInternal(debug->lineLimit * sizeof(trDebugLine_t)); \
+            trDebugLine_t *line = &debug->lines[debug->lineCount]; \
+            VectorCopy((from), line->start); \
+            VectorCopy((to), line->end); \
+            Vector4Set(line->color, 0.0f, (cyan), (cyan), 1.0f); \
+            line->depthTest = 0; \
+            ++debug->lineCount; \
+        } \
+    } while (0)
 
 static int R_AddBevelPlanes(DpvsPlane *planes, int vertexCount, const vec3_t *windingNormals,
     const float *mins, const float *maxs, DpvsForceBevels forceBevels)
@@ -1304,6 +1328,96 @@ static __declspec(noinline) bool R_IsPortalOccluded(const GfxPortal *portal)
     return false;
 }
 
+// Names unconfirmed; PINNED out-of-line copies 10009740, 10009750, 10009760, no direct callers in retail.
+int R_PortalQueueParent(int index)
+{
+    return (index - 1) >> 1;
+}
+
+int R_PortalQueueFirstChild(int index)
+{
+    return index * 2 + 1;
+}
+
+void R_PortalQueueCheck()
+{
+}
+
+// PINNED 10009770/161.
+void R_PortalQueuePush(GfxPortal *portal)
+{
+    int index;
+    int parent;
+    float distance;
+
+    if (portalQueueCount >= 256)
+        R_Error(ERR_DROP, "More than %i queued portals", 256);
+    portal->writable.isQueued = 1;
+    distance = R_FurthestPointOnWinding(portal->vertices, portal->vertexCount, portalViewPlane.coeffs);
+    index = portalQueueCount;
+    for (;;)
+    {
+        parent = (index - 1) >> 1;
+        if (parent < 0 || distance >= portalQueue[parent].dist)
+            break;
+        portalQueue[index].portal = portalQueue[parent].portal;
+        portalQueue[index].dist = portalQueue[parent].dist;
+        index = parent;
+    }
+    portalQueue[index].portal = portal;
+    portalQueue[index].dist = distance;
+    ++portalQueueCount;
+}
+
+// PINNED 10009820/156.
+GfxPortal *R_PortalQueuePopMin()
+{
+    GfxPortal *top;
+    int count;
+    int hole;
+    int index;
+    int child;
+
+    top = portalQueue[0].portal;
+    *(unsigned char *)top = 0;
+    portalQueueCount--;
+    count = portalQueueCount;
+    hole = 0;
+    index = 1;
+    if (count > 0)
+    {
+        do
+        {
+            child = index;
+            if (index < count && portalQueue[index + 1].dist < portalQueue[index].dist)
+                child = index + 1;
+            if (portalQueue[count].dist <= portalQueue[child].dist)
+                break;
+            portalQueue[hole] = portalQueue[child];
+            index = child * 2 + 1;
+            hole = child;
+        } while (index <= count);
+    }
+    portalQueue[hole] = portalQueue[portalQueueCount];
+    return top;
+}
+
+// Names unconfirmed; PINNED out-of-line copies 100098c0 and 10009900, no direct callers in retail.
+GfxHullPointsPool *R_AllocHullPoints()
+{
+    GfxHullPointsPool *pool = nextFreeHullPoints;
+    if (!pool)
+        R_Error(ERR_DROP, "more than %i queued portals", 256);
+    nextFreeHullPoints = nextFreeHullPoints->nextFree;
+    return pool;
+}
+
+void R_FreeHullPoints(GfxHullPointsPool *pool)
+{
+    pool->nextFree = nextFreeHullPoints;
+    nextFreeHullPoints = pool;
+}
+
 // PINNED: 10009910; descriptive name SUPPORTED by KisakCOD.
 void R_AddVertToPortalHullPoints(GfxPortal *portal, const float *v)
 {
@@ -1332,6 +1446,22 @@ void R_AddVertToPortalHullPoints(GfxPortal *portal, const float *v)
     portal->hullPoints[portal->hullPointCount][1] =
         portal->hullAxis[1][0] * v[0] + (portal->hullAxis[1][1] * v[1] + portal->hullAxis[1][2] * v[2]);
     ++portal->hullPointCount;
+}
+
+// Name unconfirmed; PINNED out-of-line copy at 10009a10, no direct callers in retail.
+bool R_IsPortalCulled(const GfxPortal *portal, const DpvsPlane *planes, int planeCount)
+{
+    if (portal->writable.isAncestor)
+        return true;
+    float distance = dpvsViewOrg[0] * portal->plane.coeffs[0]
+        + dpvsViewOrg[3] * portal->plane.coeffs[3]
+        + dpvsViewOrg[2] * portal->plane.coeffs[2]
+        + dpvsViewOrg[1] * portal->plane.coeffs[1];
+    if (distance > 0.0f)
+        return true;
+    if (R_PortalBehindAnyPlane(portal, planes, planeCount))
+        return true;
+    return R_IsPortalOccluded(portal);
 }
 
 static int R_ChopPortal(const GfxPortal *portal, const DpvsPlane *parentPlane,
@@ -1383,6 +1513,13 @@ static bool R_IsCellInList(const GfxCell *cell, const GfxCell **list, int count)
     return false;
 }
 
+// Name unconfirmed; PINNED out-of-line copy at 10009bb0, no direct callers in retail.
+int R_AppendCellToList(const GfxCell **list, int count, const GfxCell *cell)
+{
+    list[count] = cell;
+    return count + 1;
+}
+
 int R_GetFurtherCellList_r(const GfxCell *cell, const DpvsPlane *parentPlane,
     const DpvsPlane *planes, int planeCount, vec3_t v[2][128], const GfxCell **list, int count)
 {
@@ -1404,31 +1541,6 @@ int R_GetFurtherCellList_r(const GfxCell *cell, const DpvsPlane *parentPlane,
     return count;
 }
 
-void R_PortalQueuePush(GfxPortal *portal)
-{
-    int index;
-    int parent;
-    float distance;
-
-    if (portalQueueCount >= 256)
-        R_Error(ERR_DROP, "More than %i queued portals", 256);
-    portal->writable.isQueued = 1;
-    distance = R_FurthestPointOnWinding(portal->vertices, portal->vertexCount, portalViewPlane.coeffs);
-    index = portalQueueCount;
-    for (;;)
-    {
-        parent = (index - 1) >> 1;
-        if (parent < 0 || distance >= portalQueue[parent].dist)
-            break;
-        portalQueue[index].portal = portalQueue[parent].portal;
-        portalQueue[index].dist = portalQueue[parent].dist;
-        index = parent;
-    }
-    portalQueue[index].portal = portal;
-    portalQueue[index].dist = distance;
-    ++portalQueueCount;
-}
-
 // PINNED 10009cf0/167: cells beyond an unclipped opening reuse the current frustum.
 static void R_DrawFurtherCells(const GfxCell *cell, const DpvsPlane *parentPlane,
     DpvsPlane *planes, int planeCount)
@@ -1442,6 +1554,25 @@ static void R_DrawFurtherCells(const GfxCell *cell, const DpvsPlane *parentPlane
         if (dpvsGlob.debug.drawWorld)
             R_AddCellCullGroups(cells[i], planes, planeCount);
     }
+}
+
+// Names unconfirmed; PINNED out-of-line copies 10009da0, 10009db0, 10009dd0, no direct callers in retail.
+void R_SetPortalAncestorFlags(GfxPortal *portal, byte value)
+{
+    for (; portal; portal = portal->writable.queuedParent)
+        portal->writable.isAncestor = value;
+}
+
+void R_MarkPortalAncestors(GfxPortal *portal)
+{
+    for (; portal; portal = portal->writable.queuedParent)
+        portal->writable.isAncestor = true;
+}
+
+void R_ClearPortalAncestors(GfxPortal *portal)
+{
+    for (; portal; portal = portal->writable.queuedParent)
+        portal->writable.isAncestor = false;
 }
 
 // PINNED 10009df0/547: ancestors are marked only while visiting this cell.
@@ -1595,6 +1726,19 @@ void R_SetupDpvsForDir(const GfxViewParms *viewParms)
     portalFarPlane = 0;
 }
 
+// Name unconfirmed; PINNED out-of-line copy at 1000a620, no direct callers in retail.
+void R_SetupViewPlanes(const GfxViewParms *viewParms, const vec4_t *sides, int sideCount, DpvsPlane *planes)
+{
+    portalInverseViewProjectionMatrix = &viewParms->inverseViewProjectionMatrix;
+    activeOccluders.count = 0;
+    portalViewProjectionMatrix = &viewParms->viewProjectionMatrix;
+    R_FrustumClipPlanes(&viewParms->viewProjectionMatrix, sides, sideCount, planes);
+    if (viewParms->projectionMatrix.m[3][3] == 0.0f)
+        R_SetupDpvsForPoint(viewParms);
+    else
+        R_SetupDpvsForDir(viewParms);
+}
+
 // PINNED 1000a680/248: route entities before walking all/single/connected cells.
 static void R_AddWorldSurfacesByCell(int cameraCell, DpvsPlane *planes, int planeCount)
 {
@@ -1633,6 +1777,13 @@ static void R_AddSkySurfaces(DpvsPlane *planes, int planeCount)
         return;
     for (int i = 0; i < rgp.world->skySurfCount; ++i)
         R_AddWorldSurfaceWithCull(rgp.world->skyStartSurfs[i], planes, planeCount - 1, 0);
+}
+
+// Name unconfirmed; PINNED out-of-line copy at 1000a7d0, no direct callers in retail.
+void R_AddWorldSurfacesAndSky(int cameraCell, DpvsPlane *planes, int planeCount)
+{
+    R_AddWorldSurfacesByCell(cameraCell, planes, planeCount);
+    R_AddSkySurfaces(planes, planeCount);
 }
 
 void R_ClearDpvsScene()
@@ -1709,62 +1860,6 @@ void R_SetCullDist(float dist)
         dpvsCullDist = dist;
 }
 
-GfxPortal *R_PortalQueuePopMin()
-{
-    GfxPortal *top;
-    int count;
-    int hole;
-    int index;
-    int child;
-
-    top = portalQueue[0].portal;
-    *(unsigned char *)top = 0;
-    portalQueueCount--;
-    count = portalQueueCount;
-    hole = 0;
-    index = 1;
-    if (count > 0)
-    {
-        do
-        {
-            child = index;
-            if (index < count && portalQueue[index + 1].dist < portalQueue[index].dist)
-                child = index + 1;
-            if (portalQueue[count].dist <= portalQueue[child].dist)
-                break;
-            portalQueue[hole] = portalQueue[child];
-            index = child * 2 + 1;
-            hole = child;
-        } while (index <= count);
-    }
-    portalQueue[hole] = portalQueue[portalQueueCount];
-    return top;
-}
 
 
 
-// PINNED: view projection 101ce5b8, inverse view projection 101ce5bc.
-
-static __forceinline void R_UnprojectPoint(const float *projected, float *unprojected)
-{
-    const D3DMATRIX *matrix = portalInverseViewProjectionMatrix;
-    unprojected[0] = matrix->m[0][0] * projected[0] + matrix->m[1][0] * projected[1] + matrix->m[3][0];
-    unprojected[1] = matrix->m[0][1] * projected[0] + matrix->m[1][1] * projected[1] + matrix->m[3][1];
-    unprojected[2] = matrix->m[0][2] * projected[0] + matrix->m[1][2] * projected[1] + matrix->m[3][2];
-    unprojected[3] = matrix->m[0][3] * projected[0] + matrix->m[1][3] * projected[1] + matrix->m[3][3];
-}
-
-static __forceinline void R_AddPortalDebugLine(const float *start, const float *end, float cyan)
-{
-    DebugGlobals *debug = &frontEndDataOut->debugGlobals;
-    if (debug->lineCount + 1 > debug->lineLimit)
-        return;
-    if (!debug->lines)
-        debug->lines = (trDebugLine_t *)ri.Z_MallocInternal(debug->lineLimit * sizeof(trDebugLine_t));
-    trDebugLine_t *line = &debug->lines[debug->lineCount];
-    VectorCopy(start, line->start);
-    VectorCopy(end, line->end);
-    Vector4Set(line->color, 0.0f, cyan, cyan, 1.0f);
-    line->depthTest = 0;
-    ++debug->lineCount;
-}
