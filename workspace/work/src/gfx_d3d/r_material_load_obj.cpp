@@ -1080,25 +1080,6 @@ Bool Material_ParseVector(const char **text, int elemCount, float *vector)
     }
 }
 
-// These helper names describe the pinned1001aaf0--1001ad10 bodies.
-Bool Material_ParseEmptyFunctionCall(const char **text)
-{
-    return Com_MatchToken(text, "(", 1) && Com_MatchToken(text, ")", 1)
-        && Com_MatchToken(text, ";", 1);
-}
-
-void Material_SetPassOptionDx7(const PassOptionDx7 *option, Bool enabled,
-    MaterialPassDx7 *pass)
-{
-    *((byte *)pass + option->valueOffset) = enabled;
-}
-
-void Material_InitPassOptionsDx7(MaterialPassDx7 *pass)
-{
-    for (unsigned int index = 0; index < sizeof(s_passOptionsDx7) / sizeof(s_passOptionsDx7[0]); ++index)
-        *((byte *)pass + s_passOptionsDx7[index].valueOffset) = 0;
-}
-
 // PINNED 100198c0: recognized types return success even when value parsing fails.
 Bool Material_ParseLiteralVector(const char **text, const char *type, float *literal)
 {
@@ -1423,7 +1404,7 @@ Bool Material_ParseShaderArguments(const char **text, const char *shaderName,
         return 0;
     for (;;)
     {
-        const char *token = Com_Parse(text);
+        const char *token = Com_ParseInternal(text);
         if (!token[0])
         {
             Com_ScriptWarning("unexpected end-of-file\n");
@@ -1580,7 +1561,7 @@ MaterialShader *Material_CreateShader(const char *name, int shaderType, int shad
 MaterialShader *Material_LoadPassShader(const char **text, int shaderType)
 {
     int version = I_fround(Com_ParseFloat(text) * 10.0f);
-    const char *name = Com_Parse(text);
+    const char *name = Com_ParseInternal(text);
     MaterialShader *shader = Material_FindShader(name, shaderType, version);
     if (shader)
         return shader;
@@ -1618,16 +1599,6 @@ Bool Material_SetPassShaderArguments(const char **text, const MaterialShader *sh
     return success;
 }
 
-// PINNED 1001aaa0: state, declaration, vertex shader, then pixel shader.
-Bool Material_LoadPassDx9(const char **text, MaterialPassDx9 *pass, byte *techFlags)
-{
-    if (!Material_LoadPassStateMap(text, &pass->stateMap)
-        || !Material_LoadPassVertexDecl(text, pass)
-        || !Material_LoadPassVertexShader(text, pass, techFlags))
-        return 0;
-    return Material_LoadPassPixelShader(text, pass, techFlags) != 0;
-}
-
 // PINNED 1001aa00: publish the shader before parsing its arguments.
 __declspec(noinline) Bool Material_LoadPassVertexShader(const char **text, MaterialPassDx9 *pass, byte *techFlags)
 {
@@ -1650,6 +1621,35 @@ __declspec(noinline) Bool Material_LoadPassPixelShader(const char **text, Materi
         return 0;
     pass->pixelShader = shader;
     return Material_SetPassShaderArguments(text, shader, techFlags, &pass->pixelArgCount, &pass->pixelArgs);
+}
+
+// PINNED 1001aaa0: state, declaration, vertex shader, then pixel shader.
+Bool Material_LoadPassDx9(const char **text, MaterialPassDx9 *pass, byte *techFlags)
+{
+    if (!Material_LoadPassStateMap(text, &pass->stateMap)
+        || !Material_LoadPassVertexDecl(text, pass)
+        || !Material_LoadPassVertexShader(text, pass, techFlags))
+        return 0;
+    return Material_LoadPassPixelShader(text, pass, techFlags) != 0;
+}
+
+// These helper names describe the pinned1001aaf0--1001ad10 bodies.
+Bool Material_ParseEmptyFunctionCall(const char **text)
+{
+    return Com_MatchToken(text, "(", 1) && Com_MatchToken(text, ")", 1)
+        && Com_MatchToken(text, ";", 1);
+}
+
+void Material_SetPassOptionDx7(const PassOptionDx7 *option, Bool enabled,
+    MaterialPassDx7 *pass)
+{
+    *((byte *)pass + option->valueOffset) = enabled;
+}
+
+void Material_InitPassOptionsDx7(MaterialPassDx7 *pass)
+{
+    for (unsigned int index = 0; index < sizeof(s_passOptionsDx7) / sizeof(s_passOptionsDx7[0]); ++index)
+        *((byte *)pass + s_passOptionsDx7[index].valueOffset) = 0;
 }
 
 static void Material_ParsePassOptionDx7(const char **text, MaterialPassDx7 *pass,

@@ -4354,3 +4354,10 @@ DEFERRED, no name evidence: 1000c8e0 (R_HashAssetName(name)&0x7ff, esi in, dead;
 # r_material_load_obj ParseRuleSetCondition/ParseRuleSet - 2026-11-11 (gfx/w-imgload2)
 
 Probe 1 (kept): Com_Parse -> Com_ParseInternal at the three token reads (ParseRuleSetCondition x2, ParseRuleSet x1). Retail inlines the unget check + Com_ParseExt(text,1) there. ParseRuleSetCondition 192 B -> 352 B span equal to retail, ParseRuleSet span equal to retail (608). The 2026-11-07 "non-source-fixable" note is superseded: sizes now match. r_material_load_obj drift -2304 -1824 -1024 -992 -816 -784. same-offset 273070.
+
+# r_material_load_obj shader/pass region - 2026-11-11 (gfx/w-imgload2)
+
+- Material_ParseShaderArguments (1001a160) and Material_LoadPassShader (1001a810): Com_Parse -> Com_ParseInternal (retail has the inline unget check + Com_ParseExt(text,1)). Sizes 794 -> 856 and 211 -> 266, both equal retail; bytes still differ in register choice (retail keeps table in ebx, text in ebp). Kept.
+- Reordered ours to retail order: VertexShader, PixelShader, LoadPassDx9, ParseEmptyFunctionCall (1001aaf0), SetPassOptionDx7 (1001ab40), InitPassOptionsDx7 (1001ab50), then ParsePassOptionDx7. Region 1001a0e0..1001ab70 span now short only by the three unreferenced retail functions 1001a790 (7 B, store of vtable 101948ec), 1001a7a0 (1 B ret) and 1001a7b0 (84 B, cache lookup + CreateShader + cache store, no caller anywhere in the image); no name evidence, not added.
+- Material_LoadPassOptionsDx7 (retail 1001acb0, 91 B vs ours 75 B): retail keeps the Init loop as a real loop over the 5-entry table (xor eax; mov edx,[eax+10190254]; add eax,8; cmp eax,0x28); ours folds it to five constant stores. Probe 1: extern const decl before the table. Probe 2: extern decl early, table definition moved to end of file. Both: still 18 B Init / 75 B (LTCG sees the initializer). Not tried: non-const table (would move it to .data, wrong section). Open.
+- Material_CreateShader: 3 B short only because retail has FNCLEX where ours calls _clearfp (known, see earlier _clearfp entries); stack slot offsets differ.
