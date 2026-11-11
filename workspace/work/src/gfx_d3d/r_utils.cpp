@@ -19,6 +19,21 @@ int R_HashString(const char *string)
 
 // UNACCEPTED: PC1002c370/201; one x87 cleanup instruction still differs.
 #pragma intrinsic(fabs, sin, tan)
+
+extern infoParm_t infoParms[];
+int R_PickMaterial(const vec_t *org, const vec_t *dir, char *name, char *surfaceFlags, char *contents, size_t charLimit);
+__declspec(noinline) void R_ConvertColorToBytes(const vec_t *colorFloat, byte *colorBytes);
+int R_HashAssetName(const char *name);
+bool R_ValidXModelName(const char *name);
+int R_CullPointAndRadius(const vec_t *origin, float radius,
+    const DpvsPlane *planes, int planeCount);
+float FresnelTerm(float n0, float n1, float cosIncidentAngle);
+int R_HashAssetName(const char *name);
+bool R_ValidXModelName(const char *name);
+int R_CullPointAndRadius(const vec_t *origin, float radius,
+    const DpvsPlane *planes, int planeCount);
+int R_PickMaterial(const vec_t *org, const vec_t *dir, char *name, char *surfaceFlags, char *contents, size_t charLimit);
+__declspec(noinline) void R_ConvertColorToBytes(const vec_t *colorFloat, byte *colorBytes);
 float FresnelTerm(float n0, float n1, float cosIncidentAngle)
 {
     double incidentAngle, sinRefracted, refractedAngle, sumAngle, diffAngle;
@@ -44,14 +59,6 @@ float FresnelTerm(float n0, float n1, float cosIncidentAngle)
         result = 1.0f;
     return result;
 }
-
-extern infoParm_t infoParms[];
-int R_PickMaterial(const vec_t *org, const vec_t *dir, char *name, char *surfaceFlags, char *contents, size_t charLimit);
-__declspec(noinline) void R_ConvertColorToBytes(const vec_t *colorFloat, byte *colorBytes);
-int R_HashAssetName(const char *name);
-bool R_ValidXModelName(const char *name);
-int R_CullPointAndRadius(const vec_t *origin, float radius,
-    const DpvsPlane *planes, int planeCount);
 
 // r_utils in Mac 1.3; inlined at every call site in retail 1.0.
 int R_HashAssetName(const char *name)
@@ -93,6 +100,20 @@ int R_CullPointAndRadius(const vec_t *origin, float radius,
             return 2;
     }
     return 0;
+}
+
+// D3DCOLOR byte order (B, G, R, A); a null color means opaque white.
+__declspec(noinline) void R_ConvertColorToBytes(const vec_t *colorFloat, byte *colorBytes)
+{
+    if (!colorFloat)
+    {
+        *(int *)colorBytes = -1;
+        return;
+    }
+    colorBytes[0] = (byte)(colorFloat[2] * 255.0f);
+    colorBytes[1] = (byte)(colorFloat[1] * 255.0f);
+    colorBytes[2] = (byte)(colorFloat[0] * 255.0f);
+    colorBytes[3] = (byte)(colorFloat[3] * 255.0f);
 }
 
 int R_PickMaterial(const vec_t *org, const vec_t *dir, char *name, char *surfaceFlags, char *contents, size_t charLimit)
@@ -150,18 +171,4 @@ int R_PickMaterial(const vec_t *org, const vec_t *dir, char *name, char *surface
         }
     }
     return 1;
-}
-
-// D3DCOLOR byte order (B, G, R, A); a null color means opaque white.
-__declspec(noinline) void R_ConvertColorToBytes(const vec_t *colorFloat, byte *colorBytes)
-{
-    if (!colorFloat)
-    {
-        *(int *)colorBytes = -1;
-        return;
-    }
-    colorBytes[0] = (byte)(colorFloat[2] * 255.0f);
-    colorBytes[1] = (byte)(colorFloat[1] * 255.0f);
-    colorBytes[2] = (byte)(colorFloat[0] * 255.0f);
-    colorBytes[3] = (byte)(colorFloat[3] * 255.0f);
 }
