@@ -34,15 +34,17 @@ IDirect3DSurface9 *R_GetOrCreateDepthStencil();
 static IDirect3DSurface9 *R_CreateSmallDepthStencil();
 void R_InitFrameBuffer(GfxRenderTarget *renderTarget);
 void R_ShutdownRenderTargets();
-static __forceinline void R_InitRenderTargetImage(int imageProgId, int width, int height,
+static inline void R_InitRenderTargetImage(int imageProgId, int width, int height,
     D3DFORMAT format, RenderTargetUsage usage, GfxRenderTarget *renderTarget);
-static __forceinline void R_InitCookieRenderTarget(int imageProgId, GfxRenderTarget *renderTarget);
+static inline void R_InitTrackedRenderTargetImage(int imageProgId, unsigned short width,
+    unsigned short height, D3DFORMAT format, RenderTargetUsage usage, GfxRenderTarget *renderTarget);
 void R_InitShadowCookieRenderTarget(GfxRenderTarget *renderTarget);
 void R_InitShadowCookieBlurRenderTarget(GfxRenderTarget *renderTarget);
 static __forceinline void R_InitFullscreenRenderTargetImage(int imageProgId, int picmip,
     D3DFORMAT format, RenderTargetUsage usage, GfxRenderTarget *renderTarget);
+static void R_InitMainFrameBuffer();
+static void R_LogFrameBufferFormat();
 void R_InitRenderTargets();
-static void R_GetDesktopExtent(int *width, int *height);
 void R_GetFrameBufferExtent(int *width, int *height);
 
 // PINNED 0x10022710: the PC switch includes R5G6B5 and D16_LOCKABLE, not D32.
@@ -82,7 +84,13 @@ void R_GetFrameBufferExtent(int *width, int *height)
         *height = modeHeight;
         return;
     }
-    R_GetDesktopExtent(width, height);
+    // virtual-desktop extent, never smaller than the primary screen
+    int virtualWidth = GetSystemMetrics(78);
+    int virtualHeight = GetSystemMetrics(79);
+    int screenWidth = GetSystemMetrics(0);
+    int screenHeight = GetSystemMetrics(1);
+    *width = I_max(virtualWidth, screenWidth);
+    *height = I_max(virtualHeight, screenHeight);
 }
 
 // PINNED 0x10022830: cache/reuse a single-sample depth surface.
@@ -141,8 +149,14 @@ void R_InitFrameBuffer(GfxRenderTarget *renderTarget)
             width, height, DXGetErrorDescription9(hr));
 }
 
+// name unconfirmed: retail keeps an unreferenced out-of-line copy at 10022a50/10
+static void R_InitMainFrameBuffer()
+{
+    R_InitFrameBuffer(&dx.renderTargets[R_RENDERTARGET_FRAME_BUFFER]);
+}
+
 // PINNED 10022a60/150: usage2 selects a dynamic system-memory texture.
-static __forceinline void R_InitRenderTargetImage(int imageProgId, int width, int height,
+static inline void R_InitRenderTargetImage(int imageProgId, int width, int height,
     D3DFORMAT format, RenderTargetUsage usage, GfxRenderTarget *renderTarget)
 {
     renderTarget->image = Image_AllocProg(imageProgId, 6);
@@ -155,23 +169,12 @@ static __forceinline void R_InitRenderTargetImage(int imageProgId, int width, in
     renderTarget->height = (unsigned short)height;
 }
 
-static __forceinline void R_InitCookieRenderTarget(int imageProgId, GfxRenderTarget *renderTarget)
+// name unconfirmed: retail keeps an out-of-line copy at 10022b00/46
+static inline void R_InitTrackedRenderTargetImage(int imageProgId, unsigned short width,
+    unsigned short height, D3DFORMAT format, RenderTargetUsage usage, GfxRenderTarget *renderTarget)
 {
-    R_InitRenderTargetImage(imageProgId, 128, 128, D3DFMT_A8R8G8B8,
-        RENDERTARGET_USAGE_RENDER, renderTarget);
-    Image_TrackTexture(renderTarget->image, 3, D3DFMT_A8R8G8B8, 128, 128, 1);
-    renderTarget->depthStencilSurface = R_CreateSmallDepthStencil();
-}
-
-// PINNED 0x10022b90 and 0x10022c30; names are descriptive, not historical proof.
-void R_InitShadowCookieRenderTarget(GfxRenderTarget *renderTarget)
-{
-    R_InitCookieRenderTarget(1, renderTarget);
-}
-
-void R_InitShadowCookieBlurRenderTarget(GfxRenderTarget *renderTarget)
-{
-    R_InitCookieRenderTarget(2, renderTarget);
+    R_InitRenderTargetImage(imageProgId, width, height, format, usage, renderTarget);
+    Image_TrackTexture(renderTarget->image, 3, format, width, height, 1);
 }
 
 // PINNED in 0x10022d20: all PC fullscreen images use DEFAULT-pool render textures.
@@ -187,15 +190,36 @@ static __forceinline void R_InitFullscreenRenderTargetImage(int imageProgId, int
     Image_TrackFullscreenTexture(renderTarget->image, picmip, format);
 }
 
-// PINNED 0x10022d20/2102: no Mac sharing or CoD4 minimal-resource branches.
-void R_InitRenderTargets()
+// PINNED 0x10022b90 and 0x10022c30; names are descriptive, not historical proof.
+void R_InitShadowCookieRenderTarget(GfxRenderTarget *renderTarget)
 {
-    R_InitFrameBuffer(&dx.renderTargets[R_RENDERTARGET_FRAME_BUFFER]);
+    R_InitTrackedRenderTargetImage(1, 128, 128, D3DFMT_A8R8G8B8, RENDERTARGET_USAGE_RENDER,
+        renderTarget);
+    renderTarget->depthStencilSurface = R_CreateSmallDepthStencil();
+}
+
+void R_InitShadowCookieBlurRenderTarget(GfxRenderTarget *renderTarget)
+{
+    R_InitTrackedRenderTargetImage(2, 128, 128, D3DFMT_A8R8G8B8, RENDERTARGET_USAGE_RENDER,
+        renderTarget);
+    renderTarget->depthStencilSurface = R_CreateSmallDepthStencil();
+}
+
+// name unconfirmed: retail keeps an unreferenced out-of-line copy at 10022cd0/64
+static void R_LogFrameBufferFormat()
+{
     ri.Printf(0, "Requested frame buffer to be %s\n", R_DescribeFormat(D3DFMT_A8R8G8B8));
     D3DSURFACE_DESC desc;
     dx.renderTargets[R_RENDERTARGET_FRAME_BUFFER].colorSurface->GetDesc(&desc);
     dx.backBufferFormat = desc.Format;
     ri.Printf(0, "DirectX returned a frame buffer that is %s\n", R_DescribeFormat(desc.Format));
+}
+
+// PINNED 0x10022d20/2102: no Mac sharing or CoD4 minimal-resource branches.
+void R_InitRenderTargets()
+{
+    R_InitMainFrameBuffer();
+    R_LogFrameBufferFormat();
     if (r_rendererInUse->current.integer != 2 && r_zFeather->current.enabled)
         R_InitFullscreenRenderTargetImage(3, 0, D3DFMT_R32F, RENDERTARGET_USAGE_RENDER,
             &dx.renderTargets[R_RENDERTARGET_FLOAT_Z]);
@@ -219,22 +243,6 @@ void R_InitRenderTargets()
         &dx.renderTargets[R_RENDERTARGET_PINGPONG_0]);
     R_InitFullscreenRenderTargetImage(8, 2, dx.backBufferFormat, RENDERTARGET_USAGE_RENDER,
         &dx.renderTargets[R_RENDERTARGET_PINGPONG_1]);
-}
-
-// name unconfirmed: virtual-desktop extent, never smaller than the primary screen
-static void R_GetDesktopExtent(int *width, int *height)
-{
-    int virtualWidth;
-    int virtualHeight;
-    int screenWidth;
-    int screenHeight;
-
-    virtualWidth = GetSystemMetrics(78);
-    virtualHeight = GetSystemMetrics(79);
-    screenWidth = GetSystemMetrics(0);
-    screenHeight = GetSystemMetrics(1);
-    *width = I_max(virtualWidth, screenWidth);
-    *height = I_max(virtualHeight, screenHeight);
 }
 
 // PINNED 10023560: the cached depth surface is an alias, not another release.
