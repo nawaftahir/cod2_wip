@@ -999,7 +999,7 @@ static __declspec(noinline) Bool Material_CodeSamplerSource_r(const char **text,
     int index;
     while (Com_MatchToken(text, ".", 1))
     {
-        const char *token = Com_Parse(text);
+        const char *token = Com_ParseInternal(text);
         for (index = 0; sources[index].name; ++index)
             if (!strcmp(token, sources[index].name))
                 goto found;
