@@ -4784,15 +4784,19 @@
 "name": "?CM_NumInlineModels@@YAHXZ",
 "obj": "cm_load.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x415ea0"
+],
+"sameva": 1
 },
 {
 "name": "?CM_EntityString@@YAPADXZ",
 "obj": "cm_load.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x415eb0"
+],
+"sameva": 1
 },
 {
 "name": "?CM_LeafCluster@@YAHH@Z",
@@ -5209,8 +5213,10 @@
 "name": "?CM_Cleanup@@YAXXZ",
 "obj": "cm_load_obj.obj",
 "size": 11,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x418410"
+],
+"sameva": 1
 },
 {
 "name": "?CM_GetPlaneNum@@YAPAUcplane_s@@H@Z",
@@ -12833,8 +12839,9 @@
 "name": "?PC_EvaluateTokens@@YAHPAUsource_s@@PAUtoken_s@@PAJPANH@Z",
 "obj": "l_precomp.obj",
 "size": 2587,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x43f720"
+]
 },
 {
 "name": "?PC_Evaluate@@YAHPAUsource_s@@PAJPANH@Z",
@@ -16682,9 +16689,8 @@
 "name": "?SV_DirectConnect@@YAXUnetadr_t@@@Z",
 "obj": "sv_client_mp.obj",
 "size": 2733,
-"hits": [
-"0x453c20"
-]
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?SV_FreeClientScriptPers@@YAXXZ",
@@ -39911,9 +39917,8 @@
 "name": "?CG_DrawPlayerStance@@YAXPBUrectDef_s@@PAMPAUFont_s@@MH@Z",
 "obj": "cg_newDraw_mp.obj",
 "size": 1607,
-"hits": [
-"0x4c43b0"
-]
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?CG_CalcPlayerHealth@@YAMXZ",
