@@ -301,13 +301,11 @@ int R_MarkFragments(vec3_t *points, const float *origin, vec3_t *axis, float rad
     int triIndex;
     int returnedPoints;
     int returnedFragments;
-    GfxSurface *surf;
     srfTriangles_t *tris;
     GfxWorldVertex *triVerts;
     GfxWorldVertex *vert;
     GfxWorldVertex *outVerts;
     GfxMarkFragment *fragment;
-    unsigned short *indices;
 
     R_GetMarkFragmentBounds(points, axis[0], radius, mins, maxs);
     ++rg.markCount;
@@ -331,23 +329,21 @@ int R_MarkFragments(vec3_t *points, const float *origin, vec3_t *axis, float rad
     returnedFragments = 0;
     for (surfIndex = 0; surfIndex < surfCount; ++surfIndex)
     {
-        surf = surfaces[surfIndex];
-        if (surf->material->stateBits[0] & 0x30)
+        if (surfaces[surfIndex]->material->stateBits[1] & 0x30)
             continue;
-        tris = surf->tris;
+        tris = surfaces[surfIndex]->tris;
         triVerts = &rgp.world->vd.vertices[tris->firstVertex];
         for (triIndex = 0; triIndex < tris->indexCount; triIndex += 3)
         {
-            indices = (unsigned short *)tris->indices + triIndex;
-            VectorSubtract(triVerts[indices[0]].xyz, triVerts[indices[1]].xyz, edge01);
-            VectorSubtract(triVerts[indices[2]].xyz, triVerts[indices[1]].xyz, edge21);
+            VectorSubtract(triVerts[((unsigned short *)tris->indices)[triIndex]].xyz, triVerts[((unsigned short *)tris->indices)[triIndex + 1]].xyz, edge01);
+            VectorSubtract(triVerts[((unsigned short *)tris->indices)[triIndex + 2]].xyz, triVerts[((unsigned short *)tris->indices)[triIndex + 1]].xyz, edge21);
             Vec3Cross(edge01, edge21, normal);
             dot = DotProduct(normal, axis[0]);
-            if (!(dot >= 0.0f && dot * dot >= 0.25f * DotProduct(normal, normal)))
+            if (dot < 0.0f || dot * dot < 0.25f * DotProduct(normal, normal))
                 continue;
             for (pointIndex = 0; pointIndex < 3; ++pointIndex)
             {
-                vert = &triVerts[indices[pointIndex]];
+                vert = &triVerts[((unsigned short *)tris->indices)[triIndex + pointIndex]];
                 VectorCopy(vert->xyz, clipPoints[0][pointIndex].xyz);
                 clipPoints[0][pointIndex].lmapCoord[0] = vert->lmapCoord[0];
                 clipPoints[0][pointIndex].lmapCoord[1] = vert->lmapCoord[1];
@@ -367,7 +363,7 @@ int R_MarkFragments(vec3_t *points, const float *origin, vec3_t *axis, float rad
                 Vec3Cross(vert->binormal, vert->normal, vert->tangent);
             }
             fragment->markMaterial = markMaterial;
-            fragment->lmapIndex = surf->lightmapIndex;
+            fragment->lmapIndex = surfaces[surfIndex]->lightmapIndex;
             fragment->firstPoint = returnedPoints;
             returnedPoints += fragment->pointCount;
             ++returnedFragments;
