@@ -4397,3 +4397,10 @@ Probe 1 (kept): Com_Parse -> Com_ParseInternal at the three token reads (ParseRu
 - Retail 1002c370 (201 B x87 sin/tan helper, constants 1019bc88/1019beb8/1019beb0) and
   stubs 1002c440/c450/c460 (calls through [101d4a10/14/18]) sit before Hkt: not in r_water.cpp,
   owner unknown (precede the object; likely other TU).
+
+## 2026-11-12 R_WaterHkt / R_WaterFFT probes (gfx/w-xsurf2)
+- Probe 1: Hkt `-(water->N / 2)` / `-(water->M / 2)` instead of `-water->N / 2`: no change (264/179).
+- Probe 2: Hkt `0.0f == water->wTerm[index]`, FFT `water->N != (1 << log2N)` (and M): Hkt 264 -> 253
+  (retail 252; slot now 256 = retail), FFT stays 179 (retail 165, slot 192 vs retail 176). Gate passed.
+  Operand order in the compare decides the register/loop-align outcome. FFT still has water in edi
+  (retail esi) and log2N spilled to the stack; not solved.
