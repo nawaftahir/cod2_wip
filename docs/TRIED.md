@@ -4414,3 +4414,14 @@ retail_order --across --write: only rb_shade moved (4 defs); the other four were
 rb_shade drift: -7424 step gone, new -6192 step appears (5 steps, was 5). Same-offset 275244 (bar 275239).
 Remaining drift: rb_light -6160 -6096 -6064 -6000 -5808 -5376; rb_sky -8064 -7552; rb_imagefilter -5056
 (non-/GL emits 538 vs 543, see above); rb_imagetouch -5424. No size probes run (time limit).
+
+## 2026-11-12 r_water / r_xsurface (gfx/w-xsurf2, second pass)
+- R_WaterFFT (179 vs 165): root cause is the callee, not the caller. Retail FFT 1005ee60 takes data on the stack (4 pushes
+  at the call: bitswap, trig, stride, data; log2 in edx); ours (universal/fft.cpp) takes data in esi with 3 pushes, so the
+  caller must keep water in edi and spill log2N. Fixing it means matching FFT's own convention first (see the FFT notes above). No probe built.
+- Retail 1002c370 (201 B) and stubs 1002c440/c450/c460 have no callers in .text. The stubs are LargeLocal's ctor (this in esi,
+  size in eax: *this = ri.HiAlloc(size)), GetBuf (ri.HiOffToPtr(*this)) and dtor (ri.HiSetOffset(*this)) = slots 18/19/20
+  (CHUNKS.md labels them R_PickMaterial; that label is just the nearest named function). All real users are in r_dpvs
+  (1000a02f, 1000a8db, 1000aa45). 1002c370 is an x87 sin/tan routine of unknown owner. Not placed.
+- r_xsurface: reordered to retail (TransformPos, RotateNormal, GetNumVerts, GetNumTris, GetTris, GetVerts, Transfer, TransferDx7);
+  XSurfaceGetVertexInfoArray / XSurfaceGetBoneOffset deleted (no callers, no retail copy); XSurfaceTransformPosWeighted is a macro.
