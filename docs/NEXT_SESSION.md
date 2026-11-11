@@ -50,3 +50,21 @@ r_image 1000c8e0 (hash & 0x7ff), 1000ccb0, 1000ccf0.
 - build.sh can print PASS lines after a compile error and leave a stale DLL: check build.log.
 - In wsl.exe bash -lc '...', $vars and quotes get mangled; put logic in a script file.
 - Some sources are CRLF; match line endings in scripted edits.
+
+## r_model (gfx/w-imgload2, 2026-11-11)
+Done: order now equals retail through R_UpdateXModelBounds (rigid/blend helpers 1001e260/e3a0/e440, Dx7Sse before Dx7, Rigid/RigidDx7 after, ExpandBoneBounds + UpdateXModelBounds after R_SetEntityOriginBounds, release helpers at 10020330/50). Drift groups -1696 -1616 -1600 -1584 -1568 -1536.
+Remaining size table (ours -> retail):
+| Function | ours | retail | Cause |
+|---|---|---|---|
+| R_SkinXSurfaceBlendedSse (1001e6e0) | 575 | 552 | SSE scheduling, frame 0x48 vs 0x88 |
+| R_SkinXSurfaceBlended (e920) | 324 | 337 | not diffed |
+| R_SkinXSurfaceBlendedDx7Sse (ea80) | 399 | 408 | not diffed |
+| R_SkinXSurfaceBlendedDx7 (ec20) | 316 | 324 | not diffed |
+| R_SkinXSurfaceRigid (ed70) | 124 | 137 | retail jumps into the loop at its test |
+| R_SkinXSurfaceRigidDx7 (ee00) | 101 | 105 | not diffed |
+| R_PreSkinXSurface (f120) | 336 | 347 | not diffed |
+| R_PreSkinStaticSurface (f2a0) | 451 | 479 | not diffed |
+| R_SkinXModel (f6f0) | 906 | 886 | retail ebp frame with `and esp,-8`; calls identical |
+| R_SkinSceneDObj (fa70) | 835 | 766 | retail calls 10020be0 as cdecl(type,&cmd,0) at one shared site; ours folds to ecx/edx |
+Also: R_AllocSkinnedCachedVerts 138 vs 138 but span +32 (padding before it), R_GetRigidTransform region -32, 1001f000 region +48, 1001f280 region +112 (R_PreSkin* above), R_ConvertAnimMatToSkelMat region +48 (std heap helpers 1001d1e0..d660 are library code).
+Open question worth an hour: why retail keeps R_ProcessFrontendCmdInternal (10020be0) cdecl with a live context parameter although all three callers pass 0 (see TRIED.md).
