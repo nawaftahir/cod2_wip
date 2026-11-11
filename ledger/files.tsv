@@ -2,22 +2,22 @@ source	status	matched_game_functions	matched_game_bytes	metadata	image_placement
 src/radiant/AdvCurveDlg.cpp	PARTIAL	51	4374	PENDING	PENDING		none: from make show
 src/radiant/cameratargetdlg.cpp	PARTIAL	5	212	PENDING	PENDING		FILE VERIFIED: 5 game / 212 B, scalar / 33 B, 21 SDK / 998 B; full metadata/EH and 29 SDK-label audit; placement pending
 src/radiant/CamWnd.cpp	PARTIAL	17	960	PENDING	PENDING		Q3Radiant DRAG.CPP (7/9 string funcs); iw3xo (5/9)
-src/radiant/CapDialog.cpp	PARTIAL	5	78	PENDING	PENDING		FILE VERIFIED: full normalized code/helpers/metadata; see ledger/files.tsv; image placement pending
+src/radiant/CapDialog.cpp	VERIFIED	5	78	PASS	PENDING	workspace/research/gemini_review/test_finished_small.py	
 src/libs/cmdlib/cmdlib.cpp	PARTIAL	1	31	PENDING	PENDING		Q3Radiant splines.cpp (1/8 string funcs)
 src/radiant/UNKNOWN_00408f20.cpp	PARTIAL	3	32	PENDING	PENDING		iw3xo (1/1)
 src/radiant/CommandsDlg.cpp	PARTIAL	3	125	PENDING	PENDING		Reviewed report only: OnInitDialog 1079/685 B; five omitted helpers unchecked; zero accepted source; draft preserved
 src/radiant/DialogInfo.cpp	PARTIAL	5	158	PENDING	PENDING		scratch preserved; reported ShowInfoDialog 73/66 B requires Pmesh caller review; no accepted source
-src/radiant/DialogThick.cpp	PARTIAL	4	93	PENDING	PENDING		FILE VERIFIED: full normalized code/helpers/metadata; see ledger/files.tsv; image placement pending
+src/radiant/DialogThick.cpp	VERIFIED	4	93	PASS	PENDING	workspace/research/gemini_review/test_finished_small.py	
 src/radiant/dlgcamera.cpp	PARTIAL	25	65	PENDING	PENDING		Q3Radiant util_list.h (16/17 string funcs); iw3xo (1/17)
 src/radiant/DlgEvent.cpp	PARTIAL	3	175	PENDING	PENDING		FILE VERIFIED: full normalized code/helpers/metadata; see ledger/files.tsv; image placement pending
 src/radiant/draw.cpp	PARTIAL	4	415	PENDING	PENDING		none: from make show
-src/radiant/EditWnd.cpp	PARTIAL	6	149	PENDING	PENDING		FILE VERIFIED: full normalized code/helpers/metadata; see ledger/files.tsv; image placement pending
+src/radiant/EditWnd.cpp	VERIFIED	6	149	PASS	PENDING	workspace/research/gemini_review/test_editor_completion.py	
 src/radiant/EntityListDlg.cpp	PARTIAL	3	167	PENDING	PENDING		Q3Radiant Win_ent.cpp (1/1 string funcs)
 src/radiant/filtersettings.cpp	PARTIAL	3	3	PENDING	PENDING		Q3Radiant MainFrm.cpp (1/44 string funcs); iw3xo (1/44)
 src/radiant/FindTextureDlg.cpp	PARTIAL	15	1013	PENDING	PENDING		Q3Radiant FindTextureDlg.cpp (4/4 string funcs)
 src/radiant/GfxWrapper.cpp	PARTIAL	15	111	PENDING	PENDING		Q3Radiant Win_main.cpp (1/11 string funcs); iw3xo (8/11)
 src/radiant/KeyValueSelectDlg.cpp	PARTIAL	3	360	PENDING	PENDING		FILE VERIFIED: full normalized code/helpers/metadata; see ledger/files.tsv; image placement pending
-src/radiant/LstToolBar.cpp	PARTIAL	4	42	PENDING	PENDING		FILE VERIFIED: full normalized code/helpers/metadata; see ledger/files.tsv; image placement pending
+src/radiant/LstToolBar.cpp	VERIFIED	4	42	PASS	PENDING	workspace/research/gemini_review/test_finished_small.py	
 src/radiant/MainFrm.cpp	PARTIAL	27	151	PENDING	PENDING		Q3Radiant MainFrm.cpp (78/94 string funcs); iw3xo (26/94)
 src/radiant/MapInfo.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant WIN_DLG.CPP (1/2 string funcs); iw3xo (1/2)
 src/radiant/UNKNOWN_00420930.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant PatchDialog.cpp (3/6 string funcs); iw3xo (4/6)
@@ -30,7 +30,7 @@ src/radiant/PatchDialog.cpp	PARTIAL	15	1391	PENDING	PENDING		15 game / 1391 B; c
 src/radiant/UNKNOWN_00425080.cpp	PARTIAL	1	1	PENDING	PENDING		Q3Radiant Win_main.cpp (1/5 string funcs); iw3xo (1/5)
 src/radiant/Pmesh.cpp	PARTIAL	9	916	PENDING	PENDING		3 game / 676 B verified: real bounds and distance helpers; version/layout/sqrt/FP bindings pinned; generators pending
 src/radiant/PrefsDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant PrefsDlg.cpp (3/3 string funcs); iw3xo (2/3)
-src/radiant/RADEditWnd.cpp	PARTIAL	5	320	PENDING	PENDING		FILE VERIFIED: full normalized code/helpers/metadata; see ledger/files.tsv; image placement pending
+src/radiant/RADEditWnd.cpp	VERIFIED	5	320	PASS	PENDING	workspace/research/gemini_review/test_editor_completion.py	
 src/radiant/Radiant.cpp	PARTIAL	3	57	PENDING	PENDING		Q3Radiant Radiant.cpp (1/1 string funcs)
 src/radiant/RotateDlg.cpp	PARTIAL	6	498	PENDING	PENDING		6 game / 498 B; scalar 34 B and shared dtor 200 B verified; four rotation bodies and member-header context pending
 src/radiant/ScaleDialog.cpp	PARTIAL	3	103	PENDING	PENDING		FILE VERIFIED: full normalized code/helpers/metadata; see ledger/files.tsv; image placement pending
