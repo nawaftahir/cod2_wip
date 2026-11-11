@@ -4395,3 +4395,6 @@ Probe 1 (kept): Com_Parse -> Com_ParseInternal at the three token reads (ParseRu
 Target `R_DownsamplePixelData` (retail `0x100259a0`, 363 bytes, frame 0x44; ours 369, frame 0x38). Retail keeps nextSample in ebp, spills color2 to [esp+0x4c], uses separate int temps 0x44/0x48/0x4c and float temp 0x60; ours keeps nextSample in ebx and spills color0.
 - Probe 1: `int weight = newSize - residual; color0 += src[0]*weight;` then `scaled0 = colorScale*color0`, same for color1/2. Size stayed 369, bytes unchanged. Reverted.
 Stopped at 1 probe (time limit). r_screenshot.cpp = w-cmds retail-order baseline.
+
+# r_screenshot missing retail copies - 2026-11-11 (w-shot)
+Added uncalled copies R_CubemapShotCaptureTail (10026760, 65 B, regs eax=buffer ebx=bufferSize) and R_InitCubemapShotTgaHeader (100267b0, 47 B); both land at retail address, sizes match. ~10026f60 is not a separate function: it is the middle of R_CubemapLighting, so no copy needed. Names unconfirmed.

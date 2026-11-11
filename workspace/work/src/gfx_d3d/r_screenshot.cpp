@@ -515,6 +515,28 @@ static __declspec(noinline) void R_FlipCubemapShot(byte *buffer)
     }
 }
 
+// PINNED 10026760: uncalled retail copy of the capture tail; name unconfirmed.
+__declspec(noinline) void R_CubemapShotCaptureTail(byte *buffer, int bufferSize)
+{
+    R_GetFrontBufferData(dx.cubemapShotPixelBorder, dx.cubemapShotPixelBorder,
+        dx.cubemapShotRes, dx.cubemapShotRes, 4, buffer);
+    R_FlipCubemapShot(buffer);
+    if (r_overbrightBits->current.integer > 0 && vidConfig.deviceSupportsGamma)
+        R_GammaCorrect(bufferSize, buffer);
+}
+
+// PINNED 100267b0: uncalled retail copy of the TGA header init; name unconfirmed.
+__declspec(noinline) void R_InitCubemapShotTgaHeader(byte *targa, int resolution)
+{
+    memset(targa, 0, 18);
+    targa[2] = 2;
+    targa[12] = (byte)resolution;
+    targa[13] = (byte)(resolution >> 8);
+    targa[14] = (byte)resolution;
+    targa[15] = (byte)(resolution >> 8);
+    targa[16] = 32;
+}
+
 // PINNED 100267e0: preserve BGRA channel order after the18-byte TGA header.
 static __declspec(noinline) void R_CopyCubemapShot(const byte *source, byte *targa)
 {
