@@ -1,4 +1,5 @@
 // Material and technique loading, shader compilation and device creation.
+#define IncludeClass MacIncludeClass
 #include "r_local.h"
 #include <d3dx9shader.h>
 #include <dxerr9.h>
@@ -11,6 +12,7 @@
 #undef CodeSamplerSource
 #undef CodeConstantSource
 #undef ShaderConstantRouting
+#undef IncludeClass
 #include "universal/parse_inline.h"
 
 // PC code reads serialized SDK records at offsets8 and12, not COM objects.
@@ -192,19 +194,13 @@ MaterialStateMap *Material_LoadStateMap(const char *name);
 MaterialStateMap *Material_LoadCachedStateMap(const char *name);
 Bool Material_LoadPassStateMap(const char **text, MaterialStateMap **stateMap);
 bool Material_FindCachedShaderText(const char *name, const char **text, int *textSize);
-extern "C" HRESULT __stdcall IncludeClass_Open(const void *self, D3DXINCLUDE_TYPE includeType,
-    const char *filename, const void *parentData, const void **data, unsigned int *byteCount);
-extern "C" HRESULT __stdcall IncludeClass_Close(const void *self, const void *data);
-
-struct ShaderIncludeVtable
+// Mac 1.3 keeps the vtable _ZTV12IncludeClass; PINNED 101948ec = { 100182c0, 10018310 }.
+class IncludeClass : public ID3DXInclude
 {
-    HRESULT (__stdcall *Open)(const void *, D3DXINCLUDE_TYPE, const char *, const void *, const void **, unsigned int *);
-    HRESULT (__stdcall *Close)(const void *, const void *);
-};
-static const ShaderIncludeVtable shaderIncludeVtable = { IncludeClass_Open, IncludeClass_Close };
-struct ShaderInclude
-{
-    const ShaderIncludeVtable *vtable;
+public:
+    STDMETHOD(Open)(D3DXINCLUDE_TYPE includeType, LPCSTR filename, LPCVOID parentData,
+        LPCVOID *data, UINT *byteCount);
+    STDMETHOD(Close)(LPCVOID data);
 };
 bool Material_HasConstant(const Material *material, const char *name);
 bool Material_HasTexture(const Material *material, const char *name);
@@ -291,9 +287,6 @@ Bool Material_ParseSamplerSource(const char **text, MaterialShaderArgument *argu
 int Material_TechniqueTypeForName(const char *name);
 void Material_CacheShaderText(const char *name, const char *prefix, GfxCachedShaderText *cached);
 bool Material_FindCachedShaderText(const char *name, const char **text, int *textSize);
-extern "C" HRESULT __stdcall IncludeClass_Open(const void *self, D3DXINCLUDE_TYPE includeType,
-    const char *filename, const void *parentData, const void **data, unsigned int *byteCount);
-extern "C" HRESULT __stdcall IncludeClass_Close(const void *self, const void *data);
 static Bool Material_MatchToken(const char **text, const char *match);
 static const MtlStateMapBitName *Material_ParseStateValue(const char **text,
     const MtlStateMapBitName *bitNames);
@@ -354,9 +347,6 @@ Bool Material_SetPassShaderArguments(const char **text, const MaterialShader *sh
 bool Material_FixupBinary(Material *material, int imageTrack);
 Material *Material_LoadBinary(const char *name, int imageTrack);
 bool Material_FindCachedShaderText(const char *name, const char **text, int *textSize);
-extern "C" HRESULT __stdcall IncludeClass_Open(const void *self, D3DXINCLUDE_TYPE includeType,
-    const char *filename, const void *parentData, const void **data, unsigned int *byteCount);
-extern "C" HRESULT __stdcall IncludeClass_Close(const void *self, const void *data);
 static Bool Material_MatchToken(const char **text, const char *match);
 Bool Material_ParseIndex(const char **text, int expected);
 Bool Material_ParseNamedIndex(const char **text, const char *name, int expected);
@@ -478,8 +468,8 @@ bool Material_FindCachedShaderText(const char *name, const char **text, int *tex
     return 0;
 }
 
-extern "C" HRESULT __stdcall IncludeClass_Open(const void *self, D3DXINCLUDE_TYPE includeType,
-    const char *filename, const void *parentData, const void **data, unsigned int *byteCount)
+HRESULT IncludeClass::Open(D3DXINCLUDE_TYPE includeType, LPCSTR filename, LPCVOID parentData,
+    LPCVOID *data, UINT *byteCount)
 {
     if (Material_FindCachedShaderText(filename, (const char **)data, (int *)byteCount))
         return 0;
@@ -488,9 +478,15 @@ extern "C" HRESULT __stdcall IncludeClass_Open(const void *self, D3DXINCLUDE_TYP
 }
 
 // PINNED 10018310: cached include text is borrowed, so Close does not free it.
-extern "C" HRESULT __stdcall IncludeClass_Close(const void *self, const void *data)
+HRESULT IncludeClass::Close(LPCVOID data)
 {
     return 0;
+}
+
+// PINNED 10018340 (7 B); name from KisakCOD.
+Bool Material_UsingTechnique(unsigned int techType)
+{
+    return g_useTechnique[techType];
 }
 
 static Bool Material_MatchToken(const char **text, const char *match)
@@ -965,12 +961,18 @@ Bool Material_LoadPassVertexDecl(const char **text, MaterialPassDx9 *pass)
     }
 }
 
+// PINNED 100193f0 (3 B); name from KisakCOD.
+const char *BufferOffset(const char *buffer, int offset)
+{
+    return buffer + offset;
+}
+
 // PINNED 10019400: constant names are offsets relative to the serialized table.
 unsigned int Material_FindShaderConstant(const char *shaderName,
     const D3DXSHADER_CONSTANTTABLE *table, const D3DXSHADER_CONSTANTINFO *info, const char *name)
 {
     for (unsigned int index = 0; index < table->Constants; ++index)
-        if (!strcmp((const char *)table + info[index].Name, name))
+        if (!strcmp(BufferOffset((const char *)table, info[index].Name), name))
             return index;
     printf("*WARNING*: constant '%s' is not used by shader '%s'\n", name, shaderName);
     return ~0u;
@@ -1059,6 +1061,13 @@ Bool Material_FindScalarSamplerSource(const char *name, const CodeSamplerSource 
             return 1;
         }
     return 0;
+}
+
+// PINNED 10019780 (30 B); name from KisakCOD.
+Bool Material_DefaultSamplerSource(const char *name, MaterialShaderArgument *argument)
+{
+    argument->type = 3;
+    return Material_FindScalarSamplerSource(name, s_defaultCodeSamplers, argument) != 0;
 }
 
 Bool Material_ParseVector(const char **text, int elemCount, float *vector)
@@ -1386,8 +1395,7 @@ Bool Material_DefaultShaderArgument(const char *name, ShaderConstantRouting *rou
     case 12:
     case 13:
     case 14:
-        argument->type = 3;
-        return Material_FindScalarSamplerSource(name, s_defaultCodeSamplers, argument) != 0;
+        return Material_DefaultSamplerSource(name, argument);
     default:
         return 0;
     }
@@ -1481,7 +1489,7 @@ Bool Material_ParseShaderArguments(const char **text, const char *shaderName,
 // PINNED 1001a4c0: compile cached PC text, retain the original failure cleanup.
 MaterialShader *Material_CreateShader(const char *name, int shaderType, int shaderVersion)
 {
-    ShaderInclude include = { &shaderIncludeVtable };
+    IncludeClass include;
     D3DXMACRO defines[] = { { "PC", "" }, { 0, 0 } };
     char profile[16];
     char path[64];
@@ -1507,7 +1515,7 @@ MaterialShader *Material_CreateShader(const char *name, int shaderType, int shad
     ID3DXBuffer *code;
     ID3DXBuffer *messages;
     ID3DXConstantTable *constants;
-    HRESULT result = D3DXCompileShader(text, textSize, defines, (ID3DXInclude *)&include,
+    HRESULT result = D3DXCompileShader(text, textSize, defines, &include,
         entry, profile, 0, &code, &messages, &constants);
     _clearfp();
     _controlfp(_PC_24, _MCW_PC);
@@ -1560,19 +1568,25 @@ MaterialShader *Material_CreateShader(const char *name, int shaderType, int shad
     return shader;
 }
 
+// Name unconfirmed (KisakCOD splits it into Register{Vertex,Pixel}Shader). PINNED 1001a7b0, 84 B.
+MaterialShader *Material_RegisterShader(const char *name, int shaderType, int shaderVersion)
+{
+    MaterialShader *shader = Material_FindShader(name, shaderType, shaderVersion);
+    if (shader)
+        return shader;
+    shader = Material_CreateShader(name, shaderType, shaderVersion);
+    if (!shader)
+        return 0;
+    Material_SetShader(name, shaderType, shaderVersion, shader);
+    return shader;
+}
+
 // PINNED 1001a810: PC does not clamp the requested shader version.
 MaterialShader *Material_LoadPassShader(const char **text, int shaderType)
 {
     int version = I_fround(Com_ParseFloat(text) * 10.0f);
     const char *name = Com_ParseInternal(text);
-    MaterialShader *shader = Material_FindShader(name, shaderType, version);
-    if (shader)
-        return shader;
-    shader = Material_CreateShader(name, shaderType, version);
-    if (!shader)
-        return 0;
-    Material_SetShader(name, shaderType, version, shader);
-    return shader;
+    return Material_RegisterShader(name, shaderType, version);
 }
 
 // PINNED 1001a920: narrow Constants before allocation and release on both paths.
@@ -1651,8 +1665,8 @@ void Material_SetPassOptionDx7(const PassOptionDx7 *option, Bool enabled,
 
 void Material_InitPassOptionsDx7(MaterialPassDx7 *pass)
 {
-    for (unsigned int index = 0; index < sizeof(s_passOptionsDx7) / sizeof(s_passOptionsDx7[0]); ++index)
-        *((byte *)pass + s_passOptionsDx7[index].valueOffset) = 0;
+    for (int index = 0; index != 5; ++index)
+        Material_SetPassOptionDx7(&s_passOptionsDx7[index], 0, pass);
 }
 
 static void Material_ParsePassOptionDx7(const char **text, MaterialPassDx7 *pass,
@@ -1849,6 +1863,16 @@ Bool Material_LoadPassTextureStateDx7(const char **text, int samplerIndex,
     return Material_MatchToken(text, ";");
 }
 
+// Name unconfirmed. PINNED 1001b300 (63 B), inlined into Material_LoadPassStagesDx7.
+bool Material_LoadPassStageDx7(const char **text, int stageIndex, int *colorBits, int *alphaBits)
+{
+    *colorBits = 0;
+    if (!Material_LoadPassTextureStateDx7(text, stageIndex, "rgb", 1, colorBits))
+        return false;
+    *alphaBits = 0;
+    return Material_LoadPassTextureStateDx7(text, stageIndex, "a", 2, alphaBits);
+}
+
 // PINNED1001b360: require one sampler, allow two, default unused slots to white.
 Bool Material_LoadPassSamplersDx7(const char **text, MaterialPassDx7 *pass)
 {
@@ -1912,15 +1936,8 @@ Bool Material_LoadPassStagesDx7(const char **text, MaterialPassDx7 *pass)
     unsigned short stageIndex = 0;
     do
     {
-        int *colorBits = &pass->colorStageBits[stageIndex];
-        int *alphaBits = &pass->alphaStageBits[stageIndex];
-        *colorBits = 0;
-        if (!Material_LoadPassTextureStateDx7(text, stageIndex, "rgb", 1,
-                colorBits))
-            return 0;
-        *alphaBits = 0;
-        if (!Material_LoadPassTextureStateDx7(text, stageIndex, "a", 2,
-                alphaBits))
+        if (!Material_LoadPassStageDx7(text, stageIndex, &pass->colorStageBits[stageIndex],
+                &pass->alphaStageBits[stageIndex]))
             return 0;
         ++stageIndex;
         if (stageIndex == 8)
@@ -2061,6 +2078,24 @@ MaterialTechnique *Material_LoadTechniqueDx7(const char *name)
     return technique;
 }
 
+// PINNED 1001bcc0 (97 B); KisakCOD (CoD4) name, inlined into Material_FixupBinary.
+bool Material_RegisterWaterImage(MaterialWaterDef *definition)
+{
+    water_t water;
+    water.M = (unsigned short)definition->textureWidth;
+    water.N = water.M;
+    water.Lx = definition->horizontalWorldLength;
+    water.Lz = definition->verticalWorldLength;
+    water.gravity = 800.0f;
+    water.windvel = definition->windSpeed;
+    water.winddir[0] = definition->windDirection[0];
+    water.winddir[1] = definition->windDirection[1];
+    water.amplitude = definition->amplitude;
+    water.image = 0;
+    definition->map = R_LoadWaterSetup(&water);
+    return definition->map != 0;
+}
+
 // PINNED 1001bde0: cached techniques bypass renderer selection and file loading.
 MaterialTechnique *Material_LoadCachedTechnique(const char *name)
 {
@@ -2130,13 +2165,19 @@ int Material_TechniqueTypeForName(const char *name)
     return 34;
 }
 
+// Name unconfirmed. PINNED 1001bff0 (22 B), inlined into Material_LoadTechniqueSet.
+const char *Material_TechniqueSetPathFormat()
+{
+    return r_rendererInUse->current.integer == 2
+        ? "materials_dx7/techniquesets/%s.techset" : "materials/techniquesets/%s.techset";
+}
+
 // PINNED 1001c010..1001c23b: grouped labels share one technique; inactive groups skip loading.
 MaterialTechniqueSet *Material_LoadTechniqueSet(const char *name)
 {
     char path[64];
     void *fileData;
-    Com_sprintf(path, sizeof(path), r_rendererInUse->current.integer == 2
-        ? "materials_dx7/techniquesets/%s.techset" : "materials/techniquesets/%s.techset", name);
+    Com_sprintf(path, sizeof(path), Material_TechniqueSetPathFormat(), name);
     if (ri.FS_ReadFile(path, &fileData) < 0)
     {
         Com_Printf("^1ERROR: Couldn't open techniqueSet '%s'\n", path);
@@ -2172,7 +2213,7 @@ MaterialTechniqueSet *Material_LoadTechniqueSet(const char *name)
             labels[labelCount] = type;
             if (type == 34)
                 goto unknown_type;
-            if (g_useTechnique[type])
+            if (Material_UsingTechnique(type))
                 used = 1;
             ++labelCount;
             separator = ":";
@@ -2327,21 +2368,8 @@ bool Material_FixupBinary(Material *material, int imageTrack)
         texture->name = Material_RegisterString((const char *)(base + (uintptr_t)texture->name));
         if (texture->semantic == 5)
         {
-            MaterialWaterDef *definition = (MaterialWaterDef *)(base + (uintptr_t)texture->u.water);
-            texture->u.water = definition;
-            water_t water;
-            water.M = (unsigned short)definition->textureWidth;
-            water.N = water.M;
-            water.Lx = definition->horizontalWorldLength;
-            water.Lz = definition->verticalWorldLength;
-            water.gravity = 800.0f;
-            water.windvel = definition->windSpeed;
-            water.winddir[0] = definition->windDirection[0];
-            water.winddir[1] = definition->windDirection[1];
-            water.amplitude = definition->amplitude;
-            water.image = 0;
-            definition->map = R_LoadWaterSetup(&water);
-            loaded = definition->map != 0;
+            texture->u.water = (MaterialWaterDef *)(base + (uintptr_t)texture->u.water);
+            loaded = Material_RegisterWaterImage(texture->u.water);
         }
         else if (r_rendererInUse->current.integer == 2 &&
             (texture->semantic == 3 || texture->semantic == 4))
@@ -2417,6 +2445,13 @@ void Material_CacheShaderText(const char *name, const char *prefix, GfxCachedSha
     cached->textSize = length;
 }
 
+// Name unconfirmed. PINNED 1001c8a0 (45 B), inlined twice into Material_PreloadShaderText.
+void Material_CacheShaderTextList(char **names, int count, const char *prefix, GfxCachedShaderText *cached)
+{
+    for (int index = 0; index < count; ++index, ++cached)
+        Material_CacheShaderText(names[index], prefix, cached);
+}
+
 // PINNED 1001c8d0/83: sort is case-sensitive although cache lookup uses _stricmp.
 bool Material_CompareShaderText(const GfxCachedShaderText &left, const GfxCachedShaderText &right)
 {
@@ -2432,12 +2467,8 @@ void Material_PreloadShaderText()
     mtlLoadGlob.cachedCount = shaderCount + libraryCount;
     mtlLoadGlob.cached = (GfxCachedShaderText *)ri.Hunk_AllocInternal(
         mtlLoadGlob.cachedCount * sizeof(GfxCachedShaderText));
-    GfxCachedShaderText *cached = mtlLoadGlob.cached;
-    for (int index = 0; index < shaderCount; ++index, ++cached)
-        Material_CacheShaderText(shaders[index], "", cached);
-    cached = mtlLoadGlob.cached + shaderCount;
-    for (int index = 0; index < libraryCount; ++index, ++cached)
-        Material_CacheShaderText(libraries[index], "lib/", cached);
+    Material_CacheShaderTextList(shaders, shaderCount, "", mtlLoadGlob.cached);
+    Material_CacheShaderTextList(libraries, libraryCount, "lib/", mtlLoadGlob.cached + shaderCount);
     std::sort(mtlLoadGlob.cached, mtlLoadGlob.cached + mtlLoadGlob.cachedCount,
         Material_CompareShaderText);
     ri.FS_FreeFileList(libraries, 20);
