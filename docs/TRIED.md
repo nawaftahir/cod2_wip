@@ -4395,3 +4395,10 @@ retail_order --across --write: only rb_shade moved (4 defs); the other four were
 rb_shade drift: -7424 step gone, new -6192 step appears (5 steps, was 5). Same-offset 275244 (bar 275239).
 Remaining drift: rb_light -6160 -6096 -6064 -6000 -5808 -5376; rb_sky -8064 -7552; rb_imagefilter -5056
 (non-/GL emits 538 vs 543, see above); rb_imagetouch -5424. No size probes run (time limit).
+
+# rb_light: move RB_ShowLightVisCachePoints to retail 10035cd0 (2026-11-11, w-rblight)
+Retail 10035cd0..10035f6d (669 B, calls GridVisLogIndex 10035c40) is Show; ours is 607 B. Moved it (move only,
+no __asm line touched, source_coverage hash refreshed) between RB_GridVisLogIndex and RB_FindGridPoint.
+Internal drift span 784 -> 352 B (-5552 -5488 -5456 -5392 -5376 -5200), same-offset 275165 (below 275244: not landable alone).
+Still missing: Show is 62 B short; retail 10035f70 (58 B, packs x/y/z grid key into 2 outputs, LTCG regs, name unconfirmed) has no body;
+RB_GetLightingAtPoint still 776/784. No size probes (time).
