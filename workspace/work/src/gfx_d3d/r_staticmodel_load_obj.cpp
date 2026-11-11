@@ -33,7 +33,7 @@ static int R_CompareStaticModelIndex(const void *a, const void *b);
 static int R_SortGfxAabbTreeChildren(GfxWorld *world, const float *mins, const float *maxs, int *staticModels, int staticModelCount);
 void R_SortGfxAabbTree(GfxWorld *world, GfxAabbTree *tree);
 void R_AddStaticModelToAabbTree_r(GfxWorld *world, GfxAabbTree *tree, int smodelIndex);
-static __declspec(noinline) void R_AddStaticModelToCell(int cellIndex, GfxStaticModelInstance *smodelInst, GfxWorld *world);
+static __declspec(noinline) void R_AddStaticModelToCell(GfxStaticModelInstance *smodelInst, int cellIndex, GfxWorld *world);
 static void R_FilterStaticModelIntoCells_r(GfxWorld *world, mnode_t *node, GfxStaticModelInstance *smodelInst, const vec_t *mins, const vec_t *maxs);
 
 void R_AllocStaticModels(GfxAabbTree *tree)
@@ -305,7 +305,7 @@ void R_AddStaticModelToAabbTree_r(GfxWorld *world, GfxAabbTree *tree, int smodel
     R_AddStaticModelToAabbTree_r(world, childTree, smodelIndex);
 }
 
-static __declspec(noinline) void R_AddStaticModelToCell(int cellIndex, GfxStaticModelInstance *smodelInst, GfxWorld *world)
+static __declspec(noinline) void R_AddStaticModelToCell(GfxStaticModelInstance *smodelInst, int cellIndex, GfxWorld *world)
 {
     GfxAabbTree *tree;
     int smodelIndex;
@@ -328,7 +328,7 @@ static void R_FilterStaticModelIntoCells_r(GfxWorld *world, mnode_t *node, GfxSt
         {
             if (node->cellIndex < 0)
                 return;
-            R_AddStaticModelToCell(node->cellIndex, smodelInst, world);
+            R_AddStaticModelToCell(smodelInst, node->cellIndex, world);
             return;
         }
         side = BoxOnPlaneSide((float *)mins, (float *)maxs, node->u.node.plane);
