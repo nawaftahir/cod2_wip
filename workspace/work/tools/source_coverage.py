@@ -24,7 +24,8 @@ assert hashlib.sha256(anchor.read_bytes()).hexdigest() == '4553b22daff76e1f628d7
 # These are the only authored assembly definitions in this source snapshot.
 allowed = {
     'universal/com_math.h': '3db79f6a1d997c939eec59d402f1435f744fe11caa6c1199d9ec451705524bcc',
-    'universal/com_shared.cpp': 'd19acbee13742932acea6b76556326489b6fce44ed742acccfa59072770818a3',
+    # w-hull: asm bodies unchanged; C-only Com_Filter group added above them, owner review pending
+    'universal/com_shared.cpp': '67c949e4ba0ebb381cde8752b302637af083190721a1fd74e81f6a32ff17733f',
     'universal/box_on_plane_side_x86.inc': '01447f1d547da40d7d228d91157964b259f8ad8180074b6a95f0df332771328d',
     # owner-approved 2026-11-06: I_ffloor fld/fsub/fistp, same pattern as I_fround
     'gfx_d3d/rb_light.cpp': '599880f8feee8db6204769efb8d901683d4929a8e2b6aa2cf1ea52b8e5ef3639',

@@ -69,7 +69,7 @@ universal/q_shared.cpp	?I_stricmp@@YAHPBD0@Z	-	-	universal/q_shared	universal/q_
 gfx_d3d/r_image.cpp	?Image_AllocProg@@YAPAUGfxImage@@HH@Z	-	-	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image.cpp	?Image_TrackFullscreenTexture@@YAXPAUGfxImage@@HW4_D3DFORMAT@@@Z	-	-	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image_load_obj.cpp	?Image_TransformLightGridVector@@YAXMMMPAM@Z	-	-	-	-	unknown
-universal/com_plane.cpp	?IntersectPlanes@@YAHPAPBMQAM@Z	-	-	-	-	unknown
+universal/com_math.cpp	?IntersectPlanes@@YAHPAPBMQAM@Z	-	-	-	-	unknown
 universal/q_shared.cpp	?LittleFloatRead@@YAMH@Z	-	-	-	-	unknown
 universal/q_shared.cpp	?LittleFloatWrite@@YAHM@Z	-	-	-	-	unknown
 universal/q_shared.cpp	?LittleLongRuntime@@YAHH@Z	-	-	-	-	unknown
@@ -1688,7 +1688,7 @@ universal/com_math.cpp	?AxisToQuat@@YAXQAY02$$CBMQAM@Z	1005e2c0	bind	-	-	unknown
 universal/com_math.cpp	?SinCosDegrees@@YAXMPAM0@Z	1005e4f0	bind	-	-	unknown
 universal/com_math.cpp	?SnapFloatBits@@YAMMHH@Z	1005e5a0	bind	-	-	unknown
 universal/com_math.cpp	?SnapFloatToGrid@@YAMMMM@Z	1005e5e0	bind	-	-	unknown
-gfx_d3d/common.cpp	?I_strlen@@YAHPBD@Z	1005e680	bind	-	-	unknown
+universal/com_shared.cpp	?I_strlen@@YAHPBD@Z	1005e680	bind	-	-	unknown
 universal/com_shared.cpp	?_copyDWord@@YAXPAIII@Z	1005ea60	bind	-	-	unknown
 universal/com_shared.cpp	_Com_Memcpy	1005eaf0	bind	universal/com_shared	universal/com_shared	mac-name
 universal/com_shared.cpp	?Com_Memset@@YAXPAXHH@Z	1005ec20	bind	universal/com_shared	universal/com_shared	mac-name

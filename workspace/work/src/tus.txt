@@ -108,12 +108,10 @@ jpeg-6b/jquant2.c
 jpeg-6b/jutils.c
 universal/com_convexhull.cpp
 universal/com_math.cpp
-universal/com_plane.cpp /Op
 universal/com_shared.cpp
 universal/fft.cpp
 universal/q_parse.cpp
 universal/q_shared.cpp
 universal/surfaceflags.cpp
-gfx_d3d/common.cpp
 qcommon/common.cpp
 win32/win_threads.cpp
