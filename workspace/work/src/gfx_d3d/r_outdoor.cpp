@@ -49,7 +49,7 @@ void R_ComputeOutdoorBounds(const GfxWorld *world)
         const OutdoorSurfaceBounds *bounds = (const OutdoorSurfaceBounds *)surface->data;
         ExpandBounds(bounds->mins, bounds->maxs, outdoorGlob.bbox[0], outdoorGlob.bbox[1]);
     }
-    for (int axis = 0; axis < 3; ++axis)
+    for (int axis = 0; axis != 3; ++axis)
     {
         if (outdoorGlob.bbox[0][axis] == 131072.0f)
         {
@@ -67,7 +67,7 @@ void R_ComputeOutdoorBounds(const GfxWorld *world)
 // PINNED 10020790/82: the depth map has256 levels, not512.
 void R_ComputeOutdoorScale()
 {
-    for (int axis = 0; axis < 3; ++axis)
+    for (int axis = 0; axis != 3; ++axis)
     {
         outdoorGlob.scale[axis] = (float)(outdoorMapSize[axis] - 1)
             / (outdoorGlob.bbox[1][axis] - outdoorGlob.bbox[0][axis]);
@@ -81,7 +81,7 @@ void R_ComputeOutdoorLookupMatrix(GfxWorld *world)
 {
     vec3_t scale;
     vec3_t translate;
-    for (int axis = 0; axis < 3; ++axis)
+    for (int axis = 0; axis != 3; ++axis)
     {
         float inverseRange = 1.0f / (outdoorGlob.bbox[1][axis] - outdoorGlob.bbox[0][axis]);
         scale[axis] = inverseRange;
