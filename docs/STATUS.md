@@ -1,9 +1,8 @@
 # CoD2MP_s.exe 1.3: status
 
-## Numbers (`meter-1.3.json`, s3 accept 84046869, clean build, checkpoint 2026-11-04 night)
-- Matched-fn bytes 1,503,407 / 1,645,581 .text = **91.36%** (8,714 / 9,123 fns). TUs in `src/`: 194 / 364.
-- Whole-file same-offset 205,586 / 1,970,176 = **10.43%** (.rdata ~31%, .data ~81%, .text 3%).
-- Day 11-04: 89.25% -> 91.36% matched-fn, 7.4% -> 10.4% same-offset.
+## Numbers (`meter-1.3.json`, meter commit 4aaa2370, written by the f44e3a7d accept; reproduced clean on t1 11-11)
+- Whole-file same-offset 1,971,472 / 1,974,272 = **99.858%** (header 4,092/4,096, .text 1,643,925, .rdata 229,250, .data 77,821, .rsrc 16,384; .rsrc complete). 2,800 B differ: breakdown at the top of `TAIL_1.3.md`.
+- Matched-fn bytes 1,554,513 / 1,645,581 .text = **94.47%** (8,979 / 9,547 fns). Functions identical (match or same bytes in place) 9,471 / 9,504. TUs in `src/` 150 / 370, unverified_in_src 0.
 
 ## Policy (owner, 11-04)
 - Structure first: a change that makes the function set / data / positions retail-equal is accepted when only
