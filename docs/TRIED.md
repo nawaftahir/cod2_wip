@@ -4393,3 +4393,9 @@ Probe 1 (kept): Com_Parse -> Com_ParseInternal at the three token reads (ParseRu
 - r_staticmodel_load_obj R_FilterStaticModelIntoCells_r: hoisted plane->type into a local for the compare: 274 -> 272 B, same 0x110 slot as retail, so R_StaticModelBounds is at retail offset (drift 0xde0 like R_AddStaticModelToCell). R_AddStaticModelToCell: local GfxCell *cell folded away by the compiler, still 66 B, retail has world in esi + push edi (usercall form not reproduced).
 - r_staticmodelcache: R_SkinCachedVerticesDx7 xyz via MatrixTransformVector43: 671 -> 623 B but retail has no out-of-line R_UploadCachedVertices (179 B, between R_LightCachedVertex and Dx7, retail Dx7 follows at 1002b3c0). Dropping `static` from the __forceinline Upload did not remove the copy (map address unchanged); whole-file same-offset 273599 -> 273030 while the gap is unresolved. Not committed. Next: find why the unreferenced inline body is still emitted.
 - r_staticmodelcache: R_UploadCachedVertices as a macro (static __forceinline still emitted a 179 B copy) + Dx7 xyz via MatrixTransformVector43: Upload gone, Dx7 623 B. Drift 0xcb0 through R_LightCachedVertex, then 0xcc0 at Dx7 because R_LightCachedVertex is 749 B vs retail ~764 (1002b0c0..1002b3bb). Same-offset 272848 (transient step). Next: diff R_LightCachedVertex against retail for the missing ~15 B.
+
+# rb_light/rb_shade/rb_sky/rb_imagefilter/rb_imagetouch retail_order (2026-11-11, w-rblight)
+retail_order --across --write: only rb_shade moved (4 defs); the other four were already in retail order.
+rb_shade drift: -7424 step gone, new -6192 step appears (5 steps, was 5). Same-offset 275244 (bar 275239).
+Remaining drift: rb_light -6160 -6096 -6064 -6000 -5808 -5376; rb_sky -8064 -7552; rb_imagefilter -5056
+(non-/GL emits 538 vs 543, see above); rb_imagetouch -5424. No size probes run (time limit).

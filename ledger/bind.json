@@ -3607,15 +3607,15 @@
 "obj": "r_utils.obj",
 "why": []
 },
-"?R_PickMaterial@@YAHPBM0PAD11I@Z": {
-"t": "0x1002c100",
-"n": 552,
-"obj": "r_utils.obj",
-"why": []
-},
 "?R_ConvertColorToBytes@@YAXPBMPAE@Z": {
 "t": "0x1002c0b0",
 "n": 78,
+"obj": "r_utils.obj",
+"why": []
+},
+"?R_PickMaterial@@YAHPBM0PAD11I@Z": {
+"t": "0x1002c100",
+"n": 552,
 "obj": "r_utils.obj",
 "why": []
 },
@@ -4425,12 +4425,6 @@
 "obj": "rb_shade.obj",
 "why": []
 },
-"?RB_GetObjectiveColorDx7@@YAXPAE@Z": {
-"t": "0x100399d0",
-"n": 358,
-"obj": "rb_shade.obj",
-"why": []
-},
 "?RB_DrawSingleTechnique@@YAXHHPBUGfxDrawPrimArgs@@PBUGfxStateOverride@@@Z": {
 "t": "0x1003a000",
 "n": 404,
@@ -4438,6 +4432,12 @@
 "why": [
 "call ?RB_SetupPassDx7@@YAXPBUGfxStateOverride@@PBUMaterialPassDx7@@H@Z"
 ]
+},
+"?RB_GetObjectiveColorDx7@@YAXPAE@Z": {
+"t": "0x100399d0",
+"n": 358,
+"obj": "rb_shade.obj",
+"why": []
 },
 "?RB_SetEntityHwLightsDx7@@YAXPAY03MM@Z": {
 "t": "0x1003a1a0",
