@@ -4413,3 +4413,8 @@ Drift span still 352 B (-5488 -5424 -5392 -5376 -5328 -5136): the 6 values shift
 Show probe 1: "origin - -131072.0f" instead of "+ 131072.0f" for the center cell (retail uses fsub): no size change.
 Retail Show also builds the three (x-4096)<<5 / (z-2048)<<6 floats before the x bounds test (hoisted); ours builds them later.
 Same-offset 274181 (bar 275244, not landable alone). rb_sky -8000 -7488 not touched (time).
+
+# rb_light: RB_ShowLightVisCachePoints to retail size (2026-11-11, wrl)
+Retail hoists a vec3 origin initialised from the centre cell before the loops; z centre is I_ffloor(z - -131072.0f) >> 6
+(fsub qword), dz loop is dz <= 1. Source: origin declared once outside the loops, centre-cell init, I_ffloor, <=.
+Show now 184 insns = retail; one register-load order diff remains (not a size diff). Same-offset 275037 (bar 275244).

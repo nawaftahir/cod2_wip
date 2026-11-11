@@ -269,8 +269,12 @@ void RB_ShowLightVisCachePoints(const GfxViewParms *viewParms,
         return;
     int centerX = I_fround(viewParms->origin[0] - -131072.0f) >> 5;
     int centerY = I_fround(viewParms->origin[1] - -131072.0f) >> 5;
-    int centerZ = I_fround((viewParms->origin[2] - -131072.0f) - 0.5f) >> 6;
-    for (int dz = -1; dz < 2; ++dz)
+    int centerZ = I_ffloor(viewParms->origin[2] - -131072.0f) >> 6;
+    vec3_t origin;
+    origin[0] = (float)(int)(((unsigned int)centerX - 4096u) << 5);
+    origin[1] = (float)(int)(((unsigned int)centerY - 4096u) << 5);
+    origin[2] = (float)(int)(((unsigned int)centerZ - 2048u) << 6);
+    for (int dz = -1; dz <= 1; ++dz)
     {
         int z = centerZ + dz;
         if (z < 0 || (int)((unsigned int)z << 6) > 0x80000)
@@ -287,7 +291,6 @@ void RB_ShowLightVisCachePoints(const GfxViewParms *viewParms,
                     continue;
                 if (RB_GridVisLogIndex(x, y, z, 0) >= 0)
                     continue;
-                vec3_t origin;
                 origin[0] = (float)(int)(((unsigned int)x - 4096u) << 5);
                 origin[1] = (float)(int)(((unsigned int)y - 4096u) << 5);
                 origin[2] = (float)(int)(((unsigned int)z - 2048u) << 6);
