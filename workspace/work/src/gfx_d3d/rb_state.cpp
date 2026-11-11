@@ -182,58 +182,6 @@ void RB_SetInitialDx7State();
 void RB_SetInitialState();
 void RB_UpdateViewportConstants();
 
-// PINNED 10038430/104, 100384a0/104 and 10038510/114.
-void RB_ChangePixelShader(IDirect3DPixelShader9 *shader)
-{
-	if (dxState.pixelShader != shader)
-	{
-		R_DX_CALL(dx.device->SetPixelShader( shader ));
-		dxState.pixelShader = shader;
-	}
-}
-
-void RB_ChangeVertexShader(IDirect3DVertexShader9 *shader)
-{
-	if (dxState.vertexShader != shader)
-	{
-		R_DX_CALL(dx.device->SetVertexShader( shader ));
-		dxState.vertexShader = shader;
-	}
-}
-
-void RB_ChangeVertexDeclaration(IDirect3DVertexDeclaration9 *decl)
-{
-	if (dxState.vertexDecl != decl)
-	{
-		R_DX_CALL(dx.device->SetVertexDeclaration( decl ));
-		dxState.vertexDecl = decl;
-		dxState.fvf = 0;
-	}
-}
-
-void RB_SetFVF(DWORD fvf)
-{
-	if (!dxState.vertexDecl && dxState.fvf == fvf)
-		return;
-	R_DX_CALL(dx.device->SetFVF( fvf ));
-	dxState.fvf = fvf;
-	dxState.vertexDecl = NULL;
-}
-
-// PINNED 10038610/150: the triangle limits do not apply to 2D draws.
-void RB_DrawIndexedPrimitive(const GfxDrawPrimArgs *args)
-{
-	if (!backEnd.projection2D)
-	{
-		if (args->primCount < r_drawPrimFloor->current.integer)
-			return;
-		if (r_drawPrimCap->current.integer
-			&& args->primCount > r_drawPrimCap->current.integer)
-			return;
-	}
-	R_DX_CALL(dx.device->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, args->u.buf.baseVertex, args->firstVertexFromBase, args->vertexCount, args->u.buf.baseIndex, args->primCount ));
-}
-
 void RB_DecideDefaultSamplerState()
 {
 	backEnd.defaultSamplerState = defaultSamplerStateTable[r_textureMode->current.integer];

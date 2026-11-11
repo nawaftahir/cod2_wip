@@ -922,11 +922,11 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x10037c10	FUN_10037c10	208	208	VERIFIED_EXTENT	gfx_d3d/rb_logfile.cpp	bind	rb_logfile.obj	?RB_LogFromTable@@YAXPBDHHHPBUStateBitsTable@@H@Z
 0x10037ce0	FUN_10037ce0	1060	1060	VERIFIED_EXTENT	gfx_d3d/rb_logfile.cpp	bind	rb_logfile.obj	?RB_LogPrintState_0@@YAXHH@Z
 0x10038110	FUN_10038110	211	211	VERIFIED_EXTENT	gfx_d3d/rb_logfile.cpp	bind	rb_logfile.obj	?RB_LogPrintState_1@@YAXHH@Z
-0x10038430	FUN_10038430	98	104	VERIFIED_EXTENT	gfx_d3d/rb_state.cpp	bind	rb_state.obj	?RB_ChangePixelShader@@YAXPAUIDirect3DPixelShader9@@@Z
-0x100384a0	FUN_100384a0	98	104	VERIFIED_EXTENT	gfx_d3d/rb_state.cpp	bind	rb_state.obj	?RB_ChangeVertexShader@@YAXPAUIDirect3DVertexShader9@@@Z
-0x10038510	FUN_10038510	108	114	VERIFIED_EXTENT	gfx_d3d/rb_state.cpp	bind	rb_state.obj	?RB_ChangeVertexDeclaration@@YAXPAUIDirect3DVertexDeclaration9@@@Z
-0x10038590	FUN_10038590	115	115	VERIFIED_EXTENT	gfx_d3d/rb_state.cpp	bind	rb_state.obj	?RB_SetFVF@@YAXK@Z
-0x10038610	FUN_10038610	143	150	VERIFIED_EXTENT	gfx_d3d/rb_state.cpp	bind	rb_state.obj	?RB_DrawIndexedPrimitive@@YAXPBUGfxDrawPrimArgs@@@Z
+0x10038430	FUN_10038430	98	104	VERIFIED_EXTENT	gfx_d3d/rb_shade.cpp	bind	rb_shade.obj	?RB_ChangePixelShader@@YAXPAUIDirect3DPixelShader9@@@Z
+0x100384a0	FUN_100384a0	98	104	VERIFIED_EXTENT	gfx_d3d/rb_shade.cpp	bind	rb_shade.obj	?RB_ChangeVertexShader@@YAXPAUIDirect3DVertexShader9@@@Z
+0x10038510	FUN_10038510	108	114	VERIFIED_EXTENT	gfx_d3d/rb_shade.cpp	bind	rb_shade.obj	?RB_ChangeVertexDeclaration@@YAXPAUIDirect3DVertexDeclaration9@@@Z
+0x10038590	FUN_10038590	115	115	VERIFIED_EXTENT	gfx_d3d/rb_shade.cpp	bind	rb_shade.obj	?RB_SetFVF@@YAXK@Z
+0x10038610	FUN_10038610	143	150	VERIFIED_EXTENT	gfx_d3d/rb_shade.cpp	bind	rb_shade.obj	?RB_DrawIndexedPrimitive@@YAXPBUGfxDrawPrimArgs@@@Z
 0x100386b0	FUN_100386b0	282	282	VERIFIED_EXTENT	gfx_d3d/rb_shade.cpp	bind	rb_shade.obj	?RB_SetIndexData@@YAHPBGH@Z
 0x100387d0	FUN_100387d0	282		PINNED_SOURCE_CANDIDATE	gfx_d3d/rb_shade.cpp	pinned		?RB_SetVertexData@@YAXIPBXHH@Z
 0x100388f0	FUN_100388f0	39	39	VERIFIED_EXTENT	gfx_d3d/rb_shade.cpp	bind	rb_shade.obj	?RB_ApplyImageOverride@@YAXPBUdvar_s@@PAPAUGfxImage@@PAE@Z

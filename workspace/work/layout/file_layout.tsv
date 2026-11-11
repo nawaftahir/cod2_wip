@@ -1127,11 +1127,11 @@ gfx_d3d/rb_logfile.cpp	?RB_LogBool@@YAXPBDHHH00@Z	10037ba0	bind	-	-	unknown
 gfx_d3d/rb_logfile.cpp	?RB_LogFromTable@@YAXPBDHHHPBUStateBitsTable@@H@Z	10037c10	bind	-	-	unknown
 gfx_d3d/rb_logfile.cpp	?RB_LogPrintState_0@@YAXHH@Z	10037ce0	bind	-	-	unknown
 gfx_d3d/rb_logfile.cpp	?RB_LogPrintState_1@@YAXHH@Z	10038110	bind	-	-	unknown
-gfx_d3d/rb_state.cpp	?RB_ChangePixelShader@@YAXPAUIDirect3DPixelShader9@@@Z	10038430	bind	-	-	unknown
-gfx_d3d/rb_state.cpp	?RB_ChangeVertexShader@@YAXPAUIDirect3DVertexShader9@@@Z	100384a0	bind	-	-	unknown
-gfx_d3d/rb_state.cpp	?RB_ChangeVertexDeclaration@@YAXPAUIDirect3DVertexDeclaration9@@@Z	10038510	bind	-	-	unknown
-gfx_d3d/rb_state.cpp	?RB_SetFVF@@YAXK@Z	10038590	bind	-	-	unknown
-gfx_d3d/rb_state.cpp	?RB_DrawIndexedPrimitive@@YAXPBUGfxDrawPrimArgs@@@Z	10038610	bind	-	-	unknown
+gfx_d3d/rb_shade.cpp	?RB_ChangePixelShader@@YAXPAUIDirect3DPixelShader9@@@Z	10038430	bind	-	-	unknown
+gfx_d3d/rb_shade.cpp	?RB_ChangeVertexShader@@YAXPAUIDirect3DVertexShader9@@@Z	100384a0	bind	-	-	unknown
+gfx_d3d/rb_shade.cpp	?RB_ChangeVertexDeclaration@@YAXPAUIDirect3DVertexDeclaration9@@@Z	10038510	bind	-	-	unknown
+gfx_d3d/rb_shade.cpp	?RB_SetFVF@@YAXK@Z	10038590	bind	-	-	unknown
+gfx_d3d/rb_shade.cpp	?RB_DrawIndexedPrimitive@@YAXPBUGfxDrawPrimArgs@@@Z	10038610	bind	-	-	unknown
 gfx_d3d/rb_shade.cpp	?RB_SetIndexData@@YAHPBGH@Z	100386b0	bind	gfx_d3d/rb_shade	gfx_d3d/rb_shade	mac-name
 gfx_d3d/rb_shade.cpp	?RB_SetVertexData@@YAXIPBXHH@Z	100387d0	pinned	gfx_d3d/rb_shade	gfx_d3d/rb_shade	mac-name
 gfx_d3d/rb_shade.cpp	?RB_ApplyImageOverride@@YAXPBUdvar_s@@PAPAUGfxImage@@PAE@Z	100388f0	bind	-	gfx_d3d/rb_shade	interval
