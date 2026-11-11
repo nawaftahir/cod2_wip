@@ -352,6 +352,94 @@ void RB_SetupLighting();
 void RB_DrawTechnique(int vertDeclType, const GfxDrawPrimArgs *args);
 void RB_BeginSurface(const Material *material, int techType, int lmapIndex);
 
+/* Header-style inline helpers. Retail keeps their out-of-line copies at the head of this
+   object in this order (PINNED 100381f0..10038426); names unconfirmed. */
+inline void Vec4Add(const float *a, const float *b, float *sum)
+{
+    sum[0] = a[0] + b[0];
+    sum[1] = a[1] + b[1];
+    sum[2] = a[2] + b[2];
+    sum[3] = a[3] + b[3];
+}
+
+inline void Vec4Lerp(const float *from, const float *to, float frac, float *result)
+{
+    result[0] = from[0] + (to[0] - from[0]) * frac;
+    result[1] = from[1] + (to[1] - from[1]) * frac;
+    result[2] = from[2] + (to[2] - from[2]) * frac;
+    result[3] = from[3] + (to[3] - from[3]) * frac;
+}
+
+inline IDirect3DVertexBuffer9 *RB_GetSModelCacheVb()
+{
+    return dx.smodelCacheVb;
+}
+
+inline int RB_GetSModelCacheVertexSize()
+{
+    return r_rendererInUse->current.integer == 2 ? 24 : 64;
+}
+
+inline void RB_SetCodeConstantFromVec3(int constant, const float *value)
+{
+    backEnd.codeConsts[constant - 128][0] = value[0];
+    backEnd.codeConsts[constant - 128][1] = value[1];
+    backEnd.codeConsts[constant - 128][2] = value[2];
+    backEnd.codeConsts[constant - 128][3] = 0.0f;
+}
+
+inline void RB_CheckDynamicVbSpace(int bytes)
+{
+    if (dx.dynamicVertexBuffer->used + bytes > dx.dynamicVertexBuffer->total)
+        dx.dynamicVertexBuffer->used = 0;
+}
+
+inline void RB_SetStateBits(const int *stateBits)
+{
+    if (stateBits[0] != dxState.refStateBits[0])
+    {
+        RB_ChangeState_0(stateBits[0]);
+        dxState.refStateBits[0] = stateBits[0];
+    }
+    if (stateBits[1] != dxState.refStateBits[1])
+    {
+        RB_ChangeState_1(stateBits[1]);
+        dxState.refStateBits[1] = stateBits[1];
+    }
+}
+
+inline void RB_SetGenTexCoords(int samplerIndex, byte genTexCoords)
+{
+    if (genTexCoords != dxState.genTexCoords[samplerIndex] || genTexCoords == 2)
+        RB_ChangeGenTexCoords(samplerIndex, genTexCoords);
+}
+
+inline void RB_SetColorStageState(int stageIndex, int bits)
+{
+    if (bits != dxState.refColorStageBits[stageIndex])
+    {
+        dxState.refColorStageBits[stageIndex] = bits;
+        RB_ChangeColorStageState(stageIndex, bits);
+    }
+}
+
+inline void RB_SetAlphaStageState(int stageIndex, int bits)
+{
+    if (bits != dxState.refAlphaStageBits[stageIndex])
+    {
+        dxState.refAlphaStageBits[stageIndex] = bits;
+        RB_ChangeAlphaStageState(stageIndex, bits);
+    }
+}
+
+inline void RB_SetStreamSource(int streamIndex, IDirect3DVertexBuffer9 *vb, int offset, int stride)
+{
+    if (dxState.streams[streamIndex].vb != vb
+        || dxState.streams[streamIndex].offset != offset
+        || dxState.streams[streamIndex].stride != stride)
+        RB_ChangeStreamSource(streamIndex, vb, offset, stride);
+}
+
 extern const dvar_t *r_drawPrimFloor, *r_drawPrimCap;
 // PINNED 10038430/104, 100384a0/104 and 10038510/114.
 void RB_ChangePixelShader(IDirect3DPixelShader9 *shader)
@@ -443,11 +531,7 @@ void RB_SetVertexData(unsigned int streamIndex, const void *data, int vertexCoun
         R_FatalBufferLockError(result);
     Com_Memcpy(bufferData, data, bytes);
     R_DX_CALL(dxVb->Unlock());
-    offset = dx.dynamicVertexBuffer->used;
-    if (dxState.streams[streamIndex].vb != dxVb
-        || dxState.streams[streamIndex].offset != offset
-        || dxState.streams[streamIndex].stride != stride)
-        RB_ChangeStreamSource(streamIndex, dxVb, offset, stride);
+    RB_SetStreamSource(streamIndex, dxVb, dx.dynamicVertexBuffer->used, stride);
     dx.dynamicVertexBuffer->used += bytes;
 }
 
@@ -459,6 +543,31 @@ void RB_ApplyImageOverride(const dvar_t *overrideDvar, GfxImage **image, byte *s
     {
         if (mode == 1) { *image = rgp.whiteImage; *samplerState = 1; }
         else if (mode == 2) { *image = rgp.blackImage; *samplerState = 1; }
+    }
+}
+
+// PINNED 10038920: non-2D images bypass material overrides.
+void RB_ApplyMaterialImageOverride(const MaterialTextureDef *texture,
+    GfxImage **image, byte *samplerState)
+{
+    if ((*image)->mapType != 3)
+        return;
+    switch (texture->semantic)
+    {
+    case 0: case 1: break;
+    case 2: RB_ApplyImageOverride(r_colorMap, image, samplerState); break;
+    case 4: RB_ApplyImageOverride(r_specularMap, image, samplerState); break;
+    case 3:
+        if (r_normalMap->current.integer == 1)
+        {
+            *image = rgp.identityNormalMapImage;
+            *samplerState = 1;
+        }
+        break;
+    case 5:
+        RB_UploadWaterTexture(*image, texture->u.water->map);
+        *samplerState = 6;
+        break;
     }
 }
 
@@ -511,30 +620,6 @@ static void RB_GetCodeImage(int code, GfxImage **image, byte *samplerState)
     case 23: *image = rgp.waterColorImage; *samplerState = 0x32; return;
     case 22: *image = rgp.sunHalfAngleImage; *samplerState = 0x32; return;
     default: *samplerState = 0; *image = 0; return;
-    }
-}
-
-// PINNED 10038920: non-2D images bypass material overrides.
-void RB_ApplyMaterialImageOverride(const MaterialTextureDef *texture,
-    GfxImage **image, byte *samplerState)
-{
-    if ((*image)->mapType != 3)
-        return;
-    switch (texture->semantic)
-    {
-    case 2: RB_ApplyImageOverride(r_colorMap, image, samplerState); break;
-    case 4: RB_ApplyImageOverride(r_specularMap, image, samplerState); break;
-    case 3:
-        if (r_normalMap->current.integer == 1)
-        {
-            *image = rgp.identityNormalMapImage;
-            *samplerState = 1;
-        }
-        break;
-    case 5:
-        RB_UploadWaterTexture(*image, texture->u.water->map);
-        *samplerState = 6;
-        break;
     }
 }
 
@@ -673,10 +758,7 @@ static void RB_DeriveOutdoorLookupMatrix(float out[4][4])
     worldOffset[2] += downBias;
     MatrixTransformVector44(worldOffset, rgp.world->outdoorLookupMatrix, outdoorOffset);
     MatrixMultiply44(world, rgp.world->outdoorLookupMatrix, out);
-    out[3][0] += outdoorOffset[0];
-    out[3][1] += outdoorOffset[1];
-    out[3][2] += outdoorOffset[2];
-    out[3][3] += outdoorOffset[3];
+    Vec4Add(out[3], outdoorOffset, out[3]);
 }
 
 
@@ -869,50 +951,13 @@ void RB_SetupPass(const GfxStateOverride *stateOverride,
         RB_LogPrint(va("---------- state bits: 0x%08x, 0x%08x --> 0x%08x, 0x%08x\n",
             tess.material->stateBits[0], tess.material->stateBits[1], stateBits[0], stateBits[1]));
     }
-    if (stateBits[0] != dxState.refStateBits[0])
-    {
-        RB_ChangeState_0(stateBits[0]);
-        dxState.refStateBits[0] = stateBits[0];
-    }
-    if (stateBits[1] != dxState.refStateBits[1])
-    {
-        RB_ChangeState_1(stateBits[1]);
-        dxState.refStateBits[1] = stateBits[1];
-    }
+    RB_SetStateBits(stateBits);
     RB_UpdateFogColor(FOG_COLOR_SRC_UNSPECIFIED);
     RB_ChangePixelShader(pass->pixelShader->u.ps);
     RB_ChangeVertexShader(pass->vertexShader->u.vs);
     RB_ChangeVertexDeclaration(pass->vertexDecl->decl[vertDeclType]);
     RB_SetVertexShaderArguments(pass->vertexArgCount, pass->vertexArgs);
     RB_SetPixelShaderArguments(pass->pixelArgCount, pass->pixelArgs);
-}
-
-// PINNED 1003a000/404: PC has distinct technique and vertex-type arguments.
-void RB_DrawSingleTechnique(int techType, int vertDeclType,
-    const GfxDrawPrimArgs *args, const GfxStateOverride *stateOverride)
-{
-    const MaterialTechnique *technique = tess.material->techniqueSet->techniques[techType];
-    if (r_logFile->current.integer)
-        RB_LogPrint(va("\n---------- RB_DrawSingleTechnique( %s ) ----------\n", technique->name));
-    if (techType == 33)
-        VectorCopy4(s_debugShaderConsts[r_debugShader->current.integer], backEnd.codeConsts[26]);
-    for (int passIndex = 0; passIndex < technique->passCount; ++passIndex)
-    {
-        if (r_rendererInUse->current.integer == 2)
-            RB_SetupPassDx7(stateOverride, &technique->passArray.dx7[passIndex], vertDeclType);
-        else
-            RB_SetupPass(stateOverride, &technique->passArray.dx9[passIndex], vertDeclType);
-        if (r_rendererInUse->current.integer == 2
-            && technique->passArray.dx7[passIndex].projectToInfinity)
-        {
-            RB_SetViewMatrixForWDx7(0.0f);
-            RB_DrawIndexedPrimitive(args);
-            RB_SetViewMatrixForWDx7(1.0f);
-        }
-        else
-            RB_DrawIndexedPrimitive(args);
-    }
-    RB_LogPrint("\n");
 }
 
 // PINNED 10039980: genuine caller of both sampler-source lookups.
@@ -943,10 +988,7 @@ __declspec(noinline) void RB_GetObjectiveColorDx7(byte *color)
     maximum[3] = r_objectiveColorDx7Max->current.color[3] * (1.0f / 255.0f);
     float blend = 0.5f - (float)sin(fraction * 6.2831855f) * 0.5f;
     float value[4];
-    value[0] = minimum[0] + (maximum[0] - minimum[0]) * blend;
-    value[1] = minimum[1] + (maximum[1] - minimum[1]) * blend;
-    value[2] = minimum[2] + (maximum[2] - minimum[2]) * blend;
-    value[3] = minimum[3] + (maximum[3] - minimum[3]) * blend;
+    Vec4Lerp(minimum, maximum, blend, value);
     color[0] = (byte)(int)(value[2] * 255.0f);
     color[1] = (byte)(int)(value[1] * 255.0f);
     color[2] = (byte)(int)(value[0] * 255.0f);
@@ -978,16 +1020,7 @@ void RB_SetupPassDx7(const GfxStateOverride *stateOverride,
         RB_LogPrint(va("---------- state bits: 0x%08x, 0x%08x --> 0x%08x, 0x%08x\n",
             tess.material->stateBits[0], tess.material->stateBits[1], stateBits[0], stateBits[1]));
     }
-    if (dxState.refStateBits[0] != stateBits[0])
-    {
-        RB_ChangeState_0(stateBits[0]);
-        dxState.refStateBits[0] = stateBits[0];
-    }
-    if (dxState.refStateBits[1] != stateBits[1])
-    {
-        RB_ChangeState_1(stateBits[1]);
-        dxState.refStateBits[1] = stateBits[1];
-    }
+    RB_SetStateBits(stateBits);
     RB_UpdateFogColor(pass->fogToBlack ? FOG_COLOR_SRC_BLACK : FOG_COLOR_SRC_UNSPECIFIED);
     if (pass->gridLighting != dxState.gridLighting)
     {
@@ -1007,22 +1040,48 @@ void RB_SetupPassDx7(const GfxStateOverride *stateOverride,
         else
             RB_GetMaterialImage(pass->samplers[i].u.name, &image, &samplerState);
         RB_SetSampler(i, samplerState, image);
-        if (pass->genTexCoords[i] != dxState.genTexCoords[i] || pass->genTexCoords[i] == 2)
-            RB_ChangeGenTexCoords(i, pass->genTexCoords[i]);
+        RB_SetGenTexCoords(i, pass->genTexCoords[i]);
     }
     for (int i = 0; i < 8; ++i)
     {
-        if (pass->colorStageBits[i] != dxState.refColorStageBits[i])
-        {
-            dxState.refColorStageBits[i] = pass->colorStageBits[i];
-            RB_ChangeColorStageState(i, pass->colorStageBits[i]);
-        }
-        if (pass->alphaStageBits[i] != dxState.refAlphaStageBits[i])
-        {
-            dxState.refAlphaStageBits[i] = pass->alphaStageBits[i];
-            RB_ChangeAlphaStageState(i, pass->alphaStageBits[i]);
-        }
+        RB_SetColorStageState(i, pass->colorStageBits[i]);
+        RB_SetAlphaStageState(i, pass->alphaStageBits[i]);
     }
+}
+
+// Name unconfirmed; PINNED 10039fc0/55, an uncalled retail copy inlined in RB_DrawSingleTechnique.
+static void RB_SetupTechniquePass(const GfxStateOverride *stateOverride,
+    const MaterialTechnique *technique, int passIndex, int vertDeclType)
+{
+    if (r_rendererInUse->current.integer == 2)
+        RB_SetupPassDx7(stateOverride, &technique->passArray.dx7[passIndex], vertDeclType);
+    else
+        RB_SetupPass(stateOverride, &technique->passArray.dx9[passIndex], vertDeclType);
+}
+
+// PINNED 1003a000/404: PC has distinct technique and vertex-type arguments.
+void RB_DrawSingleTechnique(int techType, int vertDeclType,
+    const GfxDrawPrimArgs *args, const GfxStateOverride *stateOverride)
+{
+    const MaterialTechnique *technique = tess.material->techniqueSet->techniques[techType];
+    if (r_logFile->current.integer)
+        RB_LogPrint(va("\n---------- RB_DrawSingleTechnique( %s ) ----------\n", technique->name));
+    if (techType == 33)
+        VectorCopy4(s_debugShaderConsts[r_debugShader->current.integer], backEnd.codeConsts[26]);
+    for (int passIndex = 0; passIndex < technique->passCount; ++passIndex)
+    {
+        RB_SetupTechniquePass(stateOverride, technique, passIndex, vertDeclType);
+        if (r_rendererInUse->current.integer == 2
+            && technique->passArray.dx7[passIndex].projectToInfinity)
+        {
+            RB_SetViewMatrixForWDx7(0.0f);
+            RB_DrawIndexedPrimitive(args);
+            RB_SetViewMatrixForWDx7(1.0f);
+        }
+        else
+            RB_DrawIndexedPrimitive(args);
+    }
+    RB_LogPrint("\n");
 }
 
 void RB_SetEntityHwLightsDx7(vec4_t *colorForDir, float sunVisibility)
@@ -1085,10 +1144,8 @@ void RB_SetupLighting()
         VectorCopy4(backEnd.light[0].color, backEnd.codeConsts[5]);
         if (backEnd.currentEntity->reType == 2)
         {
-            VectorCopy(rgp.world->smodelLightingLookupScale, backEnd.codeConsts[25]);
-            backEnd.codeConsts[25][3] = 0.0f;
-            VectorCopy(backEnd.currentEntity->lighting.baseCoords, backEnd.codeConsts[24]);
-            backEnd.codeConsts[24][3] = 0.0f;
+            RB_SetCodeConstantFromVec3(153, rgp.world->smodelLightingLookupScale);
+            RB_SetCodeConstantFromVec3(152, backEnd.currentEntity->lighting.baseCoords);
         }
     }
 }
@@ -1126,4 +1183,128 @@ void RB_BeginSurface(const Material *material, int techType, int lmapIndex)
     tess.material = material;
     tess.techType = techType;
     tess.lmapIndex = lmapIndex;
+}
+
+// Surface submission (PINNED 1003a690..1003a99a, right after RB_BeginSurface; Mac rb_shade.c).
+/* Read-only views of existing allocations. These fields are pinned by
+   1003a690 and 1003a8d0; unrecovered prefixes do not allocate extra state. */
+struct SurfaceTechniqueView
+{
+    const char *name;
+    unsigned short flags;
+};
+struct SurfaceTechniqueSetView
+{
+    const char *name;
+    const SurfaceTechniqueView *techniques[34];
+};
+struct SurfaceMaterialView
+{
+    byte beforeTechniqueSet[0x38];
+    const SurfaceTechniqueSetView *techniqueSet;
+};
+struct SurfaceWorldView
+{
+    byte beforeVertexBuffer[0x30];
+    IDirect3DVertexBuffer9 *vertexBuffer;
+};
+struct SurfacePermanentView
+{
+    byte beforeWorld[0x109c];
+    const SurfaceWorldView *world;
+};
+struct r_global_permanent_t;
+extern r_global_permanent_t rgp;
+typedef char surfaceViewLayoutCheck[(offsetof(SurfaceMaterialView, techniqueSet) == 0x38
+    && offsetof(SurfaceTechniqueView, flags) == 4
+    && offsetof(SurfacePermanentView, world) == 0x109c
+    && offsetof(SurfaceWorldView, vertexBuffer) == 0x30) ? 1 : -1];
+
+// PINNED 1003a690: optimized and ordinary counts have distinct lifetimes.
+void RB_DrawOptimizedTessSurface()
+{
+    GfxDrawPrimArgs args;
+    args.u.buf.baseVertex = tess.firstOptimizedVertex;
+    args.vertexCount = tess.optimizedVertexCount;
+    args.primCount = tess.optimizedIndexCount / 3;
+    args.firstVertexFromBase = 0;
+    args.u.buf.baseIndex = RB_SetIndexData(tess.secondaryIndices, tess.optimizedIndexCount);
+    if (tess.optimizedVertexSource == 1)
+    {
+        int stride = r_rendererInUse->current.integer == 2 ? 32 : 68;
+        RB_SetStreamSource(0, ((const SurfacePermanentView *)&rgp)->world->vertexBuffer, 0, stride);
+        RB_DrawTechnique(1, &args);
+    }
+    else
+    {
+        RB_SetStreamSource(0, RB_GetSModelCacheVb(), 0, RB_GetSModelCacheVertexSize());
+        RB_DrawTechnique(3, &args);
+    }
+    tess.optimizedIndexCount = 0;
+    tess.optimizedVertexSource = 0;
+}
+
+// PINNED 1003a7b0: capacity is checked after index upload, before vertex upload.
+void RB_DrawTessSurface()
+{
+    GfxDrawPrimArgs args;
+    args.vertexCount = tess.vertexCount;
+    args.primCount = tess.indexCount / 3;
+    args.firstVertexFromBase = 0;
+    int stride;
+    if (tess.declType == 1)
+        stride = r_rendererInUse->current.integer == 2 ? 32 : 68;
+    else
+        stride = r_rendererInUse->current.integer == 2 ? 36 : 64;
+    args.u.buf.baseIndex = RB_SetIndexData(tess.indices, tess.indexCount);
+    RB_CheckDynamicVbSpace(tess.vertexCount * stride);
+    RB_SetVertexData(0, tess.vertexData, tess.vertexCount, stride);
+    args.u.buf.baseVertex = 0;
+    RB_DrawTechnique(tess.declType, &args);
+    tess.indexCount = 0;
+    tess.vertexCount = 0;
+}
+
+// Descriptive name; inlined into RB_EndSurface, no PC symbol.
+static bool RB_IsTechniqueDrawable(const SurfaceTechniqueView *technique)
+{
+    if (!technique)
+        return false;
+    if (backEnd.viewportIsDirty)
+        RB_UpdateViewport();
+    if (dxState.viewportIsNull)
+        return false;
+    if ((technique->flags & 1) && backEnd.resolvedPostSunTarget == 14)
+        return false;
+    if ((technique->flags & 2) && backEnd.resolvedSceneTarget == 14)
+        return false;
+    return true;
+}
+
+// PINNED 1003a8d0: missing/blocked techniques clear only the three draw counts.
+void RB_EndSurface()
+{
+    const SurfaceTechniqueView *technique = ((const SurfaceMaterialView *)tess.material)
+        ->techniqueSet->techniques[tess.techType];
+    if (!RB_IsTechniqueDrawable(technique))
+    {
+        tess.optimizedIndexCount = 0;
+        tess.indexCount = 0;
+        tess.vertexCount = 0;
+    }
+    else
+    {
+        if (tess.optimizedIndexCount)
+            RB_DrawOptimizedTessSurface();
+        if (tess.indexCount)
+            RB_DrawTessSurface();
+        RB_LogPrint("---------- RB_EndSurface\n");
+    }
+}
+
+// SUPPORTED Mac rb_shade.c name; PINNED 1003a9a0/36. Uncalled in retail (inlined in R_InitRenderCmds).
+void RB_CreateDynamicBuffers()
+{
+    tess.indices = (unsigned short *)ri.Hunk_AllocInternal(0x200000);
+    tess.secondaryIndices = (unsigned short *)ri.Hunk_AllocInternal(0x200000);
 }
