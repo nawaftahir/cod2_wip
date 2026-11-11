@@ -24,14 +24,10 @@ int R_MarkFragments(vec3_t *points, const float *origin, vec3_t *axis, float rad
 // Name unconfirmed; PINNED 0x100151e0 interpolates all eight clip-point floats.
 static __declspec(noinline) void R_LerpMarkPoints(const ClipPoint *from, const ClipPoint *to, float fraction, ClipPoint *out)
 {
-    out->xyz[0] = (to->xyz[0] - from->xyz[0]) * fraction + from->xyz[0];
-    out->xyz[1] = (to->xyz[1] - from->xyz[1]) * fraction + from->xyz[1];
-    out->xyz[2] = (to->xyz[2] - from->xyz[2]) * fraction + from->xyz[2];
-    out->lmapCoord[0] = (to->lmapCoord[0] - from->lmapCoord[0]) * fraction + from->lmapCoord[0];
-    out->lmapCoord[1] = (to->lmapCoord[1] - from->lmapCoord[1]) * fraction + from->lmapCoord[1];
-    out->normal[0] = (to->normal[0] - from->normal[0]) * fraction + from->normal[0];
-    out->normal[1] = (to->normal[1] - from->normal[1]) * fraction + from->normal[1];
-    out->normal[2] = (to->normal[2] - from->normal[2]) * fraction + from->normal[2];
+    // retail keeps the Vec2Lerp/Vec3Lerp copies at the head of this object (10015190, 100151b0)
+    Vec3Lerp(from->xyz, to->xyz, fraction, out->xyz);
+    Vec2Lerp(from->lmapCoord, to->lmapCoord, fraction, out->lmapCoord);
+    Vec3Lerp(from->normal, to->normal, fraction, out->normal);
 }
 
 static int R_ChopPolyBehindPlane(int inPointCount, ClipPoint *inPoints, ClipPoint *outPoints, const float *normal, float dist)
