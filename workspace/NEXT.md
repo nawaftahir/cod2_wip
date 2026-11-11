@@ -25,6 +25,14 @@ Worktree `cod2_wip/.worktrees/claude`, branch `radiant/claude`. Run shell via a 
 ## Order of work
 1. **NameDlg + DlgEvent via dlgcamera:** write dlgcamera 0x409be0 (195 B, uses CDlgEvent) and 0x40a790
    (250 B, uses CNameDlg), move both class declarations to headers. Then both files can go to `src/`.
+   SUPPORTED (Q3Radiant `refrences/Quake-III-Arena/q3radiant/dlgcamera.cpp` agrees with retail calls/strings):
+   0x409be0 = `CDlgCamera::OnBtnAddevent` (ref :142; GetScrollPos(m_wndSegments hwnd at this+0x8c, SB_CTL)
+   /4*1000, addEvent 0x49c5c0, setupFromCamera 0x409f90). 0x40a790 = `CDlgCamera::OnFileOpen` (ref :347;
+   "Open Camera File", clear 0x40aaa0, getPositionObj 0x40b350, va 0x4969e0 with 'cameras/%s.camera' (CoD2
+   adds the folder), load 0x49c2b0, setupFromCamera). 0x40a8e0 (201 B, also has a CNameDlg unwind) is likely
+   OnFileSave (ref :359). Retail inlines the dtor body in both; the separate dtor exists only for the EH
+   unwind stub. Needs: CDlgCamera class (none in workspace yet), g_splineList/idCameraDef decls, callees as
+   extern. The callees can stay unwritten; the users only have to exist to place the dtors.
 2. **Finish the small files:** NewProjDlg/ScaleDialog (need MainFrm users), TextureLayout (PatchDialog
    0x424920), then mru, texturevecs (0 missing), UNKNOWN_00408f20, TexEdit, PatchDensityDlg,
    TerrainDensityDlg, points, KeyValueSelectDlg, DialogInfo. Check each with `drift.py --tu`.
