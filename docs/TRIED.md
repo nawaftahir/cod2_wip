@@ -4418,3 +4418,7 @@ Same-offset 274181 (bar 275244, not landable alone). rb_sky -8000 -7488 not touc
 Retail hoists a vec3 origin initialised from the centre cell before the loops; z centre is I_ffloor(z - -131072.0f) >> 6
 (fsub qword), dz loop is dz <= 1. Source: origin declared once outside the loops, centre-cell init, I_ffloor, <=.
 Show now 184 insns = retail; one register-load order diff remains (not a size diff). Same-offset 275037 (bar 275244).
+rb_light probe: moved RB_GetValidGridPoint (retail 10036040) after RB_FindGridPoint in source: gate green, same-offset 275046, but the
+function lands at the end of rb_light.obj (+81632) and the others keep -5424..-5264: LTCG emits it late (it has external callers). Reverted.
+Retail order 10035c40 Index, 10035cd0 Show, 10035f70 Pack, 10035fb0 Find, 10036040 GetValid, 10036100 Accumulate; ours has GetValid
+at the front (before Insert). Also ours has a standalone I_ffloor copy at the head of rb_light.obj (retail copy is 10020530 elsewhere).
