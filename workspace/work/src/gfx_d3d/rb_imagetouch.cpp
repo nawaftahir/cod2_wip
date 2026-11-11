@@ -9,6 +9,24 @@ void RB_DrawStretchPic(const Material *material, float x, float y, float w, floa
     float s0, float t0, float s1, float t1, unsigned int color);
 void RB_EndSurface();
 
+// Draw one image through the feedback material so the driver keeps it resident.
+#define RB_TOUCH_IMAGE(image) \
+    do { \
+        if ((image)->mapType == 3) \
+        { \
+            backEnd.currentFeedbackImage = (image); \
+            RB_DrawStretchPic(rgp.feedbackReplaceMaterial, 0.0f, 0.0f, 8.0f, 8.0f, \
+                0.0f, 0.0f, 1.0f, 1.0f, 0xffffffff); \
+            RB_EndSurface(); \
+        } \
+    } while (0)
+
+// Name unconfirmed; PINNED 10035830/32: uncalled retail copy of the per-image touch.
+void RB_TouchImage(GfxImage *image)
+{
+    RB_TOUCH_IMAGE(image);
+}
+
 // PINNED 10035850: the original second-zero-semantic branch comes first.
 static int RB_CompareTouchImages(const void *first, const void *second)
 {
@@ -35,13 +53,7 @@ void RB_TouchAllImages()
         GfxImage *image = list.image[index];
         if (!image->semantic)
             break;
-        if (image->mapType == 3)
-        {
-            backEnd.currentFeedbackImage = image;
-            RB_DrawStretchPic(rgp.feedbackReplaceMaterial, 0.0f, 0.0f, 8.0f, 8.0f,
-                0.0f, 0.0f, 1.0f, 1.0f, 0xffffffff);
-            RB_EndSurface();
-        }
+        RB_TOUCH_IMAGE(image);
     }
     backEnd.currentFeedbackImage = 0;
 }
