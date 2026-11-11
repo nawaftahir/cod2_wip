@@ -26,11 +26,11 @@ __declspec(noinline) void R_WaterHkt(water_t *water, complex_t *H, float time)
 {
     int n, m, index = 0;
     int phase;
-    for (n = -water->N / 2; n < water->N / 2; ++n)
+    for (n = -(water->N / 2); n < water->N / 2; ++n)
     {
-        for (m = -water->M / 2; m < water->M / 2; ++m)
+        for (m = -(water->M / 2); m < water->M / 2; ++m)
         {
-            if (water->wTerm[index] == 0.0f)
+            if (0.0f == water->wTerm[index])
             {
                 H[index].real = 0.0f;
                 H[index].imag = 0.0f;
@@ -52,9 +52,9 @@ __declspec(noinline) void R_WaterFFT(water_t *water, complex_t *H)
     int log2N = 0, log2M = 0;
     int row, column;
     complex_t *columnData;
-    while ((1 << log2N) != water->N)
+    while (water->N != (1 << log2N))
         ++log2N;
-    while ((1 << log2M) != water->M)
+    while (water->M != (1 << log2M))
         ++log2M;
     for (row = 0; row < water->N; ++row)
         FFT(H + row * water->M, log2M, 1, rg.fftBitswap, rg.fftTrigTable);
