@@ -555,14 +555,16 @@ void R_PrepareStaticModelLightingCache(GfxWorld *world, int smodelCount)
 void R_FinishStaticModelLightingCache(GfxWorld *world)
 {
     GfxImage *image;
+    unsigned char *pixels;
     float scaleY;
 
     if (r_rendererInUse->current.integer == 2)
         return;
     image = Image_Alloc("*smodel_lighting", 2, 1, 4);
     world->smodelLightingImage = image;
+    pixels = smodelLoadGlob.pixels;
     Image_Setup(image, smodelLoadGlob.width * 2, smodelLoadGlob.height * 2, 2, 0xb, 0, (D3DFORMAT)0x15);
-    Image_UploadData(image, (D3DFORMAT)0x15, D3DCUBEMAP_FACE_POSITIVE_X, 0, smodelLoadGlob.pixels);
+    Image_UploadData(image, (D3DFORMAT)0x15, D3DCUBEMAP_FACE_POSITIVE_X, 0, pixels);
     scaleY = smodelLoadGlob.texelScaleY * 0.5f;
     world->smodelLightingLookupScale[0] = 0.5f * smodelLoadGlob.texelScaleX;
     world->smodelLightingLookupScale[1] = scaleY;
