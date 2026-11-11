@@ -188,9 +188,8 @@ int DL_BeginDownload(char *localName, const char *remoteUrl)
             basic_credentials(dl_request, basic);
             HTBasic_delete(basic);
 
-            hostSeparator++;
-            requestUrl = (char *)HTMemory_malloc(strlen(hostSeparator) + strlen(path) + 8);
-            sprintf(requestUrl, "http://%s%s", hostSeparator, path);
+            requestUrl = (char *)HTMemory_malloc(strlen(hostSeparator + 1) + strlen(path) + 8);
+            sprintf(requestUrl, "http://%s%s", hostSeparator + 1, path);
             Com_DPrintf("HTTP Basic Auth - %s %s %s\n", host, password, requestUrl);
             HTMemory_free(host);
             HTMemory_free(path);
