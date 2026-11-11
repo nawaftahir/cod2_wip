@@ -4384,3 +4384,16 @@ Probe 1 (kept): Com_Parse -> Com_ParseInternal at the three token reads (ParseRu
 
 - R_ReleaseModel (retail 10020330, 30 B) and R_ReleaseAllModels (10020350, 21 B) sit after R_DObjReplaceMaterial and before R_OptimizeModel (10020380), not after R_FinishLoadingModels. Moved in r_model.cpp; the 1001d8c0..1001d8f0 span now equals retail (48 B). Drift groups unchanged (-2416 -2304 -2288 -2256 -2096 -2064: uniform shift), same-offset 275235.
 - r_model size table vs retail (ours -> retail): R_SkinXSurfaceBlendedSse 575/552, R_BlendSkinPosition 104/337 (ours is a different body split), R_SkinXSurfaceBlendedDx7Sse 399/408, R_PreSkinXSurface 336/347, R_PreSkinStaticSurface 451/479, R_SkinXModel 906/886, R_SkinSceneDObj 835/766. Unbound retail bodies not in ours: 1001da80 (985 B), 1001de60 (959 B), 1001e260 (310), 1001e3a0 (151), 1001ec20 (324), 1001ed70 (137), 1001ee00 (105), 1001f030 (195), 1001f5b0 (84), 10020530 (33). Not started.
+
+## 2026-11-12 r_water / r_xsurface drift survey (gfx/w-xsurf2, no source change)
+- retail_order.py --across on r_water, r_water_load_obj, r_xsurface, r_xsurface_load_obj,
+  r_xsurface_optimize: 0 moved (order already retail). Drift is size, not order.
+- r_water: drift -3296 at HeightMap; Hkt starts -3328, so the 32 B inside the object is
+  R_WaterHkt (264 vs retail 1002c470 252) and R_WaterFFT (179 vs 1002c570 165), 16 B each after padding.
+- R_WaterHkt: body is the same instruction stream as retail except (a) ours keeps water->N in ebp
+  and loads it once, retail reloads [esi+0x10] twice (push ebx between), and (b) ours emits
+  jmp + 9 B loop-align padding before the inner loop (our 1002b7b5..c0), retail has none
+  (inner loop at 1002c4b4 unaligned). No probe built yet; cause of the loop-align decision unknown.
+- Retail 1002c370 (201 B x87 sin/tan helper, constants 1019bc88/1019beb8/1019beb0) and
+  stubs 1002c440/c450/c460 (calls through [101d4a10/14/18]) sit before Hkt: not in r_water.cpp,
+  owner unknown (precede the object; likely other TU).
