@@ -470,3 +470,6 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
 - FX_AddFxToScene residue (r-fx, 11-11, PINNED on bytes, fdiff vs retail 0x494360): 74 vs 74 insns, the only diff is the &ent temp at the
   end. Retail: `mov edx,[edx+0xb4]; push 0; push edx; lea edx,[esp+8]; push edx; call [0x68a238]` (edx reused after the model push);
   ours uses eax for the lea. Callee is a cdecl fn pointer with 3 args (ent, model, 0), `add esp,0x80`. No source variant tried yet.
+- PINNED (Mac 1.3 STABS, r-ui, `N_LSYM/N_RSYM` scopes): Window_Paint locals are `color` (vec4_t), `const vec_t *foreColor`, `int flags` (no fillRect
+  stab); Item_ListBox_MouseEnter has `listPtr` and, per branch block, `rectDef_t compareRect` + floats `compareX`/`compareY`; Menu_SetNextCursorItem
+  has `wrapped`, `oldCursor`, `const rectDef_t *rect` and no item local. None of these shapes moved the PC residue in lab (TRIED r-ui rows).
