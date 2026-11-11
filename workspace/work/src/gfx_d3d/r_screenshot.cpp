@@ -75,7 +75,7 @@ static __declspec(noinline) void R_CopyCubemapShot(const byte *source, byte *tar
 static __declspec(noinline) void R_WriteCubemapShotAlpha(int shotIndex, float n0, float n1, byte *targa);
 static __declspec(noinline) void R_WriteCubemapShot(int shotIndex, const char *filename, float n0, float n1);
 void R_SaveCubemapShot(const char *filename, int shotIndex, float n0, float n1);
-static void R_GetDirForCubemapPixel(int faceIndex, float x, float y, float *dir);
+static __forceinline void R_GetDirForCubemapPixel(int faceIndex, float x, float y, float *dir);
 void R_CubemapLightingForDir(float (**linearColors)[3], int width, int height, const float *dir, const float *baseColor, unsigned char *pixel);
 void R_CubemapLighting(float (**linearColors)[3], int width, int height, const float *baseColor, unsigned char **pixels);
 static void R_CubemapShotExtractLinearLight(unsigned char **pixels, int width, int height, float (**linearColors)[3]);
@@ -112,7 +112,7 @@ void R_ScreenshotFilename(int number, const char *extension, char *filename)
 void R_DownsamplePixelData(int oldSize, int newSize, int stride, int bytesPerPixel, byte *src, byte *dst)
 {
     float colorScale = 1.0f / oldSize;
-    int nextSample = bytesPerPixel * stride;
+    int nextSample = stride * bytesPerPixel;
     int residual = newSize;
     int column;
     int color0;
@@ -121,23 +121,24 @@ void R_DownsamplePixelData(int oldSize, int newSize, int stride, int bytesPerPix
 
     for (column = 0; column < newSize; ++column)
     {
+        color2 = residual * src[2];
         color0 = residual * src[0];
         color1 = residual * src[1];
-        color2 = residual * src[2];
         src += nextSample;
-        while (newSize + residual - oldSize <= 0)
+        residual = residual + newSize - oldSize;
+        while (residual <= 0)
         {
             color0 += newSize * src[0];
             color1 += newSize * src[1];
             color2 += newSize * src[2];
-            residual += newSize;
             src += nextSample;
+            residual += newSize;
         }
-        residual = newSize + residual - oldSize;
-        float scaledColor0 = colorScale * (color0 + src[0] * (newSize - residual));
-        color1 += src[1] * (newSize - residual);
-        color2 += src[2] * (newSize - residual);
-        dst[0] = (byte)I_fround(scaledColor0);
+        int frac = newSize - residual;
+        color1 += src[1] * frac;
+        color2 += src[2] * frac;
+        color0 += src[0] * frac;
+        dst[0] = (byte)I_fround(colorScale * color0);
         dst[1] = (byte)I_fround(colorScale * color1);
         dst[2] = (byte)I_fround(colorScale * color2);
         dst += nextSample;
@@ -515,6 +516,28 @@ static __declspec(noinline) void R_FlipCubemapShot(byte *buffer)
     }
 }
 
+// Name unconfirmed; PINNED 10026760/65: retail keeps a standalone copy of the capture tail.
+static __forceinline void R_FinishCubemapShotCapture(int bufferSize, byte *buffer)
+{
+    R_GetFrontBufferData(dx.cubemapShotPixelBorder, dx.cubemapShotPixelBorder,
+        dx.cubemapShotRes, dx.cubemapShotRes, 4, buffer);
+    R_FlipCubemapShot(buffer);
+    if (r_overbrightBits->current.integer > 0 && vidConfig.deviceSupportsGamma)
+        R_GammaCorrect(bufferSize, buffer);
+}
+
+// Name unconfirmed; PINNED 100267b0/46: retail keeps a standalone copy of the TGA header init.
+static __forceinline void R_InitCubemapShotHeader(byte *targa, int resolution)
+{
+    memset(targa, 0, 18);
+    targa[2] = 2;
+    targa[12] = (byte)resolution;
+    targa[13] = (byte)(resolution >> 8);
+    targa[14] = (byte)resolution;
+    targa[15] = (byte)(resolution >> 8);
+    targa[16] = 32;
+}
+
 // PINNED 100267e0: preserve BGRA channel order after the18-byte TGA header.
 static __declspec(noinline) void R_CopyCubemapShot(const byte *source, byte *targa)
 {
@@ -551,11 +574,7 @@ static __declspec(noinline) void R_CaptureCubemapShot(int shotIndex)
     int bufferSize = dx.cubemapShotRes * dx.cubemapShotRes * 4;
     byte *buffer = (byte *)ri.Z_MallocInternal(bufferSize);
     cubeShotGlob.pixels[shotIndex - 1] = buffer;
-    R_GetFrontBufferData(dx.cubemapShotPixelBorder, dx.cubemapShotPixelBorder,
-        dx.cubemapShotRes, dx.cubemapShotRes, 4, buffer);
-    R_FlipCubemapShot(buffer);
-    if (r_overbrightBits->current.integer > 0 && vidConfig.deviceSupportsGamma)
-        R_GammaCorrect(bufferSize, buffer);
+    R_FinishCubemapShotCapture(bufferSize, buffer);
 }
 
 // PINNED 10026920: release both buffers without clearing the saved face pointer.
@@ -564,13 +583,7 @@ static __declspec(noinline) void R_WriteCubemapShot(int shotIndex, const char *f
     int fileSize = dx.cubemapShotRes * dx.cubemapShotRes * 4 + 18;
     byte *targa = (byte *)ri.Z_MallocInternal(fileSize);
     int resolution = dx.cubemapShotRes;
-    memset(targa, 0, 18);
-    targa[2] = 2;
-    targa[12] = (byte)resolution;
-    targa[13] = (byte)(resolution >> 8);
-    targa[14] = (byte)resolution;
-    targa[15] = (byte)(resolution >> 8);
-    targa[16] = 32;
+    R_InitCubemapShotHeader(targa, resolution);
     R_CopyCubemapShot(cubeShotGlob.pixels[shotIndex - 1], targa);
     R_WriteCubemapShotAlpha(shotIndex, n0, n1, targa);
     ri.FS_WriteFile(filename, targa, fileSize);
@@ -585,6 +598,12 @@ static __declspec(noinline) void R_ClearForCubemapShot()
     R_DX_CALL(dx.device->Clear( 0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, D3DCOLOR_ARGB(255,255,0,255), 1, 0 ));
 }
 
+// Name unconfirmed; PINNED 10026a40/7: retail keeps a standalone copy of this restore.
+static __forceinline void R_RestoreFrameBufferTarget()
+{
+    RB_SetRenderTarget(R_RENDERTARGET_FRAME_BUFFER);
+}
+
 // PINNED 10026a50: API59 slot64 narrows both arguments to unsigned shorts.
 void R_BeginCubemapShot(int pixelWidthHeight, int pixelBorder)
 {
@@ -597,7 +616,7 @@ void R_BeginCubemapShot(int pixelWidthHeight, int pixelBorder)
 void R_EndCubemapShot(int shotIndex)
 {
     R_CaptureCubemapShot(shotIndex);
-    RB_SetRenderTarget(R_RENDERTARGET_FRAME_BUFFER);
+    R_RestoreFrameBufferTarget();
 }
 
 // PINNED 10026a90: API59 slot66 adapts the public filename-first parameter order.
@@ -606,7 +625,8 @@ void R_SaveCubemapShot(const char *filename, int shotIndex, float n0, float n1)
     R_WriteCubemapShot(shotIndex, filename, n0, n1);
 }
 
-static void R_GetDirForCubemapPixel(int faceIndex, float x, float y, float *dir)
+// Name unconfirmed; PINNED 10026ab0/121: retail keeps a standalone copy.
+static __forceinline void R_GetDirForCubemapPixel(int faceIndex, float x, float y, float *dir)
 {
     VectorMA(cubemapShotAxis[faceIndex + 1][0], x, cubemapShotAxis[faceIndex + 1][1], dir);
     VectorMA(dir, y, cubemapShotAxis[faceIndex + 1][2], dir);
@@ -635,13 +655,7 @@ void R_CubemapLightingForDir(float (**linearColors)[3], int width, int height, c
             {
                 yCoord = ((y + 0.5f) + (y + 0.5f)) / height - 1.0f;
                 xCoord = ((x + 0.5f) + (x + 0.5f)) / width - 1.0f;
-                sourceDir[0] = xCoord * cubemapShotAxis[faceIndex + 1][1][0] + cubemapShotAxis[faceIndex + 1][0][0];
-                sourceDir[1] = xCoord * cubemapShotAxis[faceIndex + 1][1][1] + cubemapShotAxis[faceIndex + 1][0][1];
-                sourceDir[2] = xCoord * cubemapShotAxis[faceIndex + 1][1][2] + cubemapShotAxis[faceIndex + 1][0][2];
-                sourceDir[0] += yCoord * cubemapShotAxis[faceIndex + 1][2][0];
-                sourceDir[1] += yCoord * cubemapShotAxis[faceIndex + 1][2][1];
-                sourceDir[2] += yCoord * cubemapShotAxis[faceIndex + 1][2][2];
-                Vec3Normalize(sourceDir);
+                R_GetDirForCubemapPixel(faceIndex, xCoord, yCoord, sourceDir);
                 facing = sourceDir[2] * dir[2] + sourceDir[1] * dir[1] + sourceDir[0] * dir[0];
                 if (!(facing <= 0.0f))
                 {
@@ -679,13 +693,7 @@ void R_CubemapLighting(float (**linearColors)[3], int width, int height, const f
             {
                 yCoord = ((y + 0.5f) + (y + 0.5f)) / height - 1.0f;
                 xCoord = ((x + 0.5f) + (x + 0.5f)) / width - 1.0f;
-                dir[0] = xCoord * cubemapShotAxis[faceIndex + 1][1][0] + cubemapShotAxis[faceIndex + 1][0][0];
-                dir[1] = xCoord * cubemapShotAxis[faceIndex + 1][1][1] + cubemapShotAxis[faceIndex + 1][0][1];
-                dir[2] = xCoord * cubemapShotAxis[faceIndex + 1][1][2] + cubemapShotAxis[faceIndex + 1][0][2];
-                dir[0] += yCoord * cubemapShotAxis[faceIndex + 1][2][0];
-                dir[1] += yCoord * cubemapShotAxis[faceIndex + 1][2][1];
-                dir[2] += yCoord * cubemapShotAxis[faceIndex + 1][2][2];
-                Vec3Normalize(dir);
+                R_GetDirForCubemapPixel(faceIndex, xCoord, yCoord, dir);
                 R_CubemapLightingForDir(linearColors, width, height, dir, baseColor, &pixels[faceIndex][4 * (y * width + x)]);
             }
         }
