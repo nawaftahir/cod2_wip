@@ -164,3 +164,4 @@ more than once, 178 changed (69,301 B), 25 too small. Changed by TU: rb_backend 
 rb_tess 16, r_init 9, rb_shade 9, r_rendercmds 8, rb_debug 7, rb_sky 7, rest <= 4. 1.3 .text is
 0x10a570 (1.0 0x10a090); 1.2 and 1.3 section sizes are identical. A 1.3 tree = 1.0 source plus
 ~178 changed functions, concentrated in the backend.
+PINNED (2026-11-12, r_material head, no callers): Vector4Compare copy 10016240/67, ret 10016290, ret 100162a0, Material_Alloc 100162b0/11, then 100162c0/198 = R_DX_CALL( dx.device->Create{Vertex,Pixel}Shader( mtlShader->program, &shader->{vs,ps} ) ) on shaderType (its two log strings are the only refs to 0x101945a8/0x10194560). Then Material_RegisterLiteral 10016390.
