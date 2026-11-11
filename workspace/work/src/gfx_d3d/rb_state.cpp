@@ -736,8 +736,8 @@ void RB_InitImages()
 	}
 }
 
-// Name unconfirmed; PINNED 1003dde0/44. Uncalled retail copy of the entity world matrix setup (rb_backend repeats it inline).
-void RB_SetEntityWorldMatrix(const GfxEntity *entity)
+// Mac name; PINNED 1003dde0/44. Uncalled in retail (rb_backend repeats the body inline).
+void RB_SetWorldMatrixForEntity(const GfxEntity *entity)
 {
 	MatrixSet44(backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel].world.matrix[0].m,
 		entity->origin, entity->axis, entity->scale);
@@ -820,6 +820,13 @@ void RB_ProjectionMatrixChanged()
 		R_DX_CALL(dx.device->SetTransform( D3DTS_PROJECTION, &activeMatrices->projection.matrix[0] ));
 }
 
+// Mac name; PINNED 1003e220/64. Uncalled in retail.
+void RB_SetProjectionMatrix(const D3DMATRIX *matrix)
+{
+	memcpy(&RB_GetActiveCodeMatrices()->projection.matrix[0], matrix, sizeof(D3DMATRIX));
+	RB_ProjectionMatrixChanged();
+}
+
 void RB_SetDepthHackNearClip(float nearClip)
 {
 	RB_GetActiveCodeMatrices()->projection.matrix[0]._43 = -nearClip;
@@ -882,6 +889,23 @@ void RB_InitSceneViewport()
 {
 	backEnd.sceneViewport.width = vidConfig.width;
 	backEnd.sceneViewport.height = vidConfig.height;
+}
+
+// Mac name; PINNED 1003e630/80. Uncalled in retail.
+bool RB_GetViewport(GfxViewport *outViewport)
+{
+	if (dxState.viewportBehavior == GFX_USE_VIEWPORT_FULL)
+	{
+		outViewport->x = 0;
+		outViewport->y = 0;
+		outViewport->width = dxState.renderTargetWidth;
+		outViewport->height = dxState.renderTargetHeight;
+	}
+	else
+	{
+		*outViewport = backEnd.sceneViewport;
+	}
+	return true;
 }
 
 // Viewport calculation.
@@ -1002,6 +1026,13 @@ void RB_SetRenderTarget(GfxRenderTargetId newTargetId)
 
 // PINNED 1003ec50/33: preserve each live sampler state while binding white.
 void RB_BindWhiteImages()
+{
+	for (int index = 0; index < 16; ++index)
+		RB_SetSampler(index, dxState.samplerState[index], rgp.whiteImage);
+}
+
+// Mac name; PINNED 1003ec80/36. Same body as RB_BindWhiteImages, uncalled in retail.
+void RB_BindDefaultImages()
 {
 	for (int index = 0; index < 16; ++index)
 		RB_SetSampler(index, dxState.samplerState[index], rgp.whiteImage);
