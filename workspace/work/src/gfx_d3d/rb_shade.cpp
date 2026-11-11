@@ -315,6 +315,42 @@ void RB_SetEntityHwLightsDx7(vec4_t *colorForDir, float sunVisibility);
 void RB_SetupLighting();
 void RB_DrawTechnique(int vertDeclType, const GfxDrawPrimArgs *args);
 void RB_BeginSurface(const Material *material, int techType, int lmapIndex);
+static const char *RB_TechniqueName(int techType);
+int RB_SetIndexData(const unsigned short *indices, int indexCount);
+void RB_SetVertexData(unsigned int streamIndex, const void *data, int vertexCount, int stride);
+void RB_ApplyImageOverride(const dvar_t *overrideDvar, GfxImage **image, byte *samplerState);
+static void RB_GetCodeImage(int code, GfxImage **image, byte *samplerState);
+void RB_ApplyMaterialImageOverride(const MaterialTextureDef *texture,
+    GfxImage **image, byte *samplerState);
+__forceinline void RB_GetMaterialImage(const char *name, GfxImage **image,
+    byte *samplerState);
+static void RB_ScaleCodeMatrix(float scale, const float *in, float *out);
+const float *RB_GetCodeMatrix(unsigned int code, int firstRow, int rowCount);
+static void RB_DeriveOutdoorLookupMatrix(float out[4][4]);
+void RB_GetShaderCodeConstant(const MaterialArgumentCodeConst *code,
+    const float **data, unsigned int *rowCount);
+void RB_GetMaterialConstant(const char *name, const float **data,
+    unsigned int *rowCount);
+void RB_ChangeVertexShaderConstants(int destIndex, const float *data, unsigned int rowCount);
+void RB_ChangePixelShaderConstants(int destIndex, const float *data, unsigned int rowCount);
+void RB_SetVertexShaderArguments(int argCount, const MaterialShaderArgument *args);
+void RB_SetPixelShaderArguments(int argCount, const MaterialShaderArgument *args);
+Bool RB_ApplyStateMapRules(const MaterialStateMapRuleSet *ruleSet,
+    const int *refStateBits, int *stateBits);
+void RB_EvaluateStateMap(const int *refStateBits,
+    const MaterialStateMap *stateMap, int *stateBits);
+__declspec(noinline) void RB_GetObjectiveColorDx7(byte *color);
+void RB_SetupPass(const GfxStateOverride *stateOverride,
+    const MaterialPassDx9 *pass, int vertDeclType);
+void RB_DrawSingleTechnique(int techType, int vertDeclType,
+    const GfxDrawPrimArgs *args, const GfxStateOverride *stateOverride);
+void RB_SetSamplerFromArgument(const MaterialShaderArgument *argument, int samplerIndex);
+void RB_SetupPassDx7(const GfxStateOverride *stateOverride,
+    const MaterialPassDx7 *pass, int vertDeclType);
+void RB_SetEntityHwLightsDx7(vec4_t *colorForDir, float sunVisibility);
+void RB_SetupLighting();
+void RB_DrawTechnique(int vertDeclType, const GfxDrawPrimArgs *args);
+void RB_BeginSurface(const Material *material, int techType, int lmapIndex);
 
 // PINNED 10037930/304; descriptive name, historical spelling unconfirmed.
 static const char *RB_TechniqueName(int techType)
@@ -791,32 +827,6 @@ void RB_EvaluateStateMap(const int *refStateBits,
     }
 }
 
-// PINNED 100399d0: D3DCOLOR byte order and truncation, not I_fround.
-__declspec(noinline) void RB_GetObjectiveColorDx7(byte *color)
-{
-    float time = backEnd.sceneDef.floatTime;
-    float fraction = time - (float)floor(time);
-    float minimum[4], maximum[4];
-    minimum[0] = r_objectiveColorDx7Min->current.color[0] * (1.0f / 255.0f);
-    minimum[1] = r_objectiveColorDx7Min->current.color[1] * (1.0f / 255.0f);
-    minimum[2] = r_objectiveColorDx7Min->current.color[2] * (1.0f / 255.0f);
-    minimum[3] = r_objectiveColorDx7Min->current.color[3] * (1.0f / 255.0f);
-    maximum[0] = r_objectiveColorDx7Max->current.color[0] * (1.0f / 255.0f);
-    maximum[1] = r_objectiveColorDx7Max->current.color[1] * (1.0f / 255.0f);
-    maximum[2] = r_objectiveColorDx7Max->current.color[2] * (1.0f / 255.0f);
-    maximum[3] = r_objectiveColorDx7Max->current.color[3] * (1.0f / 255.0f);
-    float blend = 0.5f - (float)sin(fraction * 6.2831855f) * 0.5f;
-    float value[4];
-    value[0] = minimum[0] + (maximum[0] - minimum[0]) * blend;
-    value[1] = minimum[1] + (maximum[1] - minimum[1]) * blend;
-    value[2] = minimum[2] + (maximum[2] - minimum[2]) * blend;
-    value[3] = minimum[3] + (maximum[3] - minimum[3]) * blend;
-    color[0] = (byte)(int)(value[2] * 255.0f);
-    color[1] = (byte)(int)(value[1] * 255.0f);
-    color[2] = (byte)(int)(value[0] * 255.0f);
-    color[3] = (byte)(int)(value[3] * 255.0f);
-}
-
 // PINNED 100396d0/680: programmable pass and both real argument callers.
 void RB_SetupPass(const GfxStateOverride *stateOverride,
     const MaterialPassDx9 *pass, int vertDeclType)
@@ -904,6 +914,32 @@ void RB_SetSamplerFromArgument(const MaterialShaderArgument *argument, int sampl
     else
         RB_GetMaterialImage(argument->u.name, &image, &samplerState);
     RB_SetSampler(samplerIndex, samplerState, image);
+}
+
+// PINNED 100399d0: D3DCOLOR byte order and truncation, not I_fround.
+__declspec(noinline) void RB_GetObjectiveColorDx7(byte *color)
+{
+    float time = backEnd.sceneDef.floatTime;
+    float fraction = time - (float)floor(time);
+    float minimum[4], maximum[4];
+    minimum[0] = r_objectiveColorDx7Min->current.color[0] * (1.0f / 255.0f);
+    minimum[1] = r_objectiveColorDx7Min->current.color[1] * (1.0f / 255.0f);
+    minimum[2] = r_objectiveColorDx7Min->current.color[2] * (1.0f / 255.0f);
+    minimum[3] = r_objectiveColorDx7Min->current.color[3] * (1.0f / 255.0f);
+    maximum[0] = r_objectiveColorDx7Max->current.color[0] * (1.0f / 255.0f);
+    maximum[1] = r_objectiveColorDx7Max->current.color[1] * (1.0f / 255.0f);
+    maximum[2] = r_objectiveColorDx7Max->current.color[2] * (1.0f / 255.0f);
+    maximum[3] = r_objectiveColorDx7Max->current.color[3] * (1.0f / 255.0f);
+    float blend = 0.5f - (float)sin(fraction * 6.2831855f) * 0.5f;
+    float value[4];
+    value[0] = minimum[0] + (maximum[0] - minimum[0]) * blend;
+    value[1] = minimum[1] + (maximum[1] - minimum[1]) * blend;
+    value[2] = minimum[2] + (maximum[2] - minimum[2]) * blend;
+    value[3] = minimum[3] + (maximum[3] - minimum[3]) * blend;
+    color[0] = (byte)(int)(value[2] * 255.0f);
+    color[1] = (byte)(int)(value[1] * 255.0f);
+    color[2] = (byte)(int)(value[0] * 255.0f);
+    color[3] = (byte)(int)(value[3] * 255.0f);
 }
 
 // PINNED 10039b40: real fixed-function pass, including cached stage updates.
