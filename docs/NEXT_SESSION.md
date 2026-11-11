@@ -52,7 +52,12 @@ r_image 1000c8e0 (hash & 0x7ff), 1000ccb0, 1000ccf0.
 - Some sources are CRLF; match line endings in scripted edits.
 
 ## 2026-11-12 morning: land the stack first
-- NEW BEST: local branch gfx/w-logfog (58b9db0e, worktree .worktrees/gfx-wstate) = gfx/w-combo6 +
+- BEST: commit 1f0a31a3 on local branch gfx/w-sky (worktree .worktrees/gfx-wmodel) = gfx/w-logfog +
+  rb_sky (RB_SunSpriteScreenFraction moved in from rb_sunsprite.cpp, which is deleted from tus.txt) +
+  RB_TessSunBillboard per-component copy + two rb_imagefilter retail copies. Gate green, same-offset
+  279,684. Do NOT take the branch tip (daaa4b05 RB_TouchImage drops it to 277,923). To land: create a
+  branch at 1f0a31a3, push it, then `wsl.exe bash -l /tmp/gfx_land.sh <branch> 1f0a31a3`.
+- Previous best: local branch gfx/w-logfog (58b9db0e, worktree .worktrees/gfx-wstate) = gfx/w-combo6 +
   rb_state c6622abb + rb_logfile/rb_fog/rb_shade/rb_state work. Gate green, same-offset 277,946.
   To land: `git push origin gfx/w-logfog` from .worktrees/gfx-wstate, then
   `wsl.exe bash -l /tmp/gfx_land.sh gfx/w-logfog 58b9db0e`. Its rb_state copies use Mac names but
