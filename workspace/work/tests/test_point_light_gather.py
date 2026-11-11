@@ -4,7 +4,7 @@ import subprocess
 import tempfile
 w=Path(__file__).resolve().parents[1];light=(w/'src/gfx_d3d/r_light.cpp').read_text();dpvs=(w/'src/gfx_d3d/r_dpvs.cpp').read_text();math=(w/'src/universal/com_math.cpp').read_text()
 helper=math[math.index('float PointToBoxDistSq('):math.index('\n/*\n==============\nAxisClear')]
-u=(w/'src/gfx_d3d/r_utils.cpp').read_text();radius=u[u.index('// PINNED 1002c060/71:'):]
+u=(w/'src/gfx_d3d/r_utils.cpp').read_text();radius=u[u.index('// PINNED 1002c060/71:'):u.index('\n}\n', u.index('// PINNED 1002c060/71:')) + 3]
 source=radius+light[light.index('// Point-light scene gathering.'):]+dpvs[dpvs.index('// PINNED 1000a840/129:'):dpvs.index('// Visibility-tree gathering.')]
 program=r'''
 #include <cassert>

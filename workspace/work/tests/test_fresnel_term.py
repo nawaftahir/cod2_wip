@@ -5,7 +5,7 @@ import tempfile
 
 work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/r_utils.cpp').read_text()
-source = text[text.index('float FresnelTerm('):text.index('infoParm_t infoParms[]')]
+source = text[text.index('float FresnelTerm(float n0, float n1, float cosIncidentAngle)\n{'):text.index('\n}\n', text.index('float FresnelTerm(float n0, float n1, float cosIncidentAngle)\n{')) + 3]
 program = r'''
 #include <cassert>
 #include <cmath>
