@@ -318,15 +318,19 @@
 "name": "?CL_FinishLoadingModels@@YAXXZ",
 "obj": "cl_cgame_mp.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x402140"
+],
+"sameva": 1
 },
 {
 "name": "?CL_SetIgnorePrecacheErrors_402090@@YAXH@Z",
 "obj": "cl_cgame_mp.obj",
 "size": 9,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x402150"
+],
+"sameva": 1
 },
 {
 "name": "?CL_RegisterMaterial@@YAPAUMaterial@@PBDH@Z",
@@ -377,15 +381,19 @@
 "name": "?CL_ClearScene@@YAXXZ",
 "obj": "cl_cgame_mp.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4021a0"
+],
+"sameva": 1
 },
 {
 "name": "?R_SkinGfxEntityDelayed@@YAXPAUGfxEntity@@@Z",
 "obj": "cl_cgame_mp.obj",
 "size": 9,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4021b0"
+],
+"sameva": 1
 },
 {
 "name": "?R_AddRefEntityToScene@@YAPAUGfxEntity@@PBU1@TGfxModel@@PBUcentity_s@@@Z",
@@ -422,8 +430,10 @@
 "name": "?CL_AddLightToScene@@YAXPBMMMMM@Z",
 "obj": "cl_cgame_mp.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x402210"
+],
+"sameva": 1
 },
 {
 "name": "?CL_SetFog@@YAXHMMHHHM@Z",
@@ -450,29 +460,37 @@
 "name": "?CL_RenderScene@@YAXPBUrefdef_s@@@Z",
 "obj": "cl_cgame_mp.obj",
 "size": 9,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x402260"
+],
+"sameva": 1
 },
 {
 "name": "?CL_BeginDelayedDrawing@@YAHXZ",
 "obj": "cl_cgame_mp.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x402270"
+],
+"sameva": 1
 },
 {
 "name": "?CL_EndDelayedDrawing@@YAXH@Z",
 "obj": "cl_cgame_mp.obj",
 "size": 9,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x402280"
+],
+"sameva": 1
 },
 {
 "name": "?CL_IssueDelayedDrawing@@YAXH@Z",
 "obj": "cl_cgame_mp.obj",
 "size": 9,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x402290"
+],
+"sameva": 1
 },
 {
 "name": "?CL_SetFullScreenViewport@@YAXXZ",
@@ -496,8 +514,10 @@
 "name": "?CL_SaveScreen@@YAXXZ",
 "obj": "cl_cgame_mp.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x402310"
+],
+"sameva": 1
 },
 {
 "name": "?CL_BlendSavedScreen@@YAXH@Z",
@@ -592,8 +612,10 @@
 "name": "?CL_TrackStatistics@@YAXPAUtrStatistics_t@@@Z",
 "obj": "cl_cgame_mp.obj",
 "size": 9,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x402460"
+],
+"sameva": 1
 },
 {
 "name": "?CL_PickMaterial@@YAHPBM0PAD11H@Z",
@@ -683,8 +705,10 @@
 "name": "?CL_SetViewAngles_4025e0@@YAXPBM@Z",
 "obj": "cl_cgame_mp.obj",
 "size": 26,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4026a0"
+],
+"sameva": 1
 },
 {
 "name": "?CL_SyncTimes@@YAXXZ",
@@ -779,8 +803,10 @@
 "name": "?CL_SetADS@@YAXE@Z",
 "obj": "cl_cgame_mp.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x403230"
+],
+"sameva": 1
 },
 {
 "name": "?CL_DrawString@@YAXHHPBDHH@Z",
@@ -827,43 +853,55 @@
 "name": "?CL_SetLodOrigin@@YAXPBUrefdef_s@@@Z",
 "obj": "cl_cgame_mp.obj",
 "size": 9,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x403460"
+],
+"sameva": 1
 },
 {
 "name": "?R_UpdateXModelBoundsDelayed@@YAXPAUGfxEntity@@@Z",
 "obj": "cl_cgame_mp.obj",
 "size": 9,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x403470"
+],
+"sameva": 1
 },
 {
 "name": "?R_UpdateEffectsBolt@@YAXXZ",
 "obj": "cl_cgame_mp.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x403480"
+],
+"sameva": 1
 },
 {
 "name": "?R_UpdateEffectsNonBolt@@YAXXZ",
 "obj": "cl_cgame_mp.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x403490"
+],
+"sameva": 1
 },
 {
 "name": "?fn_4034a0@@YAXXZ",
 "obj": "cl_cgame_mp.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4034a0"
+],
+"sameva": 1
 },
 {
 "name": "?CIN_StopCinematic@@YA?AW4e_status@@H@Z",
 "obj": "cl_cin_mp.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4034b0"
+],
+"sameva": 1
 },
 {
 "name": "?CIN_RunCinematic@@YA?AW4e_status@@H@Z",
@@ -881,8 +919,10 @@
 "name": "?CIN_PlayCinematic@@YAHPBDHHHHH@Z",
 "obj": "cl_cin_mp.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4034d0"
+],
+"sameva": 1
 },
 {
 "name": "?CIN_SetExtents@@YAXHHHHH@Z",
@@ -974,8 +1014,10 @@
 "name": "?CIN_CloseAllVideos@@YAXXZ",
 "obj": "cl_cin_mp.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x403620"
+],
+"sameva": 1
 },
 {
 "name": "_ceilf",
@@ -1120,8 +1162,10 @@
 "name": "?Con_Stub_403810@@YAXXZ",
 "obj": "cl_console_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x403900"
+],
+"sameva": 1
 },
 {
 "name": "?Con_ToggleConsole_f@@YAXXZ",
@@ -1250,8 +1294,10 @@
 "name": "?Con_Shutdown_4040a0@@YAXXZ",
 "obj": "cl_console_mp.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x404190"
+],
+"sameva": 1
 },
 {
 "name": "?Con_CopyCurrentConsoleLineText@@YAXPAF@Z",
@@ -1800,8 +1846,10 @@
 "name": "?Con_Stub_406be0@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4074f0"
+],
+"sameva": 1
 },
 {
 "name": "?IN_MLookDown@@YAXXZ",
@@ -2422,8 +2470,10 @@
 "name": "?IN_LeaveADS@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 8,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x407fb0"
+],
+"sameva": 1
 },
 {
 "name": "?IN_LowerStance@@YAXXZ",
@@ -2678,8 +2728,10 @@
 "name": "?IN_Stub_409180@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x409af0"
+],
+"sameva": 1
 },
 {
 "name": "?Field_Draw@@YAXPAUfield_t@@HHHH@Z",
@@ -2969,8 +3021,10 @@
 "name": "?Key_Stub_40b440@@YAXXZ",
 "obj": "cl_keys_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x40bde0"
+],
+"sameva": 1
 },
 {
 "name": "?Sys_Rdtsc@@YA_KXZ",
@@ -2985,8 +3039,10 @@
 "name": "?Key_Zero_40b450@@YAHXZ",
 "obj": "cl_keys_mp.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x40be00"
+],
+"sameva": 1
 },
 {
 "name": "?CL_SetFPUControl_40b460@@YAXXZ",
@@ -3000,15 +3056,19 @@
 "name": "?CL_SwitchToLocalClient@@YAXH@Z",
 "obj": "cl_main_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x40be40"
+],
+"sameva": 1
 },
 {
 "name": "?CL_Stub_40b4a0@@YAXXZ",
 "obj": "cl_main_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x40be50"
+],
+"sameva": 1
 },
 {
 "name": "?CL_GetLocalClientActive@@YAEH@Z",
@@ -3027,22 +3087,28 @@
 "name": "?CL_GetLocalClientActiveCount@@YAHXZ",
 "obj": "cl_main_mp.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x40be70"
+],
+"sameva": 1
 },
 {
 "name": "?CL_Zero_40b4d0@@YAHXZ",
 "obj": "cl_main_mp.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x40be80"
+],
+"sameva": 1
 },
 {
 "name": "?CL_GetFrameActiveClientCount_40b4e0@@YAHXZ",
 "obj": "cl_main_mp.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x40be90"
+],
+"sameva": 1
 },
 {
 "name": "?CL_ResetFrameClients_40b4f0@@YAXXZ",
@@ -3088,8 +3154,10 @@
 "name": "?CL_IsRenderingSplitScreen@@YAEXZ",
 "obj": "cl_main_mp.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x40bfb0"
+],
+"sameva": 1
 },
 {
 "name": "?CL_True_40b610@@YAEXZ",
@@ -3108,15 +3176,19 @@
 "name": "?CL_SetConnectionState_40b620@@YAXW4connstate_t@@@Z",
 "obj": "cl_main_mp.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x40bfd0"
+],
+"sameva": 1
 },
 {
 "name": "?CL_GetConnectionState_40b630@@YA?AW4connstate_t@@XZ",
 "obj": "cl_main_mp.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x40bfe0"
+],
+"sameva": 1
 },
 {
 "name": "?CL_GetUsernameForLocalClient@@YAPBDH@Z",
@@ -3588,8 +3660,10 @@
 "name": "?CL_VoiceFrame_40e6b0@@YAXXZ",
 "obj": "cl_main_mp.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x40f760"
+],
+"sameva": 1
 },
 {
 "name": "?CL_RunOncePerClientFrame@@YAXH@Z",
@@ -3620,8 +3694,10 @@
 "name": "?CL_SetRecommended_f@@YAXXZ",
 "obj": "cl_main_mp.obj",
 "size": 9,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x40f8f0"
+],
+"sameva": 1
 },
 {
 "name": "?CL_RefPrintf@@YAXHPBDZZ",
@@ -3669,8 +3745,10 @@
 "name": "?CL_ScaledMilliseconds@@YAHXZ",
 "obj": "cl_main_mp.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x40fc00"
+],
+"sameva": 1
 },
 {
 "name": "?CL_InitRef@@YAXXZ",
@@ -3710,8 +3788,10 @@
 "name": "?CL_StopLogo@@YAXXZ",
 "obj": "cl_main_mp.obj",
 "size": 11,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4104f0"
+],
+"sameva": 1
 },
 {
 "name": "?CL_PlayLogo_f@@YAXXZ",
@@ -3837,8 +3917,10 @@
 "name": "?CL_ShowIP_f@@YAXXZ",
 "obj": "cl_main_mp.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4120e0"
+],
+"sameva": 1
 },
 {
 "name": "?CL_GetServerIPAddress@@YAPBDXZ",
@@ -3900,8 +3982,10 @@
 "name": "?fn_412660@@YAHXZ",
 "obj": "cl_main_mp.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x412660"
+],
+"sameva": 1
 },
 {
 "name": "?CL_SyncGpu@@YAXXZ",
@@ -3915,8 +3999,10 @@
 "name": "?fn_4126c0@@YAHXZ",
 "obj": "cl_main_mp.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4126c0"
+],
+"sameva": 1
 },
 {
 "name": "?CL_TextWidth@@YAHPBDHPAUFont_s@@@Z",
@@ -3997,15 +4083,19 @@
 "name": "?CL_GetKeyCatchers_411460@@YAHXZ",
 "obj": "cl_main_mp.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4127b0"
+],
+"sameva": 1
 },
 {
 "name": "?CL_GetDisplayHUDWithKeycatchUI@@YAEXZ",
 "obj": "cl_main_mp.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4127c0"
+],
+"sameva": 1
 },
 {
 "name": "?CL_RegisterFont@@YAPAUFont_s@@PBDH@Z",
@@ -4270,8 +4360,10 @@
 "name": "?SCR_Init@@YAXXZ",
 "obj": "cl_scrn_mp.obj",
 "size": 11,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x414880"
+],
+"sameva": 1
 },
 {
 "name": "?CL_GetDemoType@@YA?AW4DemoType@@XZ",
@@ -4324,8 +4416,10 @@
 "name": "?SCR_Stub_413500@@YAXXZ",
 "obj": "cl_scrn_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x414b10"
+],
+"sameva": 1
 },
 {
 "name": "?SCR_UpdateFrame@@YAXXZ",
@@ -4478,8 +4572,10 @@
 "name": "?LAN_UpdateDirtyPings@@YAHH@Z",
 "obj": "cl_ui_mp.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x415790"
+],
+"sameva": 1
 },
 {
 "name": "?LAN_GetServerStatus@@YAHPAD0H@Z",
@@ -4519,8 +4615,10 @@
 "name": "?Key_GetCatcher@@YAHXZ",
 "obj": "cl_ui_mp.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x415820"
+],
+"sameva": 1
 },
 {
 "name": "?Key_SetCatcher@@YAXH@Z",
@@ -4618,8 +4716,10 @@
 "name": "?UI_Stub_414400@@YAXXZ",
 "obj": "cl_ui_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x415ae0"
+],
+"sameva": 1
 },
 {
 "name": "?CM_InitThreadData@@YAXH@Z",
@@ -4724,15 +4824,19 @@
 "name": "?CM_Hunk_CheckTempMemoryClear@@YAXXZ",
 "obj": "cm_load.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x415f30"
+],
+"sameva": 1
 },
 {
 "name": "?CM_Hunk_CheckTempMemoryHighClear@@YAXXZ",
 "obj": "cm_load.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x415f40"
+],
+"sameva": 1
 },
 {
 "name": "?CM_Hunk_AllocateTempMemoryHigh@@YAPAXHPBD@Z",
@@ -4870,15 +4974,19 @@
 "name": "?LittleShort@@YAFF@Z",
 "obj": "cm_load_obj.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x416050"
+],
+"sameva": 1
 },
 {
 "name": "?LittleLong@@YAHH@Z",
 "obj": "cm_load_obj.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x416060"
+],
+"sameva": 1
 },
 {
 "name": "?FloatFromBits@@YAMH@Z",
@@ -5858,8 +5966,10 @@
 "name": "?CM_LinkWorld@@YAXXZ",
 "obj": "cm_world.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x41f1d0"
+],
+"sameva": 1
 },
 {
 "name": "?CM_UnlinkEntity@@YAXPAUsvEntity_s@@@Z",
@@ -6033,8 +6143,10 @@
 "name": "?CM_Stub_41f2c0@@YAXXZ",
 "obj": "cm_world.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x420a70"
+],
+"sameva": 1
 },
 {
 "name": "?Cmd_Wait_f@@YAXXZ",
@@ -6048,8 +6160,10 @@
 "name": "?Cbuf_Init@@YAXXZ",
 "obj": "cmd.obj",
 "size": 31,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x420ab0"
+],
+"sameva": 1
 },
 {
 "name": "?Cbuf_AddText@@YAXPBD@Z",
@@ -6129,15 +6243,19 @@
 "name": "?Cmd_Argc@@YAHXZ",
 "obj": "cmd.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x420ee0"
+],
+"sameva": 1
 },
 {
 "name": "?SV_Cmd_Argc@@YAHXZ",
 "obj": "cmd.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x420ef0"
+],
+"sameva": 1
 },
 {
 "name": "?Cmd_Argv@@YAPBDH@Z",
@@ -6334,8 +6452,10 @@
 "name": "?Cmd_Stub_41fec0@@YAXXZ",
 "obj": "cmd.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4217a0"
+],
+"sameva": 1
 },
 {
 "name": "?Com_IsBspLoaded@@YA_NXZ",
@@ -6452,8 +6572,10 @@
 "name": "?UnusedStubA@@YAXXZ",
 "obj": "unused_stubs.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4219b0"
+],
+"sameva": 1
 },
 {
 "name": "?FS_Initialized@@YAHXZ",
@@ -6472,8 +6594,10 @@
 "name": "?FS_CheckFileSystemStarted@@YAXXZ",
 "obj": "com_files.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4219d0"
+],
+"sameva": 1
 },
 {
 "name": "?FS_IwdIsPure@@YAHPBUiwd_t@@@Z",
@@ -8519,8 +8643,10 @@
 "name": "?Rand_Init@@YAXH@Z",
 "obj": "com_math.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x42be60"
+],
+"sameva": 1
 },
 {
 "name": "?flrand@@YAMMM@Z",
@@ -8542,8 +8668,10 @@
 "name": "?TransformVectorByAnimMat@@YAXPBMPBUDObjAnimMat@@PAM@Z",
 "obj": "com_math.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x42bef0"
+],
+"sameva": 1
 },
 {
 "name": "?AxisToQuat@@YAXQAY02$$CBMQAM@Z",
@@ -8581,8 +8709,10 @@
 "name": "_Z_FreeInternal",
 "obj": "com_memory.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x42c2c0"
+],
+"sameva": 1
 },
 {
 "name": "?Z_VirtualFreeInternal@@YAXPAX@Z",
@@ -8604,8 +8734,10 @@
 "name": "?Z_MallocFailed@@YAXH@Z",
 "obj": "com_memory.obj",
 "size": 15,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x42c310"
+],
+"sameva": 1
 },
 {
 "name": "?Z_MallocRaw@@YAPAXH@Z",
@@ -8816,8 +8948,10 @@
 "name": "?Hunk_SetMark@@YAHXZ",
 "obj": "com_memory.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x42caf0"
+],
+"sameva": 1
 },
 {
 "name": "?Hunk_ClearHigh@@YAXH@Z",
@@ -8833,8 +8967,10 @@
 "name": "?Hunk_GetLowPermanent@@YAHXZ",
 "obj": "com_memory.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x42cb10"
+],
+"sameva": 1
 },
 {
 "name": "?Hunk_ClearLow@@YAXH@Z",
@@ -8990,8 +9126,10 @@
 "name": "?Hunk_ShowTempMemory@@YAXH@Z",
 "obj": "com_memory.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x42cf20"
+],
+"sameva": 1
 },
 {
 "name": "?Hunk_HideTempMemoryHigh@@YAHXZ",
@@ -9007,8 +9145,10 @@
 "name": "?Hunk_ShowTempMemoryHigh@@YAXH@Z",
 "obj": "com_memory.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x42cf50"
+],
+"sameva": 1
 },
 {
 "name": "?LargeLocalBegin@@YAHH@Z",
@@ -9098,8 +9238,10 @@
 "name": "?LargeLocalReset@@YAXXZ",
 "obj": "com_memory.obj",
 "size": 11,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x42cff0"
+],
+"sameva": 1
 },
 {
 "name": "?Com_PlayerProfileExists@@YA_NPBD@Z",
@@ -9193,8 +9335,10 @@
 "name": "?Com_IsMapProfilerActive@@YA_NXZ",
 "obj": "com_profilemapload.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x42d5f0"
+],
+"sameva": 1
 },
 {
 "name": "?Com_StringContains@@YAPBDPBD0P6AH00@Z@Z",
@@ -9437,15 +9581,19 @@
 "name": "?Com_GetSoundAliasRandomSeed@@YAHXZ",
 "obj": "com_sndalias.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x42e670"
+],
+"sameva": 1
 },
 {
 "name": "?Com_SetSoundAliasRandomSeed_42cd10@@YAXH@Z",
 "obj": "com_sndalias.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x42e680"
+],
+"sameva": 1
 },
 {
 "name": "?Com_SoundAliasRandom@@YAHXZ",
@@ -9486,8 +9634,10 @@
 "name": "?Com_GetDefaultSoundAliasVolumeFalloffCurve@@YAPAUSndCurve@@XZ",
 "obj": "com_sndalias.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x42e850"
+],
+"sameva": 1
 },
 {
 "name": "?Com_AllocateTempSoundMemory@@YAPAXHPBD@Z",
@@ -9640,8 +9790,10 @@
 "name": "?Com_RefreshVolumeModGroups_f@@YAXXZ",
 "obj": "com_sndalias_load_obj.obj",
 "size": 8,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x42f790"
+],
+"sameva": 1
 },
 {
 "name": "?Com_LoadSoundAliasFile@@YAXPBD00@Z",
@@ -9969,8 +10121,10 @@
 "name": "?Com_ForceSafeMode@@YAXXZ",
 "obj": "common.obj",
 "size": 11,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x432870"
+],
+"sameva": 1
 },
 {
 "name": "?Com_StartupVariable@@YAXPBD@Z",
@@ -10225,8 +10379,10 @@
 "name": "?Com_RunAutoExec@@YAXXZ",
 "obj": "common.obj",
 "size": 20,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x434380"
+],
+"sameva": 1
 },
 {
 "name": "?Com_ExecStartupConfigs@@YAXPBD@Z",
@@ -10240,8 +10396,10 @@
 "name": "?Com_StartupConfigs@@YAXXZ",
 "obj": "common.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x434410"
+],
+"sameva": 1
 },
 {
 "name": "?Com_HasMultipleCores@@YA_NXZ",
@@ -10384,8 +10542,10 @@
 "name": "?Com_CheckSyncFrame@@YAXXZ",
 "obj": "common.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x435230"
+],
+"sameva": 1
 },
 {
 "name": "?Com_Frame@@YAXXZ",
@@ -10459,8 +10619,10 @@
 "name": "?Com_SetWeaponInfoMemory@@YAXH@Z",
 "obj": "common.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x435560"
+],
+"sameva": 1
 },
 {
 "name": "?Com_FreeWeaponInfoMemory@@YAXH@Z",
@@ -10583,8 +10745,10 @@
 "name": "?Com_AbortDObj@@YAXXZ",
 "obj": "dobj_management.obj",
 "size": 11,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x435990"
+],
+"sameva": 1
 },
 {
 "name": "?Vector2Compare@@YA_NQBM0@Z",
@@ -10632,15 +10796,19 @@
 "name": "?Dvar_SetInAutoExec@@YAX_N@Z",
 "obj": "dvar.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x435a50"
+],
+"sameva": 1
 },
 {
 "name": "?Dvar_IsSystemActive@@YA_NXZ",
 "obj": "dvar.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x435a60"
+],
+"sameva": 1
 },
 {
 "name": "?generateHashValue@@YAHPBD@Z",
@@ -10687,8 +10855,10 @@
 "name": "?Dvar_AllocNameString@@YAPBDPBD@Z",
 "obj": "dvar.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x435b80"
+],
+"sameva": 1
 },
 {
 "name": "?Dvar_FreeNameString@@YAXPBD@Z",
@@ -11051,8 +11221,10 @@
 "name": "?Dvar_FindVar@@YAPAUdvar_s@@PBD@Z",
 "obj": "dvar.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x437400"
+],
+"sameva": 1
 },
 {
 "name": "?Dvar_ClearModified@@YAXPAUdvar_s@@@Z",
@@ -11731,8 +11903,10 @@
 "name": "?Dvar_Toggle_f@@YAXXZ",
 "obj": "dvar_cmds.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x439e10"
+],
+"sameva": 1
 },
 {
 "name": "?Dvar_TogglePrint_f@@YAXXZ",
@@ -13239,15 +13413,19 @@
 "name": "?Script_Stub_4413a0@@YAXXZ",
 "obj": "l_script.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4431e0"
+],
+"sameva": 1
 },
 {
 "name": "?Script_Stub_4413b0@@YAXXZ",
 "obj": "l_script.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4431f0"
+],
+"sameva": 1
 },
 {
 "name": "?MD4Init@@YAXPAUMD4_CTX@@@Z",
@@ -13425,15 +13603,19 @@
 "name": "?MemFile_Stub_441f80@@YAXXZ",
 "obj": "memfile.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x443dc0"
+],
+"sameva": 1
 },
 {
 "name": "?MemFile_Stub_441f90@@YAXXZ",
 "obj": "memfile.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x443dd0"
+],
+"sameva": 1
 },
 {
 "name": "?MSG_Init@@YAXPAUmsg_t@@PAEH@Z",
@@ -13922,8 +14104,10 @@
 "name": "?MSG_Stub_445890@@YAXXZ",
 "obj": "msg_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4476d0"
+],
+"sameva": 1
 },
 {
 "name": "?NET_AdrToString@@YAPBDUnetadr_t@@@Z",
@@ -14183,8 +14367,10 @@
 "name": "?Com_GetParseThreadInfo@@YAPAUParseThreadInfo@@XZ",
 "obj": "q_parse.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x448e60"
+],
+"sameva": 1
 },
 {
 "name": "?Com_InitParseInfo@@YAXPAUparseInfo_t@@@Z",
@@ -14215,8 +14401,10 @@
 "name": "?Com_ResetParseSessions@@YAXXZ",
 "obj": "q_parse.obj",
 "size": 11,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x448fc0"
+],
+"sameva": 1
 },
 {
 "name": "?Com_SetSpaceDelimited@@YAXH@Z",
@@ -14348,8 +14536,10 @@
 "name": "?Com_GetLastTokenPos@@YAPBDXZ",
 "obj": "q_parse.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4493b0"
+],
+"sameva": 1
 },
 {
 "name": "?Com_ParseCSV@@YAPADPAPBDH@Z",
@@ -14631,15 +14821,19 @@
 "name": "?LittleFloat@@YAMH@Z",
 "obj": "q_shared.obj",
 "size": 9,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x44a1d0"
+],
+"sameva": 1
 },
 {
 "name": "?LittleFloatAsInt@@YAHM@Z",
 "obj": "q_shared.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x44a1e0"
+],
+"sameva": 1
 },
 {
 "name": "?ShortSwap@@YAFF@Z",
@@ -15269,15 +15463,19 @@
 "name": "?CalcSplitScreenTextOffset@@YAXPAUFont_s@@PAM@Z",
 "obj": "screen_placement_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x44be60"
+],
+"sameva": 1
 },
 {
 "name": "?ScrPlace_Stub_449ed0@@YAXXZ",
 "obj": "screen_placement_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x44be70"
+],
+"sameva": 1
 },
 {
 "name": "?CalcScreenPlacement@@YAXPAM000HH@Z",
@@ -15403,8 +15601,10 @@
 "name": "?SND_Stub_44a6a0@@YAHXZ",
 "obj": "snd.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x44c640"
+],
+"sameva": 1
 },
 {
 "name": "?SND_AnyActiveListeners@@YAEXZ",
@@ -15418,8 +15618,10 @@
 "name": "?SND_GetListenerIndexNearestToOrigin@@YAHPBM@Z",
 "obj": "snd.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x44c670"
+],
+"sameva": 1
 },
 {
 "name": "?SND_DisconnectListener@@YAXXZ",
@@ -16107,8 +16309,10 @@
 "name": "?SV_GetMapBaseName@@YAPBDPBD@Z",
 "obj": "sv_ccmds_mp.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x451b50"
+],
+"sameva": 1
 },
 {
 "name": "?SV_Map_f@@YAXXZ",
@@ -16141,8 +16345,10 @@
 "name": "?SV_FastRestart_f@@YAXXZ",
 "obj": "sv_ccmds_mp.obj",
 "size": 9,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x451f40"
+],
+"sameva": 1
 },
 {
 "name": "?UI_GetMapRotationToken@@YAPBDXZ",
@@ -16316,22 +16522,28 @@
 "name": "?SV_GameCompleteStatus_f@@YAXXZ",
 "obj": "sv_ccmds_mp.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4529b0"
+],
+"sameva": 1
 },
 {
 "name": "?SV_ScriptUsage_f@@YAXXZ",
 "obj": "sv_ccmds_mp.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4529c0"
+],
+"sameva": 1
 },
 {
 "name": "?SV_StringUsage_f@@YAXXZ",
 "obj": "sv_ccmds_mp.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4529d0"
+],
+"sameva": 1
 },
 {
 "name": "?SV_AddOperatorCommands@@YAXXZ",
@@ -16345,15 +16557,19 @@
 "name": "?SV_RemoveOperatorCommands@@YAXXZ",
 "obj": "sv_ccmds_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x452bb0"
+],
+"sameva": 1
 },
 {
 "name": "?SV_AddDedicatedCommands@@YAXXZ",
 "obj": "sv_ccmds_mp.obj",
 "size": 34,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x452bc0"
+],
+"sameva": 1
 },
 {
 "name": "?SV_RemoveDedicatedCommands@@YAXXZ",
@@ -16659,8 +16875,10 @@
 "name": "?SV_FX_GetVisibility@@YAMQBM0@Z",
 "obj": "sv_client_mp.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x455d00"
+],
+"sameva": 1
 },
 {
 "name": "?SV_ExecuteClientCommand@@YAXPAUclient_s@@PBDH@Z",
@@ -17110,15 +17328,19 @@
 "name": "?SV_SetWeaponInfoMemory@@YAXXZ",
 "obj": "sv_game_mp.obj",
 "size": 11,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x457930"
+],
+"sameva": 1
 },
 {
 "name": "?SV_FreeWeaponInfoMemory@@YAXXZ",
 "obj": "sv_game_mp.obj",
 "size": 22,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x457940"
+],
+"sameva": 1
 },
 {
 "name": "?SV_GetEntityToken@@YAHPADH@Z",
@@ -18201,15 +18423,19 @@
 "name": "?Sys_ReturnFalse@@YAEXZ",
 "obj": "win_threads.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x462650"
+],
+"sameva": 1
 },
 {
 "name": "?Sys_ReturnFalse_462660@@YAEXZ",
 "obj": "win_threads.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x462660"
+],
+"sameva": 1
 },
 {
 "name": "?UI_Component_InitIfStarted_45f980@@YAXXZ",
@@ -18282,8 +18508,10 @@
 "name": "?UI_Component_IsCursorHidden@@YAHXZ",
 "obj": "ui_component.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x462910"
+],
+"sameva": 1
 },
 {
 "name": "?GetCursorPos@UI_Component@@SAXPAH0@Z",
@@ -18305,8 +18533,10 @@
 "name": "?Shutdown@UI_Component@@UAEXXZ",
 "obj": "ui_component.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x462960"
+],
+"sameva": 1
 },
 {
 "name": "??1UI_Component@@UAE@XZ",
@@ -18346,8 +18576,10 @@
 "name": "?AddText@UI_Component@@UAEXPBD@Z",
 "obj": "ui_component.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4629f0"
+],
+"sameva": 1
 },
 {
 "name": "?Init@UI_ScrollPane@@UAEXXZ",
@@ -18604,15 +18836,19 @@
 "name": "?Sys_DefaultCDPath@@YAPBDXZ",
 "obj": "win_common.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x463c50"
+],
+"sameva": 1
 },
 {
 "name": "?Sys_DefaultHomePath@@YAPBDXZ",
 "obj": "win_common.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x463c60"
+],
+"sameva": 1
 },
 {
 "name": "?Sys_Cwd@@YAPADXZ",
@@ -18668,29 +18904,37 @@
 "name": "?Sys_InitStreamThread@@YAXXZ",
 "obj": "win_common.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x464240"
+],
+"sameva": 1
 },
 {
 "name": "?Sys_ShutdownStreamThread@@YAXXZ",
 "obj": "win_common.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x464250"
+],
+"sameva": 1
 },
 {
 "name": "?Sys_BeginStreamedFile@@YAXHH@Z",
 "obj": "win_common.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x464260"
+],
+"sameva": 1
 },
 {
 "name": "?Sys_EndStreamedFile@@YAXH@Z",
 "obj": "win_common.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x464270"
+],
+"sameva": 1
 },
 {
 "name": "?Sys_StreamedRead@@YAHPAXHHH@Z",
@@ -18791,15 +19035,19 @@
 "name": "?Sys_Stub_4619d0@@YAXXZ",
 "obj": "win_configure.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x464730"
+],
+"sameva": 1
 },
 {
 "name": "?Sys_Stub_4619e0@@YAXXZ",
 "obj": "win_configure.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x464740"
+],
+"sameva": 1
 },
 {
 "name": "?IN_ActivateWin32Mouse@@YAXXZ",
@@ -18958,8 +19206,10 @@
 "name": "?Win_CopyString_461f90@@YAPBDPBD@Z",
 "obj": "win_localize.obj",
 "size": 15,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x464cf0"
+],
+"sameva": 1
 },
 {
 "name": "?Win_LocalizeRef@@YAPBDPBD@Z",
@@ -19138,8 +19388,10 @@
 "name": "?Sys_Print@@YAXPBD@Z",
 "obj": "win_main.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x465950"
+],
+"sameva": 1
 },
 {
 "name": "?Sys_ScanForCD@@YAHXZ",
@@ -19153,8 +19405,10 @@
 "name": "?Sys_CheckCD@@YAHXZ",
 "obj": "win_main.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x465a60"
+],
+"sameva": 1
 },
 {
 "name": "?Sys_GetClipboardData@@YAPADXZ",
@@ -19216,8 +19470,10 @@
 "name": "?Sys_Net_Restart_f@@YAXXZ",
 "obj": "win_main.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x465fd0"
+],
+"sameva": 1
 },
 {
 "name": "?Sys_Init@@YAXXZ",
@@ -19264,8 +19520,10 @@
 "name": "?Sys_NormalExit@@YAXXZ",
 "obj": "win_main.obj",
 "size": 12,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4663a0"
+],
+"sameva": 1
 },
 {
 "name": "?Win_RegisterClass@@YAXXZ",
@@ -19447,8 +19705,10 @@
 "name": "?NET_Restart@@YAXXZ",
 "obj": "win_net.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x467ec0"
+],
+"sameva": 1
 },
 {
 "name": "?NET_Init@@YAXXZ",
@@ -19479,8 +19739,10 @@
 "name": "?Sys_MillisecondsRaw@@YAHXZ",
 "obj": "win_shared.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x467f60"
+],
+"sameva": 1
 },
 {
 "name": "?fastftol@@YAJM@Z",
@@ -19680,8 +19942,10 @@
 "name": "?SetAnimCheck@@YAXH@Z",
 "obj": "scr_animtree.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4693b0"
+],
+"sameva": 1
 },
 {
 "name": "?AnimTreeCompileError@@YAXPBD@Z",
@@ -21287,8 +21551,10 @@
 "name": "?EmitBreakpointStatement@@YAXTsval_u@@@Z",
 "obj": "scr_compiler.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x473310"
+],
+"sameva": 1
 },
 {
 "name": "?EmitProfStatement@@YAXTsval_u@@0E@Z",
@@ -21656,8 +21922,10 @@
 "name": "?Scr_GetStringUsage@@YAHXZ",
 "obj": "scr_memorytree.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x475330"
+],
+"sameva": 1
 },
 {
 "name": "?MT_InitBits@@YAXXZ",
@@ -22033,15 +22301,19 @@
 "name": "_node1_",
 "obj": "scr_parsetree.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x476dd0"
+],
+"sameva": 1
 },
 {
 "name": "_node_pos",
 "obj": "scr_parsetree.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x476de0"
+],
+"sameva": 1
 },
 {
 "name": "_node0",
@@ -22479,8 +22751,10 @@
 "name": "?Scr_ShutdownGameStrings@@YAXXZ",
 "obj": "scr_stringlist.obj",
 "size": 9,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x477f10"
+],
+"sameva": 1
 },
 {
 "name": "?SL_TransferSystem@@YAXII@Z",
@@ -22518,8 +22792,10 @@
 "name": "?TempMemoryReset@@YAXXZ",
 "obj": "scr_tempmemory.obj",
 "size": 11,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4781d0"
+],
+"sameva": 1
 },
 {
 "name": "?TempMalloc@@YAPADH@Z",
@@ -22598,8 +22874,10 @@
 "name": "?Scr_DumpScriptVariablesDefault@@YAXXZ",
 "obj": "scr_variable.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x478640"
+],
+"sameva": 1
 },
 {
 "name": "?InitVariables@@YAXXZ",
@@ -22630,8 +22908,10 @@
 "name": "?Scr_GetNumScriptVars@@YAIXZ",
 "obj": "scr_variable.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x478710"
+],
+"sameva": 1
 },
 {
 "name": "?GetVariableKeyObject@@YAII@Z",
@@ -23903,8 +24183,10 @@
 "name": "?Scr_FreeValue@@YAXI@Z",
 "obj": "scr_variable.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x47cfd0"
+],
+"sameva": 1
 },
 {
 "name": "?Scr_MakeValuePrimitive@@YAHI@Z",
@@ -23966,8 +24248,10 @@
 "name": "?Scr_ShutdownStringSet@@YAXI@Z",
 "obj": "scr_variable.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x47d2b0"
+],
+"sameva": 1
 },
 {
 "name": "?Scr_GetLocalVarAtIndex@@YAIH@Z",
@@ -24128,8 +24412,10 @@
 "name": "?Scr_SetLoading@@YAXH@Z",
 "obj": "scr_vm.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x47d590"
+],
+"sameva": 1
 },
 {
 "name": "?Scr_ErrorInternal@@YAXXZ",
@@ -24143,8 +24429,10 @@
 "name": "?Scr_GetNumScriptThreads@@YAIXZ",
 "obj": "scr_vm.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x47d620"
+],
+"sameva": 1
 },
 {
 "name": "?Scr_ClearOutParams@@YAXXZ",
@@ -24622,8 +24910,10 @@
 "name": "?Scr_GetNumParam@@YAIXZ",
 "obj": "scr_vm.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x483520"
+],
+"sameva": 1
 },
 {
 "name": "?Scr_AddBool@@YAXH@Z",
@@ -24863,8 +25153,10 @@
 "name": "?Scr_StackClear@@YAXXZ",
 "obj": "scr_vm.obj",
 "size": 11,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x483d30"
+],
+"sameva": 1
 },
 {
 "name": "?Scr_TraverseScript@@YAXPBD@Z",
@@ -25137,8 +25429,10 @@
 "name": "_yywrap",
 "obj": "scr_yacc.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x486900"
+],
+"sameva": 1
 },
 {
 "name": "?I_sgn@@YAMM@Z",
@@ -25176,8 +25470,10 @@
 "name": "?DObjAbort@@YAXXZ",
 "obj": "dobj.obj",
 "size": 11,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x486a00"
+],
+"sameva": 1
 },
 {
 "name": "?DObjDumpInfo@@YAXPBUDObj_s@@@Z",
@@ -25741,8 +26037,10 @@
 "name": "?XAnimAbort@@YAXXZ",
 "obj": "xanim.obj",
 "size": 11,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x489550"
+],
+"sameva": 1
 },
 {
 "name": "?XAnimFree@@YAXPAUXAnimParts_s@@@Z",
@@ -25820,8 +26118,10 @@
 "name": "?XAnimSetUnusedFlag@@YAXXZ",
 "obj": "xanim.obj",
 "size": 8,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x489a50"
+],
+"sameva": 1
 },
 {
 "name": "?XAnimTreeSize@@YAHH@Z",
@@ -26907,8 +27207,10 @@
 "name": "?XModelSetUnusedValue@@YAXH@Z",
 "obj": "xmodel.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x48ff90"
+],
+"sameva": 1
 },
 {
 "name": "?XModelPartsFree@@YAXPAUXModelParts_s@@@Z",
@@ -26938,8 +27240,10 @@
 "name": "?SetDefaultSurface@@YAPAUXModelSurfs_s@@XZ",
 "obj": "xmodel.obj",
 "size": 16,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4900e0"
+],
+"sameva": 1
 },
 {
 "name": "?SetDefaultModel@@YAXPAUXModel@@@Z",
@@ -27129,8 +27433,10 @@
 "name": "?XModel_RendererSlot86@@YAXXZ",
 "obj": "xmodel.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x490980"
+],
+"sameva": 1
 },
 {
 "name": "?XModel_RendererSlot87@@YAXPBX@Z",
@@ -27706,15 +28012,19 @@
 "name": "?FxCurve_Reference@@YAPBUFxCurve@@PBU1@@Z",
 "obj": "FxCurve_load_obj.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x493190"
+],
+"sameva": 1
 },
 {
 "name": "?FX_SwitchToScheduler@@YAXH@Z",
 "obj": "Fxexport.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4931a0"
+],
+"sameva": 1
 },
 {
 "name": "?Server_SwitchToValidFxScheduler@@YAXXZ",
@@ -27837,8 +28147,10 @@
 "name": "?FX_GetEffectLength@@YAMPBUFxEffectDef@@@Z",
 "obj": "Fxexport.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4933a0"
+],
+"sameva": 1
 },
 {
 "name": "?FxMem_Init@@YAXXZ",
@@ -28013,22 +28325,28 @@
 "name": "?AddRef@FxBoltFrame@@QAEPAV1@XZ",
 "obj": "FxPrimitives.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x493a30"
+],
+"sameva": 1
 },
 {
 "name": "??2FxBoltFrame@@SAPAXI@Z",
 "obj": "FxPrimitives.obj",
 "size": 12,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x493a40"
+],
+"sameva": 1
 },
 {
 "name": "??3FxBoltFrame@@SAXPAX@Z",
 "obj": "FxPrimitives.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x493a50"
+],
+"sameva": 1
 },
 {
 "name": "??0FxBoltFramePtr@@QAE@XZ",
@@ -28115,8 +28433,10 @@
 "name": "?AddVisibility@Effect@@UAEXXZ",
 "obj": "FxPrimitives.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x493b00"
+],
+"sameva": 1
 },
 {
 "name": "?GetDuration@Effect@@QAEHXZ",
@@ -28397,15 +28717,19 @@
 "name": "?Die@Effect@@UAEXXZ",
 "obj": "FxPrimitives.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x493ff0"
+],
+"sameva": 1
 },
 {
 "name": "?Cull@Effect@@UAE_NXZ",
 "obj": "FxPrimitives.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x494000"
+],
+"sameva": 1
 },
 {
 "name": "?Draw@Effect@@UAEXXZ",
@@ -28469,8 +28793,10 @@
 "name": "?TypeID@Effect@@UAEEXZ",
 "obj": "FxPrimitives.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x494180"
+],
+"sameva": 1
 },
 {
 "name": "?Archive@Effect@@UAEXPAVFxArchive@@@Z",
@@ -28484,8 +28810,10 @@
 "name": "?FixupArchiveLoad@Effect@@UAEXPBUPrimitiveTemplate@@@Z",
 "obj": "FxPrimitives.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x494350"
+],
+"sameva": 1
 },
 {
 "name": "?FX_AddFxToScene@@YAXPAVEffect@@H@Z",
@@ -29014,8 +29342,10 @@
 "name": "?Die@Cloud@@UAEXXZ",
 "obj": "FxPrimitives.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x496b10"
+],
+"sameva": 1
 },
 {
 "name": "?Cull@Cloud@@UAE_NXZ",
@@ -29159,8 +29489,10 @@
 "name": "?Die@Line@@UAEXXZ",
 "obj": "FxPrimitives.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x497070"
+],
+"sameva": 1
 },
 {
 "name": "?Cull@Line@@UAE_NXZ",
@@ -29458,8 +29790,10 @@
 "name": "?Archive@Cylinder@@UAEXPAVFxArchive@@@Z",
 "obj": "FxPrimitives.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x497890"
+],
+"sameva": 1
 },
 {
 "name": "??0Emitter@@QAE@XZ",
@@ -29529,8 +29863,10 @@
 "name": "?Cull@Emitter@@UAE_NXZ",
 "obj": "FxPrimitives.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x497930"
+],
+"sameva": 1
 },
 {
 "name": "?Draw@Emitter@@UAEXXZ",
@@ -29754,8 +30090,10 @@
 "name": "?Archive@Flash@@UAEXPAVFxArchive@@@Z",
 "obj": "FxPrimitives.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x498a40"
+],
+"sameva": 1
 },
 {
 "name": "??0?$FxMemMgr@VFxBoltFrame@@@@QAE@XZ",
@@ -30217,8 +30555,10 @@
 "name": "??2ScheduledEffect@@SAPAXI@Z",
 "obj": "FxScheduler.obj",
 "size": 12,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4993e0"
+],
+"sameva": 1
 },
 {
 "name": "??3ScheduledEffect@@SAXPAX@Z",
@@ -30231,8 +30571,10 @@
 "name": "?FX_SchedulerUnused@@YAXXZ",
 "obj": "FxScheduler.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x499400"
+],
+"sameva": 1
 },
 {
 "name": "?GetEffect@MediaHandles@@QBEPAUFxEffectDef@@XZ",
@@ -30270,8 +30612,10 @@
 "name": "?FX_PrintInvalidEffect@@YAXXZ",
 "obj": "FxScheduler.obj",
 "size": 12,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4994f0"
+],
+"sameva": 1
 },
 {
 "name": "?PlayEffect@FxScheduler@@QAEXPBUFxEffectDef@@QBM@Z",
@@ -30422,8 +30766,10 @@
 "name": "?FX_InitTemplates@@YAXXZ",
 "obj": "FxScheduler.obj",
 "size": 11,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x49a450"
+],
+"sameva": 1
 },
 {
 "name": "?FX_FindRegisteredEffect@@YAPAUFxEffectDef@@PBD@Z",
@@ -30561,8 +30907,10 @@
 "name": "?GetBaseParseGroup@GenericParser2@@QAEPAUGPGroup@@XZ",
 "obj": "FxScheduler_load_obj.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x49a860"
+],
+"sameva": 1
 },
 {
 "name": "?FX_Alloc@@YAPAXH@Z",
@@ -30866,8 +31214,10 @@
 "name": "?CameraShake@FxHelper@@QAEXQBMMHH@Z",
 "obj": "FxSystem.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x49b570"
+],
+"sameva": 1
 },
 {
 "name": "?GetSeed@FxHelper@@QAEHXZ",
@@ -31633,8 +31983,10 @@
 "name": "??2Light@@SAPAXI@Z",
 "obj": "FxUtil.obj",
 "size": 12,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x49e940"
+],
+"sameva": 1
 },
 {
 "name": "??0Flash@@QAE@XZ",
@@ -31666,8 +32018,10 @@
 "name": "?Cull@Flash@@UAE_NXZ",
 "obj": "FxUtil.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x49e990"
+],
+"sameva": 1
 },
 {
 "name": "?SetMaterial@Flash@@QAEXPAUMaterial@@@Z",
@@ -31844,15 +32198,19 @@
 "name": "??2Particle@@SAPAXI@Z",
 "obj": "FxUtil.obj",
 "size": 12,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x49eae0"
+],
+"sameva": 1
 },
 {
 "name": "??2Cloud@@SAPAXI@Z",
 "obj": "FxUtil.obj",
 "size": 12,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x49eaf0"
+],
+"sameva": 1
 },
 {
 "name": "?SetEndpoint@Line@@QAEXQBM@Z",
@@ -31868,8 +32226,10 @@
 "name": "??2Line@@SAPAXI@Z",
 "obj": "FxUtil.obj",
 "size": 12,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x49eb20"
+],
+"sameva": 1
 },
 {
 "name": "?SetNormal@OrientedParticle@@QAEXQBM@Z",
@@ -31902,8 +32262,10 @@
 "name": "??2Tail@@SAPAXI@Z",
 "obj": "FxUtil.obj",
 "size": 12,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x49eb80"
+],
+"sameva": 1
 },
 {
 "name": "?SetAxis@Cylinder@@QAEXQBM@Z",
@@ -32007,8 +32369,10 @@
 "name": "??2Emitter@@SAPAXI@Z",
 "obj": "FxUtil.obj",
 "size": 12,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x49ed50"
+],
+"sameva": 1
 },
 {
 "name": "?GetUsedSize@FxArchive@@QAEHXZ",
@@ -32078,8 +32442,10 @@
 "name": "?FX_UtilUnused@@YAXXZ",
 "obj": "FxUtil.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x49ef50"
+],
+"sameva": 1
 },
 {
 "name": "?FX_KillAllEffects@@YAXXZ",
@@ -32117,8 +32483,10 @@
 "name": "?FX_InitServer@@YAXXZ",
 "obj": "FxUtil.obj",
 "size": 11,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x49f1f0"
+],
+"sameva": 1
 },
 {
 "name": "?FX_Init@@YAH_N@Z",
@@ -32635,8 +33003,10 @@
 "name": "?SetNext@TextPool@@QAEXPAV1@@Z",
 "obj": "GenericParser2.obj",
 "size": 4,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4a3040"
+],
+"sameva": 1
 },
 {
 "name": "??2TextPool@@SAPAXI@Z",
@@ -32675,8 +33045,10 @@
 "name": "?SetNext@GPObject@@QAEXPAU1@@Z",
 "obj": "GenericParser2.obj",
 "size": 4,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4a3090"
+],
+"sameva": 1
 },
 {
 "name": "?GetInOrderNext@GPObject@@QAEPAU1@XZ",
@@ -32692,8 +33064,10 @@
 "name": "?SetInOrderNext@GPObject@@QAEXPAU1@@Z",
 "obj": "GenericParser2.obj",
 "size": 4,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4a30b0"
+],
+"sameva": 1
 },
 {
 "name": "?SetInOrderPrevious@GPObject@@QAEXPAU1@@Z",
@@ -32896,8 +33270,10 @@
 "name": "??1GPGroup@@QAE@XZ",
 "obj": "GenericParser2.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4a3a90"
+],
+"sameva": 1
 },
 {
 "name": "?GetNumSubGroups@GPGroup@@QAEHXZ",
@@ -33416,8 +33792,10 @@
 "name": "_tr_static_init",
 "obj": "trees.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4a8490"
+],
+"sameva": 1
 },
 {
 "name": "__tr_init",
@@ -33791,8 +34169,10 @@
 "name": "_zlibVersion",
 "obj": "zutil.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4ab050"
+],
+"sameva": 1
 },
 {
 "name": "_zError",
@@ -34047,8 +34427,10 @@
 "name": "?Language_IsAsian@@YAHXZ",
 "obj": "stringed_hooks.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4abe80"
+],
+"sameva": 1
 },
 {
 "name": "?SEH_LanguageUsesSpaces@@YAHXZ",
@@ -34086,8 +34468,10 @@
 "name": "??2@YAPAXIPAX@Z",
 "obj": "stringed_ingame.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4ac090"
+],
+"sameva": 1
 },
 {
 "name": "?assign@?$char_traits@D@std@@SAXAADABD@Z",
@@ -34133,8 +34517,10 @@
 "name": "?move@?$char_traits@D@std@@SAPADPADPBDI@Z",
 "obj": "stringed_ingame.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4ac140"
+],
+"sameva": 1
 },
 {
 "name": "??0logic_error@std@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@1@@Z",
@@ -34779,15 +35165,19 @@
 "name": "??0?$_String_val@DV?$allocator@D@std@@@std@@IAE@V?$allocator@D@1@@Z",
 "obj": "stringed_ingame.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4adc10"
+],
+"sameva": 1
 },
 {
 "name": "??0?$allocator@D@std@@QAE@ABV01@@Z",
 "obj": "stringed_ingame.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4adc20"
+],
+"sameva": 1
 },
 {
 "name": "?assign@?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@QAEAAV12@ABV12@@Z",
@@ -34866,15 +35256,19 @@
 "name": "??0?$_String_val@DV?$se_alloc@D@@@std@@IAE@V?$se_alloc@D@@@Z",
 "obj": "stringed_ingame.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4adeb0"
+],
+"sameva": 1
 },
 {
 "name": "??0?$se_alloc@D@@QAE@XZ",
 "obj": "stringed_ingame.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4adec0"
+],
+"sameva": 1
 },
 {
 "name": "?_Key@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@KAABV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@2@PAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@@Z",
@@ -34967,8 +35361,10 @@
 "name": "??0?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@QAE@XZ",
 "obj": "stringed_ingame.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4ae180"
+],
+"sameva": 1
 },
 {
 "name": "??R?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@std@@QBE_NABV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@1@0@Z",
@@ -35136,8 +35532,10 @@
 "name": "?_Left@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@KAAAPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@PAU342@@Z",
 "obj": "stringed_ingame.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4ae690"
+],
+"sameva": 1
 },
 {
 "name": "?_Parent@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@KAAAPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@PAU342@@Z",
@@ -35229,15 +35627,19 @@
 "name": "??0?$_Tree_val@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@IAE@ABU?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@1@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@@Z",
 "obj": "stringed_ingame.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4aeb70"
+],
+"sameva": 1
 },
 {
 "name": "?_Kfn@?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@SAABV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@2@ABU?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@2@@Z",
 "obj": "stringed_ingame.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4aeb80"
+],
+"sameva": 1
 },
 {
 "name": "?deallocate@?$se_alloc@U_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@@@QAEXPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@I@Z",
@@ -35275,8 +35677,10 @@
 "name": "?destroy@?$se_alloc@PAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@@@QAEXPAPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@@Z",
 "obj": "stringed_ingame.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4aebf0"
+],
+"sameva": 1
 },
 {
 "name": "??0iterator@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QAE@XZ",
@@ -35550,8 +35954,10 @@
 "name": "??0?$_Tree_ptr@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@IAE@ABU?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@1@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@@Z",
 "obj": "stringed_ingame.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4af620"
+],
+"sameva": 1
 },
 {
 "name": "??Eiterator@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QAE?AV012@H@Z",
@@ -35620,8 +36026,10 @@
 "name": "??0?$allocator@D@std@@QAE@XZ",
 "obj": "stringed_ingame.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4af6c0"
+],
+"sameva": 1
 },
 {
 "name": "?allocate@?$allocator@D@std@@QAEPADI@Z",
@@ -35707,8 +36115,10 @@
 "name": "??0?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@IAE@ABU?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@1@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@@Z",
 "obj": "stringed_ingame.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4af750"
+],
+"sameva": 1
 },
 {
 "name": "?max_size@?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@QBEIXZ",
@@ -35773,8 +36183,10 @@
 "name": "??0?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@QAE@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@1@@Z",
 "obj": "stringed_ingame.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4af8f0"
+],
+"sameva": 1
 },
 {
 "name": "??$?MDU?$char_traits@D@std@@V?$se_alloc@D@@@std@@YA_NABV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@0@0@Z",
@@ -35797,8 +36209,10 @@
 "name": "??$?0U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@?$se_alloc@PAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@@@QAE@ABV?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@@Z",
 "obj": "stringed_ingame.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4af940"
+],
+"sameva": 1
 },
 {
 "name": "??$_Allocate@D@std@@YAPADIPAD@Z",
@@ -35813,8 +36227,10 @@
 "name": "??$?0U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@?$se_alloc@U_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@@@QAE@ABV?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@@Z",
 "obj": "stringed_ingame.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4af960"
+],
+"sameva": 1
 },
 {
 "name": "?compare@?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@QBEHABV12@@Z",
@@ -35950,8 +36366,10 @@
 "name": "?ROQ_Stub_4ace90@@YAXXZ",
 "obj": "cinematics.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4aff60"
+],
+"sameva": 1
 },
 {
 "name": "?ROQ_CloseAllVideos@@YAXXZ",
@@ -36692,8 +37110,10 @@
 "name": "?DL_DLIsMotd@@YA_NXZ",
 "obj": "dl_main.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4b5f60"
+],
+"sameva": 1
 },
 {
 "name": "_powf",
@@ -37348,8 +37768,10 @@
 "name": "?SND_DriverPostUpdate_4b4950@@YAXXZ",
 "obj": "snd_driver.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4b8360"
+],
+"sameva": 1
 },
 {
 "name": "?SND_Update2DChannel@@YAXHH@Z",
@@ -37428,8 +37850,10 @@
 "name": "?SV_MatchEnd@@YAXXZ",
 "obj": "sv_main_pc_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4b8dc0"
+],
+"sameva": 1
 },
 {
 "name": "?Voice_Init@@YAEXZ",
@@ -37475,8 +37899,10 @@
 "name": "?Voice_Stub_4b58a0@@YAXXZ",
 "obj": "win_voice.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4b9300"
+],
+"sameva": 1
 },
 {
 "name": "?Voice_IncomingVoiceData@@YAXEPAEH@Z",
@@ -37619,8 +38045,10 @@
 "name": "?Encode_GetBandwidthSetting@@YAHXZ",
 "obj": "encode.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4ba1b0"
+],
+"sameva": 1
 },
 {
 "name": "?Encode_Sample@@YAHPAFPADH@Z",
@@ -37634,8 +38062,10 @@
 "name": "?Encode_GetFrameSize@@YAHXZ",
 "obj": "encode.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4ba240"
+],
+"sameva": 1
 },
 {
 "name": "?Encode_SetBandwidth_4b67f0@@YA_NH@Z",
@@ -37661,8 +38091,10 @@
 "name": "?Sound_NewSample@@YAPAUdsound_sample_t@@XZ",
 "obj": "play.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4ba280"
+],
+"sameva": 1
 },
 {
 "name": "?Sound_DestroySample@@YAHPAUdsound_sample_t@@@Z",
@@ -37678,15 +38110,19 @@
 "name": "?Sound_PlaySample@@YAHPAUdsound_sample_t@@@Z",
 "obj": "play.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4ba2c0"
+],
+"sameva": 1
 },
 {
 "name": "?Sound_StopSample@@YA_NPAUdsound_sample_t@@@Z",
 "obj": "play.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4ba2d0"
+],
+"sameva": 1
 },
 {
 "name": "?Sound_FinishSample@@YA_NPAUdsound_sample_t@@@Z",
@@ -37724,8 +38160,10 @@
 "name": "?Sound_Frame@@YAXXZ",
 "obj": "play.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4ba330"
+],
+"sameva": 1
 },
 {
 "name": "?Sound_SetSampleFrequency@@YA_NPAUdsound_sample_t@@H@Z",
@@ -37740,8 +38178,10 @@
 "name": "?Sound_SampleFrame@@YAXPAUdsound_sample_t@@@Z",
 "obj": "play.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4ba350"
+],
+"sameva": 1
 },
 {
 "name": "?Sound_Init@@YAHPBX@Z",
@@ -37908,8 +38348,10 @@
 "name": "?DSound_Frame@@YAXXZ",
 "obj": "play_dsound.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4baa60"
+],
+"sameva": 1
 },
 {
 "name": "?DSound_SetSampleFrequency@@YA_NPAUdsound_sample_t@@H@Z",
@@ -37924,8 +38366,10 @@
 "name": "?Record_SetRecordingCallback@@YAXP6AHPAUaudioSample_t@@@Z@Z",
 "obj": "play_dsound.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4baa80"
+],
+"sameva": 1
 },
 {
 "name": "?Record_QueueAudioDataForEncoding@@YAHPAUaudioSample_t@@@Z",
@@ -37939,29 +38383,37 @@
 "name": "?Record_AudioCallback@@YAHPAUaudioSample_t@@@Z",
 "obj": "record.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4bad20"
+],
+"sameva": 1
 },
 {
 "name": "?Record_Start@@YAHPAUdsound_sample_t@@@Z",
 "obj": "record.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4bad30"
+],
+"sameva": 1
 },
 {
 "name": "?Record_Stop@@YAHPAUdsound_sample_t@@@Z",
 "obj": "record.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4bad40"
+],
+"sameva": 1
 },
 {
 "name": "?Record_NewSample@@YAPAUdsound_sample_t@@XZ",
 "obj": "record.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4bad50"
+],
+"sameva": 1
 },
 {
 "name": "?Record_DestroySample@@YAHPAUdsound_sample_t@@@Z",
@@ -38654,15 +39106,19 @@
 "name": "?fn_4bde30@@YAXXZ",
 "obj": "pbsv.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4bde30"
+],
+"sameva": 1
 },
 {
 "name": "?fn_4bde40@@YAXXZ",
 "obj": "pbsv.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4bde40"
+],
+"sameva": 1
 },
 {
 "name": "?CG_RegisterDvars@@YAXXZ",
@@ -38895,8 +39351,10 @@
 "name": "?CG_GetXModel@@YAPAUXModel@@PBD@Z",
 "obj": "cg_main_mp.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4c0b80"
+],
+"sameva": 1
 },
 {
 "name": "?CG_CreateDObj@@YAXPAUDObjModel_s@@GPAUXAnimTree_s@@HPAUclientInfo_s@@@Z",
@@ -39426,15 +39884,19 @@
 "name": "?CG_Stub_4bdfa0@@YAXXZ",
 "obj": "cg_newDraw_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4c42a0"
+],
+"sameva": 1
 },
 {
 "name": "?CG_Stub_4bdfb0@@YAXXZ",
 "obj": "cg_newDraw_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4c42b0"
+],
+"sameva": 1
 },
 {
 "name": "?CG_DrawStanceIcon@@YAXPBUrectDef_s@@PAMMMM@Z",
@@ -39528,8 +39990,10 @@
 "name": "?CG_ApplySplitScreenCompassScale@@YAXPAM000@Z",
 "obj": "cg_newDraw_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4c53b0"
+],
+"sameva": 1
 },
 {
 "name": "?CG_CompassCalcDimensions_4bf0c0@@YAXPBUrectDef_s@@PAM111@Z",
@@ -39655,22 +40119,28 @@
 "name": "?CG_Stub_4c0140@@YAXXZ",
 "obj": "cg_newDraw_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4c6440"
+],
+"sameva": 1
 },
 {
 "name": "?CG_Stub_4c0150@@YAXXZ",
 "obj": "cg_newDraw_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4c6450"
+],
+"sameva": 1
 },
 {
 "name": "?CG_Stub_4c0160@@YAHXZ",
 "obj": "cg_newDraw_mp.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4c6460"
+],
+"sameva": 1
 },
 {
 "name": "?CG_GetKillerText@@YAPBDXZ",
@@ -39701,8 +40171,10 @@
 "name": "?CG_GameTypeString@@YAPBDXZ",
 "obj": "cg_newDraw_mp.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4c65a0"
+],
+"sameva": 1
 },
 {
 "name": "?CG_DrawGameType@@YAXPBUrectDef_s@@PAUFont_s@@MPAMH@Z",
@@ -41188,8 +41660,10 @@
 "name": "?CG_SetDrawHud_4cb840@@YAXH@Z",
 "obj": "cg_servercmds_mp.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4d1ac0"
+],
+"sameva": 1
 },
 {
 "name": "?CG_SetScriptMainMenu_4cb850@@YAXPBD@Z",
@@ -41308,8 +41782,10 @@
 "name": "?EndShellShockCamera@@YAXXZ",
 "obj": "cg_shellshock.obj",
 "size": 21,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4d2cd0"
+],
+"sameva": 1
 },
 {
 "name": "?EndShellShock@@YAXXZ",
@@ -42214,8 +42690,10 @@
 "name": "?CG_ScoreboardDisplayed@@YAHXZ",
 "obj": "cg_scoreboard_mp.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4dac90"
+],
+"sameva": 1
 },
 {
 "name": "?CG_ScrollScoreboardUp@@YAXXZ",
@@ -43142,8 +43620,10 @@
 "name": "_le_int",
 "obj": "misc.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4e2500"
+],
+"sameva": 1
 },
 {
 "name": "_speex_memcpy_bytes",
@@ -43175,8 +43655,10 @@
 "name": "_speex_realloc",
 "obj": "misc.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4e2590"
+],
+"sameva": 1
 },
 {
 "name": "_speex_free",
@@ -43555,8 +44037,10 @@
 "name": "_vbr_destroy",
 "obj": "vbr.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4ec9b0"
+],
+"sameva": 1
 },
 {
 "name": "?inner_prod@@YAMPBM0H@Z",
@@ -43940,8 +44424,10 @@
 "name": "?BG_ShutdownWeaponDefFiles@@YAXXZ",
 "obj": "bg_weapons.obj",
 "size": 11,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4f1060"
+],
+"sameva": 1
 },
 {
 "name": "?BG_FillInWeaponItems@@YAXH@Z",
@@ -44067,15 +44553,19 @@
 "name": "?BG_GetNumWeapons@@YAHXZ",
 "obj": "bg_weapons.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4f1b50"
+],
+"sameva": 1
 },
 {
 "name": "?BG_GetNumAmmoTypes@@YAHXZ",
 "obj": "bg_weapons.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4f1b60"
+],
+"sameva": 1
 },
 {
 "name": "?BG_GetAmmoTypeMax@@YAHH@Z",
@@ -44090,8 +44580,10 @@
 "name": "?BG_GetNumAmmoClips@@YAHXZ",
 "obj": "bg_weapons.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4f1b80"
+],
+"sameva": 1
 },
 {
 "name": "?BG_GetAmmoClipSize@@YAHH@Z",
@@ -44656,8 +45148,10 @@
 "name": "?BG_WeaponShotCount@@YAHH@Z",
 "obj": "bg_weapons.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4f4560"
+],
+"sameva": 1
 },
 {
 "name": "?PM_Weapon_CheckFiringAmmo@@YAHPAUplayerState_s@@@Z",
@@ -45437,15 +45931,19 @@
 "name": "?G_GetSavePersist@@YAHXZ",
 "obj": "g_main_mp.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4fc030"
+],
+"sameva": 1
 },
 {
 "name": "?G_SetSavePersist@@YAXH@Z",
 "obj": "g_main_mp.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x4fc040"
+],
+"sameva": 1
 },
 {
 "name": "?G_GetFogOpaqueDistSqrd@@YAMXZ",
@@ -46228,8 +46726,10 @@
 "name": "?Cmd_PrintEntities_f@@YAXXZ",
 "obj": "g_cmds_mp.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x503ac0"
+],
+"sameva": 1
 },
 {
 "name": "?ClientCommand@@YAXH@Z",
@@ -46808,22 +47308,28 @@
 "name": "?ScrCmd_PlayRumble@@YAXUscr_entref_t@@@Z",
 "obj": "g_scr_main_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x506710"
+],
+"sameva": 1
 },
 {
 "name": "?ScrCmd_PlayLoopRumble@@YAXUscr_entref_t@@@Z",
 "obj": "g_scr_main_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x506720"
+],
+"sameva": 1
 },
 {
 "name": "?ScrCmd_StopRumble@@YAXUscr_entref_t@@@Z",
 "obj": "g_scr_main_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x506730"
+],
+"sameva": 1
 },
 {
 "name": "?ScrCmd_Delete@@YAXUscr_entref_t@@@Z",
@@ -47484,8 +47990,10 @@
 "name": "?Scr_PrecacheRumble@@YAXXZ",
 "obj": "g_scr_main_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x509bf0"
+],
+"sameva": 1
 },
 {
 "name": "?Scr_AmbientPlay@@YAXXZ",
@@ -47983,22 +48491,28 @@
 "name": "?Scr_PlayRumbleOnPos@@YAXXZ",
 "obj": "g_scr_main_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x50cd50"
+],
+"sameva": 1
 },
 {
 "name": "?Scr_PlayLoopRumbleOnPos@@YAXXZ",
 "obj": "g_scr_main_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x50cd60"
+],
+"sameva": 1
 },
 {
 "name": "?Scr_StopAllRumbles@@YAXXZ",
 "obj": "g_scr_main_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x50cd70"
+],
+"sameva": 1
 },
 {
 "name": "?Scr_IsSplitscreen@@YAXXZ",
@@ -48015,29 +48529,37 @@
 "name": "?GScr_MatchEnd@@YAXXZ",
 "obj": "g_scr_main_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x50cd90"
+],
+"sameva": 1
 },
 {
 "name": "?GScr_SetPlayerTeamRank@@YAXXZ",
 "obj": "g_scr_main_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x50cda0"
+],
+"sameva": 1
 },
 {
 "name": "?GScr_SendXboxLiveRanks@@YAXXZ",
 "obj": "g_scr_main_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x50cdb0"
+],
+"sameva": 1
 },
 {
 "name": "?GScr_EndXboxLiveLobby@@YAXXZ",
 "obj": "g_scr_main_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x50cdc0"
+],
+"sameva": 1
 },
 {
 "name": "?GScr_SetTeamForTrigger@@YAXUscr_entref_t@@@Z",
@@ -48237,8 +48759,10 @@
 "name": "?GScr_Stub@@YAHXZ",
 "obj": "g_scr_main_mp.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x50daa0"
+],
+"sameva": 1
 },
 {
 "name": "?StringToFilter@@YAHPBDPAUipFilter_s@@@Z",
@@ -48816,8 +49340,10 @@
 "name": "?G_Unused@@YAHXZ",
 "obj": "g_utils_mp.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5104d0"
+],
+"sameva": 1
 },
 {
 "name": "?G_SetConstString@@YAXPAGPBD@Z",
@@ -49249,8 +49775,10 @@
 "name": "?Mantle_ShutdownAnims@@YAXXZ",
 "obj": "bg_mantle.obj",
 "size": 11,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x512550"
+],
+"sameva": 1
 },
 {
 "name": "?Mantle_FindMantleSurface@@YA_NPAUpmove_t@@PAUpml_t@@PAUtrace_t@@PAM@Z",
@@ -49402,8 +49930,10 @@
 "name": "?BG_CheckProne@@YAHHQBMMMMPAM11HH0EHM@Z",
 "obj": "bg_misc.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5151d0"
+],
+"sameva": 1
 },
 {
 "name": "?BG_LerpHudColors@@YAXPBUhudelem_s@@HPAThudelem_color_t@@@Z",
@@ -50001,8 +50531,10 @@
 "name": "?SP_info_null@@YAXPAUgentity_s@@@Z",
 "obj": "g_misc_mp.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x51ba70"
+],
+"sameva": 1
 },
 {
 "name": "?SP_info_notnull@@YAXPAUgentity_s@@@Z",
@@ -50016,8 +50548,10 @@
 "name": "?SP_light@@YAXPAUgentity_s@@@Z",
 "obj": "g_misc_mp.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x51bae0"
+],
+"sameva": 1
 },
 {
 "name": "?TeleportPlayer@@YAXPAUgentity_s@@PAM1@Z",
@@ -50031,8 +50565,10 @@
 "name": "?SP_misc_model@@YAXPAUgentity_s@@@Z",
 "obj": "g_misc_mp.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x51bbd0"
+],
+"sameva": 1
 },
 {
 "name": "?use_corona@@YAXPAUgentity_s@@00@Z",
@@ -50046,8 +50582,10 @@
 "name": "?SP_corona@@YAXPAUgentity_s@@@Z",
 "obj": "g_misc_mp.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x51bc30"
+],
+"sameva": 1
 },
 {
 "name": "?G_InitTurrets@@YAXXZ",
@@ -50597,8 +51135,10 @@
 "name": "?G_NullStub@@YAXXZ",
 "obj": "g_combat_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x522780"
+],
+"sameva": 1
 },
 {
 "name": "?LookAtKiller@@YAXPAUgentity_s@@00@Z",
@@ -50928,8 +51468,10 @@
 "name": "?use_trigger_use@@YAXPAUgentity_s@@00@Z",
 "obj": "g_mover_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5250c0"
+],
+"sameva": 1
 },
 {
 "name": "?trigger_use_shared@@YAXPAUgentity_s@@@Z",
@@ -53067,8 +53609,10 @@
 "name": "?UI_DrawMapCinematic@@YAXPBUrectDef_s@@PBMH@Z",
 "obj": "ui_main_mp.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x532aa0"
+],
+"sameva": 1
 },
 {
 "name": "?UI_DrawNetMapPreview@@YAXPAUrectDef_s@@MPAM@Z",
@@ -53409,8 +53953,10 @@
 "name": "?diag_drawtext@@YAXPBDPAXMMM@Z",
 "obj": "ui_main_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x534510"
+],
+"sameva": 1
 },
 {
 "name": "?UI_SetItemBackground_52e120@@YAXPBD0@Z",
@@ -54045,8 +54591,10 @@
 "name": "?UI_Stub_533b50@@YAXXZ",
 "obj": "ui_shared_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x539dc0"
+],
+"sameva": 1
 },
 {
 "name": "?Fade@@YAXPAHPAMM0HHMMPAUdisplayContextDef_s@@@Z",
@@ -54507,8 +55055,10 @@
 "name": "?Script_GetAutoUpdate@@YAXPAUdisplayContextDef_s@@PAUitemDef_s@@PAPBD@Z",
 "obj": "ui_shared_mp.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x53bc40"
+],
+"sameva": 1
 },
 {
 "name": "?Script_ScriptMenuResponse@@YAXPAUdisplayContextDef_s@@PAUitemDef_s@@PAPBD@Z",
@@ -54809,8 +55359,10 @@
 "name": "?UI_Stub_537de0@@YAXXZ",
 "obj": "ui_shared_mp.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x53df70"
+],
+"sameva": 1
 },
 {
 "name": "?Item_Slider_HandleKey@@YAHPAUdisplayContextDef_s@@PAUitemDef_s@@HH@Z",
@@ -55118,8 +55670,10 @@
 "name": "?Display_KeyBindPending@@YAHXZ",
 "obj": "ui_shared_mp.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x540bb0"
+],
+"sameva": 1
 },
 {
 "name": "?Item_Bind_HandleKey@@YAHPAUdisplayContextDef_s@@PAUitemDef_s@@HH@Z",
@@ -56342,8 +56896,10 @@
 "name": "?UI_AddD1Cmd_5403d0@@YAXXZ",
 "obj": "ui_atoms.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x546610"
+],
+"sameva": 1
 },
 {
 "name": "?UI_DrawHandlePic@@YAXMMMMHHPBMPAUMaterial@@@Z",
@@ -56718,8 +57274,10 @@
 "name": "_timeGetTime@0",
 "obj": "winmm:WINMM.dll",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5479a2"
+],
+"sameva": 1
 },
 {
 "name": "_mixerOpen@20",
@@ -57498,8 +58056,10 @@
 "name": "_MSS_auto_cleanup",
 "obj": "mss32:mss_auto.obj",
 "size": 16,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x547bc0"
+],
+"sameva": 1
 },
 {
 "name": "_AIL_3D_sample_offset@4",
@@ -57514,8 +58074,10 @@
 "name": "_AIL_shutdown@0",
 "obj": "mss32:mss32.dll",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x547bd6"
+],
+"sameva": 1
 },
 {
 "name": "_AIL_close_stream@4",
@@ -57683,8 +58245,10 @@
 "name": "_GetCurrentThreadId@0",
 "obj": "kernel32:KERNEL32.dll",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x547c48"
+],
+"sameva": 1
 },
 {
 "name": "_Sleep@4",
@@ -57780,8 +58344,10 @@
 "name": "_GetCurrentThread@0",
 "obj": "kernel32:KERNEL32.dll",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x547c8a"
+],
+"sameva": 1
 },
 {
 "name": "_TlsSetValue@8",
@@ -58156,8 +58722,10 @@
 "name": "_GetCurrentProcessId@0",
 "obj": "kernel32:KERNEL32.dll",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x547d86"
+],
+"sameva": 1
 },
 {
 "name": "_DeleteFileA@4",
@@ -58532,8 +59100,10 @@
 "name": "_DefWindowProcA@16",
 "obj": "user32:USER32.dll",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x547e82"
+],
+"sameva": 1
 },
 {
 "name": "_CreateWindowExA@48",
@@ -58993,8 +59563,10 @@
 "name": "_HTRequest_maxRetry",
 "obj": "libwww:HTReqMan.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5482c0"
+],
+"sameva": 1
 },
 {
 "name": "_HTRequest_retrys",
@@ -60024,29 +60596,37 @@
 "name": "_HTRequest_setMessageBody",
 "obj": "libwww:HTReqMan.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x549770"
+],
+"sameva": 1
 },
 {
 "name": "_HTRequest_deleteMessageBody",
 "obj": "libwww:HTReqMan.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x549780"
+],
+"sameva": 1
 },
 {
 "name": "_HTRequest_messageBody",
 "obj": "libwww:HTReqMan.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x549790"
+],
+"sameva": 1
 },
 {
 "name": "_HTRequest_setMessageBodyLength",
 "obj": "libwww:HTReqMan.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5497a0"
+],
+"sameva": 1
 },
 {
 "name": "_HTRequest_messageBodyLength",
@@ -60075,15 +60655,19 @@
 "name": "_HTRequest_setMessageBodyFormat",
 "obj": "libwww:HTReqMan.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5497c0"
+],
+"sameva": 1
 },
 {
 "name": "_HTRequest_messageBodyFormat",
 "obj": "libwww:HTReqMan.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5497d0"
+],
+"sameva": 1
 },
 {
 "name": "_HTRequest_clear",
@@ -60369,8 +60953,10 @@
 "name": "_HTFTP_transferMode",
 "obj": "libwww:HTFTP.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x54bbd0"
+],
+"sameva": 1
 },
 {
 "name": "_HTFTP_setControlMode",
@@ -60417,8 +61003,10 @@
 "name": "_HTFTP_controlMode",
 "obj": "libwww:HTFTP.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x54bbf0"
+],
+"sameva": 1
 },
 {
 "name": "_HTFTP_setRawBytesCount",
@@ -60641,8 +61229,10 @@
 "name": "_HTContentEncoderInit",
 "obj": "libwww:HTInit.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x54dac0"
+],
+"sameva": 1
 },
 {
 "name": "_HTBeforeInit",
@@ -60673,8 +61263,10 @@
 "name": "_HTNetInit",
 "obj": "libwww:HTInit.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x54dc60"
+],
+"sameva": 1
 },
 {
 "name": "_HTAlertInit",
@@ -60769,8 +61361,10 @@
 "name": "_HTTrace_getCallback",
 "obj": "libwww:HTTrace.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x54e550"
+],
+"sameva": 1
 },
 {
 "name": "_HTTrace",
@@ -60826,8 +61420,10 @@
 "name": "_HTTraceData_getCallback",
 "obj": "libwww:HTTrace.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x54e590"
+],
+"sameva": 1
 },
 {
 "name": "_HTTraceData",
@@ -60882,8 +61478,10 @@
 "name": "_HTPrint_getCallback",
 "obj": "libwww:HTTrace.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x54e5e0"
+],
+"sameva": 1
 },
 {
 "name": "_HTPrint",
@@ -60914,8 +61512,10 @@
 "name": "_CheckSockEvent",
 "obj": "libwww:HTEvtLst.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x54e6c0"
+],
+"sameva": 1
 },
 {
 "name": "_SockEvents_get",
@@ -61001,8 +61601,10 @@
 "name": "_HTEventList_stopLoop",
 "obj": "libwww:HTEvtLst.obj",
 "size": 11,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x54eb30"
+],
+"sameva": 1
 },
 {
 "name": "_AsyncWindowProc@16",
@@ -61801,8 +62403,10 @@
 "name": "_HTMemory_exit",
 "obj": "libwww:HTMemory.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x550f80"
+],
+"sameva": 1
 },
 {
 "name": "_HTMemory_outofmem",
@@ -61857,8 +62461,10 @@
 "name": "_HTAlert_interactive",
 "obj": "libwww:HTAlert.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x550fd0"
+],
+"sameva": 1
 },
 {
 "name": "_HTAlertCall_add",
@@ -61945,8 +62551,10 @@
 "name": "_HTAlert_global",
 "obj": "libwww:HTAlert.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x551170"
+],
+"sameva": 1
 },
 {
 "name": "_HTAlert_add",
@@ -62002,8 +62610,10 @@
 "name": "_HTAlert_deleteReply",
 "obj": "libwww:HTAlert.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x551290"
+],
+"sameva": 1
 },
 {
 "name": "_HTAlert_replyMessage",
@@ -62269,8 +62879,10 @@
 "name": "_HTNet_before",
 "obj": "libwww:HTNet.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5524e0"
+],
+"sameva": 1
 },
 {
 "name": "_HTNet_addBefore",
@@ -62323,8 +62935,10 @@
 "name": "_HTNet_after",
 "obj": "libwww:HTNet.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5525b0"
+],
+"sameva": 1
 },
 {
 "name": "_HTNet_addAfter",
@@ -62370,8 +62984,10 @@
 "name": "_HTNet_maxSocket",
 "obj": "libwww:HTNet.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5526a0"
+],
+"sameva": 1
 },
 {
 "name": "_HTNet_setMaxSocket",
@@ -62387,8 +63003,10 @@
 "name": "_HTNet_increaseSocket",
 "obj": "libwww:HTNet.obj",
 "size": 7,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5526d0"
+],
+"sameva": 1
 },
 {
 "name": "_HTNet_decreaseSocket",
@@ -62412,8 +63030,10 @@
 "name": "_HTNet_increasePersistentSocket",
 "obj": "libwww:HTNet.obj",
 "size": 7,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x552720"
+],
+"sameva": 1
 },
 {
 "name": "_HTNet_decreasePersistentSocket",
@@ -62454,8 +63074,10 @@
 "name": "_HTNet_count",
 "obj": "libwww:HTNet.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x552790"
+],
+"sameva": 1
 },
 {
 "name": "_AfterFilterEvent",
@@ -63037,8 +63659,10 @@
 "name": "_HTHost_persistTimeout",
 "obj": "libwww:HTHost.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x553760"
+],
+"sameva": 1
 },
 {
 "name": "_HTHost_setActiveTimeout",
@@ -63052,8 +63676,10 @@
 "name": "_HTHost_activeTimeout",
 "obj": "libwww:HTHost.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x553790"
+],
+"sameva": 1
 },
 {
 "name": "_HTHost_setPersistExpires",
@@ -63507,8 +64133,10 @@
 "name": "_HTHost_defaultWriteDelay",
 "obj": "libwww:HTHost.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x553fc0"
+],
+"sameva": 1
 },
 {
 "name": "_HTHost_forceFlush",
@@ -63539,8 +64167,10 @@
 "name": "_HTHost_eventTimeout",
 "obj": "libwww:HTHost.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x554090"
+],
+"sameva": 1
 },
 {
 "name": "_HTHost_setEventTimeout",
@@ -63595,8 +64225,10 @@
 "name": "_HTHost_maxPipelinedRequests",
 "obj": "libwww:HTHost.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5540d0"
+],
+"sameva": 1
 },
 {
 "name": "_HTHost_setActivateRequestCallback",
@@ -63651,15 +64283,19 @@
 "name": "_HTHost_disable_PendingReqLaunch",
 "obj": "libwww:HTHost.obj",
 "size": 11,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x554120"
+],
+"sameva": 1
 },
 {
 "name": "_HTHost_enable_PendingReqLaunch",
 "obj": "libwww:HTHost.obj",
 "size": 11,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x554130"
+],
+"sameva": 1
 },
 {
 "name": "_HTHost_addNet",
@@ -64027,8 +64663,10 @@
 "name": "_HTLib_userProfile",
 "obj": "libwww:HTLib.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x555ed0"
+],
+"sameva": 1
 },
 {
 "name": "_HTLib_setUserProfile",
@@ -64045,8 +64683,10 @@
 "name": "_HTLib_secure",
 "obj": "libwww:HTLib.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x555f00"
+],
+"sameva": 1
 },
 {
 "name": "_HTLib_setSecure",
@@ -64093,8 +64733,10 @@
 "name": "_HTLib_isInitialized",
 "obj": "libwww:HTLib.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x555f20"
+],
+"sameva": 1
 },
 {
 "name": "_HTLibInit",
@@ -64754,8 +65396,10 @@
 "name": "_HTError_show",
 "obj": "libwww:HTError.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x556d60"
+],
+"sameva": 1
 },
 {
 "name": "_HTError_setShow",
@@ -64999,8 +65643,10 @@
 "name": "_HTAssocList_new",
 "obj": "libwww:HTAssoc.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5572f0"
+],
+"sameva": 1
 },
 {
 "name": "_HTAssocList_delete",
@@ -65890,8 +66536,10 @@
 "name": "_HTNoFreeStream_free",
 "obj": "libwww:HTNoFree.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5591c0"
+],
+"sameva": 1
 },
 {
 "name": "_HTNoFreeStream_abort",
@@ -66105,36 +66753,46 @@
 "name": "_HTBlackHoleConverter_put_character",
 "obj": "libwww:HTFormat.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5593e0"
+],
+"sameva": 1
 },
 {
 "name": "_HTBlackHoleConverter_put_string",
 "obj": "libwww:HTFormat.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5593f0"
+],
+"sameva": 1
 },
 {
 "name": "_HTBlackHoleConverter_write",
 "obj": "libwww:HTFormat.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x559400"
+],
+"sameva": 1
 },
 {
 "name": "_HTBlackHoleConverter_flush",
 "obj": "libwww:HTFormat.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x559410"
+],
+"sameva": 1
 },
 {
 "name": "_HTBlackHoleConverter_free",
 "obj": "libwww:HTFormat.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x559420"
+],
+"sameva": 1
 },
 {
 "name": "_HTBlackHoleConverter_abort",
@@ -66163,8 +66821,10 @@
 "name": "_HTBlackHoleConverter",
 "obj": "libwww:HTFormat.obj",
 "size": 16,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x559440"
+],
+"sameva": 1
 },
 {
 "name": "_HTThroughLine",
@@ -66179,8 +66839,10 @@
 "name": "_HTSaveConverter",
 "obj": "libwww:HTFormat.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x559460"
+],
+"sameva": 1
 },
 {
 "name": "_HTIdentityCoding",
@@ -66236,8 +66898,10 @@
 "name": "_HTPresentation_converter",
 "obj": "libwww:HTFormat.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x559490"
+],
+"sameva": 1
 },
 {
 "name": "_HTPresentation_add",
@@ -66267,8 +66931,10 @@
 "name": "_HTConversion_deleteAll",
 "obj": "libwww:HTFormat.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x559620"
+],
+"sameva": 1
 },
 {
 "name": "_HTCoding_add",
@@ -66385,8 +67051,10 @@
 "name": "_HTFormat_conversion",
 "obj": "libwww:HTFormat.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x559880"
+],
+"sameva": 1
 },
 {
 "name": "_HTFormat_addConversion",
@@ -66441,8 +67109,10 @@
 "name": "_HTFormat_contentCoding",
 "obj": "libwww:HTFormat.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5598f0"
+],
+"sameva": 1
 },
 {
 "name": "_HTFormat_addCoding",
@@ -66498,8 +67168,10 @@
 "name": "_HTFormat_transferCoding",
 "obj": "libwww:HTFormat.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x559950"
+],
+"sameva": 1
 },
 {
 "name": "_HTFormat_addTransferCoding",
@@ -66555,8 +67227,10 @@
 "name": "_HTFormat_language",
 "obj": "libwww:HTFormat.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5599b0"
+],
+"sameva": 1
 },
 {
 "name": "_HTFormat_setCharset",
@@ -66603,8 +67277,10 @@
 "name": "_HTFormat_charset",
 "obj": "libwww:HTFormat.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5599d0"
+],
+"sameva": 1
 },
 {
 "name": "_HTFormat_deleteAll",
@@ -67480,8 +68156,10 @@
 "name": "_FTPDir_flush",
 "obj": "libwww:HTFTPDir.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x55bed0"
+],
+"sameva": 1
 },
 {
 "name": "_FTPDir_free",
@@ -67568,8 +68246,10 @@
 "name": "_HTBind_delimiters",
 "obj": "libwww:HTBind.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x55c0f0"
+],
+"sameva": 1
 },
 {
 "name": "_HTBind_setDelimiters",
@@ -67978,15 +68658,19 @@
 "name": "_HTMethod_setExtensionMethod",
 "obj": "libwww:HTMethod.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x55e610"
+],
+"sameva": 1
 },
 {
 "name": "_HTMethod_deleteExtensionMethod",
 "obj": "libwww:HTMethod.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x55e620"
+],
+"sameva": 1
 },
 {
 "name": "_HTRule_global",
@@ -68391,8 +69075,10 @@
 "name": "_HTCacheMode_enabled",
 "obj": "libwww:HTCache.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x55fb70"
+],
+"sameva": 1
 },
 {
 "name": "_HTCacheMode_setProtected",
@@ -68439,8 +69125,10 @@
 "name": "_HTCacheMode_protected",
 "obj": "libwww:HTCache.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x55fb90"
+],
+"sameva": 1
 },
 {
 "name": "_HTCacheMode_setDisconnected",
@@ -68487,8 +69175,10 @@
 "name": "_HTCacheMode_disconnected",
 "obj": "libwww:HTCache.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x55fbb0"
+],
+"sameva": 1
 },
 {
 "name": "_HTCacheMode_isDisconnected",
@@ -68548,8 +69238,10 @@
 "name": "_HTCacheMode_expires",
 "obj": "libwww:HTCache.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x55fbe0"
+],
+"sameva": 1
 },
 {
 "name": "_HTCacheMode_maxSize",
@@ -68614,8 +69306,10 @@
 "name": "_HTCacheMode_DefaultExpiration",
 "obj": "libwww:HTCache.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x55fc40"
+],
+"sameva": 1
 },
 {
 "name": "_free_object",
@@ -69267,8 +69961,10 @@
 "name": "_HTNewsList_flush",
 "obj": "libwww:HTNewsLs.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x562ce0"
+],
+"sameva": 1
 },
 {
 "name": "_HTNewsList_free",
@@ -69501,8 +70197,10 @@
 "name": "_HTTP_connectionMode",
 "obj": "libwww:HTTP.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x564ae0"
+],
+"sameva": 1
 },
 {
 "name": "_HTTP_setBodyWriteDelay",
@@ -70000,8 +70698,10 @@
 "name": "_HTMIME_saveStream",
 "obj": "libwww:HTMIME.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x566590"
+],
+"sameva": 1
 },
 {
 "name": "_HTMIME_anchor2response",
@@ -70484,8 +71184,10 @@
 "name": "_HTPEP_newList",
 "obj": "libwww:HTPEP.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5679c0"
+],
+"sameva": 1
 },
 {
 "name": "_HTPEP_deleteList",
@@ -70597,8 +71299,10 @@
 "name": "_HTError_response",
 "obj": "libwww:HTDialog.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x568600"
+],
+"sameva": 1
 },
 {
 "name": "_HTANSIReader_flush",
@@ -70651,8 +71355,10 @@
 "name": "_HTANSIReader_consumed",
 "obj": "libwww:HTANSI.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5687f0"
+],
+"sameva": 1
 },
 {
 "name": "_HTANSIReader_new",
@@ -70674,8 +71380,10 @@
 "name": "_HTANSIWriter_free",
 "obj": "libwww:HTANSI.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x568890"
+],
+"sameva": 1
 },
 {
 "name": "_HTANSIWriter_abort",
@@ -70772,8 +71480,10 @@
 "name": "_HTBufferWriter_free",
 "obj": "libwww:HTBufWrt.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x568b40"
+],
+"sameva": 1
 },
 {
 "name": "_HTBufferWriter_addBuffer",
@@ -71016,15 +71726,19 @@
 "name": "_HTWriter_flush",
 "obj": "libwww:HTWriter.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x569540"
+],
+"sameva": 1
 },
 {
 "name": "_HTWriter_free",
 "obj": "libwww:HTWriter.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x569550"
+],
+"sameva": 1
 },
 {
 "name": "_HTWriter_abort",
@@ -71190,8 +71904,10 @@
 "name": "_HTFile_dirAccess",
 "obj": "libwww:HTFile.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x569b40"
+],
+"sameva": 1
 },
 {
 "name": "_HTFile_setDirReadme",
@@ -71216,8 +71932,10 @@
 "name": "_HTFile_dirReadme",
 "obj": "libwww:HTFile.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x569b60"
+],
+"sameva": 1
 },
 {
 "name": "_HTFile_doFileSuffixBinding",
@@ -71242,8 +71960,10 @@
 "name": "_HTFile_fileSuffixBinding",
 "obj": "libwww:HTFile.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x569b80"
+],
+"sameva": 1
 },
 {
 "name": "_HTFile_readDir",
@@ -71272,8 +71992,10 @@
 "name": "_HTEditable",
 "obj": "libwww:HTFile.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x569ba0"
+],
+"sameva": 1
 },
 {
 "name": "_FileCleanup",
@@ -71611,8 +72333,10 @@
 "name": "_HTNews_maxArticles",
 "obj": "libwww:HTNews.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x56b6e0"
+],
+"sameva": 1
 },
 {
 "name": "_HTNewsCleanup",
@@ -71807,8 +72531,10 @@
 "name": "_HTSetTraceMessageMask",
 "obj": "libwww:HTHome.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x56ca60"
+],
+"sameva": 1
 },
 {
 "name": "_alt_resize",
@@ -71943,8 +72669,10 @@
 "name": "_HTGenerator_deleteAll",
 "obj": "libwww:HTHeader.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x56d300"
+],
+"sameva": 1
 },
 {
 "name": "_HTHeader_setMIMEParseSet",
@@ -71991,8 +72719,10 @@
 "name": "_HTHeader_MIMEParseSet",
 "obj": "libwww:HTHeader.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x56d320"
+],
+"sameva": 1
 },
 {
 "name": "_HTHeader_addParser",
@@ -72069,8 +72799,10 @@
 "name": "_HTHeader_generator",
 "obj": "libwww:HTHeader.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x56d3e0"
+],
+"sameva": 1
 },
 {
 "name": "_HTHeader_addGenerator",
@@ -72102,29 +72834,37 @@
 "name": "_HTMIME_accept",
 "obj": "libwww:HTMIMImp.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x56d470"
+],
+"sameva": 1
 },
 {
 "name": "_HTMIME_acceptCharset",
 "obj": "libwww:HTMIMImp.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x56d480"
+],
+"sameva": 1
 },
 {
 "name": "_HTMIME_acceptEncoding",
 "obj": "libwww:HTMIMImp.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x56d490"
+],
+"sameva": 1
 },
 {
 "name": "_HTMIME_acceptLanguage",
 "obj": "libwww:HTMIMImp.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x56d4a0"
+],
+"sameva": 1
 },
 {
 "name": "_HTMIME_acceptRanges",
@@ -72155,8 +72895,10 @@
 "name": "_HTMIME_authorization",
 "obj": "libwww:HTMIMImp.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x56d550"
+],
+"sameva": 1
 },
 {
 "name": "_HTMIME_cacheControl",
@@ -72245,8 +72987,10 @@
 "name": "_HTMIME_maxForwards",
 "obj": "libwww:HTMIMImp.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x56dbb0"
+],
+"sameva": 1
 },
 {
 "name": "_HTMIME_messageDigest",
@@ -72298,8 +73042,10 @@
 "name": "_HTMIME_proxyAuthorization",
 "obj": "libwww:HTMIMImp.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x56dd10"
+],
+"sameva": 1
 },
 {
 "name": "_HTMIME_proxyAuthenticationInfo",
@@ -72322,15 +73068,19 @@
 "name": "_HTMIME_range",
 "obj": "libwww:HTMIMImp.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x56dda0"
+],
+"sameva": 1
 },
 {
 "name": "_HTMIME_referer",
 "obj": "libwww:HTMIMImp.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x56ddb0"
+],
+"sameva": 1
 },
 {
 "name": "_HTMIME_retryAfter",
@@ -72372,8 +73122,10 @@
 "name": "_HTMIME_upgrade",
 "obj": "libwww:HTMIMImp.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x56df10"
+],
+"sameva": 1
 },
 {
 "name": "_HTMIME_userAgent",
@@ -72398,8 +73150,10 @@
 "name": "_HTMIME_via",
 "obj": "libwww:HTMIMImp.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x56dfd0"
+],
+"sameva": 1
 },
 {
 "name": "_HTMIME_warning",
@@ -72594,8 +73348,10 @@
 "name": "_HTSetSignal",
 "obj": "libwww:HTInet.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x56e5d0"
+],
+"sameva": 1
 },
 {
 "name": "_HTInetString",
@@ -72657,8 +73413,10 @@
 "name": "_HTGetTimeInMillis",
 "obj": "libwww:HTInet.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x56e9d0"
+],
+"sameva": 1
 },
 {
 "name": "_HTFileInit",
@@ -72782,8 +73540,10 @@
 "name": "_HTProxy_NoProxyIsOnlyProxy",
 "obj": "libwww:HTProxy.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x56fe00"
+],
+"sameva": 1
 },
 {
 "name": "_HTProxy_setNoProxyIsOnlyProxy",
@@ -72911,8 +73671,10 @@
 "name": "_HTSC_flush",
 "obj": "libwww:HTSChunk.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5704c0"
+],
+"sameva": 1
 },
 {
 "name": "_HTSC_free",
@@ -73361,8 +74123,10 @@
 "name": "_HTDNS_timeout",
 "obj": "libwww:HTDNS.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5712c0"
+],
+"sameva": 1
 },
 {
 "name": "_HTDNS_add",
@@ -73456,36 +74220,46 @@
 "name": "_HTBlackHole_put_character",
 "obj": "libwww:HTStream.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x571a70"
+],
+"sameva": 1
 },
 {
 "name": "_HTBlackHole_put_string",
 "obj": "libwww:HTStream.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x571a80"
+],
+"sameva": 1
 },
 {
 "name": "_HTBlackHole_write",
 "obj": "libwww:HTStream.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x571a90"
+],
+"sameva": 1
 },
 {
 "name": "_HTBlackHole_flush",
 "obj": "libwww:HTStream.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x571aa0"
+],
+"sameva": 1
 },
 {
 "name": "_HTBlackHole_free",
 "obj": "libwww:HTStream.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x571ab0"
+],
+"sameva": 1
 },
 {
 "name": "_HTBlackHole_abort",
@@ -73514,8 +74288,10 @@
 "name": "_HTBlackHole",
 "obj": "libwww:HTStream.obj",
 "size": 16,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x571ad0"
+],
+"sameva": 1
 },
 {
 "name": "_HTErrorStream_put_character",
@@ -73613,8 +74389,10 @@
 "name": "_HTErrorStream_free",
 "obj": "libwww:HTStream.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x571b20"
+],
+"sameva": 1
 },
 {
 "name": "_HTErrorStream_abort",
@@ -73643,8 +74421,10 @@
 "name": "_HTErrorStream",
 "obj": "libwww:HTStream.obj",
 "size": 16,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x571b40"
+],
+"sameva": 1
 },
 {
 "name": "_LeftStr",
@@ -74314,8 +75094,10 @@
 "name": "_HTML_dtd",
 "obj": "libwww:HTMLPDTD.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x576440"
+],
+"sameva": 1
 },
 {
 "name": "_HTML_setDtd",
@@ -75194,8 +75976,10 @@
 "name": "_HTPlain_flush",
 "obj": "libwww:HTPlain.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x578d20"
+],
+"sameva": 1
 },
 {
 "name": "_HTPlain_free",
@@ -75843,8 +76627,10 @@
 "name": "_atoi",
 "obj": "libcmt:atox.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x57a751"
+],
+"sameva": 1
 },
 {
 "name": "__atoi64",
@@ -75963,8 +76749,10 @@
 "name": "___isascii",
 "obj": "libcmt:_ctype.obj",
 "size": 13,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x57abb4"
+],
+"sameva": 1
 },
 {
 "name": "___toascii",
@@ -76371,8 +77159,10 @@
 "name": "_malloc",
 "obj": "libcmt:malloc.obj",
 "size": 18,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x57c1ad"
+],
+"sameva": 1
 },
 {
 "name": "__flush",
@@ -76410,8 +77200,10 @@
 "name": "__flushall",
 "obj": "libcmt:fflush.obj",
 "size": 9,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x57c36f"
+],
+"sameva": 1
 },
 {
 "name": "_remove",
@@ -76426,8 +77218,10 @@
 "name": "__unlink",
 "obj": "libcmt:unlink.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x57c3a2"
+],
+"sameva": 1
 },
 {
 "name": "__ftell_lk",
@@ -76545,15 +77339,19 @@
 "name": "__set_purecall_handler",
 "obj": "libcmt:purevirt.obj",
 "size": 16,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x57caa2"
+],
+"sameva": 1
 },
 {
 "name": "??3@YAXPAX@Z",
 "obj": "libcmt:delete.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x57cab2"
+],
+"sameva": 1
 },
 {
 "name": "__findclose",
@@ -76666,15 +77464,19 @@
 "name": "__lockexit",
 "obj": "libcmt:crt0dat.obj",
 "size": 9,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x57cf25"
+],
+"sameva": 1
 },
 {
 "name": "__unlockexit",
 "obj": "libcmt:crt0dat.obj",
 "size": 9,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x57cf2e"
+],
+"sameva": 1
 },
 {
 "name": "__initterm",
@@ -76728,15 +77530,19 @@
 "name": "__cexit",
 "obj": "libcmt:crt0dat.obj",
 "size": 15,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x57d0bc"
+],
+"sameva": 1
 },
 {
 "name": "__c_exit",
 "obj": "libcmt:crt0dat.obj",
 "size": 15,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x57d0cb"
+],
+"sameva": 1
 },
 {
 "name": "_strtok",
@@ -76758,8 +77564,10 @@
 "name": "___iob_func",
 "obj": "libcmt:_file.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x57d1ed"
+],
+"sameva": 1
 },
 {
 "name": "___initstdio",
@@ -76773,8 +77581,10 @@
 "name": "___endstdio",
 "obj": "libcmt:_file.obj",
 "size": 20,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x57d29c"
+],
+"sameva": 1
 },
 {
 "name": "__lock_file",
@@ -76856,8 +77666,10 @@
 "name": "??1exception@@UAE@XZ",
 "obj": "libcmt:stdexcpt.obj",
 "size": 22,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x57d655"
+],
+"sameva": 1
 },
 {
 "name": "?what@exception@@UBEPBDXZ",
@@ -76891,8 +77703,10 @@
 "name": "??1bad_cast@@UAE@XZ",
 "obj": "libcmt:stdexcpt.obj",
 "size": 11,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x57d6a9"
+],
+"sameva": 1
 },
 {
 "name": "??0bad_typeid@@QAE@PBD@Z",
@@ -76918,8 +77732,10 @@
 "name": "??1bad_typeid@@UAE@XZ",
 "obj": "libcmt:stdexcpt.obj",
 "size": 11,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x57d6e5"
+],
+"sameva": 1
 },
 {
 "name": "??0__non_rtti_object@@QAE@PBD@Z",
@@ -76947,8 +77763,10 @@
 "name": "??1__non_rtti_object@@UAE@XZ",
 "obj": "libcmt:stdexcpt.obj",
 "size": 11,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x57d720"
+],
+"sameva": 1
 },
 {
 "name": "??_Eexception@@UAEPAXI@Z",
@@ -77127,29 +77945,37 @@
 "name": "?raw_name@type_info@@QBEPBDXZ",
 "obj": "libcmt:typinfo.obj",
 "size": 4,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x57d8a5"
+],
+"sameva": 1
 },
 {
 "name": "??0type_info@@AAE@ABV0@@Z",
 "obj": "libcmt:typinfo.obj",
 "size": 11,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x57d8a9"
+],
+"sameva": 1
 },
 {
 "name": "??4type_info@@AAEAAV0@ABV0@@Z",
 "obj": "libcmt:typinfo.obj",
 "size": 5,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x57d8b4"
+],
+"sameva": 1
 },
 {
 "name": "??2@YAPAXI@Z",
 "obj": "libcmt:new.obj",
 "size": 14,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x57d8b9"
+],
+"sameva": 1
 },
 {
 "name": "_calloc",
@@ -77235,29 +78061,37 @@
 "name": "__fpclear",
 "obj": "libcmt:fpinit.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x57dd29"
+],
+"sameva": 1
 },
 {
 "name": "__cfltcvt_init",
 "obj": "libcmt:fpinit.obj",
 "size": 56,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x57dd2a"
+],
+"sameva": 1
 },
 {
 "name": "___setfflag",
 "obj": "libcmt:fpinit.obj",
 "size": 16,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x57dd62"
+],
+"sameva": 1
 },
 {
 "name": "__fpmath",
 "obj": "libcmt:fpinit.obj",
 "size": 30,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x57dd72"
+],
+"sameva": 1
 },
 {
 "name": "_abort",
@@ -77288,8 +78122,10 @@
 "name": "___inc_tmpoff",
 "obj": "libcmt:tmpfile.obj",
 "size": 7,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x57de50"
+],
+"sameva": 1
 },
 {
 "name": "_tmpnam",
@@ -77319,15 +78155,19 @@
 "name": "_mktime",
 "obj": "libcmt:mktime.obj",
 "size": 13,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x57e1eb"
+],
+"sameva": 1
 },
 {
 "name": "__mkgmtime",
 "obj": "libcmt:mktime.obj",
 "size": 13,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x57e1f8"
+],
+"sameva": 1
 },
 {
 "name": "_strtoxl",
@@ -77495,15 +78335,19 @@
 "name": "__errno",
 "obj": "libcmt:dosmap.obj",
 "size": 9,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x57f330"
+],
+"sameva": 1
 },
 {
 "name": "___doserrno",
 "obj": "libcmt:dosmap.obj",
 "size": 9,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x57f339"
+],
+"sameva": 1
 },
 {
 "name": "__dosmaperr",
@@ -77606,15 +78450,19 @@
 "name": "____setlc_active_func",
 "obj": "libcmt:setlocal.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x57fe70"
+],
+"sameva": 1
 },
 {
 "name": "____unguarded_readlc_active_add_func",
 "obj": "libcmt:setlocal.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x57fe76"
+],
+"sameva": 1
 },
 {
 "name": "___freetlocinfo",
@@ -77636,8 +78484,10 @@
 "name": "___init_dummy",
 "obj": "libcmt:setlocal.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x58000d"
+],
+"sameva": 1
 },
 {
 "name": "__strcats",
@@ -77715,8 +78565,10 @@
 "name": "___crtTlsAlloc@4",
 "obj": "libcmt:tidtable.obj",
 "size": 9,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x580976"
+],
+"sameva": 1
 },
 {
 "name": "__mtterm",
@@ -77762,15 +78614,19 @@
 "name": "___threadid",
 "obj": "libcmt:tidtable.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x580b96"
+],
+"sameva": 1
 },
 {
 "name": "___threadhandle",
 "obj": "libcmt:tidtable.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x580b9c"
+],
+"sameva": 1
 },
 {
 "name": "__mtinit",
@@ -77881,15 +78737,19 @@
 "name": "___fpecode",
 "obj": "libcmt:winsig.obj",
 "size": 9,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x5816c6"
+],
+"sameva": 1
 },
 {
 "name": "___pxcptinfoptrs",
 "obj": "libcmt:winsig.obj",
 "size": 9,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x5816cf"
+],
+"sameva": 1
 },
 {
 "name": "_signal",
@@ -78223,8 +79083,10 @@
 "name": "__get_heap_handle",
 "obj": "libcmt:heapinit.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x583c68"
+],
+"sameva": 1
 },
 {
 "name": "__get_sbh_threshold",
@@ -78326,8 +79188,10 @@
 "name": "?_query_new_handler@@YAP6AHI@ZXZ",
 "obj": "libcmt:handler.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x584c0f"
+],
+"sameva": 1
 },
 {
 "name": "__callnewh",
@@ -78489,8 +79353,10 @@
 "name": "__NLG_Notify1",
 "obj": "libcmt:exsup.obj",
 "size": 9,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x585715"
+],
+"sameva": 1
 },
 {
 "name": "__NLG_Notify",
@@ -78553,8 +79419,10 @@
 "name": "@__security_check_cookie@4",
 "obj": "libcmt:secchk.obj",
 "size": 14,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x5859b9"
+],
+"sameva": 1
 },
 {
 "name": "__RTC_Initialize",
@@ -78875,8 +79743,10 @@
 "name": "__getpid",
 "obj": "libcmt:getpid.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x586a37"
+],
+"sameva": 1
 },
 {
 "name": "__mbsrchr",
@@ -78947,15 +79817,19 @@
 "name": "___pwctype_func",
 "obj": "libcmt:ctype.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x586f4c"
+],
+"sameva": 1
 },
 {
 "name": "___pctype_func",
 "obj": "libcmt:ctype.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x586f52"
+],
+"sameva": 1
 },
 {
 "name": "___ascii_stricmp",
@@ -79035,8 +79909,10 @@
 "name": "_localeconv",
 "obj": "libcmt:lconv.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5873df"
+],
+"sameva": 1
 },
 {
 "name": "__get_lc_time",
@@ -79124,36 +80000,46 @@
 "name": "____mb_cur_max_func",
 "obj": "libcmt:initctyp.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5880cf"
+],
+"sameva": 1
 },
 {
 "name": "____lc_codepage_func",
 "obj": "libcmt:initctyp.obj",
 "size": 25,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x5880d5"
+],
+"sameva": 1
 },
 {
 "name": "____lc_collate_cp_func",
 "obj": "libcmt:initctyp.obj",
 "size": 25,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x5880ee"
+],
+"sameva": 1
 },
 {
 "name": "____lc_handle_func",
 "obj": "libcmt:initctyp.obj",
 "size": 25,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x588107"
+],
+"sameva": 1
 },
 {
 "name": "___init_collate",
 "obj": "libcmt:initcoll.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x588120"
+],
+"sameva": 1
 },
 {
 "name": "_strcspn",
@@ -79175,8 +80061,10 @@
 "name": "_GetLcidFromDefault",
 "obj": "libcmt:getqloc.obj",
 "size": 26,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x5881d6"
+],
+"sameva": 1
 },
 {
 "name": "_ProcessCodePage",
@@ -79350,8 +80238,10 @@
 "name": "__getmbcp",
 "obj": "libcmt:mbctype.obj",
 "size": 16,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x588f99"
+],
+"sameva": 1
 },
 {
 "name": "__setmbcp",
@@ -79373,8 +80263,10 @@
 "name": "__matherr",
 "obj": "libcmt:matherr.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x589117"
+],
+"sameva": 1
 },
 {
 "name": "__raise_exc",
@@ -79746,8 +80638,10 @@
 "name": "___crtInitCritSecNoSpinCount@8",
 "obj": "libcmt:initcrit.obj",
 "size": 16,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x58aeac"
+],
+"sameva": 1
 },
 {
 "name": "___crtInitCritSecAndSpinCount",
@@ -79881,22 +80775,28 @@
 "name": "__set_security_error_handler",
 "obj": "libcmt:secfail.obj",
 "size": 16,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x58b813"
+],
+"sameva": 1
 },
 {
 "name": "___buffer_overrun",
 "obj": "libcmt:secfail.obj",
 "size": 12,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x58b823"
+],
+"sameva": 1
 },
 {
 "name": "___set_buffer_overrun_handler",
 "obj": "libcmt:secfail.obj",
 "size": 16,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x58b82f"
+],
+"sameva": 1
 },
 {
 "name": "___crtMessageBoxA",
@@ -80030,8 +80930,10 @@
 "name": "__fptrap",
 "obj": "libcmt:crt0fp.obj",
 "size": 9,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x58bbe5"
+],
+"sameva": 1
 },
 {
 "name": "__chsize_lk",
@@ -80308,15 +81210,19 @@
 "name": "_DebugBreak@0",
 "obj": "kernel32:KERNEL32.dll",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x58cbdc"
+],
+"sameva": 1
 },
 {
 "name": "_GetTickCount@0",
 "obj": "kernel32:KERNEL32.dll",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x58cbe2"
+],
+"sameva": 1
 },
 {
 "name": "_MoveFileA@8",
@@ -80817,15 +81723,19 @@
 "name": "_GetACP@0",
 "obj": "kernel32:KERNEL32.dll",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x58cd32"
+],
+"sameva": 1
 },
 {
 "name": "_GetOEMCP@0",
 "obj": "kernel32:KERNEL32.dll",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x58cd38"
+],
+"sameva": 1
 },
 {
 "name": "_RaiseException@16",
@@ -81040,22 +81950,28 @@
 "name": "?_CallMemberFunction0@@YGXPAX0@Z",
 "obj": "libcmt:trnsctrl.obj",
 "size": 7,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x58d551"
+],
+"sameva": 1
 },
 {
 "name": "?_CallMemberFunction1@@YGXPAX00@Z",
 "obj": "libcmt:trnsctrl.obj",
 "size": 7,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x58d558"
+],
+"sameva": 1
 },
 {
 "name": "?_CallMemberFunction2@@YGXPAX00H@Z",
 "obj": "libcmt:trnsctrl.obj",
 "size": 7,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x58d55f"
+],
+"sameva": 1
 },
 {
 "name": "?_UnwindNestedFrames@@YGXPAUEHRegistrationNode@@PAUEHExceptionRecord@@@Z",
@@ -81327,8 +82243,10 @@
 "name": "___CxxQueryExceptionSize",
 "obj": "libcmt:frame.obj",
 "size": 4,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x58e4e6"
+],
+"sameva": 1
 },
 {
 "name": "___CxxCallUnwindDtor",
@@ -81414,8 +82332,10 @@
 "name": "?unexpected@@YAXXZ",
 "obj": "libcmt:hooks.obj",
 "size": 24,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x58edb4"
+],
+"sameva": 1
 },
 {
 "name": "?_inconsistency@@YAXXZ",
@@ -81445,15 +82365,19 @@
 "name": "?__CxxSetUnhandledExceptionFilter@@YAHXZ",
 "obj": "libcmt:unhandld.obj",
 "size": 19,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x58ee9a"
+],
+"sameva": 1
 },
 {
 "name": "?__CxxRestoreUnhandledExceptionFilter@@YAXXZ",
 "obj": "libcmt:unhandld.obj",
 "size": 13,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x58eead"
+],
+"sameva": 1
 },
 {
 "name": "__wcsnicoll",
@@ -81618,8 +82542,10 @@
 "name": "_$$$00002",
 "obj": "libcmt:pow.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x58f49f"
+],
+"sameva": 1
 },
 {
 "name": "__CIpow",
@@ -81674,15 +82600,19 @@
 "name": "_atan2",
 "obj": "libcmt:87ctriga.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x58f9f0"
+],
+"sameva": 1
 },
 {
 "name": "__CIatan2",
 "obj": "libcmt:87ctriga.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x58f9fa"
+],
+"sameva": 1
 },
 {
 "name": "__CIsin",
@@ -81704,8 +82634,10 @@
 "name": "_$$$00002",
 "obj": "libcmt:log.obj",
 "size": 1,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x58faff"
+],
+"sameva": 1
 },
 {
 "name": "__CIlog",
@@ -82107,29 +83039,37 @@
 "name": "__safe_fprem",
 "obj": "libcmt:adj_fdiv.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5923b9"
+],
+"sameva": 1
 },
 {
 "name": "__safe_fprem1",
 "obj": "libcmt:adj_fdiv.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5923bf"
+],
+"sameva": 1
 },
 {
 "name": "__adj_fpatan",
 "obj": "libcmt:adj_fdiv.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5923c5"
+],
+"sameva": 1
 },
 {
 "name": "__adj_fptan",
 "obj": "libcmt:adj_fdiv.obj",
 "size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x5923c8"
+],
+"sameva": 1
 },
 {
 "name": "__copysign",
@@ -82207,64 +83147,82 @@
 "name": "$L11664",
 "obj": "libcpmt:string.obj",
 "size": 8,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x592a80"
+],
+"sameva": 1
 },
 {
 "name": "__ehhandler$?_Xran@_String_base@std@@QBEXXZ",
 "obj": "libcpmt:string.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x592a88"
+],
+"sameva": 1
 },
 {
 "name": "$L11871",
 "obj": "libcpmt:string.obj",
 "size": 8,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x592a92"
+],
+"sameva": 1
 },
 {
 "name": "__ehhandler$?_Xlen@_String_base@std@@QBEXXZ",
 "obj": "libcpmt:string.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x592a9a"
+],
+"sameva": 1
 },
 {
 "name": "__ehhandler$?Sys_SupportsSSE@@YA_NXZ",
 "obj": "module",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x592ab0"
+],
+"sameva": 1
 },
 {
 "name": "__ehhandler$?_Buynode@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@IAEPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@XZ",
 "obj": "module",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x592ac0"
+],
+"sameva": 1
 },
 {
 "name": "__ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z",
 "obj": "module",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x592ad0"
+],
+"sameva": 1
 },
 {
 "name": "__ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@IAEXII@Z",
 "obj": "module",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x592ae0"
+],
+"sameva": 1
 },
 {
 "name": "__ehhandler$?_Buynode@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@IAEPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@PAU342@00ABU?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@2@D@Z",
 "obj": "module",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x592af0"
+],
+"sameva": 1
 },
 {
 "name": "_$E1",
