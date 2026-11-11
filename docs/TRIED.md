@@ -4378,3 +4378,9 @@ Probe 1 (kept): Com_Parse -> Com_ParseInternal at the three token reads (ParseRu
 
 - Material_CodeSamplerSource_r (retail 100194f0): Com_Parse -> Com_ParseInternal; the body then matches retail instruction for instruction except the shared match tail. Kept: drift -1216 -1184 -848 -816 -752 -736, same-offset 275234.
 - Material_LoadBinary (retail 1001c740, 171 B vs ours 183 B): retail defers stack cleanup after ri.FS_FCloseFile/FS_Read into one `add esp,0x1c` / `0xc`; ours cleans up after each indirect call. Source statements are the same; no probe found yet.
+- Material_CodeSamplerSource_r (347 B vs retail 303): retail loops back to the "." match at the loop top with one jmp and no entry jmp; ours rotates the loop and duplicates the match call plus failure epilogue (+44 B). Probe 1: while(MatchToken) -> for(;;){ if(!MatchToken) return 0; ... }: byte-identical output, reverted.
+
+# r_model order - 2026-11-11 (gfx/w-imgload2)
+
+- R_ReleaseModel (retail 10020330, 30 B) and R_ReleaseAllModels (10020350, 21 B) sit after R_DObjReplaceMaterial and before R_OptimizeModel (10020380), not after R_FinishLoadingModels. Moved in r_model.cpp; the 1001d8c0..1001d8f0 span now equals retail (48 B). Drift groups unchanged (-2416 -2304 -2288 -2256 -2096 -2064: uniform shift), same-offset 275235.
+- r_model size table vs retail (ours -> retail): R_SkinXSurfaceBlendedSse 575/552, R_BlendSkinPosition 104/337 (ours is a different body split), R_SkinXSurfaceBlendedDx7Sse 399/408, R_PreSkinXSurface 336/347, R_PreSkinStaticSurface 451/479, R_SkinXModel 906/886, R_SkinSceneDObj 835/766. Unbound retail bodies not in ours: 1001da80 (985 B), 1001de60 (959 B), 1001e260 (310), 1001e3a0 (151), 1001ec20 (324), 1001ed70 (137), 1001ee00 (105), 1001f030 (195), 1001f5b0 (84), 10020530 (33). Not started.

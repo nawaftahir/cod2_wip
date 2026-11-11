@@ -333,18 +333,6 @@ void R_FinishLoadingModels()
     ri.DB_EnumXAssets(1, R_OptimizeModel, 0, 1);
 }
 
-static void R_ReleaseModel(XAssetHeader header, void *data)
-{
-    if (ri.XModelBad(header.model))
-        return;
-    XModelUnoptimize(header.model);
-}
-
-void R_ReleaseAllModels()
-{
-    ri.DB_EnumXAssets(1, R_ReleaseModel, 0, 1);
-}
-
 void R_SetIgnorePrecacheErrors(int ignore)
 {
     rg.ignorePrecacheErrors = ignore != 0;
@@ -1445,6 +1433,19 @@ void R_DObjReplaceMaterial(DObj *obj, char lod, int surfaceIndex, MaterialHandle
     skins = ri.XModelGetSkins(ri.DObjGetModel(obj, modelIndex));
     if (skins)
         ((MaterialHandle **)skins)[lods[modelIndex]][surfaces[surfaceIndex].subMatIndex] = material;
+}
+
+// Retail order: release helpers sit right after R_DObjReplaceMaterial (10020330, 10020350).
+static void R_ReleaseModel(XAssetHeader header, void *data)
+{
+    if (ri.XModelBad(header.model))
+        return;
+    XModelUnoptimize(header.model);
+}
+
+void R_ReleaseAllModels()
+{
+    ri.DB_EnumXAssets(1, R_ReleaseModel, 0, 1);
 }
 
 static void R_OptimizeModel(XAssetHeader header, void *data)
