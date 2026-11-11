@@ -1120,7 +1120,7 @@ gfx_d3d/rb_logfile.cpp	?RB_OpenLogFile@@YAXXZ	10037810	bind	-	-	unknown
 gfx_d3d/rb_logfile.cpp	?RB_IsLogging@@YA_NXZ	10037870	bind	-	-	unknown
 gfx_d3d/rb_logfile.cpp	?RB_UpdateLogging@@YAXXZ	10037890	bind	-	-	unknown
 gfx_d3d/rb_logfile.cpp	?RB_LogPrint@@YAXPBD@Z	100378f0	bind	-	-	unknown
-gfx_d3d/rb_shade.cpp	?RB_TechniqueName@@YAPBDH@Z	10037930	bind	-	-	unknown
+gfx_d3d/rb_logfile.cpp	?RB_TechniqueName@@YAPBDH@Z	10037930	bind	-	-	unknown
 gfx_d3d/rb_logfile.cpp	?RB_LogBlend@@YAXPBDH@Z	10037a60	bind	-	-	unknown
 gfx_d3d/rb_logfile.cpp	?RB_LogBlendOp@@YAXPBDH@Z	10037b20	bind	-	-	unknown
 gfx_d3d/rb_logfile.cpp	?RB_LogBool@@YAXPBDHHH00@Z	10037ba0	bind	-	-	unknown
