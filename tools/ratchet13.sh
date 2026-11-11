@@ -1,7 +1,7 @@
 #!/bin/bash
 # ratchet13.sh [accept|tag]: release build of the 1.3 client, print BOTH meters:
 #   same-offset section bytes (shameter) and matched-fn bytes (tools/cmp13, address independent).
-# Decision: OK only if matched-fn bytes >= best AND no matched fn was lost vs data/good13.json (tools/ratchet_fn.py).
+# Decision: OK only if matched-fn bytes >= best minus listed ties lost AND no matched fn was lost vs data/good13.json (tools/ratchet_fn.py).
 # accept: record the last measurement as the new best and write meter-1.3.json (right before committing).
 cd "$(dirname "$0")/.." || exit 1
 A=${ANCHOR:-../binaries/windows/1.3/CoD2MP_s.exe}
@@ -24,10 +24,12 @@ echo $n > $N; echo $f > $FN
 best=$(cat $B 2>/dev/null || echo 0); fbest=$(cat $FB 2>/dev/null || echo 0)
 echo "$(date +%F_%T) $n $f $(git rev-parse --short HEAD) $*" >> $L
 echo "same-offset $n (best $best, $((n - best))) | matched-fn bytes $f (best $fbest, $((f - fbest)))"
-lost=0
+lost=0; tielost=0
 if [ -f data/good13.json ]; then
   python3 tools/ratchet_fn.py data/good13.json build/cmp13.json data/ties13.txt > build/ratchet_fn.out; lost=$?
   tail -25 build/ratchet_fn.out
+  tielost=$(sed -n 's/^TIELOST //p' build/ratchet_fn.out); tielost=${tielost:-0}
 fi
-if [ "$lost" = 0 ] && [ "$f" -ge "$fbest" ]; then echo "RATCHET OK matched-fn $f (best $fbest, +$((f - fbest)))"
+# losing a listed tie never rejects (owner, 11-11): floor = best minus the tie bytes lost
+if [ "$lost" = 0 ] && [ "$f" -ge "$((fbest - tielost))" ]; then echo "RATCHET OK matched-fn $f (best $fbest, +$((f - fbest)))"
 else echo "RATCHET REJECT matched-fn $f (best $fbest, $((f - fbest))), fn-loss-check=$lost"; exit 1; fi

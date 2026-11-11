@@ -23,6 +23,8 @@ for tag, rows in (('LOST', lost), ('GAIN', gain)):
     for s, n in rows:
         print('%s %6d %s%s' % (tag, s, n[:70], '' if real(n) else '  (tie/label)'))
 bad = [n for _, n in lost if real(n)]
+# listed ties and labels lost: the gate lowers its matched-fn floor by this much
+print('TIELOST %d' % sum(good[n] for _, n in lost if not real(n)))
 if bad:
     print('RATCHET REJECT: %d real fns lost (%d B). Revert or add to ties.txt with a reason.' % (len(bad), sum(good[n] for n in bad)))
     sys.exit(2)

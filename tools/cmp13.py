@@ -188,6 +188,39 @@ for r in res:
         r['hits'], r['thunk'] = [hex(cth[n][0])], 1
         stats['match_fns'] += 1; stats['match_bytes'] += 6
 
+# same-VA bind (owner, 11-11): raw bytes equal at our own map VA (reloc fields included), body ends where retail's
+# does, every code target already bound at its same VA (fixpoint); tagged 'sameva'
+starts = {v for v, _, _ in syms}
+hitat = {r['va'] for r in res if r['hits'] and 'va' in r and int(r['hits'][0], 16) == r['va']}
+def ctargets(va, code):
+    ts = []
+    for a, n, _, _ in md.disasm_lite(code, va):
+        ins = code[a - va:a - va + n]
+        if n == 5 and ins[0] in (0xe8, 0xe9):
+            t = int.from_bytes(ins[1:], 'little', signed=True) + a + 5
+            if not va <= t < va + len(code): ts.append(t)
+            continue
+        for j in range(n - 4, 0, -1):
+            v = int.from_bytes(ins[j:j + 4], 'little')
+            if tva <= v < tva + len(tdata) and v not in oiat: ts.append(v); break
+    return ts
+cands = []
+for r in res:
+    va, n = r.get('va'), r['size']
+    if r['hits'] or not n or va is None or not cva <= va < cva + len(cdata): continue
+    code = tdata[va - tva:va - tva + n]
+    nb = cdata[va - cva + n:va - cva + n + 1]
+    if cdata[va - cva:va - cva + n] == code and (nb == b'\xcc' or (va + n) % 16 == 0 or va + n in starts):
+        cands.append((r, va, ctargets(va, code)))
+grew = True
+while grew:
+    grew = False
+    for r, va, ts in cands:
+        if not r['hits'] and all(t in hitat for t in ts):
+            r['hits'], r['sameva'] = [hex(va)], 1
+            hitat.add(va); grew = True
+            stats['match_fns'] += 1; stats['match_bytes'] += r['size']
+
 # every row is scored or says why not; an alias takes the result of the body at its address
 body = {r['va']: r for r in res if 'va' in r and r.get('reason') != 'alias'}
 for r in res:
