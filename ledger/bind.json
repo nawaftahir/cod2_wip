@@ -839,7 +839,7 @@
 "obj": "r_image.obj",
 "why": []
 },
-"?Image_BuildWaterMap@@YAXPAUGfxImage@@@Z": {
+"?R_RebuildLostImage@@YAXPAUGfxImage@@@Z": {
 "t": "0x1000d0f0",
 "n": 74,
 "obj": "r_image.obj",
@@ -1011,6 +1011,12 @@
 "obj": "r_image_load_obj.obj",
 "why": []
 },
+"?VectorAdd@@YAXQBM0QAM@Z": {
+"t": "0x1000f140",
+"n": 25,
+"obj": "r_image_load_obj.obj",
+"why": []
+},
 "?Image_ValidateHeader@@YAEPBUGfxImageFileHeader@@PBD@Z": {
 "t": "0x1000f2a0",
 "n": 67,
@@ -1162,6 +1168,12 @@
 "why": [
 "call ?Image_LoadBuiltin@@YAPAUGfxImage@@PBDHH@Z"
 ]
+},
+"?Image_BuildWaterMap@@YAXPAUGfxImage@@@Z": {
+"t": "0x10010ae0",
+"n": 68,
+"obj": "r_image_load_obj.obj",
+"why": []
 },
 "?R_CreateWaterMap@@YAPAUGfxImage@@PADHH@Z": {
 "t": "0x10010b30",
@@ -1652,12 +1664,6 @@
 "why": [
 "call ?R_SelectPointLights@@YAXPAPBUGfxLight@@HH@Z"
 ]
-},
-"?VectorAdd@@YAXQBM0QAM@Z": {
-"t": "0x1000f140",
-"n": 25,
-"obj": "r_marks.obj",
-"why": []
 },
 "?R_LerpMarkPoints@@YAXPBUClipPoint@@0MPAU1@@Z": {
 "t": "0x100151e0",
@@ -17424,7 +17430,7 @@
 "?R_QuantizeCachedColor@@YAXPBMPAE@Z": {
 "t": "0x1000f180",
 "n": 285,
-"obj": "r_staticmodelcache.obj",
+"obj": "r_image_load_obj.obj",
 "why": []
 },
 "?R_FinishStaticIndexBuffer@@YAXPAUIDirect3DIndexBuffer9@@@Z": {
