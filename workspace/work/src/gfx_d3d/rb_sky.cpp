@@ -270,7 +270,12 @@ static void RB_TessSunBillboard(float width, float height, GfxColor color)
     float zBias = clip[3] * -0.001f;
     float yOffset = clip[3] * height, xOffset = clip[3] * width;
     for (int index = 0; index < 4; ++index)
-        memcpy(vertices[index].xyzw, clip, sizeof(clip));
+    {
+        vertices[index].xyzw[0] = clip[0];
+        vertices[index].xyzw[1] = clip[1];
+        vertices[index].xyzw[2] = clip[2];
+        vertices[index].xyzw[3] = clip[3];
+    }
     vertices[0].xyzw[0] += xOffset; vertices[0].xyzw[1] += yOffset;
     vertices[1].xyzw[0] += xOffset; vertices[1].xyzw[1] -= yOffset;
     vertices[2].xyzw[0] -= xOffset; vertices[2].xyzw[1] -= yOffset;
