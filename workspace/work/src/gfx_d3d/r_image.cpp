@@ -221,6 +221,12 @@ int R_GetMinSpecImageMemory()
     return imageGlobals.totalMemory[1];
 }
 
+// Name unconfirmed; PINNED 1000c8e0/48. Uncalled retail copy of the image-name hash bucket.
+int Image_HashBucket(const char *name)
+{
+    return R_HashAssetName(name) & 0x7ff;
+}
+
 // PINNED: retail 0x1000c910; the same release path is inlined in lost-image cleanup.
 void Image_Release(GfxImage *image)
 {
