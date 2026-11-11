@@ -5,7 +5,7 @@ import tempfile
 
 text = (Path(__file__).resolve().parents[1] / 'src/gfx_d3d/r_image.cpp').read_text()
 utils = (Path(__file__).resolve().parents[1] / 'src/gfx_d3d/r_utils.cpp').read_text()
-source = utils[utils.index('int R_HashAssetName('):utils.index('bool R_ValidXModelName(')] + text[text.index('inline bool Image_IsCodeImage('):text.index('static int Image_GetAvailableHashLocation(')]
+source = utils[utils.index('int R_HashAssetName(const char *name)\n{'):utils.index('\n}\n', utils.index('int R_HashAssetName(const char *name)\n{')) + 3] + text[text.index('inline bool Image_IsCodeImage('):text.index('static int Image_GetAvailableHashLocation(')]
 program = r'''
 #include <cassert>
 #include <cstring>

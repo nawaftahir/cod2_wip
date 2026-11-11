@@ -4,7 +4,7 @@ import subprocess
 import tempfile
 
 source = (Path(__file__).resolve().parents[1] / 'src/gfx_d3d/r_utils.cpp').read_text()
-begin = source.index('float FresnelTerm(')
+begin = source.index('float FresnelTerm(float n0, float n1, float cosIncidentAngle)\n{')
 end = source.index('\n}', begin) + 2
 program = '#include <cmath>\n#include <cassert>\n#include <limits>\n#include <cstdio>\n' + source[begin:end] + r'''
 double oracle(double n0, double n1, double c) {

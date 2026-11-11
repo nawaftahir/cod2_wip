@@ -5,7 +5,7 @@ import tempfile
 
 work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/r_utils.cpp').read_text()
-source = text[text.index('bool R_ValidXModelName('):text.index('// PINNED 1002c060')]
+source = text[text.index('bool R_ValidXModelName(const char *name)\n{'):text.index('\n}\n', text.index('bool R_ValidXModelName(const char *name)\n{')) + 3]
 program = r'''
 #include <cassert>
 #include <cstdio>

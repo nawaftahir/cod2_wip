@@ -6,7 +6,7 @@ import tempfile
 text = (Path(__file__).resolve().parents[1] / 'src/gfx_d3d/r_material.cpp').read_text()
 source = text[text.index('const char *Material_RegisterString('):text.index('MaterialVertexDeclaration *Material_AllocVertexDecl(')]
 utils = (Path(__file__).resolve().parents[1] / 'src/gfx_d3d/r_utils.cpp').read_text()
-source = utils[utils.index('int R_HashString('):utils.index('// UNACCEPTED: PC1002c370')] + source
+source = utils[utils.index('int R_HashString(const char *string)\n{'):utils.index('\n}\n', utils.index('int R_HashString(const char *string)\n{')) + 3] + source
 program = r'''
 #include <cassert>
 #include <cstring>
