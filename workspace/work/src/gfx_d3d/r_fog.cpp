@@ -1,6 +1,23 @@
 // Fog settings.
 #include "gfx.h"
 
+// Name unconfirmed; PINNED 1000bae0/32. Uncalled retail copy, inlined in R_SetFog.
+static __forceinline void R_PackFogColor(byte *dst, byte r, byte g, byte b, byte a)
+{
+    dst[2] = r;
+    dst[1] = g;
+    dst[0] = b;
+    dst[3] = a;
+}
+
+typedef void (*ArchiveProc)(MemoryFile *, int, void *);
+
+// Name unconfirmed; PINNED 1000bb00/16. Uncalled retail copy, inlined in R_ArchiveFogState.
+static __forceinline void R_CallArchiveProc(MemoryFile *memFile, int len, void *data)
+{
+    ((ArchiveProc)memFile->archiveProc)(memFile, len, data);
+}
+
 void R_ClearFogs()
 {
     memset(rg.fogSettings, 0, sizeof(rg.fogSettings));
@@ -9,10 +26,7 @@ void R_ClearFogs()
 
 void R_SetFog(int fogvar, float start, float end, int r, int g, int b, float density)
 {
-    rg.fogSettings[fogvar].color.array[2] = (byte)r;
-    rg.fogSettings[fogvar].color.array[1] = (byte)g;
-    rg.fogSettings[fogvar].color.array[0] = (byte)b;
-    rg.fogSettings[fogvar].color.array[3] = 0xff;
+    R_PackFogColor(rg.fogSettings[fogvar].color.array, (byte)r, (byte)g, (byte)b, 0xff);
     rg.fogSettings[fogvar].fogStart = start;
     rg.fogSettings[fogvar].fogEnd = end;
     rg.fogSettings[fogvar].clearScreen = 0;
@@ -56,10 +70,8 @@ void R_SwitchFog(int fogvar, int startTime, int transitionTime)
     }
 }
 
-typedef void (*ArchiveProc)(MemoryFile *, int, void *);
-
 void R_ArchiveFogState(MemoryFile *memFile)
 {
-    ((ArchiveProc)memFile->archiveProc)(memFile, sizeof(rg.fogSettings), rg.fogSettings);
-    ((ArchiveProc)memFile->archiveProc)(memFile, sizeof(rg.fogIndex), &rg.fogIndex);
+    R_CallArchiveProc(memFile, sizeof(rg.fogSettings), rg.fogSettings);
+    R_CallArchiveProc(memFile, sizeof(rg.fogIndex), &rg.fogIndex);
 }
