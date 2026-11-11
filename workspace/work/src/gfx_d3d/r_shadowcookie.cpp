@@ -194,22 +194,28 @@ static bool R_IsShadowReceiverOutside(const float *bounds, const DpvsPlane *plan
     return false;
 }
 
-// PINNED 10027590/303: ignore the caster itself and surfaces without receiver technique32.
+// PINNED retail table 101904a8: file-scope so no stack copy is made.
+static const vec4_t shadowReceiverSides[5] = {{-1.0f, 0.0f, 0.0f, 1.0f}, {1.0f, 0.0f, 0.0f, 1.0f},
+    {0.0f, -1.0f, 0.0f, 1.0f}, {0.0f, 1.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f, 0.0f}};
+
+// PINNED 10027590/303:ignore the caster itself and surfaces without receiver technique32.
 static void R_AddShadowReceivers(ShadowCookie *cookie, int sourceCount, int casterIndex)
 {
     cookie->firstReceiverDrawSurf = cookie->firstUnusedDrawSurf = scene.drawSurfCount;
-    const vec4_t sides[5] = {{-1.0f, 0.0f, 0.0f, 1.0f}, {1.0f, 0.0f, 0.0f, 1.0f},
-        {0.0f, -1.0f, 0.0f, 1.0f}, {0.0f, 1.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f, 0.0f}};
     DpvsPlane planes[5];
-    R_FrustumClipPlanes(&cookie->shadowViewParms->viewProjectionMatrix, sides, 5, planes);
-    for (int i = 0; i < sourceCount; ++i)
+    R_FrustumClipPlanes(&cookie->shadowViewParms->viewProjectionMatrix, shadowReceiverSides, 5, planes);
+    if (sourceCount <= 0)
+        return;
+    int i = 0;
+    do
     {
         const GfxDrawSurf *surf = &scene.drawSurfs[i];
         unsigned int key = surf->sort;
-        int entIndex = (key >> (key & 0x80000000u ? 19 : 4)) & 0xfff;
-        if (entIndex > 2047)
+        unsigned int isEntity = key & 0x80000000u;
+        int entIndex = (isEntity ? key >> 19 : key >> 4) & 0xfff;
+        if (entIndex >= 2048)
             entIndex = 2046;
-        const Material *material = rgp.sortedMaterials[(key >> (key & 0x80000000u ? 9 : 21)) & 0x3ff];
+        const Material *material = rgp.sortedMaterials[(isEntity ? key >> 9 : key >> 21) & 0x3ff];
         if (!material->techniqueSet->techniques[32] || entIndex == casterIndex)
             continue;
         const float *bounds;
@@ -225,7 +231,7 @@ static void R_AddShadowReceivers(ShadowCookie *cookie, int sourceCount, int cast
         ++cookie->firstUnusedDrawSurf;
         ++scene.drawSurfCount;
         ++frontEndDataOut->drawSurfCount;
-    }
+    } while (++i != sourceCount);
 }
 
 // PINNED 100276d0/499: degenerate caster bounds do not allocate a cookie or view.

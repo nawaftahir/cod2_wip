@@ -4389,3 +4389,6 @@ Probe 1 (kept): Com_Parse -> Com_ParseInternal at the three token reads (ParseRu
 - retail_order --across --write: no-op on r_staticmodel, r_staticmodel_load_obj, r_staticmodelcache, r_surfbounds, r_texturemem; r_utils moved 2 definitions (drift 4 values -> 3).
 - r_staticmodel_load_obj R_AddStaticModelToCell: swapped parameter order to (smodelInst, cellIndex, world) to get retail registers (eax=cellIndex, ecx=inst). No size change; build still pushes ebx/edi and is 3 B bigger. Drift steps (16 B each) at R_FilterStaticModelIntoCells_r (build 274 B vs retail ~268 B, ends 0x1002a35c) unresolved.
 - r_staticmodelcache: R_SkinCachedVertices (PINNED 1002adb0) is 830 B vs retail 784 B max (R_LightCachedVertex at 1002b0c0); not probed yet.
+
+# r_shadowcookie R_AddShadowReceivers size - 2026-11-12 (worker w-cookie)
+R_AddShadowReceivers 10027590: ours 423 -> 309 B (retail 303, same 16 B slot, so following functions shift +0x70). Probe 1: sides table as file-scope static const (retail pushes 101904a8, no stack copy): 423 -> 322. Probe 2: do-while with sourceCount<=0 early return, isEntity temp, entIndex >= 2048: 322 -> 309. Remaining 6 B: retail keeps drawSurfs/cookie in ebx (custom LTCG convention), ours uses stack frame and pushes esi/ebp in different order. Not probed further.
