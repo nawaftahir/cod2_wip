@@ -5,6 +5,7 @@
 #include "rb_backend.h"
 #include "rb_drawargs.h"
 #include "r_permanent.h"
+#include "r_entity.h"
 #include "universal/com_math.h"
 
 DxState dxState;
@@ -104,6 +105,7 @@ static const unsigned char defaultSamplerStateTable[] = { 1, 2, 6, 10, 11 };
 
 void MatrixInverse44(const float *mat, float *dst);
 void MatrixIdentity44(float out[4][4]);
+void MatrixSet44(float out[4][4], const vec3_t origin, const vec3_t axis[3], float scale);
 
 struct DxTextureOpDecode
 {
@@ -181,12 +183,6 @@ void RB_SetRenderTarget(GfxRenderTargetId newTargetId);
 void RB_SetInitialDx7State();
 void RB_SetInitialState();
 void RB_UpdateViewportConstants();
-
-void RB_InitSceneViewport()
-{
-	backEnd.sceneViewport.width = vidConfig.width;
-	backEnd.sceneViewport.height = vidConfig.height;
-}
 
 static void RB_InvalidateCodeMatrix(GfxCodeMatrix *matrix)
 {
@@ -740,6 +736,14 @@ void RB_InitImages()
 	}
 }
 
+// Name unconfirmed; PINNED 1003dde0/44. Uncalled retail copy of the entity world matrix setup (rb_backend repeats it inline).
+void RB_SetEntityWorldMatrix(const GfxEntity *entity)
+{
+	MatrixSet44(backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel].world.matrix[0].m,
+		entity->origin, entity->axis, entity->scale);
+	RB_ChangedWorldMatrix(entity->scale);
+}
+
 static GfxCodeMatrices *RB_GetActiveCodeMatrices()
 {
 	return &backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel];
@@ -872,6 +876,12 @@ void RB_PopMatrixStack()
 	R_DX_CALL(dx.device->SetTransform( (D3DTRANSFORMSTATETYPE)(0 + 256), &backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel].world.matrix[0] ));
 	R_DX_CALL(dx.device->SetTransform( D3DTS_VIEW, &backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel].view.matrix[0] ));
 	R_DX_CALL(dx.device->SetTransform( D3DTS_PROJECTION, &backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel].projection.matrix[0] ));
+}
+
+void RB_InitSceneViewport()
+{
+	backEnd.sceneViewport.width = vidConfig.width;
+	backEnd.sceneViewport.height = vidConfig.height;
 }
 
 // Viewport calculation.
