@@ -215,8 +215,7 @@ static void R_SkinCachedVertices(const vec3_t *axis, const vec3_t *normalAxis,
     {
         const XVertexInfo *in = &src[vertexIndex];
         GfxSModelCachedVertex *vertex = &out[vertexIndex];
-        AxisTransformVector(axis, in->offset[0], in->offset[1], in->offset[2], vertex->xyz);
-        VectorAdd(vertex->xyz, axis[3], vertex->xyz);
+        MatrixTransformVector43(in->offset, (const float (*)[3])axis, vertex->xyz);
         AxisTransformVector(normalAxis, in->normal[0], in->normal[1], in->normal[2], vertex->normal);
         vertex->color = *(const GfxColor *)in->color;
         vertex->texCoord[0] = in->texCoordX;

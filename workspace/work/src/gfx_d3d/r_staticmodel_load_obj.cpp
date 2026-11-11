@@ -308,9 +308,11 @@ void R_AddStaticModelToAabbTree_r(GfxWorld *world, GfxAabbTree *tree, int smodel
 static __declspec(noinline) void R_AddStaticModelToCell(GfxStaticModelInstance *smodelInst, int cellIndex, GfxWorld *world)
 {
     GfxAabbTree *tree;
+    GfxCell *cell;
     int smodelIndex;
 
-    tree = world->cells[cellIndex].aabbTree;
+    cell = &world->cells[cellIndex];
+    tree = cell->aabbTree;
     smodelIndex = smodelInst - world->smodelInsts;
     if (!tree->staticModelCount || tree->staticModels[tree->staticModelCount - 1] != smodelIndex)
         R_AddStaticModelToAabbTree_r(world, tree, smodelIndex);
@@ -340,7 +342,8 @@ static void R_FilterStaticModelIntoCells_r(GfxWorld *world, mnode_t *node, GfxSt
                 localMins[node->u.node.plane->type] = node->u.node.plane->dist;
                 VectorCopy(maxs, localMaxs);
                 localMaxs[node->u.node.plane->type] = node->u.node.plane->dist;
-                if (localMins[node->u.node.plane->type] < maxs[node->u.node.plane->type])
+                int planeType = node->u.node.plane->type;
+                if (localMins[planeType] < maxs[planeType])
                     R_FilterStaticModelIntoCells_r(world, node->u.node.children[0], smodelInst, localMins, maxs);
                 R_FilterStaticModelIntoCells_r(world, node->u.node.children[1], smodelInst, mins, localMaxs);
                 return;
