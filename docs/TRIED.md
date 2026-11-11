@@ -4467,3 +4467,9 @@ rb_state order (w-state): RB_UpdateViewportConstants moved after RB_PopMatrixSta
   (alphabetical); our tus.txt had it after r_image_load_common (drift -101136). Moved in tus.txt:
   gate green, same-offset 279,531 vs 279,684 (upstream drift not yet constant). Parked on
   gfx/w-specpos; stack with gfx/w-guid and the .text work.
+## 2026-11-12 dxguid.lib (r_texturemem)
+- Our .rdata held an 8,320 B table of 520 GUIDs from dxguid.lib (sum2004 ships it as one object);
+  retail has 4 of them. Defining only IID_IDirectDraw7 in r_texturemem.cpp: .rdata vsize 0x91174 vs
+  retail 0x914a1, raw 0x92000 == retail. Section-relative .rdata equal 218,560 (combo6 build: 207,867).
+  Whole-file same-offset 260,953 (< 279,684): .data now starts at 0x19b000 vs retail 0x19e000, so it
+  waits until .text grows ~0x26f0 B. Parked on gfx/w-guid; land together with the .text growth.
