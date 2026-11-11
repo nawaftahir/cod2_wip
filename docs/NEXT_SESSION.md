@@ -50,3 +50,25 @@ r_image 1000c8e0 (hash & 0x7ff), 1000ccb0, 1000ccf0.
 - build.sh can print PASS lines after a compile error and leave a stale DLL: check build.log.
 - In wsl.exe bash -lc '...', $vars and quotes get mangled; put logic in a script file.
 - Some sources are CRLF; match line endings in scripted edits.
+
+## 2026-11-12 morning: land the stack first
+- Best measured stack: local branch gfx/w-combo6 (a61d9dc0, worktree .worktrees/gfx-recon):
+  gfx/main + gfx/w-front2 4becf89a (r_fog/r_font/r_image helpers) + gfx/w-cmds 121e4559 (r_scene
+  copies) + rb_light b45d08a0. Gate green, same-offset 277,281 vs gfx/main 275,244 (local byte
+  compare). Not pushed: subagent pushes were refused by the permission check, so the coordinator did
+  not push their work either. To land: `git push origin gfx/w-combo6` from .worktrees/gfx-recon, then
+  `wsl.exe bash -l /tmp/gfx_land.sh gfx/w-combo6 a61d9dc0`.
+- Tried on top of that stack, all lower: + r_staticmodel (275,833), + r_screenshot (276,949),
+  + r_xsurface (276,783), + rb_state c6622abb (277,270).
+- Local-only branches (gate green): gfx/w-front2 275,431; gfx/w-cmds 275,000; gfx/w-rblight
+  b45d08a0 275,037; gfx/w-state c6622abb 275,255; gfx/w-smodel 274,104; gfx/w-xsurf2 274,649;
+  gfx/w-shot2 274,250; gfx/w-cookie 60f6cfb3 (R_AddShadowReceivers 309/303; origin/gfx/w-cookie has
+  other history, use a new name); gfx/w-model2 e5d2ecfa (pragma g off: NOT for landing, functions
+  grow further from retail).
+- Biggest structural lever: .text is ~9.8 KB short of retail (vsize 0x1079xx vs 0x10a090), so with
+  0x1000 file alignment .rdata starts at file 0x109000 instead of 0x10c000; .rdata is also 8 KB too
+  large (0x94000 vs 0x92000). Section-relative equality across all sections is ~306,375 B vs ~273,700
+  whole-file now: about +32 KB available from section placement alone.
+- Deferred this round: R_AddDrawSurf register convention (3 probes, no source form);
+  R_FrustumClipPlanes 400/448; R_WaterFFT (callee FFT in universal/fft.cpp takes data on the stack in
+  retail); r_xsurface_optimize merge needs gfx.h / r_local.h types unified first.
