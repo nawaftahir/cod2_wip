@@ -206,6 +206,9 @@ struct ShaderInclude
 {
     const ShaderIncludeVtable *vtable;
 };
+bool Material_HasConstant(const Material *material, const char *name);
+bool Material_HasTexture(const Material *material, const char *name);
+bool Material_ValidateTechniqueSet(const Material *material, const MaterialTechniqueSet *set);
 static bool Material_ValidatePassArguments(const Material *material, const char *techniqueSetName, const char *techniqueName, int argCount, const MaterialShaderArgument *args);
 static bool Material_ValidateTechniqueDx7(const Material *material, const char *techniqueSetName, const MaterialTechnique *technique);
 static bool Material_ValidateTechnique(const Material *material, const char *techniqueSetName, const MaterialTechnique *technique);
@@ -2217,6 +2220,57 @@ MaterialTechniqueSet *Material_LoadCachedTechniqueSet(const char *name)
     return set;
 }
 
+// PINNED 1001c290: name supported by KisakCOD (it compares hashes there).
+bool Material_HasConstant(const Material *material, const char *name)
+{
+    for (int index = 0; index < material->constantCount; ++index)
+    {
+        if (material->constants[index].name == name)
+            return true;
+    }
+    return false;
+}
+
+// PINNED 1001c2c0: name unconfirmed.
+bool Material_HasTexture(const Material *material, const char *name)
+{
+    for (int index = 0; index < material->textureCount; ++index)
+    {
+        if (material->textures[index].name == name)
+            return true;
+    }
+    return false;
+}
+
+// Retail passes the material in EDI (LTCG).
+static bool Material_ValidatePassArguments(const Material *material, const char *techniqueSetName, const char *techniqueName, int argCount, const MaterialShaderArgument *args)
+{
+    int argIndex;
+
+    for (argIndex = 0; argIndex < argCount; ++argIndex)
+    {
+        if (args[argIndex].type == 2)
+        {
+            if (!Material_HasConstant(material, args[argIndex].u.name))
+            {
+                Com_Printf("material '%s' using technique '%s' from techniqueSet '%s' doesn't expose a '%s' constant\n",
+                    material->info.name, techniqueName, techniqueSetName, args[argIndex].u.name);
+                return false;
+            }
+        }
+        else if (args[argIndex].type == 4)
+        {
+            if (!Material_HasTexture(material, args[argIndex].u.name))
+            {
+                Com_Printf("material '%s' using technique '%s' from techniqueSet '%s' doesn't expose a '%s' texture\n",
+                    material->info.name, techniqueName, techniqueSetName, args[argIndex].u.name);
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 static bool Material_ValidateTechniqueDx7(const Material *material, const char *techniqueSetName, const MaterialTechnique *technique)
 {
     int passIndex;
@@ -2243,6 +2297,17 @@ static bool Material_ValidateTechnique(const Material *material, const char *tec
         if (!Material_ValidatePassArguments(material, techniqueSetName, technique->name, pass->vertexArgCount, pass->vertexArgs))
             return false;
         if (!Material_ValidatePassArguments(material, techniqueSetName, technique->name, pass->pixelArgCount, pass->pixelArgs))
+            return false;
+    }
+    return true;
+}
+
+// PINNED 1001c4a0: name unconfirmed.
+bool Material_ValidateTechniqueSet(const Material *material, const MaterialTechniqueSet *set)
+{
+    for (int index = 0; index < 34; ++index)
+    {
+        if (set->techniques[index] && !Material_ValidateTechnique(material, set->name, set->techniques[index]))
             return false;
     }
     return true;
@@ -2306,10 +2371,7 @@ bool Material_FixupBinary(Material *material, int imageTrack)
     material->techniqueSet = set;
     if (!set)
         return false;
-    for (int index = 0; index < 34; ++index)
-        if (set->techniques[index] && !Material_ValidateTechnique(material, set->name, set->techniques[index]))
-            return false;
-    return true;
+    return Material_ValidateTechniqueSet(material, set);
 }
 
 // PINNED 1001c740/171: close zero-length files, retain permanent allocations on fixup failure.
@@ -2380,44 +2442,4 @@ void Material_PreloadShaderText()
         Material_CompareShaderText);
     ri.FS_FreeFileList(libraries, 20);
     ri.FS_FreeFileList(shaders, 20);
-}
-
-// Retail passes the material in EDI (LTCG).
-static bool Material_ValidatePassArguments(const Material *material, const char *techniqueSetName, const char *techniqueName, int argCount, const MaterialShaderArgument *args)
-{
-    int argIndex;
-    int index;
-
-    for (argIndex = 0; argIndex < argCount; ++argIndex)
-    {
-        if (args[argIndex].type == 2)
-        {
-            for (index = 0; index < material->constantCount; ++index)
-            {
-                if (material->constants[index].name == args[argIndex].u.name)
-                    break;
-            }
-            if (index >= material->constantCount)
-            {
-                Com_Printf("material '%s' using technique '%s' from techniqueSet '%s' doesn't expose a '%s' constant\n",
-                    material->info.name, techniqueName, techniqueSetName, args[argIndex].u.name);
-                return false;
-            }
-        }
-        else if (args[argIndex].type == 4)
-        {
-            for (index = 0; index < material->textureCount; ++index)
-            {
-                if (material->textures[index].name == args[argIndex].u.name)
-                    break;
-            }
-            if (index >= material->textureCount)
-            {
-                Com_Printf("material '%s' using technique '%s' from techniqueSet '%s' doesn't expose a '%s' texture\n",
-                    material->info.name, techniqueName, techniqueSetName, args[argIndex].u.name);
-                return false;
-            }
-        }
-    }
-    return true;
 }
