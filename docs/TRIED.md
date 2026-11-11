@@ -4461,3 +4461,10 @@ rb_state order (w-state): RB_UpdateViewportConstants moved after RB_PopMatrixSta
 
 ## RB_QuerySunVisibility probes (kqs)
 - Retail 1003b550/512 B vs ours 473. Causes: retail builds color from bytes (array[2],[1],[0]=0,[3]=0xff, stack local), reads dx.sunSpriteSamples once into a local after the GetData loop, assigns visibility in if/else. Applying all three: 508 B, same-offset 277205 (below bar 279684, because later slots shift until the 4 B close). Local read after loop: 505 B, 277204. Source reverted, not committed. Still missing 4 B: retail caches rgp.additiveMaterial in edi (mov edi,eax after the cmp) and spills samples limit to [esp+1c].
+
+## 2026-11-12 dxguid.lib (r_texturemem)
+- Our .rdata held an 8,320 B table of 520 GUIDs from dxguid.lib (sum2004 ships it as one object);
+  retail has 4 of them. Defining only IID_IDirectDraw7 in r_texturemem.cpp: .rdata vsize 0x91174 vs
+  retail 0x914a1, raw 0x92000 == retail. Section-relative .rdata equal 218,560 (combo6 build: 207,867).
+  Whole-file same-offset 260,953 (< 279,684): .data now starts at 0x19b000 vs retail 0x19e000, so it
+  waits until .text grows ~0x26f0 B. Parked on gfx/w-guid; land together with the .text growth.
