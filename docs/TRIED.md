@@ -4461,3 +4461,9 @@ rb_state order (w-state): RB_UpdateViewportConstants moved after RB_PopMatrixSta
 
 ## RB_QuerySunVisibility probes (kqs)
 - Retail 1003b550/512 B vs ours 473. Causes: retail builds color from bytes (array[2],[1],[0]=0,[3]=0xff, stack local), reads dx.sunSpriteSamples once into a local after the GetData loop, assigns visibility in if/else. Applying all three: 508 B, same-offset 277205 (below bar 279684, because later slots shift until the 4 B close). Local read after loop: 505 B, 277204. Source reverted, not committed. Still missing 4 B: retail caches rgp.additiveMaterial in edi (mov edi,eax after the cmp) and spills samples limit to [esp+1c].
+
+## 2026-11-12 r_specularityimage link position
+- Retail has Image_BuildSpecularityMap at 10029320, between r_sky_load_obj and r_splitscreen
+  (alphabetical); our tus.txt had it after r_image_load_common (drift -101136). Moved in tus.txt:
+  gate green, same-offset 279,531 vs 279,684 (upstream drift not yet constant). Parked on
+  gfx/w-specpos; stack with gfx/w-guid and the .text work.
