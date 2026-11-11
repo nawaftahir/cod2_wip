@@ -209,6 +209,72 @@ void R_SkinSceneDObj(GfxSceneEntity *sceneEnt, GfxEntity *ent);
 static void R_SkinXModel(GfxSceneEntity *sceneEnt, GfxEntity *ent, int smodelIndex);
 void R_SkinStaticModel(GfxSceneEntity *sceneEnt, GfxEntity *ent, int smodelIndex);
 void R_SkinSceneEnt(GfxSceneEntity *sceneEnt, GfxEntity *ent);
+void R_ConvertAnimMatToSkelMat(const DObjAnimMat *in, DObjSkelMat *out);
+__declspec(noinline) void R_GetRigidTransform(const DObjSkelMat *bone, const float *origin,
+    const vec3_t *axis, float scale, vec3_t *boneAxis);
+static void *Hunk_AllocXModelPrecache(int size);
+static void *Hunk_AllocXModelPrecacheColl(int size);
+__declspec(noinline) XModel *R_RegisterModel(const char *name);
+GfxBrushModel *R_RegisterInlineModel(int index);
+void R_FinishLoadingModels();
+static void R_ReleaseModel(XAssetHeader header, void *data);
+void R_ReleaseAllModels();
+void R_SetIgnorePrecacheErrors(int ignore);
+bool R_GetIgnorePrecacheErrors();
+void R_ModelBounds(const vec_t *bounds, vec_t *mins, vec_t *maxs);
+float R_GetModelLodDistance(const float *origin, float scale);
+static int R_GetSurfaceData(const GfxEntity *ent, const DObj *obj,
+    DSurface_s *surfaces, int *partBits, char *lods);
+static void R_CalcSceneEntityPose(const GfxSceneEntity *sceneEnt, const DObj *obj, int *partBits);
+static void R_XModelDebugBoxes(const GfxSceneEntity *sceneEnt, const GfxEntity *ent,
+    const DObj *obj);
+static void R_XModelDebugAxes(const GfxSceneEntity *sceneEnt, const GfxEntity *ent,
+    const DObj *obj);
+static void R_DebugModelSurfaces(const DObj *obj, const GfxEntity *ent, const GfxSceneEntity *sceneEnt);
+void R_LockSkinnedCache(int lockType);
+void R_UnlockSkinnedCache();
+int R_AllocSkinnedCachedVerts(int vertCount);
+static __forceinline __m128 R_SkinPositionSse(const __m128 &in, const DObjSkelMat *bone);
+static __forceinline __m128 R_SkinVectorSse(const __m128 &in, const DObjSkelMat *bone);
+static void R_SkinXSurfaceBlendedSse(const XSurface *surface, const DObjSkelMat *bones, GfxVertex *out);
+static __forceinline void R_BlendSkinPosition(const float *in,
+    const DObjSkelMat *bone, float weight, float *out);
+static void R_SkinXSurfaceBlended(const XSurface *surface, const DObjSkelMat *bones, GfxVertex *out);
+static void R_SkinXSurfaceBlendedDx7(const XSurface *surface, const DObjSkelMat *bones, GfxVertexDx7 *out);
+static void R_SkinXSurfaceBlendedDx7Sse(const XSurface *surface, const DObjSkelMat *bones, GfxVertexDx7 *out);
+void R_SkinRigidSurface(const XSurface *xsurf, const DObjSkelMat *bone, const float *origin,
+    const vec3_t *axis, float scale, vec3_t *boneAxis);
+static __declspec(noinline) void R_SkinXSurfaceSkinned(GfxModelSkinnedSurface *modelSurface, const DObjSkelMat *bones);
+static int R_PreSkinXSurface(GfxSceneEntity *sceneEnt, const DObj *obj,
+    const DSurface_s *surface, int surfaceIndex, const char *lods, byte *surfPos);
+byte Material_UsesDx7GridLighting(const Material *material);
+static int R_PreSkinStaticSurface(GfxSceneEntity *sceneEnt, GfxEntity *ent, int smodelIndex,
+    const XModel *model, XSurface *xsurf, int surfaceIndex, int lod,
+    qboolean *needSkinningSurf, byte *surfPos);
+byte *R_SkinXModelSurface(const DObjSkelMat *bone, const GfxEntity *entity, byte *cursor);
+void R_SkinRigidXModelCmd(SkinRigidXModelCmd *cmd);
+static __declspec(noinline) void R_ConvertSurfaceBones(const SkinXModelCmd *cmd, DObjSkelMat *out);
+void R_SkinXModelCmd(SkinXModelCmd *cmd, int context);
+const DObj *R_GetSceneEntDObj(const GfxSceneEntity *sceneEnt, const GfxEntity *ent);
+void R_UpdateXModelBounds(GfxSceneEntity *sceneEnt, const GfxEntity *ent);
+static void R_SkinXModel(GfxSceneEntity *sceneEnt, GfxEntity *ent, int smodelIndex);
+void R_SkinStaticModel(GfxSceneEntity *sceneEnt, GfxEntity *ent, int smodelIndex);
+void R_SkinSceneEnt(GfxSceneEntity *sceneEnt, GfxEntity *ent);
+void R_SkinSceneDObj(GfxSceneEntity *sceneEnt, GfxEntity *ent);
+static void R_SetEntityOriginBounds(GfxSceneEntity *sceneEnt, const float *origin);
+static void R_ExpandBoneBounds(const vec3_t *bounds, const float *origin,
+    const vec3_t *axis, vec3_t *out);
+static void R_TransformRigidVertex(const DObjSkelMat *bone, const float *normal,
+    const float *binormal, const float *position, const float *tangent, GfxVertex *out);
+static void R_TransformRigidVertexDx7(const DObjSkelMat *bone, const float *position,
+    const float *normal, GfxVertexDx7 *out);
+void R_SkinXSurfaceRigid(const XSurface *surface, const DObjSkelMat *bones,
+    int boneOffset, GfxVertex *out);
+void R_SkinXSurfaceRigidDx7(const XSurface *surface, const DObjSkelMat *bones,
+    int boneOffset, GfxVertexDx7 *out);
+void R_DObjGetSurfMaterials(DObj *obj, char lod, MaterialHandle *matHandleArray);
+void R_DObjReplaceMaterial(DObj *obj, char lod, int surfaceIndex, MaterialHandle material);
+static void R_OptimizeModel(XAssetHeader header, void *data);
 
 // Name unconfirmed: DObjAnimMat to 4x4 skeleton matrix.
 void R_ConvertAnimMatToSkelMat(const DObjAnimMat *in, DObjSkelMat *out)
@@ -244,50 +310,6 @@ void R_ConvertAnimMatToSkelMat(const DObjAnimMat *in, DObjSkelMat *out)
     out->origin[3] = 1.0f;
 }
 
-// PINNED 1001ee70: four transformed rows; only translation adds origin.
-__declspec(noinline) void R_GetRigidTransform(const DObjSkelMat *bone, const float *origin,
-    const vec3_t *axis, float scale, vec3_t *boneAxis)
-{
-    vec3_t scaledAxis[3];
-    VectorScale(axis[0], scale, scaledAxis[0]);
-    VectorScale(axis[1], scale, scaledAxis[1]);
-    VectorScale(axis[2], scale, scaledAxis[2]);
-    boneAxis[0][0] = bone->axis[0][0] * scaledAxis[0][0]
-        + bone->axis[0][1] * scaledAxis[1][0] + bone->axis[0][2] * scaledAxis[2][0];
-    boneAxis[0][1] = bone->axis[0][0] * scaledAxis[0][1]
-        + bone->axis[0][1] * scaledAxis[1][1] + bone->axis[0][2] * scaledAxis[2][1];
-    boneAxis[0][2] = bone->axis[0][0] * scaledAxis[0][2]
-        + bone->axis[0][1] * scaledAxis[1][2] + bone->axis[0][2] * scaledAxis[2][2];
-    boneAxis[1][0] = bone->axis[1][0] * scaledAxis[0][0]
-        + bone->axis[1][1] * scaledAxis[1][0] + bone->axis[1][2] * scaledAxis[2][0];
-    boneAxis[1][1] = bone->axis[1][0] * scaledAxis[0][1]
-        + bone->axis[1][1] * scaledAxis[1][1] + bone->axis[1][2] * scaledAxis[2][1];
-    boneAxis[1][2] = bone->axis[1][0] * scaledAxis[0][2]
-        + bone->axis[1][1] * scaledAxis[1][2] + bone->axis[1][2] * scaledAxis[2][2];
-    boneAxis[2][0] = bone->axis[2][0] * scaledAxis[0][0]
-        + bone->axis[2][1] * scaledAxis[1][0] + bone->axis[2][2] * scaledAxis[2][0];
-    boneAxis[2][1] = bone->axis[2][0] * scaledAxis[0][1]
-        + bone->axis[2][1] * scaledAxis[1][1] + bone->axis[2][2] * scaledAxis[2][1];
-    boneAxis[2][2] = bone->axis[2][0] * scaledAxis[0][2]
-        + bone->axis[2][1] * scaledAxis[1][2] + bone->axis[2][2] * scaledAxis[2][2];
-    boneAxis[3][0] = bone->origin[0] * scaledAxis[0][0]
-        + bone->origin[1] * scaledAxis[1][0] + bone->origin[2] * scaledAxis[2][0] + origin[0];
-    boneAxis[3][1] = bone->origin[0] * scaledAxis[0][1]
-        + bone->origin[1] * scaledAxis[1][1] + bone->origin[2] * scaledAxis[2][1] + origin[1];
-    boneAxis[3][2] = bone->origin[0] * scaledAxis[0][2]
-        + bone->origin[1] * scaledAxis[1][2] + bone->origin[2] * scaledAxis[2][2] + origin[2];
-}
-
-static void *Hunk_AllocXModelPrecache(int size)
-{
-    return ri.Hunk_AllocInternal(size);
-}
-
-static void *Hunk_AllocXModelPrecacheColl(int size)
-{
-    return ri.Hunk_AllocInternal(size);
-}
-
 // PINNED 100030d9/10003128 call this body out of line.
 __declspec(noinline) XModel *R_RegisterModel(const char *name)
 {
@@ -309,18 +331,6 @@ void R_FinishLoadingModels()
     if (!r_optimizeXModels->current.integer)
         return;
     ri.DB_EnumXAssets(1, R_OptimizeModel, 0, 1);
-}
-
-static void R_ReleaseModel(XAssetHeader header, void *data)
-{
-    if (ri.XModelBad(header.model))
-        return;
-    XModelUnoptimize(header.model);
-}
-
-void R_ReleaseAllModels()
-{
-    ri.DB_EnumXAssets(1, R_ReleaseModel, 0, 1);
 }
 
 void R_SetIgnorePrecacheErrors(int ignore)
@@ -713,6 +723,50 @@ static void R_SkinXSurfaceBlendedDx7Sse(const XSurface *surface, const DObjSkelM
         memcpy(out++, &vertex, sizeof(vertex));
         --remaining;
     }
+}
+
+// PINNED 1001ee70: four transformed rows; only translation adds origin.
+__declspec(noinline) void R_GetRigidTransform(const DObjSkelMat *bone, const float *origin,
+    const vec3_t *axis, float scale, vec3_t *boneAxis)
+{
+    vec3_t scaledAxis[3];
+    VectorScale(axis[0], scale, scaledAxis[0]);
+    VectorScale(axis[1], scale, scaledAxis[1]);
+    VectorScale(axis[2], scale, scaledAxis[2]);
+    boneAxis[0][0] = bone->axis[0][0] * scaledAxis[0][0]
+        + bone->axis[0][1] * scaledAxis[1][0] + bone->axis[0][2] * scaledAxis[2][0];
+    boneAxis[0][1] = bone->axis[0][0] * scaledAxis[0][1]
+        + bone->axis[0][1] * scaledAxis[1][1] + bone->axis[0][2] * scaledAxis[2][1];
+    boneAxis[0][2] = bone->axis[0][0] * scaledAxis[0][2]
+        + bone->axis[0][1] * scaledAxis[1][2] + bone->axis[0][2] * scaledAxis[2][2];
+    boneAxis[1][0] = bone->axis[1][0] * scaledAxis[0][0]
+        + bone->axis[1][1] * scaledAxis[1][0] + bone->axis[1][2] * scaledAxis[2][0];
+    boneAxis[1][1] = bone->axis[1][0] * scaledAxis[0][1]
+        + bone->axis[1][1] * scaledAxis[1][1] + bone->axis[1][2] * scaledAxis[2][1];
+    boneAxis[1][2] = bone->axis[1][0] * scaledAxis[0][2]
+        + bone->axis[1][1] * scaledAxis[1][2] + bone->axis[1][2] * scaledAxis[2][2];
+    boneAxis[2][0] = bone->axis[2][0] * scaledAxis[0][0]
+        + bone->axis[2][1] * scaledAxis[1][0] + bone->axis[2][2] * scaledAxis[2][0];
+    boneAxis[2][1] = bone->axis[2][0] * scaledAxis[0][1]
+        + bone->axis[2][1] * scaledAxis[1][1] + bone->axis[2][2] * scaledAxis[2][1];
+    boneAxis[2][2] = bone->axis[2][0] * scaledAxis[0][2]
+        + bone->axis[2][1] * scaledAxis[1][2] + bone->axis[2][2] * scaledAxis[2][2];
+    boneAxis[3][0] = bone->origin[0] * scaledAxis[0][0]
+        + bone->origin[1] * scaledAxis[1][0] + bone->origin[2] * scaledAxis[2][0] + origin[0];
+    boneAxis[3][1] = bone->origin[0] * scaledAxis[0][1]
+        + bone->origin[1] * scaledAxis[1][1] + bone->origin[2] * scaledAxis[2][1] + origin[1];
+    boneAxis[3][2] = bone->origin[0] * scaledAxis[0][2]
+        + bone->origin[1] * scaledAxis[1][2] + bone->origin[2] * scaledAxis[2][2] + origin[2];
+}
+
+static void *Hunk_AllocXModelPrecache(int size)
+{
+    return ri.Hunk_AllocInternal(size);
+}
+
+static void *Hunk_AllocXModelPrecacheColl(int size)
+{
+    return ri.Hunk_AllocInternal(size);
 }
 
 // PINNED 1001f000/37: rigid surface transform wrapper.
@@ -1379,6 +1433,19 @@ void R_DObjReplaceMaterial(DObj *obj, char lod, int surfaceIndex, MaterialHandle
     skins = ri.XModelGetSkins(ri.DObjGetModel(obj, modelIndex));
     if (skins)
         ((MaterialHandle **)skins)[lods[modelIndex]][surfaces[surfaceIndex].subMatIndex] = material;
+}
+
+// Retail order: release helpers sit right after R_DObjReplaceMaterial (10020330, 10020350).
+static void R_ReleaseModel(XAssetHeader header, void *data)
+{
+    if (ri.XModelBad(header.model))
+        return;
+    XModelUnoptimize(header.model);
+}
+
+void R_ReleaseAllModels()
+{
+    ri.DB_EnumXAssets(1, R_ReleaseModel, 0, 1);
 }
 
 static void R_OptimizeModel(XAssetHeader header, void *data)

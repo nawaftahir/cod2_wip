@@ -496,6 +496,8 @@ void Image_GenerateSolidColor(GfxImage *image, byte red, byte green, byte blue, 
 
 
 // PINNED 10010160/786: the axis descriptors are local to the original function.
+struct CubemapVec3 { float v[3]; };
+
 void Image_GenerateCubemapFunction(GfxImage *image, byte *pixels, int resolution,
     int userData, CubemapPixelCallback callback)
 {
@@ -538,7 +540,7 @@ void Image_GenerateCubemapFunction(GfxImage *image, byte *pixels, int resolution
             VectorMA(origin, 0.5f, right, rowBase);
             for (; row < resolution; ++row)
             {
-                VectorCopy(rowBase, direction);
+                *(CubemapVec3 *)direction = *(CubemapVec3 *)rowBase;
                 float rowOffset;
                 *(volatile float *)&rowOffset = row + 0.5f;
                 direction[0] += up[0] * rowOffset;

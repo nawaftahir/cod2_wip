@@ -217,6 +217,68 @@ void R_BoxSurfaces_r(mnode_t *node, const float *mins, const float *maxs,
         R_CellSurfaces(&rgp.world->cells[node->cellIndex], mins, maxs, surfList, surfListSize, surfCount);
 }
 
+// Name SUPPORTED (KisakCOD R_BoxSurfaces, CoD2 signature); PINNED 100157e0/65, no callers in retail.
+int R_BoxSurfaces(const float *mins, const float *maxs, GfxSurface **surfList, int surfListSize)
+{
+    int surfCount;
+
+    ++rg.markCount;
+    surfCount = 0;
+    R_BoxSurfaces_r(rgp.world->nodes, mins, maxs, surfList, surfListSize, &surfCount);
+    return surfCount;
+}
+
+static int R_AddMarkFragment(ClipPoint (*clipPoints)[9], const vec3_t *normals, const float *dists,
+    int maxPoints, GfxWorldVertex *verts, GfxMarkFragment *fragment)
+{
+    int pingPong = 0;
+    int pointCount = 3;
+    int planeIndex;
+    int pointIndex;
+
+    for (planeIndex = 0; planeIndex < 6; ++planeIndex)
+    {
+        pointCount = R_ChopPolyBehindPlane(pointCount, clipPoints[pingPong], clipPoints[!pingPong],
+            normals[planeIndex], dists[planeIndex]);
+        pingPong ^= 1;
+        if (!pointCount)
+            return -1;
+    }
+    if (pointCount > maxPoints)
+        return -1;
+    fragment->pointCount = (byte)pointCount;
+    for (pointIndex = 0; pointIndex < pointCount; ++pointIndex)
+    {
+        VectorCopy(clipPoints[pingPong][pointIndex].xyz, verts[pointIndex].xyz);
+        Vector2Copy(clipPoints[pingPong][pointIndex].lmapCoord, verts[pointIndex].lmapCoord);
+        VectorCopy(clipPoints[pingPong][pointIndex].normal, verts[pointIndex].normal);
+    }
+    return pingPong;
+}
+
+// Name unconfirmed; PINNED 0x10015a20 expands the four corners in both projection directions.
+static void R_GetMarkFragmentBounds(const vec3_t *points, const float *axis, float radius, float *mins, float *maxs)
+{
+    vec3_t scaledAxis;
+    vec3_t xyz;
+    int pointIndex;
+
+    mins[0] = 131072.0f;
+    mins[1] = 131072.0f;
+    mins[2] = 131072.0f;
+    maxs[0] = -131072.0f;
+    maxs[1] = -131072.0f;
+    maxs[2] = -131072.0f;
+    VectorScale(axis, radius, scaledAxis);
+    for (pointIndex = 0; pointIndex < 4; ++pointIndex)
+    {
+        VectorAdd(points[pointIndex], scaledAxis, xyz);
+        AddPointToBounds(xyz, mins, maxs);
+        VectorSubtract(points[pointIndex], scaledAxis, xyz);
+        AddPointToBounds(xyz, mins, maxs);
+    }
+}
+
 int R_MarkFragments(vec3_t *points, const float *origin, vec3_t *axis, float radius,
     int maxPoints, GfxWorldVertex *verts, int maxFragments, GfxMarkFragment *fragments, MaterialHandle markMaterial)
 {
@@ -314,55 +376,4 @@ int R_MarkFragments(vec3_t *points, const float *origin, vec3_t *axis, float rad
         }
     }
     return returnedFragments;
-}
-
-static int R_AddMarkFragment(ClipPoint (*clipPoints)[9], const vec3_t *normals, const float *dists,
-    int maxPoints, GfxWorldVertex *verts, GfxMarkFragment *fragment)
-{
-    int pingPong = 0;
-    int pointCount = 3;
-    int planeIndex;
-    int pointIndex;
-
-    for (planeIndex = 0; planeIndex < 6; ++planeIndex)
-    {
-        pointCount = R_ChopPolyBehindPlane(pointCount, clipPoints[pingPong], clipPoints[!pingPong],
-            normals[planeIndex], dists[planeIndex]);
-        pingPong ^= 1;
-        if (!pointCount)
-            return -1;
-    }
-    if (pointCount > maxPoints)
-        return -1;
-    fragment->pointCount = (byte)pointCount;
-    for (pointIndex = 0; pointIndex < pointCount; ++pointIndex)
-    {
-        VectorCopy(clipPoints[pingPong][pointIndex].xyz, verts[pointIndex].xyz);
-        Vector2Copy(clipPoints[pingPong][pointIndex].lmapCoord, verts[pointIndex].lmapCoord);
-        VectorCopy(clipPoints[pingPong][pointIndex].normal, verts[pointIndex].normal);
-    }
-    return pingPong;
-}
-
-// Name unconfirmed; PINNED 0x10015a20 expands the four corners in both projection directions.
-static void R_GetMarkFragmentBounds(const vec3_t *points, const float *axis, float radius, float *mins, float *maxs)
-{
-    vec3_t scaledAxis;
-    vec3_t xyz;
-    int pointIndex;
-
-    mins[0] = 131072.0f;
-    mins[1] = 131072.0f;
-    mins[2] = 131072.0f;
-    maxs[0] = -131072.0f;
-    maxs[1] = -131072.0f;
-    maxs[2] = -131072.0f;
-    VectorScale(axis, radius, scaledAxis);
-    for (pointIndex = 0; pointIndex < 4; ++pointIndex)
-    {
-        VectorAdd(points[pointIndex], scaledAxis, xyz);
-        AddPointToBounds(xyz, mins, maxs);
-        VectorSubtract(points[pointIndex], scaledAxis, xyz);
-        AddPointToBounds(xyz, mins, maxs);
-    }
 }
