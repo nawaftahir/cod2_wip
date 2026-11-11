@@ -98,7 +98,6 @@ GfxImage *Image_LoadBuiltin(const char *name, int semantic, int imageTrack);
 GfxImage *Image_Load(const char *name, int semantic, int imageTrack);
 void Image_BuildWaterMap(GfxImage *image);
 int VecLargestAxis(const float vector[3]);
-void R_QuantizeCachedColor(const float *color, byte *out);
 
 
 // PINNED 1000f2a0/67; compare individual tag bytes, then version5.
@@ -550,9 +549,7 @@ void Image_GenerateCubemapFunction(GfxImage *image, byte *pixels, int resolution
                 {
                     callback(direction, userData, pixels + pixelIndex * 4);
                     ++pixelIndex;
-                    direction[0] += right[0];
-                    direction[1] += right[1];
-                    direction[2] += right[2];
+                    VectorAdd(direction, right, direction);
                 }
             }
         }
@@ -584,7 +581,7 @@ void Image_GetLightGridWeightsForVector(const float *facePos, int subMap, byte *
     float value;
     Image_TransformLightGridVector(facePos[0], facePos[1], facePos[2], transformed);
     int majorAxis = VecLargestAxis(transformed);
-    float scale = 1.0f / fabsf(transformed[majorAxis]);
+    float scale = 1.0f / I_fabs(transformed[majorAxis]);
     VectorScale(transformed, scale, transformed);
     value = (transformed[0] + 1.0f) * 0.5f;
     smooth[0] = (3.0f - (value + value)) * value * value;
@@ -750,6 +747,18 @@ GfxImage *Image_Load(const char *name, int semantic, int imageTrack)
         return Image_LoadBuiltin(name, semantic, imageTrack);
     GfxImage *image = Image_Alloc(name, 3, semantic, imageTrack);
     return Image_LoadFromFile(image) ? image : 0;
+}
+
+
+// Mac r_image_load_obj.cpp (SUPPORTED); PINNED 10010ae0/68, no category check, no callers.
+void Image_BuildWaterMap(GfxImage *image)
+{
+    if (r_rendererInUse->current.integer == 2)
+        Image_Create2DTexture(image, image->width, image->height, 1,
+            D3DUSAGE_DYNAMIC, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT);
+    else
+        Image_Create2DTexture(image, image->width, image->height, 0,
+            D3DUSAGE_DYNAMIC, D3DFMT_L8, D3DPOOL_DEFAULT);
 }
 
 

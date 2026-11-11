@@ -33,6 +33,16 @@
 #include <float.h>
 #include "universal/com_math.h"
 
+/* PINNED 1000f180/285: one shared copy (first user r_image_load_obj), also called by
+   r_staticmodelcache and rb_backend; stores BGRA. Name unconfirmed. */
+inline void R_QuantizeCachedColor(const float *color, byte *out)
+{
+    out[2] = (byte)I_max(0, I_min(255, I_fround(color[0] * 255.0f)));
+    out[1] = (byte)I_max(0, I_min(255, I_fround(color[1] * 255.0f)));
+    out[0] = (byte)I_max(0, I_min(255, I_fround(color[2] * 255.0f)));
+    out[3] = (byte)I_max(0, I_min(255, I_fround(color[3] * 255.0f)));
+}
+
 /* PINNED PC 1.0: three 0xcd0 matrix frames; debugFont is at 10764558. */
 typedef char rendererCodeMatrixSizeCheck[(sizeof(GfxCodeMatrix) == 0x110) ? 1 : -1];
 typedef char rendererCodeMatricesSizeCheck[(sizeof(GfxCodeMatrices) == 0xcd0) ? 1 : -1];
