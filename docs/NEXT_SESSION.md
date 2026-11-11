@@ -82,3 +82,7 @@ r_image 1000c8e0 (hash & 0x7ff), 1000ccb0, 1000ccf0.
 - Deferred this round: R_AddDrawSurf register convention (3 probes, no source form);
   R_FrustumClipPlanes 400/448; R_WaterFFT (callee FFT in universal/fft.cpp takes data on the stack in
   retail); r_xsurface_optimize merge needs gfx.h / r_local.h types unified first.
+- .rdata lever found: dxguid.lib (one object in sum2004) adds 520 GUIDs, 8,320 B; retail has 4.
+  gfx/w-guid cb2d8bf1 (local) defines only IID_IDirectDraw7: .rdata raw size equals retail, .rdata
+  section-relative +10.7 KB, but whole-file drops to 260,953 until .text grows ~0x26f0 B. Stack it
+  with the .text work; see TRIED.md.
