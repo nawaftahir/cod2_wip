@@ -43,8 +43,28 @@ typedef char smodelCacheIndicesCheck[offsetof(DxGlobals, smodelCacheIndices) == 
 void R_QuantizeCachedColor(const float *color, byte *out);
 static void R_LightCachedVertex(const float *normal, const byte *color,
     const D3DLIGHT9 *lights, int lightCount, byte *out);
-static __forceinline void R_UploadCachedVertices(int baseVert, int size,
-    const void *vertices, int stride);
+/* A macro because a static __forceinline still emits a standalone copy with this compiler. */
+#define R_UploadCachedVertices(baseVert_, size_, vertices_, stride_) \
+    do \
+    { \
+        void *uploadData; \
+        void *uploadVb = (void *)dx.smodelCacheVb; \
+        HRESULT uploadHr = ((CachedBufferLockFn)(*(void ***)uploadVb)[11])( \
+            uploadVb, (baseVert_) * (stride_), (size_), &uploadData, 0x1000); \
+        if (uploadHr < 0) \
+        { \
+            ri.Printf(0, "********** DirectX failed a call to lock a vertex buffer or an index buffer **********\n"); \
+            ri.Printf(0, "********** error information:  %s\n", DXGetErrorDescription9A(uploadHr)); \
+            ri.Sys_DirectXFatalError(); \
+        } \
+        Com_Memcpy(uploadData, (vertices_), (size_)); \
+        do \
+        { \
+            RB_LogPrint("dx.smodelCacheVb->Unlock()\n"); \
+            uploadVb = (void *)dx.smodelCacheVb; \
+            ((CachedBufferUnlockFn)(*(void ***)uploadVb)[12])(uploadVb); \
+        } while (*(volatile int *)&alwaysfails != 0); \
+    } while (0)
 static void R_SkinCachedVertices(const vec3_t *axis, const vec3_t *normalAxis,
     int smodelIndex, int baseVert, int vertCount, const XVertexInfo *src,
     GfxSModelCachedVertex *out);
@@ -256,28 +276,6 @@ static void R_LightCachedVertex(const float *normal, const byte *color,
     R_QuantizeCachedColor(result, out);
 }
 
-static __forceinline void R_UploadCachedVertices(int baseVert, int size,
-    const void *vertices, int stride)
-{
-    void *data;
-    void *vb = (void *)dx.smodelCacheVb;
-    HRESULT hr = ((CachedBufferLockFn)(*(void ***)vb)[11])(
-        vb, baseVert * stride, size, &data, 0x1000);
-    if (hr < 0)
-    {
-        ri.Printf(0, "********** DirectX failed a call to lock a vertex buffer or an index buffer **********\n");
-        ri.Printf(0, "********** error information:  %s\n", DXGetErrorDescription9A(hr));
-        ri.Sys_DirectXFatalError();
-    }
-    Com_Memcpy(data, vertices, size);
-    do
-    {
-        RB_LogPrint("dx.smodelCacheVb->Unlock()\n");
-        vb = (void *)dx.smodelCacheVb;
-        ((CachedBufferUnlockFn)(*(void ***)vb)[12])(vb);
-    } while (*(volatile int *)&alwaysfails != 0);
-}
-
 // PINNED 1002b3c0: DX7 cached vertices have a 24-byte stride.
 static void R_SkinCachedVerticesDx7(const vec3_t *axis, const vec3_t *normalAxis,
     int smodelIndex, int baseVert, int vertCount, const XVertexInfo *src,
@@ -292,8 +290,7 @@ static void R_SkinCachedVerticesDx7(const vec3_t *axis, const vec3_t *normalAxis
         vec3_t normal;
         const XVertexInfo *in = &src[vertexIndex];
         GfxSModelCachedVertexDx7 *vertex = &out[vertexIndex];
-        AxisTransformVector(axis, in->offset[0], in->offset[1], in->offset[2], vertex->xyz);
-        VectorAdd(vertex->xyz, axis[3], vertex->xyz);
+        MatrixTransformVector43(in->offset, (const float (*)[3])axis, vertex->xyz);
         vertex->texCoord[0] = in->texCoordX;
         vertex->texCoord[1] = in->texCoordY;
         AxisTransformVector(normalAxis, in->normal[0], in->normal[1], in->normal[2], normal);
