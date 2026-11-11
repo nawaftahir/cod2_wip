@@ -3293,8 +3293,9 @@
 "name": "?CL_MapLoading@@YAXPBD@Z",
 "obj": "cl_main_mp.obj",
 "size": 408,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x40ca40"
+]
 },
 {
 "name": "?CL_GetSkelTimeStamp@@YAHH@Z",
