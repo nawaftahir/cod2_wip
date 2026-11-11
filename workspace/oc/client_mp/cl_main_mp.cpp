@@ -1077,7 +1077,7 @@ void CL_MapLoading(const char *mapname)
         UI_CloseAll();
 
         ::clc.state = CA_CHALLENGING;
-        ::clc.connectTime = -3000;
+        ::clc.connectTime = -2000;
         ::clc.qport = ::qport;
         NET_StringToAdr(cls.servername, &::clc.serverAddress);
         CL_CheckForResend();
