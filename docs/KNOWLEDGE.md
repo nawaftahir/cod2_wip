@@ -636,6 +636,20 @@ Tooling: tools/ra13.sh TAG, then lab/ra.sh TAG MANGLED (split_all + cpick for on
   later dot products load the cg element with fld (retail fld the gunDir element), forward/halfFov slots +4 (yaw temp takes a slot).
   Gate: RATCHET OK matched-fn 1553677 +0, but same-offset 1972087 (-21): GATE REJECT, reverted. With halfFov local but horiz/vert kept: 456 B.
   Mac-style explicit sums inside the `*x =` expression: 460 B, worse.
+- (w10-os, 11-11, PINNED: probe lab_dl/zp/o.sh + retail objdump) Retail DL_BeginDownload and CL_ConsolePrint_AddLine are NOT in a
+  size-optimised region. The probe under `#pragma optimize("s", on)`, `("t", off)`, both, and `/O2 /Os` (all four byte-identical) does
+  give the two imm-0 stores, but changes the whole function: ebp frame (`push ebp; mov ebp,esp`, 27 [ebp+-] refs), 12 `pop ecx`
+  arg cleanups, 0 `add esp,4`, 15 `push DWORD PTR [mem]`, string constant hoisted to a register. /O2 probe: esp frame, 4 `add esp,4`,
+  0 pop ecx, 0 push mem. Retail DL_BeginDownload: esp frame, 6 `add esp,4`, 0 pop ecx, 0 push mem, 0 ebp frame = /O2 shape.
+  Retail AddLine: esp frame, 0 pop ecx, 0 push mem and two loop-alignment pads (`lea ecx,[ecx+0x0]` at +lines 68/197), which
+  /Os never emits (the "s" probe has 0, /O2 has 1). Pure /Os and /O1 differ again (pop-heavy) and are no closer.
+  Neighbours under our /O2 build (w5-bss cmp13.json): every other dl_main fn is MATCHED (DL_VPrintf, the HTAlert callbacks,
+  DL_CancelDownload, DL_InitDownload right before, DL_BeginDownload(const char*) right after, DL_DownloadLoop, DL_InProgress);
+  in cl_console Con_OneTimeInit (before) and CL_ConsolePrint (after) are MATCHED. So a region could only be the one function, and its
+  own bytes are speed-shaped. The imm-0 stores need another cause; a TU flag/pragma is ruled out for both.
+  In-tree check (lab_dl/it.sh, incremental on the clean 1972125 build): `#pragma optimize("s", on)` / `("", on)` around exactly
+  DL_BeginDownload: 783 -> 678 B, fdiff 143 -> 350 lines, same-offset collapses to 771557 .text. Around exactly AddLine:
+  fdiff 26 -> 608 lines, function ~1 KB smaller. Both reverted, nothing gated.
 
 ## 27. __real pool slot = LTCG compile order of the first user (w8-a, 11-11, PINNED on ra13 F lines vs our pool 0x5c4430-0x5c44b0)
 - Each __real@ slot sits in the compile order of its first-compiled user. __real@408f400000000000 (1000.0): ours first user CL_DemoCompleted at F#73854; retail slot needs it between Pickup_Health and Particle::Die. Fix = delay CL_DemoCompleted's compile, not touch the constant.
