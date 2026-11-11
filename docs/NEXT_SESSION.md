@@ -89,3 +89,5 @@ r_image 1000c8e0 (hash & 0x7ff), 1000ccb0, 1000ccf0.
 - .text shortfall by drift step on the best stack (drift_tu.py): r_image_load_obj -464, r_material
   -384, r_material_load_obj ~-340, r_model ~-1100 (largest), r_scene/r_screenshot ~-300 each.
   r_specularityimage reports -101136: placed far from retail, check its link position first.
+- gfx/w-specpos cb9338d9 (local, off the best stack): r_specularityimage moved to its retail link
+  slot after r_sky_load_obj; 279,531 alone. Stack it with gfx/w-guid once upstream drift is fixed.
