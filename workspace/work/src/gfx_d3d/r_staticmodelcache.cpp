@@ -43,8 +43,28 @@ typedef char smodelCacheIndicesCheck[offsetof(DxGlobals, smodelCacheIndices) == 
 void R_QuantizeCachedColor(const float *color, byte *out);
 static void R_LightCachedVertex(const float *normal, const byte *color,
     const D3DLIGHT9 *lights, int lightCount, byte *out);
-static __forceinline void R_UploadCachedVertices(int baseVert, int size,
-    const void *vertices, int stride);
+/* A macro because a static __forceinline still emits a standalone copy with this compiler. */
+#define R_UploadCachedVertices(baseVert_, size_, vertices_, stride_) \
+    do \
+    { \
+        void *uploadData; \
+        void *uploadVb = (void *)dx.smodelCacheVb; \
+        HRESULT uploadHr = ((CachedBufferLockFn)(*(void ***)uploadVb)[11])( \
+            uploadVb, (baseVert_) * (stride_), (size_), &uploadData, 0x1000); \
+        if (uploadHr < 0) \
+        { \
+            ri.Printf(0, "********** DirectX failed a call to lock a vertex buffer or an index buffer **********\n"); \
+            ri.Printf(0, "********** error information:  %s\n", DXGetErrorDescription9A(uploadHr)); \
+            ri.Sys_DirectXFatalError(); \
+        } \
+        Com_Memcpy(uploadData, (vertices_), (size_)); \
+        do \
+        { \
+            RB_LogPrint("dx.smodelCacheVb->Unlock()\n"); \
+            uploadVb = (void *)dx.smodelCacheVb; \
+            ((CachedBufferUnlockFn)(*(void ***)uploadVb)[12])(uploadVb); \
+        } while (*(volatile int *)&alwaysfails != 0); \
+    } while (0)
 static void R_SkinCachedVertices(const vec3_t *axis, const vec3_t *normalAxis,
     int smodelIndex, int baseVert, int vertCount, const XVertexInfo *src,
     GfxSModelCachedVertex *out);
@@ -63,6 +83,8 @@ void R_UsedCachedStaticModelSurface(GfxStaticModelSurfaceCached *surface);
 void R_CreateSmodelCacheVertexBuffer();
 void SMC_ClearCache();
 void R_FlushStaticModelCache();
+void R_InitStaticModelCache();
+void R_ShutdownStaticModelCache();
 void R_InitStaticModelIndexCache();
 void R_StaticModelCacheStats_f();
 void R_StaticModelCacheFlush_f();
@@ -215,8 +237,7 @@ static void R_SkinCachedVertices(const vec3_t *axis, const vec3_t *normalAxis,
     {
         const XVertexInfo *in = &src[vertexIndex];
         GfxSModelCachedVertex *vertex = &out[vertexIndex];
-        AxisTransformVector(axis, in->offset[0], in->offset[1], in->offset[2], vertex->xyz);
-        VectorAdd(vertex->xyz, axis[3], vertex->xyz);
+        MatrixTransformVector43(in->offset, (const float (*)[3])axis, vertex->xyz);
         AxisTransformVector(normalAxis, in->normal[0], in->normal[1], in->normal[2], vertex->normal);
         vertex->color = *(const GfxColor *)in->color;
         vertex->texCoord[0] = in->texCoordX;
@@ -237,17 +258,16 @@ static void R_LightCachedVertex(const float *normal, const byte *color,
     vec4_t result;
     for (int lightIndex = 0; lightIndex < lightCount; ++lightIndex)
     {
-        const D3DLIGHT9 *light = &lights[lightIndex];
-        lighting[0] += light->Ambient.r;
-        lighting[1] += light->Ambient.g;
-        lighting[2] += light->Ambient.b;
-        float xz = light->Direction.x * normal[0] + light->Direction.z * normal[2];
-        float diffuse = -(xz + light->Direction.y * normal[1]);
+        lighting[0] += lights[lightIndex].Ambient.r;
+        lighting[1] += lights[lightIndex].Ambient.g;
+        lighting[2] += lights[lightIndex].Ambient.b;
+        float xz = lights[lightIndex].Direction.x * normal[0] + lights[lightIndex].Direction.z * normal[2];
+        float diffuse = -(xz + lights[lightIndex].Direction.y * normal[1]);
         if (diffuse > 0.0f)
         {
-            lighting[0] += diffuse * light->Diffuse.r;
-            lighting[1] += diffuse * light->Diffuse.g;
-            lighting[2] += diffuse * light->Diffuse.b;
+            lighting[0] += diffuse * lights[lightIndex].Diffuse.r;
+            lighting[1] += diffuse * lights[lightIndex].Diffuse.g;
+            lighting[2] += diffuse * lights[lightIndex].Diffuse.b;
         }
     }
     result[0] = (float)color[2] * lighting[0] * (1.0f / 255.0f);
@@ -255,28 +275,6 @@ static void R_LightCachedVertex(const float *normal, const byte *color,
     result[2] = (float)color[0] * lighting[2] * (1.0f / 255.0f);
     result[3] = (float)color[3] * (1.0f / 255.0f);
     R_QuantizeCachedColor(result, out);
-}
-
-static __forceinline void R_UploadCachedVertices(int baseVert, int size,
-    const void *vertices, int stride)
-{
-    void *data;
-    void *vb = (void *)dx.smodelCacheVb;
-    HRESULT hr = ((CachedBufferLockFn)(*(void ***)vb)[11])(
-        vb, baseVert * stride, size, &data, 0x1000);
-    if (hr < 0)
-    {
-        ri.Printf(0, "********** DirectX failed a call to lock a vertex buffer or an index buffer **********\n");
-        ri.Printf(0, "********** error information:  %s\n", DXGetErrorDescription9A(hr));
-        ri.Sys_DirectXFatalError();
-    }
-    Com_Memcpy(data, vertices, size);
-    do
-    {
-        RB_LogPrint("dx.smodelCacheVb->Unlock()\n");
-        vb = (void *)dx.smodelCacheVb;
-        ((CachedBufferUnlockFn)(*(void ***)vb)[12])(vb);
-    } while (*(volatile int *)&alwaysfails != 0);
 }
 
 // PINNED 1002b3c0: DX7 cached vertices have a 24-byte stride.
@@ -293,14 +291,26 @@ static void R_SkinCachedVerticesDx7(const vec3_t *axis, const vec3_t *normalAxis
         vec3_t normal;
         const XVertexInfo *in = &src[vertexIndex];
         GfxSModelCachedVertexDx7 *vertex = &out[vertexIndex];
-        AxisTransformVector(axis, in->offset[0], in->offset[1], in->offset[2], vertex->xyz);
-        VectorAdd(vertex->xyz, axis[3], vertex->xyz);
+        MatrixTransformVector43(in->offset, (const float (*)[3])axis, vertex->xyz);
         vertex->texCoord[0] = in->texCoordX;
         vertex->texCoord[1] = in->texCoordY;
         AxisTransformVector(normalAxis, in->normal[0], in->normal[1], in->normal[2], normal);
         R_LightCachedVertex(normal, in->color, lights, lightCount, vertex->color.array);
     }
     R_UploadCachedVertices(baseVert, vertCount * sizeof(*out), out, sizeof(*out));
+}
+
+// Name unconfirmed; PINNED 1002b630/82: uncalled retail copy of the renderer dispatch inlined into the skin command.
+static __forceinline void R_SkinCachedVerticesForRenderer(const vec3_t *axis, const vec3_t *normalAxis,
+    int smodelIndex, int baseVert, int vertCount, const XVertexInfo *src,
+    const Material *material, SkinBuffers *skinBuffers)
+{
+    if (r_rendererInUse->current.integer == 2)
+        R_SkinCachedVerticesDx7(axis, normalAxis, smodelIndex,
+            baseVert, vertCount, src, material, skinBuffers->verts.dx7);
+    else
+        R_SkinCachedVertices(axis, normalAxis, smodelIndex,
+            baseVert, vertCount, src, skinBuffers->verts.dx9);
 }
 
 void R_SkinStaticModelCachedCmd(SkinStaticModelCachedCmd *skinCmd, SkinBuffers *skinBuffers)
@@ -321,12 +331,8 @@ void R_SkinStaticModelCachedCmd(SkinStaticModelCachedCmd *skinCmd, SkinBuffers *
     int vertexCount = surface->vertCount;
     int baseVertex = cached->baseVertIndex;
     int modelIndex = skinCmd->smodelIndex;
-    if (r_rendererInUse->current.integer == 2)
-        R_SkinCachedVerticesDx7(axis, normalAxis, modelIndex,
-            baseVertex, vertexCount, vertices, skinCmd->material, skinBuffers->verts.dx7);
-    else
-        R_SkinCachedVertices(axis, normalAxis, modelIndex,
-            baseVertex, vertexCount, vertices, skinBuffers->verts.dx9);
+    R_SkinCachedVerticesForRenderer(axis, normalAxis, modelIndex,
+        baseVertex, vertexCount, vertices, skinCmd->material, skinBuffers);
 }
 
 // PINNED 1002b790/82: each iteration copies two packed triangles.
@@ -423,6 +429,13 @@ void SMC_ClearCache()
     }
 }
 
+// PINNED 1002bac0/10: uncalled retail copy; r_init inlines the same two calls (name from the Mac client).
+void R_InitStaticModelCache()
+{
+    R_CreateSmodelCacheVertexBuffer();
+    SMC_ClearCache();
+}
+
 // PINNED 100016fd: inlined into R_LoadWorld.
 void R_InitStaticModelIndexCache()
 {
@@ -451,6 +464,18 @@ void R_FlushStaticModelCache()
         ((static_model_node_list_t *)freenode->next)->prev = (intptr_t)freenode;
     }
     SMC_ClearCache();
+}
+
+// PINNED 1002bb60/44: uncalled retail copy; r_init inlines the same flush and release (name from the Mac client).
+void R_ShutdownStaticModelCache()
+{
+    R_FlushStaticModelCache();
+    if (dx.smodelCacheVb)
+        do
+        {
+            ((CachedBufferUnlockFn)(*(void ***)(void *)dx.smodelCacheVb)[2])((void *)dx.smodelCacheVb);
+            dx.smodelCacheVb = 0;
+        } while (alwaysfails);
 }
 
 // PINNED 1002bb90/84: the denominator is the fixed65536-vertex cache capacity.
