@@ -867,9 +867,7 @@ void CL_ConsolePrint(print_msg_type_t type, const char *txt, int duration, int l
     int color;
 
     noPrint = cl_noprint;
-    if (!noPrint)
-        return;
-    if (noPrint->current.enabled)
+    if (!noPrint || noPrint->current.enabled)
         return;
     if (type == PMSG_LOGFILE)
         return;
