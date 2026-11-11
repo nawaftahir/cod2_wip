@@ -267,9 +267,9 @@ void RB_ShowLightVisCachePoints(const GfxViewParms *viewParms,
     int count = r_vc_showlog->current.integer;
     if (count <= 0)
         return;
-    int centerX = I_fround(viewParms->origin[0] + 131072.0f) >> 5;
-    int centerY = I_fround(viewParms->origin[1] + 131072.0f) >> 5;
-    int centerZ = I_fround((viewParms->origin[2] + 131072.0f) - 0.5f) >> 6;
+    int centerX = I_fround(viewParms->origin[0] - -131072.0f) >> 5;
+    int centerY = I_fround(viewParms->origin[1] - -131072.0f) >> 5;
+    int centerZ = I_fround((viewParms->origin[2] - -131072.0f) - 0.5f) >> 6;
     for (int dz = -1; dz < 2; ++dz)
     {
         int z = centerZ + dz;
@@ -297,6 +297,15 @@ void RB_ShowLightVisCachePoints(const GfxViewParms *viewParms,
             }
         }
     }
+}
+
+// Name unconfirmed; PINNED 10035f70/58 B: packs a grid cell into the point sort key.
+// Uncalled retail copy: RB_FindGridPoint carries its own inlined twin.
+void RB_PackGridKey(int x, int y, int z, unsigned int *high, byte *low)
+{
+    *high = (((((unsigned int)x & ~3U) << 11) | (unsigned int)y) & ~3U) << 8
+        | (unsigned int)(z >> 2);
+    *low = (byte)(((((unsigned int)x << 2) | (y & 3)) << 2 | (z & 3)) << 2);
 }
 
 // PINNED 10035fb0: a miss returns the predecessor, including -1.

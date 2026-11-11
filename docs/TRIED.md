@@ -4402,3 +4402,14 @@ no __asm line touched, source_coverage hash refreshed) between RB_GridVisLogInde
 Internal drift span 784 -> 352 B (-5552 -5488 -5456 -5392 -5376 -5200), same-offset 275165 (below 275244: not landable alone).
 Still missing: Show is 62 B short; retail 10035f70 (58 B, packs x/y/z grid key into 2 outputs, LTCG regs, name unconfirmed) has no body;
 RB_GetLightingAtPoint still 776/784. No size probes (time).
+
+# rb_light: 58 B key-pack at 10035f70 (2026-11-11, wrl)
+Retail 10035f70..10035fa9 (edx=x, eax=y, ecx=z, two pointer outs) = RB_FindGridPoint's key packing as its own copy. Added
+RB_PackGridKey (Name unconfirmed, PINNED 10035f70/58 B, layout row added); body 58 B + pad to 64 as retail.
+Probe 1: static __forceinline helper used by RB_FindGridPoint: copy emitted at the end of rb_light.obj (+81632) and
+FindGridPoint lost its checkpoint (call, not inline). Probe 2: extern helper called by FindGridPoint: slot right, FindGridPoint
+still lost the checkpoint. Kept: extern uncalled copy, FindGridPoint keeps its own inline expression (checkpoint retained).
+Drift span still 352 B (-5488 -5424 -5392 -5376 -5328 -5136): the 6 values shifted by +64 for the helper, Show still 62 B short.
+Show probe 1: "origin - -131072.0f" instead of "+ 131072.0f" for the center cell (retail uses fsub): no size change.
+Retail Show also builds the three (x-4096)<<5 / (z-2048)<<6 floats before the x bounds test (hoisted); ours builds them later.
+Same-offset 274181 (bar 275244, not landable alone). rb_sky -8000 -7488 not touched (time).
