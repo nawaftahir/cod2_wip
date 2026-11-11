@@ -118,6 +118,66 @@ def main():
               (image.obj.get(cstring_conv), hex(image.syms.get(cstring_conv, 0))),
               flush=True)
 
+        assert existing_ok, 'Existing ledger regressed or compilation failed'
+        image = v.Linked()
+        names = v.known_names()
+        names.update({int(r['addr'], 16): r['symbol'] for r in rows + observed})
+        md = v.matcher.Cs(v.matcher.CS_ARCH_X86, v.matcher.CS_MODE_32)
+        with Path('build/web-trial-assembly.txt').open('w') as out:
+            for row in rows + observed:
+                status, detail = v.check(image, row['addr'], row['symbol'], names)
+                result = dict(row, status=status, detail=detail, mode=('request' if row in rows else 'observe'))
+                results.append(result)
+                print(row['addr'], row['symbol'], status, detail, flush=True)
+                print('\n', result, file=out)
+                target, _ = v.matcher.carve(row['addr'])
+                bodies = [('retail', int(row['addr'], 16), target)]
+                if row['symbol'] in image.syms:
+                    bodies.append(('candidate', *image.code(row['symbol'])))
+
+                disassembled = {}
+                for label, start, code in bodies:
+                    insns = list(md.disasm(code, start))
+                    disassembled[label] = insns
+                    print(label, hex(start), len(code), file=out)
+                    for ins in insns:
+                        print(hex(ins.address-start), ins.bytes.hex(), ins.mnemonic, ins.op_str, file=out)
+
+                # Diagnostic-only instruction diff. Never affects MATCH/MISMATCH.
+                if 'candidate' in disassembled:
+                    def norm(insns, start):
+                        return ['+0x%x  %-7s %s' % (ins.address-start, ins.mnemonic, ins.op_str)
+                                for ins in insns]
+                    rstart = int(row['addr'], 16)
+                    cstart = image.syms[row['symbol']]
+                    rd = norm(disassembled['retail'], rstart)
+                    cd = norm(disassembled['candidate'], cstart)
+                    diff = list(difflib.unified_diff(rd, cd, fromfile='retail', tofile='candidate', lineterm=''))
+                    result['instruction_diff'] = diff
+                    if diff:
+                        print('instruction diff:', flush=True)
+                        for line in diff[:80]:
+                            print(line, flush=True)
+                        print('instruction diff', file=out)
+                        print('\n'.join(diff), file=out)
+        print('WEB-LTCG address-taken', {
+            hex(a): (a in v.link.address_taken({a}))
+            for a in (0x0040fc60, 0x0040ff80, 0x00410000)
+        }, flush=True)
+        print('WEB-LTCG ledger-includes FindTexture',
+              [s for s in v.link.ledger_includes() if 'CFindTextureDlg' in s],
+              flush=True)
+        name_rows = [r for r in v.read_tsv('ledger/matches.tsv')
+                     if r['source'] == 'src/radiant/NameDlg.cpp']
+        print('WEB-OWNERS NameDlg',
+              [(r['symbol'], image.obj.get(r['symbol']), hex(image.syms.get(r['symbol'], 0)))
+               for r in name_rows],
+              flush=True)
+        cstring_conv = '??B?$CSimpleStringT@D$0A@@ATL@@QBEPBDXZ'
+        print('WEB-OWNER CString conversion',
+              (image.obj.get(cstring_conv), hex(image.syms.get(cstring_conv, 0))),
+              flush=True)
+
         # Diagnostic-only global lifetime probe for the assigned TU.
         # It does not affect verification or game credit.
         locals_e = sorted((s, a) for s, a in image.syms.items() if s.startswith('_$E'))
