@@ -43,6 +43,13 @@ inline void R_QuantizeCachedColor(const float *color, byte *out)
     out[3] = (byte)I_max(0, I_min(255, I_fround(color[3] * 255.0f)));
 }
 
+// CoD2rev com_math.h; PINNED copy 10015190/29 (first user r_marks).
+inline void Vec2Lerp(const vec2_t start, const vec2_t end, float fraction, vec2_t endpos)
+{
+    endpos[0] = start[0] + fraction * (end[0] - start[0]);
+    endpos[1] = start[1] + fraction * (end[1] - start[1]);
+}
+
 /* PINNED PC 1.0: three 0xcd0 matrix frames; debugFont is at 10764558. */
 typedef char rendererCodeMatrixSizeCheck[(sizeof(GfxCodeMatrix) == 0x110) ? 1 : -1];
 typedef char rendererCodeMatricesSizeCheck[(sizeof(GfxCodeMatrices) == 0xcd0) ? 1 : -1];
