@@ -590,6 +590,28 @@ void R_UpdateFrameFog()
         frontEndDataOut->fogSettings.techniqueOffset = FOG_OFFSET_NONE;
 }
 
+// Names unconfirmed; retail 10024280/46, 100242b0/46, 100242e0/32: uncalled copies of
+// pieces of R_SetViewParmsForScene.
+float R_SceneZNear()
+{
+    return I_fmax(0.01f, r_znear->current.value);
+}
+
+void R_SetViewParmsProjection(GfxViewParms *viewParms, float fovX, float fovY, float zNear)
+{
+    InfinitePerspectiveMatrix((float (*)[4])&viewParms->projectionMatrix, fovX, fovY, zNear);
+    viewParms->depthHackNearClip = r_znear_depthhack->current.value;
+}
+
+void R_SetViewParmsViewProjection(GfxViewParms *viewParms)
+{
+    MatrixMultiply44((const float (*)[4])&viewParms->viewMatrix,
+        (const float (*)[4])&viewParms->projectionMatrix,
+        (float (*)[4])&viewParms->viewProjectionMatrix);
+    MatrixInverse44((const float *)&viewParms->viewProjectionMatrix,
+        (float *)&viewParms->inverseViewProjectionMatrix);
+}
+
 // Mac name R_DecomposeSort; retail 10024310/102, uncalled here.
 void R_DecomposeSort(unsigned int sortValue, int *entIndex, const Material **material, int *lmapIndex)
 {
@@ -825,6 +847,12 @@ void R_AddClearCommandsForFrameBuffer(int dynamicShadowType)
     float color[4];
     const float *clearColor = R_GetClearColor(color);
     R_AddCmdClearScreen(flags, clearColor, 1.0f, 0);
+}
+
+// Name unconfirmed; retail 10024a30/9, uncalled copy forwarding to R_AddClearCommandsForFrameBuffer.
+void R_AddClearCommandsForFrameBufferCopy(int dynamicShadowType)
+{
+    R_AddClearCommandsForFrameBuffer(dynamicShadowType);
 }
 
 // PINNED 10024a40/53: the target constant10191488 is white, including alpha.
