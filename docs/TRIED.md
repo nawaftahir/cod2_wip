@@ -4393,3 +4393,13 @@ Probe 1 (kept): Com_Parse -> Com_ParseInternal at the three token reads (ParseRu
 
 - R_SkinSceneDObj (835 vs 766) / R_SkinXModel (906 vs 886): retail calls 10020be0 (R_ProcessFrontendCmdInternal) as a plain cdecl with three stack args (type, &cmd, 0), pushed as `push 0; push &cmd; push type` and, in R_SkinSceneDObj, through one shared call site (rigid path does `push 2; jmp` into it). Ours folds the wrapper and passes type/data in ecx/edx and drops the context (LTCG custom convention), so every return path and the call site differ. Probe 1: call R_ProcessFrontendCmdInternal(type,&cmd,0) directly from r_model with the function made non-static: no change. Probe 2: same plus explicit __cdecl: no change. Reverted. Cause of the retail cdecl is unknown (all three callers pass 0, so the parameter should fold).
 - R_SkinXModel: retail builds an ebp frame with `and esp,-8` (an 8-aligned local); ours uses none. All callees and calls match one for one, so the difference is the frame and the stack slots, not missing calls. Not probed further.
+## 2026-11-12 smodel/utils offset pass (gfx/w-smodel)
+- retail_order --across --write: no-op on r_staticmodel, r_staticmodel_load_obj, r_staticmodelcache, r_surfbounds, r_texturemem; r_utils moved 2 definitions (drift 4 values -> 3).
+- r_staticmodel_load_obj R_AddStaticModelToCell: swapped parameter order to (smodelInst, cellIndex, world) to get retail registers (eax=cellIndex, ecx=inst). No size change; build still pushes ebx/edi and is 3 B bigger. Drift steps (16 B each) at R_FilterStaticModelIntoCells_r (build 274 B vs retail ~268 B, ends 0x1002a35c) unresolved.
+- r_staticmodelcache: R_SkinCachedVertices (PINNED 1002adb0) is 830 B vs retail 784 B max (R_LightCachedVertex at 1002b0c0); not probed yet.
+
+# rb_light/rb_shade/rb_sky/rb_imagefilter/rb_imagetouch retail_order (2026-11-11, w-rblight)
+retail_order --across --write: only rb_shade moved (4 defs); the other four were already in retail order.
+rb_shade drift: -7424 step gone, new -6192 step appears (5 steps, was 5). Same-offset 275244 (bar 275239).
+Remaining drift: rb_light -6160 -6096 -6064 -6000 -5808 -5376; rb_sky -8064 -7552; rb_imagefilter -5056
+(non-/GL emits 538 vs 543, see above); rb_imagetouch -5424. No size probes run (time limit).
