@@ -188,321 +188,6 @@ void Material_ReloadAll();
 bool R_IsMaterialRefractive(const RefractMaterial *material);
 const char *R_GetMaterialName(const MaterialInfoView *handle);
 int R_GetMaterialSubimageCount(const MaterialInfoView *handle);
-
-// PINNED 10016390: this routine copies a literal without incrementing the count.
-const float *Material_RegisterLiteral(const float *literal)
-{
-    int index;
-    for (index = 0; index < materialGlobals.literalCount; ++index)
-    {
-        const float *entry = materialGlobals.literals[index];
-        if (literal[0] == entry[0] && literal[1] == entry[1]
-            && literal[2] == entry[2] && literal[3] == entry[3])
-            return materialGlobals.literals[index];
-    }
-    if (index == 16)
-        R_Error(ERR_DROP, "more than %i shader literals used", 16);
-    float *entry = materialGlobals.literals[index];
-    entry[0] = literal[0];
-    entry[1] = literal[1];
-    entry[2] = literal[2];
-    entry[3] = literal[3];
-    return materialGlobals.literals[index];
-}
-
-// PINNED 10016440: folded hash, case-sensitive identity and a 63-string limit.
-const char *Material_RegisterString(const char *string)
-{
-    int hash = R_HashString(string) & 63;
-    while (materialGlobals.stringIdentTable[hash])
-    {
-        if (!strcmp(materialGlobals.stringIdentTable[hash], string))
-            return materialGlobals.stringIdentTable[hash];
-        hash = (hash + 1) & 63;
-    }
-    ++materialGlobals.stringIdentCount;
-    if (materialGlobals.stringIdentCount == 64)
-        R_Error(ERR_DROP, "More than %i string identifiers used by shaders", 63);
-    int size = strlen(string) + 1;
-    char *copy = (char *)ri.Hunk_AllocInternal(size);
-    memcpy(copy, string, size);
-    materialGlobals.stringIdentTable[hash] = copy;
-    return copy;
-}
-
-static IDirect3DVertexDeclaration9 *Material_BuildVertexDecl(const MaterialStreamRouting *routingData, int streamCount, const stream_source_info_t *sourceTable)
-{
-    D3DVERTEXELEMENT9 declEnd;
-    D3DVERTEXELEMENT9 elemTable[256];
-    IDirect3DVertexDeclaration9 *decl;
-    const stream_source_info_t *sourceInfo;
-    const stream_dest_info_t *destInfo;
-    int elemIndex;
-    int elemIndexInsert;
-
-    decl = 0;
-    declEnd.Stream = 255;
-    declEnd.Offset = 0;
-    declEnd.Type = D3DDECLTYPE_UNUSED;
-    declEnd.Method = 0;
-    declEnd.Usage = 0;
-    declEnd.UsageIndex = 0;
-    elemIndex = 0;
-    while (streamCount)
-    {
-        sourceInfo = &sourceTable[routingData->source];
-        if (sourceInfo->Stream == 255)
-            return 0;
-        destInfo = &s_streamDestInfo[routingData->dest];
-        for (elemIndexInsert = elemIndex; elemIndexInsert > 0 && elemTable[elemIndexInsert - 1].Stream > sourceInfo->Stream; --elemIndexInsert)
-            elemTable[elemIndexInsert] = elemTable[elemIndexInsert - 1];
-        elemTable[elemIndexInsert].Stream = sourceInfo->Stream;
-        elemTable[elemIndexInsert].Offset = sourceInfo->Offset;
-        elemTable[elemIndexInsert].Type = sourceInfo->Type;
-        elemTable[elemIndexInsert].Method = 0;
-        elemTable[elemIndexInsert].Usage = destInfo->Usage;
-        elemTable[elemIndexInsert].UsageIndex = destInfo->UsageIndex;
-        ++elemIndex;
-        ++routingData;
-        --streamCount;
-    }
-    elemTable[elemIndex] = declEnd;
-    do
-    {
-        RB_LogPrint("dx.device->CreateVertexDeclaration( elemTable, &decl )\n");
-        dx.device->CreateVertexDeclaration(elemTable, &decl);
-    } while (alwaysfails);
-    return decl;
-}
-
-// PINNED 10016740: reload the declaration pointer after each device call.
-void Material_BuildVertexDecls(MaterialVertexDeclaration **declaration)
-{
-    for (int type = 0; type < 4; ++type)
-    {
-        IDirect3DVertexDeclaration9 *created = Material_BuildVertexDecl(
-            (*declaration)->routingData, (*declaration)->streamCount, s_streamSourceInfo[type]);
-        (*declaration)->decl[type] = created;
-    }
-}
-
-MaterialVertexDeclaration *Material_AllocVertexDecl(MaterialStreamRouting *routingData, int streamCount, Bool *existing)
-{
-    int hash;
-    int i;
-    int dataSize;
-    MaterialVertexDeclaration *vertexDecl;
-    MaterialStreamRouting *copy;
-
-    dataSize = streamCount * 2;
-    hash = 0;
-    for (i = 0; i < dataSize; ++i)
-        hash += ((const byte *)routingData)[i] * (i + 0x77);
-    hash &= 0x1f;
-    vertexDecl = &materialGlobals.vertexDecls[hash];
-    while (vertexDecl->routingData)
-    {
-        if (vertexDecl->streamCount == streamCount && !memcmp(vertexDecl->routingData, routingData, dataSize))
-        {
-            *existing = 1;
-            return vertexDecl;
-        }
-        hash = (hash + 1) & 0x1f;
-        vertexDecl = &materialGlobals.vertexDecls[hash];
-    }
-    if (materialGlobals.vertexDeclCount == 31)
-        R_Error(ERR_DROP, "More than %i vertex declarations in use", 31);
-    ++materialGlobals.vertexDeclCount;
-    copy = (MaterialStreamRouting *)ri.Hunk_AllocInternal(dataSize);
-    memcpy(copy, routingData, dataSize);
-    memset(vertexDecl, 0, sizeof(*vertexDecl));
-    vertexDecl->routingData = copy;
-    vertexDecl->streamCount = streamCount;
-    *existing = 0;
-    return vertexDecl;
-}
-
-// Slot helpers: retail passes the name in EDI and the slot out-pointer in EBX (LTCG).
-static bool Material_FindTechniqueSlot(const char *name, int *slot)
-{
-    int hash;
-
-    for (hash = R_HashAssetName(name) & 0x3ff; materialGlobals.techniqueTable[hash]; hash = (hash + 1) & 0x3ff)
-    {
-        if (!_stricmp(materialGlobals.techniqueTable[hash]->name, name))
-        {
-            *slot = hash;
-            return true;
-        }
-    }
-    *slot = hash;
-    return false;
-}
-
-MaterialTechnique *Material_FindTechnique(const char *name)
-{
-    int slot;
-
-    if (!Material_FindTechniqueSlot(name, &slot))
-        return 0;
-    return materialGlobals.techniqueTable[slot];
-}
-
-void Material_SetTechnique(const char *name, MaterialTechnique *technique)
-{
-    int slot;
-
-    if (materialGlobals.techniqueCount == 1023)
-        R_Error(ERR_DROP, "More than %i techniques in use", 1023);
-    Material_FindTechniqueSlot(name, &slot);
-    ++materialGlobals.techniqueCount;
-    materialGlobals.techniqueTable[slot] = technique;
-}
-
-static bool Material_FindTechniqueSetSlot(const char *name, int *slot)
-{
-    int hash;
-
-    for (hash = R_HashAssetName(name) & 0x3ff; materialGlobals.techSetTable[hash]; hash = (hash + 1) & 0x3ff)
-    {
-        if (!_stricmp(materialGlobals.techSetTable[hash]->name, name))
-        {
-            *slot = hash;
-            return true;
-        }
-    }
-    *slot = hash;
-    return false;
-}
-
-MaterialTechniqueSet *Material_FindTechniqueSet(const char *name)
-{
-    int slot;
-
-    if (!Material_FindTechniqueSetSlot(name, &slot))
-        return 0;
-    return materialGlobals.techSetTable[slot];
-}
-
-void Material_SetTechniqueSet(const char *name, MaterialTechniqueSet *techniqueSet)
-{
-    int slot;
-
-    Material_FindTechniqueSetSlot(name, &slot);
-    materialGlobals.techSetTable[slot] = techniqueSet;
-}
-
-static bool Material_FindStateMapSlot(const char *name, int *slot)
-{
-    int hash;
-
-    for (hash = R_HashAssetName(name) & 0x1f; materialGlobals.stateMapTable[hash]; hash = (hash + 1) & 0x1f)
-    {
-        if (!strcmp(materialGlobals.stateMapTable[hash]->name, name))
-        {
-            *slot = hash;
-            return true;
-        }
-    }
-    *slot = hash;
-    return false;
-}
-
-MaterialStateMap *Material_FindStateMap(const char *name)
-{
-    int slot;
-
-    if (!Material_FindStateMapSlot(name, &slot))
-        return 0;
-    return materialGlobals.stateMapTable[slot];
-}
-
-void Material_SetStateMap(const char *name, MaterialStateMap *stateMap)
-{
-    int slot;
-
-    Material_FindStateMapSlot(name, &slot);
-    materialGlobals.stateMapTable[slot] = stateMap;
-}
-
-static bool Material_FindShaderSlot(const char *name, int shaderType, int shaderVersion, int *slot)
-{
-    int hash;
-
-    for (hash = (R_HashAssetName(name) + shaderType * 97 + shaderVersion) & 0xff; materialGlobals.shaderTable[hash]; hash = (hash + 1) & 0xff)
-    {
-        if (materialGlobals.shaderTable[hash]->shaderType == shaderType
-            && materialGlobals.shaderTable[hash]->shaderVersion == shaderVersion
-            && !strcmp(materialGlobals.shaderTable[hash]->name, name))
-        {
-            *slot = hash;
-            return true;
-        }
-    }
-    *slot = hash;
-    return false;
-}
-
-MaterialShader *Material_FindShader(const char *name, int shaderType, int shaderVersion)
-{
-    int slot;
-
-    if (!Material_FindShaderSlot(name, shaderType, shaderVersion, &slot))
-        return 0;
-    return materialGlobals.shaderTable[slot];
-}
-
-void Material_SetShader(const char *name, int shaderType, int shaderVersion, MaterialShader *shader)
-{
-    int slot;
-
-    ++materialGlobals.shaderCount;
-    if (materialGlobals.shaderCount == 256)
-        R_Error(ERR_DROP, "More than %i unique pixel and vertex shaders", 255);
-    Material_FindShaderSlot(name, shaderType, shaderVersion, &slot);
-    materialGlobals.shaderTable[slot] = shader;
-}
-
-const char *R_GetMaterialName(const MaterialInfoView *handle)
-{
-    return handle->name;
-}
-
-int R_GetMaterialSubimageCount(const MaterialInfoView *handle)
-{
-    return handle->textureAtlasColumnCount * handle->textureAtlasRowCount;
-}
-
-bool R_IsMaterialRefractive(const RefractMaterial *material)
-{
-    RefractTechnique *technique;
-
-    if (r_rendererInUse->current.integer != 2)
-    {
-        technique = material->techniqueSet->techniques[21];
-        if (technique && (technique->flags & 1))
-            return true;
-    }
-    return false;
-}
-
-void Material_ReloadAll()
-{
-    int vertDeclIndex;
-    int vertDeclType;
-    MaterialVertexDeclaration *vertexDecl;
-
-    vertexDecl = materialGlobals.vertexDecls;
-    for (vertDeclIndex = 0; vertDeclIndex < 32; ++vertDeclIndex)
-    {
-        if (vertexDecl->routingData)
-        {
-            for (vertDeclType = 0; vertDeclType < 4; ++vertDeclType)
-                vertexDecl->decl[vertDeclType] = Material_BuildVertexDecl(vertexDecl->routingData, vertexDecl->streamCount, s_streamSourceInfo[vertDeclType]);
-        }
-        ++vertexDecl;
-    }
-}
 #include "r_permanent.h"
 
 // Mac 1.3 Material (0x44 bytes); offsets PINNED on PC 1.0.
@@ -545,6 +230,7 @@ Material *Material_LoadBinary(const char *name, int imageTrack);
 void Com_Printf(const char *format, ...);
 
 void Image_Reload(GfxImage *image);
+void Image_UpdatePicmip(GfxImage *image);
 void Image_Release(GfxImage *image);
 Bool Image_LoadRaw(GfxImage *image, const char *filename, int imageTrack);
 
@@ -655,33 +341,59 @@ static bool Material_Compare(const Material *left, const Material *right);
 void Material_Sort();
 int Material_LoadFile(const char *filename, int *file);
 
-// PINNED 10005290/5: the registered command is a separate tail call.
-void R_ApplyPicmip_f()
+
+
+// PINNED 10016390: this routine copies a literal without incrementing the count.
+const float *Material_RegisterLiteral(const float *literal)
 {
-    R_ApplyPicmip();
+    int index;
+    for (index = 0; index < materialGlobals.literalCount; ++index)
+    {
+        const float *entry = materialGlobals.literals[index];
+        if (literal[0] == entry[0] && literal[1] == entry[1]
+            && literal[2] == entry[2] && literal[3] == entry[3])
+            return materialGlobals.literals[index];
+    }
+    if (index == 16)
+        R_Error(ERR_DROP, "more than %i shader literals used", 16);
+    float *entry = materialGlobals.literals[index];
+    entry[0] = literal[0];
+    entry[1] = literal[1];
+    entry[2] = literal[2];
+    entry[3] = literal[3];
+    return materialGlobals.literals[index];
 }
 
-// PINNED 10017350/71; helper name unconfirmed.
-static void Material_RegisterBuiltins(const BuiltInMaterialTable *table, int count)
+
+
+// Name unconfirmed; PINNED 10016430/11: only Material_Shutdown calls it (inlined in retail).
+void Material_ClearLiteralTable()
 {
-    for (int index = 0; index < count; ++index)
-    {
-        *table[index].material = Material_Register(table[index].name, 0);
-        if (!*table[index].material)
-            Com_Error(ERR_FATAL, "Could not find material '%s'", table[index].name);
-    }
+    materialGlobals.literalCount = 0;
 }
 
-// PINNED 10017190/88; helper name unconfirmed.
-static void Material_RegisterRawMaterial()
+
+// PINNED 10016440: folded hash, case-sensitive identity and a 63-string limit.
+const char *Material_RegisterString(const char *string)
 {
-    rgp.rawMaterial = Material_Register("$raw", 0);
-    if (!Material_IsDefault(rgp.rawMaterial) && rgp.rawMaterial->textureCount != 1)
+    int hash = R_HashString(string) & 63;
+    while (materialGlobals.stringIdentTable[hash])
     {
-        ri.Printf(3, "material '$raw' doesn't use just one image");
-        rgp.rawMaterial = rgp.defaultMaterial;
+        if (!strcmp(materialGlobals.stringIdentTable[hash], string))
+            return materialGlobals.stringIdentTable[hash];
+        hash = (hash + 1) & 63;
     }
+    ++materialGlobals.stringIdentCount;
+    if (materialGlobals.stringIdentCount == 64)
+        R_Error(ERR_DROP, "More than %i string identifiers used by shaders", 63);
+    int size = strlen(string) + 1;
+    char *copy = (char *)ri.Hunk_AllocInternal(size);
+    memcpy(copy, string, size);
+    materialGlobals.stringIdentTable[hash] = copy;
+    return copy;
 }
+
+
 
 // Names unconfirmed: the four table clears also exist inlined in Material_Shutdown.
 void Material_ClearStringTable()
@@ -695,27 +407,124 @@ void Material_ClearStringTable()
     }
 }
 
-void Material_ClearTechniqueTable()
-{
-    unsigned int index;
 
-    for (index = 0; index < 1024; ++index)
+
+// Name unconfirmed; PINNED 10016560/39, used by the technique, technique-set and material hash lookups (inlined in retail).
+int Material_HashName1024(const char *name)
+{
+    return R_HashAssetName(name) & 0x3ff;
+}
+
+
+// Name unconfirmed; PINNED 10016590/35, used by Material_AllocVertexDecl (inlined in retail).
+int Material_HashStreamRouting(const MaterialStreamRouting *routingData, int streamCount)
+{
+    int hash;
+    int i;
+    int dataSize;
+
+    dataSize = streamCount * 2;
+    hash = 0;
+    for (i = 0; i < dataSize; ++i)
+        hash += ((const byte *)routingData)[i] * (i + 0x77);
+    return hash & 0x1f;
+}
+
+
+static IDirect3DVertexDeclaration9 *Material_BuildVertexDecl(const MaterialStreamRouting *routingData, int streamCount, const stream_source_info_t *sourceTable)
+{
+    D3DVERTEXELEMENT9 declEnd;
+    D3DVERTEXELEMENT9 elemTable[256];
+    IDirect3DVertexDeclaration9 *decl;
+    const stream_source_info_t *sourceInfo;
+    const stream_dest_info_t *destInfo;
+    int elemIndex;
+    int elemIndexInsert;
+
+    decl = 0;
+    declEnd.Stream = 255;
+    declEnd.Offset = 0;
+    declEnd.Type = D3DDECLTYPE_UNUSED;
+    declEnd.Method = 0;
+    declEnd.Usage = 0;
+    declEnd.UsageIndex = 0;
+    elemIndex = 0;
+    while (streamCount)
     {
-        if (materialGlobals.techniqueTable[index])
-            materialGlobals.techniqueTable[index] = 0;
+        sourceInfo = &sourceTable[routingData->source];
+        if (sourceInfo->Stream == 255)
+            return 0;
+        destInfo = &s_streamDestInfo[routingData->dest];
+        for (elemIndexInsert = elemIndex; elemIndexInsert > 0 && elemTable[elemIndexInsert - 1].Stream > sourceInfo->Stream; --elemIndexInsert)
+            elemTable[elemIndexInsert] = elemTable[elemIndexInsert - 1];
+        elemTable[elemIndexInsert].Stream = sourceInfo->Stream;
+        elemTable[elemIndexInsert].Offset = sourceInfo->Offset;
+        elemTable[elemIndexInsert].Type = sourceInfo->Type;
+        elemTable[elemIndexInsert].Method = 0;
+        elemTable[elemIndexInsert].Usage = destInfo->Usage;
+        elemTable[elemIndexInsert].UsageIndex = destInfo->UsageIndex;
+        ++elemIndex;
+        ++routingData;
+        --streamCount;
+    }
+    elemTable[elemIndex] = declEnd;
+    do
+    {
+        RB_LogPrint("dx.device->CreateVertexDeclaration( elemTable, &decl )\n");
+        dx.device->CreateVertexDeclaration(elemTable, &decl);
+    } while (alwaysfails);
+    return decl;
+}
+
+
+
+// PINNED 10016740: reload the declaration pointer after each device call.
+void Material_BuildVertexDecls(MaterialVertexDeclaration **declaration)
+{
+    for (int type = 0; type < 4; ++type)
+    {
+        IDirect3DVertexDeclaration9 *created = Material_BuildVertexDecl(
+            (*declaration)->routingData, (*declaration)->streamCount, s_streamSourceInfo[type]);
+        (*declaration)->decl[type] = created;
     }
 }
 
-void Material_ClearTechniqueSetTable()
-{
-    unsigned int index;
 
-    for (index = 0; index < 1024; ++index)
+
+MaterialVertexDeclaration *Material_AllocVertexDecl(MaterialStreamRouting *routingData, int streamCount, Bool *existing)
+{
+    int hash;
+    int i;
+    int dataSize;
+    MaterialVertexDeclaration *vertexDecl;
+    MaterialStreamRouting *copy;
+
+    dataSize = streamCount * 2;
+    hash = Material_HashStreamRouting(routingData, streamCount);
+    vertexDecl = &materialGlobals.vertexDecls[hash];
+    while (vertexDecl->routingData)
     {
-        if (materialGlobals.techSetTable[index])
-            materialGlobals.techSetTable[index] = 0;
+        if (vertexDecl->streamCount == streamCount && !memcmp(vertexDecl->routingData, routingData, dataSize))
+        {
+            *existing = 1;
+            return vertexDecl;
+        }
+        hash = (hash + 1) & 0x1f;
+        vertexDecl = &materialGlobals.vertexDecls[hash];
     }
+    if (materialGlobals.vertexDeclCount == 31)
+        R_Error(ERR_DROP, "More than %i vertex declarations in use", 31);
+    ++materialGlobals.vertexDeclCount;
+    copy = (MaterialStreamRouting *)ri.Hunk_AllocInternal(dataSize);
+    memcpy(copy, routingData, dataSize);
+    memset(vertexDecl, 0, sizeof(*vertexDecl));
+    vertexDecl->routingData = copy;
+    vertexDecl->streamCount = streamCount;
+    *existing = 0;
+    return vertexDecl;
 }
+
+
 
 // PINNED 10016890: technique-set subtraction is in140-byte elements.
 static bool Material_Compare(const Material *left, const Material *right)
@@ -730,6 +539,173 @@ static bool Material_Compare(const Material *left, const Material *right)
     return false;
 }
 
+
+
+// Slot helpers: retail passes the name in EDI and the slot out-pointer in EBX (LTCG).
+static bool Material_FindTechniqueSlot(const char *name, int *slot)
+{
+    int hash;
+
+    for (hash = Material_HashName1024(name); materialGlobals.techniqueTable[hash]; hash = (hash + 1) & 0x3ff)
+    {
+        if (!_stricmp(materialGlobals.techniqueTable[hash]->name, name))
+        {
+            *slot = hash;
+            return true;
+        }
+    }
+    *slot = hash;
+    return false;
+}
+
+
+
+MaterialTechnique *Material_FindTechnique(const char *name)
+{
+    int slot;
+
+    if (!Material_FindTechniqueSlot(name, &slot))
+        return 0;
+    return materialGlobals.techniqueTable[slot];
+}
+
+
+
+void Material_SetTechnique(const char *name, MaterialTechnique *technique)
+{
+    int slot;
+
+    if (materialGlobals.techniqueCount == 1023)
+        R_Error(ERR_DROP, "More than %i techniques in use", 1023);
+    Material_FindTechniqueSlot(name, &slot);
+    ++materialGlobals.techniqueCount;
+    materialGlobals.techniqueTable[slot] = technique;
+}
+
+
+
+// Name unconfirmed; PINNED 100169b0/1: an empty function; retail has an uncalled copy.
+void Material_ReleaseTechniqueTable()
+{
+}
+
+
+void Material_ClearTechniqueTable()
+{
+    unsigned int index;
+
+    for (index = 0; index < 1024; ++index)
+    {
+        if (materialGlobals.techniqueTable[index])
+            materialGlobals.techniqueTable[index] = 0;
+    }
+}
+
+
+
+static bool Material_FindTechniqueSetSlot(const char *name, int *slot)
+{
+    int hash;
+
+    for (hash = Material_HashName1024(name); materialGlobals.techSetTable[hash]; hash = (hash + 1) & 0x3ff)
+    {
+        if (!_stricmp(materialGlobals.techSetTable[hash]->name, name))
+        {
+            *slot = hash;
+            return true;
+        }
+    }
+    *slot = hash;
+    return false;
+}
+
+
+
+MaterialTechniqueSet *Material_FindTechniqueSet(const char *name)
+{
+    int slot;
+
+    if (!Material_FindTechniqueSetSlot(name, &slot))
+        return 0;
+    return materialGlobals.techSetTable[slot];
+}
+
+
+
+void Material_SetTechniqueSet(const char *name, MaterialTechniqueSet *techniqueSet)
+{
+    int slot;
+
+    Material_FindTechniqueSetSlot(name, &slot);
+    materialGlobals.techSetTable[slot] = techniqueSet;
+}
+
+
+
+// Name unconfirmed; PINNED 10016a80/1: an empty function; retail has an uncalled copy.
+void Material_ReleaseTechniqueSetTable()
+{
+}
+
+
+void Material_ClearTechniqueSetTable()
+{
+    unsigned int index;
+
+    for (index = 0; index < 1024; ++index)
+    {
+        if (materialGlobals.techSetTable[index])
+            materialGlobals.techSetTable[index] = 0;
+    }
+}
+
+
+
+static bool Material_FindStateMapSlot(const char *name, int *slot)
+{
+    int hash;
+
+    for (hash = R_HashAssetName(name) & 0x1f; materialGlobals.stateMapTable[hash]; hash = (hash + 1) & 0x1f)
+    {
+        if (!strcmp(materialGlobals.stateMapTable[hash]->name, name))
+        {
+            *slot = hash;
+            return true;
+        }
+    }
+    *slot = hash;
+    return false;
+}
+
+
+
+MaterialStateMap *Material_FindStateMap(const char *name)
+{
+    int slot;
+
+    if (!Material_FindStateMapSlot(name, &slot))
+        return 0;
+    return materialGlobals.stateMapTable[slot];
+}
+
+
+
+void Material_SetStateMap(const char *name, MaterialStateMap *stateMap)
+{
+    int slot;
+
+    Material_FindStateMapSlot(name, &slot);
+    materialGlobals.stateMapTable[slot] = stateMap;
+}
+
+
+
+// Name unconfirmed; PINNED 10016ba0/1: an empty function; retail has an uncalled copy.
+void Material_ReleaseStateMapTable()
+{
+}
+
+
 void Material_ClearStateMapTable()
 {
     unsigned int index;
@@ -741,6 +717,83 @@ void Material_ClearStateMapTable()
     }
 }
 
+
+
+// Name unconfirmed; PINNED 10016bd0/49, used by the shader table lookups (inlined in retail).
+int Material_HashShaderName(const char *name, int shaderType, int shaderVersion)
+{
+    return R_HashAssetName(name) + shaderType * 97 + shaderVersion;
+}
+
+
+static bool Material_FindShaderSlot(const char *name, int shaderType, int shaderVersion, int *slot)
+{
+    int hash;
+
+    for (hash = Material_HashShaderName(name, shaderType, shaderVersion) & 0xff; materialGlobals.shaderTable[hash]; hash = (hash + 1) & 0xff)
+    {
+        if (materialGlobals.shaderTable[hash]->shaderType == shaderType
+            && materialGlobals.shaderTable[hash]->shaderVersion == shaderVersion
+            && !strcmp(materialGlobals.shaderTable[hash]->name, name))
+        {
+            *slot = hash;
+            return true;
+        }
+    }
+    *slot = hash;
+    return false;
+}
+
+
+
+MaterialShader *Material_FindShader(const char *name, int shaderType, int shaderVersion)
+{
+    int slot;
+
+    if (!Material_FindShaderSlot(name, shaderType, shaderVersion, &slot))
+        return 0;
+    return materialGlobals.shaderTable[slot];
+}
+
+
+
+void Material_SetShader(const char *name, int shaderType, int shaderVersion, MaterialShader *shader)
+{
+    int slot;
+
+    ++materialGlobals.shaderCount;
+    if (materialGlobals.shaderCount == 256)
+        R_Error(ERR_DROP, "More than %i unique pixel and vertex shaders", 255);
+    Material_FindShaderSlot(name, shaderType, shaderVersion, &slot);
+    materialGlobals.shaderTable[slot] = shader;
+}
+
+
+
+// Name unconfirmed; PINNED 10016d40/23, loop body of Material_ReleaseShaders (inlined in retail).
+void Material_ReleaseShader(MaterialShader *shader)
+{
+    if (!shader->shaderType)
+        shader->u.vertexShader->Release();
+    else
+        shader->u.pixelShader->Release();
+}
+
+
+// Name unconfirmed; PINNED 10016d60/69, loop body of Material_ReloadShaders (inlined in retail).
+void Material_ReloadShader(MaterialShader *shader)
+{
+    HRESULT hr;
+
+    if (!shader->shaderType)
+        hr = dx.device->CreateVertexShader(shader->program, &shader->u.vertexShader);
+    else
+        hr = dx.device->CreatePixelShader(shader->program, &shader->u.pixelShader);
+    if (hr < 0)
+        ri.Error(ERR_FATAL, "Couldn't reload shader '%s' when recovering from a lost device: %s (0x%08x)\n", shader->name, DXGetErrorDescription9(hr), hr);
+}
+
+
 // Name unconfirmed (Mac 1.3 inlines this into Material_ReleaseAll).
 void Material_ReleaseShaders()
 {
@@ -751,36 +804,35 @@ void Material_ReleaseShaders()
     {
         shader = materialGlobals.shaderTable[shaderIndex];
         if (shader)
-        {
-            if (!shader->shaderType)
-                shader->u.vertexShader->Release();
-            else
-                shader->u.pixelShader->Release();
-        }
+            Material_ReleaseShader(shader);
     }
 }
+
+
 
 // Name unconfirmed (Mac 1.3 inlines this into Material_ReloadAll).
 void Material_ReloadShaders()
 {
     unsigned int shaderIndex;
     MaterialShader *shader;
-    HRESULT hr;
 
     for (shaderIndex = 0; shaderIndex < 256; ++shaderIndex)
     {
         shader = materialGlobals.shaderTable[shaderIndex];
         if (shader)
-        {
-            if (!shader->shaderType)
-                hr = dx.device->CreateVertexShader(shader->program, &shader->u.vertexShader);
-            else
-                hr = dx.device->CreatePixelShader(shader->program, &shader->u.pixelShader);
-            if (hr < 0)
-                ri.Error(ERR_FATAL, "Couldn't reload shader '%s' when recovering from a lost device: %s (0x%08x)\n", shader->name, DXGetErrorDescription9(hr), hr);
-        }
+            Material_ReloadShader(shader);
     }
 }
+
+
+
+// Name unconfirmed; PINNED 10016e50/23, used by Material_Shutdown (inlined in retail).
+void Material_ClearShaderTable()
+{
+    Material_ReleaseShaders();
+    memset(materialGlobals.shaderTable, 0, sizeof(materialGlobals.shaderTable));
+}
+
 
 // PINNED 10016e70: sort the existing table, then publish every sorted index.
 void Material_Sort()
@@ -789,6 +841,24 @@ void Material_Sort()
     for (int index = 0; index < rgp.materialCount; ++index)
         rgp.sortedMaterials[index]->sortedIndex = (unsigned short)index;
 }
+
+
+
+// Keep the accepted outlined body; historical name unconfirmed (EAX material, CX slot).
+__declspec(noinline) static void Material_AddToTable(Material *material, unsigned short hashIndex)
+{
+    Material **slot = &R_GetMaterialHashTable()[hashIndex];
+
+    rgp.materialLoaded = 1;
+    material->hashIndex = hashIndex;
+    material->sortedIndex = (unsigned short)rgp.materialCount;
+    rgp.sortedMaterials[rgp.materialCount] = material;
+    *slot = material;
+    if (++rgp.materialCount == 1024)
+        R_Error(ERR_FATAL, "Too many unique materials (%i or more)\n", 1024);
+}
+
+
 
 Material *Material_Duplicate(const Material *mtlCopy, const char *name)
 {
@@ -818,6 +888,18 @@ Material *Material_Duplicate(const Material *mtlCopy, const char *name)
 }
 
 
+
+
+// Name unconfirmed; PINNED 10016fe0/51, failure path of Material_Register (inlined in retail).
+Material *Material_DuplicateDefault(const char *name)
+{
+    if (!rgp.defaultMaterial)
+        R_Error(ERR_FATAL, "couldn't load material '$default'");
+    Com_Printf("^3WARNING: Could not find material '%s'\n", name);
+    return Material_Duplicate(rgp.defaultMaterial, name);
+}
+
+
 Bool Material_IsDefault(const Material *material)
 {
     if (material->textures != rgp.defaultMaterial->textures)
@@ -830,12 +912,14 @@ Bool Material_IsDefault(const Material *material)
 }
 
 
+
+
 // Retail passes the name in EBX (LTCG).
 static void Material_FindHashSlot(const char *name, unsigned short *hashIndex, bool *found)
 {
     Material **hashTable = R_GetMaterialHashTable();
 
-    *hashIndex = R_HashAssetName(name) & 0x3ff;
+    *hashIndex = Material_HashName1024(name);
     while (hashTable[*hashIndex])
     {
         if (!strcmp(hashTable[*hashIndex]->name, name))
@@ -848,19 +932,7 @@ static void Material_FindHashSlot(const char *name, unsigned short *hashIndex, b
     *found = false;
 }
 
-// Keep the accepted outlined body; historical name unconfirmed (EAX material, CX slot).
-__declspec(noinline) static void Material_AddToTable(Material *material, unsigned short hashIndex)
-{
-    Material **slot = &R_GetMaterialHashTable()[hashIndex];
 
-    rgp.materialLoaded = 1;
-    material->hashIndex = hashIndex;
-    material->sortedIndex = (unsigned short)rgp.materialCount;
-    rgp.sortedMaterials[rgp.materialCount] = material;
-    *slot = material;
-    if (++rgp.materialCount == 1024)
-        R_Error(ERR_FATAL, "Too many unique materials (%i or more)\n", 1024);
-}
 
 // PINNED 10017100/144: failed loads duplicate the default under the requested name.
 Material *Material_Register(const char *name, int imageTrack)
@@ -868,19 +940,31 @@ Material *Material_Register(const char *name, int imageTrack)
     unsigned short hashIndex;
     bool found;
     Material_FindHashSlot(name, &hashIndex, &found);
-    if (found)
-        return R_GetMaterialHashTable()[hashIndex];
-    Material *material = Material_LoadBinary(name, imageTrack);
-    if (!material)
+    if (!found)
     {
-        if (!rgp.defaultMaterial)
-            R_Error(ERR_FATAL, "couldn't load material '$default'");
-        Com_Printf("^3WARNING: Could not find material '%s'\n", name);
-        return Material_Duplicate(rgp.defaultMaterial, name);
+        Material *material = Material_LoadBinary(name, imageTrack);
+        if (!material)
+            return Material_DuplicateDefault(name);
+        Material_AddToTable(material, hashIndex);
+        return material;
     }
-    Material_AddToTable(material, hashIndex);
-    return material;
+    return R_GetMaterialHashTable()[hashIndex];
 }
+
+
+
+// PINNED 10017190/88; helper name unconfirmed.
+static void Material_RegisterRawMaterial()
+{
+    rgp.rawMaterial = Material_Register("$raw", 0);
+    if (!Material_IsDefault(rgp.rawMaterial) && rgp.rawMaterial->textureCount != 1)
+    {
+        ri.Printf(3, "material '$raw' doesn't use just one image");
+        rgp.rawMaterial = rgp.defaultMaterial;
+    }
+}
+
+
 
 // PINNED 100171f0/81: a default raw material never releases or loads an image.
 Material *Material_RegisterRawImage(const char *name, int imageTrack)
@@ -893,13 +977,7 @@ Material *Material_RegisterRawImage(const char *name, int imageTrack)
     return rgp.rawMaterial;
 }
 
-// PINNED 10017290/29: API59 retains its unused middle argument.
-Material *R_RegisterMaterial(const char *name, int baseImageFlags, int imageTrack)
-{
-    if (!*name)
-        return rgp.defaultMaterial;
-    return Material_Register(name, imageTrack);
-}
+
 
 // Name unconfirmed.
 Material *Material_FindRegistered(const char *name)
@@ -913,6 +991,18 @@ Material *Material_FindRegistered(const char *name)
     return R_GetMaterialHashTable()[hashIndex];
 }
 
+
+
+// PINNED 10017290/29: API59 retains its unused middle argument.
+Material *R_RegisterMaterial(const char *name, int baseImageFlags, int imageTrack)
+{
+    if (!*name)
+        return rgp.defaultMaterial;
+    return Material_Register(name, imageTrack);
+}
+
+
+
 // PINNED 100172b0/30: empty names return the live default material.
 Material *R_RegisterRawImage(const char *name, int baseImageFlags, int imageTrack)
 {
@@ -921,49 +1011,73 @@ Material *R_RegisterRawImage(const char *name, int baseImageFlags, int imageTrac
     return Material_RegisterRawImage(name, imageTrack);
 }
 
-// PINNED 10017640/195: visit each non-water image once, in descending address order.
-void Material_ReloadTextures(Material *material)
+
+
+// Name unconfirmed; PINNED 100172d0/33, retail has an uncalled copy.
+void Material_ForEachRegistered(void (*callback)(Material *, int), int arg)
 {
-    unsigned int count = material->textureCount;
-    GfxImage *previous = 0;
-    for (;;)
+    for (unsigned int slot = 0; slot < 1024; ++slot)
     {
-        GfxImage *best = 0;
-        for (unsigned int index = 0; index != count; ++index)
-        {
-            MaterialTextureDef *texture = &material->textures[index];
-            if (texture->semantic == 5)
-                continue;
-            GfxImage *image = texture->u.image;
-            if ((unsigned int)image > (unsigned int)best &&
-                (!previous || (unsigned int)image < (unsigned int)previous))
-                best = image;
-        }
-        previous = best;
-        if (!best)
-            return;
-        Image_Reload(best);
+        Material *material = R_GetMaterialHashTable()[slot];
+        if (material)
+            callback(material, arg);
     }
 }
 
-// PINNED 100178b0/137: use the loaded material; never load a new one for this command.
-void Material_ReloadTextures_f()
+
+const char *R_GetMaterialName(const MaterialInfoView *handle)
 {
-    if (ri.Cmd_Argc() != 2)
-    {
-        ri.Printf(0, "Usage: reloadmaterialtextures <materialname>\n");
-        return;
-    }
-    const char *name = ri.Cmd_Argv(1);
-    Material *material = Material_FindRegistered(name);
-    if (!material)
-    {
-        ri.Printf(0, va("ReloadMaterialTextures: Material '%s' is not currently loaded.\n", name));
-        return;
-    }
-    RB_BindWhiteImages();
-    Material_ReloadTextures(material);
+    return handle->name;
 }
+
+
+
+int R_GetMaterialSubimageCount(const MaterialInfoView *handle)
+{
+    return handle->textureAtlasColumnCount * handle->textureAtlasRowCount;
+}
+
+
+
+bool R_IsMaterialRefractive(const RefractMaterial *material)
+{
+    RefractTechnique *technique;
+
+    if (r_rendererInUse->current.integer != 2)
+    {
+        technique = material->techniqueSet->techniques[21];
+        if (technique && (technique->flags & 1))
+            return true;
+    }
+    return false;
+}
+
+
+
+// PINNED 10017350/71; helper name unconfirmed.
+static void Material_RegisterBuiltins(const BuiltInMaterialTable *table, int count)
+{
+    for (int index = 0; index < count; ++index)
+    {
+        *table[index].material = Material_Register(table[index].name, 0);
+        if (!*table[index].material)
+            Com_Error(ERR_FATAL, "Could not find material '%s'", table[index].name);
+    }
+}
+
+
+
+// Name unconfirmed; PINNED 100173a0/59, tail of Material_Init (inlined in retail; retail also has an uncalled copy).
+void Material_InitRawMaterial()
+{
+    Material_RegisterRawMaterial();
+    if (!Material_IsDefault(rgp.rawMaterial))
+    {
+        rgp.rawTexdef.name = rgp.rawMaterial->textures[0].name;
+        rgp.rawMaterial->textures = &rgp.rawTexdef;
+    }
+}
+
 
 // PINNED 100173e0/124: share the raw image binding without overwriting its sampler.
 void Material_Init()
@@ -973,13 +1087,16 @@ void Material_Init()
     Material_RegisterBuiltins(s_builtInMaterials, sizeof(s_builtInMaterials) / sizeof(s_builtInMaterials[0]));
     if (r_testFillEnable->current.enabled)
         Material_RegisterBuiltins(s_fillTestMaterials, sizeof(s_fillTestMaterials) / sizeof(s_fillTestMaterials[0]));
-    Material_RegisterRawMaterial();
-    if (!Material_IsDefault(rgp.rawMaterial))
-    {
-        rgp.rawTexdef.name = rgp.rawMaterial->textures[0].name;
-        rgp.rawMaterial->textures = &rgp.rawTexdef;
-    }
+    Material_InitRawMaterial();
 }
+
+
+// Name unconfirmed; PINNED 10017460/1: an empty function; retail has an uncalled copy.
+void Material_NoOp17460()
+{
+}
+
+
 
 // Name unconfirmed.
 void Material_ReleaseVertexDecls()
@@ -1010,6 +1127,28 @@ void Material_ReleaseVertexDecls()
     }
 }
 
+
+
+void Material_ReloadAll()
+{
+    int vertDeclIndex;
+    int vertDeclType;
+    MaterialVertexDeclaration *vertexDecl;
+
+    vertexDecl = materialGlobals.vertexDecls;
+    for (vertDeclIndex = 0; vertDeclIndex < 32; ++vertDeclIndex)
+    {
+        if (vertexDecl->routingData)
+        {
+            for (vertDeclType = 0; vertDeclType < 4; ++vertDeclType)
+                vertexDecl->decl[vertDeclType] = Material_BuildVertexDecl(vertexDecl->routingData, vertexDecl->streamCount, s_streamSourceInfo[vertDeclType]);
+        }
+        ++vertexDecl;
+    }
+}
+
+
+
 void Material_ReleaseAll()
 {
     Material_ReleaseVertexDecls();
@@ -1017,25 +1156,88 @@ void Material_ReleaseAll()
     materialGlobals.vertexDeclCount = 0;
 }
 
+
+
 void Material_Shutdown()
 {
     Material_ReleaseVertexDecls();
     memset(materialGlobals.vertexDecls, 0, sizeof(materialGlobals.vertexDecls));
     materialGlobals.vertexDeclCount = 0;
-    Material_ReleaseShaders();
-    memset(materialGlobals.shaderTable, 0, sizeof(materialGlobals.shaderTable));
-    materialGlobals.literalCount = 0;
+    Material_ClearShaderTable();
+    Material_ClearLiteralTable();
     Material_ClearStringTable();
     Material_ClearStateMapTable();
     Material_ClearTechniqueTable();
     Material_ClearTechniqueSetTable();
 }
 
+
+
+// Name unconfirmed; PINNED 100175f0/39, shutdown tail used by R_Shutdown (inlined in retail; retail also has an uncalled copy).
+void Material_ClearAll()
+{
+    Material_Shutdown();
+    memset(&materialGlobals, 0, sizeof(materialGlobals));
+    memset(R_GetMaterialHashTable(), 0, 1024 * sizeof(Material *));
+    rgp.materialCount = 0;
+}
+
+
+// Name unconfirmed; PINNED 10017620/10, used by R_RecoverLostDevice (inlined in retail).
+void Material_ReleaseDeviceObjects()
+{
+    Material_ReleaseVertexDecls();
+    Material_ReleaseShaders();
+}
+
+
+// Name unconfirmed; PINNED 10017630/10, used by R_RecoverLostDevice (inlined in retail).
+void Material_ReloadDeviceObjects()
+{
+    Material_ReloadAll();
+    Material_ReloadShaders();
+}
+
+
+// PINNED 10017640/195: visit each non-water image once, in descending address order.
+void Material_ReloadTextures(Material *material)
+{
+    unsigned int count = material->textureCount;
+    GfxImage *previous = 0;
+    for (;;)
+    {
+        GfxImage *best = 0;
+        for (unsigned int index = 0; index != count; ++index)
+        {
+            MaterialTextureDef *texture = &material->textures[index];
+            if (texture->semantic == 5)
+                continue;
+            GfxImage *image = texture->u.image;
+            if ((unsigned int)image > (unsigned int)best &&
+                (!previous || (unsigned int)image < (unsigned int)previous))
+                best = image;
+        }
+        previous = best;
+        if (!best)
+            return;
+        Image_Reload(best);
+    }
+}
+
+
+// Name unconfirmed; PINNED 10017710/19 (tail call to Image_UpdatePicmip), retail has an uncalled copy.
+void Material_ReloadTextureImage(MaterialTextureDef *texture)
+{
+    if (texture->semantic != 5 && texture->u.image)
+        Image_UpdatePicmip(texture->u.image);
+}
+
+
 // PINNED 10017730/357: a platform-zero change alone triggers release and reload.
 void R_ApplyPicmip()
 {
     R_SetPicmip();
-    for (int slot = 0; slot < 1024; ++slot)
+    for (unsigned int slot = 0; slot < 1024; ++slot)
     {
         Material *material = R_GetMaterialHashTable()[slot];
         if (!material)
@@ -1045,22 +1247,33 @@ void R_ApplyPicmip()
             MaterialTextureDef *texture = &material->textures[index];
             if (texture->semantic == 5 || !texture->u.image)
                 continue;
-            GfxImage *image = texture->u.image;
-            Picmip picmip;
-            if (image->noPicmip)
-                memset(&picmip, 0, sizeof(picmip));
-            else
-                Image_PicmipForSemantic(image->semantic, &picmip);
-            if (image->picmip.platform[0] != picmip.platform[0])
-            {
-                Image_Release(image);
-                image->picmip = picmip;
-                if (!Image_LoadFromFile(image))
-                    R_Error(ERR_DROP, "failed to load image '%s'", image->name);
-            }
+            Image_UpdatePicmip(texture->u.image);
         }
     }
 }
+
+
+
+// PINNED 100178b0/137: use the loaded material; never load a new one for this command.
+void Material_ReloadTextures_f()
+{
+    if (ri.Cmd_Argc() != 2)
+    {
+        ri.Printf(0, "Usage: reloadmaterialtextures <materialname>\n");
+        return;
+    }
+    const char *name = ri.Cmd_Argv(1);
+    Material *material = Material_FindRegistered(name);
+    if (!material)
+    {
+        ri.Printf(0, va("ReloadMaterialTextures: Material '%s' is not currently loaded.\n", name));
+        return;
+    }
+    RB_BindWhiteImages();
+    Material_ReloadTextures(material);
+}
+
+
 
 // PINNED 10017940/50: helper to open material file.
 int Material_LoadFile(const char *filename, int *file)
@@ -1068,4 +1281,12 @@ int Material_LoadFile(const char *filename, int *file)
     char fullFilename[64];
     Com_sprintf(fullFilename, sizeof(fullFilename), "materials/%s", filename);
     return ri.FS_FOpenFileRead(fullFilename, file, 1);
+}
+
+
+
+// PINNED 10005290/5: the registered command is a separate tail call.
+void R_ApplyPicmip_f()
+{
+    R_ApplyPicmip();
 }
