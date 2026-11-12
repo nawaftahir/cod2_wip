@@ -1,53 +1,30 @@
 # CoD2MP_s.exe 1.3: status
 
-## Numbers (`meter-1.3.json`, meter commit 4aaa2370, written by the f44e3a7d accept; reproduced clean on t1 11-11)
-- Whole-file same-offset 1,971,472 / 1,974,272 = **99.858%** (header 4,092/4,096, .text 1,643,925, .rdata 229,250, .data 77,821, .rsrc 16,384; .rsrc complete). 2,800 B differ: breakdown at the top of `TAIL_1.3.md`.
-- Matched-fn bytes 1,554,513 / 1,645,581 .text = **94.47%** (8,979 / 9,547 fns). Functions identical (match or same bytes in place) 9,471 / 9,504. TUs in `src/` 150 / 370, unverified_in_src 0.
+## Numbers (`meter-1.3.json`, last accept a3d38744 on 11-13, clean gate)
+- Whole-file same-offset 1,973,317 / 1,974,272 = **99.952%**, 955 B differ. PE header fully equal to retail
+  (Rich fixed 11-13 by the two-pass VC7.0 lib.exe mss32.lib build; timestamp/CheckSum/RSDS set at link time).
+- Matched-fn bytes 1,563,230. Functions identical 9,485 / 9,504. TUs: empty TUs count as identical since 11-12
+  (owner decision, tools/meter.py).
+- Source tree follows IW's layout since 11-13 (docs/LAYOUT.md, 281/370 TUs pinned by Mac 1.3 STABS).
 
-## Finish-line inventory (w6, 11-12, clean gate after the HTEvtLst fix: same-offset 1,972,877, 1,395 B differ)
-diffclass13: .text code 1,257 + addr 63, .rdata data 63 + addr 5, .data addr 3, header 4. Per-class detail below was
-measured on the 1972713 baseline; the LoadServerDll (70 B) and HTEvtLst timer-order (94 B) fixes are gone since:
-- PE header 4 B: only the Rich (25,9466)/(28,9466) swap (0xca/0xcc/0xd2/0xd4). TimeDateStamp, CheckSum (0), e_lfanew and all other fields equal.
-- Debug dir / RSDS: identical (GUID, age, timestamp, PDB path). Done at link time, not post-link: Makefile runs link under
-  libfaketime (`FAKETIME=2006-05-02 00:09:51`) and LD_PRELOAD `tools/guidpin.c` (feeds PDB_GUID to UuidCreate). No owner decision needed.
-- .text code 1,426 B in 49 fns: CL_ConsolePrint_AddLine 532, CG_CalcCrosshairPosition 391, CG_BuildSolidList 88, FX_CalcOriginAndAxis 56,
-  Timer_set/deleteWindowsTimer + fn_54ed70 + HTEventInit 94 (order, now FIXED), CG_DrawCursorhint 30, CG_DrawAdsOverlay 29, CG_DrawScoreboard_Objective 26,
-  then 38 fns <= 16 B (scheduling/regs, .bss/__real address operands).
-- .rdata 68 B (was 126): __real pool order (1000.0, 720.0f, neighbours; compile order, KNOWLEDGE data1).
-- .data 3 B: address operands. .rsrc 0.
-- Rich swap is the only header blocker: original Miles mss32.lib unavailable (KNOWLEDGE); owner decision if no lib is found.
+## Remaining 955 B (handoff 11-13; per-item state lives in KNOWLEDGE.md, never repeat a TRIED row)
+1. CL_ConsolePrint_AddLine 532: parked with an exact model of c2's colour priority (KNOWLEDGE 17, STATE w21):
+   outer charWidth n3 -192 must beat targetLineWidth -157; retail bytes show no instruction-level difference
+   in charWidth's range. Next: trace c2 block weights, or where targetLineWidth's -179 comes from.
+   Tool: tools/c2opwalk13.sh (GAIN=1/2, A/B/C/Q/X hooks).
+2. CG_BuildSolidList 88: lab g2 (`snap = cg->nextSnap; if (snap->numEntities <= 0) return;` then walker from
+   cg->nextSnap->entities) gives retail colouring; residue = local-temp rotation one pick off + edi/ebx push
+   order, 234 vs 241 B; gate -68 so not accepted (KNOWLEDGE w20). Next: add one local pick before the snap load.
+3. ~16 small fns ~160: per-fn state lines in KNOWLEDGE 25 (w13). Levers that paid: redundant parens (x87),
+   if/else vs ternary store count (slot weight). Next: c2opwalk13-style trace per fn.
+4. Compile-order data + address operands ~134: Com_ErrorCleanup, fire_grenade, CL_DemoCompleted each one
+   compile pass off; source, callees, obj owner and peel model ruled out (w3/w7/w11/w18). Needs a new idea.
+5. FX_CalcOriginAndAxis 54: slot item weight = IL ref count; height/len need <= 3 refs, no
+   behaviour-preserving shape found; retail inlines VectorMA too (w12).
+6. CG_CalcCrosshairPosition tail ~12: dot-term order only; set by direct gunDir[k] reference order; needs the
+   c2 site that picks the commutative x87 operand (w14).
 
-## Policy (owner, 11-04)
-- Structure first: a change that makes the function set / data / positions retail-equal is accepted when only
-  listed ties flip (`data/ties13.txt`, each with a reason).
-- Accept only clean builds. Never leave a tree on an experiment branch others copy from.
-
-## Open leads (best first)
-1. Drift: first break now CL_BlendSavedScreen (-192 B: ours 9 B, retail has a full fn at 0x402260), then
-   16 B steps in cl_cin/console/input, cl_keys +176, cl_main_mp connect code. CL_SetExpectedHunkUsage and
-   CompleteCommand 1.3 are in.
-2. PunkBuster client: PbClGameQuery, PbClGameMsg, PbClientInitialize, stPbCl::initialize, fn_4bb450 and
-   CL_ConnectionlessPacket (one fn, 2,658 B) are matched (11-05). Left in pbcl: UnloadClientDll, ~stPbCl
-   (retail passes `this` in esi/ecx per caller), PbClientProcessEvents/CompleteCommand/Connecting.
-3. (done, see 2)
-4. CL_CheckForResend full 1.3 (812 B, one stack-slot order left: data/info/pbBuf).
-5. CL_ConsolePrint_AddLine: in tree, 6 register hunks.
-6. Com_Init_Try_Block_Function: multi-core block (GetProcessAffinityMask, r_smp_backend_allowed), frame 0x24 vs 0x20.
-7. libwww leftovers (~1 KB): HTCache_isFresh, HTEvtLst stopLoop/init/pump/loop, HTBlackHole/HTErrorStream constants.
-8. Bundle-pending gains held back by tie re-rolls: fn 0x40d310 call in CL_Frame, UI PB fns.
-9. Top unmatched by size: `archive/NOTES_1.3.md` "TOP40" (UI_RunMenuScript, CG_EntityEvent, nb_decode, ...).
-
-## Next session
-Lead in `client-1.3`, up to 6 agents in `.worktrees/<work>` (one area each, briefs name `TRIED.md`), lead
-merges and runs `tools/ratchet13.sh` on a clean build, bundling tie losses until net >= 0.
-Evidence only: Mac 1.3 STABS, lnxded-1.3 source, retail bytes. Client 1.0 is parked.
-
-Handoff (11-13, same-offset 1,973,317 / 1,974,272). Remaining residue, grep TRIED before any lab:
-- CL_ConsolePrint_AddLine 532 B: parked. Needs the exact n3 model: a block-weight trace, or work from the targetLineWidth side (KNOWLEDGE 17, STATE w21).
-- CG_BuildSolidList 88 B: walker `cg->nextSnap->entities` + `if (snap->numEntities <= 0) return;` (lab g2) gives retail colouring and loop entry.
-  Left: local-temp rotation one pick off (snap ecx vs eax) and the edi/ebx push order; size 234 vs 241. g2 gated -68 same-offset, so not
-  landed. Next: the source change that adds one local pick before the snap load (KNOWLEDGE 20 rule) on top of g2 (KNOWLEDGE BSL w20 lines).
-- FX_CalcOriginAndAxis 54 B: no source shape found yet; look at the height/len refs.
-- ~16 small fns (<= 16 B each): see the state lines in KNOWLEDGE 25.
-- Crosshair tail ~12 B: term order; the c2 site that picks operands is unknown.
-- Compile-order data ~134 B: three fns are one pass off; source changes are ruled out.
+## Policy (owner)
+- Structure first; accept only clean builds; ties in data/ties13.txt never count.
+- Agents: own worktree, grep TRIED before every lab, scratch in /home/nawaf/<worktree>/ only, rebase +
+  ancestor check before pushing main. Max 3 agents at a time.
