@@ -581,3 +581,9 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   locals (they give the 0x30 frame), dots inline and `tan(float)`. A named float yaw local is copied via ecx under /Op;
   an expression fed straight into the FastSinCos formal forwards. The by-value helper version (lab, 0 diff) differs only in that the
   writes go through a pointer formal, so the term order comes from formal vs local pointer.
+- PINNED (w7, 11-12, peel13 passes() on w8-a ord.txt + retail disasm): Com_ErrorCleanup slot. Symbol-list idx: SetLS 2742,
+  UpdLI 2746, Com_Error 5554, ErrorCleanup 5555, subtitle fn 5572; UI_SetActiveMenu (pass 56) pins Com_Error and the subtitle fn
+  (retail calls Com_Error from it) to pass 56. SetLS (retail calls Com_Error, 0x4ab50f) sits before Com_Error in the list so it
+  emits pass 57 and ErrorCleanup with it. Under this model retail's UIBF < ErrorCleanup < subtitle order needs a DFS cut on
+  SetLS->Com_Error, and no retail direct call makes SetLS reachable from Com_Error. So either the symbol list order of these fns
+  differs in retail or the model misses a rule. Retail Com_Error inlines UI_SetActiveMenu (calls Menus_OpenByName directly).
