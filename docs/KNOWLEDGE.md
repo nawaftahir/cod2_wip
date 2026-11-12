@@ -561,6 +561,7 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   is the inlined Language_IsAsian load (`mov edi,[loc_translate+4]` at 0x4048fe, retested at 0x404a4c), and retail holds
   it in edi at the same addresses too, so it is not the competitor. After the scan edi is free in both builds; the residue
   is only which of zero-constant / charWidth is coloured first (ours: zero picks ebp, charWidth never pops, n16 = 0).
+- PINNED (w15 winedbg 0x1078bb3a, 11-12): our AddLine zero-constant web (sym 0x06810278, kind 0x0d) is already split three times (reload nodes 06853188/06853140/068478a0), so the HYPOTHESIS below (retail splits at Con_Linefeed, ours does not) is void as stated. The imm-0 vs ebp store and ours' `mov ebp,[con.lineOffset]` cache in the overflow block follow from which of zero/charWidth pops first; no statement order in that block moves it (TRIED w15).
 - STATE (w10 end, 11-12): zero-constant uses in the outer loop (same in both builds): IsAsian `cmp eax,0` after the outer
   TextWidth, `!con.lineOffset`, `lineBroken` test, and `curWidth = 0` in the `letter > 0xff` Con_Linefeed branch. Only the
   last differs: retail stores imm 0 there (zero web does not reach it), ours stores the zero reg (ebp). Lab moving that
