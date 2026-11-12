@@ -5,7 +5,8 @@
 #define SPLASH_WIDTH 320
 #define SPLASH_HEIGHT 100
 
-static ALIGNED(16) HWND g_splashWnd;
+static ALIGNED(8) HWND g_splashWnd;
+int winSplashUnreferenced[2];	// retail 0xd76aec..f3: unreferenced 8 bytes after g_splashWnd
 
 void Sys_CreateSplashWindow( void );
 void Sys_DestroySplashWindow( void );

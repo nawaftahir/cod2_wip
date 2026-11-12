@@ -63,7 +63,7 @@ typedef enum {
 
 PRIVATE HTList * HashTable [HT_M_HASH_SIZE]; 
 PRIVATE HTList * EventOrderList = NULL;
-PRIVATE int HTPumpState; PRIVATE int HTEndLoop = 0;		       /* If !0 then exit event loop */
+PRIVATE int HTPumpRunning; PRIVATE int HTEndLoop = 0;		       /* If !0 then exit event loop */	/* real name unknown; HTPumpRunning sorts into retail 0x5ddfa8 */
 PRIVATE BOOL HTInLoop = NO;
 
 #ifdef WWW_WIN_ASYNC
@@ -768,12 +768,12 @@ PUBLIC BOOL HTEventTerminate (void)
 /* retail 0x54ec80, name unknown, no callers */
 PUBLIC int fn_54ec80 (void)
 {
-    return HTPumpState;
+    return HTPumpRunning;
 }
 
 PUBLIC int HTEventList_init (HTRequest * theRequest)
 {
-    HTPumpState = 0;
+    HTPumpRunning = 0;
     return 0;
 }
 
@@ -787,7 +787,7 @@ PUBLIC int HTEventList_pump (void)
             return 1;
         }
     }
-    HTPumpState = HTEndLoop;
+    HTPumpRunning = HTEndLoop;
     HTPrint("Exiting pump loop: %d\n", HTEndLoop);
     HTEndLoop = 0;
     return 0;
@@ -795,7 +795,7 @@ PUBLIC int HTEventList_pump (void)
 
 PUBLIC int HTEventList_loop (HTRequest * theRequest)
 {
-    HTPumpState = 0;
+    HTPumpRunning = 0;
     return 0;
 }
 
@@ -803,6 +803,6 @@ PUBLIC int HTEventList_loop (HTRequest * theRequest)
 /* retail 0x54ed70, name unknown, no callers */
 PUBLIC int fn_54ed70 (HTRequest * theRequest)
 {
-    HTPumpState = 0;
+    HTPumpRunning = 0;
     return 0;
 }
