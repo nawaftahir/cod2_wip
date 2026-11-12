@@ -173,3 +173,8 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | FX_CalcOriginAndAxis (r-fxslot, lab 3) | no yaw/pitch locals, flrand expr passed straight to FastSinCos | 24 lines, same as lab 1; c2slots13 entry list identical to baseline. Reverted |
 | FX_CalcOriginAndAxis (r-fxslot, lab 4) | lab 3 + branch-4 height stored in `scale` | worse, 37. Reverted |
 | FX_CalcOriginAndAxis (r-fxslot, lab 5) | lab 3 + own height2/len2 locals in the spawnflag-4 branch | worse, 39. Reverted |
+| CG_BuildSolidList (r-solid, lab) | Q3-style cent/ent locals declared at top, `cg_entities[snap->entities[i].number]` | no output change (still spills snap, ebx/ebp swap). Reverted |
+| CG_BuildSolidList (r-solid, lab) | `int *numEntities` + `snapEnt++` pointer walk (snap dead in loop) | worse, 221 B: snap rederived and kept in ebp, TlsGetValue no longer hoisted. Reverted |
+| CG_BuildSolidList (r-solid, lab) | `int *numEntities` + `entities[i]` from a separate `entityState_t *` | worse, 222 B: same canonicalisation back to snap in a register. Reverted |
+| CG_BuildSolidList (r-solid, lab) | loop bound `cg->nextSnap->numEntities`, body keeps `snap->entities[i]` | worse, 239 B, no spill at all. Reverted |
+| CG_BuildSolidList (r-solid, lab) | `const snapshot_t *snap` / `const entityState_t *snapEnt` | no output change. Reverted |
