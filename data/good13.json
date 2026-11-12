@@ -16690,8 +16690,9 @@
 "name": "?SV_DirectConnect@@YAXUnetadr_t@@@Z",
 "obj": "sv_client_mp.obj",
 "size": 2733,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x453c20"
+]
 },
 {
 "name": "?SV_FreeClientScriptPers@@YAXXZ",
