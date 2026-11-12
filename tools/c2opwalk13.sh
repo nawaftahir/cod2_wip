@@ -9,7 +9,7 @@
 #                  G   freebits node ... n16 = (freebits = first free-set word, bit r = c2 reg id r) GAIN=1 mode (no T/U/D): worklist insertion 0x10784b8f, rejected when n16 <= 0
 #                  I|P n3 node ... n16 = GAIN mode: linked into the sorted worklist (0x10784bf4) | popped (0x10782a5e)
 #                  X   sym node ... reg = GAIN mode: neighbour whose free set the chosen reg emptied (0x107832c9 -> mark 0x107a90e6)
-#                  A|B edx node ... n3 = GAIN=2 mode (only I/P/X/A/B): n3 accumulation, A = referenced (+= [n+0x18]*edx), B = live only (-= edx), C = live only on the esi==2 path (-= weight; edx column = weight ebp)
+#                  A|B edx node ... n3 = GAIN=2 mode (only I/P/X/A/B): n3 accumulation, A = referenced (+= [n+0x18]*edx), B = live only (-= edx), C = live only on the esi==2 path (-= weight ebp), Q = def point (+= [n+0x18]*edx)
 #                  N   sym node ... res   = 0x1078006c result for a use whose node passed kind 2 / [n+0x10]==0 / [n+5] bit0
 W=$(cd "$(dirname "$0")/.." && pwd); T=$W/../../client-1.0/tools/oracle
 cd "$W"; mkdir -p build/ra
@@ -245,6 +245,21 @@ caveC:
   sub ecx,ebp
   mov [eax+0xc],ecx
   jmp 0x10783a5c
+# Q 0x10782919: node on the second point list ([n+0x10]==0) gets n3 += [n+0x18]*edx
+caveQ:
+  pushad
+  pushfd
+  mov ebx,edx
+  mov esi,eax
+  push dword ptr [eax+0xc]
+  push offset strQ
+  call nlog
+  add esp,8
+  popfd
+  popad
+  mov ecx,[eax+0x18]
+  mov ebx,[eax+0xc]
+  jmp 0x1078291f
 .else
 # K 0x10782626: use operand passed the walk; esi = its node
 caveK:
@@ -368,6 +383,7 @@ strX: .ascii "OWX\0"
 strA: .ascii "OWA\0"
 strB: .ascii "OWB\0"
 strC: .ascii "OWC\0"
+strQ: .ascii "OWQ\0"
 .endif
 strN: .ascii "OWN\0"
 sNL: .ascii "\n\0"
@@ -387,7 +403,7 @@ for va, k, n, orig in [(0x107724f6, 'caveF', 6, '8b130fb7426d'), (0x107825e5, 'c
                        (0x10782600, 'caveU', 8, '807d08018b5c2410'), (0x107826e4, 'caveD', 9, '8a45083c018b742418'),
                        (0x10782626, 'caveK', 6, '8b451c8b7008'), (0x10782713, 'caveE', 6, '8b451c8b6808'), (0x1078266b, 'caveN', 8, '85c00f8484130000'),
                        (0x10784bf4, 'caveI', 5, '8941188bc7'), (0x10782a5e, 'caveP', 5, '8b45403bc7'),
-                       (0x10783a45, 'caveA', 9, '8b580c80e1ef884806'), (0x10783a7b, 'caveB', 5, '2bca89480c'), (0x107c21ce, 'caveC', 7, '2bcde9a818fcff'),
+                       (0x10783a45, 'caveA', 9, '8b580c80e1ef884806'), (0x10783a7b, 'caveB', 5, '2bca89480c'), (0x107c21ce, 'caveC', 7, '2bcde9a818fcff'), (0x10782919, 'caveQ', 6, '8b48188b580c'),
                        (0x107832c9, 'caveX', 9, '833800 0f8414 5e0200'.replace(' ', '')),
                        (0x10784b8f, 'caveG', 5, '8b4740 85c0'.replace(' ', ''))]:
     if k not in sym: continue

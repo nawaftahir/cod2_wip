@@ -345,6 +345,11 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   the gap. The walk runs backward (the `curWidth +=` A point, +0xe*2 = +28, is logged first); the B sum ends at n3 -216 and
   the I line shows -192, so +24 is added after the A/B walk (likely the def point; not hooked). Retail inlines ReadChar at all
   three AddLine sites (bytes 0x404ab1..0x404ba6 = our inline body, same size), so the lever is not a call shape.
+- PINNED (w21 new Q hook 0x10782919, GAIN=2): the +24 is the def point. A second per-point list (nodes with [n+0x10]==0, the
+  defs) gets n3 += [n+0x18]*edx; charWidth's TextWidth def adds 2*12. Round-1 n3 now reproduces exactly from A+B+Q:
+  charWidth 28-244+24 = -192, targetLineWidth 22-179 = -157 (no Q; 3 A points edx 4/3/4, 33 B points, 6 of them before its
+  conditional def). charWidth's heaviest B points (edx 18, 14) are the two points right after the def, not at the arm end.
+  Offline n3 check: tools/c2opwalk13.sh GAIN=2 then sum A*[n+0x18] + Q*[n+0x18] - B per node over lines before the first I.
 
 ## 1.3 .bss layout (w4, 11-08)
 - PINNED: g_largeLocalBuf spans 0xb22f00..0xc22f00 in retail 1.3 (next symbol com_dedicated at 0xc22f00, ours was 0xba2f00). Size set to 0x100000 (opencod2 lists 524288, likely 1.0). One array vs two symbols is not distinguishable from code: SUPPORTED. Clean ratchet same-offset 1914105 -> 1933443, matched-fn unchanged.
