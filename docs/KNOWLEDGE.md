@@ -521,3 +521,12 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   does not, whether AV is inlined at compile time or by LTCG (ecx copy). Our baseline frame/slots (0x30, gunAng[0] at 0x24,
   ptr temps 0x1c/0x20) equal retail's, the by-value frame does not (0x2c), so retail still has the gunAng array: retail
   forwards an array element store under /Op where ours does not. Next: oracle/IL dump of the store->load forward pass, not spelling.
+
+## 24. Why a 2-ref call-result web is not a colour candidate (w9, 11-12)
+- PINNED (c2 disasm): node benefit n16 (node +0x40) is summed per tuple in 0x10782473..0x10782978 with weight `1 << block[+0xa6]`
+  (0x1078244d). A referencing tuple adds `cost * w` (0x10782692; cost from 0x107801c0 = 0 or 2, opcode table 0x10870dc0);
+  a tuple of op 0x26a subtracts `(1 or 2) * w` (0x1078281c; 0x1078002f returns 1 for kind 0x0d, else 2). Only n16 > 0 pops.
+- PINNED (lab d): the outer AddLine charWidth (call result, one `curWidth += charWidth` use, same block depth) nets 0 and
+  gets no P line even with the inner loop removed. Retail colours it (ebp), so retail's outer web must have an extra
+  positive ref or a use in a heavier block than the def. HYPOTHESIS: 0x26a = the call-result assignment. Next: winedbg
+  break at 0x10782692 / 0x1078281c for this node (tools/c2dbg13.sh) to list each tuple's op, cost and weight.
