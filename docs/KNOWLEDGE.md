@@ -532,3 +532,17 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   break at 0x10782692 / 0x1078281c for this node (tools/c2dbg13.sh) to list each tuple's op, cost and weight.
 - PINNED (w6, 11-12, clean ratchet 1972713 -> 1972783): stPbSv::LoadServerDll literal order. Naming the load-failure string in a local at the top (`char *loadFailure = "...Load Failure";`, returned later) makes it the first-used literal; .rdata pool becomes retail GetProc, sb, sa, pbsvold, pbsvnew, LoadFailure. Code unchanged. Real SDK spelling unknown (shape is HYPOTHESIS, bytes PINNED).
 - PINNED (w6, 11-12, clean ratchet 1972783 -> 1972877): HTEvtLst function order. Defining the static Timer_setWindowsTimer/deleteWindowsTimer after HTEventList_loop (prototypes kept at the old place) gives retail loop, Timer_set, Timer_delete, fn_54ed70, HTEventInit. HT_CALLOC passes __LINE__: the w5/w6 SockEvents_get loss (push 0x101 vs 0x10e) was only the line shift, so the prototype block keeps the original line count.
+- PINNED (w8 labs, 11-12, fdiff 0 lines): CG_CalcCrosshairPosition is byte-identical when (1) AngleVectors is a full copy whose
+  yaw comes in as a by-value float formal (angles ptr still passed for pitch/roll, right/up NULL; gunAng stores kept; this gives
+  retail's 0x30 frame and the unused slot at esp+0x14) and (2) both tan args go through a by-value float formal, with the dot
+  products inline in the `*x`/`*y` expressions (no horiz/vert/halfFov vars: a named float is spilled across `call __CItan`, retail
+  keeps the dot on the x87 stack). Both effects are "inline formal forwards, named var/array element does not" under /Op.
+  Blocker: in this build every inline function keeps one out-of-line COMDAT copy (same as FastSinCos, DotProduct), so the two
+  helpers add bodies retail does not have (+0x180 B, gate reject). Next: find a construct with formal semantics and no kept
+  body (an existing retail-kept inline, a header inline already present in the retail map, or why some inlines are not kept).
+- PINNED (w9 winedbg, breaks 0x10782692 / 0x1078281c, baseline objs): AddLine charWidth parent id 53 n16 trace
+  -1 (op 0x26a, w1), +0 (op 1 = assignment from the TextWidth result, cost 0), -3 (op 0x26a, w2), +4 (op 0x2d, the
+  `curWidth +=` use, cost 2 * w2) = 0. Every local of the fn gets one op 0x26a at w1 (entry/home boundary), so 0x26a is a
+  memory-boundary tuple, not the call-result assignment (that HYPOTHESIS is void). The extra in-loop 0x26a (w2) is what
+  zeroes charWidth; retail must lack it. Weights: outer while 2, inner do 4. The breakpoints stay armed after the fn, so
+  only the first ~150 hits are AddLine (ids repeat in later fns). Refs (opencod2, Mac 1.3, coduo, Kisak) have no Asian branch.
