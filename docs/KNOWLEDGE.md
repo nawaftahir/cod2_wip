@@ -587,3 +587,7 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   emits pass 57 and ErrorCleanup with it. Under this model retail's UIBF < ErrorCleanup < subtitle order needs a DFS cut on
   SetLS->Com_Error, and no retail direct call makes SetLS reachable from Com_Error. So either the symbol list order of these fns
   differs in retail or the model misses a rule. Retail Com_Error inlines UI_SetActiveMenu (calls Menus_OpenByName directly).
+- PINNED (w8 part 3): in the crosshair, the dot-product term order ([1] before [2], retail) appears only when yaw enters as a by-value
+  formal of an inlinee (0-diff lab). The same code with pointer formals, or with a /Op tan helper, and yaw read from cg keeps [2] first.
+  HYPOTHESIS: the extra formal object shifts object numbers, and the x87 operand-role rule picks by object number. Next: c2dbg13 on the term
+  scheduling for b9 vs the 0-diff lab.
