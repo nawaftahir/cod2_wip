@@ -41,3 +41,13 @@ measured on the 1972713 baseline; the LoadServerDll (70 B) and HTEvtLst timer-or
 Lead in `client-1.3`, up to 6 agents in `.worktrees/<work>` (one area each, briefs name `TRIED.md`), lead
 merges and runs `tools/ratchet13.sh` on a clean build, bundling tie losses until net >= 0.
 Evidence only: Mac 1.3 STABS, lnxded-1.3 source, retail bytes. Client 1.0 is parked.
+
+Handoff (11-13, same-offset 1,973,317 / 1,974,272). Remaining residue, grep TRIED before any lab:
+- CL_ConsolePrint_AddLine 532 B: parked. Needs the exact n3 model: a block-weight trace, or work from the targetLineWidth side (KNOWLEDGE 17, STATE w21).
+- CG_BuildSolidList 88 B: walker `cg->nextSnap->entities` + `if (snap->numEntities <= 0) return;` (lab g2) gives retail colouring and loop entry.
+  Left: local-temp rotation one pick off (snap ecx vs eax) and the edi/ebx push order; size 234 vs 241. g2 gated -68 same-offset, so not
+  landed. Next: the source change that adds one local pick before the snap load (KNOWLEDGE 20 rule) on top of g2 (KNOWLEDGE BSL w20 lines).
+- FX_CalcOriginAndAxis 54 B: no source shape found yet; look at the height/len refs.
+- ~16 small fns (<= 16 B each): see the state lines in KNOWLEDGE 25.
+- Crosshair tail ~12 B: term order; the c2 site that picks operands is unknown.
+- Compile-order data ~134 B: three fns are one pass off; source changes are ruled out.
