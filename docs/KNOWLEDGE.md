@@ -327,6 +327,14 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   after) gets n3 += [n+0x18] * edx, every other live node gets n3 -= edx (esi==2 case: -= weight only). So n3 ~ weighted refs
   minus weighted (live length x pressure): charWidth (-192) loses to targetLineWidth (-157) on live points under pressure, not
   on n16. Lever: fewer simultaneously-live values over charWidth's range (TextWidth -> curWidth +=) in the Asian loop.
+- PINNED (w19 `GAIN=2 tools/c2opwalk13.sh`: hooks A 0x10783a45 / B 0x10783a7b log edx, node, n3 per live node per point).
+  Round-1 sums: targetLineWidth A +22, B -179 = -157 (exact); outer charWidth A +28, B -244 (41 live points, edx 10..18 vs
+  8..12, ~40 co-live nodes incl. ~25 n16 -1 temps). So charWidth loses on live length x edx, as read above.
+- PINNED (w19 lab): moving `curWidth += charWidth` to the top of the default arm (overflow then `curWidth = charWidth`, the
+  end-of-arm add dropped) lifts the outer charWidth to n3 -122 / n16 12. It pops before targetLineWidth in round 1 and takes
+  ebp: retail's `mov ebp,eax` / `xor edi,edi` core hunk appears, 676 insns = retail, fdiff 26 -> 21 lines. Residue: the add
+  sits before the store (retail: after `lineOffset++`) and the overflow stores ebp, not imm 0. Gate: same-offset -191, rejected.
+  So the core hunk IS reachable from source by shortening charWidth's IL range; retail does it while keeping the add at the end.
 
 ## 1.3 .bss layout (w4, 11-08)
 - PINNED: g_largeLocalBuf spans 0xb22f00..0xc22f00 in retail 1.3 (next symbol com_dedicated at 0xc22f00, ours was 0xba2f00). Size set to 0x100000 (opencod2 lists 524288, likely 1.0). One array vs two symbols is not distinguishable from code: SUPPORTED. Clean ratchet same-offset 1914105 -> 1933443, matched-fn unchanged.
