@@ -611,3 +611,8 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
 - PINNED (c2slots13): Objective entries bottom-up are {textEnd, whiteSpace} 16, next 12, font 12, {len, t18} 9, textStart 7, c 4;
   retail fits whiteSpace sharing len's entry, so in retail len is placed before whiteSpace (len heavier).
 - Cursorhint: an early dead `textHeight = rect->h` (DIAG) does not change the fadd operand roles, so rect->h's first reference is not the lever.
+- PINNED (w13 clean gate 1973256 -> 1973284, matched-fn +813): Item_Text_AutoWrapped_Paint matches with the line step as
+  `if (height < 16) y += (float)(height + 1); else y += (float)(height + 4);`: two separate y stores raise y's slot weight above the
+  int group (the ternary is one store). CG_DrawScoreboard_Objective slots now equal retail when each `goto resetLen` site is written as
+  `len = 0; continue;` (separate len stores raise len's weight, whiteSpace joins len's entry); one store-order swap left
+  (`mov ebp,edi` vs `len = 0` store, newline site); writing `len = 0` before `textEnd = textStart` there brings the old slots back.
