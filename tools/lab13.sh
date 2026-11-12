@@ -1,6 +1,6 @@
 #!/bin/bash
 # lab13.sh OBJ...: edit workspace/ or src/, then recompile only the named objs (path under build/obj without .obj, e.g.
-# oc/client_mp/cl_scrn_mp) and relink build/ra/ox.exe (~20 s). Diff a function with
+# client_mp/cl_scrn_mp) and relink build/ra/ox.exe (~20 s). Diff a function with
 # `python3 tools/fdiff.py build/ra/ox.exe build/ra/ox.map <anchor> '<mangled substring>' <retail addr hex>`.
 # Lab only: the accept still needs a clean `tools/ratchet13.sh`. Run it only when no release build is running.
 W=$(cd "$(dirname "$0")/.." && pwd); cd "$W"
