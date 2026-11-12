@@ -546,8 +546,10 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   memory-boundary tuple, not the call-result assignment (that HYPOTHESIS is void). The extra in-loop 0x26a (w2) is what
   zeroes charWidth; retail must lack it. Weights: outer while 2, inner do 4. The breakpoints stay armed after the fn, so
   only the first ~150 hits are AddLine (ids repeat in later fns). Refs (opencod2, Mac 1.3, coduo, Kisak) have no Asian branch.
-- PINNED (w9 winedbg, 11-12): op 0x26a tuples come from 0x1077c20c(var): it builds a 0x24b constant tuple and a 0x24f var-ref
-  tuple, then emits 0x26a (memory-home store/reload). Callers: 0x1074909c, 0x1077e8e7, 0x1077ee6b, 0x1078adcf, 0x1078bb3a,
+- PINNED (w9 winedbg, 11-12; source operand corrected by w10 c2 disasm): op 0x26a tuples come from 0x1077c20c(var = edi):
+  the source operand is 0x24b `imm` only when [var+4]==0x0d and its first operand has kind 7 (constant-valued symbol:
+  rematerialize), else 0x250 (var kind 3..6) or 0x251 (other kinds) memory home; the dest is a 0x24f var-ref (+0x18 = var).
+  So 0x26a = reload of var into its register (from memory or as an immediate). Callers: 0x1074909c, 0x1077e8e7, 0x1077ee6b, 0x1078adcf, 0x1078bb3a,
   0x1079226b. charWidth's in-loop 0x26a (w2) comes from 0x1078bb3a, in the web-split code: it is the reload charged to the
   parent when the inner piece splits off (-3, cancels the +4 use). With a separate inner `cw` (no split) the outer
   charWidth gets NO n16 contribution at all in the first 170 hits: it is filtered out before benefit counting
