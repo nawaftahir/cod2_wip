@@ -39949,8 +39949,9 @@
 "name": "?CG_DrawPlayerStance@@YAXPBUrectDef_s@@PAMPAUFont_s@@MH@Z",
 "obj": "cg_newDraw_mp.obj",
 "size": 1607,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4c43b0"
+]
 },
 {
 "name": "?CG_CalcPlayerHealth@@YAMXZ",
@@ -61682,8 +61683,10 @@
 "name": "_fn_54ec80",
 "obj": "libwww:HTEvtLst.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x54ec80"
+],
+"sameva": 1
 },
 {
 "name": "_HTEventList_init",
