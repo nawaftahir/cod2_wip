@@ -19193,8 +19193,10 @@
 "name": "?IN_ClearStates@@YAXXZ",
 "obj": "win_input.obj",
 "size": 11,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x464c00"
+],
+"sameva": 1
 },
 {
 "name": "?Win_InitLocalization@@YA?AW4language_t@@XZ",
