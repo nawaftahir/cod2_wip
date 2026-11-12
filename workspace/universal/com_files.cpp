@@ -10,7 +10,7 @@ int I_strlen(const char *s);
 
 int com_fileAccessed;
 int fs_loadStack;
-int fs_pad19;	// retail has an unreferenced 4-byte slot here (0xb1b6c8); name picked for its bss position
+int fsUnused12;	// retail has an unreferenced int at 0xb1a5c8; name picked for its bss position
 const char *g_cfgName;	// real name unknown; chosen so the symbol lands in retail's bss slot
 char fs_gamedir[MAX_OSPATH];
 
