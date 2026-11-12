@@ -5,17 +5,17 @@
  "anchor": "windows/1.3/CoD2MP_s.exe",
  "sha_identical": false,
  "text_bytes": 1645581,
- "matched_bytes": 1561592,
+ "matched_bytes": 1562405,
  "file_bytes": 1974272,
- "same_offset_bytes": 1973256,
+ "same_offset_bytes": 1973284,
  "game_functions": 9547,
- "matched_functions": 9481,
+ "matched_functions": 9482,
  "functions_identical_in_place": 498,
  "bytes_identical_in_place": 3164,
  "tus_total": 370,
  "tus_matched": 305,
  "unverified_in_src": 0,
- "functions_identical": 9482,
+ "functions_identical": 9483,
  "functions_total": 9504,
  "tus_identical": 310,
  "tus_data_only": 16,
@@ -24,11 +24,11 @@
  "tus_empty": 44,
  "lib_objs_identical": 252,
  "lib_objs_total": 252,
- "text_same_offset_bytes": 1645651,
+ "text_same_offset_bytes": 1645679,
  "sections": {
   ".text": {
-   "matched": 1561592,
-   "same_offset": 1645651
+   "matched": 1562405,
+   "same_offset": 1645679
   },
   ".rdata": {
    "same_offset": 229308
@@ -43,6 +43,6 @@
    "same_offset": 4092
   }
  },
- "commit": "28ada6cf",
+ "commit": "0a7df2d6",
  "note": "matched_bytes/matched_functions = referee; functions/bytes_identical_in_place = the part of that credited only by raw identity at our own VA (already inside the matched totals, never added twice);functions_identical = referee match or same bytes at the same offset (every .text map symbol); tus_identical = source TUs whose functions are all identical (data-only TUs: data identical in place; CRT/lib objs separate); tus_identical_with_data = also every data symbol in place; tus_empty = TUs with no symbol in the image (never identical); tus_matched = TUs in src/; same-offset over the PE header and all sections (shameter; header counted since 11-10)"
 }
