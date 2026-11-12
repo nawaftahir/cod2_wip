@@ -559,3 +559,10 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   equals the current class. The outer charWidth has no such operand. HYPOTHESIS: its def/use were rewritten to a
   compiler temp (call result propagated into the add), so the value lives in a temp, which ours spills to [esp+0x28].
   Next: break at 0x10782600 and log the operand kinds of the TextWidth-result tuple.
+- PINNED (w5, 11-12, c2slots13 + tools/c2slotmap13.py / c2slotnames13.py, FX_CalcOriginAndAxis): 4-byte stack entries get frame
+  offsets in ENTRY CREATION order, bottom-up (first-created entry lowest), not by weight/size. Items sort weight desc, then id.
+  Ours: sinPitch/cosPitch/cosYaw/sinYaw (w6, alone) -0x50..-0x44, then E4 {height w6, len w6, t256, t267} -0x40, E6 {t265 w5, t257,
+  yaw, pitch} -0x3c, E7 {t264 w5, t258, GetVal result t259/t263, width, ...} -0x38, E8 {scale w3, radius, ...} -0x34. Retail (fdiff):
+  yaw store 0x28->0x24, E7 0x2c->0x28, E8 0x30->0x2c, so retail order is E6, E7, E8, E4: the height/len entry is created LAST (its
+  seed sorts after scale, weight <= 3). Splitting height or len into per-branch locals keeps the code (1463 B) but merges to 7
+  entries; inlining branch-1 height changes code (1455 B). Lever: lower height/len weight without splitting them (HYPOTHESIS).
