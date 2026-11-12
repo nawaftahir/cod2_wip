@@ -322,6 +322,11 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   targetLineWidth". Hoisting `targetLineWidth = linewidth` before the Asian branch or giving it if/else defs leaves its
   n3 at -157 / -146 (TRIED w19), so n3 is not set by source def position. n3 formula not decoded yet (insert code
   0x10782b26.., nodes with [n+0x24]==2 go through 0x107820b7).
+- SUPPORTED (w19, c2 disasm 0x107828c2..0x10783a80, not yet cave-confirmed): n3 is accumulated per walk point over the list of
+  live nodes (+0x14 links): edx = (number of live nodes) * weight [esp+0x24]; a node referenced there (flag [n+6]&0x10, cleared
+  after) gets n3 += [n+0x18] * edx, every other live node gets n3 -= edx (esi==2 case: -= weight only). So n3 ~ weighted refs
+  minus weighted (live length x pressure): charWidth (-192) loses to targetLineWidth (-157) on live points under pressure, not
+  on n16. Lever: fewer simultaneously-live values over charWidth's range (TextWidth -> curWidth +=) in the Asian loop.
 
 ## 1.3 .bss layout (w4, 11-08)
 - PINNED: g_largeLocalBuf spans 0xb22f00..0xc22f00 in retail 1.3 (next symbol com_dedicated at 0xc22f00, ours was 0xba2f00). Size set to 0x100000 (opencod2 lists 524288, likely 1.0). One array vs two symbols is not distinguishable from code: SUPPORTED. Clean ratchet same-offset 1914105 -> 1933443, matched-fn unchanged.
