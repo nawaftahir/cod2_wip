@@ -6619,8 +6619,10 @@
 "name": "?FS_LoadStack@@YAHXZ",
 "obj": "com_files.obj",
 "size": 6,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x421a20"
+],
+"sameva": 1
 },
 {
 "name": "?FS_UseSearchPathLanguage_420150@@YAHPBUsearchpath_t@@@Z",
@@ -6954,8 +6956,10 @@
 "name": "?FS_ResetFiles@@YAXXZ",
 "obj": "com_files.obj",
 "size": 11,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4232e0"
+],
+"sameva": 1
 },
 {
 "name": "?FS_FreeFile@@YAXPAX@Z",
