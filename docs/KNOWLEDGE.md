@@ -560,7 +560,12 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
 - PINNED (w10 forced colour + map, 11-12): colour 0x108a9924 = ebx, 0x108a9aa4 = esi. The edi web in the inner wrap scan
   is the inlined Language_IsAsian load (`mov edi,[loc_translate+4]` at 0x4048fe, retested at 0x404a4c), and retail holds
   it in edi at the same addresses too, so it is not the competitor. After the scan edi is free in both builds; the residue
-  is only which of zero-constant / charWidth is coloured first (ours: zero picks ebp, charWidth never pops, n16 = 0). Callers: 0x1074909c, 0x1077e8e7, 0x1077ee6b, 0x1078adcf, 0x1078bb3a,
+  is only which of zero-constant / charWidth is coloured first (ours: zero picks ebp, charWidth never pops, n16 = 0).
+- STATE (w10 end, 11-12): zero-constant uses in the outer loop (same in both builds): IsAsian `cmp eax,0` after the outer
+  TextWidth, `!con.lineOffset`, `lineBroken` test, and `curWidth = 0` in the `letter > 0xff` Con_Linefeed branch. Only the
+  last differs: retail stores imm 0 there (zero web does not reach it), ours stores the zero reg (ebp). Lab moving that
+  `curWidth = 0` before Con_Linefeed: 26 vs 28 diff lines, store still sunk after `lineBroken = 1`, core hunk unchanged.
+  Open: what ends retail's zero web before that branch (HYPOTHESIS: a split at the Con_Linefeed call that ours lacks). Callers: 0x1074909c, 0x1077e8e7, 0x1077ee6b, 0x1078adcf, 0x1078bb3a,
   0x1079226b. charWidth's in-loop 0x26a (w2) comes from 0x1078bb3a, in the web-split code: it is the reload charged to the
   parent when the inner piece splits off (-3, cancels the +4 use). With a separate inner `cw` (no split) the outer
   charWidth gets NO n16 contribution at all in the first 170 hits: it is filtered out before benefit counting
