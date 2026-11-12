@@ -549,7 +549,14 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
 - PINNED (w9 winedbg, 11-12; source operand corrected by w10 c2 disasm): op 0x26a tuples come from 0x1077c20c(var = edi):
   the source operand is 0x24b `imm` only when [var+4]==0x0d and its first operand has kind 7 (constant-valued symbol:
   rematerialize), else 0x250 (var kind 3..6) or 0x251 (other kinds) memory home; the dest is a 0x24f var-ref (+0x18 = var).
-  So 0x26a = reload of var into its register (from memory or as an immediate). Callers: 0x1074909c, 0x1077e8e7, 0x1077ee6b, 0x1078adcf, 0x1078bb3a,
+  So 0x26a = reload of var into its register (from memory or as an immediate).
+- PINNED (w10 winedbg, `cond 1 $eax == <sym>` at 0x1078bb3a works; winedbg has no pointer casts, so deref conds fail):
+  in this build charWidth's symbol is 0x066c3a54 (op001 `sym = eax` right after both TextWidth calls). 0x1078bb3a fires
+  twice for it in AddLine, both for node 0x0648ade0 (id 0x58, parent 0x0648a648) and both inserted at an op 0x10 (call)
+  tuple (insertion point from 0x1078a9fe): the split reloads charged to charWidth sit at call crossings between def and
+  use. The loop is over a node-id bitset (0x107b3786) of an edge-list entry whose [+0xc] list is empty and +0x18 bit
+  0x1000000 is clear. Retail fdiff: `call TextWidth; mov ebp,eax; ...; xor edi,edi` vs ours `mov [esp+0x28],eax; ...;
+  xor ebp,ebp`: the zero constant takes the callee-saved reg charWidth needs. Next: which web holds edi in ours. Callers: 0x1074909c, 0x1077e8e7, 0x1077ee6b, 0x1078adcf, 0x1078bb3a,
   0x1079226b. charWidth's in-loop 0x26a (w2) comes from 0x1078bb3a, in the web-split code: it is the reload charged to the
   parent when the inner piece splits off (-3, cancels the +4 use). With a separate inner `cw` (no split) the outer
   charWidth gets NO n16 contribution at all in the first 170 hits: it is filtered out before benefit counting
