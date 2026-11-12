@@ -4,6 +4,19 @@
 - Whole-file same-offset 1,971,472 / 1,974,272 = **99.858%** (header 4,092/4,096, .text 1,643,925, .rdata 229,250, .data 77,821, .rsrc 16,384; .rsrc complete). 2,800 B differ: breakdown at the top of `TAIL_1.3.md`.
 - Matched-fn bytes 1,554,513 / 1,645,581 .text = **94.47%** (8,979 / 9,547 fns). Functions identical (match or same bytes in place) 9,471 / 9,504. TUs in `src/` 150 / 370, unverified_in_src 0.
 
+## Finish-line inventory (w6, 11-12, clean gate after the HTEvtLst fix: same-offset 1,972,877, 1,395 B differ)
+diffclass13: .text code 1,257 + addr 63, .rdata data 63 + addr 5, .data addr 3, header 4. Per-class detail below was
+measured on the 1972713 baseline; the LoadServerDll (70 B) and HTEvtLst timer-order (94 B) fixes are gone since:
+- PE header 4 B: only the Rich (25,9466)/(28,9466) swap (0xca/0xcc/0xd2/0xd4). TimeDateStamp, CheckSum (0), e_lfanew and all other fields equal.
+- Debug dir / RSDS: identical (GUID, age, timestamp, PDB path). Done at link time, not post-link: Makefile runs link under
+  libfaketime (`FAKETIME=2006-05-02 00:09:51`) and LD_PRELOAD `tools/guidpin.c` (feeds PDB_GUID to UuidCreate). No owner decision needed.
+- .text code 1,426 B in 49 fns: CL_ConsolePrint_AddLine 532, CG_CalcCrosshairPosition 391, CG_BuildSolidList 88, FX_CalcOriginAndAxis 56,
+  Timer_set/deleteWindowsTimer + fn_54ed70 + HTEventInit 94 (order, now FIXED), CG_DrawCursorhint 30, CG_DrawAdsOverlay 29, CG_DrawScoreboard_Objective 26,
+  then 38 fns <= 16 B (scheduling/regs, .bss/__real address operands).
+- .rdata 68 B (was 126): __real pool order (1000.0, 720.0f, neighbours; compile order, KNOWLEDGE data1).
+- .data 3 B: address operands. .rsrc 0.
+- Rich swap is the only header blocker: original Miles mss32.lib unavailable (KNOWLEDGE); owner decision if no lib is found.
+
 ## Policy (owner, 11-04)
 - Structure first: a change that makes the function set / data / positions retail-equal is accepted when only
   listed ties flip (`data/ties13.txt`, each with a reason).
