@@ -596,3 +596,18 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   The other ~30 out-of-order fns are map-less soft nodes placed in-pass and real one pass later; none touches the three targets.
   fire_grenade (sim 6046 = real 6034+12), Com_ErrorCleanup, CL_DemoCompleted are in order, so their gap to retail is not a model error.
   Retail bodies of fire_grenade, G_Spawn, Com_Error, SEH_*LanguageInfo/Strings, CL_NextDemo, CL_DemoCompleted equal ours (fdiff 0).
+
+## 25. Small-residue classes (w13, 11-12, baseline 1973256, fdiff + c2slots13 + c2pickmap13)
+- PINNED (fdiff vs retail at the same address): (a) local-pick rotation: VM_Notify 6, EvalPrimitiveExpression 14. (b) slot permutation:
+  CG_DrawScoreboard_Objective 26, Item_Text_AutoWrapped_Paint 10. (d) x87 role: CG_DrawCursorhint 30. Pure scheduling, same regs:
+  CG_DrawAdsOverlay 29, CG_DrawGrenadePointer 16, G_GetPlayerViewOrigin 16, XAnimCalc 15, Item_ListBox_MouseEnter 11, CG_FireWeapon 7,
+  IntersectPlanes 6, StartWeaponAnim 4, Window_Paint 4. Address-only: Player_GetUseList 8 and all fns <= 5 B except the KNOWLEDGE 21/23 three.
+- PINNED (c2pickmap13 on baseline VM_Notify, 0x481190): pick 35 = 0x48163e `mov edx,[esp+0x18]` (bNoStack arm), pick 36 changes no
+  instruction (deleted code), pick 37 = the `lea edx,[eax+eax*4]` len temp. The size movzx and the loop load are colour nodes, not picks.
+  Retail's `lea eax` = one more local pick before pick 37. A `type = (currentValue--)[-1].type` store gives retail's loop schedule but
+  turns size/load into the wrong colours (ecx/eax), so that variant is not the retail source.
+- PINNED (lab): EvalPrimitiveExpression's retail tail (ecx = sourcePos, eax = constValue, fstp first) is what a direct
+  `EvalFloat(-expr.node[1].floatValue, ...)` produces; any `value` local gives ours (eax/ecx, sourcePos stored first).
+- PINNED (c2slots13): Objective entries bottom-up are {textEnd, whiteSpace} 16, next 12, font 12, {len, t18} 9, textStart 7, c 4;
+  retail fits whiteSpace sharing len's entry, so in retail len is placed before whiteSpace (len heavier).
+- Cursorhint: an early dead `textHeight = rect->h` (DIAG) does not change the fadd operand roles, so rect->h's first reference is not the lever.
