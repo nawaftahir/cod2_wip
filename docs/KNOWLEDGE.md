@@ -546,3 +546,10 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   memory-boundary tuple, not the call-result assignment (that HYPOTHESIS is void). The extra in-loop 0x26a (w2) is what
   zeroes charWidth; retail must lack it. Weights: outer while 2, inner do 4. The breakpoints stay armed after the fn, so
   only the first ~150 hits are AddLine (ids repeat in later fns). Refs (opencod2, Mac 1.3, coduo, Kisak) have no Asian branch.
+- PINNED (w9 winedbg, 11-12): op 0x26a tuples come from 0x1077c20c(var): it builds a 0x24b constant tuple and a 0x24f var-ref
+  tuple, then emits 0x26a (memory-home store/reload). Callers: 0x1074909c, 0x1077e8e7, 0x1077ee6b, 0x1078adcf, 0x1078bb3a,
+  0x1079226b. charWidth's in-loop 0x26a (w2) comes from 0x1078bb3a, in the web-split code: it is the reload charged to the
+  parent when the inner piece splits off (-3, cancels the +4 use). With a separate inner `cw` (no split) the outer
+  charWidth gets NO n16 contribution at all in the first 170 hits: it is filtered out before benefit counting
+  (site 0x10782626.. checks object kind 2, [obj+0x10]==0, [obj+5]&1, op != 0x26b, 0x1078006c(tuple)). Next: find what
+  clears [obj+5] bit 0 (or fails 0x1078006c) for the outer charWidth.
