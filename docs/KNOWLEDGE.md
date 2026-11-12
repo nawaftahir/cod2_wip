@@ -286,6 +286,18 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   parent of the inner piece only. The zero temp (id5 -> ebp) is a consequence: retail zero edi dies at `line` (mov edi,edx), and
   the >0xff `curWidth = 0` store uses an immediate in retail because edi no longer holds 0. Lever must make the outer value a
   candidate (find what excludes a 2-ref call-result web in c2 before colouring), not change its free set.
+- `tools/c2opwalk13.sh NAME` (w17, 11-13): code cave in a copy of c2.dll (hooks F 0x107724f6, T 0x107825e5, U 0x10782600, D 0x107826e4,
+  K 0x10782626, E 0x10782713, N 0x1078266b) that logs, only for the function whose mangled name starts with NAME, every tuple, every
+  use/def operand of the colour-candidate walk (op, kind [op+8], type [op+0xa], class via 0x10869140, sym [op+0x18], node [op+0x1c]) and
+  the node stage (node [[op+0x1c]+8]: [n+4], [n+5], [n+0x10], [n+0x18], 0x1078006c result) -> `build/ra/ow.txt`. Link output identical
+  to ox.exe except timestamp. Needs a release build + one ra13.sh. Source names: `[opsym+0]` = the source symbol (the P-line `|` word 0),
+  so dump `x /8x opsym` at compile start with c2dbg13.sh and match against P-line names.
+- PINNED (w17 c2opwalk13, baseline + separate-`cw` variant): the outer AddLine charWidth web (sym 0634f2f4 -> `_charWidth`, node
+  06853458) PASSES the operand walk and the node checks in walk 1 ([n+5] 0x0d, 0x1078006c = 1). c2 runs the walk 4 times for this
+  function; in walk 2 every node's [n+5] bit0 is clear (mask loop 0x10780cd4 `and [n+5],dl` over all nodes), so the walk skips it at
+  0x10782645, and the inner node's [n+0x18] points at the outer node. By walk 3 the outer web is already spilled (def + 0x26b store,
+  0x26a reload; the reload piece 068535c0 is the split P line n16 0). It never gets its own P line. So the w9 "fails the operand walk"
+  reading is wrong; the exclusion happens between walk 1 and walk 2 (next: who writes [n+0x18] / who spills a bit0 node there).
 
 ## 1.3 .bss layout (w4, 11-08)
 - PINNED: g_largeLocalBuf spans 0xb22f00..0xc22f00 in retail 1.3 (next symbol com_dedicated at 0xc22f00, ours was 0xba2f00). Size set to 0x100000 (opencod2 lists 524288, likely 1.0). One array vs two symbols is not distinguishable from code: SUPPORTED. Clean ratchet same-offset 1914105 -> 1933443, matched-fn unchanged.
