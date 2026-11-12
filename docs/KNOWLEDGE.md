@@ -350,6 +350,11 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   charWidth 28-244+24 = -192, targetLineWidth 22-179 = -157 (no Q; 3 A points edx 4/3/4, 33 B points, 6 of them before its
   conditional def). charWidth's heaviest B points (edx 18, 14) are the two points right after the def, not at the arm end.
   Offline n3 check: tools/c2opwalk13.sh GAIN=2 then sum A*[n+0x18] + Q*[n+0x18] - B per node over lines before the first I.
+- PINNED (w21, grouping ow.txt points; walk is backward): in code order the TextWidth call point (edx 12, 6 refs) carries the
+  charWidth def (Q 12), then a point with 7 refs (edx 14, defs 2 nodes) and a point with 9 refs (edx 18, 5 referenced nodes),
+  then the edx-4 inline body. HYPOTHESIS (tuples not named): these are the inlined Language_IsAsian (`return g_currentAsian`)
+  copy and test at the head of the second ReadChar. Bound: even at the floor (edx 4 each) both points give charWidth only
+  +24 -> -168, still below targetLineWidth -157, so no shape that touches only these two points can win; no lab run.
 
 ## 1.3 .bss layout (w4, 11-08)
 - PINNED: g_largeLocalBuf spans 0xb22f00..0xc22f00 in retail 1.3 (next symbol com_dedicated at 0xc22f00, ours was 0xba2f00). Size set to 0x100000 (opencod2 lists 524288, likely 1.0). One array vs two symbols is not distinguishable from code: SUPPORTED. Clean ratchet same-offset 1914105 -> 1933443, matched-fn unchanged.
