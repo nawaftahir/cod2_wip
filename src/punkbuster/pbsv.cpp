@@ -185,6 +185,7 @@ inline char *stPbSv::LoadServerDll()
 	char fn[512];
 	char extrafn[512];
 	FILE *f;
+	char *loadFailure = "PB Error: Server DLL Load Failure";
 
 	if ( m_SvInstance )
 		return NULL;
@@ -202,7 +203,7 @@ inline char *stPbSv::LoadServerDll()
 	}
 	m_SvInstance = LoadLibraryA(makefn(fn, "pbsv.dll"));
 	if ( !m_SvInstance )
-		return "PB Error: Server DLL Load Failure";
+		return loadFailure;
 	m_ProcessPbEvents = (tdPbProcessPbEvents)GetProcAddress(m_SvInstance, "sa");
 	m_AddPbEvent = (tdPbAddSvEvent)GetProcAddress(m_SvInstance, "sb");
 	if ( !m_ProcessPbEvents || !m_AddPbEvent )
