@@ -609,6 +609,7 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   formal of an inlinee (0-diff lab). The same code with pointer formals, or with a /Op tan helper, and yaw read from cg keeps [2] first.
   HYPOTHESIS: the extra formal object shifts object numbers, and the x87 operand-role rule picks by object number. Next: c2dbg13 on the term
   scheduling for b9 vs the 0-diff lab.
+- PINNED (w14 labs, 11-12): in the crosshair dots the gunDir element objects are numbered by DIRECT `gunDir[k]` references only (writes through the `dir` pointer do not count; first direct ref is the forward DotProduct). The early-referenced element takes the memory-operand role (`fld [axis]; fmul [d]`) and goes last; the other two are emitted higher number first. Retail needs [0] memory, then [1], [2] with [2] on the fld side; dead `gunDir[0] = 0; gunDir[2] = 0` gives the order but puts [2] on the memory side. Moving `forward` early (object 19 -> 3, as in the 0-diff lab) changes nothing. Open lead: the yaw formal changes the count of late temps (lab 2 objects between temps where ours has 5, 424 vs 448 total); needs a c2 site for the commutative operand pick to go further.
 - PINNED (w11, 11-12, peel13 on w7 ord.txt): the model already reproduces our F order: LIS 6681/6727, every fn shifted by a
   constant 12 because the per-TU `_$E*` initializer names collide (one node per name; the oracle compiles them last, F 6711+).
   The other ~30 out-of-order fns are map-less soft nodes placed in-pass and real one pass later; none touches the three targets.
