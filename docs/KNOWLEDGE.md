@@ -341,6 +341,10 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   So co-live values do not matter; the cost is charWidth held across the inlined ReadChar. Retail has the same call order, so
   the open question is why retail's range there is cheaper (fewer IL points in its inline body, or a lower block weight).
   esi==2 path (0x107c21ce, -= weight only) not hooked yet; it is the likely 24-point gap.
+- PINNED (w21 GAIN=2 + new C hook 0x107c21ce, baseline): the esi==2 path never fires for AddLine (0 C lines), so it is not
+  the gap. The walk runs backward (the `curWidth +=` A point, +0xe*2 = +28, is logged first); the B sum ends at n3 -216 and
+  the I line shows -192, so +24 is added after the A/B walk (likely the def point; not hooked). Retail inlines ReadChar at all
+  three AddLine sites (bytes 0x404ab1..0x404ba6 = our inline body, same size), so the lever is not a call shape.
 
 ## 1.3 .bss layout (w4, 11-08)
 - PINNED: g_largeLocalBuf spans 0xb22f00..0xc22f00 in retail 1.3 (next symbol com_dedicated at 0xc22f00, ours was 0xba2f00). Size set to 0x100000 (opencod2 lists 524288, likely 1.0). One array vs two symbols is not distinguishable from code: SUPPORTED. Clean ratchet same-offset 1914105 -> 1933443, matched-fn unchanged.
