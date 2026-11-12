@@ -553,3 +553,9 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   charWidth gets NO n16 contribution at all in the first 170 hits: it is filtered out before benefit counting
   (site 0x10782626.. checks object kind 2, [obj+0x10]==0, [obj+5]&1, op != 0x26b, 0x1078006c(tuple)). Next: find what
   clears [obj+5] bit 0 (or fails 0x1078006c) for the outer charWidth.
+- PINNED (w9 winedbg breaks 0x1078262c/0x1078266b, cw variant, 600 hits): the outer charWidth node never reaches the
+  benefit site, so none of the five node checks is the filter. The tuple walk before it (0x107825e5..0x10782620) only
+  passes tuples with [t+9] bit 0 and operands with [op+8] == 1 whose type class ([op+0xa] >> 12 via table 0x10869140)
+  equals the current class. The outer charWidth has no such operand. HYPOTHESIS: its def/use were rewritten to a
+  compiler temp (call result propagated into the add), so the value lives in a temp, which ours spills to [esp+0x28].
+  Next: break at 0x10782600 and log the operand kinds of the TextWidth-result tuple.
