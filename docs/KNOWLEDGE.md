@@ -310,6 +310,18 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   registers. targetLineWidth's refs (2 defs, 1 use) all come after the outer charWidth's last use in IL order, so "targetLineWidth
   overlaps the Asian branch" is NOT supported. Scoping it to the else block: byte-identical (TRIED). Next: log the node marked at
   0x107a90da (the one that empties) and why the round-2 outer piece gets n16 0.
+- PINNED (w19 `GAIN=1 tools/c2opwalk13.sh`, new X hook 0x107832c9: neighbour whose free set the chosen reg just emptied, before
+  the mark path 0x107a90e6; names from walk K/E syms + P-line syms). 0x107a90da only unlinks the empty bitset chunk; the mark is
+  0x107a90e6. Round 1 ends when `_targetLineWidth` (n3 -157, n16 8) takes reg bit 4: 17 neighbours had bit 4 as their only free
+  reg and all empty at once: `_p` (n3 -247, n16 142), `_type` (n16 54), temps 0634fcfc (n16 32) / 0634fedc (n16 30), a second
+  targetLineWidth piece (n16 -16), curWidth / charWidth pieces and ~10 n16 -1/-2 temps. Outer charWidth (n3 -192) is not among
+  them; it is simply next in line. Round 2 ends the same way: `_p` (n3 -185, n16 112) takes bit 4 and empties 25 nodes
+  (incl. a charWidth piece, `_type`, `_linewidth`); the outer charWidth is G-gated (free bits 0x40 only) but never inserted.
+  Round 3 has only the split piece 068545c8 (n3 -106, n16 0). n3 is dynamic: pieces drop to about -1000..-1082 once one reg
+  is left. Lever stays "outer charWidth before targetLineWidth in round 1" (n3 > -157) or "no bit-4-only neighbours of
+  targetLineWidth". Hoisting `targetLineWidth = linewidth` before the Asian branch or giving it if/else defs leaves its
+  n3 at -157 / -146 (TRIED w19), so n3 is not set by source def position. n3 formula not decoded yet (insert code
+  0x10782b26.., nodes with [n+0x24]==2 go through 0x107820b7).
 
 ## 1.3 .bss layout (w4, 11-08)
 - PINNED: g_largeLocalBuf spans 0xb22f00..0xc22f00 in retail 1.3 (next symbol com_dedicated at 0xc22f00, ours was 0xba2f00). Size set to 0x100000 (opencod2 lists 524288, likely 1.0). One array vs two symbols is not distinguishable from code: SUPPORTED. Clean ratchet same-offset 1914105 -> 1933443, matched-fn unchanged.
