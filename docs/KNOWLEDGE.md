@@ -483,3 +483,9 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
 - PINNED (r-autowrap, 11-12, clean ratchet 1972331 -> 1972615, IN_ClearStates matches): owner approved layout placeholders for proven-unreferenced retail gaps (11-12). Landed uiComponentUnreferenced[0xc] (gap 0xd529a4..af) + winCommonUnreferenced[0xc] in win_common (gap 0xd52a40..4b), the n2 pair from KNOWLEDGE above.
 - PINNED (r-autowrap, 11-12, clean ratchet 1972615 -> 1972679): win_threads statics made globals with placeholder names (wt_eventA15 .. wt_eventD8) picked from a 300-name rank probe so /GL hash order gives retail 0xd528a4..f4 exactly. Dropping `static` changed no code. Rank probe: declare N candidate globals per role, read map order, pick greedily in retail order.
 - PINNED (r-autowrap, 11-12, clean ratchet 1972679 -> 1972713): HTEvtLst pump static renamed HTPumpRunning (n2 finding, now allowed as placeholder); win_splash g_splashWnd is ALIGNED(8) (retail 0xd76ae8, not 16) followed by placeholder int winSplashUnreferenced[2] (retail 0xd76aec..f3 unreferenced).
+- FX_CalcOriginAndAxis slot map (r-fxslot, PINNED by c2slots13 on our build + fdiff): ours esp+X = frame X-0x64. Entries
+  bottom-up: sin/cos x4 (-0x50..-0x44), w20 height/len (-0x40), w13 (-0x3c), w31 (-0x38), w29 (-0x34), pos (-0x30, unchanged
+  vs retail). Retail puts our w20 items' slot (yaw/value temp) at -0x40 -> retail -0x40, our w31 GetVal temps at -0x3c,
+  w29 at -0x38: our 4-byte entries above sin/cos look rotated by one in retail (one entry moved to just below pos).
+  HYPOTHESIS: retail creates the height/len entry after the GetVal-temp entries (seed later in the item list). Removing
+  the yaw/pitch locals does not change the entry list (it only renumbers items).
