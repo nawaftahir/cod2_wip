@@ -556,7 +556,11 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   tuple (insertion point from 0x1078a9fe): the split reloads charged to charWidth sit at call crossings between def and
   use. The loop is over a node-id bitset (0x107b3786) of an edge-list entry whose [+0xc] list is empty and +0x18 bit
   0x1000000 is clear. Retail fdiff: `call TextWidth; mov ebp,eax; ...; xor edi,edi` vs ours `mov [esp+0x28],eax; ...;
-  xor ebp,ebp`: the zero constant takes the callee-saved reg charWidth needs. Next: which web holds edi in ours. Callers: 0x1074909c, 0x1077e8e7, 0x1077ee6b, 0x1078adcf, 0x1078bb3a,
+  xor ebp,ebp`: the zero constant takes the callee-saved reg charWidth needs.
+- PINNED (w10 forced colour + map, 11-12): colour 0x108a9924 = ebx, 0x108a9aa4 = esi. The edi web in the inner wrap scan
+  is the inlined Language_IsAsian load (`mov edi,[loc_translate+4]` at 0x4048fe, retested at 0x404a4c), and retail holds
+  it in edi at the same addresses too, so it is not the competitor. After the scan edi is free in both builds; the residue
+  is only which of zero-constant / charWidth is coloured first (ours: zero picks ebp, charWidth never pops, n16 = 0). Callers: 0x1074909c, 0x1077e8e7, 0x1077ee6b, 0x1078adcf, 0x1078bb3a,
   0x1079226b. charWidth's in-loop 0x26a (w2) comes from 0x1078bb3a, in the web-split code: it is the reload charged to the
   parent when the inner piece splits off (-3, cancels the +4 use). With a separate inner `cw` (no split) the outer
   charWidth gets NO n16 contribution at all in the first 170 hits: it is filtered out before benefit counting
