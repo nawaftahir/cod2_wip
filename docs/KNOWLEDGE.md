@@ -462,6 +462,7 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   and jump to one shared call (cross-jump), and the later NULL stores use imm 0. So the class is the constant-zero web (colour), not a local pick:
   the extra xor blocks the cross-jump. No source spelling found yet that ends the zero web early (TRIED w5 + n3 rows).
 - CG_CalcCrosshairPosition (PINNED on bytes): ours copies gunAng[1] (yaw) through ecx to [esp+0x28] and flds it; retail flds cg->gunYaw
+- CG_CalcCrosshairPosition (PINNED, r-xh2 labs): the yaw copy is the /Op spread from com_math AngleVectors. With the caller's gunAng stores outside /Op, yaw forwards and pitch is eax-copied exactly as retail; with the caller under /Op (spread or own pragma) yaw goes through ecx. Removing /Op from AngleVectors costs 423 matched fns, and a caller  does not stop the spread. Retail still has /Op traits in the same function (, forward fstp/fld), so retail mixes both.
   directly (store forwarded, then dead). That ecx copy is one extra LOCAL pick, which is exactly why every later lea pair is one step
   rotated (ours edx/eax, retail ecx/edx). Tried (lab, no change): assignment order of gunAng[0..2] (4 orders), no roll assignment, roll = 0.
 - FX_CalcOriginAndAxis: pure stack-slot order (the first float temps 0x28/0x2c/0x30 shifted by 4), no register or code difference. Not attempted.
