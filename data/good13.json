@@ -40428,8 +40428,9 @@
 "name": "?CG_DrawAdsOverlay@@YAXPBUWeaponDef@@HPBM1@Z",
 "obj": "cg_draw_mp.obj",
 "size": 825,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4c8970"
+]
 },
 {
 "name": "?CG_DrawWeapReticle@@YAMXZ",

@@ -647,3 +647,4 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
 - Tool (w12): watch recipe = c2slots13 -> packer node addresses (bp 0x10790cba eax, deterministic across runs with the same cave),
   then winedbg `watch *node+0x38` armed at the fn-start int3 plus `break *0x10790cba` to stop; only the last writes before the
   first packer hit belong to the fn (the address is reused by earlier objects).
+- PINNED (w13 clean gate 1973284 -> 1973313, +825): CG_DrawAdsOverlay matches with the big-overlay x as `crosshairPos[0] - (drawSize[0] * 0.5f)` (product parens) and no parens on y; 6-variant sweep, only parens on the x product give 0. Redundant parens are a real lever on non-/Op x87 scheduling too.
