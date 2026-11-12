@@ -649,3 +649,11 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   then winedbg `watch *node+0x38` armed at the fn-start int3 plus `break *0x10790cba` to stop; only the last writes before the
   first packer hit belong to the fn (the address is reused by earlier objects).
 - PINNED (w13 clean gate 1973284 -> 1973313, +825): CG_DrawAdsOverlay matches with the big-overlay x as `crosshairPos[0] - (drawSize[0] * 0.5f)` (product parens) and no parens on y; 6-variant sweep, only parens on the x product give 0. Redundant parens are a real lever on non-/Op x87 scheduling too.
+- State of the small residues after w13 (11-12, same-offset 1973313; every lever tried is in TRIED):
+  CG_DrawCursorhint 30 (x87 role, fadd scale vs rect->h; first-reference and decl levers tried; next: c2 object-number trace of the two fadd operands).
+  CG_DrawScoreboard_Objective ~2 (slots fixed; one store-order swap `mov ebp,edi` vs `len = 0` at the newline site; next: that arm's statement shape with the slot weights kept).
+  CG_DrawGrenadePointer 16 (fchs/-yaw push scheduling; 17 paren labs; next: -yaw as its own local or call-arg order).
+  G_GetPlayerViewOrigin 16 (one early push before fstp; 11 labs; next: AddLeanToPosition call shape).
+  XAnimCalc 15, Window_Paint 4 (spill reload order after a call), CG_FireWeapon 7 (`lea ebp,&cent->nextState` hoist; ent-> forms worse): not labbed / no lever yet.
+  Item_ListBox_MouseEnter 11 (horzAlign load before the dynamicFlags store; 6 labs), IntersectPlanes 6 (early `pop esi`; 9 labs), StartWeaponAnim 4 (inc order; 3 labs).
+  VM_Notify 6 (local-pick rotation; retail has one more pick before pick 37, KNOWLEDGE 25). EvalPrimitiveExpression 14 (retail tail = direct-formal EvalFloat in the minus arm, float arm jumps in; no source shape found).
