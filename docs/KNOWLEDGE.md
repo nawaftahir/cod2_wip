@@ -591,3 +591,8 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   formal of an inlinee (0-diff lab). The same code with pointer formals, or with a /Op tan helper, and yaw read from cg keeps [2] first.
   HYPOTHESIS: the extra formal object shifts object numbers, and the x87 operand-role rule picks by object number. Next: c2dbg13 on the term
   scheduling for b9 vs the 0-diff lab.
+- PINNED (w11, 11-12, peel13 on w7 ord.txt): the model already reproduces our F order: LIS 6681/6727, every fn shifted by a
+  constant 12 because the per-TU `_$E*` initializer names collide (one node per name; the oracle compiles them last, F 6711+).
+  The other ~30 out-of-order fns are map-less soft nodes placed in-pass and real one pass later; none touches the three targets.
+  fire_grenade (sim 6046 = real 6034+12), Com_ErrorCleanup, CL_DemoCompleted are in order, so their gap to retail is not a model error.
+  Retail bodies of fire_grenade, G_Spawn, Com_Error, SEH_*LanguageInfo/Strings, CL_NextDemo, CL_DemoCompleted equal ours (fdiff 0).
