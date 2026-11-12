@@ -297,7 +297,15 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   function; in walk 2 every node's [n+5] bit0 is clear (mask loop 0x10780cd4 `and [n+5],dl` over all nodes), so the walk skips it at
   0x10782645, and the inner node's [n+0x18] points at the outer node. By walk 3 the outer web is already spilled (def + 0x26b store,
   0x26a reload; the reload piece 068535c0 is the split P line n16 0). It never gets its own P line. So the w9 "fails the operand walk"
-  reading is wrong; the exclusion happens between walk 1 and walk 2 (next: who writes [n+0x18] / who spills a bit0 node there).
+  reading is wrong; the exclusion happens between walk 1 and walk 2 (see the GAIN line below).
+- PINNED (w17 `GAIN=1 tools/c2opwalk13.sh`, hook G at the worklist gate 0x10784b8f, n16 > 0 required): the esi node IS the colour
+  node (node+8 = self), so [n+0x18] is the worklist prev link, not a weight. Round 1: outer charWidth reaches the gate with n16 8 and
+  free set 0x1d0 = ebx/ebp/esi/edi (live across SEH_ReadCharFromString); the inner piece is not there. Round 2 on: the outer node is
+  gone and the inner node 06853410 shows n16 0x10 (= 8 + 8) with free set 0x1de (adds eax/ecx/edx): the two charWidth webs are
+  joined after round 1 and the joined node takes eax, the outer part is split off (068535c0, n16 0) and spilled. Same with a separate
+  inner `cw`. Retail keeps charWidth in ebp, so retail's outer web is coloured on its own in round 1. Not yet found: the c2 code that
+  joins the webs and why the outer web is not popped in round 1 (it passes the gate's n16 test; the popcount==1 branch at 0x10784ba9
+  is the only path seen that reaches the sorted insert 0x10784bba).
 
 ## 1.3 .bss layout (w4, 11-08)
 - PINNED: g_largeLocalBuf spans 0xb22f00..0xc22f00 in retail 1.3 (next symbol com_dedicated at 0xc22f00, ours was 0xba2f00). Size set to 0x100000 (opencod2 lists 524288, likely 1.0). One array vs two symbols is not distinguishable from code: SUPPORTED. Clean ratchet same-offset 1914105 -> 1933443, matched-fn unchanged.

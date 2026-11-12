@@ -6,6 +6,7 @@
 # kind = [op+8] byte, type = [op+0xa] word, cls = dword 0x10869140[type>>12]; the operand passes when kind==1 && cls == the
 # T line class (then the node checks at 0x10782626 run).
 #                  K|E sym node [n+4]b [n+5]b [n+0x10] [n+0x18] 0   = use|def operand that passed; node = [[op+0x1c]+8]
+#                  G   freebits node ... n16 = (freebits = first free-set word, bit r = c2 reg id r) GAIN=1 mode (no T/U/D): worklist insertion 0x10784b8f, rejected when n16 <= 0
 #                  N   sym node ... res   = 0x1078006c result for a use whose node passed kind 2 / [n+0x10]==0 / [n+5] bit0
 W=$(cd "$(dirname "$0")/.." && pwd); T=$W/../../client-1.0/tools/oracle
 cd "$W"; mkdir -p build/ra
@@ -18,6 +19,7 @@ cat > build/ra/cave_ow.s <<EOF
 .equ IOB, 0x1086610c
 .equ CUR, 0x108b1f00
 .equ TABLE, 0x10869140
+.equ GAIN, ${GAIN:-0}
 _start:
 # F 0x107724f6: compile start, arm when [sym+4] == name
 caveF:
@@ -47,6 +49,7 @@ caveF:
   movzx eax, word ptr [edx+0x6d]
   push 0x107724fc
   ret
+.if GAIN == 0
 # T 0x107825e5: tuple visit
 caveT:
   pushad
@@ -100,6 +103,29 @@ caveD:
   mov esi,[esp+0x18]
   push 0x107826ed
   ret
+.else
+# G 0x10784b8f: worklist insertion gate (needs n16 > 0); edi = colour node
+caveG:
+  pushad
+  pushfd
+  mov ebx,[edi+0x20]
+  mov ebx,[ebx]
+  test ebx,ebx
+  je 1f
+  mov ebx,[ebx+8]
+1:
+  mov esi,[edi+8]
+  push dword ptr [edi+0x40]
+  push offset strG
+  call nlog
+  add esp,8
+  popfd
+  popad
+  mov eax,[edi+0x40]
+  test eax,eax
+  push 0x10784b94
+  ret
+.endif
 # oplog(tag): caller frame = pushad+pushfd; walker's [esp+0x40] is at [esp+0x6c] here
 oplog:
   cmp dword ptr ds:CUR,0
@@ -244,6 +270,7 @@ strU: .ascii "OWU\0"
 strD: .ascii "OWD\0"
 strK: .ascii "OWK\0"
 strE: .ascii "OWE\0"
+strG: .ascii "OWG\0"
 strN: .ascii "OWN\0"
 sNL: .ascii "\n\0"
 hexd: .ascii "0123456789abcdef"
@@ -260,7 +287,9 @@ b[0x165d50:0x165d50 + len(cave)] = cave
 # site, hook, bytes replaced (whole instructions; checked against stock bytes)
 for va, k, n, orig in [(0x107724f6, 'caveF', 6, '8b130fb7426d'), (0x107825e5, 'caveT', 8, '8b442440f6400901'),
                        (0x10782600, 'caveU', 8, '807d08018b5c2410'), (0x107826e4, 'caveD', 9, '8a45083c018b742418'),
-                       (0x10782626, 'caveK', 6, '8b451c8b7008'), (0x10782713, 'caveE', 6, '8b451c8b6808'), (0x1078266b, 'caveN', 8, '85c00f8484130000')]:
+                       (0x10782626, 'caveK', 6, '8b451c8b7008'), (0x10782713, 'caveE', 6, '8b451c8b6808'), (0x1078266b, 'caveN', 8, '85c00f8484130000'),
+                       (0x10784b8f, 'caveG', 5, '8b4740 85c0'.replace(' ', ''))]:
+    if k not in sym: continue
     o = va - 0x10700000
     assert b[o:o + n].hex() == orig, (hex(va), b[o:o + n].hex())
     b[o] = 0xe9; struct.pack_into('<i', b, o + 1, sym[k] - (va + 5)); b[o + 5:o + n] = b'\x90' * (n - 5)
