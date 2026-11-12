@@ -634,3 +634,16 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   int group (the ternary is one store). CG_DrawScoreboard_Objective slots now equal retail when each `goto resetLen` site is written as
   `len = 0; continue;` (separate len stores raise len's weight, whiteSpace joins len's entry); one store-order swap left
   (`mov ebp,edi` vs `len = 0` store, newline site); writing `len = 0` before `textEnd = textStart` there brings the old slots back.
+- PINNED (w12, 11-12, winedbg watch on the packer item +0x38 + c2 disasm, FX_CalcOriginAndAxis baseline): the slot-packer item
+  weight is a plain IL reference count, not loop/benefit weighted. 0x10788642 (edx = item, ebx = increment) sets weight = ebx on
+  first sight (0x107886a4) and adds ebx on every later call (0x10789a99). Callers: the tuple walk at 0x10785c7c (0x10788635, one
+  call per operand whose symbol kind [sym+4] is 3/4/5), 0x107e25c4 (operand list walk), 0x107e2671/78 (two items per op 0xf/0x12
+  tuple), 0x107e26a2. In FX every call had ebx = 1 (loop weighting, if any, untested). Items are the kind-5 list at 0x108a78a4
+  (+0x30 next, +0x1c id, +0x38 weight); the packer copies +0x38 to entry +0xc at 0x10790c12. Watch the ITEM node (packer bp eax),
+  not the symbol: sym+0x38 is a different field. Per-item trace: sinPitch 1..6, scale 1..3, height 1..6, len 1..6.
+  Reading: len 6 = def + `!= 0` + `1/len` in each of the two branches; height 6 = branch-1 def + use, branch-4 def + 3 (the
+  inlined VectorMA uses its scale formal 3 times). So retail's late height/len entry needs fewer IL refs to each, not a
+  statement reorder. HYPOTHESIS: retail's branch-4 height reaches VectorMA in a shape that leaves 1 ref after inlining.
+- Tool (w12): watch recipe = c2slots13 -> packer node addresses (bp 0x10790cba eax, deterministic across runs with the same cave),
+  then winedbg `watch *node+0x38` armed at the fn-start int3 plus `break *0x10790cba` to stop; only the last writes before the
+  first packer hit belong to the fn (the address is reused by earlier objects).
