@@ -682,7 +682,11 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
 - PINNED (w20 cpick, walker-from-cg lab vs baseline): baseline has a colour node `__imp__TlsGetValue@4` (n3 -22, n16 2 -> ebp); in the
   walker lab that node is GONE (no P line), and the bound temp (kind03, n3 -20, n16 8) takes ebx as its only free reg (cost 500).
   So the ebx contest is not a pick: the IAT pointer is dropped before colouring (cf. the AddLine charWidth exclusion, sec 17).
-  Next: c2opwalk13 on the lab to see if the TlsGetValue web reaches walk 1 and where it is dropped.
+- PINNED (w20 GAIN=1 opwalk, walker lab vs baseline): the TlsGetValue web IS inserted in round 1 (n3 -22, n16 2) but never popped:
+  pops run n3 order snapEnt -10 (edi), i -18 (ebp), bound temp -20 (ebx), and no reg is left for it, so it is spilled (`call [IAT]`).
+  Retail pops it before the bound temp. Retail's guard reads `[eax+0x26b4]` into edx, NOT through the temp, so the temp has one use
+  less. Source lever (lab g1/g2): an explicit `if (snap->numEntities <= 0) return;` before the walker gives retail's colouring.
+  The 24 B gap was the spill/IAT hoist plus the rotated loop entry, not an extra call (one TlsGetValue call in both).
 - PINNED (w8 lab, 11-12): the crosshair tail source is `*x = DotProduct(gunDir, viewaxis[1]) / (forward * tan(fov_x * 0.0087266462f)) * -320.0f`
   (same for y): C++ `float tan(float)` from math.h (retail keeps `?tan@@YAMM@Z`, so no new body), no horiz/vert vars. Only the
   yaw head remains; it needs AV with yaw as a by-value formal without a new kept inline body (retail map has none for it).
