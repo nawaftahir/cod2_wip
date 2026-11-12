@@ -181,21 +181,21 @@ PRIVATE void fd_dump (SOCKET maxfs, fd_set * rset, fd_set * wset, fd_set * oset,
 /* ------------------------------------------------------------------------- */
 
 #ifdef WWW_WIN_ASYNC
-PRIVATE BOOL Timer_setWindowsTimer (HTTimer * timer)
-{
-    UINT id;
-    HWND hwnd = HTEventList_getWinHandle(&id);
-    BOOL status = (SetTimer(hwnd, (UINT)timer, (UINT)HTTimer_getTime(timer), NULL) == 0) ? NO : YES;
-    return status;
-}
+/*
+**  Windows timer handlers, registered by HTEventInit.
+**
+**  They are defined after HTEventList_loop: retail places them there
+**  (0x54ed20, 0x54ed50), between HTEventList_loop and 0x54ed70.
+**
+**  This block keeps the original line count, so the __LINE__
+**  arguments of the HT_CALLOC calls below stay as in retail
+**  (SockEvents_get pushes 0x10e).
+*/
 
-PRIVATE BOOL Timer_deleteWindowsTimer (HTTimer * timer)
-{
-    UINT id;
-    HWND hwnd = HTEventList_getWinHandle(&id);
-    BOOL status = (KillTimer(hwnd, (UINT)timer) == 0) ? NO : YES;
-    return status;
-}
+PRIVATE BOOL Timer_setWindowsTimer (HTTimer * timer);
+
+PRIVATE BOOL Timer_deleteWindowsTimer (HTTimer * timer);
+
 #endif /* WWW_WIN_ASYNC */
 
 /*
@@ -799,6 +799,23 @@ PUBLIC int HTEventList_loop (HTRequest * theRequest)
     return 0;
 }
 
+#ifdef WWW_WIN_ASYNC
+PRIVATE BOOL Timer_setWindowsTimer (HTTimer * timer)
+{
+    UINT id;
+    HWND hwnd = HTEventList_getWinHandle(&id);
+    BOOL status = (SetTimer(hwnd, (UINT)timer, (UINT)HTTimer_getTime(timer), NULL) == 0) ? NO : YES;
+    return status;
+}
+
+PRIVATE BOOL Timer_deleteWindowsTimer (HTTimer * timer)
+{
+    UINT id;
+    HWND hwnd = HTEventList_getWinHandle(&id);
+    BOOL status = (KillTimer(hwnd, (UINT)timer) == 0) ? NO : YES;
+    return status;
+}
+#endif /* WWW_WIN_ASYNC */
 
 /* retail 0x54ed70, name unknown, no callers */
 PUBLIC int fn_54ed70 (HTRequest * theRequest)
