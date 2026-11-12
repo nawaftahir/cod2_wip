@@ -412,7 +412,9 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   4 bytes only. The earlier 343 B header residue was 100% this.
 - Remaining 4 header bytes: Rich entries (25,9466) and (28,9466) in the other order. Both come from build/lib/mss32.lib (the import members
   are prodid 25, mss_auto.obj from VS .NET 2002 is prodid 28). Putting mss_auto.obj first in the archive does NOT change the Rich orde
-  (lab relink); the order follows which member the link pulls first. Open.
+  (lab relink); the order follows which member the link pulls first. FIXED (w18, 11-12, clean gate 1973317 = +4): the w8-b recipe
+  (commit 51641ac1, never merged to 1.3 main) builds mss32.lib in two plain VC7.0 lib.exe passes (`lib /out:mss32_1.lib imp.lib
+  mss_auto.obj`, then `lib /out:mss32.lib mss32_1.lib`); the second pass puts mss_auto.obj before the descriptor. Now in the Makefile.
 - stPbSv::LoadServerDll (0x4bd3e0): code is byte-identical to retail except the six string addresses, so no code-matching shape exists to
   move the literals; the literal-pool order stays deferred.
 - __real pool (0x5c4460..0x5c44f8, 64 B): only two constants are misplaced. Double 1000.0 (users CL_DemoCompleted, CG_FxTest, HTNumToStr;
@@ -426,7 +428,7 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
 - Rich (25,9466)/(28,9466) order: the original Miles mss32.lib is not in dev/sdk or the reference trees (opencod1 and KisakCOD ship othe
   Miles versions with no 9466 objects). In the link, mss_auto.obj (28) loads BEFORE the mss32 import descriptor objects (25), yet the Rich
   lists 25 first, and our archive already has mss_auto.obj as its first member, so neither link load order nor member order explains it.
-  Open; no lib rebuild tried beyond the two variants in TRIED.
+  SUPERSEDED: fixed by the two-pass lib.exe build (w18 entry above); RAD's original lib is not needed.
 ## 21. Rotation sweep (n3, 11-10, after merging w5-bss; baseline same-offset 1967119, matched-fn 1554291)
 - `tools/regonly13.py EXE MAP ANCHOR` lists equal-address functions whose code is equal once GPR names and image addresses are masked.
   Only 3 have a real register permutation: Menu_SetNextCursorItem (ecx>eax, edx>ecx, eax>edx, a one-step rotation),

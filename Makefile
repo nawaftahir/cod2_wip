@@ -127,10 +127,12 @@ build/lib/mss_auto.obj: src/lib/mss_auto.c
 	@mkdir -p $(dir $@)
 	@cd src && wine ../toolchain/vc70/cl.exe /nologo /c /O2 /MT /DNDEBUG /Fo..\\build\\lib\\mss_auto.obj lib\\mss_auto.c > ../$@.log 2>&1 || (cat ../$@.log; false)
 
+# second plain lib pass puts mss_auto.obj before the import descriptor (retail Rich order)
 build/lib/mss32.lib: src/lib/mss32.def build/lib/mss_auto.obj src/lib/impname.pl
 	@wine toolchain/vc70/lib.exe /nologo /machine:x86 /def:$(call win,$<) /out:build\\lib\\mss32_imp.lib > $@.log 2>&1 || (cat $@.log; false)
 	@perl src/lib/impname.pl build/lib/mss32_imp.lib 1 >> $@.log
-	@wine toolchain/vc70/lib.exe /nologo /out:$(call win,$@) build\\lib\\mss32_imp.lib build\\lib\\mss_auto.obj >> $@.log 2>&1 || (cat $@.log; false)
+	@wine toolchain/vc70/lib.exe /nologo /out:build\\lib\\mss32_1.lib build\\lib\\mss32_imp.lib build\\lib\\mss_auto.obj >> $@.log 2>&1 || (cat $@.log; false)
+	@wine toolchain/vc70/lib.exe /nologo /out:$(call win,$@) build\\lib\\mss32_1.lib >> $@.log 2>&1 || (cat $@.log; false)
 
 # icon comes from the local retail exe (host step above); .rsrc is byte-identical to retail
 build/cod2mp.res: src/cod2mp.rc build/cod2mp.ico
