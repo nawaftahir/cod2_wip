@@ -35,9 +35,10 @@ for obj, ok in fns: objs.setdefault(obj, []).append(ok)
 for s, _, _, _, obj, same in syms:
     if s != 1: dobjs.setdefault(obj, []).append(same)
 tuobj = {t: os.path.splitext(os.path.basename(t))[0] + '.obj' for t in tus}
-# code TU: every function identical; data-only TU: every data symbol identical in place; empty: no symbol in the map
+# code TU: every function identical; data-only TU: every data symbol identical in place; empty: no symbol in the map,
+# counted identical (owner 11-12: they only carry the retail LTCG obj count for the Rich header)
 tu_kind = {t: 'code' if o in objs else 'data' if o in dobjs else 'empty' for t, o in tuobj.items()}
-tu_ok = {t: all(objs[o]) if tu_kind[t] == 'code' else all(dobjs[o]) if tu_kind[t] == 'data' else False for t, o in tuobj.items()}
+tu_ok = {t: all(objs[o]) if tu_kind[t] == 'code' else all(dobjs[o]) if tu_kind[t] == 'data' else True for t, o in tuobj.items()}
 bad = [t for t in in_src if not tu_ok[t]]
 # stricter: its data symbols also sit unchanged at the anchor's offset (address-dependent, so low until layout is placed)
 tu_full = [t for t in tus if tu_ok[t] and all(dobjs.get(tuobj[t], []))]
@@ -62,7 +63,7 @@ m = {
     'note': 'matched_bytes/matched_functions = referee; functions/bytes_identical_in_place = the part of that credited only by '
             'raw identity at our own VA (already inside the matched totals, never added twice);functions_identical = referee match or same bytes at the same offset '
             '(every .text map symbol); tus_identical = source TUs whose functions are all identical '
-            '(data-only TUs: data identical in place; CRT/lib objs separate); tus_identical_with_data = also every data symbol in place; tus_empty = TUs with no symbol in the image (never identical); '
+            '(data-only TUs: data identical in place; CRT/lib objs separate); tus_identical_with_data = also every data symbol in place; tus_empty = TUs with no symbol in the image (counted in tus_identical since 11-12, owner decision); '
             'tus_matched = TUs in src/; same-offset over the PE header and all sections (shameter; header counted since 11-10)',
 }
 json.dump(m, open('meter-%s.json' % ver, 'w'), indent=1)
