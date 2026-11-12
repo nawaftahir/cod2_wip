@@ -59,15 +59,15 @@ oc/snd.cpp
 oc/snd_utils.cpp
 oc/qcommon/statmonitor.cpp
 universal/surfaceflags.cpp
-server/sv_ccmds_mp.cpp
-server/sv_client_mp.cpp
-server/sv_game_mp.cpp
-server/sv_init_mp.cpp
-server/sv_main_mp.cpp
-server/sv_net_chan_mp.cpp
-server/sv_snapshot_mp.cpp
-server/sv_voice_mp.cpp
-server/sv_world_mp.cpp
+server_mp/sv_ccmds_mp.cpp
+server_mp/sv_client_mp.cpp
+server_mp/sv_game_mp.cpp
+server_mp/sv_init_mp.cpp
+server_mp/sv_main_mp.cpp
+server_mp/sv_net_chan_mp.cpp
+server_mp/sv_snapshot_mp.cpp
+server_mp/sv_voice_mp.cpp
+server_mp/sv_world_mp.cpp
 oc/win32/win_threads.cpp
 oc/ui/ui_component.cpp
 win32/win_common.cpp
@@ -154,7 +154,7 @@ oc/client_mp/cl_main_pc_mp.cpp
 oc/client_mp/cl_ui_pc_mp.cpp
 qcommon/dl_main.cpp /I.\\libwww\\Library\\src /D_WINDOWS
 oc/win32/snd_driver.cpp
-server/sv_main_pc_mp.cpp
+server_mp/sv_main_pc_mp.cpp
 oc/win32/win_voice.cpp
 oc/alias.cpp
 oc/globals.cpp
