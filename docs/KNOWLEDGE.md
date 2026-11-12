@@ -572,3 +572,6 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
 - PINNED (w5, 11-12, lab): CG_BuildSolidList hoists `snap+0x26b4` as its own spilled temp (retail shape) only when snap has NO other
   use in the loop IL (body reading `cg->nextSnap->entities[i]`); strength reduction of `snap->entities[i]` happens after that
   decision, so retail's pre-loop `lea edi,[snap+0x26bc]` walker must come from an IL value other than snap (HYPOTHESIS).
+- PINNED (w8 lab, 11-12): the crosshair tail source is `*x = DotProduct(gunDir, viewaxis[1]) / (forward * tan(fov_x * 0.0087266462f)) * -320.0f`
+  (same for y): C++ `float tan(float)` from math.h (retail keeps `?tan@@YAMM@Z`, so no new body), no horiz/vert vars. Only the
+  yaw head remains; it needs AV with yaw as a by-value formal without a new kept inline body (retail map has none for it).
