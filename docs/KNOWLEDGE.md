@@ -566,3 +566,9 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   yaw store 0x28->0x24, E7 0x2c->0x28, E8 0x30->0x2c, so retail order is E6, E7, E8, E4: the height/len entry is created LAST (its
   seed sorts after scale, weight <= 3). Splitting height or len into per-branch locals keeps the code (1463 B) but merges to 7
   entries; inlining branch-1 height changes code (1455 B). Lever: lower height/len weight without splitting them (HYPOTHESIS).
+- PINNED (w5, 11-12, slot dumps): the slot packer's item ids follow first reference in the function (moving `scale = ...` before the
+  height GetVal swaps ids 20/21), and the packer walks items by weight desc, then id. FX height/len (w6 each) therefore always seed
+  the first non-sin/cos entry; retail's late height/len entry needs a different weight, not a different statement order.
+- PINNED (w5, 11-12, lab): CG_BuildSolidList hoists `snap+0x26b4` as its own spilled temp (retail shape) only when snap has NO other
+  use in the loop IL (body reading `cg->nextSnap->entities[i]`); strength reduction of `snap->entities[i]` happens after that
+  decision, so retail's pre-loop `lea edi,[snap+0x26bc]` walker must come from an IL value other than snap (HYPOTHESIS).
