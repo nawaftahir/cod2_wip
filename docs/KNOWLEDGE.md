@@ -656,13 +656,10 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
 - PINNED (w20 lab): walker spelled `cg->nextSnap->entities` (not `snap->entities`, TRIED 204) before the loop with `snapEnt++` gives
   both retail hoists (bound address and walker from one load). Remaining BSL residue is a colouring choice (bound temp ebx vs retail
   spill + TlsGetValue in ebx) and the loop rotation (jmp into the test); 217 B vs retail 241.
-- PINNED (w20 winedbg, 11-13, baseline vs bound-hoist lab): the address temp for `snap+0x26b4` (op 0x278, temp made by 0x10761623 ->
-  0x10761516 -> 0x107615bc, called from the early-IL pass at 0x1076369d) is created and CSEd (guard + bound share sym 0676cd5c) in BOTH
-  builds with identical writer sequences. The difference is later: in the baseline the temp is gone from the regalloc IL (folded back
-  into `[snap+0x26b4]`), in the lab it survives. So the early CSE pass is not the decision; the fold pass was not located.
-- PINNED (w20 lab): walker spelled `cg->nextSnap->entities` (not `snap->entities`, TRIED 204) before the loop with `snapEnt++` gives
-  both retail hoists (bound address and walker from one load). Remaining BSL residue is a colouring choice (bound temp ebx vs retail
-  spill + TlsGetValue in ebx) and the loop rotation (jmp into the test); 217 B vs retail 241.
+- PINNED (w20 cpick, walker-from-cg lab vs baseline): baseline has a colour node `__imp__TlsGetValue@4` (n3 -22, n16 2 -> ebp); in the
+  walker lab that node is GONE (no P line), and the bound temp (kind03, n3 -20, n16 8) takes ebx as its only free reg (cost 500).
+  So the ebx contest is not a pick: the IAT pointer is dropped before colouring (cf. the AddLine charWidth exclusion, sec 17).
+  Next: c2opwalk13 on the lab to see if the TlsGetValue web reaches walk 1 and where it is dropped.
 - PINNED (w8 lab, 11-12): the crosshair tail source is `*x = DotProduct(gunDir, viewaxis[1]) / (forward * tan(fov_x * 0.0087266462f)) * -320.0f`
   (same for y): C++ `float tan(float)` from math.h (retail keeps `?tan@@YAMM@Z`, so no new body), no horiz/vert vars. Only the
   yaw head remains; it needs AV with yaw as a by-value formal without a new kept inline body (retail map has none for it).
