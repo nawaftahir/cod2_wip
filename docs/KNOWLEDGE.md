@@ -575,3 +575,9 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
 - PINNED (w8 lab, 11-12): the crosshair tail source is `*x = DotProduct(gunDir, viewaxis[1]) / (forward * tan(fov_x * 0.0087266462f)) * -320.0f`
   (same for y): C++ `float tan(float)` from math.h (retail keeps `?tan@@YAMM@Z`, so no new body), no horiz/vert vars. Only the
   yaw head remains; it needs AV with yaw as a by-value formal without a new kept inline body (retail map has none for it).
+- PINNED (w8 gate, 11-12): CG_CalcCrosshairPosition now differs from retail only in the dot-product term order (ours does [2] then [1];
+  retail does [1] then [2]; same size). Source: caller `optimize("p", on)`, AV open-coded with `angle = cg->gunYaw * k` (yaw read
+  from cg, not through the array), pitch from `angles[0]`, gunDir written through a `float *dir` local, dead right/up NULL
+  locals (they give the 0x30 frame), dots inline and `tan(float)`. A named float yaw local is copied via ecx under /Op;
+  an expression fed straight into the FastSinCos formal forwards. The by-value helper version (lab, 0 diff) differs only in that the
+  writes go through a pointer formal, so the term order comes from formal vs local pointer.
