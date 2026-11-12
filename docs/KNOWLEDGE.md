@@ -491,3 +491,19 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   HYPOTHESIS: retail creates the height/len entry after the GetVal-temp entries (seed later in the item list). Removing
   the yaw/pitch locals does not change the entry list (it only renumbers items).
 - PINNED (r-solid, retail disasm + cpick on our build, 11-12): CG_BuildSolidList (0x4de0b0) diff has no address-only bytes (no cm/cme operand); all 89 B are code. Retail keeps `lea ecx,[snap+0x26b4]` as its own temp (spilled [esp+4], reloaded once after the inlined CM_ContentsOfModel TlsGetValue call), with TlsGetValue in ebx and i in ebp. Ours: snap node id16 (n3 5) -> ecx/spill, TlsGetValue -> ebp (ebx cost 100), i -> ebx. Any source that names `&snap->numEntities` is canonicalised back to snap+0x26b4 (5 variants), so the lever is whatever makes c2 hoist the address, not the C spelling.
+- PINNED (data1, 11-12, retail operands + ra13 F order of 126fd552): the Com_ErrorCleanup residue is an adjacent swap, not an
+  unreferenced slot. Retail: UI_BuildFindPlayerList statics ..d28/d2c, errorCount 0x19a8d30, lastErrorTime 0x19a8d34,
+  com_subtitleReference[1024] (Com_GetSubtitleStringEdReference) 0x19a8d38, ChopWindingInPlace 0x19a9138. Ours puts the 1 KB array
+  first, so the two ints land at 0x19a9130. The function-static block and the __real pool both follow FORWARD F (compile) order:
+  ours UI_BuildFindPlayerList 5781, Com_GetSubtitleStringEdReference 5853, Com_ErrorCleanup 6005 (common.obj root turn, right after
+  Com_Error_f / Debug_EventLoop), ChopWindingInPlace 6010. Retail therefore compiles Com_ErrorCleanup between 5781 and 5853, i.e.
+  near Com_Error (5851, reached as a child there). Its late callee SEH_UpdateLanguageInfo is 5930 in ours. Retail has only one
+  caller (Com_Frame 0x4352ae, compiled 6687), so no evidence yet for what pulls it earlier.
+- PINNED (data1, same method): __real pool users are identical in both exes (1000.0 double: CL_DemoCompleted, CG_FxTest,
+  HTNumToStr x2; 720.0f: fire_grenade only). Retail 1000.0 sits after Pickup_Health's -0.01 (ours F 5602) and before
+  Die@Particle's constant (5634); ours is pinned by CL_DemoCompleted at F 5435. Retail 720.0f sits after Mantle_CreateAnims's
+  constants (F 6040) and before player_die's 160.0 (6166); ours fire_grenade is F 6034. Both need compile-order moves.
+- PINNED (data1, retail refs): PB LoadServerDll pool: pbsv.dll 0x5b3a30 (first used earlier, makefn/getHomePath), LoadFailure
+  0x5b3a00, pbsvnew 0x5b39f4, pbsvold 0x5b39e8, GetProc 0x5b39b4; each LoadServerDll literal has one ref. SUPPORTED (CoD4 Mac pbsv,
+  gcc, cod4_dasm _pbsv.asm): its string order is pbsvnew, rb, pbsvold, pbsv, sa, sb, GetProc, LoadFailure, i.e. "Get Procedure"
+  before "Load Failure", unlike our source; the retail MSVC order (LoadFailure first) is still unexplained.

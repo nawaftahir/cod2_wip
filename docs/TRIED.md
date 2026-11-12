@@ -179,3 +179,6 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | CG_BuildSolidList (r-solid, lab) | `int *numEntities` + `entities[i]` from a separate `entityState_t *` | worse, 222 B: same canonicalisation back to snap in a register. Reverted |
 | CG_BuildSolidList (r-solid, lab) | loop bound `cg->nextSnap->numEntities`, body keeps `snap->entities[i]` | worse, 239 B, no spill at all. Reverted |
 | CG_BuildSolidList (r-solid, lab) | `const snapshot_t *snap` / `const entityState_t *snapEnt` | no output change. Reverted |
+| Com_ErrorCleanup statics (data1, 11-12, analysis) | retail operands vs ra13 F order | it is a swap with com_subtitleReference[1024]; needs ErrorCleanup compiled between F 5781 and 5853 (ours 6005, root turn). Only caller is Com_Frame (6687); no evidence for an earlier IL reference, no edit made |
+| __real 1000.0 / 720.0f (data1, 11-12, analysis) | users + F order | users identical in both exes; need CL_DemoCompleted (5435) after ~5602 and fire_grenade (6034) after 6040; no source evidence for the moves, no edit made |
+| PB LoadServerDll literal order (data1, 11-12, analysis) | CoD4 pbsv (gcc) string order | CoD4 puts GetProc before LoadFailure; does not give retail's LoadFailure-first either. Not attempted |
