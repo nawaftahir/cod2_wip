@@ -32,7 +32,7 @@ qcommon/unused_stubs.cpp
 universal/com_files.cpp
 universal/com_math.cpp
 universal/com_memory.cpp
-universal/com_playerprofile.cpp
+qcommon/com_playerprofile.cpp
 qcommon/com_profilemapload.cpp
 universal/com_shared.cpp
 universal/com_sndalias.cpp
@@ -42,7 +42,7 @@ qcommon/legacyhacks.cpp
 qcommon/mem_track.cpp
 qcommon/dobj_management.cpp
 universal/dvar.cpp
-universal/dvar_cmds.cpp
+qcommon/dvar_cmds.cpp
 universal/com_files_mp.cpp
 qcommon/huffman.cpp
 botlib/l_memory.cpp
@@ -116,7 +116,7 @@ xanim/xanim_load.cpp
 xanim/xmodel.cpp
 xanim/xmodel_load.cpp
 xanim/xmodel_load_obj.cpp
-xanim/r_xsurface_load_obj.cpp
+gfx_d3d/r_xsurface_load_obj.cpp
 xanim/xmodel_utils.cpp
 EffectsCore/FxArchive.cpp
 EffectsCore/FxChannel.cpp
