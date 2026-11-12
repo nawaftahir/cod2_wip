@@ -302,6 +302,7 @@ void Sys_StreamSeek( fileHandle_t f, int offset, int origin )
 /* 1.3 locks (dvar, console log, Com_Error); retail inlines EnterCriticalSection on an array.
  * TODO: the 1.3 init call site and the array size are not located yet. */
 static CRITICAL_SECTION s_criticalSections[6];	// callers use sections 0..5; retail count unknown
+char winCommonUnreferenced[0xc];	// retail 0xd52a40..4b: unreferenced 12 bytes after s_criticalSections
 
 void Sys_InitializeCriticalSections()
 {

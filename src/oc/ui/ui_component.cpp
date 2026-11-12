@@ -12,7 +12,7 @@ extern qkey_t *keys;
 
 UI_Component_data_t __ZN12UI_Component1gE;
 // unreferenced storage, size from the retail layout after UI_Component::g
-char uiComponentUnreferenced[0x18];
+char uiComponentUnreferenced[0xc];
 #define UI_Component_g __ZN12UI_Component1gE
 extern refexport_t re;
 extern void *imp_com_developer;
