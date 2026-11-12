@@ -538,3 +538,9 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   Blocker: in this build every inline function keeps one out-of-line COMDAT copy (same as FastSinCos, DotProduct), so the two
   helpers add bodies retail does not have (+0x180 B, gate reject). Next: find a construct with formal semantics and no kept
   body (an existing retail-kept inline, a header inline already present in the retail map, or why some inlines are not kept).
+- PINNED (w9 winedbg, breaks 0x10782692 / 0x1078281c, baseline objs): AddLine charWidth parent id 53 n16 trace
+  -1 (op 0x26a, w1), +0 (op 1 = assignment from the TextWidth result, cost 0), -3 (op 0x26a, w2), +4 (op 0x2d, the
+  `curWidth +=` use, cost 2 * w2) = 0. Every local of the fn gets one op 0x26a at w1 (entry/home boundary), so 0x26a is a
+  memory-boundary tuple, not the call-result assignment (that HYPOTHESIS is void). The extra in-loop 0x26a (w2) is what
+  zeroes charWidth; retail must lack it. Weights: outer while 2, inner do 4. The breakpoints stay armed after the fn, so
+  only the first ~150 hits are AddLine (ids repeat in later fns). Refs (opencod2, Mac 1.3, coduo, Kisak) have no Asian branch.
