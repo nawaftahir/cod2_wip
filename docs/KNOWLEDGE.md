@@ -530,3 +530,11 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   gets no P line even with the inner loop removed. Retail colours it (ebp), so retail's outer web must have an extra
   positive ref or a use in a heavier block than the def. HYPOTHESIS: 0x26a = the call-result assignment. Next: winedbg
   break at 0x10782692 / 0x1078281c for this node (tools/c2dbg13.sh) to list each tuple's op, cost and weight.
+- PINNED (w8 labs, 11-12, fdiff 0 lines): CG_CalcCrosshairPosition is byte-identical when (1) AngleVectors is a full copy whose
+  yaw comes in as a by-value float formal (angles ptr still passed for pitch/roll, right/up NULL; gunAng stores kept; this gives
+  retail's 0x30 frame and the unused slot at esp+0x14) and (2) both tan args go through a by-value float formal, with the dot
+  products inline in the `*x`/`*y` expressions (no horiz/vert/halfFov vars: a named float is spilled across `call __CItan`, retail
+  keeps the dot on the x87 stack). Both effects are "inline formal forwards, named var/array element does not" under /Op.
+  Blocker: in this build every inline function keeps one out-of-line COMDAT copy (same as FastSinCos, DotProduct), so the two
+  helpers add bodies retail does not have (+0x180 B, gate reject). Next: find a construct with formal semantics and no kept
+  body (an existing retail-kept inline, a header inline already present in the retail map, or why some inlines are not kept).
