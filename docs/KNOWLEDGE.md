@@ -509,3 +509,10 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   before "Load Failure", unlike our source; the retail MSVC order (LoadFailure first) is still unexplained.
 - PINNED (code1, retail disasm 0x4c85c0): retail crosshair calls `__CItan` (0x58f880) twice; its only other __CItan callers are 0x429820 (com_math) and 0x5219c0. The same TU has inline fptan elsewhere (0x4c916e), so retail crosshair is a /Op function whose head still forwards yaw (`fld [cg->gunYaw]`). The inlined AngleVectors body in retail matches the standalone com_math AngleVectors (0x4279c0) shape (angle*k, fstp, FastSinCos asm); no evidence of a second AngleVectors copy.
 - PINNED (code1, full build): the /Op state of a header inline comes with the COMDAT copy the linker keeps (DotProduct's kept copy is cm_mesh.obj). Putting DotProduct under /Op in com_math.h makes every inliner /Op (crosshair included, 528 fns lost). In our compiler ANY /Op inlinee makes the whole caller /Op and the yaw is then copied via ecx; non-AV /Op sources do not avoid the copy. So the pragma route is closed: retail is /Op with yaw forwarded, the difference must be source shape.
+- PINNED (w3, 11-12, ra13 F order of data1 + peel13 passes() model): the three compile-order targets are pass (sweep) moves, not
+  in-pass moves. fire_grenade's latest callee is G_Spawn (F 5915, previous pass); retail needs fire_grenade one pass later, which
+  also pushes its callers weapon_grenadelauncher_fire (6162) and player_die (6167) a pass. Retail body has the same calls as ours,
+  CoD2rev and Mac 1.3 (G_Spawn, BG_GetWeaponDef, Scr_SetString, vectoangles, AngleNormalize360, flrand x2): no extra callee found.
+  CL_DemoCompleted waits on CL_NextDemo (F 5435), retail wants it ~1 pass later; Mac file has no body. Com_ErrorCleanup is blocked by
+  SEH_UpdateLanguageInfo (5931) <- SEH_StringEd_SetLanguageStrings (5930) <- Com_Error (5852); retail wants ErrorCleanup before
+  5853, so in retail that chain must be cut (cycle) or SetLanguageStrings must not depend on Com_Error. HYPOTHESIS, untested.
