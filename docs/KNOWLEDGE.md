@@ -516,3 +516,8 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   CL_DemoCompleted waits on CL_NextDemo (F 5435), retail wants it ~1 pass later; Mac file has no body. Com_ErrorCleanup is blocked by
   SEH_UpdateLanguageInfo (5931) <- SEH_StringEd_SetLanguageStrings (5930) <- Com_Error (5852); retail wants ErrorCleanup before
   5853, so in retail that chain must be cut (cycle) or SetLanguageStrings must not depend on Com_Error. HYPOTHESIS, untested.
+- PINNED (w4 labs, 11-12): CG_CalcCrosshairPosition yaw forwarding is a scalar-vs-array effect under /Op. A by-value float formal
+  (scalar) forwards (`fld [cg->gunYaw]`, pitch eax-copied before the asm, as retail); an array element read through `angles[]`
+  does not, whether AV is inlined at compile time or by LTCG (ecx copy). Our baseline frame/slots (0x30, gunAng[0] at 0x24,
+  ptr temps 0x1c/0x20) equal retail's, the by-value frame does not (0x2c), so retail still has the gunAng array: retail
+  forwards an array element store under /Op where ours does not. Next: oracle/IL dump of the store->load forward pass, not spelling.
