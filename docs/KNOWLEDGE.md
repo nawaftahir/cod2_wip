@@ -335,6 +335,12 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   ebp: retail's `mov ebp,eax` / `xor edi,edi` core hunk appears, 676 insns = retail, fdiff 26 -> 21 lines. Residue: the add
   sits before the store (retail: after `lineOffset++`) and the overflow stores ebp, not imm 0. Gate: same-offset -191, rejected.
   So the core hunk IS reachable from source by shortening charWidth's IL range; retail does it while keeping the add at the end.
+- PINNED (w19 GAIN=2, per point; edx = refs at the point x weight, not co-live count): of the outer charWidth's 41 points,
+  ~28 (groups 105..132, edx 4..12) are the inlined SEH_ReadCharFromString body (lead-byte tests, `_lead`, `p` updates) between
+  the second TextWidth and the switch; the two heaviest (edx 18, 14) are the `curWidth +=` / line store tuples at the arm end.
+  So co-live values do not matter; the cost is charWidth held across the inlined ReadChar. Retail has the same call order, so
+  the open question is why retail's range there is cheaper (fewer IL points in its inline body, or a lower block weight).
+  esi==2 path (0x107c21ce, -= weight only) not hooked yet; it is the likely 24-point gap.
 
 ## 1.3 .bss layout (w4, 11-08)
 - PINNED: g_largeLocalBuf spans 0xb22f00..0xc22f00 in retail 1.3 (next symbol com_dedicated at 0xc22f00, ours was 0xba2f00). Size set to 0x100000 (opencod2 lists 524288, likely 1.0). One array vs two symbols is not distinguishable from code: SUPPORTED. Clean ratchet same-offset 1914105 -> 1933443, matched-fn unchanged.
