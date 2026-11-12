@@ -355,6 +355,15 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   then the edx-4 inline body. HYPOTHESIS (tuples not named): these are the inlined Language_IsAsian (`return g_currentAsian`)
   copy and test at the head of the second ReadChar. Bound: even at the floor (edx 4 each) both points give charWidth only
   +24 -> -168, still below targetLineWidth -157, so no shape that touches only these two points can win; no lab run.
+- STATE (w21 park, 11-13): model n3 = sum(A*[n+0x18]) + sum(Q*[n+0x18]) - sum(B) over the round-1 walk (exact for every
+  inserted node checked). charWidth -192 = A 28 (use, edx 14) + Q 24 (def, edx 12) - B 244 (41 points: 18, 14 after the def,
+  ~28 inline-ReadChar points at edx 4..12, arm points). It needs > -157 (+36). Retail vs ours over the whole range of
+  charWidth (fdiff, 26 lines): the only differences are register names (charWidth ebp vs [esp+0x28], zero edi vs ebp,
+  ecx/edx in the inner-loop add) and the overflow block (imm 0, `mov edi,edx` schedule), which follow from the colouring.
+  No extra or missing instruction, temp or memory re-read in the IsAsian copy, the ReadChar body or the arm. So nothing in
+  retail's bytes points at a different ref count over charWidth's points. The 19 TRIED labs reshaping that range
+  (w2..w21) were byte-identical or worse. Open: the difference must be in IL that leaves no byte trace (block weights,
+  a temp later folded away), or on the targetLineWidth side. Parked.
 
 ## 1.3 .bss layout (w4, 11-08)
 - PINNED: g_largeLocalBuf spans 0xb22f00..0xc22f00 in retail 1.3 (next symbol com_dedicated at 0xc22f00, ours was 0xba2f00). Size set to 0x100000 (opencod2 lists 524288, likely 1.0). One array vs two symbols is not distinguishable from code: SUPPORTED. Clean ratchet same-offset 1914105 -> 1933443, matched-fn unchanged.
