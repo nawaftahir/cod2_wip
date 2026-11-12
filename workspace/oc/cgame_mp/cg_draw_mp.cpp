@@ -776,10 +776,15 @@ static void CG_DrawCenterString(void)
 extern float DotProduct(const vec3_t a, const vec3_t b);
 static void __attribute_regparm__(2) CG_CalcCrosshairPosition(float *x, float *y)
 {
-    vec3_t gunAng = { cg->gunPitch, cg->gunYaw, cg->refdefViewAngles[2] };
+    vec3_t gunAng;
     vec3_t gunDir;
     float forward;
+    float horiz;
+    float vert;
 
+    gunAng[0] = cg->gunPitch;
+    gunAng[1] = cg->gunYaw;
+    gunAng[2] = cg->refdefViewAngles[2];
     AngleVectors(gunAng, gunDir, NULL, NULL);
 
     forward = DotProduct(gunDir, cg->refdef.viewaxis[0]);
@@ -789,8 +794,10 @@ static void __attribute_regparm__(2) CG_CalcCrosshairPosition(float *x, float *y
         return;
     }
 
-    *x = DotProduct(gunDir, cg->refdef.viewaxis[1]) / (forward * (float)tan((double)(cg->refdef.fov_x * 0.0087266462f))) * -320.0f;
-    *y = DotProduct(gunDir, cg->refdef.viewaxis[2]) / (forward * (float)tan((double)(cg->refdef.fov_y * 0.0087266462f))) * -240.0f;
+    horiz = DotProduct(gunDir, cg->refdef.viewaxis[1]);
+    *x = horiz / (forward * (float)tan((double)(cg->refdef.fov_x * 0.0087266462f))) * -320.0f;
+    vert = DotProduct(gunDir, cg->refdef.viewaxis[2]);
+    *y = vert / (forward * (float)tan((double)(cg->refdef.fov_y * 0.0087266462f))) * -240.0f;
 }
 
 bool CG_GetWeapReticleZoom(float *pfZoom)
