@@ -10,7 +10,8 @@ int I_strlen(const char *s);
 
 int com_fileAccessed;
 int fs_loadStack;
-const char *fs_defaultConfigName;	// original name unknown
+int fs_pad19;	// retail has an unreferenced 4-byte slot here (0xb1b6c8); name picked for its bss position
+const char *g_cfgName;	// real name unknown; chosen so the symbol lands in retail's bss slot
 char fs_gamedir[MAX_OSPATH];
 
 dvar_t *fs_debug;
@@ -2731,11 +2732,11 @@ void FS_InitFilesystem()
 	// graphics screen when the font fails to load
 	if ( FS_ReadFile( DEFAULT_LOCALIZE_CONFIG, NULL ) > 0 )
 	{
-		fs_defaultConfigName = DEFAULT_LOCALIZE_CONFIG;
+		g_cfgName = DEFAULT_LOCALIZE_CONFIG;
 	}
 	else if ( FS_ReadFile( DEFAULT_CONFIG, NULL ) > 0 )
 	{
-		fs_defaultConfigName = DEFAULT_CONFIG;
+		g_cfgName = DEFAULT_CONFIG;
 	}
 	else
 	{
@@ -2759,7 +2760,7 @@ void FS_Restart(int checksumFeed)
 	// if we can't find default.cfg, assume that the paths are
 	// busted and error out now, rather than getting an unreadable
 	// graphics screen when the font fails to load
-	if ( FS_ReadFile( fs_defaultConfigName, NULL ) <= 0 )
+	if ( FS_ReadFile( g_cfgName, NULL ) <= 0 )
 	{
 		// this might happen when connecting to a pure server not using BASEGAME/pak0.pk3
 		// (for instance a TA demo server)
@@ -2775,7 +2776,7 @@ void FS_Restart(int checksumFeed)
 			Com_Error( ERR_DROP, "Invalid game folder\n" );
 		}
 		// TTimo - added some verbosity, 'couldn't load default.cfg' confuses the hell out of users
-		Com_Error( ERR_FATAL, "Couldn't load %s.  Make sure Call of Duty is run from the correct folder.", fs_defaultConfigName );
+		Com_Error( ERR_FATAL, "Couldn't load %s.  Make sure Call of Duty is run from the correct folder.", g_cfgName );
 	}
 
 	// bk010116 - new check before safeMode

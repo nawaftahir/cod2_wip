@@ -1881,10 +1881,10 @@ void Com_RunAutoExec()
 Com_ExecStartupConfigs
 ===================
 */
-extern const char *fs_defaultConfigName;
+extern const char *g_cfgName;
 void Com_ExecStartupConfigs( const char *configFile )
 {
-	Cbuf_AddText(va("exec %s\n", fs_defaultConfigName));
+	Cbuf_AddText(va("exec %s\n", g_cfgName));
 	Cbuf_AddText("exec language.cfg\n");
 
 	if ( configFile )
