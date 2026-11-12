@@ -21,3 +21,4 @@ _CL_*
 core.*
 toolchain/vc70/
 build/
+__pycache__/
