@@ -16,7 +16,7 @@ typedef unsigned char Boolean;
 #    endif
 #    include "headers/PC/win32/win32_syscon_api.h"
 typedef int fileHandle_t;
-#    include "../../universal/dvar.h"
+#    include "../universal/dvar.h"
 
 typedef enum
 {

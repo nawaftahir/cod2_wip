@@ -301,7 +301,7 @@ static void CG_UpdateKillCam(void)
 #define st_state s
 #define st_cycle timeCount
 #define st_oldcycle oldTimeCount
-#include "../../xanim/xanim_settime.inl"
+#include "../xanim/xanim_settime.inl"
 #undef st_tree
 #undef st_index
 #undef st_time

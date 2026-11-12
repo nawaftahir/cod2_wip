@@ -75,7 +75,7 @@ extern void SCR_UpdateScreen(void);
 extern void Com_Error(errorParm_t level, const char *fmt, ...);
 extern void Com_Memset(void *dest, const int val, int count);
 extern void Dvar_SetString(dvar_t *dvar, const char *value);
-#include "../../qcommon/dl_main.h"
+#include "../qcommon/dl_main.h"
 #include <stdio.h>
 extern void CL_ClearDownloadState(void);
 #define DVAR_EXTERNAL (1 << 14)
