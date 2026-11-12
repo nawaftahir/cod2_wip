@@ -280,6 +280,12 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   (neighbours with a single free reg, `off` 20 refs-units + 12) so the allocator takes the eax piece (-3 affinity from the call result) and the rest
   spills to [esp+0x28]; the zero constant lands in ebp as the last leftover. Retail has charWidth ebp, zero edi (zero pops before `line`/charWidth, or
   charWidth has no neighbour that is forced to ebp). Decl order of charWidth/curWidth, a separate inner `cw`: no output change (real function).
+- PINNED (r-addl2 oracle + 2 diagnostic labs, 11-12): the outer CL_ConsolePrint_AddLine charWidth (TextWidth result before the switch,
+  used once by `curWidth += charWidth`) is never a colouring node: with a separate inner `cw` it has no P/C line, and it stays
+  spilled even with linewidth dead in the Asian loop or with no call between its def and use. Node 53 (n3 -106, split) is the
+  parent of the inner piece only. The zero temp (id5 -> ebp) is a consequence: retail zero edi dies at `line` (mov edi,edx), and
+  the >0xff `curWidth = 0` store uses an immediate in retail because edi no longer holds 0. Lever must make the outer value a
+  candidate (find what excludes a 2-ref call-result web in c2 before colouring), not change its free set.
 
 ## 1.3 .bss layout (w4, 11-08)
 - PINNED: g_largeLocalBuf spans 0xb22f00..0xc22f00 in retail 1.3 (next symbol com_dedicated at 0xc22f00, ours was 0xba2f00). Size set to 0x100000 (opencod2 lists 524288, likely 1.0). One array vs two symbols is not distinguishable from code: SUPPORTED. Clean ratchet same-offset 1914105 -> 1933443, matched-fn unchanged.
