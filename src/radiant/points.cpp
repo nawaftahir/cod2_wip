@@ -18,16 +18,42 @@ extern void Sys_Printf(const char *fmt, ...);
 
 
 static int s_check_point; static int s_num_points; static float s_pointvecs[8192][3];
-
-
-
-
-
-
-
-
-
-
+struct CPointCamera
+{
+    unsigned char reserved[0x60];
+    vec3_t origin;
+    vec3_t angles;
+};
+class CPointCamWnd
+{
+public:
+    CPointCamera &Camera() { return *(CPointCamera *)this; }
+};
+class CPointXYWnd
+{
+public:
+    unsigned char reserved[0x70];
+    vec3_t m_vOrigin;
+    float *GetOrigin() { return m_vOrigin; }
+};
+class CPointMainFrame
+{
+public:
+    unsigned char reserved[0x788];
+    CPointXYWnd *m_pXYWnd;
+    CPointCamWnd *m_pCamWnd;
+    CPointCamWnd *GetCamera() { return m_pCamWnd; }
+    CPointXYWnd *GetXYWnd() { return m_pXYWnd; }
+};
+extern CPointMainFrame *g_pParentWnd;
+extern HWND g_statusWnd;
+extern int g_nUpdateBits;
+extern float Vec3Normalize(vec3_t v);
+inline void Sys_UpdateWindows(int bits)
+{
+    g_nUpdateBits |= bits;
+}
+#line 31
 void Pointfile_Delete(void)
 {
 	char name[1024];
@@ -45,17 +71,41 @@ extension_done:
 	strcat(name, ".lin");
 	remove(name);
 }
-void Pointfile_Next(void);
-
-
-
-
-
-
-
-
-
-void Pointfile_Prev(void);
+void Pointfile_Next(void)
+{
+    vec3_t dir;
+    if (s_check_point >= s_num_points - 2)
+    {
+        SendMessageA(g_statusWnd, 0x401, 0, (LPARAM)"End of pointfile");
+        return;
+    }
+    s_check_point++;
+    VectorCopy(s_pointvecs[s_check_point], g_pParentWnd->GetCamera()->Camera().origin);
+    VectorCopy(s_pointvecs[s_check_point], g_pParentWnd->GetXYWnd()->GetOrigin());
+    VectorSubtract(s_pointvecs[s_check_point + 1], g_pParentWnd->GetCamera()->Camera().origin, dir);
+    Vec3Normalize(dir);
+    g_pParentWnd->GetCamera()->Camera().angles[1] = (float)((float)atan2(dir[1], dir[0]) * 180.0f / 3.14159);
+    g_pParentWnd->GetCamera()->Camera().angles[0] = (float)((float)asin(dir[2]) * 180.0f / 3.14159);
+    Sys_UpdateWindows(-1);
+}
+void Pointfile_Prev(void)
+{
+    vec3_t dir;
+    if (s_check_point == 0)
+    {
+        SendMessageA(g_statusWnd, 0x401, 0, (LPARAM)"Start of pointfile");
+        return;
+    }
+    s_check_point--;
+    VectorCopy(s_pointvecs[s_check_point], g_pParentWnd->GetCamera()->Camera().origin);
+    VectorCopy(s_pointvecs[s_check_point], g_pParentWnd->GetXYWnd()->GetOrigin());
+    VectorSubtract(s_pointvecs[s_check_point + 1], g_pParentWnd->GetCamera()->Camera().origin, dir);
+    Vec3Normalize(dir);
+    g_pParentWnd->GetCamera()->Camera().angles[1] = (float)((float)atan2(dir[1], dir[0]) * 180.0f / 3.14159);
+    g_pParentWnd->GetCamera()->Camera().angles[0] = (float)((float)asin(dir[2]) * 180.0f / 3.14159);
+    Sys_UpdateWindows(-1);
+}
+#line 59
 void Pointfile_Check(void)
 {
 	char name[1024];
