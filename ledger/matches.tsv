@@ -89,11 +89,16 @@ addr	size	source	symbol	name	tag
 0x00409830	5	src/radiant/DialogThick.cpp	??1CDialogThick@@UAE@XZ	CDialogThick::~CDialogThick	SUPPORTED
 0x00409840	46	src/radiant/DialogThick.cpp	?DoDataExchange@CDialogThick@@MAEXPAVCDataExchange@@@Z	CDialogThick::DoDataExchange	SUPPORTED
 0x00409870	6	src/radiant/DialogThick.cpp	?GetMessageMap@CDialogThick@@MBEPBUAFX_MSGMAP@@XZ	CDialogThick::GetMessageMap	SUPPORTED
+0x004099c0	263	src/radiant/dlgcamera.cpp	??0CDlgCamera@@QAE@PAVCWnd@@@Z	CDlgCamera::CDlgCamera	SUPPORTED
+0x00409b00	193	src/radiant/dlgcamera.cpp	?DoDataExchange@CDlgCamera@@MAEXPAVCDataExchange@@@Z	CDlgCamera::DoDataExchange	SUPPORTED
+0x00409bd0	6	src/radiant/dlgcamera.cpp	?GetMessageMap@CDlgCamera@@MBEPBUAFX_MSGMAP@@XZ	CDlgCamera::GetMessageMap	SUPPORTED
+0x00409cb0	36	src/radiant/dlgcamera.cpp	??1CDlgEvent@@UAE@XZ	CDlgEvent::~CDlgEvent	SUPPORTED
 0x00409de0	1	src/radiant/dlgcamera.cpp	_FUN_00409de0	FUN_00409de0	UNNAMED
 0x00409df0	1	src/radiant/dlgcamera.cpp	_FUN_00409df0	FUN_00409df0	UNNAMED
 0x00409e00	1	src/radiant/dlgcamera.cpp	_FUN_00409e00	FUN_00409e00	UNNAMED
 0x00409f70	1	src/radiant/dlgcamera.cpp	_FUN_00409f70	FUN_00409f70	UNNAMED
 0x00409f80	1	src/radiant/dlgcamera.cpp	_FUN_00409f80	FUN_00409f80	UNNAMED
+0x0040a890	65	src/radiant/dlgcamera.cpp	??1CNameDlg@@UAE@XZ	CNameDlg::~CNameDlg	SUPPORTED
 0x0040a9b0	1	src/radiant/dlgcamera.cpp	_FUN_0040a9b0	FUN_0040a9b0	UNNAMED
 0x0040a9c0	1	src/radiant/dlgcamera.cpp	_FUN_0040a9c0	FUN_0040a9c0	UNNAMED
 0x0040a9d0	1	src/radiant/dlgcamera.cpp	_FUN_0040a9d0	FUN_0040a9d0	UNNAMED

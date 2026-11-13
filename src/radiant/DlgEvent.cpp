@@ -1,19 +1,4 @@
-#include "stdafx.h"
-
-class CDlgEvent : public CDialog
-{
-public:
-	CDlgEvent(CWnd* pParent = NULL);
-
-	enum { IDD = 182 };
-	CString m_strParm;
-	int m_event;
-
-protected:
-	virtual void DoDataExchange(CDataExchange* pDX);
-
-	DECLARE_MESSAGE_MAP()
-};
+#include "DlgEvent.h"
 
 CDlgEvent::CDlgEvent(CWnd* pParent /*=NULL*/)
 	: CDialog(CDlgEvent::IDD, pParent)
