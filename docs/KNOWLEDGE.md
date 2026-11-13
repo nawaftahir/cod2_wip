@@ -797,3 +797,7 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   `snap = cg->nextSnap;` (before the early return), loop as `do { ... } while (++i, snapEnt++, i < snap->numEntities);`.
   The for loop's entry test was pick 2 (deleted later, still rotated the rest); do/while drops it. `++i` first gives retail inc/add
   order; `i = 0` before the guard gives i ebp / TlsGetValue ebx (with `i = 0` after the guard they swap).
+- PINNED (w27 GAIN=2 lab, 11-13): dropping the AddLine inner-scan `for` entry test (do/while) moves targetLineWidth n3 -157 -> -155
+  and leaves charWidth -192: one loop-test block is worth about 2 B points to a value live across it. The 36-point priority gap
+  would need ~18 dead tests, so the w23 dead-test rule is not the AddLine lever. Only BSL had a fitting loop among the small
+  residues (w27 sweep, TRIED).
