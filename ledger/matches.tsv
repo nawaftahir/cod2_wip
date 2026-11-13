@@ -376,6 +376,10 @@ addr	size	source	symbol	name	tag
 0x004823c0	115	src/universal/com_files.cpp	?GetBspExtension@@YAPBDXZ	GetBspExtension	SUPPORTED
 0x00482980	31	src/universal/com_math.cpp	?randomf@@YAMXZ	randomf	SUPPORTED
 0x004829a0	39	src/universal/com_math.cpp	?crandom@@YAMXZ	crandom	SUPPORTED
+0x004829d0	308	src/universal/com_math.cpp	?GaussianRandom@@YAXPAM0@Z	GaussianRandom	PINNED
+0x00482c60	310	src/universal/com_math.cpp	?SpiralPointsInCircle@@YAXHPAMH@Z	SpiralPointsInCircle	PINNED
+0x00482da0	328	src/universal/com_math.cpp	?SpiralPointsOnHemisphere@@YAXHPAMH@Z	SpiralPointsOnHemisphere	PINNED
+0x00482ef0	346	src/universal/com_math.cpp	?SpiralPointsOnSphere@@YAXHPAMH@Z	SpiralPointsOnSphere	PINNED
 0x00483050	148	src/universal/com_math.cpp	?LinearTrack@@YAMMMMM@Z	LinearTrack	SUPPORTED
 0x00483190	133	src/universal/com_math.cpp	?DiffTrack@@YAMMMMM@Z	DiffTrack	SUPPORTED
 0x004832c0	832	src/universal/com_math.cpp	?GraphGetValueFromFraction@@YAMHPAY01$$CBMM@Z	GraphGetValueFromFraction	PINNED
@@ -388,6 +392,7 @@ addr	size	source	symbol	name	tag
 0x00483730	81	src/universal/com_math.cpp	?VecNCompareCustomEpsilon@@YAHPBM0MH@Z	VecNCompareCustomEpsilon	SUPPORTED
 0x00483790	83	src/universal/com_math.cpp	?Vec3Distance@@YAMQBM0@Z	Vec3Distance	SUPPORTED
 0x004837f0	57	src/universal/com_math.cpp	?Vec3DistanceSq@@YAMQBM0@Z	Vec3DistanceSq	SUPPORTED
+0x00483830	206	src/universal/com_math.cpp	?DistSqToSegment@@YAMQBM00M@Z	DistSqToSegment	SUPPORTED
 0x00483900	66	src/universal/com_math.cpp	?Vec2Distance@@YAMQBM0@Z	Vec2Distance	SUPPORTED
 0x00483950	40	src/universal/com_math.cpp	?Vec2DistanceSq@@YAMQBM0@Z	Vec2DistanceSq	SUPPORTED
 0x00483980	47	src/universal/com_math.cpp	?Vec3Cross@@YAXQBM0QAM@Z	Vec3Cross	SUPPORTED
@@ -420,9 +425,11 @@ addr	size	source	symbol	name	tag
 0x00485390	432	src/universal/com_math.cpp	?MatrixMultiply34@@YAXQAY03$$CBM0QAY03M@Z	MatrixMultiply34	PINNED
 0x00485540	432	src/universal/com_math.cpp	?MatrixMultiply43@@YAXQAY02$$CBM0QAY02M@Z	MatrixMultiply43	PINNED
 0x004856f0	650	src/universal/com_math.cpp	?MatrixMultiply44@@YAXQAY03$$CBM0QAY03M@Z	MatrixMultiply44	PINNED
+0x00485980	118	src/universal/com_math.cpp	?AxisTranspose@@YAXQAY02$$CBMQAY02M@Z	AxisTranspose	PINNED
 0x00485a00	160	src/universal/com_math.cpp	?MatrixTranspose44@@YAXQAY03$$CBMQAY03M@Z	MatrixTranspose44	PINNED
 0x00485aa0	404	src/universal/com_math.cpp	?MatrixInverse@@YAXQAY02$$CBMQAY02M@Z	MatrixInverse	PINNED
 0x00485c40	74	src/universal/com_math.cpp	?MatrixInverseOrthogonal43@@YAXQAY02$$CBMQAY02M@Z	MatrixInverseOrthogonal43	SUPPORTED
+0x00485c90	1382	src/universal/com_math.cpp	?MatrixInverse44@@YAXPBMPAM@Z	MatrixInverse44	PINNED
 0x00486200	136	src/universal/com_math.cpp	?MatrixTransformVector@@YAXQBMQAY02$$CBMQAM@Z	MatrixTransformVector	PINNED
 0x00486290	192	src/universal/com_math.cpp	?MatrixTransformVector44@@YAXQBMQAY03$$CBMQAM@Z	MatrixTransformVector44	PINNED
 0x00486350	136	src/universal/com_math.cpp	?MatrixTransposeTransformVector@@YAXQBMQAY02$$CBMQAM@Z	MatrixTransposeTransformVector	PINNED
@@ -431,8 +438,14 @@ addr	size	source	symbol	name	tag
 0x00486530	101	src/universal/com_math.cpp	?MatrixTransformVector43Equals@@YAXQAMQAY02$$CBM@Z	MatrixTransformVector43Equals	SUPPORTED
 0x00486600	124	src/universal/com_math.cpp	?QuatMultiply@@YAXPBM0PAM@Z	QuatMultiply	SUPPORTED
 0x00486680	29	src/universal/com_math.cpp	?QuatInverse@@YAXQBMQAM@Z	QuatInverse	SUPPORTED
+0x004866a0	372	src/universal/com_math.cpp	?QuatToAxis@@YAXQBMQAY02M@Z	QuatToAxis	PINNED
 0x00486820	154	src/universal/com_math.cpp	?QuatAxisLengthSq@@YAMQBM@Z	QuatAxisLengthSq	SUPPORTED
+0x004868c0	54	src/universal/com_math.cpp	?SinSquaredDeg@@YAMM@Z	SinSquaredDeg	SUPPORTED
 0x00486900	57	src/universal/com_math.cpp	?QuatDiffAxisLengthSq@@YAMQBM0@Z	QuatDiffAxisLengthSq	SUPPORTED
+0x00486940	189	src/universal/com_math.cpp	?RotationToYaw@@YAMQBM@Z	RotationToYaw	PINNED
+0x00486c70	277	src/universal/com_math.cpp	?InfinitePerspectiveMatrix@@YAXQAY03MMMM@Z	InfinitePerspectiveMatrix	PINNED
+0x00486d90	358	src/universal/com_math.cpp	?OrthographicMatrix@@YAXQAY03MMMM@Z	OrthographicMatrix	PINNED
+0x00486f00	366	src/universal/com_math.cpp	?MatrixForViewer@@YAXQAY03MQBMQAY02$$CBM@Z	MatrixForViewer	PINNED
 0x00487070	63	src/universal/com_math.cpp	?ColorBytesFromRGB@@YAIMMM@Z	ColorBytesFromRGB	SUPPORTED
 0x004870b0	76	src/universal/com_math.cpp	?ColorBytesFromRGBA@@YAIMMMM@Z	ColorBytesFromRGBA	SUPPORTED
 0x00487100	114	src/universal/com_math.cpp	?Vec3NormalizeByMax@@YAMQBMQAM@Z	Vec3NormalizeByMax	SUPPORTED
@@ -471,6 +484,8 @@ addr	size	source	symbol	name	tag
 0x004889f0	204	src/universal/com_math.cpp	?PointInPolygon@@YAHPAY02$$CBMHQBM1@Z	PointInPolygon	SUPPORTED
 0x00488ac0	169	src/universal/com_math.cpp	?PlaneFromPoints@@YAHQAMQBM11@Z	PlaneFromPoints	SUPPORTED
 0x00488c30	61	src/universal/com_math.cpp	?SetPlaneSignbits@@YAXPAUcplane_s@@@Z	SetPlaneSignbits	SUPPORTED
+0x00488f00	342	src/universal/com_math.cpp	?PointInCylinderArc@@YAHQBMM0MMMM@Z	PointInCylinderArc	PINNED
+0x00489060	313	src/universal/com_math.cpp	?BoxDistSqrdExceeds@@YAHQBM00M@Z	BoxDistSqrdExceeds	SUPPORTED
 0x004891a0	34	src/universal/com_math.cpp	?Q_round@@YAMM@Z	Q_round	SUPPORTED
 0x004891d0	134	src/universal/com_math.cpp	?Vec3ScaleToUnitMax@@YAMQBMQAM@Z	Vec3ScaleToUnitMax	SUPPORTED
 0x004894f0	6	src/universal/com_math.cpp	?Rand_Init@@YAXH@Z	Rand_Init	SUPPORTED
