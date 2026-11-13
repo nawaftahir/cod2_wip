@@ -8,3 +8,4 @@ addr	size	source	symbol	name	tag
 0x00409040	34	src/radiant/CommandsDlg.cpp	??_GCCommandsDlg@@UAEPAXI@Z	CCommandsDlg::scalar deleting destructor	AUTO
 0x00409070	74	src/radiant/CommandsDlg.cpp	??1CCommandsDlg@@UAE@XZ	CCommandsDlg::implicit destructor	AUTO
 0x0043f7a0	34	src/radiant/TextureLayout.cpp	??_GCTextureLayout@@UAEPAXI@Z	CTextureLayout::scalar deleting destructor	AUTO
+0x00410f90	65	src/radiant/KeyValueSelectDlg.cpp	??1CKeyValueSelectDlg@@UAE@XZ	CKeyValueSelectDlg::implicit destructor	AUTO
