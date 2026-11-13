@@ -450,7 +450,8 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
 - Open: SV_SpawnServer, UI_RunMenuScript and CL_InitOnceForAllClients residue includes `call 0x57b5e0` vs ours 0x57b8c0, the known libcmt strncpy order.
 - ratchet13 only rejects matched-fn loss: a same-offset DROP still prints RATCHET OK and gets accepted. Check the same-offset delta in build/gate.out before keeping an accept.- PINNED (w25 winedbg at X 0x107832c9, `tools/c2dbg13.sh`, baseline): the round-1 neighbours emptied by targetLineWidth's ebx pick, named.
   Constant nodes are kind-0x0d temps (`[sym+4]` 0x100d, `[sym+8]` self); `[sym+0x20]` points at the defining op 0x24b imm, value at op+0x10.
-  9088 '^', 90e8 '0', 9148 '9', 91a8 10, 9208 7, 9268 ' ', 92c8 '', 87e8 0, 88a8 3, 8968 1, 89c8 2. 10 and 7 are the inlined ColorIndex
+  9088 '^', 90e8 '0', 9148 '9', 91a8 10, 9208 7, 9268 ' ', 92c8 '
+', 87e8 0, 88a8 3, 8968 1, 89c8 2. 10 and 7 are the inlined ColorIndex
   (`cmp al,0xa` / `mov eax,7`), so '
 ' and the digit range share node 91a8; 3/1/2 are PMSG_SUBTITLE/GAME/BOLDGAME. One node per value:
   the 0x1001/0x1004/0x2001/0x2004 operand types all hang off the same node, so byte-vs-int spelling cannot split or merge a constant node.
@@ -458,6 +459,11 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   0634fe7c `_p`, 063500bc `_curWidth`; 066c4f3c `loc_language`, 066c4edc `g_currentAsian` (the inlined IsAsian loads are candidates);
   066c48dc/066c4a5c are c2 temps (kind 0x10020208). Model bound (GAIN=2 per block): constant nodes add only 6 to charWidth's B (of 244)
   but 33 to targetLineWidth's, so no constant-spelling change can lift charWidth past -157 (needs +36). Lever is not the constants.
+- PINNED (w25 part 2, winedbg dump): the two unnamed temps are field aliases of the global `con` (parent sym 066c481c, type 0x5000,
+  size 0x25024 = sizeof(Console)); `[sym+0x24]` low word is the field offset: 066c48dc = +0x20014 `con.linewidth`, 066c4a5c = +0x20008
+  `con.lineOffset` (19 reload defs). Not an extra temp: every con.linewidth/lineOffset access is in retail's bytes too.
+  Model bound for targetLineWidth's depth-0 defs: its whole A is +22, so fewer refs there can drop n3 by at most 22 (-179), short of
+  charWidth's -192; only a longer live range (more B) could cross, and the hoisted copy is propagated into linewidth (w19). No lab run.
 
 ## 18. CG_EntityEvent 116..138 rotation is not a colour pick (n3, 11-10)
 - PINNED (ra13 log ee.txt + cpick, with the w3 93..115 patch): every kind03 temp of the land arms (n17 459..578) pops with no competing cost and gets eax;
