@@ -847,6 +847,7 @@ addr	size	source	symbol	name	tag
 0x004a2590	165	src/xanim/dobj.cpp	?DObjSkelIsBoneUpToDate@@YAHPAUDObj_s@@H@Z	DObjSkelIsBoneUpToDate	PINNED
 0x004a2640	177	src/xanim/dobj.cpp	?DObjSkelAreBonesUpToDate@@YAHPBUDObj_s@@PAH@Z	DObjSkelAreBonesUpToDate	PINNED
 0x004a4130	151	src/xanim/dobj.cpp	?DObjSetTree@@YAXPAUDObj_s@@PAUXAnimTree_s@@@Z	DObjSetTree	PINNED
+0x004a4af0	679	src/xanim/dobj.cpp	?DObjGetCreateParms@@YAXPBUDObj_s@@PAUDObjModel_s@@PAGPAPAUXAnimTree_s@@2@Z	DObjGetCreateParms	PINNED
 0x004a4da0	18	src/xanim/dobj.cpp	?DObjGetAllocSkelSize@@YAHPBUDObj_s@@@Z	DObjGetAllocSkelSize	SUPPORTED
 0x004a4dc0	30	src/xanim/dobj.cpp	?DObjSkelExists@@YAHPAUDObj_s@@H@Z	DObjSkelExists	SUPPORTED
 0x004a4de0	23	src/xanim/dobj.cpp	?DObjSkelIsValid@@YAHPBUDObj_s@@H@Z	DObjSkelIsValid	SUPPORTED
@@ -867,8 +868,10 @@ addr	size	source	symbol	name	tag
 0x004a58c0	335	src/xanim/dobj.cpp	?DObjGetBoneName@@YAPBDPBUDObj_s@@H@Z	DObjGetBoneName	PINNED
 0x004a5a10	67	src/xanim/dobj.cpp	?DObjGetTree@@YAPAUXAnimTree_s@@PBUDObj_s@@@Z	DObjGetTree	PINNED
 0x004a5ae0	12	src/xanim/dobj.cpp	?DObjNumBones@@YAHPBUDObj_s@@@Z	DObjNumBones	SUPPORTED
+0x004a6a40	299	src/xanim/dobj.cpp	?DObjGeomTraceline@@YAXPAUDObj_s@@PAM1HPAUDObjTrace_s@@@Z	DObjGeomTraceline	PINNED
 0x004a6b70	28	src/xanim/dobj.cpp	?DObjGetModelLodForDist@@YAHPBUDObj_s@@HM@Z	DObjGetModelLodForDist	SUPPORTED
 0x004a6b90	356	src/xanim/dobj.cpp	?DObjGetMaxLodOutDist@@YAMPBUDObj_s@@@Z	DObjGetMaxLodOutDist	SUPPORTED
+0x004a6d00	613	src/xanim/dobj.cpp	?DObjCalcAnim@@YAXPBUDObj_s@@PAH@Z	DObjCalcAnim	PINNED
 0x004a7210	29	src/xanim/dobj.cpp	?DObjSetModel@@YAXPAUDObj_s@@PAUXModel@@@Z	DObjSetModel	SUPPORTED
 0x004a7230	58	src/script/scr_memorytree.cpp	?MT_GetSubTreeSize@@YAHH@Z	MT_GetSubTreeSize	SUPPORTED
 0x004a7560	6	src/script/scr_memorytree.cpp	?Scr_GetStringUsage@@YAHXZ	Scr_GetStringUsage	SUPPORTED

@@ -216,13 +216,15 @@ static_assert((sizeof(XAnim) == 0x14), "ERROR: XAnim size is invalid!");
 typedef struct XAnimTree_s
 {
 	XAnim_s *anims;
+	// PINNED: Radiant XAnimTree header adds 12 bytes before entnum (+0x10) and infoArray (+0x14 = 20).
+	int unk_04[3];
 	unsigned short entnum;
 	bool bAbs;
 	bool bUseGoalWeight;
 	unsigned short infoArray[1];
 } XAnimTree;
 #if defined(__i386__)
-static_assert((sizeof(XAnimTree) == 0xC), "ERROR: XAnimTree size is invalid!");
+static_assert((sizeof(XAnimTree) == 0x18), "ERROR: XAnimTree size is invalid!");
 #endif
 
 struct XBoneInfo
@@ -588,7 +590,10 @@ void XAnimInit();
 void XAnimAbort();
 void XAnimShutdown();
 
-unsigned short* XModelBoneNames(XModel *model);
+inline unsigned short* XModelBoneNames(XModel *model)
+{
+	return model->parts->hierarchy->names;
+}
 int XModelGetContents(const XModel *model);
 DObjAnimMat* XModelGetBasePose(const XModel *model);
 
