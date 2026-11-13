@@ -1345,17 +1345,17 @@ void Dvar_ClearFlags(const dvar_t *dvar, int sysFlag)
 	if ( dvar->flags & DVAR_EXTERNAL )
 		return;
 
-	var = (dvar_t *)dvar;
-	var->flags &= ~sysFlag;
+
+
 	assertMsg( (sysFlag == (1 << 13)), "(sysFlag) = %i", sysFlag );
 	assertMsg( dvar->flags & sysFlag, "%s", va("%s: %i & %i", dvar->name, dvar->flags, sysFlag) );
 	assertMsg( (!(dvar->flags & (1 << 14))), "(dvar->flags) = %i", dvar->flags );
+	var = (dvar_t *)dvar; var->flags &= ~sysFlag;
 	if ( var->flags & (DVAR_CHANGEABLE_RESET | 0x2000 | DVAR_EXTERNAL) )
 		return;
 
 	Dvar_PerformUnregistration(var);
 }
-
 
 
 
@@ -2447,7 +2447,7 @@ int Dvar_SaveDvars(char *buffer, int flags)
 			size += I_strlen(var->name) + 1;
 
 			stringValue = Dvar_DisplayableValue(var);
-			assertMsg( stringValue, "dvar name: '%s'", var->name );
+			assertMsg( stringValue, "%s", va("dvar name: '%s'", var->name) );
 			if ( buffer )
 				strcpy(&buffer[size], stringValue);
 			size += I_strlen(stringValue) + 1;
