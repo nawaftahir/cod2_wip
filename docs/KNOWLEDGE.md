@@ -448,7 +448,17 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
 - s_criticalSections has 6 entries: Sys_InitializeCriticalSections and WinMain use 0xd52a40 (= base 0xd529b0 + 6 * 0x18) as the loop end (PINNED). Retail gaps: 12 B unreferenced 0xd529a4..0xd529b0 after UI_Component::g, and 12 B 0xd52a40..0xd52a4c before the win_input block. uiComponentUnreferenced[0xc] + winCommonUnreferenced[0xc] map 0xd529a0..0xd52b00 1:1 and the rest of the run to 0xd7a000 at offset 0 (1779 refs) (PINNED, clean ratchet 1960475 -> 1960759).
 - Open: cm (cm_load) is ours 0xb013f8, retail 0xb01400, so cm and cme are +8 until cmd_texts absorbs it. Everything up to scr_initialized 0xb013f4 already matches. Whether retail has 16-byte alignment or an 8-byte unreferenced object there cannot be told from the bytes (HYPOTHESIS either way). It affects CM_InitBoxHull, CG_BuildSolidList and SV_SpawnServer operands.
 - Open: SV_SpawnServer, UI_RunMenuScript and CL_InitOnceForAllClients residue includes `call 0x57b5e0` vs ours 0x57b8c0, the known libcmt strncpy order.
-- ratchet13 only rejects matched-fn loss: a same-offset DROP still prints RATCHET OK and gets accepted. Check the same-offset delta in build/gate.out before keeping an accept.
+- ratchet13 only rejects matched-fn loss: a same-offset DROP still prints RATCHET OK and gets accepted. Check the same-offset delta in build/gate.out before keeping an accept.- PINNED (w25 winedbg at X 0x107832c9, `tools/c2dbg13.sh`, baseline): the round-1 neighbours emptied by targetLineWidth's ebx pick, named.
+  Constant nodes are kind-0x0d temps (`[sym+4]` 0x100d, `[sym+8]` self); `[sym+0x20]` points at the defining op 0x24b imm, value at op+0x10.
+  9088 '^', 90e8 '0', 9148 '9', 91a8 10, 9208 7, 9268 ' ', 92c8 '', 87e8 0, 88a8 3, 8968 1, 89c8 2. 10 and 7 are the inlined ColorIndex
+  (`cmp al,0xa` / `mov eax,7`), so '
+' and the digit range share node 91a8; 3/1/2 are PMSG_SUBTITLE/GAME/BOLDGAME. One node per value:
+  the 0x1001/0x1004/0x2001/0x2004 operand types all hang off the same node, so byte-vs-int spelling cannot split or merge a constant node.
+  Vars (source sym `[sym+0]`, name via `[src+4]`): 0634fc3c `_color`, 0634fedc `_lineBroken`, 0634fdbc `_type`, 0634fcfc `_duration`,
+  0634fe7c `_p`, 063500bc `_curWidth`; 066c4f3c `loc_language`, 066c4edc `g_currentAsian` (the inlined IsAsian loads are candidates);
+  066c48dc/066c4a5c are c2 temps (kind 0x10020208). Model bound (GAIN=2 per block): constant nodes add only 6 to charWidth's B (of 244)
+  but 33 to targetLineWidth's, so no constant-spelling change can lift charWidth past -157 (needs +36). Lever is not the constants.
+
 ## 18. CG_EntityEvent 116..138 rotation is not a colour pick (n3, 11-10)
 - PINNED (ra13 log ee.txt + cpick, with the w3 93..115 patch): every kind03 temp of the land arms (n17 459..578) pops with no competing cost and gets eax;
   the w5 HYPOTHESIS row ("colouring looks retail, output rotated") holds. The emitted regs come from a later pass (local code generator), as REGALLOC round 12 "D-local".
