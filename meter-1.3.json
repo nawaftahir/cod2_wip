@@ -13,7 +13,7 @@
  "functions_identical_in_place": 498,
  "bytes_identical_in_place": 3164,
  "tus_total": 370,
- "tus_matched": 305,
+ "tus_matched": 355,
  "unverified_in_src": 0,
  "functions_identical": 9485,
  "functions_total": 9504,
@@ -43,6 +43,6 @@
    "same_offset": 4096
   }
  },
- "commit": "0c628684",
+ "commit": "b6176c6d",
  "note": "matched_bytes/matched_functions = referee; functions/bytes_identical_in_place = the part of that credited only by raw identity at our own VA (already inside the matched totals, never added twice);functions_identical = referee match or same bytes at the same offset (every .text map symbol); tus_identical = source TUs whose functions are all identical (data-only TUs: data identical in place; CRT/lib objs separate); tus_identical_with_data = also every data symbol in place; tus_empty = TUs with no symbol in the image (counted in tus_identical since 11-12, owner decision); tus_matched = TUs in src/; same-offset over the PE header and all sections (shameter; header counted since 11-10)"
 }
