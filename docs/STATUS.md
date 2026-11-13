@@ -10,7 +10,8 @@
 ## Remaining 955 B (handoff 11-13; per-item state lives in KNOWLEDGE.md, never repeat a TRIED row)
 1. CL_ConsolePrint_AddLine 532: parked with an exact model of c2's colour priority (KNOWLEDGE 17, STATE w21):
    outer charWidth n3 -192 must beat targetLineWidth -157; retail bytes show no instruction-level difference
-   in charWidth's range. Next: trace c2 block weights, or where targetLineWidth's -179 comes from.
+   in charWidth's range. Block weights decoded (w22: 1 << natural-loop depth, same CFG as retail, so not the
+   lever). Next: the round-end test (loop constant nodes + `_p` emptied by targetLineWidth's ebx pick).
    Tool: tools/c2opwalk13.sh (GAIN=1/2, A/B/C/Q/X hooks).
 2. CG_BuildSolidList 88: lab g2 (`snap = cg->nextSnap; if (snap->numEntities <= 0) return;` then walker from
    cg->nextSnap->entities) gives retail colouring; residue = local-temp rotation one pick off + edi/ebx push

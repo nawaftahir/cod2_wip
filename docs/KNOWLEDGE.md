@@ -364,6 +364,24 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   retail's bytes points at a different ref count over charWidth's points. The 19 TRIED labs reshaping that range
   (w2..w21) were byte-identical or worse. Open: the difference must be in IL that leaves no byte trace (block weights,
   a temp later folded away), or on the targetLineWidth side. Parked.
+- PINNED (w22, c2 disasm + new W hook 0x1078245a, `WGT=1 GAIN=2 tools/c2opwalk13.sh`, which drops C/X for cave room):
+  a walk "point" is one IL basic block. Weight [esp+0x24] is set once per block at 0x1078244d: `1 << (byte)[blk+0xa6]`;
+  it is forced to 1 when global 0x108a9208 == 0 (0x107c2047), and comes from block counts [blk+0xb8/0xbc] when
+  0x108a87d4 == 2 (0x107c1ffa; not taken here, every weight is a power of 2). [blk+0xa6] is the natural-loop depth
+  (word): 0x1075eb28 writes the depth for every block whose loop link [blk+0x9c] is the loop, 0x1075eb5c marks a loop
+  body by walking predecessors from the back edge. So the weight follows the CFG, not the loop keyword.
+  edx = (distinct nodes referenced in the block, constant nodes included) x weight.
+- PINNED (w22, per-block log, baseline): charWidth's 41 points are 41 blocks, all depth 1 (weight 2): def block Q6, then
+  9 and 7 refs, ~28 inline-ReadChar blocks of 1..6 refs (most are one var + one constant node, the language/lead-byte
+  compares), use block A7. targetLineWidth's 36 blocks: 7 at depth 0 (two defs A4/A3, block 157 with 7 constant refs =
+  the loop constants '^' '0' '9' ' ' ... referenced before the loop), 27 at depth 1 (use A2), 2 at depth 2 (the `for (l..)`
+  body). Round-1 pops: ... -84, -92 (n16 -6, rejected), -124 (n16 -16, rejected), -157 targetLineWidth (ebx, round ends),
+  charWidth -192 next. The neighbours emptied by that pick (GAIN=1 X) are mostly those loop constant nodes (n16 -1/-2)
+  plus `_p`. Labs (TRIED w22): a copy `cw = charWidth` in the default arm (copy-propagated, n3 same), the colour-code
+  `continue` as an if/else around the rest of the body (same CFG, n3 same). Loop keyword shapes cannot change the
+  weights unless they change the CFG, and retail's CFG equals ours, so the weights of both ranges are almost surely the
+  same in retail. Left open: refs per block (temp or constant nodes) or the round-end test (`_p` and the constants losing
+  their last reg), not the block weights.
 
 ## 1.3 .bss layout (w4, 11-08)
 - PINNED: g_largeLocalBuf spans 0xb22f00..0xc22f00 in retail 1.3 (next symbol com_dedicated at 0xc22f00, ours was 0xba2f00). Size set to 0x100000 (opencod2 lists 524288, likely 1.0). One array vs two symbols is not distinguishable from code: SUPPORTED. Clean ratchet same-offset 1914105 -> 1933443, matched-fn unchanged.

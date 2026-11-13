@@ -9,7 +9,7 @@
 #                  G   freebits node ... n16 = (freebits = first free-set word, bit r = c2 reg id r) GAIN=1 mode (no T/U/D): worklist insertion 0x10784b8f, rejected when n16 <= 0
 #                  I|P n3 node ... n16 = GAIN mode: linked into the sorted worklist (0x10784bf4) | popped (0x10782a5e)
 #                  X   sym node ... reg = GAIN mode: neighbour whose free set the chosen reg emptied (0x107832c9 -> mark 0x107a90e6)
-#                  A|B edx node ... n3 = GAIN=2 mode (only I/P/X/A/B): n3 accumulation, A = referenced (+= [n+0x18]*edx), B = live only (-= edx), C = live only on the esi==2 path (-= weight ebp), Q = def point (+= [n+0x18]*edx)
+#                  A|B edx node ... n3 = GAIN=2 mode (only I/P/X/A/B): n3 accumulation, A = referenced (+= [n+0x18]*edx), B = live only (-= edx), C = live only on the esi==2 path (-= weight ebp), Q = def point (+= [n+0x18]*edx); WGT=1 adds W weight block .. depth per block (drops C and X)
 #                  N   sym node ... res   = 0x1078006c result for a use whose node passed kind 2 / [n+0x10]==0 / [n+5] bit0
 W=$(cd "$(dirname "$0")/.." && pwd); T=$W/../../client-1.0/tools/oracle
 cd "$W"; mkdir -p build/ra
@@ -23,6 +23,7 @@ cat > build/ra/cave_ow.s <<EOF
 .equ CUR, 0x108b1f00
 .equ TABLE, 0x10869140
 .equ GAIN, ${GAIN:-0}
+.equ WGT, ${WGT:-0}
 _start:
 # F 0x107724f6: compile start, arm when [sym+4] == name
 caveF:
@@ -155,6 +156,7 @@ caveP:
   mov eax,[ebp+0x40]
   cmp eax,edi
   jmp 0x10782a63
+.if WGT == 0
 # X 0x107832c9: neighbour esi lost its last free reg ([esp+0x28] = chosen reg); it goes to the mark path 0x107a90e6
 caveX:
   cmp dword ptr [eax],0
@@ -171,6 +173,7 @@ caveX:
   jmp 0x107a90e6
 1:
   jmp 0x107832d2
+.endif
 .endif
 # oplog(tag): caller frame = pushad+pushfd; walker's [esp+0x40] is at [esp+0x6c] here
 oplog:
@@ -230,6 +233,7 @@ caveB:
   sub ecx,edx
   mov [eax+0xc],ecx
   jmp 0x10783a5c
+.if WGT == 0
 # C 0x107c21ce: esi==2 path, unreferenced live node gets n3 -= ebp (weight only)
 caveC:
   pushad
@@ -245,6 +249,7 @@ caveC:
   sub ecx,ebp
   mov [eax+0xc],ecx
   jmp 0x10783a5c
+.endif
 # Q 0x10782919: node on the second point list ([n+0x10]==0) gets n3 += [n+0x18]*edx
 caveQ:
   pushad
@@ -260,6 +265,24 @@ caveQ:
   mov ecx,[eax+0x18]
   mov ebx,[eax+0xc]
   jmp 0x1078291f
+.if WGT
+# W 0x1078245a (WGT=1, replaces C for cave room): block ebx gets point weight eax (1 << loop depth [blk+0xa6])
+caveW:
+  pushad
+  pushfd
+  mov esi,ebx
+  mov ebx,eax
+  movzx eax,word ptr [esi+0xa6]
+  push eax
+  push offset strW
+  call nlog
+  add esp,8
+  popfd
+  popad
+  mov [esp+0x24],eax
+  mov eax,[ebx+0x1c]
+  jmp 0x10782461
+.endif
 .else
 # K 0x10782626: use operand passed the walk; esi = its node
 caveK:
@@ -384,6 +407,7 @@ strA: .ascii "OWA\0"
 strB: .ascii "OWB\0"
 strC: .ascii "OWC\0"
 strQ: .ascii "OWQ\0"
+strW: .ascii "OWW\0"
 .endif
 strN: .ascii "OWN\0"
 sNL: .ascii "\n\0"
@@ -403,7 +427,7 @@ for va, k, n, orig in [(0x107724f6, 'caveF', 6, '8b130fb7426d'), (0x107825e5, 'c
                        (0x10782600, 'caveU', 8, '807d08018b5c2410'), (0x107826e4, 'caveD', 9, '8a45083c018b742418'),
                        (0x10782626, 'caveK', 6, '8b451c8b7008'), (0x10782713, 'caveE', 6, '8b451c8b6808'), (0x1078266b, 'caveN', 8, '85c00f8484130000'),
                        (0x10784bf4, 'caveI', 5, '8941188bc7'), (0x10782a5e, 'caveP', 5, '8b45403bc7'),
-                       (0x10783a45, 'caveA', 9, '8b580c80e1ef884806'), (0x10783a7b, 'caveB', 5, '2bca89480c'), (0x107c21ce, 'caveC', 7, '2bcde9a818fcff'), (0x10782919, 'caveQ', 6, '8b48188b580c'),
+                       (0x10783a45, 'caveA', 9, '8b580c80e1ef884806'), (0x10783a7b, 'caveB', 5, '2bca89480c'), (0x107c21ce, 'caveC', 7, '2bcde9a818fcff'), (0x10782919, 'caveQ', 6, '8b48188b580c'), (0x1078245a, 'caveW', 7, '894424248b431c'),
                        (0x107832c9, 'caveX', 9, '833800 0f8414 5e0200'.replace(' ', '')),
                        (0x10784b8f, 'caveG', 5, '8b4740 85c0'.replace(' ', ''))]:
     if k not in sym: continue
