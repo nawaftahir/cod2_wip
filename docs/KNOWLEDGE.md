@@ -793,3 +793,7 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   drops 234 -> 233 = retail code size. Left after that shift: colour nodes only (snap ecx vs retail eax, bound temp edx vs retail
   ecx, which drags the numSubModels arm reg and the post-call reload) plus push order edi/ebx. So g2 residue = one extra pick
   before pick 3 AND a separate colour choice; no single source change fixes both by rotation alone.
+- PINNED (w23 gate 1973317 -> 1973405, matched-fn +233, 11-13): CG_BuildSolidList matched. On top of g2: `i = 0;` moved above
+  `snap = cg->nextSnap;` (before the early return), loop as `do { ... } while (++i, snapEnt++, i < snap->numEntities);`.
+  The for loop's entry test was pick 2 (deleted later, still rotated the rest); do/while drops it. `++i` first gives retail inc/add
+  order; `i = 0` before the guard gives i ebp / TlsGetValue ebx (with `i = 0` after the guard they swap).

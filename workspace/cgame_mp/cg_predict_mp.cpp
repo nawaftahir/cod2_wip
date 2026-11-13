@@ -64,14 +64,18 @@ void CG_BuildSolidList(void)
 {
     int i;
     snapshot_t *snap;
+    entityState_t *snapEnt;
 
     cg_numSolidEntities = 0;
     cg_numTriggerEntities = 0;
 
+    i = 0;
     snap = cg->nextSnap;
+    if (snap->numEntities <= 0)
+        return;
 
-    for (i = 0; i < snap->numEntities; i++) {
-        entityState_t *snapEnt = &snap->entities[i];
+    snapEnt = cg->nextSnap->entities;
+    do {
         int entityNum = snapEnt->number;
         centity_t *cent = &cg_entities[entityNum];
         entityState_t *ent = &cent->nextState;
@@ -90,7 +94,7 @@ void CG_BuildSolidList(void)
             ((centity_t **)&cg_solidEntities)[cg_numSolidEntities] = cent;
             cg_numSolidEntities++;
         }
-    }
+    } while (++i, snapEnt++, i < snap->numEntities);
 }
 
 static void Trace_CalcBounds( const float *start, const float *mins, const float *maxs, const float *end, float fraction, vec3_t bounds[2] );
