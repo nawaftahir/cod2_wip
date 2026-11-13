@@ -151,6 +151,53 @@ void DObjSetTree(DObj_s *obj, XAnimTree_s *tree)
 	*parent = childInfoIndex;
 }
 
+void DObjGetCreateParms(const DObj_s *obj, DObjModel_s *dobjModels, unsigned short *numModels, XAnimTree_s **tree, unsigned short *entnum)
+{
+	DObjModel_s *model;
+	int i;
+	int parentModelIndex;
+	int boneIndex;
+	unsigned short *boneNames;
+
+#line 1176
+	assert(obj);
+#line 1177
+	assert(obj->numModels > 0 && obj->numModels <= DOBJ_MAX_SUBMODELS);
+#line 1178
+	assert(dobjModels);
+#line 1179
+	assert(numModels);
+#line 1180
+	assert(tree);
+
+	*numModels = obj->numModels;
+	*tree = obj->tree;
+	*entnum = obj->tree ? obj->tree->entnum : 0;
+
+	for ( i = 0, model = dobjModels; i < obj->numModels; i++, model++ )
+	{
+		model->model = obj->models[i];
+		model->boneName = 0;
+		model->ignoreCollision = ( obj->ignoreCollision & (1 << i) ) ? qtrue : qfalse;
+
+		if ( obj->modelParents[i] != 255 )
+		{
+			for ( parentModelIndex = i - 1; parentModelIndex >= 0; parentModelIndex-- )
+			{
+				if ( obj->modelParents[i] < obj->matOffset[parentModelIndex] )
+					continue;
+
+				boneIndex = obj->modelParents[i] - obj->matOffset[parentModelIndex];
+#line 1204
+				assert(boneIndex < XModelNumBones( obj->models[parentModelIndex] ));
+				boneNames = XModelBoneNames(obj->models[parentModelIndex]);
+				model->boneName = SL_ConvertToString(boneNames[boneIndex]);
+				break;
+			}
+		}
+	}
+}
+
 int DObjGetAllocSkelSize(const DObj_s *obj)
 {
 	return sizeof(DObjAnimMat) * obj->numBones + sizeof(DSkelPartBits_s);
@@ -510,6 +557,28 @@ int DObjNumBones(const DObj *obj)
 	return obj->numBones;
 }
 
+void DObjGeomTraceline(DObj_s *obj, float *localStart, float *localEnd, int contentmask, DObjTrace_s *results)
+{
+	trace_t trace;
+	DObjAnimMat *pose;
+
+	results->partName = 0;
+	results->partGroup = 0;
+	trace.fraction = results->fraction;
+#line 2091
+	vassert((trace.fraction >= 0.0f && trace.fraction <= 1.0f), "(trace.fraction) = %g", trace.fraction);
+	trace.surfaceFlags = 0;
+	VectorClear(trace.normal);
+
+	pose = DObjGetRotTransArray(obj);
+
+	results->fraction = trace.fraction;
+#line 2114
+	vassert((results->fraction >= 0.0f && results->fraction <= 1.0f), "(results->fraction) = %g", results->fraction);
+	results->surfaceflags = trace.surfaceFlags;
+	VectorCopy(trace.normal, results->normal);
+}
+
 int DObjGetModelLodForDist(const DObj_s *obj, int modelIndex, float dist)
 {
 	return XModelGetLodForDist(obj->models[modelIndex], dist);
@@ -532,6 +601,86 @@ float DObjGetMaxLodOutDist(const DObj_s *obj)
 	}
 
 	return maxDist;
+}
+
+void DObjCalcAnim(const DObj_s *obj, int *partBits)
+{
+	int boneCount;
+	DSkel_t *skel;
+	DObjAnimMat *Mat;
+	int i;
+	XModelParts_s *parts;
+	short *quats;
+	int boneIndex;
+	bool bNoPartBits;
+	int animPartBits[4];
+
+#line 2170
+	assert(obj);
+	skel = obj->skel;
+#line 2173
+	assert(skel);
+
+	bNoPartBits = 1;
+
+	for ( boneCount = 0; boneCount <= 3; ++boneCount )
+	{
+		animPartBits[boneCount] = ~partBits[boneCount] | skel->partBits.anim[boneCount];
+
+		if ( ~animPartBits[boneCount] )
+			bNoPartBits = 0;
+	}
+
+	if ( bNoPartBits )
+		return;
+
+	for ( boneCount = 0; boneCount <= 3; ++boneCount )
+		skel->partBits.anim[boneCount] |= partBits[boneCount];
+
+	Mat = &skel->Mat;
+	boneIndex = 0;
+
+	for ( i = 0; i < obj->numModels; ++i )
+	{
+		parts = obj->models[i]->parts;
+		boneCount = parts->numRootBones;
+
+		while ( boneCount )
+		{
+			if ( !(animPartBits[boneIndex >> 5] & (1 << (boneIndex & 0x1F))) )
+			{
+				Mat->quat[0] = 0.0f;
+				Mat->quat[1] = 0.0f;
+				Mat->quat[2] = 0.0f;
+				Mat->quat[3] = 1.0f;
+				VectorClear(Mat->trans);
+			}
+
+			--boneCount;
+			++Mat;
+			++boneIndex;
+		}
+
+		quats = parts->quats;
+		boneCount = parts->numBones - parts->numRootBones;
+
+		while ( boneCount )
+		{
+			if ( !(animPartBits[boneIndex >> 5] & (1 << (boneIndex & 0x1F))) )
+			{
+				Mat->quat[0] = (float)quats[0] * (1.0f / 32767.0f);
+				Mat->quat[1] = (float)quats[1] * (1.0f / 32767.0f);
+				Mat->quat[2] = (float)quats[2] * (1.0f / 32767.0f);
+				Mat->quat[3] = (float)quats[3] * (1.0f / 32767.0f);
+				VectorClear(Mat->trans);
+			}
+
+			--boneCount;
+			++Mat;
+			++boneIndex;
+			quats += 4;
+		}
+	}
 }
 
 void DObjSetModel(DObj_s *obj, XModel *model)
