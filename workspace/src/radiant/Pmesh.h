@@ -5,7 +5,7 @@ struct PatchControl
 {
     float xyz[3];
     float st[2][2]; // Retail active texture coordinate sets at +0x0c, +0x14
-    unsigned char field_1c[0x28-0x1c];
+    float normal[3];
     unsigned char color_28[4];
     unsigned char field_2c[0x34-0x2c];
     unsigned int flags_34; // Retail 0x425840 tests bit 1 at control +0x34

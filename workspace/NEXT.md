@@ -24,20 +24,18 @@ only reachable outside the agent sandbox. Logs in /tmp. Before a clean gate, cle
   the earlier file. Not linker ICF: 46 duplicate groups in retail are raw-byte identical and kept apart.
 
 ## Order of work
-1. **NameDlg + DlgEvent via dlgcamera:** write dlgcamera 0x409be0 (195 B, uses CDlgEvent) and 0x40a790
-   (250 B, uses CNameDlg), move both class declarations to headers. Then both files can go to `src/`.
-   SUPPORTED (Q3Radiant `refrences/Quake-III-Arena/q3radiant/dlgcamera.cpp` agrees with retail calls/strings):
-   0x409be0 = `CDlgCamera::OnBtnAddevent` (ref :142; GetScrollPos(m_wndSegments hwnd at this+0x8c, SB_CTL)
-   /4*1000, addEvent 0x49c5c0, setupFromCamera 0x409f90). 0x40a790 = `CDlgCamera::OnFileOpen` (ref :347;
-   "Open Camera File", clear 0x40aaa0, getPositionObj 0x40b350, va 0x4969e0 with 'cameras/%s.camera' (CoD2
-   adds the folder), load 0x49c2b0, setupFromCamera). 0x40a8e0 (201 B, also has a CNameDlg unwind) is likely
-   OnFileSave (ref :359). Retail inlines the dtor body in both; the separate dtor exists only for the EH
-   unwind stub. Needs: CDlgCamera class (none in workspace yet), g_splineList/idCameraDef decls, callees as
-   extern. The callees can stay unwritten; the users only have to exist to place the dtors.
+1. **NameDlg + DlgEvent via dlgcamera:** **DONE** (`CDlgCamera` in `workspace/src/radiant/dlgcamera.{h,cpp}`,
+   `0x409be0` / `0x40a790` / `0x40a8e0` matched; `NameDlg.cpp` + `DlgEvent.cpp` + headers verified with
+   `drift.py --tu` and promoted to `src/radiant/`).
 2. **Finish the small files:** NewProjDlg/ScaleDialog (need MainFrm users), TextureLayout (PatchDialog
-   0x424920), then mru, texturevecs (0 missing), UNKNOWN_00408f20, TexEdit, PatchDensityDlg,
-   TerrainDensityDlg, points, KeyValueSelectDlg, DialogInfo. Check each with `drift.py --tu`.
-3. **First file:** AdvCurveDlg 0x004015a0 (draft in workspace/drafts) and its tail placement.
+   0x424920), then mru (done -> `src/`), KeyValueSelectDlg (done -> `src/`), points (done -> `src/`),
+   texturevecs (blocked on `com_math.cpp` `Snap` `0x489940`), UNKNOWN_00408f20 (blocked on `qe3` `0x46d3d0`
+   / `dvar` `0x48f7c0`, `0x4910d0` / `FS_InitFilesystem` `0x4820a0`), TexEdit (blocked on `TexWnd::UpdateFilter`
+   `0x442d60`), PatchDensityDlg, TerrainDensityDlg, DialogInfo. Check each with `drift.py --tu`
+   (blocked-file details in `workspace/drafts/front_blocked_small_files.md`).
+3. **First file:** AdvCurveDlg 0x004015a0 (blocked after 3 tries + `/Ob1` diagnostic; see
+   `workspace/drafts/AdvCurveDlg_004015a0.cpp`: `/Ob2` `/LTCG` inlines `FUN_00401cd0` -> 511/453 B;
+   `noinline`/`/Ob1` switches `0x4015a0` to custom `esi` CC and breaks `OnOK` / `0x401b80..0x401c20`).
 4. **Big files front to back:** CamWnd, MainFrm, Pmesh, XYWnd, ... one file per session, size first.
 5. Re-test `/OPT:REF /OPT:NOICF` once a region's callers exist.
 

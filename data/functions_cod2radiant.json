@@ -17673,7 +17673,7 @@
   {
    "name": "FUN_0048c1a0",
    "addr": "0x0048c1a0",
-   "size": 717,
+   "size": 716,
    "thunk": false
   },
   {
@@ -17727,7 +17727,13 @@
   {
    "name": "FUN_0048ca50",
    "addr": "0x0048ca50",
-   "size": 444,
+   "size": 344,
+   "thunk": false
+  },
+  {
+   "name": "FUN_0048cbb0",
+   "addr": "0x0048cbb0",
+   "size": 92,
    "thunk": false
   },
   {
@@ -17757,13 +17763,13 @@
   {
    "name": "FUN_0048cd50",
    "addr": "0x0048cd50",
-   "size": 841,
+   "size": 840,
    "thunk": false
   },
   {
    "name": "FUN_0048d0a0",
    "addr": "0x0048d0a0",
-   "size": 533,
+   "size": 532,
    "thunk": false
   },
   {
@@ -17775,7 +17781,7 @@
   {
    "name": "FUN_0048d350",
    "addr": "0x0048d350",
-   "size": 904,
+   "size": 940,
    "thunk": false
   },
   {
@@ -17799,13 +17805,19 @@
   {
    "name": "FUN_0048d7d0",
    "addr": "0x0048d7d0",
-   "size": 469,
+   "size": 468,
    "thunk": false
   },
   {
    "name": "FUN_0048d9b0",
    "addr": "0x0048d9b0",
-   "size": 137,
+   "size": 156,
+   "thunk": false
+  },
+  {
+   "name": "FUN_0048da50",
+   "addr": "0x0048da50",
+   "size": 25,
    "thunk": false
   },
   {
@@ -17817,7 +17829,19 @@
   {
    "name": "FUN_0048da90",
    "addr": "0x0048da90",
-   "size": 948,
+   "size": 968,
+   "thunk": false
+  },
+  {
+   "name": "FUN_0048de60",
+   "addr": "0x0048de60",
+   "size": 50,
+   "thunk": false
+  },
+  {
+   "name": "FUN_0048dea0",
+   "addr": "0x0048dea0",
+   "size": 50,
    "thunk": false
   },
   {
@@ -17925,7 +17949,7 @@
   {
    "name": "FUN_0048ecf0",
    "addr": "0x0048ecf0",
-   "size": 221,
+   "size": 220,
    "thunk": false
   },
   {
@@ -17937,7 +17961,7 @@
   {
    "name": "FUN_0048eed0",
    "addr": "0x0048eed0",
-   "size": 233,
+   "size": 232,
    "thunk": false
   },
   {
@@ -17985,7 +18009,7 @@
   {
    "name": "FUN_0048f5e0",
    "addr": "0x0048f5e0",
-   "size": 477,
+   "size": 476,
    "thunk": false
   },
   {
