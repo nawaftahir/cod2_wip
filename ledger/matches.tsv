@@ -330,6 +330,7 @@ addr	size	source	symbol	name	tag
 0x00453da0	28	src/radiant/brush.cpp	?BrushDef_Alloc@@YAPAUbrushdef_t@@XZ	BrushDef_Alloc	HYPOTHESIS
 0x00453dc0	111	src/radiant/brush.cpp	?FaceRender_Free@@YAXPAUfaceRender_t@@@Z	FaceRender_Free	PINNED
 0x00453e30	90	src/radiant/brush.cpp	?Face_FreeWinding@@YAXPAUface_t@@@Z	Face_FreeWinding	PINNED
+0x00454250	955	src/radiant/brush.cpp	?Face_WriteMaya@@YA_NPBUfaceRender_t@@PBUface_t@@PBUorientation_t@@PAU_iobuf@@_NM@Z	Face_WriteMaya	PINNED
 0x00454630	109	src/radiant/brush.cpp	?Face_AllocArray@@YAPAUface_t@@H@Z	Face_AllocArray	PINNED
 0x004546a0	254	src/radiant/brush.cpp	?Face_FreeArray@@YAXPAUface_t@@H@Z	Face_FreeArray	PINNED
 0x004547a0	109	src/radiant/brush.cpp	?FaceRender_AllocArray@@YAPAUfaceRender_t@@H@Z	FaceRender_AllocArray	PINNED
@@ -341,8 +342,15 @@ addr	size	source	symbol	name	tag
 0x00455060	175	src/radiant/brush.cpp	?Winding_BestAxes@@YAXQBMPAH1@Z	Winding_BestAxes	SUPPORTED
 0x00455110	41	src/radiant/brush.cpp	?Winding_TriangleArea2D@@YAMQBM00HH@Z	Winding_TriangleArea2D	SUPPORTED
 0x00455140	541	src/radiant/brush.cpp	?Winding_InsertEdgePoint@@YAXPAUwinding_t@@QBMHHHH@Z	Winding_InsertEdgePoint	PINNED
+0x00455360	370	src/radiant/brush.cpp	?Winding_AddPointOrdered@@YAXPAUwinding_t@@QBMHH@Z	Winding_AddPointOrdered	PINNED
 0x00455bd0	218	src/radiant/brush.cpp	?Brush_RemoveFace@@YAXPAUbrushdef_t@@H@Z	Brush_RemoveFace	PINNED
 0x00455cb0	57	src/radiant/brush.cpp	?Brush_RemoveEmptyFaces@@YAXPAUbrushdef_t@@@Z	Brush_RemoveEmptyFaces	SUPPORTED
+0x00456fb0	56	src/radiant/brush.cpp	?Brush_SetDefaultTexdefs@@YAXPAUbrushdef_t@@HM@Z	Brush_SetDefaultTexdefs	SUPPORTED
+0x00457ce0	236	src/radiant/brush.cpp	?Brush_CreateFromTexdef@@YAPAUbrushdef_t@@PAUeclass_t@@PBUtexdef_t@@@Z	Brush_CreateFromTexdef	SUPPORTED
+0x004581e0	602	src/radiant/brush.cpp	?Brush_RemoveFromEntity@@YAXPAUbrush_t@@PAUentity_t@@@Z	Brush_RemoveFromEntity	PINNED
+0x00458640	35	src/radiant/brush.cpp	?BrushDef_Create@@YAPAUbrushdef_t@@QBM0PAUeclass_t@@PBUtexdef_t@@@Z	BrushDef_Create	SUPPORTED
+0x00458d20	30	src/radiant/brush.cpp	?Face_MemorySize@@YAHPBUface_t@@@Z	Face_MemorySize	SUPPORTED
+0x00458d40	113	src/radiant/brush.cpp	?BrushDef_MemorySize@@YAHPBUbrushdef_t@@@Z	BrushDef_MemorySize	SUPPORTED
 0x00460160	373	src/radiant/csg.cpp	?Brush_GetFaceFlags@@YAXPAUbrush_t@@PAH111@Z	Brush_GetFaceFlags	SUPPORTED
 0x004602e0	225	src/radiant/csg.cpp	?Brush_IsFixedOrPatch@@YA_NPAUbrush_t@@@Z	Brush_IsFixedOrPatch	SUPPORTED
 0x004603d0	37	src/radiant/csg.cpp	?Brush_FaceFlags_Check80@@YADPAUbrush_t@@@Z	Brush_FaceFlags_Check80	SUPPORTED
