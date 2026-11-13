@@ -789,7 +789,7 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   Item_ListBox_MouseEnter 11 (horzAlign load before the dynamicFlags store; 6 labs), IntersectPlanes 6 (early `pop esi`; 9 labs), StartWeaponAnim 4 (inc order; 3 labs).
   VM_Notify 6 (local-pick rotation; retail has one more pick before pick 37, KNOWLEDGE 25). EvalPrimitiveExpression 14 (retail tail = direct-formal EvalFloat in the minus arm, float arm jumps in; no source shape found).
 - PINNED (w23 c2pickmap on lab g2, 11-13): g2 BSL makes 5 local picks. Shifting the round robin after pick 1 changes nothing (snap load
-  is NOT a pick); after pick 2 the CM_ContentsOfModel call arm becomes retail () and size
+  is NOT a pick); after pick 2 the CM_ContentsOfModel call arm becomes retail (mov ecx,[eax+0xc]; mov eax,[ecx+0x14]) and size
   drops 234 -> 233 = retail code size. Left after that shift: colour nodes only (snap ecx vs retail eax, bound temp edx vs retail
   ecx, which drags the numSubModels arm reg and the post-call reload) plus push order edi/ebx. So g2 residue = one extra pick
   before pick 3 AND a separate colour choice; no single source change fixes both by rotation alone.
