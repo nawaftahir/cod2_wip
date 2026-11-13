@@ -199,20 +199,146 @@ float crandom()
 	return randomf() * 2.0f - 1.0f;
 }
 
+void GaussianRandom( float *f0, float *f1 )
+{
+	float x;
+	float y;
+	float lenSq;
 
+#line 164
+	assert(f0);
+#line 165
+	assert(f1);
 
+	do
+	{
+		x = crandom();
+		y = crandom();
+		lenSq = x * x + y * y;
+	}
+	while ( lenSq > 1.0f );
 
+	lenSq = I_sqrt(log(lenSq) * -2.0f / lenSq);
+	*f0 = x * lenSq;
+	*f1 = y * lenSq;
+}
 
+void SpiralPointsInCircle( int count, float *points, int stride )
+{
+	int i;
+	float spiralSin;
+	float spiralCos;
+	float step;
+	float deviate;
+	float radius;
+	float oldSin;
+	float yawSin;
+	float yawCos;
 
+#line 246
+	assert(points);
+#line 247
+	assert(stride >= sizeof( vec2_t ));
 
+	spiralSin = GOLDEN_SIN;
+	spiralCos = GOLDEN_COS;
+	step = 1.0f / count;
+	deviate = step * 0.5f;
+	yawSin = 0.0f;
+	yawCos = 1.0f;
 
+	for ( i = 0; i < count; ++i )
+	{
+		radius = I_sqrt(deviate);
+		points[0] = radius * yawCos;
+		points[1] = radius * yawSin;
+		deviate = deviate + step;
+		oldSin = yawSin;
+		yawSin = yawSin * spiralCos + yawCos * spiralSin;
+		yawCos = yawCos * spiralCos - oldSin * spiralSin;
+		points = (float *)((char *)points + stride);
+	}
+}
 
+void SpiralPointsOnHemisphere( int count, float *points, int stride )
+{
+	int i;
+	float spiralSin;
+	float spiralCos;
+	float step;
+	float deviate;
+	float height;
+	float radius;
+	float oldSin;
+	float yawSin;
+	float yawCos;
 
+#line 284
+	assert(points);
+#line 285
+	assert(stride >= sizeof( vec3_t ));
 
+	spiralSin = GOLDEN_SIN;
+	spiralCos = GOLDEN_COS;
+	step = 1.0f / count;
+	deviate = step * 0.5f;
+	yawSin = 0.0f;
+	yawCos = 1.0f;
 
+	for ( i = 0; i < count; ++i )
+	{
+		height = deviate;
+		radius = I_sqrt(1.0f - height * height);
+		points[0] = radius * yawCos;
+		points[1] = radius * yawSin;
+		points[2] = height;
+		deviate = deviate + step;
+		oldSin = yawSin;
+		yawSin = yawSin * spiralCos + yawCos * spiralSin;
+		yawCos = yawCos * spiralCos - oldSin * spiralSin;
+		points = (float *)((char *)points + stride);
+	}
+}
 
+void SpiralPointsOnSphere( int count, float *points, int stride )
+{
+	int i;
+	float spiralSin;
+	float spiralCos;
+	float step;
+	float deviate;
+	float height;
+	float radius;
+	float oldSin;
+	float yawSin;
+	float yawCos;
 
+#line 324
+	assert(points);
+#line 325
+	assert(stride >= sizeof( vec3_t ));
 
+	spiralSin = GOLDEN_SIN;
+	spiralCos = GOLDEN_COS;
+	step = 1.0f / count;
+	deviate = step * 0.5f;
+	yawSin = 0.0f;
+	yawCos = 1.0f;
+
+	for ( i = 0; i < count; ++i )
+	{
+		height = deviate * 2.0f - 1.0f;
+		radius = I_sqrt(1.0f - height * height);
+		points[0] = radius * yawCos;
+		points[1] = radius * yawSin;
+		points[2] = height;
+		deviate = deviate + step;
+		oldSin = yawSin;
+		yawSin = yawSin * spiralCos + yawCos * spiralSin;
+		yawCos = yawCos * spiralCos - oldSin * spiralSin;
+		points = (float *)((char *)points + stride);
+	}
+}
 
 float LinearTrack( float tgt, float cur, float rate, float deltaTime );
 
@@ -485,7 +611,30 @@ float Vec3DistanceSq( const vec3_t v1, const vec3_t v2 )
 	return dir[0] * dir[0] + dir[1] * dir[1] + dir[2] * dir[2];
 }
 
+static inline float Com_Fsel( const float x, const float y, const float z )
+{
+	return x >= 0.0f ? y : z;
+}
 
+static inline float Com_Fclamp( const float val, const float min, const float max )
+{
+	return Com_Fsel(min - val, min, Com_Fsel(val - max, max, val));
+}
+
+float DistSqToSegment( const vec3_t p, const vec3_t start, const vec3_t dir, float length )
+{
+	vec3_t diff;
+	vec3_t closest;
+	float t;
+	float distSq;
+
+	VectorSubtract(p, start, diff);
+	t = DotProduct(diff, dir);
+	t = Com_Fclamp(t, 0.0f, length);
+	VectorMA(start, t, dir, closest);
+	distSq = Vec3DistanceSq(p, closest);
+	return distSq;
+}
 
 /*
 ==============
@@ -1257,6 +1406,22 @@ void MatrixMultiply44( const float in1[4][4], const float in2[4][4], float out[4
 	out[3][3] = in1[3][0] * in2[0][3] + in1[3][1] * in2[1][3] + in1[3][2] * in2[2][3] + in1[3][3] * in2[3][3];
 }
 
+void AxisTranspose( const vec3_t in[3], vec3_t out[3] )
+{
+#line 1682
+	assert(in != out);
+
+	out[0][0] = in[0][0];
+	out[0][1] = in[1][0];
+	out[0][2] = in[2][0];
+	out[1][0] = in[0][1];
+	out[1][1] = in[1][1];
+	out[1][2] = in[2][1];
+	out[2][0] = in[0][2];
+	out[2][1] = in[1][2];
+	out[2][2] = in[2][2];
+}
+
 /*
 ==============
 MatrixTranspose44
@@ -1321,9 +1486,106 @@ void MatrixInverseOrthogonal43( const float in[4][3], float out[4][3] )
 {
 	vec3_t origin;
 
-	MatrixTranspose(in, out);
+	AxisTranspose(in, out);
 	VectorSubtract(vec3_origin, in[3], origin);
 	MatrixTransformVector(origin, out, out[3]);
+}
+
+void MatrixInverse44( const float *mat, float *dst )
+{
+	float tmp[12];
+	float src[16];
+	float det;
+	int i;
+
+#line 1779
+	assert(mat != dst);
+
+	// transpose matrix
+	for ( i = 0; i < 4; i++ )
+	{
+		src[i] = mat[i * 4];
+		src[i + 4] = mat[i * 4 + 1];
+		src[i + 8] = mat[i * 4 + 2];
+		src[i + 12] = mat[i * 4 + 3];
+	}
+
+	// pairs for first 8 elements (cofactors)
+	tmp[0] = src[10] * src[15];
+	tmp[1] = src[11] * src[14];
+	tmp[2] = src[9] * src[15];
+	tmp[3] = src[11] * src[13];
+	tmp[4] = src[9] * src[14];
+	tmp[5] = src[10] * src[13];
+	tmp[6] = src[8] * src[15];
+	tmp[7] = src[11] * src[12];
+	tmp[8] = src[8] * src[14];
+	tmp[9] = src[10] * src[12];
+	tmp[10] = src[8] * src[13];
+	tmp[11] = src[9] * src[12];
+
+	// first 8 elements (cofactors)
+	dst[0] = tmp[0] * src[5] + tmp[3] * src[6] + tmp[4] * src[7];
+	dst[0] -= tmp[1] * src[5] + tmp[2] * src[6] + tmp[5] * src[7];
+	dst[1] = tmp[1] * src[4] + tmp[6] * src[6] + tmp[9] * src[7];
+	dst[1] -= tmp[0] * src[4] + tmp[7] * src[6] + tmp[8] * src[7];
+	dst[2] = tmp[2] * src[4] + tmp[7] * src[5] + tmp[10] * src[7];
+	dst[2] -= tmp[3] * src[4] + tmp[6] * src[5] + tmp[11] * src[7];
+	dst[3] = tmp[5] * src[4] + tmp[8] * src[5] + tmp[11] * src[6];
+	dst[3] -= tmp[4] * src[4] + tmp[9] * src[5] + tmp[10] * src[6];
+	dst[4] = tmp[1] * src[1] + tmp[2] * src[2] + tmp[5] * src[3];
+	dst[4] -= tmp[0] * src[1] + tmp[3] * src[2] + tmp[4] * src[3];
+	dst[5] = tmp[0] * src[0] + tmp[7] * src[2] + tmp[8] * src[3];
+	dst[5] -= tmp[1] * src[0] + tmp[6] * src[2] + tmp[9] * src[3];
+	dst[6] = tmp[3] * src[0] + tmp[6] * src[1] + tmp[11] * src[3];
+	dst[6] -= tmp[2] * src[0] + tmp[7] * src[1] + tmp[10] * src[3];
+	dst[7] = tmp[4] * src[0] + tmp[9] * src[1] + tmp[10] * src[2];
+	dst[7] -= tmp[5] * src[0] + tmp[8] * src[1] + tmp[11] * src[2];
+
+	// pairs for second 8 elements (cofactors)
+	tmp[0] = src[2] * src[7];
+	tmp[1] = src[3] * src[6];
+	tmp[2] = src[1] * src[7];
+	tmp[3] = src[3] * src[5];
+	tmp[4] = src[1] * src[6];
+	tmp[5] = src[2] * src[5];
+	tmp[6] = src[0] * src[7];
+	tmp[7] = src[3] * src[4];
+	tmp[8] = src[0] * src[6];
+	tmp[9] = src[2] * src[4];
+	tmp[10] = src[0] * src[5];
+	tmp[11] = src[1] * src[4];
+
+	// second 8 elements (cofactors)
+	dst[8] = tmp[0] * src[13] + tmp[3] * src[14] + tmp[4] * src[15];
+	dst[8] -= tmp[1] * src[13] + tmp[2] * src[14] + tmp[5] * src[15];
+	dst[9] = tmp[1] * src[12] + tmp[6] * src[14] + tmp[9] * src[15];
+	dst[9] -= tmp[0] * src[12] + tmp[7] * src[14] + tmp[8] * src[15];
+	dst[10] = tmp[2] * src[12] + tmp[7] * src[13] + tmp[10] * src[15];
+	dst[10] -= tmp[3] * src[12] + tmp[6] * src[13] + tmp[11] * src[15];
+	dst[11] = tmp[5] * src[12] + tmp[8] * src[13] + tmp[11] * src[14];
+	dst[11] -= tmp[4] * src[12] + tmp[9] * src[13] + tmp[10] * src[14];
+	dst[12] = tmp[2] * src[10] + tmp[5] * src[11] + tmp[1] * src[9];
+	dst[12] -= tmp[4] * src[11] + tmp[0] * src[9] + tmp[3] * src[10];
+	dst[13] = tmp[8] * src[11] + tmp[0] * src[8] + tmp[7] * src[10];
+	dst[13] -= tmp[6] * src[10] + tmp[9] * src[11] + tmp[1] * src[8];
+	dst[14] = tmp[6] * src[9] + tmp[11] * src[11] + tmp[3] * src[8];
+	dst[14] -= tmp[10] * src[11] + tmp[2] * src[8] + tmp[7] * src[9];
+	dst[15] = tmp[10] * src[10] + tmp[4] * src[8] + tmp[9] * src[9];
+	dst[15] -= tmp[8] * src[9] + tmp[11] * src[10] + tmp[5] * src[8];
+
+	// determinant
+	det = src[0] * dst[0] + src[1] * dst[1] + src[2] * dst[2] + src[3] * dst[3];
+#line 1852
+	assert(det);
+
+	// matrix inverse
+	det = 1 / det;
+
+	for ( i = 0; i < 16; i++ )
+	{
+		dst[i] *= det;
+	}
 }
 
 /*
@@ -1466,7 +1728,53 @@ void QuatInverse( const vec4_t in, vec4_t out )
 	out[3] = in[3];
 }
 
+void QuatToAxis( const vec4_t quat, vec3_t axis[3] )
+{
+	float xx;
+	float xy;
+	float xz;
+	float xw;
+	float yy;
+	float yz;
+	float yw;
+	float zz;
+	float zw;
+	float ww;
+	float magSqr;
+	float scale;
+	float scaledX;
+	float scaledY;
 
+	xx = quat[0] * quat[0];
+	yy = quat[1] * quat[1];
+	zz = quat[2] * quat[2];
+	ww = quat[3] * quat[3];
+	magSqr = ww + zz + yy + xx;
+#line 2015
+	assert(magSqr > 0.0f);
+	scale = 2.0f / magSqr;
+	xx *= scale;
+	yy *= scale;
+	zz *= scale;
+	scaledX = scale * quat[0];
+	xy = scaledX * quat[1];
+	xz = scaledX * quat[2];
+	xw = scaledX * quat[3];
+	scaledY = scale * quat[1];
+	yz = scaledY * quat[2];
+	yw = scaledY * quat[3];
+	zw = scale * quat[2] * quat[3];
+
+	axis[0][0] = 1.0f - (yy + zz);
+	axis[0][1] = xy + zw;
+	axis[0][2] = xz - yw;
+	axis[1][0] = xy - zw;
+	axis[1][1] = 1.0f - (xx + zz);
+	axis[1][2] = yz + xw;
+	axis[2][0] = xz + yw;
+	axis[2][1] = yz - xw;
+	axis[2][2] = 1.0f - (xx + yy);
+}
 
 /*
 ==============
@@ -1499,7 +1807,11 @@ float QuatAxisLengthSq( const vec4_t q )
 	return 0;
 }
 
-
+float SinSquaredDeg( float angle )
+{
+	double s = (float)sin(angle * (float)RADINDEG);
+	return s * s;
+}
 
 /*
 ==============
@@ -1516,27 +1828,83 @@ float QuatDiffAxisLengthSq( const vec4_t a, const vec4_t b )
 	return QuatAxisLengthSq(diff);
 }
 
+float RotationToYaw( const vec2_t rot )
+{
+	float zz;
+	float r;
 
+	zz = rot[0] * rot[0];
+	r = zz + rot[1] * rot[1];
+#line 2126
+	assert(r);
+	r = 2.0f / r;
 
+	return (float)atan2(rot[0] * rot[1] * r, 1.0f - zz * r) * (180.0f / 3.141592741012573f);
+}
 
+void InfinitePerspectiveMatrix( float mtx[4][4], float fovX, float fovY, float zNear )
+{
+	float k;
 
+#line 2266
+	assert(mtx);
+#line 2267
+	assert(zNear > 0);
 
+	memset(mtx, 0, 64);
+	k = 0.99950027f;
+	mtx[0][0] = (float)tan((90.0f - fovX * 0.5f) * (float)RADINDEG) * k;
+	mtx[1][1] = (float)tan((90.0f - fovY * 0.5f) * (float)RADINDEG) * k;
+	mtx[2][2] = k;
+	mtx[2][3] = 1.0f;
+	mtx[3][2] = -zNear * k;
+}
 
+void OrthographicMatrix( float mtx[4][4], float width, float height, float depth )
+{
+#line 2285
+	assert(mtx);
+#line 2286
+	assert(width != 0);
+#line 2287
+	assert(height != 0);
+#line 2288
+	assert(depth != 0);
 
+	memset(mtx, 0, 64);
+	mtx[0][0] = 2.0f / width;
+	mtx[1][1] = 2.0f / height;
+	mtx[2][2] = 0.5f / depth;
+	mtx[3][2] = 0.5f;
+	mtx[3][3] = 1.0f;
+}
 
+void MatrixForViewer( float mtx[4][4], const vec3_t origin, const vec3_t axis[3] )
+{
+#line 2302
+	assert(mtx);
+#line 2303
+	assert(origin);
+#line 2304
+	assert(axis);
 
-
-
-
-
-
-
-
-
-
-
-
-
+	mtx[0][0] = -axis[1][0];
+	mtx[1][0] = -axis[1][1];
+	mtx[2][0] = -axis[1][2];
+	mtx[3][0] = -(origin[0] * mtx[0][0] + origin[1] * mtx[1][0] + origin[2] * mtx[2][0]);
+	mtx[0][1] = axis[2][0];
+	mtx[1][1] = axis[2][1];
+	mtx[2][1] = axis[2][2];
+	mtx[3][1] = -(origin[0] * mtx[0][1] + origin[1] * mtx[1][1] + origin[2] * mtx[2][1]);
+	mtx[0][2] = axis[0][0];
+	mtx[1][2] = axis[0][1];
+	mtx[2][2] = axis[0][2];
+	mtx[3][2] = -(origin[0] * mtx[0][2] + origin[1] * mtx[1][2] + origin[2] * mtx[2][2]);
+	mtx[0][3] = 0;
+	mtx[1][3] = 0;
+	mtx[2][3] = 0;
+	mtx[3][3] = 1.0f;
+}
 
 /*
 ==============
@@ -2432,11 +2800,52 @@ void SetPlaneSignbits( cplane_t *out )
 	out->signbits = bits;
 }
 
+int PointInCylinderArc( const vec3_t pos, float radius, const vec3_t arcOrigin, float thickness, float minYaw, float maxYaw, float halfHeight )
+{
+	vec3_t delta;
+	float dist;
+	float d;
+	float yaw;
 
+#line 3647
+	assert(pos);
+#line 3648
+	assert(arcOrigin);
 
+	VectorSubtract(pos, arcOrigin, delta);
+	dist = Vec2Normalize(delta);
+	d = dist - radius;
 
+	if ( d * d > thickness * thickness )
+	{
+		return 0;
+	}
 
+	if ( pos[2] < arcOrigin[2] - halfHeight || pos[2] > arcOrigin[2] + halfHeight )
+	{
+		return 0;
+	}
 
+	yaw = vectoyaw(delta);
+	yaw = AngleNormalize360(yaw);
+
+	if ( minYaw < maxYaw )
+	{
+		if ( yaw < maxYaw && yaw > minYaw )
+		{
+			return 1;
+		}
+	}
+	else
+	{
+		if ( yaw < maxYaw || yaw > minYaw )
+		{
+			return 1;
+		}
+	}
+
+	return 0;
+}
 
 /*
 ==============
