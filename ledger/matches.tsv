@@ -330,7 +330,6 @@ addr	size	source	symbol	name	tag
 0x00453da0	28	src/radiant/brush.cpp	?BrushDef_Alloc@@YAPAUbrushdef_t@@XZ	BrushDef_Alloc	HYPOTHESIS
 0x00453dc0	111	src/radiant/brush.cpp	?FaceRender_Free@@YAXPAUfaceRender_t@@@Z	FaceRender_Free	PINNED
 0x00453e30	90	src/radiant/brush.cpp	?Face_FreeWinding@@YAXPAUface_t@@@Z	Face_FreeWinding	PINNED
-0x00454250	955	src/radiant/brush.cpp	?Face_WriteMaya@@YA_NPBUfaceRender_t@@PBUface_t@@PBUorientation_t@@PAU_iobuf@@_NM@Z	Face_WriteMaya	PINNED
 0x00454630	109	src/radiant/brush.cpp	?Face_AllocArray@@YAPAUface_t@@H@Z	Face_AllocArray	PINNED
 0x004546a0	254	src/radiant/brush.cpp	?Face_FreeArray@@YAXPAUface_t@@H@Z	Face_FreeArray	PINNED
 0x004547a0	109	src/radiant/brush.cpp	?FaceRender_AllocArray@@YAPAUfaceRender_t@@H@Z	FaceRender_AllocArray	PINNED
