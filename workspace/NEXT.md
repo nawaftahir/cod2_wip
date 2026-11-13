@@ -1,9 +1,10 @@
 # Radiant: resume here (Claude is the only worker; web and Gemini lanes are closed, 2026-11-10)
 
 After /clear: read this file, then `workspace/OFFSET_PLAN.md`. Update this file before ending a session.
-Worktree `cod2_wip/.worktrees/claude`, branch `radiant/claude`. Run shell via a script file and
-`wsl.exe bash -l <script>` (PowerShell mangles `$`). Logs in /tmp. Before a clean gate, chown and clear
-`build/obj` and `build/src` with the alpine docker one-liner (build/ is root-owned).
+Worktree `cod2_wip/.worktrees/claude`, branch `radiant/claude`. Native Linux shell since 2026-11-13
+(no more `wsl.exe`/PowerShell): `make -C cod2_wip/.worktrees/claude gate` directly; the docker socket is
+only reachable outside the agent sandbox. Logs in /tmp. Before a clean gate, clear `build/obj` and
+`build/src` (chown first with the alpine docker one-liner if a container left them root-owned).
 
 ## State (clean gate, 2026-11-11)
 855/855 rows, 23.90% game functions, 12.85% game bytes, same-offset 1.508%.
