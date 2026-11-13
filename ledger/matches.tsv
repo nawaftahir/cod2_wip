@@ -346,6 +346,8 @@ addr	size	source	symbol	name	tag
 0x0046c3e0	299	src/radiant/mru.cpp	?LoadMruInReg@@YAHPAUMRUMENU@@PAD@Z	LoadMruInReg	SUPPORTED
 0x0046c510	43	src/radiant/mru.cpp	?GetWin32Kind@@YA?AW4WIN32KIND@@XZ	GetWin32Kind	SUPPORTED
 0x0046c540	181	src/radiant/points.cpp	?Pointfile_Delete@@YAXXZ	Pointfile_Delete	SUPPORTED
+0x0046c600	315	src/radiant/points.cpp	?Pointfile_Next@@YAXXZ	Pointfile_Next	SUPPORTED
+0x0046c740	306	src/radiant/points.cpp	?Pointfile_Prev@@YAXXZ	Pointfile_Prev	SUPPORTED
 0x0046c880	450	src/radiant/points.cpp	?Pointfile_Check@@YAXXZ	Pointfile_Check	SUPPORTED
 0x0046ca50	156	src/radiant/points.cpp	?Pointfile_Draw@@YAXXZ	Pointfile_Draw	SUPPORTED
 0x0046caf0	11	src/radiant/points.cpp	?Pointfile_Clear@@YAXXZ	Pointfile_Clear	SUPPORTED
