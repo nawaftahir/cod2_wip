@@ -561,6 +561,7 @@ addr	size	source	symbol	name	tag
 0x0048b7c0	6	src/universal/dvar.cpp	?Dvar_SetInAutoExec@@YAX_N@Z	Dvar_SetInAutoExec	SUPPORTED
 0x0048b7d0	6	src/universal/dvar.cpp	?Dvar_IsSystemActive@@YA_NXZ	Dvar_IsSystemActive	SUPPORTED
 0x0048b830	58	src/universal/dvar.cpp	?Dvar_IsValidName@@YA_NPBD@Z	Dvar_IsValidName	SUPPORTED
+0x0048b870	187	src/universal/dvar.cpp	?Dvar_AllocVector@@YAPAMH@Z	Dvar_AllocVector	PINNED
 0x0048b980	11	src/universal/dvar.cpp	?Dvar_FreeVectors@@YAXPAUdvar_s@@@Z	Dvar_FreeVectors	SUPPORTED
 0x0048b9a0	8	src/universal/dvar.cpp	?Dvar_FreeNameString@@YAXPBD@Z	Dvar_FreeNameString	SUPPORTED
 0x0048ba80	47	src/universal/dvar.cpp	?Dvar_FreeInternString@@YAXPBD@Z	Dvar_FreeInternString	SUPPORTED
@@ -569,12 +570,19 @@ addr	size	source	symbol	name	tag
 0x0048bb50	75	src/universal/dvar.cpp	?Dvar_FreeResetString@@YAXPAUdvar_s@@@Z	Dvar_FreeResetString	SUPPORTED
 0x0048bba0	159	src/universal/dvar.cpp	?Dvar_SetCurrentStringValue@@YAXPAUdvar_s@@PBD@Z	Dvar_SetCurrentStringValue	SUPPORTED
 0x0048bc40	159	src/universal/dvar.cpp	?Dvar_SetLatchedStringValue@@YAXPAUdvar_s@@PBD@Z	Dvar_SetLatchedStringValue	SUPPORTED
+0x0048bdc0	414	src/universal/dvar.cpp	?Dvar_EnumToString@@YAPBDPBUdvar_s@@@Z	Dvar_EnumToString	PINNED
 0x0048c470	93	src/universal/dvar.cpp	?Dvar_StringToBool@@YA_NPBD@Z	Dvar_StringToBool	SUPPORTED
 0x0048c4d0	81	src/universal/dvar.cpp	?Dvar_StringToInt@@YAHPBD@Z	Dvar_StringToInt	SUPPORTED
 0x0048c530	103	src/universal/dvar.cpp	?Dvar_StringToFloat@@YAMPBD@Z	Dvar_StringToFloat	SUPPORTED
+0x0048c5a0	129	src/universal/dvar.cpp	?Dvar_StringToVec2@@YAPAMPBD@Z	Dvar_StringToVec2	PINNED
+0x0048c630	139	src/universal/dvar.cpp	?Dvar_StringToVec3@@YAPAMPBD@Z	Dvar_StringToVec3	PINNED
+0x0048c6c0	149	src/universal/dvar.cpp	?Dvar_StringToVec4@@YAPAMPBD@Z	Dvar_StringToVec4	PINNED
+0x0048cc10	92	src/universal/dvar.cpp	?Dvar_DisplayableResetValue@@YAPBDPBUdvar_s@@@Z	Dvar_DisplayableResetValue	PINNED
+0x0048cc70	92	src/universal/dvar.cpp	?Dvar_DisplayableLatchedValue@@YAPBDPBUdvar_s@@@Z	Dvar_DisplayableLatchedValue	PINNED
 0x0048cd10	55	src/universal/dvar.cpp	?Dvar_VectorInDomain@@YA_NPBMHMM@Z	Dvar_VectorInDomain	SUPPORTED
 0x0048d2c0	142	src/universal/dvar.cpp	?Dvar_VectorDomainToString@@YAXHTDvarLimits@@PADH@Z	Dvar_VectorDomainToString	SUPPORTED
 0x0048d700	30	src/universal/dvar.cpp	?Dvar_DomainToString@@YAPBDETDvarLimits@@PADH@Z	Dvar_DomainToString	SUPPORTED
+0x0048d720	95	src/universal/dvar.cpp	?Dvar_DomainToString_GetLines@@YAPBDETDvarLimits@@PADHPAH@Z	Dvar_DomainToString_GetLines	PINNED
 0x0048d780	70	src/universal/dvar.cpp	?Dvar_PrintDomain@@YAXETDvarLimits@@@Z	Dvar_PrintDomain	SUPPORTED
 0x0048da70	27	src/universal/dvar.cpp	?Dvar_IsAtDefaultValue@@YA_NPBUdvar_s@@@Z	Dvar_IsAtDefaultValue	SUPPORTED
 0x0048e8f0	329	src/universal/dvar.cpp	?Dvar_Shutdown@@YAXXZ	Dvar_Shutdown	SUPPORTED
