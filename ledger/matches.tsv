@@ -261,6 +261,7 @@ addr	size	source	symbol	name	tag
 0x00427540	83	src/radiant/Pmesh.cpp	?FillPatch@@YAXPAUpatchMesh_t@@QAM@Z	FillPatch	SUPPORTED
 0x00429df0	34	src/radiant/Pmesh.cpp	?FUN_00429df0@@YIHPAXH@Z	FUN_00429df0	UNNAMED
 0x0042b6d0	14	src/radiant/Pmesh.cpp	?FUN_0042b6d0@@YAMHHMMM@Z	FUN_0042b6d0	UNNAMED
+0x0042b760	45	src/radiant/Pmesh.cpp	?FUN_0042b760@@YAMHHMHM@Z	FUN_0042b760	UNNAMED
 0x00434100	1	src/radiant/Pmesh.cpp	_FUN_00434100	FUN_00434100	UNNAMED
 0x0043b500	85	src/radiant/RADEditWnd.cpp	??0CRADEditWnd@@QAE@XZ	CRADEditWnd::CRADEditWnd	SUPPORTED
 0x0043b590	87	src/radiant/RADEditWnd.cpp	??1CRADEditWnd@@UAE@XZ	CRADEditWnd::~CRADEditWnd	SUPPORTED

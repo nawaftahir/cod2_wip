@@ -94,6 +94,9 @@ extern float dword_1128DC4;
 extern int DAT_011298b0;
 static int g_nFaceCycle = 0;
 
+extern float DAT_0109c500[];
+extern float DAT_0109c514[];
+
 void BuildTextureVecs(const vec3_t normal, const vec2_t scale, const vec2_t shift, float rotate, float skew, vec4_t texVecs[2]);
 void FUN_00421150(mesh_t *m);
 int FUN_00421500(mesh_t *m, vec3_t normal);
@@ -886,6 +889,14 @@ float FUN_0042b6d0(int unused1, int unused2,
                     float offset, float factor, float scale)
 {
     return factor * scale + offset;
+}
+
+// Retail 0x0042b760, 45 B. Address-taken callback MATCH.
+float FUN_0042b760(int unused1, int index, float offset, int unused2, float scale)
+{
+    DAT_0109c514[index] += offset * scale;
+    DAT_0109c500[index] += scale;
+    return offset;
 }
 
 // Retail one-byte RET bodies verified with MSVC 7.1. Original entry-point ownership/signatures remain provisional.
