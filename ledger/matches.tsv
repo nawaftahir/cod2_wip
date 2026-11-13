@@ -650,6 +650,7 @@ addr	size	source	symbol	name	tag
 0x0048e8a0	75	src/universal/dvar.cpp	?Dvar_GetUnpackedColorByName@@YAXPBDPAM@Z	Dvar_GetUnpackedColorByName	PINNED
 0x0048e8f0	329	src/universal/dvar.cpp	?Dvar_Shutdown@@YAXXZ	Dvar_Shutdown	SUPPORTED
 0x0048ea40	176	src/universal/dvar.cpp	?Dvar_PerformUnregistration@@YAXPAUdvar_s@@@Z	Dvar_PerformUnregistration	PINNED
+0x0048eaf0	374	src/universal/dvar.cpp	?Dvar_ClearFlags@@YAXPBUdvar_s@@H@Z	Dvar_ClearFlags	PINNED
 0x0048ecf0	220	src/universal/dvar.cpp	?Dvar_UpdateResetValue@@YAXPAUdvar_s@@UDvarValue@@@Z	Dvar_UpdateResetValue	PINNED
 0x0048eed0	232	src/universal/dvar.cpp	?Dvar_UpdateValue@@YAXPAUdvar_s@@UDvarValue@@@Z	Dvar_UpdateValue	PINNED
 0x0048f110	50	src/universal/dvar.cpp	?Dvar_GetReinterpretedResetValue@@YA?AUDvarValue@@PAUdvar_s@@U1@EGTDvarLimits@@@Z	Dvar_GetReinterpretedResetValue	PINNED
@@ -659,6 +660,7 @@ addr	size	source	symbol	name	tag
 0x004912a0	54	src/universal/dvar.cpp	?Dvar_SetCommand@@YAXPBD0@Z	Dvar_SetCommand	PINNED
 0x004912e0	155	src/universal/dvar.cpp	?Dvar_AddFlags@@YAXPAUdvar_s@@H@Z	Dvar_AddFlags	PINNED
 0x00491450	54	src/universal/dvar.cpp	?Dvar_AnyLatchedValues@@YA_NXZ	Dvar_AnyLatchedValues	SUPPORTED
+0x00491490	345	src/universal/dvar.cpp	?Dvar_SaveDvars@@YAHPADH@Z	Dvar_SaveDvars	PINNED
 0x00491760	302	src/universal/dvar.cpp	?Com_SaveDvarsToBuffer@@YAHPAPBDHPADH@Z	Com_SaveDvarsToBuffer	PINNED
 0x00493840	1	src/universal/g_vehicle_path.cpp	_FUN_00493840	FUN_00493840	UNNAMED
 0x004944d0	89	src/universal/UNKNOWN_00494480.cpp	_FUN_004944d0	R_NoiseInit	SUPPORTED
