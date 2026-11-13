@@ -1,7 +1,12 @@
 #include "../qcommon/qcommon.h"
 #include "com_memory.h"
 #include "dvar.h"
-
+#pragma intrinsic(strlen)
+#define enabled boolean
+#define DVAR_TYPE_FLOAT_2 DVAR_TYPE_VEC2
+#define DVAR_TYPE_FLOAT_3 DVAR_TYPE_VEC3
+#define DVAR_TYPE_FLOAT_4 DVAR_TYPE_VEC4
+#define I_strlen strlen
 dvar_t *sortedDvars;
 int dvar_modifiedFlags;
 int dvarCount;
@@ -37,7 +42,7 @@ static int generateHashValue(const char *fname)
 	int letter;
 
 	if ( !fname )
-		Com_Error(ERR_DROP, "\x15" "null name in generateHashValue");
+		Com_Error(ERR_DROP, "null name in generateHashValue");
 
 	hash = 0;
 	i = 0;
@@ -71,16 +76,41 @@ bool Dvar_IsValidName(const char *dvarName)
 	return true;
 }
 
+static inline float Dvar_fsel(const float x, const float y, const float z)
+{
+	return x >= 0.0f ? y : z;
+}
+static inline float Dvar_fmax(const float x, const float y)
+{
+	return Dvar_fsel(x - y, x, y);
+}
+static inline float Dvar_fmin(const float x, const float y)
+{
+	return Dvar_fsel(y - x, x, y);
+}
+static inline int Dvar_fround(const float x)
+{
+	return (int)(x + 0.5f);
+
+
+
+
+
+}
+
+
 // temporary vectors for string conversions; the ring wraps when full
-static float *Dvar_AllocVector(unsigned int componentCount)
+static float *Dvar_AllocVector(int components)
 {
 	float *vector;
 
-	if ( dvarVectorPoolIndex + componentCount > 12 )
+	assertMsg((components > 0), "(components) = %i", components);
+	assertMsg((components < (sizeof(dvarVectorPool) / (sizeof(dvarVectorPool[0]) * (sizeof(dvarVectorPool) != 4 || sizeof(dvarVectorPool[0]) <= 4)))), "(components) = %i", components);
+	if ( dvarVectorPoolIndex + components > 12 )
 		dvarVectorPoolIndex = 0;
 
 	vector = &dvarVectorPool[dvarVectorPoolIndex];
-	dvarVectorPoolIndex += componentCount;
+	dvarVectorPoolIndex += components;
 	return vector;
 }
 
@@ -97,16 +127,29 @@ static void Dvar_FreeVectors(dvar_t *dvar)
 	Z_Free(dvar->current.vector);
 }
 
+static const char *Dvar_AllocNameString(const char *name)
+{
+	return CopyString(name);
+}
+
 static void Dvar_FreeNameString(const char *name)
 {
 	Z_Free((void *)name);
 }
+
+
+
+
+
+
+
 
 // the empty string, single digits and "on"/"off" are shared constants
 static const char *Dvar_InternString(const char *string)
 {
 	unsigned int length;
 
+	assert( string );
 	if ( !*string )
 		return "";
 
@@ -187,12 +230,68 @@ static void Dvar_SetLatchedStringValue(dvar_t *dvar, const char *string)
 		dvar->latched.string = Dvar_InternString(string);
 }
 
+
+static void Dvar_SetResetStringValue(dvar_t *dvar, const char *string)
+{
+	assert( string );
+	if ( dvar->current.string && (string == dvar->current.string || !strcmp(string, dvar->current.string)) )
+		dvar->reset.string = dvar->current.string;
+	else if ( dvar->latched.string && (string == dvar->latched.string || !strcmp(string, dvar->latched.string)) )
+		dvar->reset.string = dvar->latched.string;
+	else
+		dvar->reset.string = Dvar_InternString(string);
+}
+
+
+const char *Dvar_EnumToString(const dvar_t *dvar)
+{
+	assert( dvar );
+	assert( dvar->name );
+	assertMsg(dvar->type == DVAR_TYPE_ENUM, "%s", dvar->name);
+	assertMsg(dvar->domain.enumeration.strings, "%s", dvar->name);
+	assertMsg((dvar->current.integer >= 0 && dvar->current.integer < dvar->domain.enumeration.stringCount || dvar->current.integer == 0), "(dvar->current.integer) = %i", dvar->current.integer);
+	if ( !dvar->domain.enumeration.stringCount )
+		return "";
+
+	return dvar->domain.enumeration.strings[dvar->current.integer];
+}
+
+
+
+const char *Dvar_IndexStringToEnumString(const dvar_t *dvar, const char *indexString)
+{
+	int enumIndex;
+	int indexStringLen;
+	int i;
+	assert( dvar );
+	assert( dvar->name );
+	assertMsg(dvar->type == DVAR_TYPE_ENUM, "%s", dvar->name);
+	assertMsg(dvar->domain.enumeration.strings, "%s", dvar->name);
+	assertMsg(indexString, "%s", dvar->name);
+	if ( !dvar->domain.enumeration.stringCount )
+		return "";
+	indexStringLen = I_strlen(indexString);
+	for ( i = 0; i < indexStringLen; ++i )
+	{
+		if ( !isdigit(indexString[i]) )
+			return "";
+	}
+	enumIndex = atol(indexString);
+
+
+
+	assertMsg((enumIndex >= 0 && enumIndex < dvar->domain.enumeration.stringCount), "(enumIndex) = %i", enumIndex);
+	return dvar->domain.enumeration.strings[enumIndex];
+}
+
+
+
 static const char *Dvar_ValueToString(const dvar_t *dvar, DvarValue value)
 {
 	switch ( dvar->type )
 	{
 	case DVAR_TYPE_BOOL:
-		return value.boolean ? "1" : "0";
+		return value.enabled ? "1" : "0";
 	case DVAR_TYPE_INT:
 		return va("%i", value.integer);
 	case DVAR_TYPE_FLOAT:
@@ -207,126 +306,27 @@ static const char *Dvar_ValueToString(const dvar_t *dvar, DvarValue value)
 		return va("%g %g %g %g",
 		          value.color[0] * (1.0f / 255.0f), value.color[1] * (1.0f / 255.0f),
 		          value.color[2] * (1.0f / 255.0f), value.color[3] * (1.0f / 255.0f));
+
+
+
+
+
 	case DVAR_TYPE_ENUM:
+		assertMsg((value.integer >= 0 && value.integer < dvar->domain.enumeration.stringCount || value.integer == 0), "(value.integer) = %i", value.integer);
 		if ( !dvar->domain.enumeration.stringCount )
 			return "";
 		return dvar->domain.enumeration.strings[value.integer];
+
 	case DVAR_TYPE_STRING:
+		assertMsg(value.string, "%s", va("%s", dvar->name));
 		return va("%s", value.string);
+
+
 	default:
+		assertFail(1, "unhandled dvar type '%i'", dvar->type);
 		return "";
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 static bool Dvar_StringToBool(const char *string)
@@ -353,31 +353,40 @@ static float *Dvar_StringToVec2(const char *string)
 {
 	float *vector;
 
+
+	assert( string );
 	vector = Dvar_AllocVector(2);
 	Vector2Clear(vector);
 	sscanf(string, "%g %g", &vector[0], &vector[1]);
 	return vector;
 }
 
+
 static float *Dvar_StringToVec3(const char *string)
 {
 	float *vector;
 
+
+	assert( string );
 	vector = Dvar_AllocVector(3);
 	VectorClear(vector);
 	sscanf(string, "%g %g %g", &vector[0], &vector[1], &vector[2]);
 	return vector;
 }
 
+
 static float *Dvar_StringToVec4(const char *string)
 {
 	float *vector;
 
+
+	assert( string );
 	vector = Dvar_AllocVector(4);
 	Vector4Clear(vector);
 	sscanf(string, "%g %g %g %g", &vector[0], &vector[1], &vector[2], &vector[3]);
 	return vector;
 }
+
 
 // accepts a name, an index, or an unambiguous name prefix
 static int Dvar_StringToEnum(const DvarLimits *domain, const char *string)
@@ -386,6 +395,8 @@ static int Dvar_StringToEnum(const DvarLimits *domain, const char *string)
 	const char *digit;
 	int len;
 
+	assert( domain );
+	assert( string );
 	for ( stringIndex = 0; stringIndex < domain->enumeration.stringCount; ++stringIndex )
 	{
 		if ( !stricmp(string, domain->enumeration.strings[stringIndex]) )
@@ -406,7 +417,7 @@ static int Dvar_StringToEnum(const DvarLimits *domain, const char *string)
 	len = I_strlen(string);
 	for ( stringIndex = 0; stringIndex < domain->enumeration.stringCount; ++stringIndex )
 	{
-		if ( !I_strnicmpInline(string, domain->enumeration.strings[stringIndex], len) )
+		if ( !strnicmp(string, domain->enumeration.strings[stringIndex], len) )
 			return stringIndex;
 	}
 
@@ -420,20 +431,21 @@ static void Dvar_StringToColor(const char *string, unsigned char *color)
 	Vector4Clear(colorVec);
 	sscanf(string, "%g %g %g %g", &colorVec[0], &colorVec[1], &colorVec[2], &colorVec[3]);
 
-	color[0] = I_fround(I_fmax(0.0f, I_fmin(1.0f, colorVec[0])) * 255.0f);
-	color[1] = I_fround(I_fmax(0.0f, I_fmin(1.0f, colorVec[1])) * 255.0f);
-	color[2] = I_fround(I_fmax(0.0f, I_fmin(1.0f, colorVec[2])) * 255.0f);
-	color[3] = I_fround(I_fmax(0.0f, I_fmin(1.0f, colorVec[3])) * 255.0f);
+	color[0] = Dvar_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, colorVec[0])) * 255.0f);
+	color[1] = Dvar_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, colorVec[1])) * 255.0f);
+	color[2] = Dvar_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, colorVec[2])) * 255.0f);
+	color[3] = Dvar_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, colorVec[3])) * 255.0f);
 }
+
 
 static DvarValue Dvar_StringToValue(unsigned char type, DvarLimits domain, const char *string)
 {
 	DvarValue value;
-
+	assert( string );
 	switch ( type )
 	{
 	case DVAR_TYPE_BOOL:
-		value.boolean = Dvar_StringToBool(string);
+		value.enabled = Dvar_StringToBool(string);
 		break;
 	case DVAR_TYPE_INT:
 		value.integer = Dvar_StringToInt(string);
@@ -459,12 +471,73 @@ static DvarValue Dvar_StringToValue(unsigned char type, DvarLimits domain, const
 	case DVAR_TYPE_COLOR:
 		Dvar_StringToColor(string, value.color);
 		break;
+
+
+
+
+
+
+
+
+
+
+
 	default:
+		assertFail(1, "unhandled dvar type '%i'", type);
 		value.integer = 0;
 		break;
 	}
 
 	return value;
+}
+
+
+
+const char *Dvar_DisplayableValue(const dvar_t *dvar)
+{
+
+	assert( dvar );
+	return Dvar_ValueToString(dvar, dvar->current);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const char *Dvar_DisplayableResetValue(const dvar_t *dvar)
+{
+
+	assert( dvar );
+	return Dvar_ValueToString(dvar, dvar->reset);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const char *Dvar_DisplayableLatchedValue(const dvar_t *dvar)
+{
+
+	assert( dvar );
+	return Dvar_ValueToString(dvar, dvar->latched);
 }
 
 static void Dvar_ClampVectorToDomain(float *vector, int components, float min, float max)
@@ -495,13 +568,90 @@ static bool Dvar_VectorInDomain(const float *vector, int components, float min, 
 	return true;
 }
 
+
+
+
+
+
+
+
+static DvarValue Dvar_ClampValueToDomain(unsigned char type, DvarValue value, const DvarValue resetValue, const DvarLimits domain)
+{
+	switch ( type )
+	{
+	case DVAR_TYPE_BOOL:
+		value.enabled = value.enabled != 0;
+		break;
+
+
+
+
+
+
+
+	case DVAR_TYPE_INT:
+		assert( domain.integer.min <= domain.integer.max );
+		if ( value.integer < domain.integer.min )
+			value.integer = domain.integer.min;
+		else if ( value.integer > domain.integer.max )
+			value.integer = domain.integer.max;
+		break;
+	case DVAR_TYPE_FLOAT:
+		if ( value.decimal < domain.decimal.min )
+			value.decimal = domain.decimal.min;
+		else if ( value.decimal > domain.decimal.max )
+			value.decimal = domain.decimal.max;
+		break;
+	case DVAR_TYPE_VEC2:
+		Dvar_ClampVectorToDomain(value.vector, 2, domain.decimal.min, domain.decimal.max);
+		break;
+	case DVAR_TYPE_VEC3:
+		Dvar_ClampVectorToDomain(value.vector, 3, domain.decimal.min, domain.decimal.max);
+		break;
+	case DVAR_TYPE_VEC4:
+		Dvar_ClampVectorToDomain(value.vector, 4, domain.decimal.min, domain.decimal.max);
+		break;
+
+
+
+
+
+
+
+
+
+
+
+
+	case DVAR_TYPE_ENUM:
+		assertMsg((value.integer >= 0 && value.integer < domain.enumeration.stringCount || value.integer == 0), "(value.integer) = %i", value.integer);
+		if ( value.integer < 0 || value.integer >= domain.enumeration.stringCount )
+			value.integer = resetValue.integer;
+		break;
+	case DVAR_TYPE_STRING:
+	case DVAR_TYPE_COLOR:
+		break;
+
+
+	default:
+		assertFail(1, "unhandled dvar type '%i'", type);
+		break;
+	}
+
+	return value;
+}
+
+
 bool Dvar_ValueInDomain(unsigned char type, DvarValue value, DvarLimits domain)
 {
 	switch ( type )
 	{
 	case DVAR_TYPE_BOOL:
+		assert( value.enabled == true || value.enabled == false );
 		return true;
+
 	case DVAR_TYPE_INT:
+		assert( domain.integer.min <= domain.integer.max );
 		if ( value.integer < domain.integer.min )
 			return false;
 		if ( value.integer > domain.integer.max )
@@ -525,10 +675,24 @@ bool Dvar_ValueInDomain(unsigned char type, DvarValue value, DvarLimits domain)
 		return true;
 	case DVAR_TYPE_COLOR:
 		return true;
+
+
+
+
+
+
+
+
+
+
+
 	default:
+		assertFail(1, "unhandled dvar type '%i'", type);
 		return false;
 	}
 }
+
+
 
 static void Dvar_VectorDomainToString(int components, DvarLimits domain, char *outBuffer, int outBufferLen)
 {
@@ -548,12 +712,13 @@ static void Dvar_VectorDomainToString(int components, DvarLimits domain, char *o
 	}
 }
 
+
 static const char *Dvar_DomainToString_Internal(unsigned char type, DvarLimits domain, char *outBuffer, int outBufferLen, int *outLineCount)
 {
 	char *outBufferEnd;
 	int charsWritten;
 	int stringIndex;
-
+	assert( outBufferLen > 0 );
 	outBufferEnd = &outBuffer[outBufferLen];
 	if ( outLineCount )
 		*outLineCount = 0;
@@ -628,7 +793,18 @@ static const char *Dvar_DomainToString_Internal(unsigned char type, DvarLimits d
 	case DVAR_TYPE_COLOR:
 		_snprintf(outBuffer, outBufferLen, "Domain is any 4-component color, in RGBA format");
 		break;
+
+
+
+
+
+
+
+
+
+
 	default:
+		assertFail(1, "unhandled dvar type '%i'", type);
 		*outBuffer = 0;
 		break;
 	}
@@ -640,6 +816,14 @@ static const char *Dvar_DomainToString_Internal(unsigned char type, DvarLimits d
 static const char *Dvar_DomainToString(unsigned char type, DvarLimits domain, char *outBuffer, int outBufferLen)
 {
 	return Dvar_DomainToString_Internal(type, domain, outBuffer, outBufferLen, NULL);
+}
+
+const char *Dvar_DomainToString_GetLines(unsigned char type, DvarLimits domain, char *outBuffer, int outBufferLen, int *outLineCount)
+{
+
+
+	assert( outLineCount );
+	return Dvar_DomainToString_Internal(type, domain, outBuffer, outBufferLen, outLineCount);
 }
 
 void Dvar_PrintDomain(unsigned char type, DvarLimits domain)
@@ -654,7 +838,7 @@ static bool Dvar_ValuesEqual(unsigned char type, DvarValue val0, DvarValue val1)
 	switch ( type )
 	{
 	case DVAR_TYPE_BOOL:
-		return val0.boolean == val1.boolean;
+		return val0.enabled == val1.enabled;
 	case DVAR_TYPE_INT:
 		return val0.integer == val1.integer;
 	case DVAR_TYPE_FLOAT:
@@ -669,12 +853,28 @@ static bool Dvar_ValuesEqual(unsigned char type, DvarValue val0, DvarValue val1)
 		return Byte4Compare(val0.color, val1.color);
 	case DVAR_TYPE_ENUM:
 		return val0.integer == val1.integer;
+
+
+
+
+
+
+
+
+
 	case DVAR_TYPE_STRING:
+		assert( val0.string );
+		assert( val1.string );
 		return strcmp(val0.string, val1.string) == 0;
+
+
 	default:
+		assertFail(1, "unhandled dvar type '%i'", type);
 		return false;
 	}
 }
+
+static void Dvar_SetVariant(dvar_t *dvar, DvarValue value, DvarSetSource source);
 
 static void Dvar_SetLatchedValue(dvar_t *dvar, DvarValue value)
 {
@@ -709,16 +909,50 @@ bool Dvar_IsAtDefaultValue(const dvar_t *dvar)
 	return Dvar_ValuesEqual(dvar->type, dvar->current, dvar->reset);
 }
 
+
+
+
+
+
+
+
+
+
+
+
 static void Dvar_SetVariant(dvar_t *dvar, DvarValue value, DvarSetSource source)
 {
-	Com_PrintMessage(CON_CHANNEL_LOGFILEONLY, va("      dvar set %s %s\n", dvar->name, Dvar_ValueToString(dvar, value)));
 
+	assert( dvar );
+	assert( dvar->name );
 	if ( !Dvar_ValueInDomain(dvar->type, value, dvar->domain) )
 	{
 		Com_Printf("'%s' is not a valid value for dvar '%s'\n", Dvar_ValueToString(dvar, value), dvar->name);
 		Dvar_PrintDomain(dvar->type, dvar->domain);
 		if ( dvar->type == DVAR_TYPE_ENUM )
+		{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			assertMsg(Dvar_ValueInDomain( dvar->type, dvar->reset, dvar->domain ), "%s", dvar->name);
 			Dvar_SetVariant(dvar, dvar->reset, source);
+		}
 		return;
 	}
 
@@ -736,7 +970,7 @@ static void Dvar_SetVariant(dvar_t *dvar, DvarValue value, DvarSetSource source)
 			return;
 		}
 
-		if ( source == DVAR_SOURCE_EXTERNAL && (dvar->flags & DVAR_CHEAT) && !dvar_cheats->current.boolean )
+		if ( source == DVAR_SOURCE_EXTERNAL && (dvar->flags & DVAR_CHEAT) && !dvar_cheats->current.enabled )
 		{
 			Com_Printf("%s is cheat protected.\n", dvar->name);
 			return;
@@ -761,7 +995,20 @@ static void Dvar_SetVariant(dvar_t *dvar, DvarValue value, DvarSetSource source)
 
 	switch ( dvar->type )
 	{
+
+
+
+
+
+
+
+
+
+
+
 	case DVAR_TYPE_STRING:
+		assert( dvar->name );
+		assertMsg(value.string != dvar->current.string || value.string == dvar->latched.string || value.string == dvar->reset.string, "%s", dvar->name);
 		Dvar_FreeCurrentString(dvar);
 		Dvar_SetCurrentStringValue(dvar, value.string);
 		Dvar_FreeLatchedString(dvar);
@@ -788,6 +1035,7 @@ static void Dvar_SetVariant(dvar_t *dvar, DvarValue value, DvarSetSource source)
 	dvar->modified = true;
 }
 
+
 void Dvar_Shutdown()
 {
 	dvar_t *dvar;
@@ -800,7 +1048,7 @@ void Dvar_Shutdown()
 			Dvar_FreeResetString(dvar);
 			Dvar_FreeLatchedString(dvar);
 		}
-		else if ( dvar->type == DVAR_TYPE_VEC2 || dvar->type == DVAR_TYPE_VEC3 || dvar->type == DVAR_TYPE_VEC4 )
+		else if ( dvar->type == DVAR_TYPE_FLOAT_2 || dvar->type == DVAR_TYPE_FLOAT_3 || dvar->type == DVAR_TYPE_FLOAT_4 )
 		{
 			Dvar_FreeVectors(dvar);
 		}
@@ -817,165 +1065,9 @@ void Dvar_Shutdown()
 	memset(dvarHashTable, 0, sizeof(dvarHashTable));
 }
 
-// turns a registered dvar back into an external string dvar
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-static void Dvar_UpdateRegistration(dvar_t *dvar, const char *dvarName, unsigned char type, unsigned short flags, DvarValue resetValue, DvarLimits domain)
+static void Dvar_MakeLatchedValueCurrent(dvar_t *dvar)
 {
-	if ( flags & DVAR_EXTERNAL )
-		return;
-
-	if ( (flags & DVAR_CHANGEABLE_RESET) && !(dvar->flags & DVAR_CHANGEABLE_RESET) )
-	{
-		dvar->name = dvarName;
-		if ( dvar->type == DVAR_TYPE_ENUM )
-			dvar->domain = domain;
-	}
+	Dvar_SetVariant(dvar, dvar->latched, DVAR_SOURCE_INTERNAL);
 }
 
 void Dvar_ClearLatchedValue(dvar_t *dvar)
@@ -986,162 +1078,11 @@ void Dvar_ClearLatchedValue(dvar_t *dvar)
 	Dvar_SetLatchedValue(dvar, dvar->current);
 }
 
-// tests the vec4 type, so a vec2 dvar always takes the string path
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 static void Dvar_SetFromStringFromSource(dvar_t *dvar, const char *string, DvarSetSource source)
 {
 	DvarValue newValue;
 	char buf[1024];
 
-	Sys_EnterCriticalSection( 4 );
 	I_strncpyz(buf, string, sizeof(buf));
 	newValue = Dvar_StringToValue(dvar->type, dvar->domain, buf);
 	if ( dvar->type == DVAR_TYPE_ENUM && newValue.integer == DVAR_INVALID_ENUM_INDEX )
@@ -1152,26 +1093,12 @@ static void Dvar_SetFromStringFromSource(dvar_t *dvar, const char *string, DvarS
 	}
 
 	Dvar_SetVariant(dvar, newValue, source);
-	Sys_LeaveCriticalSection( 4 );
 }
 
 void Dvar_SetFromString(dvar_t *dvar, const char *string)
 {
 	Dvar_SetFromStringFromSource(dvar, string, DVAR_SOURCE_INTERNAL);
 }
-
-// the fallback passes byte components to a %g format unconverted
-
-// walks the registration chain from the first pool entry
-
-
-
-
-
-
-
-
-
 
 bool Dvar_AnyLatchedValues()
 {
@@ -1185,5 +1112,3 @@ bool Dvar_AnyLatchedValues()
 
 	return false;
 }
-
-// packs "name\0value\0" pairs; a NULL buffer only measures
