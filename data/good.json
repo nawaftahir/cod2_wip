@@ -35922,8 +35922,9 @@
 "name": "?mixerGetRecordLevel@@YAHPBD@Z",
 "obj": "mixer.obj",
 "size": 354,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4b5ad0"
+]
 },
 {
 "name": "?mixerSetRecordLevel@@YAHPBDG@Z",
@@ -37734,8 +37735,9 @@
 "name": "?CG_DrawAdsOverlay@@YAXPBUWeaponDef@@HPBM1@Z",
 "obj": "cg_draw_mp.obj",
 "size": 825,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4c26e0"
+]
 },
 {
 "name": "?CG_DrawWeapReticle@@YAMXZ",
