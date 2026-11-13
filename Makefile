@@ -57,13 +57,15 @@ else
 
 TUS    := $(shell sed -e 's/\#.*//' src/tus.txt | awk 'NF{print $$1}')
 OBJS   := $(patsubst %,build/obj/%.obj,$(basename $(TUS)))
-tuflags = $(shell awk '$$1=="$(1)"{$$1="";print}' src/tus.txt)
+tuflags = $(shell awk '$$1=="$(1)"{sub(/\#.*/,"");$$1="";print}' src/tus.txt)
+# TUs marked "#oc" in tus.txt build with OCFLAGS (Mac decompile draft headers)
+OCTUS  := $(shell awk '/\#oc$$/{print $$1}' src/tus.txt)
 
 CL     := wine /opt/msvc710/Vc7/bin/cl.exe
 LINK   := wine /opt/msvc710/Vc7/bin/link.exe
 RC     := wine /opt/msvc710/Vc7/bin/rc.exe
 CFLAGS := /nologo /c /O2 /GL /MT /DNDEBUG /DWIN32 /FI.\\compat\\msvc71.h /I.\\compat\\include \
-	/I.\\universal /I. /I.\\qcommon /I.\\game /I.\\server /I.\\bgame /I.\\script /I.\\xanim \
+	/I.\\universal /I. /I.\\qcommon /I.\\game /I.\\server_mp /I.\\bgame /I.\\script /I.\\xanim \
 	/I.\\stringed /I.\\speex /I.\\speex\\speex
 # draft client layer from the Mac 1.3 decompile, on its own headers until ported
 OCFLAGS := /nologo /c /O2 /GL /MT /TP /DNDEBUG /FIstdint.h /FImsvc_c89.h \
@@ -85,7 +87,7 @@ deps = awk '/including file:/{sub(/.*including file: */,""); gsub(/\\/,"/"); if 
 
 build/obj/%.obj: src/%.cpp
 	@mkdir -p $(dir $@)
-	@cd src && $(CL) $(if $(filter oc/%,$*),$(OCFLAGS),$(CFLAGS)) $(call tuflags,$*.cpp) /showIncludes /Fo..\\$(call win,$@) .\\$(call win,$*.cpp) > ../$@.log 2>&1 || (grep -v including ../$@.log; false)
+	@cd src && $(CL) $(if $(filter $*.cpp,$(OCTUS)),$(OCFLAGS),$(CFLAGS)) $(call tuflags,$*.cpp) /showIncludes /Fo..\\$(call win,$@) .\\$(call win,$*.cpp) > ../$@.log 2>&1 || (grep -v including ../$@.log; false)
 	@$(deps)
 
 build/obj/%.obj: src/%.c
