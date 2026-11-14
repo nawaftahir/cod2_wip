@@ -4615,3 +4615,5 @@ Base gfx/w-stack9: drift -96 (head) -128 -80 -32 -48 -32 -208 -176 -144; biggest
 - MatrixRotationX 103/103: m[1][2]=-s moved first: unchanged (retail fchs before xor ecx). 1 probe.
 - RB_SetFilterConstants 110/110: unrolled 4 component stores: unchanged (retail tap base +0x20, ours +0x1c). 1 probe.
 - Skipped (scheduling class / 3 probes logged): RB_ChangedWorldMatrix, RB_GetGlowRadii, RB_SetVertexData, RB_TestTransform, RB_GlowFilterImage.
+- 2026-11-15 gfx/w-bm1b R_IsAabbOutsideView probe 3: NearCornerBehind result in a bool local first: no change (near-corner x87 load order 2,1,0 vs retail 1,0,2). 3 probes used.
+- 2026-11-15 gfx/w-bm1b R_LoadNodesAndLeafs probe 1: total node count in a local before the store and alloc: no change (33 diffs; retail stores nodeCount before the size lea and scales child*3 inside each ternary arm). Probe 2: child fixed up with if (child < 0) then one index: worse (75 diffs), reverted.
