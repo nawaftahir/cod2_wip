@@ -283,3 +283,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | CL_ConsolePrint_AddLine w29 (11-14, psweep13 lines 688-880, 45 variants) | `((rhs))` per assignment | 44 identical (26 lines, 1597/2132 lab), L727 worse (1586). Register-colour residue is not moved by the region-cut tuple |
 | FX_CalcOriginAndAxis w29 (11-14, psweep13 fn body, ~25 variants) | `((rhs))` per assignment | no improvement (1390/1472 base; two lines worse 1377, two VectorSet lines do not compile with the wrap). Slot residue not moved by tuples |
 | CG_DrawCursorhint w29 (11-14, psweep13 on v1 base, lines 1376-1471) | v1 x double cast + `((rhs))` per line | all = v1 (4 lines, 711) except L1467 worse; the `mov ebx` slot is not a region cut |
+| FX_CalcOriginAndAxis w29 (11-14, 1 lab) | branch-4 width stored in `scale` (scale refs 3 -> 7, to seed its slot entry before height/len) | worse: 42 lines (base 28), 1345/1472; the 4-byte slot shift stays and code changes. Reverted |
