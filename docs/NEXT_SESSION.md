@@ -1,4 +1,42 @@
-# Renderer next session (written 2026-11-14)
+# Renderer next session (written 2026-11-14 night)
+
+## Start here
+- Helper scripts: copy ~/gfx_tools/* to /tmp (brief = gfx_brief.md; rebase its "Base:" line on gfx/main).
+- gfx/main 916b187b: .text 0x10a010 (retail 0x10a090), crossed the 0x10a000 threshold, so .rdata,
+  .data and .reloc start at retail raw offsets and the file is retail size. Clean local build:
+  whole-file same-offset 400,234 / 1,851,392 = 21.62% (CI meter publishes on gfx/main).
+- Session path: 279,707 -> 303,624 -> 305,817 -> 310,944 -> 311,937 -> 318,963 -> 400,234.
+
+## What paid (method)
+- Missing uncalled retail copies (NOREF keeps them): int3-slot pairing scripts /tmp/gfx_b8_rf.py,
+  /tmp/gfx_b9_pair.py, /tmp/gfx_s12/*.py (copy them into ~/gfx_tools if still present).
+- Biggest single find: 76 ri-forward functions after Com_Error in common.obj (+1280 B).
+- CRT: let LIBCMT pull intrncvt/mbctype/matherr/days (no hand-extracted objects).
+- Retail store order: reread tess.indexCount/vertexCount per index store (rb_backend, rb_tess).
+- Keep new helpers as uncalled non-static copies; never reroute an already-matched caller
+  (w-light7 lost two protected extents that way; fixed).
+- Register-argument uncalled helpers are not producible from source (TRIED/KNOWLEDGE).
+
+## Owner rules learned this session
+- asm-hash locks in source_coverage.py: refresh without asking when the __asm blocks diff
+  identical vs gfx/main (memory feedback_gfx_asm_hash_refresh). New/moved asm asks the owner.
+- Owner approved (11-14) moving I_ffloor unchanged into a shared header for r_outdoor:
+  branch gfx/w-ffloor14 (agent in progress at handoff; verify + add the lock entry).
+- Never add a Co-Authored-By trailer (one agent did; amended out).
+- Run at most 4 parallel builds; 10 agents overloaded the machine (load 15-19).
+
+## Next
+1. .text is 0x80 short of retail size: remaining gaps are 16 B codegen residues
+   (RB_UpdateViewportConstants 352/368, RB_BuildSprite 480/488, r_model skinners x4 (register
+   convention from use), R_DrawShadowCookies 720/848 (LTCG inline choice), r_outdoor rounding
+   (w-ffloor14)). Now every object's internal drift matters: run drift_tu.py on main and make each
+   object one constant drift, front to back.
+2. Then .rdata (secrel-eq 239,187 of 0x914a1) and .data layout.
+3. Parked, unlanded: none of value (w-mid10/w-cookie11/w-skin11 are TRIED-only).
+4. Disputed/flagged for owner: uncalled helpers with "Name unconfirmed" names (many, PINNED);
+   RB_Benchmark3D uses #pragma optimize("p", on); cubemap functions may be a non-/GL object.
+
+## Previous handoff (2026-11-14 evening)
 
 ## Start here
 - Helper scripts: copy ~/gfx_tools/* to /tmp (brief = gfx_brief.md, bar there is ac7f5c0a / 301,447).
