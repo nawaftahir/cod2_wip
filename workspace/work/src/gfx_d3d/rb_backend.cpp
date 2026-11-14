@@ -50,6 +50,47 @@ inline void RB_SetTessDeclType(int declType)
     }
 }
 
+/* Uncalled retail head copies, names unconfirmed: PINNED 1002ddf0/19 vec2 scale,
+   1002de10/35 RGBA->BGRA swap, 1002de40/25 byte pack, 1002de90/34 and 1002dec0/12 code const. */
+void RB_Vec2Scale(const float *v, float s, float *out)
+{
+    out[0] = s * v[0];
+    out[1] = s * v[1];
+}
+
+void RB_SwapColorBytes(const unsigned char *in, unsigned char *out)
+{
+    unsigned char r = in[0], g = in[1], b = in[2], a = in[3];
+    out[2] = r;
+    out[1] = g;
+    out[0] = b;
+    out[3] = a;
+}
+
+unsigned int RB_PackColorBytes(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+{
+    unsigned char color[4];
+    color[2] = r;
+    color[1] = g;
+    color[0] = b;
+    color[3] = a;
+    return *(unsigned int *)color;
+}
+
+void RB_SetCodeConstantVec4(int constant, const float *value)
+{
+    float *dst = backEnd.codeConsts[constant - 128];
+    dst[0] = value[0];
+    dst[1] = value[1];
+    dst[2] = value[2];
+    dst[3] = value[3];
+}
+
+float *RB_GetCodeConstant(int constant)
+{
+    return backEnd.codeConsts[constant - 128];
+}
+
 // PINNED 1002df40: resume the current material while preserving declaration type.
 void RB_TessOverflow()
 {
@@ -64,6 +105,20 @@ void RB_CheckOverflow(int vertexCount, int indexCount)
 {
     if (tess.vertexCount + vertexCount > 5450 || tess.indexCount + indexCount > 0x100000)
         RB_TessOverflow();
+}
+
+/* Uncalled retail copies, names unconfirmed: PINNED 1002dfd0/6 feedback image set,
+   1002dfe0/18 index buffer change. */
+void RB_SetFeedbackImage(GfxImage *image)
+{
+    backEnd.currentFeedbackImage = image;
+}
+
+void RB_ChangeIndices(IDirect3DIndexBuffer9 *ib);
+void RB_SetIndices(IDirect3DIndexBuffer9 *ib)
+{
+    if (dxState.indexBuffer != ib)
+        RB_ChangeIndices(ib);
 }
 
 #pragma optimize("p", on)
