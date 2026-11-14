@@ -1,6 +1,7 @@
 #include "../universal/com_memory.h"
 #include "../qcommon/qcommon.h"
 #include "xanim_public.h"
+#include "../script/script_public.h"
 
 #define DOBJ_MAX_PARTS 128
 #define MAX_LODS 4
@@ -29,7 +30,6 @@ int XModelGetCollisionLod(const XModel *model);
 struct Material *XModelGetSkins(const XModel *model);
 int XModelGetMemUsage(const XModel *model);
 bool Com_ValidXModelName(const char *name);
-
 
 
 
@@ -68,37 +68,36 @@ void XModelSetOptimize(int optimize)
 
 
 
+void XModelPartsFree(XModelParts *model)
+{
+	int i, numBones;
+	unsigned short *names;
 
+	assert(model);
+	names = model->hierarchy->names;
+	numBones = model->numBones;
+	for (i = 0; i < numBones; ++i)
+		SL_RemoveRefToString(names[i]);
+}
 
+void XModelFree(XModel *model)
+{
+	int i;
+	int j;
 
+	if (XModelBad(model))
+		return;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	for (i = 0; i < MAX_LODS; ++i)
+	{
+		if (model->lodInfo[i].surfNames)
+		{
+			for (j = 0; j < model->lodInfo[i].numsurfs; ++j)
+				SL_RemoveRefToString(model->lodInfo[i].surfNames[j]);
+			model->lodInfo[i].surfNames = 0;
+		}
+	}
+}
 
 
 
@@ -222,26 +221,85 @@ XModelParts *XModelPartsFindData(const char *partName)
 	return (XModelParts *)Hunk_FindDataForFile(FILEDATA_XMODELPARTS, partName);
 }
 
+/* DEFER 0x004aa9e0 XModelPartsSetData: Hunk_SetDataForFile (0x0048a170) needs xmodel_load_obj.cpp /GL callers for (eax, esi) ABI
+const char *XModelPartsSetData(const char *name, XModelParts *parts, void *(*Alloc)(int))
+{
+	return Hunk_SetDataForFile(FILEDATA_XMODELPARTS, name, parts, Alloc);
+} */
+
 XModelSurfs *XModelSurfsFindData(const char *surfName)
 {
 	return (XModelSurfs *)Hunk_FindDataForFile(FILEDATA_XMODELSURFS, surfName);
 }
+
+/* DEFER 0x004aaa10 XModelSurfsSetData: Hunk_SetDataForFile (0x0048a170) needs xmodel_load_obj.cpp /GL callers for (eax, esi) ABI
+const char *XModelSurfsSetData(const char *name, XModelSurfs *surface, void *(*Alloc)(int))
+{
+	return Hunk_SetDataForFile(FILEDATA_XMODELSURFS, name, surface, Alloc);
+} */
 
 XModel *XModelFindExisting(const char *name)
 {
 	return (XModel *)Hunk_FindDataForFile(FILEDATA_XMODEL, name);
 }
 
+/* DEFER 0x004aaa40 XModelDefaultModel: Hunk_SetDataForFile (0x0048a170) needs xmodel_load_obj.cpp /GL callers for (eax, esi) ABI
+XModel *XModelDefaultModel(const char *name, void *(*Alloc)(int))
+{
+	XModel *model;
 
+	model = (XModel *)Alloc(sizeof(XModel));
+	XModelMakeDefault(model);
+	Hunk_SetDataForFile(FILEDATA_XMODEL, name, model, Alloc);
 
+	return model;
+} */
 
+void XModelReplace(XModel *model, XModel *replacement)
+{
+	const char *name;
+	int i;
+	int j;
+	XModelLodInfo *lodInfo;
 
+	if (XModelBad(replacement))
+		Com_Error(ERR_DROP, "Could not load replacement model.");
 
+	name = model->name;
+	XModelFree(model);
+	*model = *replacement;
+	model->name = name;
 
+	for (i = 0; i < MAX_LODS; ++i)
+	{
+		lodInfo = &model->lodInfo[i];
+		if (lodInfo->surfNames)
+		{
+			for (j = 0; j < lodInfo->numsurfs; ++j)
+				SL_AddRefToString(lodInfo->surfNames[j]);
+		}
+	}
+}
 
+/* DEFER 0x004aab00 XModelPrecache: diverges at +0x24 calling unimplemented LTCG XModelLoad (0x004ac9a0) and Hunk_SetDataForFile
+XModel *XModelPrecache(const char *name, void *(*Alloc)(int), void *(*AllocColl)(int))
+{
+	XModel *model;
 
+	model = (XModel *)Hunk_FindDataForFile(FILEDATA_XMODEL, name);
+	if (model)
+		return model;
 
+	model = XModelLoad(name, Alloc, AllocColl);
+	if (model)
+	{
+		model->name = Hunk_SetDataForFile(FILEDATA_XMODEL, name, model, Alloc);
+		return model;
+	}
 
+	Com_Printf("^1ERROR: Cannot find xmodel '%s'.\n", name);
+	return XModelDefaultModel(name, Alloc);
+} */
 
 
 
@@ -277,68 +335,10 @@ XModel *XModelFindExisting(const char *name)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+unsigned short *XModelBoneNames(XModel *model)
+{
+	return model->parts->hierarchy->names;
+}
 
 int XModelGetBoneIndex(const XModel *model, unsigned int name)
 {
@@ -413,7 +413,238 @@ int XModelGetMemUsage(const XModel *model)
 	return model->memUsage;
 }
 
+int XModelTraceLine(const XModel *model, trace_t *results, DObjAnimMat *pose, const float *localStart, const float *localEnd, int contentmask)
+{
+	return -1;
+}
+
 bool Com_ValidXModelName(const char *name)
 {
 	return !_strnicmp(name, "xmodel", 6) && (name[6] == '/' || name[6] == '\\');
+}
+
+struct refexport_t
+{
+	void *pad0[109];
+	void *(*AllocLoad_XSurface)(void);
+	void (*Load_XSurfaceGlue)(void *, void *);
+	void *pad1[16];
+};
+extern refexport_t re;
+extern void *DAT_01233438;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void *FUN_004aad60(void)
+{
+	assert(re.AllocLoad_XSurface);
+	return re.AllocLoad_XSurface();
+}
+
+
+
+
+
+
+
+
+void FUN_004aadb0(void *arg0)
+{
+	assert(re.Load_XSurfaceGlue);
+	re.Load_XSurfaceGlue(arg0, DAT_01233438);
+}
+
+short XModelDataReadShort(const unsigned char **pos)
+{
+	short value = *(const short *)*pos;
+	*pos += 2;
+	return value;
+}
+
+int XModelDataReadInt(const unsigned char **pos)
+{
+	int value = *(const int *)*pos;
+	*pos += 4;
+	return value;
+}
+
+float XModelDataReadFloat(const unsigned char **pos)
+{
+	int value;
+	memcpy(&value, *pos, 4);
+	*pos += 4;
+	return *(float *)&value;
 }

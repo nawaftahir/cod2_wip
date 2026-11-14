@@ -40,4 +40,52 @@ typedef struct __declspec(align(128)) scrMemTreeGlob_s
 	int totalAllocBuckets;
 } scrMemTreeGlob_t;
 
+enum
+{
+	HASH_TABLE_SIZE = 0x4000,
+	HASH_STAT_MASK = 0xc000,
+	HASH_STAT_HEAD = 0x8000,
+	HASH_STAT_MOVABLE = 0x4000,
+	HASH_STAT_FREE = 0x0,
+	HASH_NEXT_MASK = 0x3fff
+};
+
+struct __declspec(align(4)) RefString
+{
+	union
+	{
+		struct
+		{
+			unsigned char byteLen;
+			unsigned char user;
+			unsigned short refCount;
+		};
+		int data;
+	};
+	char str[1];
+};
+
+struct HashEntry
+{
+	unsigned short status_next;
+	union
+	{
+		unsigned short prev;
+		unsigned short str;
+	};
+};
+
+typedef struct __declspec(align(128)) scrStringGlob_s
+{
+	HashEntry hashTable[HASH_TABLE_SIZE];
+	bool inited;
+	HashEntry *nextFreeEntry;
+} scrStringGlob_t;
+
 void Scr_TerminalError(const char *error);
+void MT_FreeIndex(unsigned int nodeNum, int numBytes);
+unsigned int GetHashCode(const char *str, unsigned int len);
+void SL_FreeString(unsigned int stringValue, RefString *refStr, unsigned int len);
+void SL_RemoveRefToString(unsigned int stringValue);
+void SL_RemoveRefToStringOfLen(unsigned int stringValue, unsigned int len);
+void SL_AddRefToString(unsigned int stringValue);

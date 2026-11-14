@@ -590,10 +590,7 @@ void XAnimInit();
 void XAnimAbort();
 void XAnimShutdown();
 
-inline unsigned short* XModelBoneNames(XModel *model)
-{
-	return model->parts->hierarchy->names;
-}
+unsigned short* XModelBoneNames(XModel *model);
 int XModelGetContents(const XModel *model);
 DObjAnimMat* XModelGetBasePose(const XModel *model);
 
@@ -652,15 +649,7 @@ int XAnim_ReadUnsignedShort(const unsigned char **pos);
 int XAnim_ReadInt(const unsigned char **pos);
 float XAnim_ReadFloat(const unsigned char **pos);
 void ConsumeQuat(const unsigned char **pos, short *out);
-inline short XModelDataReadShort(const unsigned char **pos)
-{
-	short value;
-
-	memcpy(&value, *pos, sizeof(value));
-	*pos += sizeof(value);
-
-	return value;
-}
+short XModelDataReadShort(const unsigned char **pos);
 
 inline unsigned short XModelDataReadUnsignedShort(const unsigned char **pos)
 {
@@ -672,25 +661,8 @@ inline unsigned short XModelDataReadUnsignedShort(const unsigned char **pos)
 	return value;
 }
 
-inline float XModelDataReadFloat(const unsigned char **pos)
-{
-	float value;
-
-	memcpy(&value, *pos, sizeof(value));
-	*pos += sizeof(value);
-
-	return value;
-}
-
-inline int XModelDataReadInt(const unsigned char **pos)
-{
-	int value;
-
-	memcpy(&value, *pos, sizeof(value));
-	*pos += sizeof(value);
-
-	return value;
-}
+float XModelDataReadFloat(const unsigned char **pos);
+int XModelDataReadInt(const unsigned char **pos);
 
 inline void DObjCalcTransWeight(DObjAnimMat *Mat)
 {

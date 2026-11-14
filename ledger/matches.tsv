@@ -886,8 +886,12 @@ addr	size	source	symbol	name	tag
 0x004a7570	102	src/script/scr_memorytree.cpp	?MT_InitBits@@YAXXZ	MT_InitBits	SUPPORTED
 0x004a87b0	157	src/script/scr_stringlist.cpp	_SL_GetString	GetRefString	SUPPORTED
 0x004a88b0	16	src/script/scr_stringlist.cpp	?SL_ConvertToString@@YAPBDI@Z	SL_ConvertToString	SUPPORTED
+0x004a9ed0	83	src/script/scr_stringlist.cpp	?SL_RemoveRefToString@@YAXI@Z	SL_RemoveRefToString	SUPPORTED
+0x004a9f90	37	src/script/scr_stringlist.cpp	?SL_RemoveRefToStringOfLen@@YAXII@Z	SL_RemoveRefToStringOfLen	SUPPORTED
 0x004aa670	85	src/xanim/xmodel.cpp	?XModelBad@@YAHPAUXModel@@@Z	XModelBad	PINNED
 0x004aa6d0	6	src/xanim/xmodel.cpp	?XModelSetOptimize@@YAXH@Z	XModelSetOptimize	SUPPORTED
+0x004aa6e0	192	src/xanim/xmodel.cpp	?XModelPartsFree@@YAXPAUXModelParts_s@@@Z	XModelPartsFree	PINNED
+0x004aa7a0	190	src/xanim/xmodel.cpp	?XModelFree@@YAXPAUXModel@@@Z	XModelFree	SUPPORTED
 0x004aa860	78	src/xanim/xmodel.cpp	?XModelCreateDefaultParts@@YAPAUXModelParts_s@@XZ	XModelCreateDefaultParts	SUPPORTED
 0x004aa8b0	16	src/xanim/xmodel.cpp	?XModelCreateDefaultSurface@@YAPAUXModelSurfs_s@@XZ	XModelCreateDefaultSurface	SUPPORTED
 0x004aa8c0	215	src/xanim/xmodel.cpp	?XModelMakeDefault@@YAXPAUXModel@@@Z	XModelMakeDefault	SUPPORTED
@@ -895,6 +899,8 @@ addr	size	source	symbol	name	tag
 0x004aa9c0	30	src/xanim/xmodel.cpp	?XModelPartsFindData@@YAPAUXModelParts_s@@PBD@Z	XModelPartsFindData	SUPPORTED
 0x004aa9f0	30	src/xanim/xmodel.cpp	?XModelSurfsFindData@@YAPAUXModelSurfs_s@@PBD@Z	XModelSurfsFindData	SUPPORTED
 0x004aaa20	30	src/xanim/xmodel.cpp	?XModelFindExisting@@YAPAUXModel@@PBD@Z	XModelFindExisting	SUPPORTED
+0x004aaa70	133	src/xanim/xmodel.cpp	?XModelReplace@@YAXPAUXModel@@0@Z	XModelReplace	SUPPORTED
+0x004aab90	8	src/xanim/xmodel.cpp	?XModelBoneNames@@YAPAGPAUXModel@@@Z	XModelBoneNames	SUPPORTED
 0x004aaba0	102	src/xanim/xmodel.cpp	?XModelGetBoneIndex@@YAHPBUXModel@@I@Z	XModelGetBoneIndex	PINNED
 0x004aac10	37	src/xanim/xmodel.cpp	?XModelGetBounds@@YAXPBUXModel@@PAM1@Z	XModelGetBounds	SUPPORTED
 0x004aac40	96	src/xanim/xmodel.cpp	?XModelGetLodName@@YAPBDPBUXModel@@H@Z	XModelGetLodName	PINNED
@@ -902,7 +908,13 @@ addr	size	source	symbol	name	tag
 0x004aacf0	5	src/xanim/xmodel.cpp	?XModelGetCollisionLod@@YAHPBUXModel@@@Z	XModelGetCollisionLod	SUPPORTED
 0x004aad00	14	src/xanim/xmodel.cpp	?XModelGetSkins@@YAPAUMaterial@@PBUXModel@@@Z	XModelGetSkins	SUPPORTED
 0x004aad10	14	src/xanim/xmodel.cpp	?XModelGetMemUsage@@YAHPBUXModel@@@Z	XModelGetMemUsage	SUPPORTED
+0x004aad20	4	src/xanim/xmodel.cpp	?XModelTraceLine@@YAHPBUXModel@@PAUtrace_t@@PAUDObjAnimMat@@PBM3H@Z	XModelTraceLine	SUPPORTED
 0x004aad30	40	src/xanim/xmodel.cpp	?Com_ValidXModelName@@YA_NPBD@Z	Com_ValidXModelName	SUPPORTED
+0x004aad60	76	src/xanim/xmodel.cpp	?FUN_004aad60@@YAPAXXZ	FUN_004aad60	PINNED
+0x004aadb0	94	src/xanim/xmodel.cpp	?FUN_004aadb0@@YAXPAX@Z	FUN_004aadb0	PINNED
+0x004aae10	11	src/xanim/xmodel.cpp	?XModelDataReadShort@@YAFPAPBE@Z	XModelDataReadShort	SUPPORTED
+0x004aae20	10	src/xanim/xmodel.cpp	?XModelDataReadInt@@YAHPAPBE@Z	XModelDataReadInt	SUPPORTED
+0x004aae30	23	src/xanim/xmodel.cpp	?XModelDataReadFloat@@YAMPAPBE@Z	XModelDataReadFloat	SUPPORTED
 0x004acb50	14	src/xanim/xmodel_utils.cpp	?XModelGetName@@YAPBDPBUXModel@@@Z	XModelGetName	SUPPORTED
 0x004acb60	14	src/xanim/xmodel_utils.cpp	?XModelGetFlags@@YADPBUXModel@@@Z	XModelGetFlags	SUPPORTED
 0x004acb70	191	src/xanim/xmodel_utils.cpp	?XModelGetSurfaceName@@YAPBDPBUXModel@@HH@Z	XModelGetSurfaceName	SUPPORTED
