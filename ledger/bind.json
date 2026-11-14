@@ -707,6 +707,20 @@
 "obj": "r_font.obj",
 "why": []
 },
+"?R_ConsoleTextWidth@@YAHPBFHPAUFont_s@@@Z": {
+"t": "0x1000c390",
+"n": 192,
+"obj": "r_font.obj",
+"why": [
+"call ?R_GetConsoleString@@YAPBFPBFPAHPADPAMPAE@Z"
+]
+},
+"?R_DrawConsoleIcon@@YAXMMMMPBMPAUMaterial@@E@Z": {
+"t": "0x1000c450",
+"n": 87,
+"obj": "r_font.obj",
+"why": []
+},
 "?I_max@@YAHHH@Z": {
 "t": "0x1000c790",
 "n": 9,
