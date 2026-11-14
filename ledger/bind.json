@@ -4151,6 +4151,12 @@
 "obj": "rb_backend.obj",
 "why": []
 },
+"?RB_NextCmdHeader@@YAPBUGfxCmdHeader@@PBU1@@Z": {
+"t": "0x1002e000",
+"n": 7,
+"obj": "rb_backend.obj",
+"why": []
+},
 "?RB_ClearScreen@@YAXEPBMME@Z": {
 "t": "0x1002fe70",
 "n": 211,
@@ -4425,6 +4431,12 @@
 "obj": "rb_backend.obj",
 "why": []
 },
+"?RB_UpdateOutdoorFeather@@YAXXZ": {
+"t": "0x10033c20",
+"n": 33,
+"obj": "rb_backend.obj",
+"why": []
+},
 "?RB_UpdateBackendDvars@@YAXXZ": {
 "t": "0x10033c50",
 "n": 207,
@@ -4543,6 +4555,14 @@
 "obj": "rb_backend.obj",
 "why": [
 "call ?RB_DrawStretchPic@@YAXPBUMaterial@@MMMMMMMMI@Z"
+]
+},
+"?RB_TestFillPass2D@@YAMPBUMaterial@@@Z": {
+"t": "0x10033190",
+"n": 50,
+"obj": "rb_backend.obj",
+"why": [
+"call ?RB_Benchmark2D@@YAMPBUMaterial@@MMH@Z"
 ]
 },
 "?RB_TestFill@@YAXXZ": {
