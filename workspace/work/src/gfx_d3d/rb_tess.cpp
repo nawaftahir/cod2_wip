@@ -731,7 +731,7 @@ static void RB_ProjectParticleCloudAxis(const GfxEntity *ent, const float *viewU
     axis[1] = -viewUp[0];
     axis[2] = viewUp[0];
     axis[3] = viewUp[1];
-    float length = (float)sqrt(axis[0] * axis[0] + axis[1] * axis[1]);
+    float length = Vec2Length(axis);
     float inverseLength = 1.0f / length;
     float scale = inverseLength * ent->radius[0];
     axis[0] *= scale;
