@@ -1,4 +1,22 @@
-# Renderer next session (written 2026-11-14 night)
+# Renderer next session (updated 2026-11-15)
+
+## State: gfx/main 3affad6a = 960,175 / 1,851,392 = 51.86% whole-file same-offset (clean local
+build, gate green). .text is EXACTLY retail size (0x10a090): d3dx9 (435 KB) + DxErr9 (169 KB)
+sit at retail offsets. Session path: 279,707 -> 400,234 (threshold) -> 461,164 -> 960,175.
+
+## RULE NOW: keep .text exactly 0x10a090. Every growth must be paired with a shrink, and pairs
+must be close together (shrink at A then grow at B shifts everything between A and B).
+Ready parts (all real retail-matching, parked, pushed):
+- grow: gfx/w-mid16 +48 (r_rendercmds wrappers + LightProperties), gfx/w-dpvs17 +48
+  (R_VisitPortalsForCell retail size)
+- shrink: gfx/w-ffloor14 -48 (r_outdoor I_ffloor; needs com_math.h/rb_light lock entries),
+  gfx/w-bsp e7c61e05 -64 (r_bsp_load_obj), R_AddCmdTouchAllImages 80 B retail lacks (r_rendercmds,
+  owner decision: delete?)
+- tested: main+ffloor14+mid16 = 956,324 (< main): r_outdoor/r_rendercmds need per-function
+  alignment, not a blind pair.
+Next: per object front to back, make internal drift zero with in-object pairs (each object
+balanced on its own keeps everything after it aligned). LIBCMT tail order still differs.
+
 
 ## Start here
 - Helper scripts: copy ~/gfx_tools/* to /tmp (brief = gfx_brief.md; rebase its "Base:" line on gfx/main).
