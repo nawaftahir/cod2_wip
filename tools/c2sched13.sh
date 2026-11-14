@@ -116,6 +116,8 @@ node:
   mov eax,[eax+4]
 1:
   call hexw
+  mov eax,[ebx+0x1c]
+  call hexw
   ret
 wstr:
   mov edx,[esp+4]

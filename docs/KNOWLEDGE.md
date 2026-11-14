@@ -863,3 +863,11 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   eax. Fix: a function-scope `sval_u sourcePos` assigned in each float arm BEFORE `value`, passed at the join. The temp is created
   earlier, constValue pops first and takes eax: function matched (lab). Assigning it after `value` makes it worse (11 lines).
 - Method for any eax/ecx swap: find the two tied webs in cpick, then move the first reference of the one that should lose earlier.
+
+## 29. Reload order at a block edge (w29, 11-15, Window_Paint; same diff class as 1.0 SV_DirectConnect / Pickup_Weapon)
+- c2sched13 now prints the tuple address as the last S/R column. Window_Paint's three debug-block reloads are picks 0x28-0x2a
+  (prio 0x8c00, idx 0x2a/0x2b/0x2c = block order y, h, w) but their tuples were ALLOCATED w (066a55f0), h (066a5620), y
+  (066a56b0): each new reload is inserted ahead of the previous one, so block order = reverse creation order. PINNED.
+- Creation order w, h, y = colour-node id descending (w 44, h 40, y 33), so block order = id ascending. Retail's block order
+  w, h, y therefore needs ids w < h < y. SUPPORTED (one function). Open: what assigns those ids (not field order, not the
+  fillRect copy order, not border-block order; see TRIED).
