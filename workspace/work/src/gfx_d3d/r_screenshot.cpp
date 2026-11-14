@@ -88,18 +88,6 @@ void R_ScreenShotJpeg_f();
 static __forceinline void R_TakeScreenshotJpeg(int x, int y, int width, int height, const char *filename);
 void R_SaveGameShot(const char *name);
 
-// PINNED 100052a0/9: type1 is TGA.
-void R_ScreenShot_f()
-{
-    R_ScreenShotCmd(1);
-}
-
-// PINNED 100052b0/9: type0 is JPEG.
-void R_ScreenShotJpeg_f()
-{
-    R_ScreenShotCmd(0);
-}
-
 // PINNED 10025960: invalid signed numbers use the final screenshot name.
 void R_ScreenshotFilename(int number, const char *extension, char *filename)
 {

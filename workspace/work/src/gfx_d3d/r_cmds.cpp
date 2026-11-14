@@ -10,11 +10,24 @@ void R_LoadSun_f();
 void R_SaveSun_f();
 void R_StaticModelCacheStats_f();
 void R_StaticModelCacheFlush_f();
+void R_ScreenShotCmd(int type);
 
 // PINNED 10005290/5: the registered command is a separate tail call.
 void R_ApplyPicmip_f()
 {
     R_ApplyPicmip();
+}
+
+// PINNED 100052a0/9: type1 is TGA.
+void R_ScreenShot_f()
+{
+    R_ScreenShotCmd(1);
+}
+
+// PINNED 100052b0/9: type0 is JPEG.
+void R_ScreenShotJpeg_f()
+{
+    R_ScreenShotCmd(0);
 }
 
 // PINNED 100052c0/151: every callback has real source in its owning module.
