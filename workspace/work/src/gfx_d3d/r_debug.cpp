@@ -43,11 +43,6 @@ void R_AddDebugLine(DebugGlobals *debug, const float *start,
     ++debug->lineCount;
 }
 
-// PINNED 101924c8: twelve box edges, distinct from model-bound endpoint tables.
-static const int iEdgePairs[12][2] = {
-    {0,1}, {0,2}, {0,4}, {1,3}, {1,5}, {2,3},
-    {2,6}, {3,7}, {4,5}, {4,6}, {5,7}, {6,7}
-};
 void R_AddDebugBox(DebugGlobals *debug, const float *mins, const float *maxs,
     const float *color);
 void R_AddDebugString(DebugGlobals *debug, const float *origin, const float *color,
@@ -65,6 +60,11 @@ void R_TransferDebugGlobals(DebugGlobals *debugGlobalsEntry);
 void R_AddDebugBox(DebugGlobals *debug, const float *mins, const float *maxs,
     const float *color)
 {
+    // PINNED 101924c8: twelve box edges, distinct from model-bound endpoint tables.
+    static const int iEdgePairs[12][2] = {
+        {0,1}, {0,2}, {0,4}, {1,3}, {1,5}, {2,3},
+        {2,6}, {3,7}, {4,5}, {4,6}, {5,7}, {6,7}
+    };
     vec3_t vertices[8];
     for (int corner = 0; corner < 8; ++corner)
         for (int axis = 0; axis < 3; ++axis)

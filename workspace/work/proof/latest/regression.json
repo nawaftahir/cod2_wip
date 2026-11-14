@@ -1,8 +1,8 @@
 {
-  "functions": 909,
-  "bytes": 137940,
+  "functions": 935,
+  "bytes": 139256,
   "total": 253580,
-  "percent": 54.39703446644057,
+  "percent": 54.91600283934064,
   "baseline_lost": [],
   "gains": [
     {
@@ -75,6 +75,12 @@
       "target": "0x10002690",
       "bytes": 38,
       "name": "?R_LoadMaterials@@YAXPAUGfxBspLoad@@@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
+      "target": "0x100026c0",
+      "bytes": 244,
+      "name": "?R_SetSurfaceBoundsAndLmapCoords@@YAXPAUsrfTriangles_t@@PAUGfxWorldVertex@@PBUDiskGfxVertex@@PBUr_lightmapMerge_t@@@Z",
       "object": "r_bsp_load_obj.obj"
     },
     {
@@ -651,6 +657,12 @@
       "target": "0x1000f120",
       "bytes": 20,
       "name": "?Vec2Multiply@@YAMQBM@Z",
+      "object": "r_image_load_obj.obj"
+    },
+    {
+      "target": "0x1000f160",
+      "bytes": 20,
+      "name": "?Byte4Set@@YAXPAEEEEE@Z",
       "object": "r_image_load_obj.obj"
     },
     {
@@ -1530,6 +1542,12 @@
       "object": "rb_light.obj"
     },
     {
+      "target": "0x10020560",
+      "bytes": 20,
+      "name": "?Outdoor_TempHunkAllocatePic@@YAXXZ",
+      "object": "r_outdoor.obj"
+    },
+    {
       "target": "0x10020590",
       "bytes": 175,
       "name": "?R_OutdoorTraceHeight@@YAMMM@Z",
@@ -1558,6 +1576,18 @@
       "bytes": 25,
       "name": "?R_OutdoorTexelToWorld@@YAMHH@Z",
       "object": "r_outdoor.obj"
+    },
+    {
+      "target": "0x10020d00",
+      "bytes": 26,
+      "name": "?R_ResetCommandCounters@@YAXXZ",
+      "object": "r_rendercmds.obj"
+    },
+    {
+      "target": "0x10020d20",
+      "bytes": 36,
+      "name": "?R_FreeTempSkinBuffer@@YAXXZ",
+      "object": "r_rendercmds.obj"
     },
     {
       "target": "0x10020e10",
@@ -1740,6 +1770,18 @@
       "object": "r_scene.obj"
     },
     {
+      "target": "0x10023710",
+      "bytes": 30,
+      "name": "?R_SortKeyEntIndex@@YAHI@Z",
+      "object": "r_scene.obj"
+    },
+    {
+      "target": "0x10023730",
+      "bytes": 36,
+      "name": "?R_SortKeyMaterial@@YAPAUMaterial@@I@Z",
+      "object": "r_scene.obj"
+    },
+    {
       "target": "0x10023760",
       "bytes": 14,
       "name": "?R_ClearSceneEntityRecord@@YAXPAUGfxSceneEntity@@@Z",
@@ -1839,6 +1881,12 @@
       "target": "0x10025570",
       "bytes": 286,
       "name": "?R_SetViewParmsForScene@@YAXPAUGfxViewParms@@PBUrefdef_s@@@Z",
+      "object": "r_scene.obj"
+    },
+    {
+      "target": "0x10025690",
+      "bytes": 46,
+      "name": "?R_SetSceneRenderOptions@@YAXPBUrefdef_s@@PAUGfxSceneRenderOptions@@@Z",
       "object": "r_scene.obj"
     },
     {
@@ -2070,9 +2118,45 @@
       "object": "r_xsurface.obj"
     },
     {
+      "target": "0x1002d3e0",
+      "bytes": 11,
+      "name": "??$Buf_Read@F@@YAFPAPBE@Z",
+      "object": "r_xsurface_load_obj.obj"
+    },
+    {
+      "target": "0x1002d3f0",
+      "bytes": 11,
+      "name": "??$Buf_Read@G@@YAGPAPBE@Z",
+      "object": "r_xsurface_load_obj.obj"
+    },
+    {
       "target": "0x1002ddc0",
       "bytes": 10,
       "name": "?RB_ClampNonNegative@@YAHH@Z",
+      "object": "rb_backend.obj"
+    },
+    {
+      "target": "0x1002ddf0",
+      "bytes": 19,
+      "name": "?RB_Vec2Scale@@YAXPBMMPAM@Z",
+      "object": "rb_backend.obj"
+    },
+    {
+      "target": "0x1002de40",
+      "bytes": 25,
+      "name": "?RB_PackColorBytes@@YAIEEEE@Z",
+      "object": "rb_backend.obj"
+    },
+    {
+      "target": "0x1002de90",
+      "bytes": 34,
+      "name": "?RB_SetCodeConstantVec4@@YAXHPBM@Z",
+      "object": "rb_backend.obj"
+    },
+    {
+      "target": "0x1002e000",
+      "bytes": 7,
+      "name": "?RB_NextCmdHeader@@YAPBUGfxCmdHeader@@PBU1@@Z",
       "object": "rb_backend.obj"
     },
     {
@@ -2136,6 +2220,12 @@
       "object": "rb_backend.obj"
     },
     {
+      "target": "0x10031770",
+      "bytes": 12,
+      "name": "?RB_SetLineMaterialDepthBits@@YAXPAUGfxLineMaterialStateView@@I@Z",
+      "object": "rb_backend.obj"
+    },
+    {
       "target": "0x10032540",
       "bytes": 28,
       "name": "?RB_UpdateColor@@YAXPBM0@Z",
@@ -2160,9 +2250,21 @@
       "object": "rb_backend.obj"
     },
     {
+      "target": "0x10033c20",
+      "bytes": 33,
+      "name": "?RB_UpdateOutdoorFeather@@YAXXZ",
+      "object": "rb_backend.obj"
+    },
+    {
       "target": "0x10033c50",
       "bytes": 207,
       "name": "?RB_UpdateBackendDvars@@YAXXZ",
+      "object": "rb_backend.obj"
+    },
+    {
+      "target": "0x10033fe0",
+      "bytes": 39,
+      "name": "?RB_SetCodeConstantFromArgs@@YAXHMMMM@Z",
       "object": "rb_backend.obj"
     },
     {
@@ -2214,15 +2316,33 @@
       "object": "rb_light.obj"
     },
     {
+      "target": "0x10035ac0",
+      "bytes": 271,
+      "name": "?RB_IsGridPointVisible@@YA_NPBUGfxLightGridPoint@@IPBM1@Z",
+      "object": "rb_light.obj"
+    },
+    {
       "target": "0x10035fb0",
       "bytes": 141,
       "name": "?RB_FindGridPoint@@YA_NPBUGfxLightGrid@@HHHPAH@Z",
       "object": "rb_light.obj"
     },
     {
+      "target": "0x10036320",
+      "bytes": 121,
+      "name": "?RB_GetNearestGridColors@@YA_NPBUGfxLightGrid@@HHHPAY03MPAM@Z",
+      "object": "rb_light.obj"
+    },
+    {
       "target": "0x100368a0",
       "bytes": 2834,
       "name": "?RB_FitDirectionalLight@@YA_NHPAY02MPAU_D3DLIGHT9@@@Z",
+      "object": "rb_light.obj"
+    },
+    {
+      "target": "0x100373e0",
+      "bytes": 49,
+      "name": "?RB_SetAmbientLight@@YAXPAU_D3DLIGHT9@@PBM@Z",
       "object": "rb_light.obj"
     },
     {
@@ -2442,6 +2562,12 @@
       "object": "rb_state.obj"
     },
     {
+      "target": "0x1003e270",
+      "bytes": 41,
+      "name": "?RB_SetShadowLookupMatrix@@YAXPBU_D3DMATRIX@@@Z",
+      "object": "rb_state.obj"
+    },
+    {
       "target": "0x1003e480",
       "bytes": 46,
       "name": "?RB_PushMatrixStack@@YAXXZ",
@@ -2656,6 +2782,36 @@
       "bytes": 384,
       "name": "?ParseConfigStringToStruct@@YAHPAEPBUcspField_t@@HPBDHP6AH02H@ZP6AX02@Z@Z",
       "object": "q_shared.obj"
+    },
+    {
+      "target": "0x10061f30",
+      "bytes": 80,
+      "name": "?DB_EnumXAssets@@YAXHP6AXTXAssetHeader@@PAX@Z1H@Z",
+      "object": "common.obj"
+    },
+    {
+      "target": "0x10062090",
+      "bytes": 17,
+      "name": "?DObjGetLodForDist@@YAHPBUDObj_s@@HM@Z",
+      "object": "common.obj"
+    },
+    {
+      "target": "0x10062110",
+      "bytes": 16,
+      "name": "?XModelGetLodForDist@@YAHPBUXModel@@M@Z",
+      "object": "common.obj"
+    },
+    {
+      "target": "0x10062140",
+      "bytes": 31,
+      "name": "?Dvar_RegisterFloat@@YAPBUdvar_s@@PBDMMMH@Z",
+      "object": "common.obj"
+    },
+    {
+      "target": "0x10062170",
+      "bytes": 41,
+      "name": "?Dvar_RegisterVec3@@YAPBUdvar_s@@PBDMMMMMH@Z",
+      "object": "common.obj"
     }
   ],
   "checkpoint_lost": [],

@@ -1,10 +1,10 @@
 {
   "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
-  "candidate_sha256": "6aeecfe86eb02adf2133e214f2fd74fafdc3263339c4d7ddf32749268060547d",
+  "candidate_sha256": "b112580d210915d0531d1ffcca3689bbd47c52bf6d29bc5b94695edc132f2942",
   "whole_file_identical": false,
-  "same_file_offset_equal_bytes": 260953,
+  "same_file_offset_equal_bytes": 1240931,
   "compared_bytes": 1851392,
-  "same_file_offset_percent": 14.094962060978983,
+  "same_file_offset_percent": 67.02691812430862,
   "caveat": "Raw file offsets, including headers/data/debug; NOT reconstructed-source coverage.",
   "retail_sections": [
     {
@@ -45,33 +45,33 @@
       "name": ".text",
       "rva": "0x1000",
       "file_offset": "0x1000",
-      "raw_bytes": 1081344,
-      "virtual_bytes": 1080048,
-      "sha256": "b5bee914fccc140b5a88e7b48312067f759313523cea7a6a50f50acad256ad65"
+      "raw_bytes": 1093632,
+      "virtual_bytes": 1089680,
+      "sha256": "5ebb42f8653fe7a419f37e6ea6e69c1cd21fa35b1ec799a969e299acc2705325"
     },
     {
       "name": ".rdata",
-      "rva": "0x109000",
-      "file_offset": "0x109000",
+      "rva": "0x10c000",
+      "file_offset": "0x10c000",
       "raw_bytes": 598016,
-      "virtual_bytes": 594292,
-      "sha256": "1380bbe6fa60730595ea9bdbf959fa7d15c754ce8960e09303a4be84cf73250c"
+      "virtual_bytes": 594708,
+      "sha256": "9b8b9ddf76b760d9608109dd328346635195e19560e73d2656b04a407a4f037e"
     },
     {
       "name": ".data",
-      "rva": "0x19b000",
-      "file_offset": "0x19b000",
+      "rva": "0x19e000",
+      "file_offset": "0x19e000",
       "raw_bytes": 57344,
-      "virtual_bytes": 6085156,
-      "sha256": "777f17fe03adedeb0f9cde10b13e7b1cc50639afadd2ea374c56e6c5865caf97"
+      "virtual_bytes": 6085108,
+      "sha256": "10be45cf8bac7826e9bf2a3b9e45114b70139384e30acf053ff7915dd267f58e"
     },
     {
       "name": ".reloc",
-      "rva": "0x769000",
-      "file_offset": "0x1a9000",
+      "rva": "0x76c000",
+      "file_offset": "0x1ac000",
       "raw_bytes": 98304,
-      "virtual_bytes": 94914,
-      "sha256": "8cf4489ad5926dcafde7cb33f3eb705f0aeadb05eed3dc30f98ac2671739715d"
+      "virtual_bytes": 95634,
+      "sha256": "012b76c3095dc90063ab8e11be8e604285d3acc1f6e5d49c89d349450aaae759"
     }
   ],
   "retail_image": {
@@ -737,12 +737,12 @@
     ]
   },
   "candidate_image": {
-    "file_bytes": 1839104,
+    "file_bytes": 1851392,
     "machine": "0x14c",
-    "timestamp": 1794374600,
+    "timestamp": 1794690503,
     "image_base": "0x10000000",
-    "entrypoint_rva": "0xf70f8",
-    "image_bytes": 7868416,
+    "entrypoint_rva": "0xf7857",
+    "image_bytes": 7880704,
     "header_bytes": 4096,
     "section_alignment": 4096,
     "file_alignment": 4096,
@@ -752,7 +752,7 @@
       {
         "name": "GetRefAPI",
         "ordinal": 1,
-        "rva": "0x12fa0"
+        "rva": "0x13200"
       }
     ],
     "imports": [
@@ -890,19 +890,9 @@
         "dll": "KERNEL32.dll",
         "symbols": [
           {
-            "name": "SetFilePointer",
+            "name": "GetTickCount",
             "ordinal": null,
-            "hint": 795
-          },
-          {
-            "name": "RaiseException",
-            "ordinal": null,
-            "hint": 679
-          },
-          {
-            "name": "IsValidCodePage",
-            "ordinal": null,
-            "hint": 575
+            "hint": 479
           },
           {
             "name": "SetStdHandle",
@@ -910,24 +900,39 @@
             "hint": 823
           },
           {
-            "name": "EnumSystemLocalesA",
+            "name": "SetFilePointer",
             "ordinal": null,
-            "hint": 175
+            "hint": 795
           },
           {
-            "name": "GetUserDefaultLCID",
+            "name": "GetCurrentProcessId",
             "ordinal": null,
-            "hint": 483
+            "hint": 323
           },
           {
-            "name": "GetDateFormatA",
+            "name": "GetACP",
             "ordinal": null,
-            "hint": 327
+            "hint": 253
           },
           {
-            "name": "GetTimeFormatA",
+            "name": "RaiseException",
             "ordinal": null,
-            "hint": 480
+            "hint": 679
+          },
+          {
+            "name": "IsBadWritePtr",
+            "ordinal": null,
+            "hint": 566
+          },
+          {
+            "name": "HeapReAlloc",
+            "ordinal": null,
+            "hint": 538
+          },
+          {
+            "name": "SetEndOfFile",
+            "ordinal": null,
+            "hint": 784
           },
           {
             "name": "ReadFile",
@@ -938,11 +943,6 @@
             "name": "HeapSize",
             "ordinal": null,
             "hint": 540
-          },
-          {
-            "name": "SetEndOfFile",
-            "ordinal": null,
-            "hint": 784
           },
           {
             "name": "GetLocaleInfoW",
@@ -965,14 +965,14 @@
             "hint": 787
           },
           {
-            "name": "IsValidLocale",
+            "name": "GetOEMCP",
             "ordinal": null,
-            "hint": 577
+            "hint": 403
           },
           {
-            "name": "DebugBreak",
+            "name": "GetCurrentThreadId",
             "ordinal": null,
-            "hint": 120
+            "hint": 326
           },
           {
             "name": "Sleep",
@@ -1008,21 +1008,6 @@
             "name": "QueryPerformanceFrequency",
             "ordinal": null,
             "hint": 676
-          },
-          {
-            "name": "GetACP",
-            "ordinal": null,
-            "hint": 253
-          },
-          {
-            "name": "GetOEMCP",
-            "ordinal": null,
-            "hint": 403
-          },
-          {
-            "name": "GetCPInfo",
-            "ordinal": null,
-            "hint": 260
           },
           {
             "name": "EnterCriticalSection",
@@ -1160,6 +1145,11 @@
             "hint": 653
           },
           {
+            "name": "DebugBreak",
+            "ordinal": null,
+            "hint": 120
+          },
+          {
             "name": "OutputDebugStringW",
             "ordinal": null,
             "hint": 654
@@ -1170,39 +1160,9 @@
             "hint": 458
           },
           {
-            "name": "ExitProcess",
+            "name": "GetCommandLineA",
             "ordinal": null,
-            "hint": 185
-          },
-          {
-            "name": "LCMapStringA",
-            "ordinal": null,
-            "hint": 580
-          },
-          {
-            "name": "MultiByteToWideChar",
-            "ordinal": null,
-            "hint": 629
-          },
-          {
-            "name": "LCMapStringW",
-            "ordinal": null,
-            "hint": 581
-          },
-          {
-            "name": "GetStringTypeA",
-            "ordinal": null,
-            "hint": 442
-          },
-          {
-            "name": "GetStringTypeW",
-            "ordinal": null,
-            "hint": 445
-          },
-          {
-            "name": "FatalAppExitA",
-            "ordinal": null,
-            "hint": 192
+            "hint": 272
           },
           {
             "name": "HeapFree",
@@ -1218,11 +1178,6 @@
             "name": "SetLastError",
             "ordinal": null,
             "hint": 808
-          },
-          {
-            "name": "GetCurrentThreadId",
-            "ordinal": null,
-            "hint": 326
           },
           {
             "name": "GetCurrentThread",
@@ -1245,29 +1200,14 @@
             "hint": 869
           },
           {
-            "name": "HeapAlloc",
-            "ordinal": null,
-            "hint": 528
-          },
-          {
-            "name": "TerminateProcess",
-            "ordinal": null,
-            "hint": 862
-          },
-          {
-            "name": "GetCurrentProcess",
-            "ordinal": null,
-            "hint": 322
-          },
-          {
-            "name": "GetCommandLineA",
-            "ordinal": null,
-            "hint": 272
-          },
-          {
             "name": "SetConsoleCtrlHandler",
             "ordinal": null,
             "hint": 750
+          },
+          {
+            "name": "HeapAlloc",
+            "ordinal": null,
+            "hint": 528
           },
           {
             "name": "VirtualProtect",
@@ -1280,6 +1220,21 @@
             "hint": 904
           },
           {
+            "name": "LCMapStringA",
+            "ordinal": null,
+            "hint": 580
+          },
+          {
+            "name": "MultiByteToWideChar",
+            "ordinal": null,
+            "hint": 629
+          },
+          {
+            "name": "LCMapStringW",
+            "ordinal": null,
+            "hint": 581
+          },
+          {
             "name": "WriteFile",
             "ordinal": null,
             "hint": 932
@@ -1290,59 +1245,29 @@
             "hint": 238
           },
           {
+            "name": "FatalAppExitA",
+            "ordinal": null,
+            "hint": 192
+          },
+          {
             "name": "GetTimeZoneInformation",
             "ordinal": null,
             "hint": 482
           },
           {
-            "name": "GetTickCount",
+            "name": "ExitProcess",
             "ordinal": null,
-            "hint": 479
+            "hint": 185
           },
           {
-            "name": "GetCurrentProcessId",
+            "name": "TerminateProcess",
             "ordinal": null,
-            "hint": 323
+            "hint": 862
           },
           {
-            "name": "GetModuleFileNameA",
+            "name": "GetCurrentProcess",
             "ordinal": null,
-            "hint": 381
-          },
-          {
-            "name": "GetLocaleInfoA",
-            "ordinal": null,
-            "hint": 372
-          },
-          {
-            "name": "RtlUnwind",
-            "ordinal": null,
-            "hint": 727
-          },
-          {
-            "name": "HeapDestroy",
-            "ordinal": null,
-            "hint": 532
-          },
-          {
-            "name": "HeapCreate",
-            "ordinal": null,
-            "hint": 530
-          },
-          {
-            "name": "HeapReAlloc",
-            "ordinal": null,
-            "hint": 538
-          },
-          {
-            "name": "IsBadWritePtr",
-            "ordinal": null,
-            "hint": 566
-          },
-          {
-            "name": "UnhandledExceptionFilter",
-            "ordinal": null,
-            "hint": 878
+            "hint": 322
           },
           {
             "name": "SetHandleCount",
@@ -1365,6 +1290,11 @@
             "hint": 439
           },
           {
+            "name": "GetModuleFileNameA",
+            "ordinal": null,
+            "hint": 381
+          },
+          {
             "name": "FreeEnvironmentStringsA",
             "ordinal": null,
             "hint": 246
@@ -1383,6 +1313,76 @@
             "name": "GetEnvironmentStringsW",
             "ordinal": null,
             "hint": 343
+          },
+          {
+            "name": "HeapDestroy",
+            "ordinal": null,
+            "hint": 532
+          },
+          {
+            "name": "HeapCreate",
+            "ordinal": null,
+            "hint": 530
+          },
+          {
+            "name": "UnhandledExceptionFilter",
+            "ordinal": null,
+            "hint": 878
+          },
+          {
+            "name": "GetTimeFormatA",
+            "ordinal": null,
+            "hint": 480
+          },
+          {
+            "name": "GetDateFormatA",
+            "ordinal": null,
+            "hint": 327
+          },
+          {
+            "name": "GetCPInfo",
+            "ordinal": null,
+            "hint": 260
+          },
+          {
+            "name": "GetUserDefaultLCID",
+            "ordinal": null,
+            "hint": 483
+          },
+          {
+            "name": "GetLocaleInfoA",
+            "ordinal": null,
+            "hint": 372
+          },
+          {
+            "name": "EnumSystemLocalesA",
+            "ordinal": null,
+            "hint": 175
+          },
+          {
+            "name": "IsValidLocale",
+            "ordinal": null,
+            "hint": 577
+          },
+          {
+            "name": "IsValidCodePage",
+            "ordinal": null,
+            "hint": 575
+          },
+          {
+            "name": "GetStringTypeA",
+            "ordinal": null,
+            "hint": 442
+          },
+          {
+            "name": "GetStringTypeW",
+            "ordinal": null,
+            "hint": 445
+          },
+          {
+            "name": "RtlUnwind",
+            "ordinal": null,
+            "hint": 727
           }
         ]
       }
@@ -1390,11 +1390,11 @@
     "debug": [
       {
         "type": 2,
-        "timestamp": 1794374600,
+        "timestamp": 1794690503,
         "bytes": 71,
-        "rva": "0x199588",
-        "file_offset": "0x199588",
-        "data_sha256": "ee098390a6e754470178548ce977f559ae9cbd3ff51f59240ff350994334a534"
+        "rva": "0x19c728",
+        "file_offset": "0x19c728",
+        "data_sha256": "ab135e4b2974f0eb7174c91dd694b45359892c2f04a22a711bc22b407e070eee"
       }
     ]
   },
