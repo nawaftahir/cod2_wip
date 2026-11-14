@@ -9,6 +9,18 @@ void RB_DrawStretchPic(const Material *material, float x, float y, float w, floa
     float s0, float t0, float s1, float t1, unsigned int color);
 void RB_EndSurface();
 
+// Name unconfirmed. PINNED 10035810/63.
+static void RB_TouchImage(GfxImage *image)
+{
+    if (image->mapType == 3)
+    {
+        backEnd.currentFeedbackImage = image;
+        RB_DrawStretchPic(rgp.feedbackReplaceMaterial, 0.0f, 0.0f, 8.0f, 8.0f,
+            0.0f, 0.0f, 1.0f, 1.0f, 0xffffffff);
+        RB_EndSurface();
+    }
+}
+
 // PINNED 10035850: the original second-zero-semantic branch comes first.
 static int RB_CompareTouchImages(const void *first, const void *second)
 {
@@ -35,13 +47,7 @@ void RB_TouchAllImages()
         GfxImage *image = list.image[index];
         if (!image->semantic)
             break;
-        if (image->mapType == 3)
-        {
-            backEnd.currentFeedbackImage = image;
-            RB_DrawStretchPic(rgp.feedbackReplaceMaterial, 0.0f, 0.0f, 8.0f, 8.0f,
-                0.0f, 0.0f, 1.0f, 1.0f, 0xffffffff);
-            RB_EndSurface();
-        }
+        RB_TouchImage(image);
     }
     backEnd.currentFeedbackImage = 0;
 }
