@@ -60,13 +60,28 @@ caveV:
   pushfd
   mov ebx,edi
   mov esi,edi
-  push dword ptr [esp+0x24+0xc]
+  push eax
   push offset strV
   call nlog
   add esp,8
   popfd
   popad
   jmp 0x1077c146
+# Y 0x107820d7: recycled colour node esi (keeps id [esi+0x1c]), edi = sym
+caveY:
+  mov eax,[esi+0x30]
+  mov ds:0x108a92d8,eax
+  pushad
+  pushfd
+  mov ebx,edi
+  push dword ptr [esi+0x1c]
+  mov esi,edi
+  push offset strY
+  call nlog
+  add esp,8
+  popfd
+  popad
+  jmp 0x1077c14c
 # R 0x1077c213: 0x26a reload creation, edi = var
 caveR:
   mov edi,eax
@@ -150,6 +165,7 @@ strD: .ascii "OWD\0"
 strK: .ascii "OWK\0"
 strR: .ascii "OWR\0"
 strV: .ascii "OWV\0"
+strY: .ascii "OWY\0"
 strE: .ascii "OWE\0"
 strI: .ascii "OWI\0"
 strP: .ascii "OWP\0"
@@ -176,7 +192,7 @@ cave = subprocess.run(['objcopy', '-O', 'binary', '-j', '.text', 'build/ra/cave_
 assert len(cave) < 688, len(cave)
 b[0x165d50:0x165d50 + len(cave)] = cave
 # site, hook, bytes replaced (whole instructions; checked against stock bytes)
-for va, k, n, orig in [(0x107724f6, 'caveF', 6, '8b130fb7426d'), (0x1077c213, 'caveR', 6, '8bf8807f040d'), (0x1077c13e, 'caveV', 8, 'a15421881089461c'), (0x107825e5, 'caveT', 8, '8b442440f6400901'),
+for va, k, n, orig in [(0x107724f6, 'caveF', 6, '8b130fb7426d'), (0x1077c213, 'caveR', 6, '8bf8807f040d'), (0x1077c13e, 'caveV', 8, 'a15421881089461c'), (0x107820d7, 'caveY', 8, '8b4630a3d8928a10'), (0x107825e5, 'caveT', 8, '8b442440f6400901'),
                        (0x10782600, 'caveU', 8, '807d08018b5c2410'), (0x107826e4, 'caveD', 9, '8a45083c018b742418'),
                        (0x10782626, 'caveK', 6, '8b451c8b7008'), (0x10782713, 'caveE', 6, '8b451c8b6808'), (0x1078266b, 'caveN', 8, '85c00f8484130000'),
                        (0x10784bf4, 'caveI', 5, '8941188bc7'), (0x10782a5e, 'caveP', 5, '8b45403bc7'),
