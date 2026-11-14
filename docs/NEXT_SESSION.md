@@ -21,7 +21,10 @@
 - asm-hash locks in source_coverage.py: refresh without asking when the __asm blocks diff
   identical vs gfx/main (memory feedback_gfx_asm_hash_refresh). New/moved asm asks the owner.
 - Owner approved (11-14) moving I_ffloor unchanged into a shared header for r_outdoor:
-  branch gfx/w-ffloor14 (agent in progress at handoff; verify + add the lock entry).
+  branch gfx/w-ffloor14 82ac4034 DONE but PARKED: the r_outdoor helpers were 96 B vs retail 80 (too
+  big); now retail size and form, so .text SHRINKS by 0x30 and would drop main below 0x10a000.
+  Land only after other objects add >= 0x30 B. Needs lock entries for com_math.h + rb_light.cpp
+  and a protected-extent check on RB_GetLightingAtPoint (stack slots moved).
 - Never add a Co-Authored-By trailer (one agent did; amended out).
 - Run at most 4 parallel builds; 10 agents overloaded the machine (load 15-19).
 
