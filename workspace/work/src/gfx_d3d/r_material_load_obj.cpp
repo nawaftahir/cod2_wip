@@ -2096,6 +2096,37 @@ bool Material_RegisterWaterImage(MaterialWaterDef *definition)
     return definition->map != 0;
 }
 
+// Name unconfirmed. PINNED 1001bd30 (64 B), uncalled in retail.
+bool Material_RegisterTextureImage(GfxImage **image, const char *name, int semantic, int imageTrack)
+{
+    if (r_rendererInUse->current.integer == 2 && (semantic == 3 || semantic == 4))
+    {
+        *image = 0;
+        return true;
+    }
+    *image = Image_Register(name, semantic, imageTrack);
+    return *image != 0;
+}
+
+// Name unconfirmed. PINNED 1001bd70 (107 B), uncalled in retail.
+bool Material_FinishLoadingTexdef(MaterialTextureDef *texture, byte *base, int imageTrack)
+{
+    texture->name = Material_RegisterString((const char *)(base + (uintptr_t)texture->name));
+    if (texture->semantic == 5)
+    {
+        texture->u.water = (MaterialWaterDef *)(base + (uintptr_t)texture->u.water);
+        return Material_RegisterWaterImage(texture->u.water);
+    }
+    if (r_rendererInUse->current.integer == 2 && (texture->semantic == 3 || texture->semantic == 4))
+    {
+        texture->u.image = 0;
+        return true;
+    }
+    texture->u.image = Image_Register((const char *)(base + (uintptr_t)texture->u.image),
+        texture->semantic, imageTrack);
+    return texture->u.image != 0;
+}
+
 // PINNED 1001bde0: cached techniques bypass renderer selection and file loading.
 MaterialTechnique *Material_LoadCachedTechnique(const char *name)
 {
