@@ -205,10 +205,22 @@ static const short *R_GetConsoleString(const short *string, int *limit, char *te
                 *foundIcon = 1;
                 break;
             }
-            if (type == 10 || type == 11 || type == 12)
+            if (type == 10)
             {
                 if (color)
-                    color[type - 10] = (float)(entry & 255) * 0.003921568859368563f;
+                    color[0] = (float)(entry & 255) * 0.003921568859368563f;
+                continue;
+            }
+            if (type == 11)
+            {
+                if (color)
+                    color[1] = (float)(entry & 255) * 0.003921568859368563f;
+                continue;
+            }
+            if (type == 12)
+            {
+                if (color)
+                    color[2] = (float)(entry & 255) * 0.003921568859368563f;
                 continue;
             }
             text[pos++] = '^';
@@ -249,10 +261,16 @@ static const short *R_GetConsoleIcon(const short *string, int *limit, float *wid
         switch (entry >> 8)
         {
         case 13:
+            if (color)
+                color[0] = (float)value * 0.003921568859368563f;
+            break;
         case 14:
+            if (color)
+                color[1] = (float)value * 0.003921568859368563f;
+            break;
         case 15:
             if (color)
-                color[(entry >> 8) - 13] = (float)value * 0.003921568859368563f;
+                color[2] = (float)value * 0.003921568859368563f;
             break;
         case 16:
             *width = (float)value * *width * 0.03125f;
@@ -263,9 +281,10 @@ static const short *R_GetConsoleIcon(const short *string, int *limit, float *wid
         case 18:
         {
             const char *name = ri.CL_GetHudMsgIconMaterialName(value);
-            *material = name[0] ? Material_Register(name, 7) : rgp.defaultMaterial;
-            *limit -= index + 1;
-            return string + index + 1;
+            ++index;
+            *material = !name[0] ? rgp.defaultMaterial : Material_Register(name, 7);
+            *limit -= index;
+            return string + index;
         }
         case 19:
             *width = (float)value * *width * 0.03125f;
@@ -298,6 +317,16 @@ int R_ConsoleTextWidth(const short *string, int maxChars, Font_s *font)
     return (int)width;
 }
 
+// Name unconfirmed; PINNED 1000c450/87. Inlined in R_DrawConsoleText, retail keeps the body.
+void R_DrawConsoleIcon(float x, float y, float w, float h, const float *color,
+    Material *material, Bool horzFlip)
+{
+    if (horzFlip)
+        R_AddCmdDrawStretchPic(x, y, w, h, 1.0f, 0.0f, 0.0f, 1.0f, color, material);
+    else
+        R_AddCmdDrawStretchPic(x, y, w, h, 0.0f, 0.0f, 1.0f, 1.0f, color, material);
+}
+
 // PINNED 1000c4b0: update the text offset only when an icon follows it.
 void R_DrawConsoleText(const short *string, int maxChars, Font_s *font, float x,
     float y, float xScale, float yScale, const float *color, int style)
@@ -328,9 +357,7 @@ void R_DrawConsoleText(const short *string, int maxChars, Font_s *font, float x,
             iconHeight = iconHeight * fontHeight * yScale;
             float iconY = y - (fontHeight * yScale * 0.8f + iconHeight) * 0.5f;
             float iconX = xOfs + x;
-            R_AddCmdDrawStretchPic(iconX, iconY, iconWidth, iconHeight,
-                horzFlip ? 1.0f : 0.0f, 0.0f, horzFlip ? 0.0f : 1.0f, 1.0f,
-                currentColor, material);
+            R_DrawConsoleIcon(iconX, iconY, iconWidth, iconHeight, currentColor, material, horzFlip);
             xOfs += iconWidth;
         }
     }
