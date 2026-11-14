@@ -651,9 +651,9 @@ void R_CubemapLightingForDir(float (**linearColors)[3], int width, int height, c
     {
         for (y = 0; y < height; ++y)
         {
+            yCoord = ((y + 0.5f) + (y + 0.5f)) / height - 1.0f;
             for (x = 0; x < width; ++x)
             {
-                yCoord = ((y + 0.5f) + (y + 0.5f)) / height - 1.0f;
                 xCoord = ((x + 0.5f) + (x + 0.5f)) / width - 1.0f;
                 R_GetDirForCubemapPixel(faceIndex, xCoord, yCoord, sourceDir);
                 facing = sourceDir[2] * dir[2] + sourceDir[1] * dir[1] + sourceDir[0] * dir[0];
@@ -689,9 +689,9 @@ void R_CubemapLighting(float (**linearColors)[3], int width, int height, const f
     {
         for (y = 0; y < height; ++y)
         {
+            yCoord = ((y + 0.5f) + (y + 0.5f)) / height - 1.0f;
             for (x = 0; x < width; ++x)
             {
-                yCoord = ((y + 0.5f) + (y + 0.5f)) / height - 1.0f;
                 xCoord = ((x + 0.5f) + (x + 0.5f)) / width - 1.0f;
                 R_GetDirForCubemapPixel(faceIndex, xCoord, yCoord, dir);
                 R_CubemapLightingForDir(linearColors, width, height, dir, baseColor, &pixels[faceIndex][4 * (y * width + x)]);
