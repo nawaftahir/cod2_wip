@@ -30,7 +30,7 @@ const char *g_imageProgNames[13] = {
     "$blurred_screen", "$glow_0", "$glow_1", "$pingpong_0", "$pingpong_1",
     "$resolved_post_sun", "$resolved_scene", "$savedscreen", "$raw"
 };
-static void Image_Iterate(void (*callback)(GfxImage *, void *), void *data);
+void Image_Iterate(void (*callback)(GfxImage *, void *), void *data);
 static void R_AddImageToList(GfxImage *image, void *data);
 void R_GetImageList(ImageList *list);
 static Bool Image_IsCodeTrack(int track);
@@ -101,7 +101,7 @@ void R_GetImageMemory(Image_MemUsage *usage);
 int R_GetMinSpecImageMemory();
 void R_ResetImageAllocations();
 void R_FreeImageAllocations();
-static void Image_Iterate(void (*callback)(GfxImage *, void *), void *data);
+void Image_Iterate(void (*callback)(GfxImage *, void *), void *data);
 static int imagecompare(GfxImage *first, GfxImage *second);
 void R_ImageList_f();
 void Image_Release(GfxImage *image);
@@ -619,7 +619,7 @@ void Image_Reload(GfxImage *image)
 
 
 // PINNED1000d480: programmable images are excluded by their whole address range.
-static void Image_Iterate(void (*callback)(GfxImage *, void *), void *data)
+void Image_Iterate(void (*callback)(GfxImage *, void *), void *data)
 {
     for (unsigned int index = 0; index < 2048; ++index)
     {
