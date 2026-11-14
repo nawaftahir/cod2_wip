@@ -877,3 +877,8 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   are freed back to the list at 0x10784da6 during colouring rounds. In Window_Paint y (id 33) and w (44) are fresh nodes made by
   the IL-order walker (caller 0x1077fd07), in that order; x (29) and h (40) are recycled nodes. So the reload order depends on
   which nodes the earlier rounds freed (LIFO), not on any one statement. Lever to find: what makes w's node older than y's.
+- PINNED (w29 11-15, same-run V/Y log + opwalk P with id): the three reloaded Window_Paint pieces pop at n3 0x1e with ids 40,
+  44, 33 = RECYCLED nodes (first owners 06833704 / 06834004 / 069fa0cc got them fresh as 40/44/33). The free list hands
+  them out 40, 33, 44 in IL-walk order of the pieces' first reference: ours h, y, w. Retail block order w,h,y needs ids
+  w<h<y, i.e. hand-out order h, w, y: retail's IL references the w piece before the y piece in that round. Implicit vs
+  explicit (int) casts in the CIN calls: no change (TRIED).
