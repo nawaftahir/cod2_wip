@@ -1468,6 +1468,12 @@ static void RB_DrawLines2D(int count, const GfxPointVertex *verts)
     }
 }
 
+// Name unconfirmed; PINNED 10031770/12: uncalled line material depth-test bits setter.
+void RB_SetLineMaterialDepthBits(GfxLineMaterialStateView *material, unsigned int bits)
+{
+    material->stateBits[1] = (material->stateBits[1] & ~0xeu) | bits;
+}
+
 // PINNED 10031780: debug callers also pass depthTest0; command31 passes1.
 void RB_DrawLines3D(int count, int width, const GfxPointVertex *verts, bool depthTest)
 {
@@ -1696,6 +1702,13 @@ void RB_LookupColor(byte c, byte *color)
         memcpy(color, &backEnd.color_axis, 4);
     else
         color[0] = color[1] = color[2] = color[3] = 255;
+}
+
+// Name unconfirmed; PINNED 100323c0/49: uncalled glyph quad draw through RB_DrawStretchPic.
+void RB_DrawGlyphStretchPic(const Material *material, float x, float y, float w, float h,
+    const Glyph *glyph, unsigned int color)
+{
+    RB_DrawStretchPic(material, x, y, w, h, glyph->s0, glyph->t0, glyph->s1, glyph->t1, color);
 }
 
 // Private name unconfirmed; the PC cursor has one pass and signed time division.
