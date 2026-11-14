@@ -179,24 +179,6 @@ bool RB_IsGridPointVisible(const GfxLightGridPoint *point, unsigned int corner,
     return true;
 }
 
-// PINNED 10036040: logging precedes lookup; callers still see trace rejection.
-const GfxLightGridPoint *RB_GetValidGridPoint(const GfxLightGrid *grid,
-    int x, int y, int z, unsigned int corner, const float *sampleOrigin)
-{
-    if (r_vc_makelog->current.integer)
-        RB_GridVisLogIndex(x, y, z, true);
-    int index;
-    if (!RB_FindGridPoint(grid, x, y, z, &index))
-        return 0;
-    vec3_t origin;
-    origin[0] = (float)(int)(((unsigned int)x - 4096U) << 5);
-    origin[1] = (float)(int)(((unsigned int)y - 4096U) << 5);
-    origin[2] = (float)(int)(((unsigned int)z - 2048U) << 6);
-    if (!RB_IsGridPointVisible(&grid->points[index], corner, origin, sampleOrigin))
-        return 0;
-    return &grid->points[index];
-}
-
 // PINNED 10035bd0: six-byte records in the existing history allocation.
 bool RB_InsertGridVisLog(int index, unsigned short x, unsigned short y, unsigned short z)
 {
@@ -241,21 +223,6 @@ int RB_GridVisLogIndex(int x, int y, int z, int insert)
     if (insert && RB_InsertGridVisLog(bottom, x, y, z))
         return bottom;
     return -1;
-}
-
-// PINNED 100366b0: publish viewCount before sampling, with no missing-world guard.
-void RB_SetupEntityLighting(const GfxEntity *entity, GfxEntityLighting *lighting)
-{
-    lighting->viewCount = backEnd.viewCount;
-    vec3_t origin;
-    if (entity->renderFxFlags & 0x80)
-        VectorCopy(entity->lighting.origin, origin);
-    else
-    {
-        VectorCopy(entity->origin, origin);
-        origin[2] += 4.0f;
-    }
-    lighting->sunVisibility = RB_GetLightingAtPoint(&rgp.world->lightGrid, origin, lighting->colorForDir);
 }
 
 // Retail 10035cd0 (name from Mac STABS draft).
@@ -340,6 +307,24 @@ bool RB_FindGridPoint(const GfxLightGrid *grid, int x, int y, int z, int *index)
     }
     *index = top;
     return false;
+}
+
+// PINNED 10036040: logging precedes lookup; callers still see trace rejection.
+const GfxLightGridPoint *RB_GetValidGridPoint(const GfxLightGrid *grid,
+    int x, int y, int z, unsigned int corner, const float *sampleOrigin)
+{
+    if (r_vc_makelog->current.integer)
+        RB_GridVisLogIndex(x, y, z, true);
+    int index;
+    if (!RB_FindGridPoint(grid, x, y, z, &index))
+        return 0;
+    vec3_t origin;
+    origin[0] = (float)(int)(((unsigned int)x - 4096U) << 5);
+    origin[1] = (float)(int)(((unsigned int)y - 4096U) << 5);
+    origin[2] = (float)(int)(((unsigned int)z - 2048U) << 6);
+    if (!RB_IsGridPointVisible(&grid->points[index], corner, origin, sampleOrigin))
+        return 0;
+    return &grid->points[index];
 }
 
 // PINNED 10036100: three groups of eight coefficients, not RGB per direction.
@@ -451,6 +436,21 @@ float RB_GetLightingAtPoint(const GfxLightGrid *grid, const float *sampleOrigin,
         }
     }
     return sunWeight;
+}
+
+// PINNED 100366b0: publish viewCount before sampling, with no missing-world guard.
+void RB_SetupEntityLighting(const GfxEntity *entity, GfxEntityLighting *lighting)
+{
+    lighting->viewCount = backEnd.viewCount;
+    vec3_t origin;
+    if (entity->renderFxFlags & 0x80)
+        VectorCopy(entity->lighting.origin, origin);
+    else
+    {
+        VectorCopy(entity->origin, origin);
+        origin[2] += 4.0f;
+    }
+    lighting->sunVisibility = RB_GetLightingAtPoint(&rgp.world->lightGrid, origin, lighting->colorForDir);
 }
 
 static void RB_InterleaveLightColors(const float *colors, vec3_t *error)
