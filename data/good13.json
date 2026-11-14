@@ -46254,8 +46254,9 @@
 "name": "?G_GetPlayerViewOrigin@@YAXPAUgentity_s@@PAM@Z",
 "obj": "g_client_mp.obj",
 "size": 700,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4fdd30"
+]
 },
 {
 "name": "?G_GetPlayerViewDirection@@YAXPBUgentity_s@@PAM11@Z",
