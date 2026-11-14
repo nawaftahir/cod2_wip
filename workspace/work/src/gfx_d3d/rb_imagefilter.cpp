@@ -221,8 +221,12 @@ static void RB_ApplyFilterPasses(GfxImageFilter *filter)
     {
         GfxImageFilterPass *pass = &filter->passes[index];
         int pingPong = index & 1;
-        (void)pingPong;
-        RB_BIND_PASS_TARGET(filter, index);
+        if (!index)
+            backEnd.currentFeedbackImage = filter->sourceImage;
+        else
+            backEnd.currentFeedbackImage = dx.renderTargets[filter->pingPongTargets[1 - pingPong]].image;
+        RB_SetRenderTarget(index == filter->passCount - 1 ? filter->finalTarget
+            : filter->pingPongTargets[pingPong]);
         RB_SetFilterConstants(pass);
         RB_DrawStretchPic(pass->material, 0.0f, 0.0f, (float)pass->dstWidth,
             (float)pass->dstHeight, 0.0f, 0.0f, pass->srcWidth, pass->srcHeight, 0xffffffff);
@@ -236,10 +240,10 @@ void RB_GaussianFilterImage(float radius, GfxRenderTargetId target)
     float radiusY = (float)backEnd.viewParms->viewport.Height * radius * 0.0020833334f;
     float radiusX = vidConfig.aspectRatioPixel * radiusY;
     GfxImageFilter filter;
-    filter.sourceImage = dx.renderTargets[R_RENDERTARGET_RESOLVED_SCENE].image;
     filter.finalTarget = target;
     filter.pingPongTargets[0] = R_RENDERTARGET_PINGPONG_0;
     filter.pingPongTargets[1] = R_RENDERTARGET_PINGPONG_1;
+    filter.sourceImage = dx.renderTargets[R_RENDERTARGET_RESOLVED_SCENE].image;
     filter.passCount = RB_GenerateGaussianFilterChain(radiusX, radiusY,
         vidConfig.width, vidConfig.height, dx.renderTargets[target].width,
         dx.renderTargets[target].height, filter.passes);
