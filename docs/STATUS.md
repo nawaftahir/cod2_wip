@@ -11,6 +11,11 @@
 non-/GL harness /home/nawaf/w29/x13.py (x87 roles), tools/c2sched13.sh + decoded scheduler (KNOWLEDGE 27), Ghidra c2 project.
 1.0 port of the same fix is green (+13) on client/1.0/w29 (19ef37a1), parked until 1.3 is done (owner 11-14).
 
+## 11-14 late (w29/w32a): +32 via the scheduling-region cut (KNOWLEDGE 27): G_GetPlayerViewOrigin matched (+16),
+IntersectPlanes matched (+6), GrenadePointer +10 (2 lines left). Same-offset 1,973,455 (817 B left). Tool tools/psweep13.py
+(`((rhs))` per assignment, greedy). Swept with no change: CG_FireWeapon, StartWeaponAnim, Window_Paint, MouseEnter,
+Crosshair head, Menu_SetNextCursorItem, Objective 244-276, XAnimCalc 1676-1760, Cursorhint.
+
 ## Remaining 955 B (handoff 11-13; per-item state lives in KNOWLEDGE.md, never repeat a TRIED row)
 1. CL_ConsolePrint_AddLine 532: parked with an exact model of c2's colour priority (KNOWLEDGE 17, STATE w21):
    outer charWidth n3 -192 must beat targetLineWidth -157; retail bytes show no instruction-level difference
