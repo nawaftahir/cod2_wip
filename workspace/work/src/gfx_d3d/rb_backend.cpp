@@ -209,6 +209,19 @@ GfxBackEndData *backEndData;
 
 #include "rb_commands.h"
 
+/* Header-style command walkers; retail keeps out-of-line copies at 1002e000/1002e010.
+   Names unconfirmed. */
+inline const GfxCmdHeader *RB_NextCmdHeader(const GfxCmdHeader *header)
+{
+    return (const GfxCmdHeader *)((const byte *)header + header->byteCount);
+}
+
+inline void RB_AdvanceCmd(GfxRenderCommandExecState *state)
+{
+    state->cmd = (const byte *)RB_NextCmdHeader((const GfxCmdHeader *)state->cmd);
+}
+
+
 void RB_SetViewport(const GfxViewport *viewport);
 void R_QuantizeCachedColor(const float *color, byte *out);
 
@@ -636,8 +649,7 @@ static void RB_DrawQuadPicCmd(GfxRenderCommandExecState *state)
     RB_SetVertex2D(vertex + 1, cmd->verts[1][0], cmd->verts[1][1], 1.0f, 0.0f, cmd->color);
     RB_SetVertex2D(vertex + 2, cmd->verts[2][0], cmd->verts[2][1], 1.0f, 1.0f, cmd->color);
     RB_SetVertex2D(vertex + 3, cmd->verts[3][0], cmd->verts[3][1], 0.0f, 1.0f, cmd->color);
-    const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
-    state->cmd = (const byte *)header + header->byteCount;
+    RB_AdvanceCmd(state);
 }
 
 // Backend raw-frame command.
@@ -1546,6 +1558,16 @@ void RB_EndFrame()
     }
 }
 
+// Name unconfirmed. PINNED 10033c20: uncalled copy of the r_outdoorFeather constant update.
+void RB_UpdateOutdoorFeather()
+{
+    float value = r_outdoorFeather->current.value;
+    backEnd.codeConsts[50][0] = value;
+    backEnd.codeConsts[50][1] = value;
+    backEnd.codeConsts[50][2] = value;
+    backEnd.codeConsts[50][3] = value;
+}
+
 // The private PC helper name is unconfirmed.
 void RB_UpdateBackendDvars()
 {
@@ -2354,7 +2376,16 @@ static float RB_Benchmark2D(const Material *material, float width, float height,
     return count / RB_BenchmarkSeconds(&start, &end);
 }
 
+/* Name unconfirmed. PINNED 10033190 (64 B): uncalled copy of the 2D fill pass that
+   RB_TestFill inlines. */
+float RB_TestFillPass2D(const Material *material)
+{
+    return RB_Benchmark2D(material, (float)dxState.renderTargetWidth, (float)dxState.renderTargetHeight,
+        r_testFill->current.integer) * 0.016666668f;
+}
+
 // PINNED 100331d0: retail writes all four setup corners to vertex ZERO.
+#pragma optimize("p", on)
 static float RB_Benchmark3D(const Material *material, int technique)
 {
     vec3_t origin = {0.0f, 0.0f, 0.0f};
@@ -2407,6 +2438,8 @@ static float RB_Benchmark3D(const Material *material, int technique)
     return (float)(count / RB_BenchmarkSeconds(&start, &end) / 60.0);
 }
 
+#pragma optimize("", on)
+
 // PINNED 100335d0: preserve the live iteration count and original report order.
 static void RB_TestFill()
 {
@@ -2445,6 +2478,23 @@ static void RB_TestFill()
     ri.Printf(0, "phong dir bump fill         %4.1f overdraw @ 60Hz\n", (double)RB_Benchmark3D(rgp.phongBumpFillMaterial, 9));
     ri.Printf(0, "phong dir bump+spec fill    %4.1f overdraw @ 60Hz\n", (double)RB_Benchmark3D(rgp.phongBumpSpecFillMaterial, 9));
     ri.Printf(0, "-----------------------------------------------\n");
+}
+
+/* Names unconfirmed. PINNED 10033970/10033980/10033990: uncalled copies of the vertex
+   rate passes RB_TestTransform inlines. */
+float RB_TestTransformStatic()
+{
+    return 0.0f;
+}
+
+float RB_TestTransformSkinned()
+{
+    return 0.0f;
+}
+
+float RB_TestTransformDynamic(const Material *material)
+{
+    return RB_Benchmark2D(material, 0.0f, 0.0f, 1362) / 60.0f;
 }
 
 // PINNED 100339b0: four static/skinned report values are genuinely zero.
