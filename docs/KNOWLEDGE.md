@@ -823,3 +823,7 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
 - Cursorhint hunk 1 (PINNED by sch.txt): our `fadd scale` has est 0x24 = `push ecx` (cycle 0x22) + 2, so the DAG has an
   edge push -> fadd(esp-relative scale) that retail lacks (retail issues the fadd before the push). Next: find that edge's
   builder (who adds stack-memory / esp edges) and what source shape drops it.
+- Edge dump (sch.txt E lines, Cursorhint): the text-site group is a unit-2 chain 0x18 -> 0x19 -> 0x1a -> 0x20 -> 0x21 -> 0x23
+  (latencies 3,3,2,3,3) plus 0-latency order edges from each node to the later ones. The push (idx 0x1a) -> fadd scale
+  (idx 0x20) edge has latency 2. Next: name each op code (0x45/0x46/0x48/0x60/0x63/0x269) by matching one small fn's picks
+  to its asm, then find the builder of the 0x1a -> 0x20 edge (Ghidra: callers of the edge allocator used by the DAG pass).
