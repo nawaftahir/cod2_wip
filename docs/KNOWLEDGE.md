@@ -871,3 +871,9 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
 - Creation order w, h, y = colour-node id descending (w 44, h 40, y 33), so block order = id ascending. Retail's block order
   w, h, y therefore needs ids w < h < y. SUPPORTED (one function). Open: what assigns those ids (not field order, not the
   fillRect copy order, not border-block order; see TRIED).
+- PINNED (w29 11-15, c2 disasm + new V hook in tools/c2rl13.sh): colour-node ids come from 0x1077c10f(sym = eax): if
+  [sym+0x3c] has no node, take one from the free list 0x108a92d8 (KEEPS its old id, path 0x107820d7) or allocate a new one with
+  id = counter 0x10882154++ (0x1077c13e). Counter = 1 and free list = 0 at each function start (0x1077c421/0x1077c426); nodes
+  are freed back to the list at 0x10784da6 during colouring rounds. In Window_Paint y (id 33) and w (44) are fresh nodes made by
+  the IL-order walker (caller 0x1077fd07), in that order; x (29) and h (40) are recycled nodes. So the reload order depends on
+  which nodes the earlier rounds freed (LIFO), not on any one statement. Lever to find: what makes w's node older than y's.

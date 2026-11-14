@@ -1,5 +1,5 @@
 #!/bin/bash
-# c2rl13.sh NAME: log every 0x26a reload creation (0x1077c20c, hook 0x1077c213: R var var [v+4] [v+5] [v+0x10] [v+0x18] caller-arg) for the fn whose mangled name starts with NAME -> build/ra/ow.txt. Stripped copy of c2opwalk13.sh (only F + R caves).
+# c2rl13.sh NAME: log 0x26a reload creation (R, hook 0x1077c213) and colour-node creation (V, hook 0x1077c13e: sym, id via caller col) for the fn whose mangled name starts with NAME -> build/ra/ow.txt. Stripped copy of c2opwalk13.sh.
 # Needs a finished release build + one tools/ra13.sh run (build/ra/run.sh, c2.dll). Link output build/ra/ow.exe (== ox.exe but timestamp).
 # Lines (all hex): T tuple op [t+9] class          = tuple visit (operands walked only when [t+9] bit0 set)
 #                  U|D op kind type cls sym node   U = use list [t+0x28], D = def list [t+0x2c]
@@ -52,6 +52,21 @@ caveF:
   mov edx,[ebx]
   movzx eax, word ptr [edx+0x6d]
   jmp 0x107724fc
+# V 0x1077c13e: colour node created, edi = sym, eax = new id
+caveV:
+  mov eax,ds:0x10882154
+  mov [esi+0x1c],eax
+  pushad
+  pushfd
+  mov ebx,edi
+  mov esi,edi
+  push dword ptr [esp+0x24+0xc]
+  push offset strV
+  call nlog
+  add esp,8
+  popfd
+  popad
+  jmp 0x1077c146
 # R 0x1077c213: 0x26a reload creation, edi = var
 caveR:
   mov edi,eax
@@ -134,6 +149,7 @@ strU: .ascii "OWU\0"
 strD: .ascii "OWD\0"
 strK: .ascii "OWK\0"
 strR: .ascii "OWR\0"
+strV: .ascii "OWV\0"
 strE: .ascii "OWE\0"
 strI: .ascii "OWI\0"
 strP: .ascii "OWP\0"
@@ -160,7 +176,7 @@ cave = subprocess.run(['objcopy', '-O', 'binary', '-j', '.text', 'build/ra/cave_
 assert len(cave) < 688, len(cave)
 b[0x165d50:0x165d50 + len(cave)] = cave
 # site, hook, bytes replaced (whole instructions; checked against stock bytes)
-for va, k, n, orig in [(0x107724f6, 'caveF', 6, '8b130fb7426d'), (0x1077c213, 'caveR', 6, '8bf8807f040d'), (0x107825e5, 'caveT', 8, '8b442440f6400901'),
+for va, k, n, orig in [(0x107724f6, 'caveF', 6, '8b130fb7426d'), (0x1077c213, 'caveR', 6, '8bf8807f040d'), (0x1077c13e, 'caveV', 8, 'a15421881089461c'), (0x107825e5, 'caveT', 8, '8b442440f6400901'),
                        (0x10782600, 'caveU', 8, '807d08018b5c2410'), (0x107826e4, 'caveD', 9, '8a45083c018b742418'),
                        (0x10782626, 'caveK', 6, '8b451c8b7008'), (0x10782713, 'caveE', 6, '8b451c8b6808'), (0x1078266b, 'caveN', 8, '85c00f8484130000'),
                        (0x10784bf4, 'caveI', 5, '8941188bc7'), (0x10782a5e, 'caveP', 5, '8b45403bc7'),
