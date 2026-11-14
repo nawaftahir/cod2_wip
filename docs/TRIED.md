@@ -4551,3 +4551,5 @@ r_utils order is HashAssetName, HashString, 1002c010, Cull, Convert, PickMateria
 - Probe: __declspec(noinline) on the RB_TessOverflow declaration in rb_tess.cpp: ignored under LTCG (sizes unchanged). Reverted. Needs noinline on the rb_backend.cpp definition (rb_backend hash lock pending, not touched).
 - BuildSprite and TessOrientedQuad use the existing com_math FastSinCos (retail fsincos at 1003f762/1003fc4d): BuildSprite 448 -> 480 (retail 488), OrientedQuad 448 -> 480 (retail 528). Same-offset 290421 -> 298245.
 - Probe: BuildSprite left/up as scale-then-multiply-add (retail order: cos*r0*axis1, then += -sin*r0*axis2): 496 vs 488, same-offset 290822. Reverted.
+2026-11-14 gfx/w-model7 r_model:
+- Retail R_SkinSceneDObj 1001fa70/766 builds partBits inside the SkinXModelCmd on the stack (S+0x68, no 16 B copy); R_ProcessFrontendCmdInternal 10020be0 takes (type,data,0). Probe: pass command.surfacePartBits straight to R_GetSurfaceData, drop the memcpy: .text -0x20 (0x1093b0 -> 0x109390), same-offset 305817 -> 295484. Reverted; our function is already short, so the missing 80 B are elsewhere in it.
