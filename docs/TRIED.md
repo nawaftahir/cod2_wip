@@ -4615,3 +4615,5 @@ Base gfx/w-stack9: drift -96 (head) -128 -80 -32 -48 -32 -208 -176 -144; biggest
 - MatrixRotationX 103/103: m[1][2]=-s moved first: unchanged (retail fchs before xor ecx). 1 probe.
 - RB_SetFilterConstants 110/110: unrolled 4 component stores: unchanged (retail tap base +0x20, ours +0x1c). 1 probe.
 - Skipped (scheduling class / 3 probes logged): RB_ChangedWorldMatrix, RB_GetGlowRadii, RB_SetVertexData, RB_TestTransform, RB_GlowFilterImage.
+2026-11-15 gfx/w-bm2b: R_SetSceneRenderOptions (46 B) MATCH: fullScreen computed into an int local, then stored (retail mov ecx,1 / xor ecx,ecx).
+- R_CacheStaticModelSurface probe 1: loop as `vertCount > (1 << sizeBits)` (fixes cmp/jg) + `if (cached) {...}` : still 54 rows, retail has short jumps to an inline fail block and lea loop padding. Probe 2 (whole body nested under `!deviceLost && vertCount <= 512`) building at handback.

@@ -1127,8 +1127,11 @@ static __declspec(noinline) void R_SetViewParmsForScene(GfxViewParms *viewParms,
 // Name unconfirmed; PINNED 10025690/46, the options setup of R_RenderScene.
 void R_SetSceneRenderOptions(const refdef_t *refdef, GfxSceneRenderOptions *options)
 {
+    int fullScreen;
+
     options->blurRadius = refdef->blurRadius;
-    options->fullScreen = refdef->width == vidConfig.width && refdef->height == vidConfig.height;
+    fullScreen = refdef->width == vidConfig.width && refdef->height == vidConfig.height;
+    options->fullScreen = fullScreen;
 }
 
 #pragma intrinsic(tan)
