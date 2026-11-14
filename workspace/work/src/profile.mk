@@ -1,12 +1,4 @@
 include closed.mk
-# Retail data order: float formats, code pages, matherr flag, month tables.
-CRT_ORDER := $(addprefix $(B)/vendor/,intrncvt.obj mbctype.obj matherr.obj days.obj)
-OBJS += $(CRT_ORDER)
-$(OUT): $(CRT_ORDER)
-$(B)/vendor/%.obj: /opt/msvc710/Vc7/lib/libcmt.lib
-	@mkdir -p $(dir $@)
-	@$(LINK) /lib /nologo '/extract:$(if $(filter intrncvt matherr,$*),..\build,build)\intel\mt_obj\$*.obj' /out:$(call W,$@) Z:\\opt\\msvc710\\Vc7\\lib\\LIBCMT.lib
-	@test -s $@
 $(OUT): $(SRCDIR)/roots.txt $(SRCDIR)/tus.txt
 $(B)/obj/jpeg-6b/%.obj: $(SRCDIR)/jpeg-6b/%.c $(wildcard $(SRCDIR)/jpeg-6b/*.h)
 	@mkdir -p $(dir $@)
