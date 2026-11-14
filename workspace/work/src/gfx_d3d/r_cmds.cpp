@@ -4,12 +4,18 @@
 void R_ScreenShot_f();
 void R_ScreenShotJpeg_f();
 void R_ImageList_f();
-void R_ApplyPicmip_f();
+void R_ApplyPicmip();
 void Material_ReloadTextures_f();
 void R_LoadSun_f();
 void R_SaveSun_f();
 void R_StaticModelCacheStats_f();
 void R_StaticModelCacheFlush_f();
+
+// PINNED 10005290/5: the registered command is a separate tail call.
+void R_ApplyPicmip_f()
+{
+    R_ApplyPicmip();
+}
 
 // PINNED 100052c0/151: every callback has real source in its owning module.
 void R_RegisterCmds()
