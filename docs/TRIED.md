@@ -301,3 +301,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | Window_Paint w29 (11-14, 4 labs) | border-block field update orders W H X Y / H W Y X / W H Y X / X W Y H | all worse (34/32/28/22 fdiff lines vs 14 base). Reverted |
 | StartWeaponAnim w29 (11-14, 5 labs) | `for (i = 1; i <= 20)` / `< 21` with i directly (145 B); `i + 1 == activeAnim` (4 lines); `int anim = i + 1` local (=); `rates[1 + i]` (=) | none matched; latch `inc esi` vs `add ebp,4` order unchanged |
 | StartWeaponAnim w29 (11-14, 5 labs) | `((i + 1))` at each of the 5 sites | all = base (2 lines) |
+| Item_ListBox_MouseEnter w29 (11-14, 4 labs) | flags OR via Window_AddDynamicFlags (inlined, =); pointer local `int *dynamicFlags` (357 B, 33 lines); int temp for OverLB (=); `= a | b` (=) | horzAlign load still hoisted above the dynamicFlags store; no alias edge appears |
