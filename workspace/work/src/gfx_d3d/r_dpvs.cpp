@@ -584,17 +584,16 @@ static void R_ProjectPortal(int vertexCount, const vec3_t *winding, float *mins,
             return;
         }
         float invW = 1.0f / w;
-        float *screen = screenSpaceWinding[index];
-        screen[0] = (portalViewProjectionMatrix->m[2][0] * xyz[2]
+        screenSpaceWinding[index][0] = (portalViewProjectionMatrix->m[2][0] * xyz[2]
             + portalViewProjectionMatrix->m[1][0] * xyz[1] + xyz[0] * portalViewProjectionMatrix->m[0][0]
             + portalViewProjectionMatrix->m[3][0]) * invW;
-        screen[1] = (portalViewProjectionMatrix->m[0][1] * xyz[0]
+        screenSpaceWinding[index][1] = (portalViewProjectionMatrix->m[0][1] * xyz[0]
             + portalViewProjectionMatrix->m[2][1] * xyz[2] + portalViewProjectionMatrix->m[1][1] * xyz[1]
             + portalViewProjectionMatrix->m[3][1]) * invW;
-        if (mins[0] > screen[0]) mins[0] = screen[0];
-        if (maxs[0] < screen[0]) maxs[0] = screen[0];
-        if (mins[1] > screen[1]) mins[1] = screen[1];
-        if (maxs[1] < screen[1]) maxs[1] = screen[1];
+        if (mins[0] > screenSpaceWinding[index][0]) mins[0] = screenSpaceWinding[index][0];
+        if (maxs[0] < screenSpaceWinding[index][0]) maxs[0] = screenSpaceWinding[index][0];
+        if (mins[1] > screenSpaceWinding[index][1]) mins[1] = screenSpaceWinding[index][1];
+        if (maxs[1] < screenSpaceWinding[index][1]) maxs[1] = screenSpaceWinding[index][1];
     }
     if ((maxs[1] - mins[1]) * (maxs[0] - mins[0]) * 0.25f < r_portalMinClipArea->current.value)
     {
