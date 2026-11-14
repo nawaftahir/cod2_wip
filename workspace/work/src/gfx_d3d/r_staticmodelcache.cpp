@@ -43,8 +43,28 @@ typedef char smodelCacheIndicesCheck[offsetof(DxGlobals, smodelCacheIndices) == 
 
 static void R_LightCachedVertex(const float *normal, const byte *color,
     const D3DLIGHT9 *lights, int lightCount, byte *out);
-static __forceinline void R_UploadCachedVertices(int baseVert, int size,
-    const void *vertices, int stride);
+// A macro: a forceinline helper leaves a stray out-of-line copy (see KNOWLEDGE).
+#define R_UploadCachedVertices(baseVert, size, vertices, stride) \
+    do \
+    { \
+        void *data; \
+        void *vb = (void *)dx.smodelCacheVb; \
+        HRESULT hr = ((CachedBufferLockFn)(*(void ***)vb)[11])( \
+            vb, (baseVert) * (stride), (size), &data, 0x1000); \
+        if (hr < 0) \
+        { \
+            ri.Printf(0, "********** DirectX failed a call to lock a vertex buffer or an index buffer **********\n"); \
+            ri.Printf(0, "********** error information:  %s\n", DXGetErrorDescription9A(hr)); \
+            ri.Sys_DirectXFatalError(); \
+        } \
+        Com_Memcpy(data, (vertices), (size)); \
+        do \
+        { \
+            RB_LogPrint("dx.smodelCacheVb->Unlock()\n"); \
+            vb = (void *)dx.smodelCacheVb; \
+            ((CachedBufferUnlockFn)(*(void ***)vb)[12])(vb); \
+        } while (*(volatile int *)&alwaysfails != 0); \
+    } while (0)
 static void R_SkinCachedVertices(const vec3_t *axis, const vec3_t *normalAxis,
     int smodelIndex, int baseVert, int vertCount, const XVertexInfo *src,
     GfxSModelCachedVertex *out);
@@ -250,28 +270,6 @@ static void R_LightCachedVertex(const float *normal, const byte *color,
     R_QuantizeCachedColor(result, out);
 }
 
-static __forceinline void R_UploadCachedVertices(int baseVert, int size,
-    const void *vertices, int stride)
-{
-    void *data;
-    void *vb = (void *)dx.smodelCacheVb;
-    HRESULT hr = ((CachedBufferLockFn)(*(void ***)vb)[11])(
-        vb, baseVert * stride, size, &data, 0x1000);
-    if (hr < 0)
-    {
-        ri.Printf(0, "********** DirectX failed a call to lock a vertex buffer or an index buffer **********\n");
-        ri.Printf(0, "********** error information:  %s\n", DXGetErrorDescription9A(hr));
-        ri.Sys_DirectXFatalError();
-    }
-    Com_Memcpy(data, vertices, size);
-    do
-    {
-        RB_LogPrint("dx.smodelCacheVb->Unlock()\n");
-        vb = (void *)dx.smodelCacheVb;
-        ((CachedBufferUnlockFn)(*(void ***)vb)[12])(vb);
-    } while (*(volatile int *)&alwaysfails != 0);
-}
-
 // PINNED 1002b3c0: DX7 cached vertices have a 24-byte stride.
 static void R_SkinCachedVerticesDx7(const vec3_t *axis, const vec3_t *normalAxis,
     int smodelIndex, int baseVert, int vertCount, const XVertexInfo *src,
@@ -296,6 +294,20 @@ static void R_SkinCachedVerticesDx7(const vec3_t *axis, const vec3_t *normalAxis
     R_UploadCachedVertices(baseVert, vertCount * sizeof(*out), out, sizeof(*out));
 }
 
+/* Name unconfirmed. PINNED 1002b630/82: renderer dispatch, kept out of line
+   (no callers) and inlined into R_SkinStaticModelCachedCmd. */
+void R_SkinCachedVerticesForRenderer(const vec3_t *axis, const vec3_t *normalAxis,
+    int smodelIndex, int baseVert, int vertCount, const XVertexInfo *src,
+    const Material *material, SkinBuffers *skinBuffers)
+{
+    if (r_rendererInUse->current.integer == 2)
+        R_SkinCachedVerticesDx7(axis, normalAxis, smodelIndex,
+            baseVert, vertCount, src, material, skinBuffers->verts.dx7);
+    else
+        R_SkinCachedVertices(axis, normalAxis, smodelIndex,
+            baseVert, vertCount, src, skinBuffers->verts.dx9);
+}
+
 void R_SkinStaticModelCachedCmd(SkinStaticModelCachedCmd *skinCmd, SkinBuffers *skinBuffers)
 {
     GfxStaticModelSurfaceCached *cached = skinCmd->cached;
@@ -310,16 +322,9 @@ void R_SkinStaticModelCachedCmd(SkinStaticModelCachedCmd *skinCmd, SkinBuffers *
     Vec3NormalizeTo(axis[0], normalAxis[0]);
     Vec3NormalizeTo(axis[1], normalAxis[1]);
     Vec3NormalizeTo(axis[2], normalAxis[2]);
-    const XVertexInfo *vertices = (const XVertexInfo *)surface->verts;
-    int vertexCount = surface->vertCount;
-    int baseVertex = cached->baseVertIndex;
-    int modelIndex = skinCmd->smodelIndex;
-    if (r_rendererInUse->current.integer == 2)
-        R_SkinCachedVerticesDx7(axis, normalAxis, modelIndex,
-            baseVertex, vertexCount, vertices, skinCmd->material, skinBuffers->verts.dx7);
-    else
-        R_SkinCachedVertices(axis, normalAxis, modelIndex,
-            baseVertex, vertexCount, vertices, skinBuffers->verts.dx9);
+    R_SkinCachedVerticesForRenderer(axis, normalAxis, skinCmd->smodelIndex,
+        cached->baseVertIndex, surface->vertCount, (const XVertexInfo *)surface->verts,
+        skinCmd->material, skinBuffers);
 }
 
 // PINNED 1002b790/82: each iteration copies two packed triangles.
