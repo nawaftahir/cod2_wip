@@ -157,7 +157,7 @@ void RB_DrawGridPointBox(const float *origin, float radius, const float *color)
 bool RB_IsGridPointVisible(const GfxLightGridPoint *point, unsigned int corner,
     const float *pointOrigin, const float *sampleOrigin)
 {
-    if (!(point->needsTrace & (byte)(1U << (corner & 31))))
+    if (!(point->needsTrace & (1 << corner)))
     {
         if (r_showLightGrid->current.enabled)
             RB_DrawGridPointBox(pointOrigin, 0.9f, colorGreen);
@@ -168,15 +168,15 @@ bool RB_IsGridPointVisible(const GfxLightGridPoint *point, unsigned int corner,
     Vec3Normalize(direction);
     for (int axis = 0; axis < 3; ++axis)
         end[axis] = pointOrigin[axis] + direction[axis] * 0.01f;
-    if (ri.CM_BoxSightTrace(0, sampleOrigin, end, vec3_origin, vec3_origin, 0, 0x2001))
+    if (!ri.CM_BoxSightTrace(0, sampleOrigin, end, vec3_origin, vec3_origin, 0, 0x2001))
     {
         if (r_showLightGrid->current.enabled)
-            RB_DrawGridPointBox(pointOrigin, 1.1f, colorRed);
-        return false;
+            RB_DrawGridPointBox(pointOrigin, 1.0f, colorYellow);
+        return true;
     }
     if (r_showLightGrid->current.enabled)
-        RB_DrawGridPointBox(pointOrigin, 1.0f, colorYellow);
-    return true;
+        RB_DrawGridPointBox(pointOrigin, 1.1f, colorRed);
+    return false;
 }
 
 // PINNED 10035bd0: six-byte records in the existing history allocation.
