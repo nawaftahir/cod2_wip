@@ -2749,6 +2749,12 @@
 "obj": "r_model.obj",
 "why": []
 },
+"?Outdoor_TempHunkAllocatePic@@YAXXZ": {
+"t": "0x10020560",
+"n": 20,
+"obj": "r_outdoor.obj",
+"why": []
+},
 "?R_OutdoorTraceHeight@@YAMMM@Z": {
 "t": "0x10020590",
 "n": 175,
@@ -5296,6 +5302,12 @@
 "why": [
 "call ?RB_ProjectionMatrixChanged@@YAXXZ"
 ]
+},
+"?RB_SetShadowLookupMatrix@@YAXPBU_D3DMATRIX@@@Z": {
+"t": "0x1003e270",
+"n": 41,
+"obj": "rb_state.obj",
+"why": []
 },
 "?RB_CopyViewParmsMatrices@@YAXPBUGfxViewParms@@@Z": {
 "t": "0x1003e2a0",
@@ -15070,9 +15082,9 @@
 "n": 385,
 "obj": "LIBCMT:dllcrt0.obj",
 "why": [
-"unresolved 101acd1c",
-"unresolved 101acd1c",
-"unresolved 101acd1c"
+"unresolved 101add1c",
+"unresolved 101add1c",
+"unresolved 101add1c"
 ]
 },
 "__DllMainCRTStartup@12": {
@@ -15080,7 +15092,7 @@
 "n": 228,
 "obj": "LIBCMT:dllcrt0.obj",
 "why": [
-"unresolved 101acd1c"
+"unresolved 101add1c"
 ]
 },
 "__amsg_exit": {
