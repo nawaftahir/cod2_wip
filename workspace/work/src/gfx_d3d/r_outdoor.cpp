@@ -170,6 +170,13 @@ void R_CreateOutdoorImage(GfxImage *image)
 }
 
 extern const dvar_t *r_zFeather;
+extern DxGlobals dx;
+
+// Name unconfirmed; PINNED 10020b10/14, no retail callers.
+bool R_HasFloatZTarget()
+{
+    return dx.renderTargets[6].colorSurface != 0;
+}
 
 // Name unconfirmed; PINNED 10020b20/24, no retail callers.
 bool R_IsZFeatherActive()
