@@ -127,12 +127,6 @@
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
-"?Com_ParseInternal@@YAPADPAPBD@Z$private$r_bsp_load_obj.obj": {
-"t": "0x1005fa50",
-"n": 68,
-"obj": "r_bsp_load_obj.obj",
-"why": []
-},
 "?R_SetDpvsPlaneSides@@YAXPAUDpvsPlane@@@Z": {
 "t": "0x10001900",
 "n": 54,
@@ -169,6 +163,18 @@
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
+"?R_CalculateWorldBounds@@YAXPAM0@Z": {
+"t": "0x10002840",
+"n": 246,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
+"?R_SetSkyImage@@YAXPBUMaterial@@@Z": {
+"t": "0x10002940",
+"n": 118,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
 "?R_LoadSubmodels@@YAXPAUGfxBspLoad@@@Z": {
 "t": "0x10002db0",
 "n": 140,
@@ -199,6 +205,12 @@
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
+"?R_IsMissingOrBadModel@@YAEPBUXModel@@@Z": {
+"t": "0x10003010",
+"n": 23,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
 "?R_IsValidStaticModel@@YAEPAY01PBDHPAPAUXModel@@PAM@Z": {
 "t": "0x10003030",
 "n": 328,
@@ -223,23 +235,19 @@
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
-"?R_InterpretSunLightParseParamsIntoLights@@YAXPAUSunLightParseParams@@PAUGfxLight@@@Z": {
-"t": "0x10004dc0",
-"n": 371,
-"obj": "r_bsp_load_obj.obj",
-"why": []
-},
-"?R_SetParentAndCell_r@@YAXPAUBspNodeA@@0@Z": {
-"t": "0x100046e0",
-"n": 68,
-"obj": "r_bsp_load_obj.obj",
-"why": []
-},
 "?R_BuildCellAabbTrees@@YAXXZ": {
 "t": "0x10003810",
 "n": 104,
 "obj": "r_bsp_load_obj.obj",
 "why": []
+},
+"?R_LoadAabbTrees@@YAXPAUGfxBspLoad@@@Z": {
+"t": "0x10003ee0",
+"n": 164,
+"obj": "r_bsp_load_obj.obj",
+"why": [
+"call ?R_FinishLoadingAabbTrees_r@@YAHPAUGfxAabbTree@@H@Z"
+]
 },
 "?R_LoadCells@@YAXPAUGfxBspLoad@@@Z": {
 "t": "0x10003f90",
@@ -250,6 +258,12 @@
 "?R_LoadPortalVerts@@YAXPAUGfxBspLoad@@@Z": {
 "t": "0x10004080",
 "n": 240,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
+"?R_LoadCullGroups@@YAXPAUGfxBspLoad@@@Z": {
+"t": "0x10004300",
+"n": 194,
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
@@ -265,17 +279,21 @@
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
-"?R_LoadAabbTrees@@YAXPAUGfxBspLoad@@@Z": {
-"t": "0x10003ee0",
-"n": 164,
+"?R_SetParentAndCell_r@@YAXPAUBspNodeA@@0@Z": {
+"t": "0x100046e0",
+"n": 68,
 "obj": "r_bsp_load_obj.obj",
-"why": [
-"call ?R_FinishLoadingAabbTrees_r@@YAHPAUGfxAabbTree@@H@Z"
-]
+"why": []
 },
 "?R_LoadStep@@YAXPBD@Z": {
 "t": "0x10004870",
 "n": 31,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
+"?R_InterpretSunLightParseParamsIntoLights@@YAXPAUSunLightParseParams@@PAUGfxLight@@@Z": {
+"t": "0x10004dc0",
+"n": 371,
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
@@ -363,9 +381,27 @@
 "obj": "r_debug.obj",
 "why": []
 },
+"?R_InitDebugEntry@@YAXPAUDebugGlobals@@@Z": {
+"t": "0x100057b0",
+"n": 42,
+"obj": "r_debug.obj",
+"why": []
+},
+"?R_InitDebug@@YAXXZ": {
+"t": "0x100057e0",
+"n": 57,
+"obj": "r_debug.obj",
+"why": []
+},
 "?R_ShutdownDebugEntry@@YAXPAUDebugGlobals@@@Z": {
 "t": "0x10005820",
 "n": 143,
+"obj": "r_debug.obj",
+"why": []
+},
+"?R_TransferDebugGlobals@@YAXPAUDebugGlobals@@@Z": {
+"t": "0x100058b0",
+"n": 184,
 "obj": "r_debug.obj",
 "why": []
 },
@@ -387,12 +423,6 @@
 "obj": "r_debug.obj",
 "why": []
 },
-"?R_TransferDebugGlobals@@YAXPAUDebugGlobals@@@Z": {
-"t": "0x100058b0",
-"n": 184,
-"obj": "r_debug.obj",
-"why": []
-},
 "?VectorNegate@@YAXQBMQAM@Z": {
 "t": "0x10005b40",
 "n": 23,
@@ -402,6 +432,24 @@
 "?VectorMA@@YAXQBMM0QAM@Z": {
 "t": "0x10005b60",
 "n": 37,
+"obj": "r_dpvs.obj",
+"why": []
+},
+"?VectorLengthSquared@@YAMQBM@Z": {
+"t": "0x10005b90",
+"n": 31,
+"obj": "r_dpvs.obj",
+"why": []
+},
+"?VectorLength@@YAMQBM@Z": {
+"t": "0x10005bb0",
+"n": 33,
+"obj": "r_dpvs.obj",
+"why": []
+},
+"?VectorScale4@@YAXQBMMQAM@Z": {
+"t": "0x10005be0",
+"n": 39,
 "obj": "r_dpvs.obj",
 "why": []
 },
@@ -417,113 +465,15 @@
 "obj": "r_dpvs.obj",
 "why": []
 },
-"?R_LinkEntityToCell@@YAXPAUGfxCell@@HPBM1@Z": {
-"t": "0x10008570",
-"n": 139,
-"obj": "r_dpvs.obj",
-"why": []
-},
-"?R_TransformBoundsCorners@@YAXPBUGfxEntity@@QAM1PAY02$$CBM@Z": {
-"t": "0x100088c0",
-"n": 2317,
-"obj": "r_dpvs.obj",
-"why": []
-},
-"?R_CullBrushEntity@@YAXHPAUDpvsPlane@@H@Z": {
-"t": "0x100091d0",
-"n": 117,
-"obj": "r_dpvs.obj",
-"why": [
-"call ?R_FilterEntityIntoCells_r@@YAHPAUmnode_t@@HPBM1@Z"
-]
-},
-"?R_AddVertToPortalHullPoints@@YAXPAUGfxPortal@@PBM@Z": {
-"t": "0x10009910",
-"n": 253,
-"obj": "r_dpvs.obj",
-"why": []
-},
 "?R_GetSidePlaneNormals@@YAXPAY02$$CBMHPAY02M@Z": {
 "t": "0x10005ee0",
 "n": 746,
 "obj": "r_dpvs.obj",
 "why": []
 },
-"?R_ChopPortalWinding@@YAPAY02$$CBMPAY02$$CBMPAHPBUDpvsPlane@@PAY02M@Z": {
-"t": "0x10007ef0",
-"n": 468,
-"obj": "r_dpvs.obj",
-"why": []
-},
-"?R_SetupDpvsForDir@@YAXPBUGfxViewParms@@@Z": {
-"t": "0x1000a550",
-"n": 194,
-"obj": "r_dpvs.obj",
-"why": []
-},
-"?R_ChopPortal@@YAHPBUGfxPortal@@PBUDpvsPlane@@1HQAY1IA@2MPAPAY02$$CBM@Z": {
-"t": "0x10009a70",
-"n": 184,
-"obj": "r_dpvs.obj",
-"why": []
-},
-"?R_ChopPortalAndAddHullPoints@@YA_NPAUGfxPortal@@PBUDpvsPlane@@1H@Z": {
-"t": "0x10009b30",
-"n": 91,
-"obj": "r_dpvs.obj",
-"why": []
-},
-"?R_PortalBehindPlane@@YA_NPBUGfxPortal@@PBUDpvsPlane@@@Z": {
-"t": "0x10007dc0",
-"n": 66,
-"obj": "r_dpvs.obj",
-"why": []
-},
-"?R_PortalBehindAnyPlane@@YA_NPBUGfxPortal@@PBUDpvsPlane@@H@Z": {
-"t": "0x10007e10",
-"n": 98,
-"obj": "r_dpvs.obj",
-"why": []
-},
-"?R_PortalBehindAllPlanes@@YA_NPBUGfxPortal@@PBUDpvsPlane@@H@Z": {
-"t": "0x10007e80",
-"n": 98,
-"obj": "r_dpvs.obj",
-"why": []
-},
-"?R_IsPortalOccluded@@YA_NPBUGfxPortal@@@Z": {
-"t": "0x10009700",
-"n": 58,
-"obj": "r_dpvs.obj",
-"why": []
-},
-"?R_IsCellInList@@YA_NPBUGfxCell@@PAPBU1@H@Z": {
-"t": "0x10009b90",
-"n": 22,
-"obj": "r_dpvs.obj",
-"why": []
-},
-"?R_GetFurtherCellList_r@@YAHPBUGfxCell@@PBUDpvsPlane@@1HQAY1IA@2MPAPBU1@H@Z": {
-"t": "0x10009bc0",
-"n": 301,
-"obj": "r_dpvs.obj",
-"why": []
-},
-"?R_ClearDpvsScene@@YAXXZ": {
-"t": "0x1000a7f0",
-"n": 69,
-"obj": "r_dpvs.obj",
-"why": []
-},
-"?R_GetFarPlaneDist@@YAMXZ": {
-"t": "0x1000aa60",
-"n": 82,
-"obj": "r_dpvs.obj",
-"why": []
-},
-"?R_SetCullDist@@YAXM@Z": {
-"t": "0x1000aac0",
-"n": 38,
+"?R_AppendNearFarPlanes@@YAHPAUDpvsPlane@@H@Z": {
+"t": "0x100062a0",
+"n": 95,
 "obj": "r_dpvs.obj",
 "why": []
 },
@@ -545,9 +495,137 @@
 "obj": "r_dpvs.obj",
 "why": []
 },
-"?R_AppendNearFarPlanes@@YAHPAUDpvsPlane@@H@Z": {
-"t": "0x100062a0",
-"n": 95,
+"?R_PortalBehindPlane@@YA_NPBUGfxPortal@@PBUDpvsPlane@@@Z": {
+"t": "0x10007dc0",
+"n": 66,
+"obj": "r_dpvs.obj",
+"why": []
+},
+"?R_PortalBehindAnyPlane@@YA_NPBUGfxPortal@@PBUDpvsPlane@@H@Z": {
+"t": "0x10007e10",
+"n": 98,
+"obj": "r_dpvs.obj",
+"why": []
+},
+"?R_PortalBehindAllPlanes@@YA_NPBUGfxPortal@@PBUDpvsPlane@@H@Z": {
+"t": "0x10007e80",
+"n": 98,
+"obj": "r_dpvs.obj",
+"why": []
+},
+"?R_ChopPortalWinding@@YAPAY02$$CBMPAY02$$CBMPAHPBUDpvsPlane@@PAY02M@Z": {
+"t": "0x10007ef0",
+"n": 468,
+"obj": "r_dpvs.obj",
+"why": []
+},
+"?R_LinkEntityToCell@@YAXPAUGfxCell@@HPBM1@Z": {
+"t": "0x10008570",
+"n": 139,
+"obj": "r_dpvs.obj",
+"why": []
+},
+"?R_BoundsTooLargeForCellSplit@@YAEPBM0@Z": {
+"t": "0x10008750",
+"n": 66,
+"obj": "r_dpvs.obj",
+"why": []
+},
+"?R_TransformBoundsCorners@@YAXPBUGfxEntity@@QAM1PAY02$$CBM@Z": {
+"t": "0x100088c0",
+"n": 2317,
+"obj": "r_dpvs.obj",
+"why": []
+},
+"?R_CullBrushEntity@@YAXHPAUDpvsPlane@@H@Z": {
+"t": "0x100091d0",
+"n": 117,
+"obj": "r_dpvs.obj",
+"why": [
+"call ?R_FilterEntityIntoCells_r@@YAHPAUmnode_t@@HPBM1@Z"
+]
+},
+"?R_IsPortalOccluded@@YA_NPBUGfxPortal@@@Z": {
+"t": "0x10009700",
+"n": 58,
+"obj": "r_dpvs.obj",
+"why": []
+},
+"?R_AllocHullPoints@@YAPATGfxHullPointsPool@@XZ": {
+"t": "0x100098c0",
+"n": 61,
+"obj": "r_dpvs.obj",
+"why": []
+},
+"?R_AddVertToPortalHullPoints@@YAXPAUGfxPortal@@PBM@Z": {
+"t": "0x10009910",
+"n": 253,
+"obj": "r_dpvs.obj",
+"why": []
+},
+"?R_ChopPortal@@YAHPBUGfxPortal@@PBUDpvsPlane@@1HQAY1IA@2MPAPAY02$$CBM@Z": {
+"t": "0x10009a70",
+"n": 184,
+"obj": "r_dpvs.obj",
+"why": []
+},
+"?R_ChopPortalAndAddHullPoints@@YA_NPAUGfxPortal@@PBUDpvsPlane@@1H@Z": {
+"t": "0x10009b30",
+"n": 91,
+"obj": "r_dpvs.obj",
+"why": []
+},
+"?R_IsCellInList@@YA_NPBUGfxCell@@PAPBU1@H@Z": {
+"t": "0x10009b90",
+"n": 22,
+"obj": "r_dpvs.obj",
+"why": []
+},
+"?R_GetFurtherCellList_r@@YAHPBUGfxCell@@PBUDpvsPlane@@1HQAY1IA@2MPAPBU1@H@Z": {
+"t": "0x10009bc0",
+"n": 301,
+"obj": "r_dpvs.obj",
+"why": []
+},
+"?R_SetPortalAncestorFlags@@YAXPAUGfxPortal@@E@Z": {
+"t": "0x10009da0",
+"n": 15,
+"obj": "r_dpvs.obj",
+"why": []
+},
+"?R_MarkPortalAncestors@@YAXPAUGfxPortal@@@Z": {
+"t": "0x10009db0",
+"n": 17,
+"obj": "r_dpvs.obj",
+"why": []
+},
+"?R_ClearPortalAncestors@@YAXPAUGfxPortal@@@Z": {
+"t": "0x10009dd0",
+"n": 17,
+"obj": "r_dpvs.obj",
+"why": []
+},
+"?R_SetupDpvsForDir@@YAXPBUGfxViewParms@@@Z": {
+"t": "0x1000a550",
+"n": 194,
+"obj": "r_dpvs.obj",
+"why": []
+},
+"?R_ClearDpvsScene@@YAXXZ": {
+"t": "0x1000a7f0",
+"n": 69,
+"obj": "r_dpvs.obj",
+"why": []
+},
+"?R_GetFarPlaneDist@@YAMXZ": {
+"t": "0x1000aa60",
+"n": 82,
+"obj": "r_dpvs.obj",
+"why": []
+},
+"?R_SetCullDist@@YAXM@Z": {
+"t": "0x1000aac0",
+"n": 38,
 "obj": "r_dpvs.obj",
 "why": []
 },
@@ -557,9 +635,27 @@
 "obj": "r_dvars.obj",
 "why": []
 },
+"?R_PackFogColor@@YAXPAEEEEE@Z": {
+"t": "0x1000bae0",
+"n": 20,
+"obj": "r_fog.obj",
+"why": []
+},
+"?R_CallArchiveProc@@YAXPAUMemoryFile@@HPAX@Z": {
+"t": "0x1000bb00",
+"n": 10,
+"obj": "r_fog.obj",
+"why": []
+},
 "?R_ClearFogs@@YAXXZ": {
 "t": "0x1000bb10",
 "n": 22,
+"obj": "r_fog.obj",
+"why": []
+},
+"?R_SetFog@@YAXHMMHHHM@Z": {
+"t": "0x1000bb30",
+"n": 143,
 "obj": "r_fog.obj",
 "why": []
 },
@@ -575,15 +671,15 @@
 "obj": "r_fog.obj",
 "why": []
 },
-"?R_DuplicateFont@@YAXPAUFont_s@@PBD@Z": {
-"t": "0x1000bdc0",
-"n": 340,
-"obj": "r_font.obj",
-"why": []
-},
 "?R_GetCharacterGlyph@@YAPAUGlyph@@PAUFont_s@@I@Z": {
 "t": "0x1000bc70",
 "n": 103,
+"obj": "r_font.obj",
+"why": []
+},
+"?R_DuplicateFont@@YAXPAUFont_s@@PBD@Z": {
+"t": "0x1000bdc0",
+"n": 340,
 "obj": "r_font.obj",
 "why": []
 },
@@ -617,9 +713,9 @@
 "obj": "r_image.obj",
 "why": []
 },
-"?Image_Iterate@@YAXP6AXPAUGfxImage@@PAX@Z1@Z": {
-"t": "0x1000d480",
-"n": 47,
+"?Image_IsCodeTrack@@YAEH@Z": {
+"t": "0x1000c7c0",
+"n": 20,
 "obj": "r_image.obj",
 "why": []
 },
@@ -635,27 +731,27 @@
 "obj": "r_image.obj",
 "why": []
 },
-"?Image_IsCodeTrack@@YAEH@Z": {
-"t": "0x1000c7c0",
-"n": 20,
-"obj": "r_image.obj",
-"why": []
-},
 "?R_GetImageMemory@@YAXPAUImage_MemUsage@@@Z": {
 "t": "0x1000c820",
 "n": 168,
 "obj": "r_image.obj",
 "why": []
 },
-"?imagecompare@@YAHPAUGfxImage@@0@Z": {
-"t": "0x1000d900",
-"n": 49,
+"?Image_HashBucket@@YAHPBD@Z": {
+"t": "0x1000c8e0",
+"n": 39,
 "obj": "r_image.obj",
 "why": []
 },
-"?R_ImageList_f@@YAXXZ": {
-"t": "0x1000d940",
-"n": 1070,
+"?Image_Release@@YAXPAUGfxImage@@@Z": {
+"t": "0x1000c910",
+"n": 87,
+"obj": "r_image.obj",
+"why": []
+},
+"?Image_GetMipmapResolution@@YAXHHHPAG0@Z": {
+"t": "0x1000c970",
+"n": 49,
 "obj": "r_image.obj",
 "why": []
 },
@@ -677,21 +773,33 @@
 "obj": "r_image.obj",
 "why": []
 },
-"?Image_IsCodeImage@@YA_NPBUGfxImage@@@Z": {
-"t": "0x1000cc80",
-"n": 23,
-"obj": "r_image.obj",
-"why": []
-},
-"?Image_FindExisting@@YAPAUGfxImage@@PBD@Z": {
-"t": "0x1000d140",
-"n": 181,
-"obj": "r_image.obj",
-"why": []
-},
 "?Image_GetAvailableHashLocation@@YAHPBD@Z": {
 "t": "0x1000cb40",
 "n": 82,
+"obj": "r_image.obj",
+"why": []
+},
+"?Image_Construct@@YAXPBDHHHHPAUGfxImage@@@Z": {
+"t": "0x1000cba0",
+"n": 45,
+"obj": "r_image.obj",
+"why": []
+},
+"?Image_AllocProg@@YAPAUGfxImage@@HE@Z": {
+"t": "0x1000cbd0",
+"n": 52,
+"obj": "r_image.obj",
+"why": []
+},
+"?Image_Alloc@@YAPAUGfxImage@@PBDHHH@Z": {
+"t": "0x1000cc10",
+"n": 109,
+"obj": "r_image.obj",
+"why": []
+},
+"?Image_IsCodeImage@@YA_NPBUGfxImage@@@Z": {
+"t": "0x1000cc80",
+"n": 23,
 "obj": "r_image.obj",
 "why": []
 },
@@ -725,21 +833,21 @@
 "obj": "r_image.obj",
 "why": []
 },
-"?Image_Alloc@@YAPAUGfxImage@@PBDHHH@Z": {
-"t": "0x1000cc10",
-"n": 109,
-"obj": "r_image.obj",
-"why": []
-},
 "?Image_PicmipForSemantic@@YAXEPAUPicmip@@@Z": {
 "t": "0x1000d090",
 "n": 92,
 "obj": "r_image.obj",
 "why": []
 },
-"?Image_Release@@YAXPAUGfxImage@@@Z": {
-"t": "0x1000c910",
-"n": 87,
+"?Image_BuildWaterMap@@YAXPAUGfxImage@@@Z": {
+"t": "0x1000d0f0",
+"n": 74,
+"obj": "r_image.obj",
+"why": []
+},
+"?Image_FindExisting@@YAPAUGfxImage@@PBD@Z": {
+"t": "0x1000d140",
+"n": 181,
 "obj": "r_image.obj",
 "why": []
 },
@@ -755,6 +863,12 @@
 "obj": "r_image.obj",
 "why": []
 },
+"?Image_RebuildCosinePowerMap@@YAXM@Z": {
+"t": "0x1000d320",
+"n": 202,
+"obj": "r_image.obj",
+"why": []
+},
 "?Image_Reload@@YAXPAUGfxImage@@@Z": {
 "t": "0x1000d450",
 "n": 42,
@@ -762,6 +876,12 @@
 "why": [
 "call ?Image_LoadFromFile@@YAEPAUGfxImage@@@Z"
 ]
+},
+"?Image_Iterate@@YAXP6AXPAUGfxImage@@PAX@Z1@Z": {
+"t": "0x1000d480",
+"n": 47,
+"obj": "r_image.obj",
+"why": []
 },
 "?Image_GetSurface@@YAPAUIDirect3DSurface9@@PAUGfxImage@@@Z": {
 "t": "0x1000d4b0",
@@ -777,9 +897,15 @@
 "call ?R_WatersEquivalent@@YAHPBUwater_t@@0@Z"
 ]
 },
-"?Image_RebuildCosinePowerMap@@YAXM@Z": {
-"t": "0x1000d320",
-"n": 202,
+"?imagecompare@@YAHPAUGfxImage@@0@Z": {
+"t": "0x1000d900",
+"n": 49,
+"obj": "r_image.obj",
+"why": []
+},
+"?R_ImageList_f@@YAXXZ": {
+"t": "0x1000d940",
+"n": 1070,
 "obj": "r_image.obj",
 "why": []
 },
@@ -849,6 +975,12 @@
 "obj": "r_image_load_common.obj",
 "why": []
 },
+"?Image_FormatMinSize@@YAHW4_D3DFORMAT@@@Z": {
+"t": "0x1000eda0",
+"n": 32,
+"obj": "r_image_load_common.obj",
+"why": []
+},
 "?Image_ClampPicmip@@YAXW4_D3DFORMAT@@HHPAUPicmip@@@Z": {
 "t": "0x1000edc0",
 "n": 79,
@@ -879,49 +1011,21 @@
 "obj": "r_image_load_obj.obj",
 "why": []
 },
-"?Image_LoadRaw@@YAEPAUGfxImage@@PBDH@Z": {
-"t": "0x1000fc30",
-"n": 169,
+"?Image_ValidateHeader@@YAEPBUGfxImageFileHeader@@PBD@Z": {
+"t": "0x1000f2a0",
+"n": 67,
 "obj": "r_image_load_obj.obj",
 "why": []
 },
-"?Image_GenerateSpecularity@@YAXPAUGfxImage@@@Z": {
-"t": "0x1000fce0",
-"n": 119,
+"?Image_SetupFromFile@@YAXPAUGfxImage@@PBUGfxImageFileHeader@@W4_D3DFORMAT@@@Z": {
+"t": "0x1000f2f0",
+"n": 39,
 "obj": "r_image_load_obj.obj",
 "why": []
-},
-"?Image_GenerateSolidColor@@YAXPAUGfxImage@@EEEE@Z": {
-"t": "0x100100f0",
-"n": 102,
-"obj": "r_image_load_obj.obj",
-"why": []
-},
-"?Image_GenerateLightGridWeights@@YAXPAUGfxImage@@H@Z": {
-"t": "0x10010680",
-"n": 43,
-"obj": "r_image_load_obj.obj",
-"why": [
-"call ?Image_GenerateCubemapFunction@@YAXPAUGfxImage@@PAEHHP6AXPBMH1@Z@Z"
-]
-},
-"?Image_GenerateSunHalfAngle@@YAXPAUGfxImage@@@Z": {
-"t": "0x100107b0",
-"n": 46,
-"obj": "r_image_load_obj.obj",
-"why": [
-"call ?Image_GenerateCubemapFunction@@YAXPAUGfxImage@@PAEHHP6AXPBMH1@Z@Z"
-]
 },
 "?Image_CountMipmapsForFile@@YAIPBUGfxImageFileHeader@@@Z": {
 "t": "0x1000f320",
 "n": 47,
-"obj": "r_image_load_obj.obj",
-"why": []
-},
-"?R_CreateWaterMap@@YAPAUGfxImage@@PADHH@Z": {
-"t": "0x10010b30",
-"n": 99,
 "obj": "r_image_load_obj.obj",
 "why": []
 },
@@ -951,12 +1055,6 @@
 "call ?Image_LoadWavelet@@YAXPAUGfxImage@@PBUGfxImageFileHeader@@PBEW4_D3DFORMAT@@H@Z"
 ]
 },
-"?Image_ValidateHeader@@YAEPBUGfxImageFileHeader@@PBD@Z": {
-"t": "0x1000f2a0",
-"n": 67,
-"obj": "r_image_load_obj.obj",
-"why": []
-},
 "?Image_LoadFromFile@@YAEPAUGfxImage@@@Z": {
 "t": "0x1000fa40",
 "n": 240,
@@ -964,6 +1062,30 @@
 "why": [
 "call ?Image_LoadFromData@@YAXPAUGfxImage@@PBUGfxImageFileHeader@@PBE@Z"
 ]
+},
+"?Image_Generate2D@@YAXPAUGfxImage@@PAEHHW4_D3DFORMAT@@@Z": {
+"t": "0x1000fb30",
+"n": 74,
+"obj": "r_image_load_obj.obj",
+"why": []
+},
+"?Image_Generate3D@@YAXPAUGfxImage@@PAEHHHW4_D3DFORMAT@@@Z": {
+"t": "0x1000fb80",
+"n": 75,
+"obj": "r_image_load_obj.obj",
+"why": []
+},
+"?Image_LoadRaw@@YAEPAUGfxImage@@PBDH@Z": {
+"t": "0x1000fc30",
+"n": 169,
+"obj": "r_image_load_obj.obj",
+"why": []
+},
+"?Image_GenerateSpecularity@@YAXPAUGfxImage@@@Z": {
+"t": "0x1000fce0",
+"n": 119,
+"obj": "r_image_load_obj.obj",
+"why": []
 },
 "?R_GetLightmapWeightsForDir@@YAXPBMPAM@Z": {
 "t": "0x1000fd70",
@@ -976,6 +1098,46 @@
 "n": 605,
 "obj": "r_image_load_obj.obj",
 "why": []
+},
+"?Image_GenerateSolidColor@@YAXPAUGfxImage@@EEEE@Z": {
+"t": "0x100100f0",
+"n": 102,
+"obj": "r_image_load_obj.obj",
+"why": []
+},
+"?SmoothStep@@YAMM@Z": {
+"t": "0x10010480",
+"n": 21,
+"obj": "r_image_load_obj.obj",
+"why": []
+},
+"?Image_GetLightGridWeightsForVector@@YAXPBMHPAE@Z": {
+"t": "0x100104a0",
+"n": 465,
+"obj": "r_image_load_obj.obj",
+"why": []
+},
+"?Image_GenerateLightGridWeights@@YAXPAUGfxImage@@H@Z": {
+"t": "0x10010680",
+"n": 43,
+"obj": "r_image_load_obj.obj",
+"why": [
+"call ?Image_GenerateCubemapFunction@@YAXPAUGfxImage@@PAEHHP6AXPBMH1@Z@Z"
+]
+},
+"?Image_GetSunHalfAngleForVector@@YAXPBMHPAE@Z": {
+"t": "0x100106b0",
+"n": 256,
+"obj": "r_image_load_obj.obj",
+"why": []
+},
+"?Image_GenerateSunHalfAngle@@YAXPAUGfxImage@@@Z": {
+"t": "0x100107b0",
+"n": 46,
+"obj": "r_image_load_obj.obj",
+"why": [
+"call ?Image_GenerateCubemapFunction@@YAXPAUGfxImage@@PAEHHP6AXPBMH1@Z@Z"
+]
 },
 "?Image_WaterColorForDirection@@YAXPBMHPAE@Z": {
 "t": "0x100107e0",
@@ -1001,21 +1163,9 @@
 "call ?Image_LoadBuiltin@@YAPAUGfxImage@@PBDHH@Z"
 ]
 },
-"?Image_BuildWaterMap@@YAXPAUGfxImage@@@Z": {
-"t": "0x1000d0f0",
-"n": 74,
-"obj": "r_image_load_obj.obj",
-"why": []
-},
-"?Image_GetLightGridWeightsForVector@@YAXPBMHPAE@Z": {
-"t": "0x100104a0",
-"n": 465,
-"obj": "r_image_load_obj.obj",
-"why": []
-},
-"?Image_GetSunHalfAngleForVector@@YAXPBMHPAE@Z": {
-"t": "0x100106b0",
-"n": 256,
+"?R_CreateWaterMap@@YAPAUGfxImage@@PADHH@Z": {
+"t": "0x10010b30",
+"n": 99,
 "obj": "r_image_load_obj.obj",
 "why": []
 },
@@ -1471,15 +1621,15 @@
 "obj": "r_jpeg.obj",
 "why": []
 },
-"?PrintfJpeg@@YAXPAD@Z": {
-"t": "0x10014650",
-"n": 22,
-"obj": "r_jpeg.obj",
-"why": []
-},
 "?jpeg_memory_dest@@YAXPAUjpeg_compress_struct@@PAEI@Z": {
 "t": "0x100145d0",
 "n": 62,
+"obj": "r_jpeg.obj",
+"why": []
+},
+"?PrintfJpeg@@YAXPAD@Z": {
+"t": "0x10014650",
+"n": 22,
 "obj": "r_jpeg.obj",
 "why": []
 },
@@ -1521,18 +1671,6 @@
 "obj": "r_marks.obj",
 "why": []
 },
-"?R_AddMarkFragment@@YAHPAY08UClipPoint@@PAY02$$CBMPBMHPAUGfxWorldVertex@@PAUGfxMarkFragment@@@Z": {
-"t": "0x10015830",
-"n": 494,
-"obj": "r_marks.obj",
-"why": []
-},
-"?R_GetMarkFragmentBounds@@YAXPAY02$$CBMPBMMPAM2@Z": {
-"t": "0x10015a20",
-"n": 381,
-"obj": "r_marks.obj",
-"why": []
-},
 "?R_AABBTreeSurfaces_r@@YAXPAUGfxAabbTree@@PBM1PAPAUGfxSurface@@HPAH@Z": {
 "t": "0x100153f0",
 "n": 376,
@@ -1553,22 +1691,24 @@
 "call ?R_CellSurfaces@@YAXPAUGfxCell@@PBM1PAPAUGfxSurface@@HPAH@Z"
 ]
 },
-"?Material_BuildVertexDecl@@YAPAUIDirect3DVertexDeclaration9@@PBUMaterialStreamRouting@@HPBUstream_source_info_t@@@Z": {
-"t": "0x100165c0",
-"n": 372,
-"obj": "r_material.obj",
+"?R_BoxSurfaces@@YAHPBM0PAPAUGfxSurface@@H@Z": {
+"t": "0x100157e0",
+"n": 65,
+"obj": "r_marks.obj",
+"why": [
+"call ?R_BoxSurfaces_r@@YAXPAUmnode_t@@PBM1PAPAUGfxSurface@@HPAH@Z"
+]
+},
+"?R_AddMarkFragment@@YAHPAY08UClipPoint@@PAY02$$CBMPBMHPAUGfxWorldVertex@@PAUGfxMarkFragment@@@Z": {
+"t": "0x10015830",
+"n": 494,
+"obj": "r_marks.obj",
 "why": []
 },
-"?Material_BuildVertexDecls@@YAXPAPAUMaterialVertexDeclaration@@@Z": {
-"t": "0x10016740",
-"n": 53,
-"obj": "r_material.obj",
-"why": []
-},
-"?Material_ReloadAll@@YAXXZ": {
-"t": "0x100174c0",
-"n": 87,
-"obj": "r_material.obj",
+"?R_GetMarkFragmentBounds@@YAXPAY02$$CBMPBMMPAM2@Z": {
+"t": "0x10015a20",
+"n": 381,
+"obj": "r_marks.obj",
 "why": []
 },
 "?Material_RegisterLiteral@@YAPBMPBM@Z": {
@@ -1583,9 +1723,45 @@
 "obj": "r_material.obj",
 "why": []
 },
+"?Material_ClearStringTable@@YAXXZ": {
+"t": "0x10016540",
+"n": 29,
+"obj": "r_material.obj",
+"why": []
+},
+"?Material_HashName1024@@YAHPBD@Z": {
+"t": "0x10016560",
+"n": 39,
+"obj": "r_material.obj",
+"why": []
+},
+"?Material_HashStreamRouting@@YAHPBUMaterialStreamRouting@@H@Z": {
+"t": "0x10016590",
+"n": 35,
+"obj": "r_material.obj",
+"why": []
+},
+"?Material_BuildVertexDecl@@YAPAUIDirect3DVertexDeclaration9@@PBUMaterialStreamRouting@@HPBUstream_source_info_t@@@Z": {
+"t": "0x100165c0",
+"n": 372,
+"obj": "r_material.obj",
+"why": []
+},
+"?Material_BuildVertexDecls@@YAXPAPAUMaterialVertexDeclaration@@@Z": {
+"t": "0x10016740",
+"n": 53,
+"obj": "r_material.obj",
+"why": []
+},
 "?Material_AllocVertexDecl@@YAPAUMaterialVertexDeclaration@@PAUMaterialStreamRouting@@HPAE@Z": {
 "t": "0x10016780",
 "n": 261,
+"obj": "r_material.obj",
+"why": []
+},
+"?Material_Compare@@YA_NPBUMaterial@@0@Z": {
+"t": "0x10016890",
+"n": 74,
 "obj": "r_material.obj",
 "why": []
 },
@@ -1619,6 +1795,18 @@
 "obj": "r_material.obj",
 "why": []
 },
+"?Material_ClearStateMapTable@@YAXXZ": {
+"t": "0x10016bb0",
+"n": 29,
+"obj": "r_material.obj",
+"why": []
+},
+"?Material_HashShaderName@@YAHPBDHH@Z": {
+"t": "0x10016bd0",
+"n": 49,
+"obj": "r_material.obj",
+"why": []
+},
 "?Material_FindShaderSlot@@YA_NPBDHHPAH@Z": {
 "t": "0x10016c10",
 "n": 175,
@@ -1637,27 +1825,15 @@
 "obj": "r_material.obj",
 "why": []
 },
-"?R_IsMaterialRefractive@@YA_NPBURefractMaterial@@@Z": {
-"t": "0x10017320",
-"n": 37,
+"?Material_ReleaseShader@@YAXPAUMaterialShader@@@Z": {
+"t": "0x10016d40",
+"n": 23,
 "obj": "r_material.obj",
 "why": []
 },
-"?R_GetMaterialName@@YAPBDPBUMaterialInfoView@@@Z": {
-"t": "0x10017300",
-"n": 7,
-"obj": "r_material.obj",
-"why": []
-},
-"?R_GetMaterialSubimageCount@@YAHPBUMaterialInfoView@@@Z": {
-"t": "0x10017310",
-"n": 16,
-"obj": "r_material.obj",
-"why": []
-},
-"?Material_IsDefault@@YAEPBUMaterial@@@Z": {
-"t": "0x10017020",
-"n": 39,
+"?Material_ReloadShader@@YAXPAUMaterialShader@@@Z": {
+"t": "0x10016d60",
+"n": 69,
 "obj": "r_material.obj",
 "why": []
 },
@@ -1673,9 +1849,15 @@
 "obj": "r_material.obj",
 "why": []
 },
-"?Material_FindHashSlot@@YAXPBDPAGPA_N@Z": {
-"t": "0x10017050",
-"n": 174,
+"?Material_ClearShaderTable@@YAXXZ": {
+"t": "0x10016e50",
+"n": 22,
+"obj": "r_material.obj",
+"why": []
+},
+"?Material_Sort@@YAXXZ": {
+"t": "0x10016e70",
+"n": 87,
 "obj": "r_material.obj",
 "why": []
 },
@@ -1691,15 +1873,41 @@
 "obj": "r_material.obj",
 "why": []
 },
-"?Material_FindRegistered@@YAPAUMaterial@@PBD@Z": {
-"t": "0x10017250",
+"?Material_DuplicateDefault@@YAPAUMaterial@@PBD@Z": {
+"t": "0x10016fe0",
 "n": 51,
 "obj": "r_material.obj",
 "why": []
 },
+"?Material_IsDefault@@YAEPBUMaterial@@@Z": {
+"t": "0x10017020",
+"n": 39,
+"obj": "r_material.obj",
+"why": []
+},
+"?Material_FindHashSlot@@YAXPBDPAGPA_N@Z": {
+"t": "0x10017050",
+"n": 174,
+"obj": "r_material.obj",
+"why": []
+},
+"?Material_RegisterRawMaterial@@YAXXZ": {
+"t": "0x10017190",
+"n": 88,
+"obj": "r_material.obj",
+"why": [
+"call ?Material_Register@@YAPAUMaterial@@PBDH@Z"
+]
+},
 "?Material_RegisterRawImage@@YAPAUMaterial@@PBDH@Z": {
 "t": "0x100171f0",
 "n": 81,
+"obj": "r_material.obj",
+"why": []
+},
+"?Material_FindRegistered@@YAPAUMaterial@@PBD@Z": {
+"t": "0x10017250",
+"n": 51,
 "obj": "r_material.obj",
 "why": []
 },
@@ -1717,33 +1925,33 @@
 "obj": "r_material.obj",
 "why": []
 },
-"?Material_ReloadTextures@@YAXPAUMaterial@@@Z": {
-"t": "0x10017640",
-"n": 195,
+"?Material_ForEachRegistered@@YAXP6AXPAUMaterial@@H@ZH@Z": {
+"t": "0x100172d0",
+"n": 33,
 "obj": "r_material.obj",
-"why": [
-"call ?Image_LoadFromFile@@YAEPAUGfxImage@@@Z"
-]
+"why": []
 },
-"?Material_ReloadTextures_f@@YAXXZ": {
-"t": "0x100178b0",
-"n": 137,
+"?R_GetMaterialName@@YAPBDPBUMaterialInfoView@@@Z": {
+"t": "0x10017300",
+"n": 7,
 "obj": "r_material.obj",
-"why": [
-"call ?Material_ReloadTextures@@YAXPAUMaterial@@@Z"
-]
+"why": []
+},
+"?R_GetMaterialSubimageCount@@YAHPBUMaterialInfoView@@@Z": {
+"t": "0x10017310",
+"n": 16,
+"obj": "r_material.obj",
+"why": []
+},
+"?R_IsMaterialRefractive@@YA_NPBURefractMaterial@@@Z": {
+"t": "0x10017320",
+"n": 37,
+"obj": "r_material.obj",
+"why": []
 },
 "?Material_RegisterBuiltins@@YAXPBUBuiltInMaterialTable@@H@Z": {
 "t": "0x10017350",
 "n": 71,
-"obj": "r_material.obj",
-"why": [
-"call ?Material_Register@@YAPAUMaterial@@PBDH@Z"
-]
-},
-"?Material_RegisterRawMaterial@@YAXXZ": {
-"t": "0x10017190",
-"n": 88,
 "obj": "r_material.obj",
 "why": [
 "call ?Material_Register@@YAPAUMaterial@@PBDH@Z"
@@ -1755,21 +1963,15 @@
 "obj": "r_material.obj",
 "why": []
 },
+"?Material_ReloadAll@@YAXXZ": {
+"t": "0x100174c0",
+"n": 87,
+"obj": "r_material.obj",
+"why": []
+},
 "?Material_ReleaseAll@@YAXXZ": {
 "t": "0x10017520",
 "n": 27,
-"obj": "r_material.obj",
-"why": []
-},
-"?Material_ClearStringTable@@YAXXZ": {
-"t": "0x10016540",
-"n": 29,
-"obj": "r_material.obj",
-"why": []
-},
-"?Material_ClearStateMapTable@@YAXXZ": {
-"t": "0x10016bb0",
-"n": 29,
 "obj": "r_material.obj",
 "why": []
 },
@@ -1779,17 +1981,43 @@
 "obj": "r_material.obj",
 "why": []
 },
-"?Material_Compare@@YA_NPBUMaterial@@0@Z": {
-"t": "0x10016890",
-"n": 74,
+"?Material_ClearAll@@YAXXZ": {
+"t": "0x100175f0",
+"n": 39,
 "obj": "r_material.obj",
 "why": []
 },
-"?Material_Sort@@YAXXZ": {
-"t": "0x10016e70",
-"n": 87,
+"?Material_ReloadTextures@@YAXPAUMaterial@@@Z": {
+"t": "0x10017640",
+"n": 195,
 "obj": "r_material.obj",
-"why": []
+"why": [
+"call ?Image_LoadFromFile@@YAEPAUGfxImage@@@Z"
+]
+},
+"?Material_ReloadTextureImage@@YAXPAUMaterialTextureDef@@@Z": {
+"t": "0x10017710",
+"n": 19,
+"obj": "r_material.obj",
+"why": [
+"call ?Image_UpdatePicmip@@YAXPAUGfxImage@@@Z"
+]
+},
+"?R_ApplyPicmip@@YAXXZ": {
+"t": "0x10017730",
+"n": 384,
+"obj": "r_material.obj",
+"why": [
+"call ?R_SetPicmip@@YAXXZ"
+]
+},
+"?Material_ReloadTextures_f@@YAXXZ": {
+"t": "0x100178b0",
+"n": 137,
+"obj": "r_material.obj",
+"why": [
+"call ?Material_ReloadTextures@@YAXPAUMaterial@@@Z"
+]
 },
 "?Material_LoadFile@@YAHPBDPAH@Z": {
 "t": "0x10017940",
@@ -1845,89 +2073,27 @@
 "obj": "r_material_load_obj.obj",
 "why": []
 },
-"?Material_ParseVector@@YAEPAPBDHPAM@Z": {
-"t": "0x100197a0",
-"n": 281,
+"?Material_FindCachedShaderText@@YA_NPBDPAPBDPAH@Z": {
+"t": "0x10018250",
+"n": 109,
 "obj": "r_material_load_obj.obj",
 "why": []
 },
-"?Material_ParsePassOptionDx7@@YAXPAPBDPAUMaterialPassDx7@@PAE2@Z": {
-"t": "0x1001ab70",
-"n": 311,
+"_IncludeClass_Open@24": {
+"t": "0x100182c0",
+"n": 74,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"?Material_MatchToken@@YAEPAPBDPBD@Z": {
+"t": "0x10018350",
+"n": 17,
 "obj": "r_material_load_obj.obj",
 "why": []
 },
 "?Material_ParseNamedIndex@@YAEPAPBDPBDH@Z": {
 "t": "0x100183c0",
 "n": 90,
-"obj": "r_material_load_obj.obj",
-"why": []
-},
-"?Material_ParseTextureArgumentDx7@@YAEPAPBDHPAH@Z": {
-"t": "0x1001ad80",
-"n": 393,
-"obj": "r_material_load_obj.obj",
-"why": []
-},
-"?Material_ParseTextureArgumentsDx7@@YAEPAPBDHHPAH@Z": {
-"t": "0x1001af10",
-"n": 165,
-"obj": "r_material_load_obj.obj",
-"why": []
-},
-"?Material_ParseTextureFunctionDx7@@YAEPAPBDHHPAH@Z": {
-"t": "0x1001afc0",
-"n": 316,
-"obj": "r_material_load_obj.obj",
-"why": []
-},
-"?Material_LoadPassTexCoordDx7@@YAEPAPBDHPAE@Z": {
-"t": "0x1001b100",
-"n": 364,
-"obj": "r_material_load_obj.obj",
-"why": []
-},
-"?Material_ParseArrayOffset@@YAEPAPBDHHPAH@Z": {
-"t": "0x10019480",
-"n": 103,
-"obj": "r_material_load_obj.obj",
-"why": []
-},
-"?Material_ParseSamplerSource@@YAEPAPBDPAUMaterialShaderArgument@@@Z": {
-"t": "0x10019620",
-"n": 211,
-"obj": "r_material_load_obj.obj",
-"why": [
-"call ?Material_CodeSamplerSource_r@@YAEPAPBDHPBUCodeSamplerSource@@PAUMaterialShaderArgument@@@Z"
-]
-},
-"?Material_FindScalarSamplerSource@@YAEPBDPBUCodeSamplerSource@@PAUMaterialShaderArgument@@@Z": {
-"t": "0x10019700",
-"n": 123,
-"obj": "r_material_load_obj.obj",
-"why": []
-},
-"?Material_FindShaderConstant@@YAIPBDPBU_D3DXSHADER_CONSTANTTABLE@@PBU_D3DXSHADER_CONSTANTINFO@@0@Z": {
-"t": "0x10019400",
-"n": 123,
-"obj": "r_material_load_obj.obj",
-"why": []
-},
-"?Material_ParseLiteralVector@@YAEPAPBDPBDPAM@Z": {
-"t": "0x100198c0",
-"n": 170,
-"obj": "r_material_load_obj.obj",
-"why": []
-},
-"?Material_TechniqueTypeForName@@YAHPBD@Z": {
-"t": "0x1001be50",
-"n": 404,
-"obj": "r_material_load_obj.obj",
-"why": []
-},
-"?Material_CompareShaderText@@YA_NABUGfxCachedShaderText@@0@Z": {
-"t": "0x1001c8d0",
-"n": 83,
 "obj": "r_material_load_obj.obj",
 "why": []
 },
@@ -1943,12 +2109,6 @@
 "obj": "r_material_load_obj.obj",
 "why": []
 },
-"?Material_MatchToken@@YAEPAPBDPBD@Z": {
-"t": "0x10018350",
-"n": 17,
-"obj": "r_material_load_obj.obj",
-"why": []
-},
 "?Material_ParseRuleSetValue@@YAEPAPBDPBDPBUMtlStateMapBitGroup@@PAUMaterialStateMapRule@@@Z": {
 "t": "0x10018710",
 "n": 375,
@@ -1960,6 +2120,14 @@
 "n": 75,
 "obj": "r_material_load_obj.obj",
 "why": []
+},
+"?Material_ParseRuleSet@@YAEPAPBDPBDPBUMtlStateMapBitGroup@@PAPBUMaterialStateMapRuleSet@@@Z": {
+"t": "0x100188e0",
+"n": 517,
+"obj": "r_material_load_obj.obj",
+"why": [
+"call ?Material_ParseRuleSetCondition@@YA?AW4MtlParseSuccess@@PAPBDPBDPAUMaterialStateMapRule@@@Z"
+]
 },
 "?Material_FixupRgbBlend@@YAXPAUMaterialStateMapRuleSet@@@Z": {
 "t": "0x10018af0",
@@ -2005,15 +2173,65 @@
 "call ?Material_LoadCachedStateMap@@YAPAUMaterialStateMap@@PBD@Z"
 ]
 },
-"?Material_FindCachedShaderText@@YA_NPBDPAPBDPAH@Z": {
-"t": "0x10018250",
-"n": 109,
+"?Material_ParseStreamIndex@@YAEPAPBDHPAH@Z": {
+"t": "0x10018f90",
+"n": 89,
 "obj": "r_material_load_obj.obj",
 "why": []
 },
-"_IncludeClass_Open@24": {
-"t": "0x100182c0",
-"n": 74,
+"?Material_ParseStreamDestination@@YAEPAPBDPBDPAE@Z": {
+"t": "0x10018ff0",
+"n": 197,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"?Material_ParseStreamSource@@YAEPAPBDPBDPAE@Z": {
+"t": "0x100190c0",
+"n": 216,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"?Material_LoadPassVertexDecl@@YAEPAPBDPAUMaterialPassDx9@@@Z": {
+"t": "0x100191a0",
+"n": 587,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"?Material_FindShaderConstant@@YAIPBDPBU_D3DXSHADER_CONSTANTTABLE@@PBU_D3DXSHADER_CONSTANTINFO@@0@Z": {
+"t": "0x10019400",
+"n": 123,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"?Material_ParseArrayOffset@@YAEPAPBDHHPAH@Z": {
+"t": "0x10019480",
+"n": 103,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"?Material_ParseSamplerSource@@YAEPAPBDPAUMaterialShaderArgument@@@Z": {
+"t": "0x10019620",
+"n": 211,
+"obj": "r_material_load_obj.obj",
+"why": [
+"call ?Material_CodeSamplerSource_r@@YAEPAPBDHPBUCodeSamplerSource@@PAUMaterialShaderArgument@@@Z"
+]
+},
+"?Material_FindScalarSamplerSource@@YAEPBDPBUCodeSamplerSource@@PAUMaterialShaderArgument@@@Z": {
+"t": "0x10019700",
+"n": 123,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"?Material_ParseVector@@YAEPAPBDHPAM@Z": {
+"t": "0x100197a0",
+"n": 281,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"?Material_ParseLiteralVector@@YAEPAPBDPBDPAM@Z": {
+"t": "0x100198c0",
+"n": 170,
 "obj": "r_material_load_obj.obj",
 "why": []
 },
@@ -2063,27 +2281,57 @@
 "obj": "r_material_load_obj.obj",
 "why": []
 },
-"?Material_ParseStreamIndex@@YAEPAPBDHPAH@Z": {
-"t": "0x10018f90",
-"n": 89,
+"?Material_LoadPassShader@@YAPAUMaterialShader@@PAPBDH@Z": {
+"t": "0x1001a810",
+"n": 266,
+"obj": "r_material_load_obj.obj",
+"why": [
+"call ?Material_CreateShader@@YAPAUMaterialShader@@PBDHH@Z"
+]
+},
+"?Material_LoadPassVertexShader@@YAEPAPBDPAUMaterialPassDx9@@PAE@Z": {
+"t": "0x1001aa00",
+"n": 75,
+"obj": "r_material_load_obj.obj",
+"why": [
+"call ?Material_LoadPassShader@@YAPAUMaterialShader@@PAPBDH@Z"
+]
+},
+"?Material_LoadPassPixelShader@@YAEPAPBDPAUMaterialPassDx9@@PAE@Z": {
+"t": "0x1001aa50",
+"n": 75,
+"obj": "r_material_load_obj.obj",
+"why": [
+"call ?Material_LoadPassShader@@YAPAUMaterialShader@@PAPBDH@Z"
+]
+},
+"?Material_ParsePassOptionDx7@@YAXPAPBDPAUMaterialPassDx7@@PAE2@Z": {
+"t": "0x1001ab70",
+"n": 311,
 "obj": "r_material_load_obj.obj",
 "why": []
 },
-"?Material_ParseStreamDestination@@YAEPAPBDPBDPAE@Z": {
-"t": "0x10018ff0",
-"n": 197,
+"?Material_ParseTextureArgumentDx7@@YAEPAPBDHPAH@Z": {
+"t": "0x1001ad80",
+"n": 393,
 "obj": "r_material_load_obj.obj",
 "why": []
 },
-"?Material_ParseStreamSource@@YAEPAPBDPBDPAE@Z": {
-"t": "0x100190c0",
-"n": 216,
+"?Material_ParseTextureArgumentsDx7@@YAEPAPBDHHPAH@Z": {
+"t": "0x1001af10",
+"n": 165,
 "obj": "r_material_load_obj.obj",
 "why": []
 },
-"?Material_LoadPassVertexDecl@@YAEPAPBDPAUMaterialPassDx9@@@Z": {
-"t": "0x100191a0",
-"n": 587,
+"?Material_ParseTextureFunctionDx7@@YAEPAPBDHHPAH@Z": {
+"t": "0x1001afc0",
+"n": 316,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"?Material_LoadPassTexCoordDx7@@YAEPAPBDHPAE@Z": {
+"t": "0x1001b100",
+"n": 364,
 "obj": "r_material_load_obj.obj",
 "why": []
 },
@@ -2095,13 +2343,49 @@
 "call ?Material_LoadTechniqueDx7@@YAPAUMaterialTechnique@@PBD@Z"
 ]
 },
-"?Material_LoadCachedTechniqueSet@@YAPAUMaterialTechniqueSet@@PBD@Z": {
-"t": "0x1001c240",
-"n": 79,
+"?Material_TechniqueTypeForName@@YAHPBD@Z": {
+"t": "0x1001be50",
+"n": 404,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"?Material_HasConstant@@YA_NPBUMaterial@@PBD@Z": {
+"t": "0x1001c290",
+"n": 34,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"?Material_HasTexture@@YA_NPBUMaterial@@PBD@Z": {
+"t": "0x1001c2c0",
+"n": 34,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"?Material_ValidatePassArguments@@YA_NPBUMaterial@@PBD1HPBUMaterialShaderArgument@@@Z": {
+"t": "0x1001c2f0",
+"n": 196,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"?Material_ValidateTechniqueDx7@@YA_NPBUMaterial@@PBDPBUMaterialTechnique@@@Z": {
+"t": "0x1001c3c0",
+"n": 63,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"?Material_ValidateTechniqueSet@@YA_NPBUMaterial@@PBUMaterialTechniqueSet@@@Z": {
+"t": "0x1001c4a0",
+"n": 60,
 "obj": "r_material_load_obj.obj",
 "why": [
-"call ?Material_LoadTechniqueSet@@YAPAUMaterialTechniqueSet@@PBD@Z"
+"call ?Material_ValidateTechnique@@YA_NPBUMaterial@@PBDPBUMaterialTechnique@@@Z"
 ]
+},
+"?Material_CompareShaderText@@YA_NABUGfxCachedShaderText@@0@Z": {
+"t": "0x1001c8d0",
+"n": 83,
+"obj": "r_material_load_obj.obj",
+"why": []
 },
 "??$sort@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@Z@Z": {
 "t": "0x1001ca50",
@@ -2187,51 +2471,9 @@
 "obj": "r_model.obj",
 "why": []
 },
-"?R_GetRigidTransform@@YAXPBUDObjSkelMat_s@@PBMPAY02$$CBMMPAY02M@Z": {
-"t": "0x1001ee70",
-"n": 399,
-"obj": "r_model.obj",
-"why": []
-},
 "?R_RegisterModel@@YAPAUXModel@@PBD@Z": {
 "t": "0x1001d830",
 "n": 107,
-"obj": "r_model.obj",
-"why": []
-},
-"?R_LockSkinnedCache@@YAXH@Z": {
-"t": "0x1001e4b0",
-"n": 138,
-"obj": "r_model.obj",
-"why": []
-},
-"?R_UnlockSkinnedCache@@YAXXZ": {
-"t": "0x1001e540",
-"n": 108,
-"obj": "r_model.obj",
-"why": []
-},
-"?R_AllocSkinnedCachedVerts@@YAHH@Z": {
-"t": "0x1001e5b0",
-"n": 138,
-"obj": "r_model.obj",
-"why": []
-},
-"?R_DObjGetSurfMaterials@@YAXPAUDObj_s@@DPAPAUMaterial@@@Z": {
-"t": "0x100201b0",
-"n": 189,
-"obj": "r_model.obj",
-"why": []
-},
-"?R_DObjReplaceMaterial@@YAXPAUDObj_s@@DHPAUMaterial@@@Z": {
-"t": "0x10020270",
-"n": 160,
-"obj": "r_model.obj",
-"why": []
-},
-"?R_ModelBounds@@YAXPBMPAM1@Z": {
-"t": "0x1001d910",
-"n": 77,
 "obj": "r_model.obj",
 "why": []
 },
@@ -2253,31 +2495,15 @@
 "obj": "r_model.obj",
 "why": []
 },
-"?R_OptimizeModel@@YAXTXAssetHeader@@PAX@Z": {
-"t": "0x10020380",
-"n": 26,
+"?R_ModelBounds@@YAXPBMPAM1@Z": {
+"t": "0x1001d910",
+"n": 77,
 "obj": "r_model.obj",
-"why": [
-"call ?XModelOptimize@@YAXPAUXModel@@@Z"
-]
-},
-"?R_ReleaseModel@@YAXTXAssetHeader@@PAX@Z": {
-"t": "0x10020330",
-"n": 30,
-"obj": "r_model.obj",
-"why": [
-"call ?XModelUnoptimize@@YAXPAUXModel@@@Z"
-]
+"why": []
 },
 "?R_GetModelLodDistance@@YAMPBMM@Z": {
 "t": "0x1001d960",
 "n": 143,
-"obj": "r_model.obj",
-"why": []
-},
-"?R_CalcSceneEntityPose@@YAXPBUGfxSceneEntity@@PBUDObj_s@@PAH@Z": {
-"t": "0x1001da60",
-"n": 20,
 "obj": "r_model.obj",
 "why": []
 },
@@ -2287,15 +2513,57 @@
 "obj": "r_model.obj",
 "why": []
 },
-"?R_SetEntityOriginBounds@@YAXPAUGfxSceneEntity@@PBM@Z": {
-"t": "0x1001fda0",
-"n": 35,
+"?R_CalcSceneEntityPose@@YAXPBUGfxSceneEntity@@PBUDObj_s@@PAH@Z": {
+"t": "0x1001da60",
+"n": 20,
 "obj": "r_model.obj",
 "why": []
 },
-"?R_ExpandBoneBounds@@YAXPAY02$$CBMPBM0PAY02M@Z": {
-"t": "0x1001fdd0",
-"n": 470,
+"?R_LockSkinnedCache@@YAXH@Z": {
+"t": "0x1001e4b0",
+"n": 138,
+"obj": "r_model.obj",
+"why": []
+},
+"?R_UnlockSkinnedCache@@YAXXZ": {
+"t": "0x1001e540",
+"n": 108,
+"obj": "r_model.obj",
+"why": []
+},
+"?R_AllocSkinnedCachedVerts@@YAHH@Z": {
+"t": "0x1001e5b0",
+"n": 138,
+"obj": "r_model.obj",
+"why": []
+},
+"?R_SkinPositionSse@@YA?AU__m128@@ABU1@PBUDObjSkelMat_s@@@Z": {
+"t": "0x1001e660",
+"n": 58,
+"obj": "r_model.obj",
+"why": []
+},
+"?R_SkinVectorSse@@YA?AU__m128@@ABU1@PBUDObjSkelMat_s@@@Z": {
+"t": "0x1001e6a0",
+"n": 51,
+"obj": "r_model.obj",
+"why": []
+},
+"?R_GetRigidTransform@@YAXPBUDObjSkelMat_s@@PBMPAY02$$CBMMPAY02M@Z": {
+"t": "0x1001ee70",
+"n": 399,
+"obj": "r_model.obj",
+"why": []
+},
+"?R_SkinRigidSurface@@YAXPBUXSurface_s@@PBUDObjSkelMat_s@@PBMPAY02$$CBMMPAY02M@Z": {
+"t": "0x1001f000",
+"n": 37,
+"obj": "r_model.obj",
+"why": []
+},
+"?Material_UsesDx7GridLighting@@YAEPBUMaterial@@@Z": {
+"t": "0x1001f280",
+"n": 24,
 "obj": "r_model.obj",
 "why": []
 },
@@ -2313,33 +2581,67 @@
 "call ?R_XModelDebugBoxes@@YAXPBUGfxSceneEntity@@PBUGfxEntity@@PBUDObj_s@@@Z"
 ]
 },
-"?R_SkinVectorSse@@YA?AU__m128@@ABU1@PBUDObjSkelMat_s@@@Z": {
-"t": "0x1001e6a0",
-"n": 51,
+"?R_SetEntityOriginBounds@@YAXPAUGfxSceneEntity@@PBM@Z": {
+"t": "0x1001fda0",
+"n": 35,
 "obj": "r_model.obj",
 "why": []
 },
-"?R_SkinPositionSse@@YA?AU__m128@@ABU1@PBUDObjSkelMat_s@@@Z": {
-"t": "0x1001e660",
-"n": 58,
+"?R_ExpandBoneBounds@@YAXPAY02$$CBMPBM0PAY02M@Z": {
+"t": "0x1001fdd0",
+"n": 470,
 "obj": "r_model.obj",
 "why": []
 },
-"?R_SkinRigidSurface@@YAXPBUXSurface_s@@PBUDObjSkelMat_s@@PBMPAY02$$CBMMPAY02M@Z": {
-"t": "0x1001f000",
-"n": 37,
+"?R_DObjGetSurfMaterials@@YAXPAUDObj_s@@DPAPAUMaterial@@@Z": {
+"t": "0x100201b0",
+"n": 189,
 "obj": "r_model.obj",
 "why": []
 },
-"?Material_UsesDx7GridLighting@@YAEPBUMaterial@@@Z": {
-"t": "0x1001f280",
-"n": 24,
+"?R_DObjReplaceMaterial@@YAXPAUDObj_s@@DHPAUMaterial@@@Z": {
+"t": "0x10020270",
+"n": 160,
 "obj": "r_model.obj",
 "why": []
+},
+"?R_ReleaseModel@@YAXTXAssetHeader@@PAX@Z": {
+"t": "0x10020330",
+"n": 30,
+"obj": "r_model.obj",
+"why": [
+"call ?XModelUnoptimize@@YAXPAUXModel@@@Z"
+]
+},
+"?R_OptimizeModel@@YAXTXAssetHeader@@PAX@Z": {
+"t": "0x10020380",
+"n": 26,
+"obj": "r_model.obj",
+"why": [
+"call ?XModelOptimize@@YAXPAUXModel@@@Z"
+]
 },
 "?R_OutdoorTraceHeight@@YAMMM@Z": {
 "t": "0x10020590",
 "n": 175,
+"obj": "r_outdoor.obj",
+"why": []
+},
+"?R_ComputeOutdoorBounds@@YAXPBUGfxWorld@@@Z": {
+"t": "0x10020640",
+"n": 329,
+"obj": "r_outdoor.obj",
+"why": []
+},
+"?R_ComputeOutdoorScale@@YAXXZ": {
+"t": "0x10020790",
+"n": 82,
+"obj": "r_outdoor.obj",
+"why": []
+},
+"?R_ComputeOutdoorLookupMatrix@@YAXPAUGfxWorld@@@Z": {
+"t": "0x100207f0",
+"n": 150,
 "obj": "r_outdoor.obj",
 "why": []
 },
@@ -2365,14 +2667,16 @@
 "call ?R_InitFrameBackendData@@YAXXZ"
 ]
 },
-"?R_AllocViewParms@@YAPAUGfxViewParms@@XZ": {
-"t": "0x100210d0",
-"n": 35,
+"?R_IssueRenderCommands@@YAXXZ": {
+"t": "0x10020d50",
+"n": 111,
 "obj": "r_rendercmds.obj",
-"why": []
+"why": [
+"call ?RB_ExecuteRenderCommands@@YAXPBX@Z"
+]
 },
-"?R_BeginDebugFrame@@YAXXZ": {
-"t": "0x10021ff0",
+"?R_AbortRenderCommands@@YAXXZ": {
+"t": "0x10020dc0",
 "n": 73,
 "obj": "r_rendercmds.obj",
 "why": []
@@ -2389,27 +2693,9 @@
 "obj": "r_rendercmds.obj",
 "why": []
 },
-"?R_ClearModifiedDvar@@YA_NPBUdvar_s@@@Z": {
-"t": "0x10021c60",
-"n": 23,
-"obj": "r_rendercmds.obj",
-"why": []
-},
-"?R_ClearModifiedLightDvars@@YA_NXZ": {
-"t": "0x10021c80",
-"n": 225,
-"obj": "r_rendercmds.obj",
-"why": []
-},
-"?R_AddCmdSetViewport@@YAXHHHH@Z": {
-"t": "0x10021bf0",
-"n": 98,
-"obj": "r_rendercmds.obj",
-"why": []
-},
-"?R_AddCmdBlendSavedScreen@@YAXH@Z": {
-"t": "0x100222f0",
-"n": 93,
+"?R_AddCmdEndOfList@@YAXXZ": {
+"t": "0x10020ec0",
+"n": 71,
 "obj": "r_rendercmds.obj",
 "why": []
 },
@@ -2431,27 +2717,9 @@
 "obj": "r_rendercmds.obj",
 "why": []
 },
-"?R_AddCmdDrawSurfs@@YAXPAUGfxDrawSurf@@HW4MaterialTechniqueType@@W4GfxDrawSurfOrder@@@Z": {
-"t": "0x10021890",
-"n": 108,
-"obj": "r_rendercmds.obj",
-"why": []
-},
-"?R_AddCmdId9@@YAXPBURcWords16@@H@Z": {
-"t": "0x10021ae0",
-"n": 102,
-"obj": "r_rendercmds.obj",
-"why": []
-},
-"?R_AddCmdClearScreen@@YAXHPBMMH@Z": {
-"t": "0x10022220",
-"n": 118,
-"obj": "r_rendercmds.obj",
-"why": []
-},
-"?R_AddCmdSetMaterialColor@@YAXPBM@Z": {
-"t": "0x100216f0",
-"n": 119,
+"?R_AllocViewParms@@YAPAUGfxViewParms@@XZ": {
+"t": "0x100210d0",
+"n": 35,
 "obj": "r_rendercmds.obj",
 "why": []
 },
@@ -2503,55 +2771,57 @@
 "obj": "r_rendercmds.obj",
 "why": []
 },
-"?R_AddCmdApplyEarlyPostEffects@@YAXXZ": {
-"t": "0x100220c0",
+"?R_AddCmdSetMaterialColor@@YAXPBM@Z": {
+"t": "0x100216f0",
+"n": 119,
+"obj": "r_rendercmds.obj",
+"why": []
+},
+"?R_AddCmdSetRenderTarget@@YAXW4GfxRenderTargetId@@@Z": {
+"t": "0x10021840",
 "n": 79,
 "obj": "r_rendercmds.obj",
 "why": []
 },
-"?R_AddCmdHeaderOnly1C@@YAXXZ": {
-"t": "0x100221d0",
-"n": 79,
+"?R_AddCmdDrawSurfs@@YAXPAUGfxDrawSurf@@HW4MaterialTechniqueType@@W4GfxDrawSurfOrder@@@Z": {
+"t": "0x10021890",
+"n": 108,
 "obj": "r_rendercmds.obj",
 "why": []
 },
-"?R_AddCmdEndOfList@@YAXXZ": {
-"t": "0x10020ec0",
-"n": 71,
+"?R_AddCmdDrawSun@@YAXH@Z": {
+"t": "0x10021920",
+"n": 87,
 "obj": "r_rendercmds.obj",
 "why": []
 },
-"?R_IssueRenderCommands@@YAXXZ": {
-"t": "0x10020d50",
-"n": 111,
-"obj": "r_rendercmds.obj",
-"why": [
-"call ?RB_ExecuteRenderCommands@@YAXPBX@Z"
-]
-},
-"?R_EndDebugFrame@@YAXXZ": {
-"t": "0x10022040",
-"n": 114,
-"obj": "r_rendercmds.obj",
-"why": [
-"call ?RB_ExecuteRenderCommands@@YAXPBX@Z"
-]
-},
-"?R_AddCmdSaveScreen@@YAXXZ": {
-"t": "0x100222a0",
-"n": 71,
+"?R_AddCmdId9@@YAXPBURcWords16@@H@Z": {
+"t": "0x10021ae0",
+"n": 102,
 "obj": "r_rendercmds.obj",
 "why": []
 },
-"?R_AddCmdApplyLatePostEffects@@YAXM@Z": {
-"t": "0x10022110",
-"n": 86,
+"?R_AddCmdBeginView@@YAXHPBUGfxSceneDef@@PBUGfxViewParms@@PBUGfxLodParms@@@Z": {
+"t": "0x10021b50",
+"n": 146,
 "obj": "r_rendercmds.obj",
 "why": []
 },
-"?R_AddCmdDrawSunPostEffects@@YAXH@Z": {
-"t": "0x10022170",
-"n": 86,
+"?R_AddCmdSetViewport@@YAXHHHH@Z": {
+"t": "0x10021bf0",
+"n": 98,
+"obj": "r_rendercmds.obj",
+"why": []
+},
+"?R_ClearModifiedDvar@@YA_NPBUdvar_s@@@Z": {
+"t": "0x10021c60",
+"n": 23,
+"obj": "r_rendercmds.obj",
+"why": []
+},
+"?R_ClearModifiedLightDvars@@YA_NXZ": {
+"t": "0x10021c80",
+"n": 225,
 "obj": "r_rendercmds.obj",
 "why": []
 },
@@ -2591,9 +2861,59 @@
 "call ?R_IssueRenderCommands@@YAXXZ"
 ]
 },
-"?R_AbortRenderCommands@@YAXXZ": {
-"t": "0x10020dc0",
+"?R_BeginDebugFrame@@YAXXZ": {
+"t": "0x10021ff0",
 "n": 73,
+"obj": "r_rendercmds.obj",
+"why": []
+},
+"?R_EndDebugFrame@@YAXXZ": {
+"t": "0x10022040",
+"n": 114,
+"obj": "r_rendercmds.obj",
+"why": [
+"call ?RB_ExecuteRenderCommands@@YAXPBX@Z"
+]
+},
+"?R_AddCmdApplyEarlyPostEffects@@YAXXZ": {
+"t": "0x100220c0",
+"n": 79,
+"obj": "r_rendercmds.obj",
+"why": []
+},
+"?R_AddCmdApplyLatePostEffects@@YAXM@Z": {
+"t": "0x10022110",
+"n": 86,
+"obj": "r_rendercmds.obj",
+"why": []
+},
+"?R_AddCmdDrawSunPostEffects@@YAXH@Z": {
+"t": "0x10022170",
+"n": 86,
+"obj": "r_rendercmds.obj",
+"why": []
+},
+"?R_AddCmdHeaderOnly1C@@YAXXZ": {
+"t": "0x100221d0",
+"n": 79,
+"obj": "r_rendercmds.obj",
+"why": []
+},
+"?R_AddCmdClearScreen@@YAXHPBMMH@Z": {
+"t": "0x10022220",
+"n": 118,
+"obj": "r_rendercmds.obj",
+"why": []
+},
+"?R_AddCmdSaveScreen@@YAXXZ": {
+"t": "0x100222a0",
+"n": 71,
+"obj": "r_rendercmds.obj",
+"why": []
+},
+"?R_AddCmdBlendSavedScreen@@YAXH@Z": {
+"t": "0x100222f0",
+"n": 93,
 "obj": "r_rendercmds.obj",
 "why": []
 },
@@ -2615,39 +2935,15 @@
 "obj": "r_rendercmds.obj",
 "why": []
 },
-"?R_AddCmdSetRenderTarget@@YAXW4GfxRenderTargetId@@@Z": {
-"t": "0x10021840",
-"n": 79,
-"obj": "r_rendercmds.obj",
-"why": []
-},
-"?R_AddCmdDrawSun@@YAXH@Z": {
-"t": "0x10021920",
-"n": 87,
-"obj": "r_rendercmds.obj",
-"why": []
-},
-"?R_AddCmdBeginView@@YAXHPBUGfxSceneDef@@PBUGfxViewParms@@PBUGfxLodParms@@@Z": {
-"t": "0x10021b50",
-"n": 146,
-"obj": "r_rendercmds.obj",
-"why": []
-},
-"?R_ShutdownRenderTargets@@YAXXZ": {
-"t": "0x10023560",
-"n": 162,
-"obj": "r_rendertarget.obj",
-"why": []
-},
 "?R_DescribeFormat@@YAPBDW4_D3DFORMAT@@@Z": {
 "t": "0x10022710",
 "n": 172,
 "obj": "r_rendertarget.obj",
 "why": []
 },
-"?R_InitFrameBuffer@@YAXPAUGfxRenderTarget@@@Z": {
-"t": "0x10022940",
-"n": 261,
+"?R_GetFrameBufferExtent@@YAXPAH0@Z": {
+"t": "0x100227c0",
+"n": 98,
 "obj": "r_rendertarget.obj",
 "why": []
 },
@@ -2663,9 +2959,29 @@
 "obj": "r_rendertarget.obj",
 "why": []
 },
+"?R_InitFrameBuffer@@YAXPAUGfxRenderTarget@@@Z": {
+"t": "0x10022940",
+"n": 261,
+"obj": "r_rendertarget.obj",
+"why": []
+},
 "?R_InitRenderTargetImage@@YAXHHHW4_D3DFORMAT@@W4RenderTargetUsage@@PAUGfxRenderTarget@@@Z": {
 "t": "0x10022a60",
 "n": 150,
+"obj": "r_rendertarget.obj",
+"why": []
+},
+"?R_InitFullscreenRenderTargetImage@@YAXHHW4_D3DFORMAT@@W4RenderTargetUsage@@PAUGfxRenderTarget@@@Z": {
+"t": "0x10022b30",
+"n": 89,
+"obj": "r_rendertarget.obj",
+"why": [
+"call ?Image_TrackFullscreenTexture@@YAXPAUGfxImage@@HW4_D3DFORMAT@@@Z"
+]
+},
+"?R_LogFrameBufferFormat@@YAXXZ": {
+"t": "0x10022cd0",
+"n": 71,
 "obj": "r_rendertarget.obj",
 "why": []
 },
@@ -2677,9 +2993,9 @@
 "call ?Image_TrackFullscreenTexture@@YAXPAUGfxImage@@HW4_D3DFORMAT@@@Z"
 ]
 },
-"?R_GetFrameBufferExtent@@YAXPAH0@Z": {
-"t": "0x100227c0",
-"n": 98,
+"?R_ShutdownRenderTargets@@YAXXZ": {
+"t": "0x10023560",
+"n": 162,
 "obj": "r_rendertarget.obj",
 "why": []
 },
@@ -2695,29 +3011,27 @@
 "obj": "r_scene.obj",
 "why": []
 },
-"?R_UpdateGfxEntityBounds@@YAXPAUGfxEntity@@@Z": {
-"t": "0x10023d40",
-"n": 47,
-"obj": "r_scene.obj",
-"why": [
-"call ?R_UpdateXModelBounds@@YAXPAUGfxSceneEntity@@PBUGfxEntity@@@Z"
-]
-},
-"?R_SetViewParmsForScene@@YAXPAUGfxViewParms@@PBUrefdef_s@@@Z": {
-"t": "0x10025570",
-"n": 286,
+"?Byte4UnpackRgba@@YAXPBEPAM@Z": {
+"t": "0x10023670",
+"n": 77,
 "obj": "r_scene.obj",
 "why": []
 },
-"?R_SetLodOrigin@@YAXPBUrefdef_s@@@Z": {
-"t": "0x100256c0",
-"n": 212,
+"?Byte4UnpackBgra@@YAXPBEPAM@Z": {
+"t": "0x100236c0",
+"n": 77,
 "obj": "r_scene.obj",
 "why": []
 },
-"?R_ClearScene@@YAXXZ": {
-"t": "0x10025510",
-"n": 87,
+"?R_ClearSceneEntityRecord@@YAXPAUGfxSceneEntity@@@Z": {
+"t": "0x10023760",
+"n": 14,
+"obj": "r_scene.obj",
+"why": []
+},
+"?R_ClearEntityRecord@@YAXPAUGfxEntity@@@Z": {
+"t": "0x10023770",
+"n": 14,
 "obj": "r_scene.obj",
 "why": []
 },
@@ -2733,18 +3047,6 @@
 "obj": "r_scene.obj",
 "why": []
 },
-"?LerpByte@@YAEEEM@Z": {
-"t": "0x10024050",
-"n": 37,
-"obj": "r_scene.obj",
-"why": []
-},
-"?R_UpdateFrameFog@@YAXXZ": {
-"t": "0x10024080",
-"n": 508,
-"obj": "r_scene.obj",
-"why": []
-},
 "?R_AllocSceneEntity@@YAHXZ": {
 "t": "0x10023af0",
 "n": 149,
@@ -2757,17 +3059,13 @@
 "obj": "r_scene.obj",
 "why": []
 },
-"?R_ResetEntries@@YAXHPAY0BB@M@Z": {
-"t": "0x10023e90",
-"n": 57,
+"?R_UpdateGfxEntityBounds@@YAXPAUGfxEntity@@@Z": {
+"t": "0x10023d40",
+"n": 47,
 "obj": "r_scene.obj",
-"why": []
-},
-"?R_AddLightToScene@@YAXPBMMMMM@Z": {
-"t": "0x10023fd0",
-"n": 126,
-"obj": "r_scene.obj",
-"why": []
+"why": [
+"call ?R_UpdateXModelBounds@@YAXPAUGfxSceneEntity@@PBUGfxEntity@@@Z"
+]
 },
 "?R_SkinGfxEntity@@YAXPAUGfxEntity@@@Z": {
 "t": "0x10023d70",
@@ -2783,6 +3081,56 @@
 "obj": "r_scene.obj",
 "why": [
 "call ?R_AddModelRefEntity@@YAPAUGfxEntity@@PBU1@TGfxModel@@PBUcentity_s@@@Z"
+]
+},
+"?R_ResetEntries@@YAXHPAY0BB@M@Z": {
+"t": "0x10023e90",
+"n": 57,
+"obj": "r_scene.obj",
+"why": []
+},
+"?R_AddLightToScene@@YAXPBMMMMM@Z": {
+"t": "0x10023fd0",
+"n": 126,
+"obj": "r_scene.obj",
+"why": []
+},
+"?LerpByte@@YAEEEM@Z": {
+"t": "0x10024050",
+"n": 37,
+"obj": "r_scene.obj",
+"why": []
+},
+"?R_UpdateFrameFog@@YAXXZ": {
+"t": "0x10024080",
+"n": 508,
+"obj": "r_scene.obj",
+"why": []
+},
+"?R_SceneZNear@@YAMXZ": {
+"t": "0x10024280",
+"n": 38,
+"obj": "r_scene.obj",
+"why": []
+},
+"?R_SetViewParmsProjection@@YAXPAUGfxViewParms@@MMM@Z": {
+"t": "0x100242b0",
+"n": 46,
+"obj": "r_scene.obj",
+"why": []
+},
+"?R_SetViewParmsViewProjection@@YAXPAUGfxViewParms@@@Z": {
+"t": "0x100242e0",
+"n": 33,
+"obj": "r_scene.obj",
+"why": []
+},
+"?R_AddDrawSurfLmap31@@YAXPBW4surfaceType_t@@HPBUMaterial@@@Z": {
+"t": "0x10024400",
+"n": 21,
+"obj": "r_scene.obj",
+"why": [
+"call ?R_AddDrawSurf@@YAXPBUMaterial@@HHPBW4surfaceType_t@@@Z"
 ]
 },
 "?R_ShortSortDrawSurfs@@YAXPAUGfxDrawSurf@@0@Z": {
@@ -2817,6 +3165,24 @@
 "call ?R_RenderSceneFullbright@@YAXHPBUGfxViewParms@@PAUGfxDrawSurf@@H@Z"
 ]
 },
+"?R_ClearScene@@YAXXZ": {
+"t": "0x10025510",
+"n": 87,
+"obj": "r_scene.obj",
+"why": []
+},
+"?R_SetViewParmsForScene@@YAXPAUGfxViewParms@@PBUrefdef_s@@@Z": {
+"t": "0x10025570",
+"n": 286,
+"obj": "r_scene.obj",
+"why": []
+},
+"?R_SetLodOrigin@@YAXPBUrefdef_s@@@Z": {
+"t": "0x100256c0",
+"n": 212,
+"obj": "r_scene.obj",
+"why": []
+},
 "?I_fmin@@YAMMM@Z": {
 "t": "0x10025920",
 "n": 31,
@@ -2829,15 +3195,21 @@
 "obj": "r_screenshot.obj",
 "why": []
 },
-"?R_GetFrontBufferData@@YAEHHHHHPAE@Z": {
-"t": "0x10025e80",
-"n": 656,
+"?R_ScreenshotFilename@@YAXHPBDPAD@Z": {
+"t": "0x10025960",
+"n": 60,
 "obj": "r_screenshot.obj",
 "why": []
 },
 "?R_UpsamplePixelData@@YAXHHHHPAE0@Z": {
 "t": "0x10025b10",
 "n": 503,
+"obj": "r_screenshot.obj",
+"why": []
+},
+"?R_GetFrontBufferData@@YAEHHHHHPAE@Z": {
+"t": "0x10025e80",
+"n": 656,
 "obj": "r_screenshot.obj",
 "why": []
 },
@@ -2855,17 +3227,63 @@
 "obj": "r_screenshot.obj",
 "why": []
 },
+"?R_TakeScreenshotJpeg@@YAXHHHHPBD@Z": {
+"t": "0x10026240",
+"n": 78,
+"obj": "r_screenshot.obj",
+"why": []
+},
+"?R_LevelShot@@YAXXZ": {
+"t": "0x10026290",
+"n": 159,
+"obj": "r_screenshot.obj",
+"why": [
+"call ?R_TakeResampledScreenshot@@YAPAEHHHH@Z"
+]
+},
+"?R_SaveGameShot@@YAXPBD@Z": {
+"t": "0x10026330",
+"n": 101,
+"obj": "r_screenshot.obj",
+"why": [
+"call ?R_TakeResampledScreenshot@@YAPAEHHHH@Z"
+]
+},
+"?R_ScreenShotCmd@@YAXH@Z": {
+"t": "0x100263a0",
+"n": 567,
+"obj": "r_screenshot.obj",
+"why": [
+"call ?R_LevelShot@@YAXXZ"
+]
+},
 "?R_FlipCubemapShot@@YAXPAE@Z": {
 "t": "0x100266f0",
 "n": 97,
 "obj": "r_screenshot.obj",
 "why": []
 },
+"?R_WriteCubemapShotAlpha@@YAXHMMPAE@Z": {
+"t": "0x10026840",
+"n": 100,
+"obj": "r_screenshot.obj",
+"why": [
+"call ?R_CubemapShotAlpha@@YAEHHHMM@Z"
+]
+},
 "?R_CaptureCubemapShot@@YAXH@Z": {
 "t": "0x100268b0",
 "n": 99,
 "obj": "r_screenshot.obj",
 "why": []
+},
+"?R_WriteCubemapShot@@YAXHPBDMM@Z": {
+"t": "0x10026920",
+"n": 154,
+"obj": "r_screenshot.obj",
+"why": [
+"call ?R_CopyCubemapShot@@YAXPBEPAE@Z"
+]
 },
 "?R_ClearForCubemapShot@@YAXXZ": {
 "t": "0x100269c0",
@@ -2891,22 +3309,6 @@
 "call ?RB_SetRenderTarget@@YAXW4GfxRenderTargetId@@@Z"
 ]
 },
-"?R_WriteCubemapShotAlpha@@YAXHMMPAE@Z": {
-"t": "0x10026840",
-"n": 100,
-"obj": "r_screenshot.obj",
-"why": [
-"call ?R_CubemapShotAlpha@@YAEHHHMM@Z"
-]
-},
-"?R_WriteCubemapShot@@YAXHPBDMM@Z": {
-"t": "0x10026920",
-"n": 154,
-"obj": "r_screenshot.obj",
-"why": [
-"call ?R_CopyCubemapShot@@YAXPBEPAE@Z"
-]
-},
 "?R_SaveCubemapShot@@YAXPBDHMM@Z": {
 "t": "0x10026a90",
 "n": 30,
@@ -2921,51 +3323,9 @@
 "obj": "r_screenshot.obj",
 "why": []
 },
-"?R_LevelShot@@YAXXZ": {
-"t": "0x10026290",
-"n": 159,
-"obj": "r_screenshot.obj",
-"why": [
-"call ?R_TakeResampledScreenshot@@YAPAEHHHH@Z"
-]
-},
-"?R_TakeScreenshotJpeg@@YAXHHHHPBD@Z": {
-"t": "0x10026240",
-"n": 78,
-"obj": "r_screenshot.obj",
-"why": []
-},
-"?R_SaveGameShot@@YAXPBD@Z": {
-"t": "0x10026330",
-"n": 101,
-"obj": "r_screenshot.obj",
-"why": [
-"call ?R_TakeResampledScreenshot@@YAPAEHHHH@Z"
-]
-},
-"?R_ScreenshotFilename@@YAXHPBDPAD@Z": {
-"t": "0x10025960",
-"n": 60,
-"obj": "r_screenshot.obj",
-"why": []
-},
-"?R_ScreenShotCmd@@YAXH@Z": {
-"t": "0x100263a0",
-"n": 567,
-"obj": "r_screenshot.obj",
-"why": [
-"call ?R_LevelShot@@YAXXZ"
-]
-},
-"?VectorLength@@YAMQBM@Z": {
-"t": "0x10005bb0",
-"n": 33,
-"obj": "r_shadowcookie.obj",
-"why": []
-},
-"?R_PopulateCandidates@@YAXPBMPAUShadowCandidate@@@Z": {
-"t": "0x10027d00",
-"n": 573,
+"?R_CompareShadowCandidates@@YA_NABUShadowCandidate@@0@Z": {
+"t": "0x10027170",
+"n": 30,
 "obj": "r_shadowcookie.obj",
 "why": []
 },
@@ -2981,15 +3341,15 @@
 "obj": "r_shadowcookie.obj",
 "why": []
 },
-"?R_CompareShadowCandidates@@YA_NABUShadowCandidate@@0@Z": {
-"t": "0x10027170",
-"n": 30,
-"obj": "r_shadowcookie.obj",
-"why": []
-},
 "?R_DrawShadowCookieOverlay@@YAXXZ": {
 "t": "0x10027c80",
 "n": 116,
+"obj": "r_shadowcookie.obj",
+"why": []
+},
+"?R_PopulateCandidates@@YAXPBMPAUShadowCandidate@@@Z": {
+"t": "0x10027d00",
+"n": 573,
 "obj": "r_shadowcookie.obj",
 "why": []
 },
@@ -3083,12 +3443,6 @@
 "obj": "r_shadowcookie.obj",
 "why": []
 },
-"?R_FlushSun@@YAXXZ": {
-"t": "0x10029120",
-"n": 158,
-"obj": "r_sky.obj",
-"why": []
-},
 "?R_RegisterSunDvars@@YAXXZ": {
 "t": "0x10028a10",
 "n": 702,
@@ -3120,6 +3474,12 @@
 "?R_SaveSun_f@@YAXXZ": {
 "t": "0x100290f0",
 "n": 46,
+"obj": "r_sky.obj",
+"why": []
+},
+"?R_FlushSun@@YAXXZ": {
+"t": "0x10029120",
+"n": 158,
 "obj": "r_sky.obj",
 "why": []
 },
@@ -3178,7 +3538,7 @@
 "?R_GetMaxModelSurfaceCount@@YAHPBUXModel@@@Z": {
 "t": "0x100296a0",
 "n": 73,
-"obj": "r_staticmodel_load_obj.obj",
+"obj": "r_staticmodel.obj",
 "why": []
 },
 "?R_AllocStaticModels@@YAXPAUGfxAabbTree@@@Z": {
@@ -3187,15 +3547,15 @@
 "obj": "r_staticmodel_load_obj.obj",
 "why": []
 },
-"?R_CompareStaticModelIndex@@YAHPBX0@Z": {
-"t": "0x10029be0",
-"n": 13,
-"obj": "r_staticmodel_load_obj.obj",
-"why": []
-},
 "?R_SortGfxAabbTreeChildren@@YAHPAUGfxWorld@@PBM1PAHH@Z": {
 "t": "0x10029910",
 "n": 705,
+"obj": "r_staticmodel_load_obj.obj",
+"why": []
+},
+"?R_CompareStaticModelIndex@@YAHPBX0@Z": {
+"t": "0x10029be0",
+"n": 13,
 "obj": "r_staticmodel_load_obj.obj",
 "why": []
 },
@@ -3299,15 +3659,15 @@
 "obj": "r_staticmodelcache.obj",
 "why": []
 },
-"?R_FlushStaticModelCache@@YAXXZ": {
-"t": "0x1002baf0",
-"n": 111,
-"obj": "r_staticmodelcache.obj",
-"why": []
-},
 "?R_InitStaticModelIndexCache@@YAXXZ": {
 "t": "0x1002bad0",
 "n": 20,
+"obj": "r_staticmodelcache.obj",
+"why": []
+},
+"?R_FlushStaticModelCache@@YAXXZ": {
+"t": "0x1002baf0",
+"n": 111,
 "obj": "r_staticmodelcache.obj",
 "why": []
 },
@@ -3377,9 +3737,9 @@
 "obj": "r_utils.obj",
 "why": []
 },
-"?R_PickMaterial@@YAHPBM0PAD11I@Z": {
-"t": "0x1002c100",
-"n": 552,
+"?R_HashAssetName@@YAHPBD@Z": {
+"t": "0x1002bfb0",
+"n": 34,
 "obj": "r_utils.obj",
 "why": []
 },
@@ -3389,9 +3749,9 @@
 "obj": "r_utils.obj",
 "why": []
 },
-"?R_HashAssetName@@YAHPBD@Z": {
-"t": "0x1002bfb0",
-"n": 34,
+"?R_PickMaterial@@YAHPBM0PAD11I@Z": {
+"t": "0x1002c100",
+"n": 552,
 "obj": "r_utils.obj",
 "why": []
 },
@@ -3425,12 +3785,6 @@
 "obj": "r_xsurface.obj",
 "why": []
 },
-"?XSurfaceTransferDx7@@YAXPBUXVertexBuffer@@PAUGfxVertexDx7@@H@Z": {
-"t": "0x1002d240",
-"n": 403,
-"obj": "r_xsurface.obj",
-"why": []
-},
 "?XSurfaceTransfer@@YAXPBUXVertexBuffer@@PAUGfxVertex@@H@Z": {
 "t": "0x1002d1c0",
 "n": 122,
@@ -3446,6 +3800,12 @@
 "?XSurfaceTransformPos@@YAXPBMPBUDObjSkelMat_s@@PAM@Z": {
 "t": "0x1002cd80",
 "n": 80,
+"obj": "r_xsurface.obj",
+"why": []
+},
+"?XSurfaceTransferDx7@@YAXPBUXVertexBuffer@@PAUGfxVertexDx7@@H@Z": {
+"t": "0x1002d240",
+"n": 403,
 "obj": "r_xsurface.obj",
 "why": []
 },
@@ -3531,102 +3891,6 @@
 "obj": "rb_backend.obj",
 "why": []
 },
-"?RB_IsGpuFinished@@YAEXZ": {
-"t": "0x10032ca0",
-"n": 34,
-"obj": "rb_backend.obj",
-"why": []
-},
-"?RB_IsGpuFenceFinished@@YAHXZ": {
-"t": "0x10032f40",
-"n": 59,
-"obj": "rb_backend.obj",
-"why": []
-},
-"?R_FinishGpuFence@@YAXXZ": {
-"t": "0x10032cd0",
-"n": 51,
-"obj": "rb_backend.obj",
-"why": []
-},
-"?R_InsertGpuFence@@YAXXZ": {
-"t": "0x10032d10",
-"n": 87,
-"obj": "rb_backend.obj",
-"why": []
-},
-"?RB_AdaptiveGpuSyncWait@@YAXXZ": {
-"t": "0x10032d80",
-"n": 160,
-"obj": "rb_backend.obj",
-"why": []
-},
-"?RB_AdaptiveGpuSyncTarget@@YAXXZ": {
-"t": "0x10032e20",
-"n": 76,
-"obj": "rb_backend.obj",
-"why": []
-},
-"?RB_AdaptiveGpuSyncFinal@@YAXXZ": {
-"t": "0x10032e80",
-"n": 177,
-"obj": "rb_backend.obj",
-"why": []
-},
-"?RB_BeginBenchmarkGpu@@YAXPAT_LARGE_INTEGER@@@Z": {
-"t": "0x10032f90",
-"n": 115,
-"obj": "rb_backend.obj",
-"why": []
-},
-"?RB_EndBenchmarkGpu@@YAXPAT_LARGE_INTEGER@@@Z": {
-"t": "0x10033010",
-"n": 114,
-"obj": "rb_backend.obj",
-"why": []
-},
-"?RB_BeginScene@@YAXXZ": {
-"t": "0x10033a90",
-"n": 135,
-"obj": "rb_backend.obj",
-"why": []
-},
-"?RB_SetFrustumConstants@@YAXXZ": {
-"t": "0x10032120",
-"n": 198,
-"obj": "rb_backend.obj",
-"why": []
-},
-"?RB_NeedsSceneCopy@@YAEM@Z": {
-"t": "0x10030a40",
-"n": 111,
-"obj": "rb_backend.obj",
-"why": []
-},
-"?RB_InitBackendGlobalStructs@@YAXXZ": {
-"t": "0x10033f80",
-"n": 64,
-"obj": "rb_backend.obj",
-"why": []
-},
-"?RB_UpdateColorInternal@@YAXPBMPAE@Z": {
-"t": "0x10032490",
-"n": 165,
-"obj": "rb_backend.obj",
-"why": []
-},
-"?RB_UpdateColor@@YAXPBM0@Z": {
-"t": "0x10032540",
-"n": 28,
-"obj": "rb_backend.obj",
-"why": []
-},
-"?RB_BenchmarkSeconds@@YANPBT_LARGE_INTEGER@@0@Z": {
-"t": "0x10033090",
-"n": 48,
-"obj": "rb_backend.obj",
-"why": []
-},
 "?RB_GotoCmd@@YAXPAUGfxRenderCommandExecState@@@Z": {
 "t": "0x1002eb60",
 "n": 12,
@@ -3642,6 +3906,28 @@
 "?RB_ReturnCmd@@YAXPAUGfxRenderCommandExecState@@@Z": {
 "t": "0x1002eb90",
 "n": 18,
+"obj": "rb_backend.obj",
+"why": []
+},
+"?RB_StretchRawCmd@@YAXPAUGfxRenderCommandExecState@@@Z": {
+"t": "0x1002f260",
+"n": 53,
+"obj": "rb_backend.obj",
+"why": [
+"call ?RB_DrawRawSurface@@YAXHHHHHHPBE@Z"
+]
+},
+"?RB_Set3D@@YAXXZ": {
+"t": "0x1002e380",
+"n": 230,
+"obj": "rb_backend.obj",
+"why": [
+"call ?RB_ChangedWorldMatrix@@YAXM@Z"
+]
+},
+"?RB_NeedsSceneCopy@@YAEM@Z": {
+"t": "0x10030a40",
+"n": 111,
 "obj": "rb_backend.obj",
 "why": []
 },
@@ -3685,13 +3971,11 @@
 "call ?RB_EndSurface@@YAXXZ"
 ]
 },
-"?RB_Set3D@@YAXXZ": {
-"t": "0x1002e380",
-"n": 230,
+"?RB_SetFrustumConstants@@YAXXZ": {
+"t": "0x10032120",
+"n": 198,
 "obj": "rb_backend.obj",
-"why": [
-"call ?RB_ChangedWorldMatrix@@YAXM@Z"
-]
+"why": []
 },
 "?RB_BeginViewCmd@@YAXPAUGfxRenderCommandExecState@@@Z": {
 "t": "0x100321f0",
@@ -3709,13 +3993,89 @@
 "call ?RB_TouchAllImages@@YAXXZ"
 ]
 },
-"?RB_StretchRawCmd@@YAXPAUGfxRenderCommandExecState@@@Z": {
-"t": "0x1002f260",
-"n": 53,
+"?RB_UpdateColorInternal@@YAXPBMPAE@Z": {
+"t": "0x10032490",
+"n": 165,
 "obj": "rb_backend.obj",
-"why": [
-"call ?RB_DrawRawSurface@@YAXHHHHHHPBE@Z"
-]
+"why": []
+},
+"?RB_UpdateColor@@YAXPBM0@Z": {
+"t": "0x10032540",
+"n": 28,
+"obj": "rb_backend.obj",
+"why": []
+},
+"?RB_IsGpuFinished@@YAEXZ": {
+"t": "0x10032ca0",
+"n": 34,
+"obj": "rb_backend.obj",
+"why": []
+},
+"?R_FinishGpuFence@@YAXXZ": {
+"t": "0x10032cd0",
+"n": 51,
+"obj": "rb_backend.obj",
+"why": []
+},
+"?R_InsertGpuFence@@YAXXZ": {
+"t": "0x10032d10",
+"n": 87,
+"obj": "rb_backend.obj",
+"why": []
+},
+"?RB_AdaptiveGpuSyncWait@@YAXXZ": {
+"t": "0x10032d80",
+"n": 160,
+"obj": "rb_backend.obj",
+"why": []
+},
+"?RB_AdaptiveGpuSyncTarget@@YAXXZ": {
+"t": "0x10032e20",
+"n": 76,
+"obj": "rb_backend.obj",
+"why": []
+},
+"?RB_AdaptiveGpuSyncFinal@@YAXXZ": {
+"t": "0x10032e80",
+"n": 177,
+"obj": "rb_backend.obj",
+"why": []
+},
+"?RB_IsGpuFenceFinished@@YAHXZ": {
+"t": "0x10032f40",
+"n": 59,
+"obj": "rb_backend.obj",
+"why": []
+},
+"?RB_BeginBenchmarkGpu@@YAXPAT_LARGE_INTEGER@@@Z": {
+"t": "0x10032f90",
+"n": 115,
+"obj": "rb_backend.obj",
+"why": []
+},
+"?RB_EndBenchmarkGpu@@YAXPAT_LARGE_INTEGER@@@Z": {
+"t": "0x10033010",
+"n": 114,
+"obj": "rb_backend.obj",
+"why": []
+},
+"?RB_BenchmarkSeconds@@YANPBT_LARGE_INTEGER@@0@Z": {
+"t": "0x10033090",
+"n": 48,
+"obj": "rb_backend.obj",
+"why": []
+},
+"?RB_BeginScene@@YAXXZ": {
+"t": "0x10033a90",
+"n": 135,
+"obj": "rb_backend.obj",
+"why": []
+},
+"?RB_InitBackendGlobalStructs@@YAXXZ": {
+"t": "0x10033f80",
+"n": 64,
+"obj": "rb_backend.obj",
+"why": []
 },
 "?RB_CopyBackBufferToSurface@@YAXPAUGfxImage@@@Z": {
 "t": "0x1002eaa0",
@@ -3755,20 +4115,20 @@
 "call ?RB_BlurShadowCookiePass@@YAXMM@Z"
 ]
 },
-"?RB_BlendSavedScreenCmd@@YAXPAUGfxRenderCommandExecState@@@Z": {
-"t": "0x10030cd0",
-"n": 257,
-"obj": "rb_backend.obj",
-"why": [
-"call ?RB_Set2D@@YAXXZ"
-]
-},
 "?RB_DrawTriangles@@YAXPBUMaterial@@HFPBGFPAY03$$CBMPAY02$$CBMPBIPAY01$$CBM@Z": {
 "t": "0x10031d20",
 "n": 361,
 "obj": "rb_backend.obj",
 "why": [
 "call ?RB_Set3D@@YAXXZ"
+]
+},
+"?RB_BlendSavedScreenCmd@@YAXPAUGfxRenderCommandExecState@@@Z": {
+"t": "0x10030cd0",
+"n": 257,
+"obj": "rb_backend.obj",
+"why": [
+"call ?RB_Set2D@@YAXXZ"
 ]
 },
 "?RB_DrawPointsCmd@@YAXPAUGfxRenderCommandExecState@@@Z": {
@@ -3903,27 +4263,21 @@
 "call ?RB_DrawDebugPlumes@@YAXPBUGfxViewParms@@@Z"
 ]
 },
-"?R_ConvertPackedColorToFloat@@YAXPBEPAM@Z": {
-"t": "0x100236c0",
-"n": 77,
-"obj": "rb_fog.obj",
-"why": []
-},
 "?RB_FogOffset@@YA?AW4GfxFogOffset@@XZ": {
 "t": "0x100348f0",
 "n": 28,
 "obj": "rb_fog.obj",
 "why": []
 },
-"?RB_UpdateFogColor@@YAXW4FogColorSrcEnum@@@Z": {
-"t": "0x10034bb0",
-"n": 172,
-"obj": "rb_fog.obj",
-"why": []
-},
 "?RB_SetIteratorFog@@YAXXZ": {
 "t": "0x10034910",
 "n": 657,
+"obj": "rb_fog.obj",
+"why": []
+},
+"?RB_UpdateFogColor@@YAXW4FogColorSrcEnum@@@Z": {
+"t": "0x10034bb0",
+"n": 172,
 "obj": "rb_fog.obj",
 "why": []
 },
@@ -3953,6 +4307,48 @@
 "call ?RB_DrawStretchPic@@YAXPBUMaterial@@MMMMMMMMI@Z"
 ]
 },
+"?I_ffloor@@YAHM@Z": {
+"t": "0x10020530",
+"n": 33,
+"obj": "rb_light.obj",
+"why": []
+},
+"?RB_DrawGridSampleBox@@YAXPBM@Z": {
+"t": "0x10035940",
+"n": 118,
+"obj": "rb_light.obj",
+"why": []
+},
+"?RB_DrawGridPointBox@@YAXPBMM0@Z": {
+"t": "0x10035a50",
+"n": 106,
+"obj": "rb_light.obj",
+"why": []
+},
+"?RB_GetValidGridPoint@@YAPBUGfxLightGridPoint@@PBUGfxLightGrid@@HHHIPBM@Z": {
+"t": "0x10036040",
+"n": 188,
+"obj": "rb_light.obj",
+"why": [
+"call ?RB_IsGridPointVisible@@YA_NPBUGfxLightGridPoint@@IPBM1@Z"
+]
+},
+"?RB_GridVisLogIndex@@YAHHHHH@Z": {
+"t": "0x10035c40",
+"n": 129,
+"obj": "rb_light.obj",
+"why": [
+"call ?RB_InsertGridVisLog@@YA_NHGGG@Z"
+]
+},
+"?RB_SetupEntityLighting@@YAXPBUGfxEntity@@PAUGfxEntityLighting@@@Z": {
+"t": "0x100366b0",
+"n": 100,
+"obj": "rb_light.obj",
+"why": [
+"call ?RB_GetLightingAtPoint@@YAMPBUGfxLightGrid@@PBMPAY03M@Z"
+]
+},
 "?RB_FindGridPoint@@YA_NPBUGfxLightGrid@@HHHPAH@Z": {
 "t": "0x10035fb0",
 "n": 141,
@@ -3970,48 +4366,6 @@
 "n": 239,
 "obj": "rb_light.obj",
 "why": []
-},
-"?RB_GridVisLogIndex@@YAHHHHH@Z": {
-"t": "0x10035c40",
-"n": 129,
-"obj": "rb_light.obj",
-"why": [
-"call ?RB_InsertGridVisLog@@YA_NHGGG@Z"
-]
-},
-"?RB_DrawGridPointBox@@YAXPBMM0@Z": {
-"t": "0x10035a50",
-"n": 106,
-"obj": "rb_light.obj",
-"why": []
-},
-"?RB_DrawGridSampleBox@@YAXPBM@Z": {
-"t": "0x10035940",
-"n": 118,
-"obj": "rb_light.obj",
-"why": []
-},
-"?RB_GetValidGridPoint@@YAPBUGfxLightGridPoint@@PBUGfxLightGrid@@HHHIPBM@Z": {
-"t": "0x10036040",
-"n": 188,
-"obj": "rb_light.obj",
-"why": [
-"call ?RB_GridVisLogIndex@@YAHHHHH@Z"
-]
-},
-"?I_ffloor@@YAHM@Z": {
-"t": "0x10020530",
-"n": 33,
-"obj": "rb_light.obj",
-"why": []
-},
-"?RB_SetupEntityLighting@@YAXPBUGfxEntity@@PAUGfxEntityLighting@@@Z": {
-"t": "0x100366b0",
-"n": 100,
-"obj": "rb_light.obj",
-"why": [
-"call ?RB_GetLightingAtPoint@@YAMPBUGfxLightGrid@@PBMPAY03M@Z"
-]
 },
 "?RB_InterleaveLightColors@@YAXPBMPAY02M@Z": {
 "t": "0x10036720",
@@ -4085,6 +4439,12 @@
 "obj": "rb_logfile.obj",
 "why": []
 },
+"?RB_TechniqueName@@YAPBDH@Z": {
+"t": "0x10037930",
+"n": 304,
+"obj": "rb_logfile.obj",
+"why": []
+},
 "?RB_LogBlend@@YAXPBDH@Z": {
 "t": "0x10037a60",
 "n": 186,
@@ -4121,9 +4481,33 @@
 "obj": "rb_logfile.obj",
 "why": []
 },
-"?RB_TechniqueName@@YAPBDH@Z": {
-"t": "0x10037930",
-"n": 304,
+"?RB_ChangePixelShader@@YAXPAUIDirect3DPixelShader9@@@Z": {
+"t": "0x10038430",
+"n": 104,
+"obj": "rb_shade.obj",
+"why": []
+},
+"?RB_ChangeVertexShader@@YAXPAUIDirect3DVertexShader9@@@Z": {
+"t": "0x100384a0",
+"n": 104,
+"obj": "rb_shade.obj",
+"why": []
+},
+"?RB_ChangeVertexDeclaration@@YAXPAUIDirect3DVertexDeclaration9@@@Z": {
+"t": "0x10038510",
+"n": 114,
+"obj": "rb_shade.obj",
+"why": []
+},
+"?RB_SetFVF@@YAXK@Z": {
+"t": "0x10038590",
+"n": 115,
+"obj": "rb_shade.obj",
+"why": []
+},
+"?RB_DrawIndexedPrimitive@@YAXPBUGfxDrawPrimArgs@@@Z": {
+"t": "0x10038610",
+"n": 150,
 "obj": "rb_shade.obj",
 "why": []
 },
@@ -4153,15 +4537,15 @@
 "obj": "rb_shade.obj",
 "why": []
 },
-"?RB_DeriveOutdoorLookupMatrix@@YAXQAY03M@Z": {
-"t": "0x10038fd0",
-"n": 198,
-"obj": "rb_shade.obj",
-"why": []
-},
 "?RB_GetCodeMatrix@@YAPBMIHH@Z": {
 "t": "0x10038cf0",
 "n": 733,
+"obj": "rb_shade.obj",
+"why": []
+},
+"?RB_DeriveOutdoorLookupMatrix@@YAXQAY03M@Z": {
+"t": "0x10038fd0",
+"n": 198,
 "obj": "rb_shade.obj",
 "why": []
 },
@@ -4201,12 +4585,6 @@
 "obj": "rb_shade.obj",
 "why": []
 },
-"?RB_GetObjectiveColorDx7@@YAXPAE@Z": {
-"t": "0x100399d0",
-"n": 358,
-"obj": "rb_shade.obj",
-"why": []
-},
 "?RB_DrawSingleTechnique@@YAXHHPBUGfxDrawPrimArgs@@PBUGfxStateOverride@@@Z": {
 "t": "0x1003a000",
 "n": 404,
@@ -4214,6 +4592,12 @@
 "why": [
 "call ?RB_SetupPassDx7@@YAXPBUGfxStateOverride@@PBUMaterialPassDx7@@H@Z"
 ]
+},
+"?RB_GetObjectiveColorDx7@@YAXPAE@Z": {
+"t": "0x100399d0",
+"n": 358,
+"obj": "rb_shade.obj",
+"why": []
 },
 "?RB_SetEntityHwLightsDx7@@YAXPAY03MM@Z": {
 "t": "0x1003a1a0",
@@ -4315,41 +4699,19 @@
 "call ?RB_UpdateSunFlare@@YAXPAUSunFlareDynamic@@H@Z"
 ]
 },
-"?RB_SetDepthRange@@YAXMM@Z": {
-"t": "0x1003e800",
-"n": 150,
+"?RB_SetInitialDx7State@@YAXXZ": {
+"t": "0x1003c100",
+"n": 416,
 "obj": "rb_state.obj",
 "why": []
 },
-"?RB_SetAnisotropy@@YAXXZ": {
-"t": "0x1003d860",
-"n": 177,
+"?RB_SetInitialState@@YAXXZ": {
+"t": "0x1003c2a0",
+"n": 252,
 "obj": "rb_state.obj",
-"why": []
-},
-"?RB_GetSamplerFilterModes@@YAXEPAK0@Z": {
-"t": "0x1003d920",
-"n": 41,
-"obj": "rb_state.obj",
-"why": []
-},
-"?RB_SetSampler@@YAXHEPAUGfxImage@@@Z": {
-"t": "0x1003d950",
-"n": 1041,
-"obj": "rb_state.obj",
-"why": []
-},
-"?RB_UnbindImage@@YAXPBUGfxImage@@@Z": {
-"t": "0x1003dd70",
-"n": 49,
-"obj": "rb_state.obj",
-"why": []
-},
-"?RB_InitImages@@YAXXZ": {
-"t": "0x1003ddb0",
-"n": 45,
-"obj": "rb_state.obj",
-"why": []
+"why": [
+"call ?RB_SetRenderTarget@@YAXW4GfxRenderTargetId@@@Z"
+]
 },
 "?RB_SetAlphaAntiAliasingState@@YAXH@Z": {
 "t": "0x1003c3a0",
@@ -4369,51 +4731,9 @@
 "obj": "rb_state.obj",
 "why": []
 },
-"?RB_SetViewport@@YAXPBUGfxViewport@@@Z": {
-"t": "0x1003e8a0",
-"n": 262,
-"obj": "rb_state.obj",
-"why": []
-},
-"?RB_ChangeIndices@@YAXPAUIDirect3DIndexBuffer9@@@Z": {
-"t": "0x1003ecb0",
-"n": 109,
-"obj": "rb_state.obj",
-"why": []
-},
-"?RB_ChangeStreamSource@@YAXHPAUIDirect3DVertexBuffer9@@HH@Z": {
-"t": "0x1003ed20",
-"n": 144,
-"obj": "rb_state.obj",
-"why": []
-},
-"?RB_ChangePixelShader@@YAXPAUIDirect3DPixelShader9@@@Z": {
-"t": "0x10038430",
-"n": 104,
-"obj": "rb_state.obj",
-"why": []
-},
-"?RB_ChangeVertexShader@@YAXPAUIDirect3DVertexShader9@@@Z": {
-"t": "0x100384a0",
-"n": 104,
-"obj": "rb_state.obj",
-"why": []
-},
-"?RB_ChangeVertexDeclaration@@YAXPAUIDirect3DVertexDeclaration9@@@Z": {
-"t": "0x10038510",
-"n": 114,
-"obj": "rb_state.obj",
-"why": []
-},
-"?RB_DrawIndexedPrimitive@@YAXPBUGfxDrawPrimArgs@@@Z": {
-"t": "0x10038610",
-"n": 150,
-"obj": "rb_state.obj",
-"why": []
-},
-"?RB_SetFVF@@YAXK@Z": {
-"t": "0x10038590",
-"n": 115,
+"?RB_DecodeTextureStageArg@@YAKH@Z": {
+"t": "0x1003d210",
+"n": 29,
 "obj": "rb_state.obj",
 "why": []
 },
@@ -4447,6 +4767,44 @@
 "obj": "rb_state.obj",
 "why": []
 },
+"?RB_SetAnisotropy@@YAXXZ": {
+"t": "0x1003d860",
+"n": 177,
+"obj": "rb_state.obj",
+"why": []
+},
+"?RB_GetSamplerFilterModes@@YAXEPAK0@Z": {
+"t": "0x1003d920",
+"n": 41,
+"obj": "rb_state.obj",
+"why": []
+},
+"?RB_SetSampler@@YAXHEPAUGfxImage@@@Z": {
+"t": "0x1003d950",
+"n": 1041,
+"obj": "rb_state.obj",
+"why": []
+},
+"?RB_UnbindImage@@YAXPBUGfxImage@@@Z": {
+"t": "0x1003dd70",
+"n": 49,
+"obj": "rb_state.obj",
+"why": []
+},
+"?RB_InitImages@@YAXXZ": {
+"t": "0x1003ddb0",
+"n": 45,
+"obj": "rb_state.obj",
+"why": []
+},
+"?RB_SetWorldMatrixForEntity@@YAXPBUGfxEntity@@@Z": {
+"t": "0x1003dde0",
+"n": 44,
+"obj": "rb_state.obj",
+"why": [
+"call ?RB_ChangedWorldMatrix@@YAXM@Z"
+]
+},
 "?RB_SetViewMatrix@@YAXPBU_D3DMATRIX@@@Z": {
 "t": "0x1003df90",
 "n": 283,
@@ -4458,6 +4816,14 @@
 "n": 126,
 "obj": "rb_state.obj",
 "why": []
+},
+"?RB_SetProjectionMatrix@@YAXPBU_D3DMATRIX@@@Z": {
+"t": "0x1003e220",
+"n": 36,
+"obj": "rb_state.obj",
+"why": [
+"call ?RB_ProjectionMatrixChanged@@YAXXZ"
+]
 },
 "?RB_SetDepthHackNearClip@@YAXM@Z": {
 "t": "0x1003e250",
@@ -4485,6 +4851,24 @@
 "obj": "rb_state.obj",
 "why": []
 },
+"?RB_GetViewport@@YA_NPAUGfxViewport@@@Z": {
+"t": "0x1003e630",
+"n": 81,
+"obj": "rb_state.obj",
+"why": []
+},
+"?RB_SetDepthRange@@YAXMM@Z": {
+"t": "0x1003e800",
+"n": 150,
+"obj": "rb_state.obj",
+"why": []
+},
+"?RB_SetViewport@@YAXPBUGfxViewport@@@Z": {
+"t": "0x1003e8a0",
+"n": 262,
+"obj": "rb_state.obj",
+"why": []
+},
 "?RB_UpdateViewport@@YAXXZ": {
 "t": "0x1003e9b0",
 "n": 101,
@@ -4499,19 +4883,17 @@
 "call ?RB_UpdateViewportConstants@@YAXXZ"
 ]
 },
-"?RB_SetInitialDx7State@@YAXXZ": {
-"t": "0x1003c100",
-"n": 416,
+"?RB_ChangeIndices@@YAXPAUIDirect3DIndexBuffer9@@@Z": {
+"t": "0x1003ecb0",
+"n": 109,
 "obj": "rb_state.obj",
 "why": []
 },
-"?RB_SetInitialState@@YAXXZ": {
-"t": "0x1003c2a0",
-"n": 252,
+"?RB_ChangeStreamSource@@YAXHPAUIDirect3DVertexBuffer9@@HH@Z": {
+"t": "0x1003ed20",
+"n": 144,
 "obj": "rb_state.obj",
-"why": [
-"call ?RB_SetRenderTarget@@YAXW4GfxRenderTargetId@@@Z"
-]
+"why": []
 },
 "?RB_DrawOptimizedTessSurface@@YAXXZ": {
 "t": "0x1003a690",
@@ -4553,12 +4935,28 @@
 "call ?RB_TessXModelSkinnedCached@@YAXPBUGfxModelSkinnedSurface@@@Z"
 ]
 },
+"?RB_TessParticleCloud@@YAXPBUGfxEntity@@@Z": {
+"t": "0x10040f30",
+"n": 245,
+"obj": "rb_tess.obj",
+"why": [
+"call ?RB_EndSurface@@YAXXZ"
+]
+},
 "?RB_TessSprite@@YAXPBUGfxEntity@@@Z": {
 "t": "0x1003fb50",
 "n": 72,
 "obj": "rb_tess.obj",
 "why": [
 "call ?RB_ScreenRadiusToWorld@@YA_NPBMMPAM@Z"
+]
+},
+"?RB_TessEntity@@YAXPBUGfxEntity@@@Z": {
+"t": "0x100410b0",
+"n": 116,
+"obj": "rb_tess.obj",
+"why": [
+"call ?RB_TessSprite@@YAXPBUGfxEntity@@@Z"
 ]
 },
 "_jpeg_CreateCompress": {
@@ -6484,12 +6882,6 @@
 "?VectorCompare@@YA_NQBM0@Z": {
 "t": "0x100582a0",
 "n": 52,
-"obj": "com_math.obj",
-"why": []
-},
-"?VectorScale4@@YAXQBMMQAM@Z": {
-"t": "0x10005be0",
-"n": 39,
 "obj": "com_math.obj",
 "why": []
 },
@@ -17074,7 +17466,7 @@
 "?R_UpdateGfxEntityBoundsCmd@@YAXPAUGfxEntity@@@Z": {
 "t": "0x10020cd0",
 "n": 12,
-"obj": "r_scene.obj",
+"obj": "r_rendercmds.obj",
 "why": [
 "call ?R_UpdateGfxEntityBounds@@YAXPAUGfxEntity@@@Z"
 ]
@@ -17703,6 +18095,18 @@
 "t": "0x10005130",
 "n": 19,
 "obj": "r_buffers.obj",
+"why": []
+},
+"?tan@@YAMM@Z": {
+"t": "0x10023620",
+"n": 9,
+"obj": "r_scene.obj",
+"why": []
+},
+"?RB_BindDefaultImages@@YAXXZ": {
+"t": "0x1003ec80",
+"n": 33,
+"obj": "rb_state.obj",
 "why": []
 },
 "?MatrixTranspose@@YAXQAY02$$CBMQAY02M@Z": {

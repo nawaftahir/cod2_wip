@@ -327,7 +327,6 @@ Material *R_RegisterRawImage(const char *name, int baseImageFlags, int imageTrac
 void Material_ReloadTextures(Material *material);
 void Material_ReloadTextures_f();
 void R_ApplyPicmip();
-void R_ApplyPicmip_f();
 static void Material_RegisterBuiltins(const BuiltInMaterialTable *table, int count);
 static void Material_RegisterRawMaterial();
 void Material_Init();
@@ -1303,10 +1302,3 @@ int Material_LoadFile(const char *filename, int *file)
     return ri.FS_FOpenFileRead(fullFilename, file, 1);
 }
 
-
-
-// PINNED 10005290/5: the registered command is a separate tail call.
-void R_ApplyPicmip_f()
-{
-    R_ApplyPicmip();
-}

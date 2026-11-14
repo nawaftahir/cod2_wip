@@ -32,6 +32,19 @@ extern "C" __declspec(dllimport) int __stdcall GetSystemMetrics(int nIndex);
 void R_Error(errorParm_t code, const char *fmt, ...);
 void R_InitLoadWater();
 
+// Name unconfirmed; PINNED out-of-line copy at 10011340 (DX7 36 B, DX9 64 B vertices).
+inline int R_DynamicVertexSize()
+{
+	return r_rendererInUse->current.integer == 2 ? 36 : 64;
+}
+
+// Name unconfirmed; PINNED out-of-line copy at 10011360: D3D resets the FPU control word.
+inline void R_RestoreFpuControl()
+{
+	_controlfp(_PC_24, _MCW_PC);
+	_controlfp(_MCW_EM, _MCW_EM);
+}
+
 // Fatal initialization errors.
 // PINNED 10011390/66
 void R_FatalInitError(const char *msg)
@@ -304,11 +317,11 @@ void R_CreateDynamicIndexBuffer(r_ib_state_t *state, int bytes)
 void R_CreateDynamicBuffers()
 {
 	R_CreateDynamicVertexBuffer(&dx.dynamicVertexBufferPool[0],
-		(r_rendererInUse->current.integer == 2 ? 36 : 64) * 32768);
+		R_DynamicVertexSize() * 32768);
 	dx.dynamicVertexBuffer = &dx.dynamicVertexBufferPool[0];
 	for (int index = 0; index != 2; ++index)
 		R_CreateDynamicVertexBuffer(&dx.skinnedCacheVbPool[index],
-			(r_rendererInUse->current.integer == 2 ? 36 : 64) * 131072);
+			R_DynamicVertexSize() * 131072);
 	R_CreateDynamicIndexBuffer(&dx.dynamicIndexBufferPool[0], 2097152);
 	dx.dynamicIndexBuffer = &dx.dynamicIndexBufferPool[0];
 	dx.tempSkinBuf = (byte *)ri.Z_VirtualReserveInternal(10485760);
@@ -825,8 +838,7 @@ Bool R_CreateDevice(const GfxWindowParms *parms)
 	D3DPRESENT_PARAMETERS present;
 	R_SetD3DPresentParameters(&present, parms);
 	HRESULT result = R_CreateDeviceInternal(hwnd, D3DCREATE_HARDWARE_VERTEXPROCESSING, &present);
-	_controlfp(_PC_24, _MCW_PC);
-	_controlfp(_MCW_EM, _MCW_EM);
+	R_RestoreFpuControl();
 	if (result < 0)
 	{
 		ri.Printf(0, "Couldn't create a Direct3D device: %s\n", R_ErrorDescription(result));
@@ -1321,8 +1333,7 @@ void R_ResetDevice()
 	R_SetD3DPresentParameters(&present, &parms);
 	R_ReleaseForShutdownOrReset();
 	HRESULT result = dx.device->Reset(&present);
-	_controlfp(0x20000, 0x30000);
-	_controlfp(0x8001f, 0x8001f);
+	R_RestoreFpuControl();
 	if (result < 0)
 		R_FatalInitError(va("Couldn't reset a lost Direct3D device - IDirect3DDevice9::Reset returned 0x%08x (%s)",
 			result, R_ErrorDescription(result)));
