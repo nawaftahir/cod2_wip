@@ -5,6 +5,15 @@
 #include "r_image_wavelet_types.h"
 #include "gfx.h"
 
+// Name unconfirmed; PINNED 1000f160/20: four-byte store, out-of-line copy of the GenerateSolidColor fill.
+inline void Byte4Set(unsigned char *to, unsigned char x, unsigned char y, unsigned char z, unsigned char w)
+{
+    to[0] = x;
+    to[1] = y;
+    to[2] = z;
+    to[3] = w;
+}
+
 GfxImage *Image_Alloc(const char *name, int category, int semantic, int imageTrack);
 void Image_Setup(GfxImage *image, int width, int height, int depth, int imageFlags, DWORD usage, D3DFORMAT imageFormat);
 void Image_UploadData(GfxImage *image, D3DFORMAT format, D3DCUBEMAP_FACES cubemapFace, unsigned int mipLevel, const unsigned char *src);
@@ -485,10 +494,7 @@ void Image_LoadLightmapWeights(GfxImage *image)
 void Image_GenerateSolidColor(GfxImage *image, byte red, byte green, byte blue, byte alpha)
 {
     byte pixel[4];
-    pixel[0] = blue;
-    pixel[1] = green;
-    pixel[2] = red;
-    pixel[3] = alpha;
+    Byte4Set(pixel, blue, green, red, alpha);
     Image_Setup(image, 1, 1, 1, 3, 0, D3DFMT_A8R8G8B8);
     Image_UploadData(image, D3DFMT_A8R8G8B8, D3DCUBEMAP_FACE_POSITIVE_X, 0, pixel);
 }
