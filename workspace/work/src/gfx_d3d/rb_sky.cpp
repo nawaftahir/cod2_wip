@@ -567,8 +567,8 @@ static void RB_CalcSunBlindGlare(SunFlareDynamic *flare, int frameTime, float *b
 // PINNED 1003bf00: retain the dot value even when the sun faces away.
 static void RB_DrawSunSpriteForView(SunFlareDynamic *flare)
 {
-    const float *sun = ((const GfxSunWorldView *)rgp.world)->sun.sunFxPosition;
     const float *forward = backEnd.viewParms->axis[0];
+    const float *sun = ((const GfxSunWorldView *)rgp.world)->sun.sunFxPosition;
     flare->lastDot = (sun[2] * forward[2] + sun[1] * forward[1]) + sun[0] * forward[0];
     if (!(flare->lastDot <= 0.0f))
     {
