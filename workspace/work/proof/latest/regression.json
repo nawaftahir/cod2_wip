@@ -1,8 +1,8 @@
 {
-  "functions": 811,
-  "bytes": 132446,
+  "functions": 904,
+  "bytes": 137545,
   "total": 253580,
-  "percent": 52.230459815442856,
+  "percent": 54.24126508399716,
   "baseline_lost": [],
   "gains": [
     {
@@ -78,6 +78,18 @@
       "object": "r_bsp_load_obj.obj"
     },
     {
+      "target": "0x10002840",
+      "bytes": 246,
+      "name": "?R_CalculateWorldBounds@@YAXPAM0@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
+      "target": "0x10002940",
+      "bytes": 118,
+      "name": "?R_SetSkyImage@@YAXPBUMaterial@@@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
       "target": "0x10002db0",
       "bytes": 140,
       "name": "?R_LoadSubmodels@@YAXPAUGfxBspLoad@@@Z",
@@ -105,6 +117,12 @@
       "target": "0x10002f50",
       "bytes": 192,
       "name": "?R_Vec4ForKeyHex@@YAEPBD0PAY01PBDHPAM@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
+      "target": "0x10003010",
+      "bytes": 23,
+      "name": "?R_IsMissingOrBadModel@@YAEPBUXModel@@@Z",
       "object": "r_bsp_load_obj.obj"
     },
     {
@@ -141,6 +159,12 @@
       "target": "0x10004080",
       "bytes": 240,
       "name": "?R_LoadPortalVerts@@YAXPAUGfxBspLoad@@@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
+      "target": "0x10004300",
+      "bytes": 194,
+      "name": "?R_LoadCullGroups@@YAXPAUGfxBspLoad@@@Z",
       "object": "r_bsp_load_obj.obj"
     },
     {
@@ -240,6 +264,18 @@
       "object": "r_debug.obj"
     },
     {
+      "target": "0x100057b0",
+      "bytes": 42,
+      "name": "?R_InitDebugEntry@@YAXPAUDebugGlobals@@@Z",
+      "object": "r_debug.obj"
+    },
+    {
+      "target": "0x100057e0",
+      "bytes": 57,
+      "name": "?R_InitDebug@@YAXXZ",
+      "object": "r_debug.obj"
+    },
+    {
       "target": "0x100058b0",
       "bytes": 184,
       "name": "?R_TransferDebugGlobals@@YAXPAUDebugGlobals@@@Z",
@@ -252,10 +288,16 @@
       "object": "r_dpvs.obj"
     },
     {
+      "target": "0x10005b90",
+      "bytes": 31,
+      "name": "?VectorLengthSquared@@YAMQBM@Z",
+      "object": "r_dpvs.obj"
+    },
+    {
       "target": "0x10005bb0",
       "bytes": 33,
       "name": "?VectorLength@@YAMQBM@Z",
-      "object": "r_shadowcookie.obj"
+      "object": "r_dpvs.obj"
     },
     {
       "target": "0x10005c10",
@@ -324,9 +366,21 @@
       "object": "r_dpvs.obj"
     },
     {
+      "target": "0x10008750",
+      "bytes": 66,
+      "name": "?R_BoundsTooLargeForCellSplit@@YAEPBM0@Z",
+      "object": "r_dpvs.obj"
+    },
+    {
       "target": "0x10009700",
       "bytes": 58,
       "name": "?R_IsPortalOccluded@@YA_NPBUGfxPortal@@@Z",
+      "object": "r_dpvs.obj"
+    },
+    {
+      "target": "0x100098c0",
+      "bytes": 61,
+      "name": "?R_AllocHullPoints@@YAPATGfxHullPointsPool@@XZ",
       "object": "r_dpvs.obj"
     },
     {
@@ -360,6 +414,24 @@
       "object": "r_dpvs.obj"
     },
     {
+      "target": "0x10009da0",
+      "bytes": 15,
+      "name": "?R_SetPortalAncestorFlags@@YAXPAUGfxPortal@@E@Z",
+      "object": "r_dpvs.obj"
+    },
+    {
+      "target": "0x10009db0",
+      "bytes": 17,
+      "name": "?R_MarkPortalAncestors@@YAXPAUGfxPortal@@@Z",
+      "object": "r_dpvs.obj"
+    },
+    {
+      "target": "0x10009dd0",
+      "bytes": 17,
+      "name": "?R_ClearPortalAncestors@@YAXPAUGfxPortal@@@Z",
+      "object": "r_dpvs.obj"
+    },
+    {
       "target": "0x1000a550",
       "bytes": 194,
       "name": "?R_SetupDpvsForDir@@YAXPBUGfxViewParms@@@Z",
@@ -370,6 +442,36 @@
       "bytes": 1,
       "name": "?R_ClearFlares@@YAXXZ",
       "object": "r_flares.obj"
+    },
+    {
+      "target": "0x1000bae0",
+      "bytes": 20,
+      "name": "?R_PackFogColor@@YAXPAEEEEE@Z",
+      "object": "r_fog.obj"
+    },
+    {
+      "target": "0x1000bb00",
+      "bytes": 10,
+      "name": "?R_CallArchiveProc@@YAXPAUMemoryFile@@HPAX@Z",
+      "object": "r_fog.obj"
+    },
+    {
+      "target": "0x1000bb30",
+      "bytes": 143,
+      "name": "?R_SetFog@@YAXHMMHHHM@Z",
+      "object": "r_fog.obj"
+    },
+    {
+      "target": "0x1000c450",
+      "bytes": 87,
+      "name": "?R_DrawConsoleIcon@@YAXMMMMPBMPAUMaterial@@E@Z",
+      "object": "r_font.obj"
+    },
+    {
+      "target": "0x1000c7a0",
+      "bytes": 17,
+      "name": "?Image_MipDimension@@YAHHH@Z",
+      "object": "r_image.obj"
     },
     {
       "target": "0x1000c7c0",
@@ -402,6 +504,18 @@
       "object": "r_image.obj"
     },
     {
+      "target": "0x1000c8e0",
+      "bytes": 39,
+      "name": "?Image_HashBucket@@YAHPBD@Z",
+      "object": "r_image.obj"
+    },
+    {
+      "target": "0x1000c970",
+      "bytes": 49,
+      "name": "?Image_GetMipmapResolution@@YAXHHHPAG0@Z",
+      "object": "r_image.obj"
+    },
+    {
       "target": "0x1000c9b0",
       "bytes": 14,
       "name": "?Image_GetPlatformScreenWidth@@YAHH@Z",
@@ -420,9 +534,27 @@
       "object": "r_image.obj"
     },
     {
+      "target": "0x1000cba0",
+      "bytes": 45,
+      "name": "?Image_Construct@@YAXPBDHHHHPAUGfxImage@@@Z",
+      "object": "r_image.obj"
+    },
+    {
+      "target": "0x1000cbd0",
+      "bytes": 52,
+      "name": "?Image_AllocProg@@YAPAUGfxImage@@HE@Z",
+      "object": "r_image.obj"
+    },
+    {
       "target": "0x1000cc80",
       "bytes": 23,
       "name": "?Image_IsCodeImage@@YA_NPBUGfxImage@@@Z",
+      "object": "r_image.obj"
+    },
+    {
+      "target": "0x1000ccf0",
+      "bytes": 20,
+      "name": "?Image_FreeZ@@YAXPAUGfxImage@@@Z",
       "object": "r_image.obj"
     },
     {
@@ -452,8 +584,8 @@
     {
       "target": "0x1000d0f0",
       "bytes": 74,
-      "name": "?Image_BuildWaterMap@@YAXPAUGfxImage@@@Z",
-      "object": "r_image_load_obj.obj"
+      "name": "?R_RebuildLostImage@@YAXPAUGfxImage@@@Z",
+      "object": "r_image.obj"
     },
     {
       "target": "0x1000d140",
@@ -498,6 +630,12 @@
       "object": "r_image_load_common.obj"
     },
     {
+      "target": "0x1000eda0",
+      "bytes": 32,
+      "name": "?Image_FormatMinSize@@YAHW4_D3DFORMAT@@@Z",
+      "object": "r_image_load_common.obj"
+    },
+    {
       "target": "0x1000ee30",
       "bytes": 246,
       "name": "?Image_Setup@@YAXPAUGfxImage@@HHHHKW4_D3DFORMAT@@@Z",
@@ -519,12 +657,18 @@
       "target": "0x1000f180",
       "bytes": 285,
       "name": "?R_QuantizeCachedColor@@YAXPBMPAE@Z",
-      "object": "r_staticmodelcache.obj"
+      "object": "r_image_load_obj.obj"
     },
     {
       "target": "0x1000f2a0",
       "bytes": 67,
       "name": "?Image_ValidateHeader@@YAEPBUGfxImageFileHeader@@PBD@Z",
+      "object": "r_image_load_obj.obj"
+    },
+    {
+      "target": "0x1000f2f0",
+      "bytes": 39,
+      "name": "?Image_SetupFromFile@@YAXPAUGfxImage@@PBUGfxImageFileHeader@@W4_D3DFORMAT@@@Z",
       "object": "r_image_load_obj.obj"
     },
     {
@@ -552,6 +696,18 @@
       "object": "r_image_load_obj.obj"
     },
     {
+      "target": "0x1000fb30",
+      "bytes": 74,
+      "name": "?Image_Generate2D@@YAXPAUGfxImage@@PAEHHW4_D3DFORMAT@@@Z",
+      "object": "r_image_load_obj.obj"
+    },
+    {
+      "target": "0x1000fb80",
+      "bytes": 75,
+      "name": "?Image_Generate3D@@YAXPAUGfxImage@@PAEHHHW4_D3DFORMAT@@@Z",
+      "object": "r_image_load_obj.obj"
+    },
+    {
       "target": "0x1000fc30",
       "bytes": 169,
       "name": "?Image_LoadRaw@@YAEPAUGfxImage@@PBDH@Z",
@@ -576,9 +732,21 @@
       "object": "r_image_load_obj.obj"
     },
     {
+      "target": "0x10010480",
+      "bytes": 21,
+      "name": "?SmoothStep@@YAMM@Z",
+      "object": "r_image_load_obj.obj"
+    },
+    {
       "target": "0x100104a0",
       "bytes": 465,
       "name": "?Image_GetLightGridWeightsForVector@@YAXPBMHPAE@Z",
+      "object": "r_image_load_obj.obj"
+    },
+    {
+      "target": "0x10010ae0",
+      "bytes": 68,
+      "name": "?Image_BuildWaterMap@@YAXPAUGfxImage@@@Z",
       "object": "r_image_load_obj.obj"
     },
     {
@@ -610,6 +778,18 @@
       "bytes": 1471,
       "name": "?Wavelet_DecompressLevel@@YAXPAE0PAUWaveletDecode@@@Z",
       "object": "r_image_wavelet.obj"
+    },
+    {
+      "target": "0x10011340",
+      "bytes": 25,
+      "name": "?R_DynamicVertexSize@@YAHXZ",
+      "object": "r_init.obj"
+    },
+    {
+      "target": "0x10011360",
+      "bytes": 34,
+      "name": "?R_RestoreFpuControl@@YAXXZ",
+      "object": "r_init.obj"
     },
     {
       "target": "0x100113e0",
@@ -882,6 +1062,18 @@
       "object": "r_jpeg.obj"
     },
     {
+      "target": "0x10015190",
+      "bytes": 29,
+      "name": "?Vec2Lerp@@YAXQBM0MQAM@Z",
+      "object": "r_marks.obj"
+    },
+    {
+      "target": "0x100151b0",
+      "bytes": 45,
+      "name": "?Vec3Lerp@@YAXQBM0MQAM@Z",
+      "object": "r_marks.obj"
+    },
+    {
       "target": "0x10015260",
       "bytes": 386,
       "name": "?R_ChopPolyBehindPlane@@YAHHPAUClipPoint@@0PBMM@Z",
@@ -894,6 +1086,18 @@
       "object": "r_marks.obj"
     },
     {
+      "target": "0x10016240",
+      "bytes": 67,
+      "name": "?Vector4Compare@@YA_NQBM0@Z",
+      "object": "r_material.obj"
+    },
+    {
+      "target": "0x100162c0",
+      "bytes": 198,
+      "name": "?Material_CreateShaderPtr@@YAXPBUMaterialShader@@PATMaterialShaderPtr@@@Z",
+      "object": "r_material.obj"
+    },
+    {
       "target": "0x10016390",
       "bytes": 150,
       "name": "?Material_RegisterLiteral@@YAPBMPBM@Z",
@@ -903,6 +1107,18 @@
       "target": "0x10016440",
       "bytes": 246,
       "name": "?Material_RegisterString@@YAPBDPBD@Z",
+      "object": "r_material.obj"
+    },
+    {
+      "target": "0x10016560",
+      "bytes": 39,
+      "name": "?Material_HashName1024@@YAHPBD@Z",
+      "object": "r_material.obj"
+    },
+    {
+      "target": "0x10016590",
+      "bytes": 35,
+      "name": "?Material_HashStreamRouting@@YAHPBUMaterialStreamRouting@@H@Z",
       "object": "r_material.obj"
     },
     {
@@ -930,9 +1146,39 @@
       "object": "r_material.obj"
     },
     {
+      "target": "0x10016bd0",
+      "bytes": 49,
+      "name": "?Material_HashShaderName@@YAHPBDHH@Z",
+      "object": "r_material.obj"
+    },
+    {
+      "target": "0x10016d40",
+      "bytes": 23,
+      "name": "?Material_ReleaseShader@@YAXPAUMaterialShader@@@Z",
+      "object": "r_material.obj"
+    },
+    {
+      "target": "0x10016d60",
+      "bytes": 69,
+      "name": "?Material_ReloadShader@@YAXPAUMaterialShader@@@Z",
+      "object": "r_material.obj"
+    },
+    {
+      "target": "0x10016e50",
+      "bytes": 22,
+      "name": "?Material_ClearShaderTable@@YAXXZ",
+      "object": "r_material.obj"
+    },
+    {
       "target": "0x10016e70",
       "bytes": 87,
       "name": "?Material_Sort@@YAXXZ",
+      "object": "r_material.obj"
+    },
+    {
+      "target": "0x10016fe0",
+      "bytes": 51,
+      "name": "?Material_DuplicateDefault@@YAPAUMaterial@@PBD@Z",
       "object": "r_material.obj"
     },
     {
@@ -948,9 +1194,21 @@
       "object": "r_material.obj"
     },
     {
+      "target": "0x100172d0",
+      "bytes": 33,
+      "name": "?Material_ForEachRegistered@@YAXP6AXPAUMaterial@@H@ZH@Z",
+      "object": "r_material.obj"
+    },
+    {
       "target": "0x10017300",
       "bytes": 7,
       "name": "?R_GetMaterialName@@YAPBDPBUMaterialInfoView@@@Z",
+      "object": "r_material.obj"
+    },
+    {
+      "target": "0x100175f0",
+      "bytes": 39,
+      "name": "?Material_ClearAll@@YAXXZ",
       "object": "r_material.obj"
     },
     {
@@ -968,7 +1226,7 @@
     {
       "target": "0x100182c0",
       "bytes": 74,
-      "name": "_IncludeClass_Open@24",
+      "name": "?Open@IncludeClass@@UAGJW4_D3DXINCLUDE_TYPE@@PBDPBXPAPBXPAI@Z",
       "object": "r_material_load_obj.obj"
     },
     {
@@ -1044,6 +1302,12 @@
       "object": "r_material_load_obj.obj"
     },
     {
+      "target": "0x10019780",
+      "bytes": 30,
+      "name": "?Material_DefaultSamplerSource@@YAEPBDPAUMaterialShaderArgument@@@Z",
+      "object": "r_material_load_obj.obj"
+    },
+    {
       "target": "0x100198c0",
       "bytes": 170,
       "name": "?Material_ParseLiteralVector@@YAEPAPBDPBDPAM@Z",
@@ -1107,6 +1371,30 @@
       "target": "0x1001b100",
       "bytes": 364,
       "name": "?Material_LoadPassTexCoordDx7@@YAEPAPBDHPAE@Z",
+      "object": "r_material_load_obj.obj"
+    },
+    {
+      "target": "0x1001c290",
+      "bytes": 34,
+      "name": "?Material_HasConstant@@YA_NPBUMaterial@@PBD@Z",
+      "object": "r_material_load_obj.obj"
+    },
+    {
+      "target": "0x1001c2c0",
+      "bytes": 34,
+      "name": "?Material_HasTexture@@YA_NPBUMaterial@@PBD@Z",
+      "object": "r_material_load_obj.obj"
+    },
+    {
+      "target": "0x1001c2f0",
+      "bytes": 196,
+      "name": "?Material_ValidatePassArguments@@YA_NPBUMaterial@@PBD1HPBUMaterialShaderArgument@@@Z",
+      "object": "r_material_load_obj.obj"
+    },
+    {
+      "target": "0x1001c3c0",
+      "bytes": 63,
+      "name": "?Material_ValidateTechniqueDx7@@YA_NPBUMaterial@@PBDPBUMaterialTechnique@@@Z",
       "object": "r_material_load_obj.obj"
     },
     {
@@ -1188,6 +1476,12 @@
       "object": "r_model.obj"
     },
     {
+      "target": "0x1001f6e0",
+      "bytes": 8,
+      "name": "?R_SetSceneEntSkinned@@YAXPAUGfxSceneEntity@@@Z",
+      "object": "r_model.obj"
+    },
+    {
       "target": "0x1001fda0",
       "bytes": 35,
       "name": "?R_SetEntityOriginBounds@@YAXPAUGfxSceneEntity@@PBM@Z",
@@ -1200,6 +1494,30 @@
       "object": "r_model.obj"
     },
     {
+      "target": "0x1001ffb0",
+      "bytes": 8,
+      "name": "?R_SetSceneEntBounded@@YAXPAUGfxSceneEntity@@@Z",
+      "object": "r_model.obj"
+    },
+    {
+      "target": "0x100203d0",
+      "bytes": 8,
+      "name": "?Vec4SplatX@@YA?AU__m128@@ABU1@@Z",
+      "object": "r_model.obj"
+    },
+    {
+      "target": "0x100203e0",
+      "bytes": 8,
+      "name": "?Vec4SplatY@@YA?AU__m128@@ABU1@@Z",
+      "object": "r_model.obj"
+    },
+    {
+      "target": "0x100203f0",
+      "bytes": 8,
+      "name": "?Vec4SplatZ@@YA?AU__m128@@ABU1@@Z",
+      "object": "r_model.obj"
+    },
+    {
       "target": "0x10020530",
       "bytes": 33,
       "name": "?I_ffloor@@YAHM@Z",
@@ -1209,6 +1527,24 @@
       "target": "0x10020590",
       "bytes": 175,
       "name": "?R_OutdoorTraceHeight@@YAMMM@Z",
+      "object": "r_outdoor.obj"
+    },
+    {
+      "target": "0x10020640",
+      "bytes": 329,
+      "name": "?R_ComputeOutdoorBounds@@YAXPBUGfxWorld@@@Z",
+      "object": "r_outdoor.obj"
+    },
+    {
+      "target": "0x10020790",
+      "bytes": 82,
+      "name": "?R_ComputeOutdoorScale@@YAXXZ",
+      "object": "r_outdoor.obj"
+    },
+    {
+      "target": "0x100207f0",
+      "bytes": 150,
+      "name": "?R_ComputeOutdoorLookupMatrix@@YAXPAUGfxWorld@@@Z",
       "object": "r_outdoor.obj"
     },
     {
@@ -1338,10 +1674,22 @@
       "object": "r_rendertarget.obj"
     },
     {
+      "target": "0x10022cd0",
+      "bytes": 71,
+      "name": "?R_LogFrameBufferFormat@@YAXXZ",
+      "object": "r_rendertarget.obj"
+    },
+    {
       "target": "0x10023560",
       "bytes": 162,
       "name": "?R_ShutdownRenderTargets@@YAXXZ",
       "object": "r_rendertarget.obj"
+    },
+    {
+      "target": "0x10023620",
+      "bytes": 9,
+      "name": "?tan@@YAMM@Z",
+      "object": "r_scene.obj"
     },
     {
       "target": "0x10023630",
@@ -1356,10 +1704,28 @@
       "object": "r_scene.obj"
     },
     {
+      "target": "0x10023670",
+      "bytes": 77,
+      "name": "?Byte4UnpackRgba@@YAXPBEPAM@Z",
+      "object": "r_scene.obj"
+    },
+    {
       "target": "0x100236c0",
       "bytes": 77,
-      "name": "?R_ConvertPackedColorToFloat@@YAXPBEPAM@Z",
-      "object": "rb_fog.obj"
+      "name": "?Byte4UnpackBgra@@YAXPBEPAM@Z",
+      "object": "r_scene.obj"
+    },
+    {
+      "target": "0x10023760",
+      "bytes": 14,
+      "name": "?R_ClearSceneEntityRecord@@YAXPAUGfxSceneEntity@@@Z",
+      "object": "r_scene.obj"
+    },
+    {
+      "target": "0x10023770",
+      "bytes": 14,
+      "name": "?R_ClearEntityRecord@@YAXPAUGfxEntity@@@Z",
+      "object": "r_scene.obj"
     },
     {
       "target": "0x100238d0",
@@ -1380,6 +1746,30 @@
       "object": "r_scene.obj"
     },
     {
+      "target": "0x10024280",
+      "bytes": 38,
+      "name": "?R_SceneZNear@@YAMXZ",
+      "object": "r_scene.obj"
+    },
+    {
+      "target": "0x100242b0",
+      "bytes": 46,
+      "name": "?R_SetViewParmsProjection@@YAXPAUGfxViewParms@@MMM@Z",
+      "object": "r_scene.obj"
+    },
+    {
+      "target": "0x100242e0",
+      "bytes": 33,
+      "name": "?R_SetViewParmsViewProjection@@YAXPAUGfxViewParms@@@Z",
+      "object": "r_scene.obj"
+    },
+    {
+      "target": "0x10024310",
+      "bytes": 102,
+      "name": "?R_DecomposeSort@@YAXIPAHPAPBUMaterial@@0@Z",
+      "object": "r_scene.obj"
+    },
+    {
       "target": "0x10024460",
       "bytes": 70,
       "name": "?R_ShortSortDrawSurfs@@YAXPAUGfxDrawSurf@@0@Z",
@@ -1392,6 +1782,18 @@
       "object": "r_scene.obj"
     },
     {
+      "target": "0x100245e0",
+      "bytes": 30,
+      "name": "?R_SceneDynamicShadowsEnabled@@YAHXZ",
+      "object": "r_scene.obj"
+    },
+    {
+      "target": "0x100247d0",
+      "bytes": 32,
+      "name": "?R_SceneLitTechnique@@YA?AW4MaterialTechniqueType@@XZ",
+      "object": "r_scene.obj"
+    },
+    {
       "target": "0x10024920",
       "bytes": 156,
       "name": "?R_GetClearColor@@YAPAMPAM@Z",
@@ -1401,6 +1803,12 @@
       "target": "0x10024a40",
       "bytes": 53,
       "name": "?R_ClearFloatZ@@YAXXZ",
+      "object": "r_scene.obj"
+    },
+    {
+      "target": "0x10024a80",
+      "bytes": 14,
+      "name": "?R_SceneNoMultiSample@@YAHXZ",
       "object": "r_scene.obj"
     },
     {
@@ -1437,6 +1845,18 @@
       "target": "0x100266f0",
       "bytes": 97,
       "name": "?R_FlipCubemapShot@@YAXPAE@Z",
+      "object": "r_screenshot.obj"
+    },
+    {
+      "target": "0x10026760",
+      "bytes": 65,
+      "name": "?R_FinishCubemapShotCapture@@YAXHPAE@Z",
+      "object": "r_screenshot.obj"
+    },
+    {
+      "target": "0x100267b0",
+      "bytes": 47,
+      "name": "?R_InitCubemapShotHeader@@YAXPAEH@Z",
       "object": "r_screenshot.obj"
     },
     {
@@ -1494,6 +1914,12 @@
       "object": "r_sky.obj"
     },
     {
+      "target": "0x10029310",
+      "bytes": 11,
+      "name": "?log@@YAMM@Z",
+      "object": "r_specularityimage.obj"
+    },
+    {
       "target": "0x10029320",
       "bytes": 262,
       "name": "?Image_BuildSpecularityMap@@YAXMPAE@Z",
@@ -1503,7 +1929,7 @@
       "target": "0x100296a0",
       "bytes": 73,
       "name": "?R_GetMaxModelSurfaceCount@@YAHPBUXModel@@@Z",
-      "object": "r_staticmodel_load_obj.obj"
+      "object": "r_staticmodel.obj"
     },
     {
       "target": "0x10029780",
@@ -1578,6 +2004,18 @@
       "object": "r_utils.obj"
     },
     {
+      "target": "0x1002c010",
+      "bytes": 70,
+      "name": "?R_PointInLeaf@@YAPAUmnode_t@@PBM@Z",
+      "object": "r_utils.obj"
+    },
+    {
+      "target": "0x1002c440",
+      "bytes": 15,
+      "name": "??0LargeLocal@@QAE@H@Z",
+      "object": "r_utils.obj"
+    },
+    {
       "target": "0x1002c7b0",
       "bytes": 160,
       "name": "?R_WaterHeightMap@@YAXPAUcomplex_s@@PAEPAUwater_t@@@Z",
@@ -1600,6 +2038,12 @@
       "bytes": 403,
       "name": "?XSurfaceTransferDx7@@YAXPBUXVertexBuffer@@PAUGfxVertexDx7@@H@Z",
       "object": "r_xsurface.obj"
+    },
+    {
+      "target": "0x1002ddc0",
+      "bytes": 10,
+      "name": "?RB_ClampNonNegative@@YAHH@Z",
+      "object": "rb_backend.obj"
     },
     {
       "target": "0x1002eaa0",
@@ -1626,6 +2070,12 @@
       "object": "rb_backend.obj"
     },
     {
+      "target": "0x1002f2a0",
+      "bytes": 140,
+      "name": "?RB_SetMaterialTime@@YAXM@Z",
+      "object": "rb_backend.obj"
+    },
+    {
       "target": "0x1002fe70",
       "bytes": 211,
       "name": "?RB_ClearScreen@@YAXEPBMME@Z",
@@ -1641,6 +2091,18 @@
       "target": "0x100307e0",
       "bytes": 91,
       "name": "?RB_SetGammaRamp@@YAXPBUGfxGammaRamp@@@Z",
+      "object": "rb_backend.obj"
+    },
+    {
+      "target": "0x10030840",
+      "bytes": 56,
+      "name": "?RB_NeedsBlur@@YAEM@Z",
+      "object": "rb_backend.obj"
+    },
+    {
+      "target": "0x10030a20",
+      "bytes": 25,
+      "name": "?RB_GetBlurRadius@@YAMM@Z",
       "object": "rb_backend.obj"
     },
     {
@@ -1767,31 +2229,73 @@
       "target": "0x10037930",
       "bytes": 304,
       "name": "?RB_TechniqueName@@YAPBDH@Z",
+      "object": "rb_logfile.obj"
+    },
+    {
+      "target": "0x100381f0",
+      "bytes": 34,
+      "name": "?Vec4Add@@YAXPBM0PAM@Z",
+      "object": "rb_shade.obj"
+    },
+    {
+      "target": "0x10038220",
+      "bytes": 61,
+      "name": "?Vec4Lerp@@YAXPBM0MPAM@Z",
+      "object": "rb_shade.obj"
+    },
+    {
+      "target": "0x10038280",
+      "bytes": 25,
+      "name": "?RB_GetSModelCacheVertexSize@@YAHXZ",
+      "object": "rb_shade.obj"
+    },
+    {
+      "target": "0x100382a0",
+      "bytes": 43,
+      "name": "?RB_SetCodeConstantFromVec3@@YAXHPBM@Z",
+      "object": "rb_shade.obj"
+    },
+    {
+      "target": "0x100382d0",
+      "bytes": 21,
+      "name": "?RB_CheckDynamicVbSpace@@YAXH@Z",
+      "object": "rb_shade.obj"
+    },
+    {
+      "target": "0x100382f0",
+      "bytes": 56,
+      "name": "?RB_SetStateBits@@YAXPBH@Z",
+      "object": "rb_shade.obj"
+    },
+    {
+      "target": "0x100383f0",
+      "bytes": 54,
+      "name": "?RB_SetStreamSource@@YAXHPAUIDirect3DVertexBuffer9@@HH@Z",
       "object": "rb_shade.obj"
     },
     {
       "target": "0x10038430",
       "bytes": 104,
       "name": "?RB_ChangePixelShader@@YAXPAUIDirect3DPixelShader9@@@Z",
-      "object": "rb_state.obj"
+      "object": "rb_shade.obj"
     },
     {
       "target": "0x100384a0",
       "bytes": 104,
       "name": "?RB_ChangeVertexShader@@YAXPAUIDirect3DVertexShader9@@@Z",
-      "object": "rb_state.obj"
+      "object": "rb_shade.obj"
     },
     {
       "target": "0x10038510",
       "bytes": 114,
       "name": "?RB_ChangeVertexDeclaration@@YAXPAUIDirect3DVertexDeclaration9@@@Z",
-      "object": "rb_state.obj"
+      "object": "rb_shade.obj"
     },
     {
       "target": "0x10038610",
       "bytes": 150,
       "name": "?RB_DrawIndexedPrimitive@@YAXPBUGfxDrawPrimArgs@@@Z",
-      "object": "rb_state.obj"
+      "object": "rb_shade.obj"
     },
     {
       "target": "0x100386b0",
@@ -1860,6 +2364,12 @@
       "object": "rb_shade.obj"
     },
     {
+      "target": "0x1003a9a0",
+      "bytes": 36,
+      "name": "?RB_CreateDynamicBuffers@@YAXXZ",
+      "object": "rb_shade.obj"
+    },
+    {
       "target": "0x1003ad40",
       "bytes": 386,
       "name": "?RB_SetTessQuad@@YAPAUGfxVertex@@TGfxColor@@@Z",
@@ -1870,6 +2380,12 @@
       "bytes": 352,
       "name": "?RB_CalcSunBlindGlare@@YAXPAUSunFlareDynamic@@HPAM1@Z",
       "object": "rb_sky.obj"
+    },
+    {
+      "target": "0x1003d210",
+      "bytes": 29,
+      "name": "?RB_DecodeTextureStageArg@@YAKH@Z",
+      "object": "rb_state.obj"
     },
     {
       "target": "0x1003d920",
@@ -1902,16 +2418,28 @@
       "object": "rb_state.obj"
     },
     {
+      "target": "0x1003e630",
+      "bytes": 81,
+      "name": "?RB_GetViewport@@YA_NPAUGfxViewport@@@Z",
+      "object": "rb_state.obj"
+    },
+    {
       "target": "0x1003ec50",
       "bytes": 33,
       "name": "?RB_BindWhiteImages@@YAXXZ",
       "object": "rb_state.obj"
     },
     {
+      "target": "0x1003ec80",
+      "bytes": 33,
+      "name": "?RB_BindDefaultImages@@YAXXZ",
+      "object": "rb_state.obj"
+    },
+    {
       "target": "0x1003edf0",
       "bytes": 22,
       "name": "?Vec2Length@@YAMQBM@Z",
-      "object": "com_math.obj"
+      "object": "rb_tess.obj"
     },
     {
       "target": "0x10057a10",
@@ -2022,6 +2550,24 @@
       "object": "com_math.obj"
     },
     {
+      "target": "0x1005e690",
+      "bytes": 85,
+      "name": "?Com_StringContains@@YAPBDPBD0P6AH00@Z@Z",
+      "object": "com_shared.obj"
+    },
+    {
+      "target": "0x1005e9c0",
+      "bytes": 57,
+      "name": "?Com_HashKey@@YAHPBDH@Z",
+      "object": "com_shared.obj"
+    },
+    {
+      "target": "0x1005ea00",
+      "bytes": 91,
+      "name": "?Com_RealTime@@YAHPAUqtime_s@@@Z",
+      "object": "com_shared.obj"
+    },
+    {
       "target": "0x1005edb0",
       "bytes": 169,
       "name": "?FFT_Init@@YAXPAHPAUcomplex_s@@@Z",
@@ -2061,6 +2607,18 @@
       "target": "0x10060860",
       "bytes": 19,
       "name": "?I_isupper@@YA_NH@Z",
+      "object": "q_shared.obj"
+    },
+    {
+      "target": "0x100609f0",
+      "bytes": 18,
+      "name": "?I_stricmp@@YAHPBD0@Z",
+      "object": "q_shared.obj"
+    },
+    {
+      "target": "0x10060a10",
+      "bytes": 62,
+      "name": "?I_strcmp@@YAHPBD0@Z",
       "object": "q_shared.obj"
     },
     {

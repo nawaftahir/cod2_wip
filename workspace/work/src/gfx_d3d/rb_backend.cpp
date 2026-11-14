@@ -19,18 +19,44 @@ void RB_EndSurface();
 void RB_BeginSurface(const Material *material, int technique, int lightmap);
 void RB_SetVertex2D(int index, float x, float y, float s, float t, unsigned int color);
 
+/* Header-style inline helpers. Retail keeps their out-of-line copies at the head of this
+   object (PINNED 1002ddc0/10, 1002de70/26, 1002ded0/62, 1002df10/40); names unconfirmed. */
+inline int RB_ClampNonNegative(int value)
+{
+    return value & ~(value >> 31);
+}
+
+inline void RB_EndTessSurface()
+{
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+}
+
+inline void RB_SetTessTechnique(const Material *material, int techType, int lmapIndex)
+{
+    if (tess.material != material || tess.techType != techType)
+    {
+        RB_EndTessSurface();
+        RB_BeginSurface(material, techType, lmapIndex);
+    }
+}
+
+inline void RB_SetTessDeclType(int declType)
+{
+    if (tess.declType != declType)
+    {
+        RB_EndTessSurface();
+        tess.declType = declType;
+    }
+}
+
 // PINNED 1002df40: resume the current material while preserving declaration type.
 void RB_TessOverflow()
 {
     int declaration = tess.declType;
     RB_EndSurface();
     RB_BeginSurface(tess.material, tess.techType, tess.lmapIndex);
-    if (tess.declType != declaration)
-    {
-        if (tess.indexCount || tess.optimizedIndexCount)
-            RB_EndSurface();
-        tess.declType = declaration;
-    }
+    RB_SetTessDeclType(declaration);
 }
 
 // Name SUPPORTED (Quake III / coduomp); PINNED out-of-line copy 1002dfa0.
@@ -44,8 +70,7 @@ void RB_CheckOverflow(int vertexCount, int indexCount)
 // PINNED 1002e020: preserve unused cache fields and use live state after flush.
 void RB_Set2D()
 {
-    if (tess.indexCount || tess.optimizedIndexCount)
-        RB_EndSurface();
+    RB_EndTessSurface();
     backEnd.projection2D = 1;
     GfxViewport viewport;
     if (dxState.viewportBehavior == 1)
@@ -115,12 +140,7 @@ void RB_DrawStretchPic(const Material *material, float x, float y, float width, 
 {
     if (!backEnd.projection2D)
         RB_Set2D();
-    if (tess.material != material || tess.techType != 3)
-    {
-        if (tess.indexCount || tess.optimizedIndexCount)
-            RB_EndSurface();
-        RB_BeginSurface(material, 3, 31);
-    }
+    RB_SetTessTechnique(material, 3, 31);
     RB_CheckOverflow(4, 6);
     int vertex = tess.vertexCount;
     tess.indices[tess.indexCount] = (unsigned short)(vertex + 3);
@@ -137,6 +157,26 @@ void RB_DrawStretchPic(const Material *material, float x, float y, float width, 
     RB_SetVertex2D(tess.vertexCount + 3, x, bottom, s0, t1, color);
     tess.vertexCount += 4;
     tess.indexCount += 6;
+}
+
+// PINNED out-of-line copies 1002e9e0/1002ea20/1002ea60 (KisakCOD names): whole-target quads.
+void RB_DrawFullScreenColoredQuad(const Material *material, float s0, float t0, float s1, float t1,
+    unsigned int color)
+{
+    RB_DrawStretchPic(material, 0.0f, 0.0f, (float)dxState.renderTargetWidth,
+        (float)dxState.renderTargetHeight, s0, t0, s1, t1, color);
+}
+
+void RB_FullScreenColoredFilter(const Material *material, unsigned int color)
+{
+    RB_DrawStretchPic(material, 0.0f, 0.0f, (float)dxState.renderTargetWidth,
+        (float)dxState.renderTargetHeight, 0.0f, 0.0f, 1.0f, 1.0f, color);
+}
+
+void RB_FullScreenFilter(const Material *material)
+{
+    RB_DrawStretchPic(material, 0.0f, 0.0f, (float)dxState.renderTargetWidth,
+        (float)dxState.renderTargetHeight, 0.0f, 0.0f, 1.0f, 1.0f, 0xffffffff);
 }
 
 // Backend frame driver.
@@ -542,12 +582,7 @@ static void RB_StretchPicRotateCmd(GfxRenderCommandExecState *state)
     if (!backEnd.projection2D)
         RB_Set2D();
     const Material *material = cmd->material;
-    if (tess.material != material || tess.techType != 3)
-    {
-        if (tess.indexCount || tess.optimizedIndexCount)
-            RB_EndSurface();
-        RB_BeginSurface(material, 3, 31);
-    }
+    RB_SetTessTechnique(material, 3, 31);
     if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
         RB_TessOverflow();
     int vertex = (unsigned short)tess.vertexCount;
@@ -584,12 +619,7 @@ static void RB_DrawQuadPicCmd(GfxRenderCommandExecState *state)
     if (!backEnd.projection2D)
         RB_Set2D();
     const Material *material = cmd->material;
-    if (tess.material != material || tess.techType != 3)
-    {
-        if (tess.indexCount || tess.optimizedIndexCount)
-            RB_EndSurface();
-        RB_BeginSurface(material, 3, 31);
-    }
+    RB_SetTessTechnique(material, 3, 31);
     if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
         RB_TessOverflow();
     int vertex = (unsigned short)tess.vertexCount;
@@ -661,8 +691,7 @@ static void RB_StretchRawCmd(GfxRenderCommandExecState *state)
 // PINNED 1002f990: invalidate stack zero, regardless of the active stack level.
 static void RB_SetShadowCookieCmd(GfxRenderCommandExecState *state)
 {
-    if (tess.indexCount || tess.optimizedIndexCount)
-        RB_EndSurface();
+    RB_EndTessSurface();
     const GfxCmdSetShadowCookie *cmd = (const GfxCmdSetShadowCookie *)state->cmd;
     float size = (float)dx.renderTargets[R_RENDERTARGET_SHADOWCOOKIE].width;
     memcpy(&backEnd.shadowLookupMatrix, cmd->shadowLookupMatrix, 64);
@@ -700,8 +729,7 @@ static void RB_SetClipPlanesCmd(GfxRenderCommandExecState *state)
 // PINNED 1002e380: restore 3D matrices before publishing fresh view vectors.
 void RB_Set3D()
 {
-    if (tess.indexCount || tess.optimizedIndexCount)
-        RB_EndSurface();
+    RB_EndTessSurface();
     backEnd.projection2D = 0;
     MatrixIdentity44(backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel].world.matrix[0].m);
     RB_ChangedWorldMatrix(1.0f);
@@ -736,8 +764,7 @@ unsigned char RB_NeedsSceneCopy(float blurRadius)
 static void RB_SetMaterialColorCmd(GfxRenderCommandExecState *state)
 {
     const GfxCmdSetMaterialColor *cmd = (const GfxCmdSetMaterialColor *)state->cmd;
-    if (tess.indexCount || tess.optimizedIndexCount)
-        RB_EndSurface();
+    RB_EndTessSurface();
     memcpy(backEnd.codeConsts[27], cmd->color, sizeof(cmd->color));
     const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
     state->cmd = (const byte *)header + header->byteCount;
@@ -747,8 +774,7 @@ static void RB_SetMaterialColorCmd(GfxRenderCommandExecState *state)
 static void RB_SetRenderTargetCmd(GfxRenderCommandExecState *state)
 {
     const GfxCmdSetRenderTarget *cmd = (const GfxCmdSetRenderTarget *)state->cmd;
-    if (tess.indexCount || tess.optimizedIndexCount)
-        RB_EndSurface();
+    RB_EndTessSurface();
     RB_SetRenderTarget(cmd->renderTargetId);
     const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
     state->cmd = (const byte *)header + header->byteCount;
@@ -758,8 +784,7 @@ static void RB_SetRenderTargetCmd(GfxRenderCommandExecState *state)
 static void RB_SetViewportCmd(GfxRenderCommandExecState *state)
 {
     const GfxCmdSetViewport *cmd = (const GfxCmdSetViewport *)state->cmd;
-    if (tess.indexCount || tess.optimizedIndexCount)
-        RB_EndSurface();
+    RB_EndTessSurface();
     backEnd.sceneViewport = cmd->viewport;
     backEnd.viewportIsDirty = 1;
     RB_UpdateViewportConstants();
@@ -793,8 +818,7 @@ static void RB_DrawFullScreenColoredQuadCmd(GfxRenderCommandExecState *state)
 static void RB_SetLightPropertiesCmd(GfxRenderCommandExecState *state)
 {
     const GfxCmdSetLightProperties *cmd = (const GfxCmdSetLightProperties *)state->cmd;
-    if (tess.indexCount || tess.optimizedIndexCount)
-        RB_EndSurface();
+    RB_EndTessSurface();
     GfxBackEndLightSettings *light = &backEnd.light[cmd->lightIndex];
     memcpy(light->ambient, cmd->ambient, sizeof(light->ambient));
     memcpy(light->color, cmd->color, sizeof(light->color));
@@ -813,8 +837,7 @@ static void RB_SetLightPropertiesCmd(GfxRenderCommandExecState *state)
 static void RB_SetStencilRefValueCmd(GfxRenderCommandExecState *state)
 {
     const GfxCmdSetStencilRefValue *cmd = (const GfxCmdSetStencilRefValue *)state->cmd;
-    if (tess.indexCount || tess.optimizedIndexCount)
-        RB_EndSurface();
+    RB_EndTessSurface();
     if (dxState.stencilRefValue != cmd->refValue)
     {
         R_DX_CALL(dx.device->SetRenderState( D3DRS_STENCILREF, cmd->refValue ));
@@ -843,8 +866,7 @@ void RB_SetFrustumConstants()
 static void RB_BeginViewCmd(GfxRenderCommandExecState *state)
 {
     const GfxCmdBeginView *cmd = (const GfxCmdBeginView *)state->cmd;
-    if (tess.indexCount || tess.optimizedIndexCount)
-        RB_EndSurface();
+    RB_EndTessSurface();
     backEnd.viewCount = cmd->viewCount;
     backEnd.sceneDef = cmd->sceneDef;
     backEnd.viewParms = cmd->viewParms;
@@ -951,7 +973,7 @@ void RB_AdaptiveGpuSyncTarget()
 	if (!RB_IsGpuFenceFinished())
 		return;
 	delay = dx.gpuSyncDelay - 20000;
-	dx.gpuSyncDelay = delay & ~(delay >> 31);
+	dx.gpuSyncDelay = RB_ClampNonNegative(delay);
 }
 
 // Kisak name.
@@ -1126,8 +1148,7 @@ static void RB_CopyBackBufferToSurface(GfxImage *image)
 // PINNED 10030c10, command25: publish the resolved target only after copying.
 static void RB_ApplyEarlyPostEffectsCmd(GfxRenderCommandExecState *state)
 {
-    if (tess.indexCount || tess.optimizedIndexCount)
-        RB_EndSurface();
+    RB_EndTessSurface();
     backEnd.resolvedPostSunTarget = R_RENDERTARGET_NONE;
     if (r_distortion->current.enabled || (r_rendererInUse->current.integer != 2
         && dx.hasSeparateAlphaBlend && r_glow->current.enabled && !r_fullbright->current.enabled))
@@ -1142,8 +1163,7 @@ static void RB_ApplyEarlyPostEffectsCmd(GfxRenderCommandExecState *state)
 // PINNED 10030c90: publish current scene time after the surface callbacks.
 static void RB_SaveScreenCmd(GfxRenderCommandExecState *state)
 {
-    if (tess.indexCount || tess.optimizedIndexCount)
-        RB_EndSurface();
+    RB_EndTessSurface();
     RB_CopyBackBufferToSurface(dx.renderTargets[R_RENDERTARGET_SAVED_SCREEN].image);
     rgp.savedScreenTime = backEnd.sceneDef.time;
     const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
@@ -1166,8 +1186,7 @@ static void RB_BlurShadowCookiePass(float minCoord, float maxCoord)
 // PINNED 100309a0, command28: complete both passes before reloading sc_blur.
 static void RB_BlurShadowCookieCmd(GfxRenderCommandExecState *state)
 {
-    if (tess.indexCount || tess.optimizedIndexCount)
-        RB_EndSurface();
+    RB_EndTessSurface();
     for (int iteration = 0; iteration < sc_blur->current.integer; ++iteration)
     {
         RB_BlurShadowCookiePass(0.01171875f, 0.99609375f);
@@ -1183,12 +1202,7 @@ static void RB_StencilPlanesCmd(GfxRenderCommandExecState *state)
 {
     const GfxCmdStencilPlanes *cmd = (const GfxCmdStencilPlanes *)state->cmd;
     const Material *material = rgp.stencilPlaneMaterial;
-    if (tess.material != material || tess.techType != 3)
-    {
-        if (tess.indexCount || tess.optimizedIndexCount)
-            RB_EndSurface();
-        RB_BeginSurface(material, 3, 31);
-    }
+    RB_SetTessTechnique(material, 3, 31);
     const GfxColor white = 0xffffffff;
     for (int plane = 0; plane < cmd->planeCount; ++plane)
     {
@@ -1222,16 +1236,10 @@ static void RB_DrawTriangles(const Material *material, int technique, short inde
     const unsigned short *indices, short vertexCount, const float (*xyzw)[4],
     const float (*normals)[3], const GfxColor *colors, const float (*texCoords)[2])
 {
-    if (tess.indexCount || tess.optimizedIndexCount)
-        RB_EndSurface();
+    RB_EndTessSurface();
     if (backEnd.projection2D)
         RB_Set3D();
-    if (tess.material != material || tess.techType != technique)
-    {
-        if (tess.indexCount || tess.optimizedIndexCount)
-            RB_EndSurface();
-        RB_BeginSurface(material, technique, 31);
-    }
+    RB_SetTessTechnique(material, technique, 31);
     if (tess.vertexCount + vertexCount > 5450 || tess.indexCount + indexCount > 0x100000)
         RB_TessOverflow();
     for (int index = 0; index < indexCount; ++index)
@@ -1249,8 +1257,7 @@ static void RB_DrawTriangles(const Material *material, int technique, short inde
 static void RB_BlendSavedScreenCmd(GfxRenderCommandExecState *state)
 {
     const GfxCmdBlendSavedScreen *cmd = (const GfxCmdBlendSavedScreen *)state->cmd;
-    if (tess.indexCount || tess.optimizedIndexCount)
-        RB_EndSurface();
+    RB_EndTessSurface();
     if (!backEnd.projection2D)
         RB_Set2D();
     int elapsed = (int)((unsigned int)backEnd.sceneDef.time - (unsigned int)rgp.savedScreenTime);
@@ -1274,12 +1281,7 @@ static void RB_BlendSavedScreenCmd(GfxRenderCommandExecState *state)
 static void RB_DrawPoints2D(const GfxCmdDrawPoints *cmd)
 {
     const Material *material = rgp.whiteMaterial;
-    if (tess.material != material || tess.techType != 3)
-    {
-        if (tess.indexCount || tess.optimizedIndexCount)
-            RB_EndSurface();
-        RB_BeginSurface(material, 3, 31);
-    }
+    RB_SetTessTechnique(material, 3, 31);
     float halfSize = cmd->size * 0.5f;
     const GfxPointVertex *point = cmd->verts;
     for (int index = 0; index < cmd->pointCount; ++index, ++point)
@@ -1312,12 +1314,7 @@ static void RB_DrawPoints2D(const GfxCmdDrawPoints *cmd)
 static void RB_DrawPoints3D(const GfxCmdDrawPoints *cmd)
 {
     const Material *material = rgp.pointMaterial;
-    if (tess.material != material || tess.techType != 3)
-    {
-        if (tess.indexCount || tess.optimizedIndexCount)
-            RB_EndSurface();
-        RB_BeginSurface(material, 3, 31);
-    }
+    RB_SetTessTechnique(material, 3, 31);
     D3DMATRIX identity;
     MatrixIdentity44(identity.m);
     backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel].projection.matrix[0] = identity;
@@ -1380,12 +1377,7 @@ static void RB_DrawPointsCmd(GfxRenderCommandExecState *state)
 static void RB_DrawLines2D(int count, const GfxPointVertex *verts)
 {
     const Material *material = rgp.whiteMaterial;
-    if (tess.material != material || tess.techType != 3)
-    {
-        if (tess.indexCount || tess.optimizedIndexCount)
-            RB_EndSurface();
-        RB_BeginSurface(material, 3, 31);
-    }
+    RB_SetTessTechnique(material, 3, 31);
     for (; count > 0; --count, verts += 2)
     {
         float delta[2];
@@ -1421,12 +1413,7 @@ static void RB_DrawLines2D(int count, const GfxPointVertex *verts)
 void RB_DrawLines3D(int count, int width, const GfxPointVertex *verts, bool depthTest)
 {
     const Material *material = rgp.lineMaterial;
-    if (tess.material != material || tess.techType != 3)
-    {
-        if (tess.indexCount || tess.optimizedIndexCount)
-            RB_EndSurface();
-        RB_BeginSurface(material, 3, 31);
-    }
+    RB_SetTessTechnique(material, 3, 31);
     if (!depthTest)
     {
         // Preserve both PC stores without claiming historical volatile provenance.
@@ -1519,11 +1506,15 @@ static void RB_DrawTrianglesCmd(GfxRenderCommandExecState *state)
 {
     const GfxCmdDrawTriangles *cmd = (const GfxCmdDrawTriangles *)state->cmd;
     int count = cmd->vertexCount;
-    const byte *positions = (const byte *)cmd + sizeof(*cmd);
-    const byte *normals = positions + count * 16;
-    const byte *colors = normals + count * 12;
-    const byte *texCoords = colors + count * 4;
-    const unsigned short *indices = (const unsigned short *)(texCoords + count * 8);
+    const byte *base = (const byte *)cmd;
+    int normalsOffset = sizeof(*cmd) + count * 16;
+    int colorsOffset = normalsOffset + count * 12;
+    int texCoordsOffset = colorsOffset + count * 4;
+    const byte *positions = base + sizeof(*cmd);
+    const byte *normals = base + normalsOffset;
+    const byte *colors = base + colorsOffset;
+    const byte *texCoords = base + texCoordsOffset;
+    const unsigned short *indices = (const unsigned short *)(base + texCoordsOffset + count * 8);
     RB_DrawTriangles(cmd->material, cmd->techType, cmd->indexCount, indices, cmd->vertexCount,
         (const float (*)[4])positions, (const float (*)[3])normals,
         (const GfxColor *)colors, (const float (*)[2])texCoords);
@@ -1727,12 +1718,7 @@ static void RB_DrawTextCmd(GfxRenderCommandExecState *execState)
 static void RB_DrawTextQuad(const Material *material, const float *org,
     const float *width, const float *height, const Glyph *glyph, GfxColor color)
 {
-    if (tess.material != material || tess.techType != 3)
-    {
-        if (tess.indexCount || tess.optimizedIndexCount)
-            RB_EndSurface();
-        RB_BeginSurface(material, 3, 31);
-    }
+    RB_SetTessTechnique(material, 3, 31);
     if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
         RB_TessOverflow();
     int vertex = tess.vertexCount;
@@ -1799,12 +1785,7 @@ static void RB_DrawSpriteCmd(GfxRenderCommandExecState *state)
     if (backEnd.projection2D)
         RB_Set3D();
     const Material *material = cmd->material;
-    if (tess.material != material || tess.techType != 3)
-    {
-        if (tess.indexCount || tess.optimizedIndexCount)
-            RB_EndSurface();
-        RB_BeginSurface(material, 3, 31);
-    }
+    RB_SetTessTechnique(material, 3, 31);
     GfxEntity entity;
     memset(&entity, 0, sizeof(entity));
     entity.reType = RT_SPRITE;
@@ -1852,7 +1833,7 @@ static const Bool refEntIsInWorldSpace[10] = {0,0,0,0,1,1,0,1,1,1};
 // PINNED 1002f2a0: keep the fractional frame time for both render paths.
 static void RB_SetMaterialTime(float time)
 {
-    float fraction = (float)(time - floor((double)time));
+    float fraction = time - floor(time);
     if (r_rendererInUse->current.integer == 2)
         backEnd.texScrollAmountDx7 = fraction;
     else
@@ -1937,8 +1918,7 @@ static void RB_RenderDrawSurfList(GfxDrawSurf *drawSurfs, int count, int techniq
             if (material != previousMaterial || lightmap != previousLightmap
                 || actualTechnique != previousTechnique || materialTime != previousTime || !mergeable)
             {
-                if (tess.indexCount || tess.optimizedIndexCount)
-                    RB_EndSurface();
+                RB_EndTessSurface();
                 if (materialTime != previousTime)
                     RB_SetMaterialTime(backEnd.sceneDef.floatTime - materialTime);
                 RB_BeginSurface(material, actualTechnique, lightmap);
@@ -2008,8 +1988,7 @@ static void RB_RenderDrawSurfList(GfxDrawSurf *drawSurfs, int count, int techniq
         if (!ignored)
             rb_tessTable[*drawSurf->surface](drawSurf->surface);
     }
-    if (tess.indexCount || tess.optimizedIndexCount)
-        RB_EndSurface();
+    RB_EndTessSurface();
     if (depthRange)
     {
         RB_SetDepthRange(0.0f, 1.0f);
@@ -2031,8 +2010,7 @@ static void RB_DrawSurfsCmd(GfxRenderCommandExecState *state)
 {
     const GfxCmdDrawSurfs *cmd = (const GfxCmdDrawSurfs *)state->cmd;
     state->cmd = (const byte *)cmd + cmd->header.byteCount;
-    if (tess.indexCount || tess.optimizedIndexCount)
-        RB_EndSurface();
+    RB_EndTessSurface();
     if (backEnd.projection2D)
         RB_Set3D();
     if (backEnd.viewportIsDirty)
@@ -2059,8 +2037,7 @@ static void RB_DrawSunCmd(GfxRenderCommandExecState *state)
 static void RB_DrawSunPostEffectsCmd(GfxRenderCommandExecState *state)
 {
     const GfxCmdSunView *cmd = (const GfxCmdSunView *)state->cmd;
-    if (tess.indexCount || tess.optimizedIndexCount)
-        RB_EndSurface();
+    RB_EndTessSurface();
     RB_DrawSunPostEffects(cmd->viewIndex);
     const byte *next = (const byte *)state->cmd;
     state->cmd = next + ((const GfxCmdHeader *)next)->byteCount;
@@ -2103,14 +2080,20 @@ static void RB_DrawFrameColorDebug()
     float width = dxState.renderTargetWidth * 0.5f;
     float height = dxState.renderTargetHeight * 0.5f;
     float quarterWidth = width * 0.5f, quarterHeight = height * 0.5f;
+    // PINNED 10030190/286: retail builds each color byte by byte
+    byte color[4];
+    color[0] = 0; color[1] = 0; color[2] = 255; color[3] = 255;
     RB_DrawStretchPic(rgp.frameColorDebugMaterial, quarterWidth, quarterHeight, quarterWidth,
-        quarterHeight, 0.0f, 0.0f, 1.0f, 1.0f, 0xffff0000);
+        quarterHeight, 0.0f, 0.0f, 1.0f, 1.0f, *(unsigned int *)color);
+    color[0] = 0; color[1] = 255; color[2] = 0; color[3] = 255;
     RB_DrawStretchPic(rgp.frameColorDebugMaterial, width, quarterHeight, quarterWidth,
-        quarterHeight, 0.0f, 0.0f, 1.0f, 1.0f, 0xff00ff00);
+        quarterHeight, 0.0f, 0.0f, 1.0f, 1.0f, *(unsigned int *)color);
+    color[0] = 255; color[1] = 0; color[2] = 0; color[3] = 255;
     RB_DrawStretchPic(rgp.frameColorDebugMaterial, quarterWidth, height, quarterWidth,
-        quarterHeight, 0.0f, 0.0f, 1.0f, 1.0f, 0xff0000ff);
+        quarterHeight, 0.0f, 0.0f, 1.0f, 1.0f, *(unsigned int *)color);
+    color[0] = 255; color[1] = 255; color[2] = 255; color[3] = 255;
     RB_DrawStretchPic(rgp.frameAlphaDebugMaterial, width, height, quarterWidth,
-        quarterHeight, 0.0f, 0.0f, 1.0f, 1.0f, 0xffffffff);
+        quarterHeight, 0.0f, 0.0f, 1.0f, 1.0f, *(unsigned int *)color);
     RB_EndSurface();
 }
 
@@ -2248,6 +2231,27 @@ static void RB_DrawPostDebug()
     }
 }
 
+// Name unconfirmed; PINNED out-of-line copy 10030840.
+unsigned char RB_NeedsBlur(float blurRadius)
+{
+    return r_rendererInUse->current.integer != 2
+        && (r_blur->current.value > 0.0f || blurRadius > 0.0f);
+}
+
+// Name unconfirmed; PINNED out-of-line copy 10030880.
+unsigned char RB_NeedsGlow()
+{
+    return r_rendererInUse->current.integer != 2 && dx.hasSeparateAlphaBlend
+        && r_glow->current.enabled && !r_fullbright->current.enabled;
+}
+
+// Name unconfirmed; PINNED out-of-line copy 10030a20.
+float RB_GetBlurRadius(float blurRadius)
+{
+    float blur = r_blur->current.value;
+    return sqrtf(blur * blur + blurRadius * blurRadius);
+}
+
 // PINNED 10030ab0: resolve once, glow first, blur second.
 static void RB_ApplyLatePostEffects(float blurRadius)
 {
@@ -2277,8 +2281,7 @@ struct GfxCmdLatePost { GfxCmdHeader header; float blurRadius; };
 static void RB_ApplyLatePostEffectsCmd(GfxRenderCommandExecState *state)
 {
     const GfxCmdLatePost *cmd = (const GfxCmdLatePost *)state->cmd;
-    if (tess.indexCount || tess.optimizedIndexCount)
-        RB_EndSurface();
+    RB_EndTessSurface();
     GfxRenderTargetId target = dxState.renderTargetId;
     backEnd.resolvedSceneTarget = R_RENDERTARGET_NONE;
     if (RB_NeedsSceneCopy(cmd->blurRadius))
@@ -2503,8 +2506,7 @@ void RB_ExecuteRenderCommands(const void *data)
             RB_UpdateViewport();
         R_DX_CALL(dx.device->Clear( 0, 0, D3DCLEAR_TARGET, 0, 0, 0 ));
     }
-    if (tess.indexCount || tess.optimizedIndexCount)
-        RB_EndSurface();
+    RB_EndTessSurface();
     if (backEnd.viewParms && developer->current.integer)
         RB_DrawDebug(backEnd.viewParms);
     if (dxState.indexBuffer)

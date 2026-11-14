@@ -16,7 +16,6 @@ gfx_d3d/r_font_load_obj.cpp
 gfx_d3d/r_image.cpp
 gfx_d3d/r_image_load_common.cpp
 gfx_d3d/r_image_load_obj.cpp
-gfx_d3d/r_specularityimage.cpp
 gfx_d3d/r_image_wavelet.cpp
 gfx_d3d/r_init.cpp
 gfx_d3d/r_jpeg.cpp
@@ -36,6 +35,7 @@ gfx_d3d/r_shadowcookie.cpp
 gfx_d3d/r_skin_transform.cpp
 gfx_d3d/r_sky.cpp
 gfx_d3d/r_sky_load_obj.cpp
+gfx_d3d/r_specularityimage.cpp
 gfx_d3d/r_splitscreen.cpp
 gfx_d3d/r_staticmodel.cpp
 gfx_d3d/r_staticmodel_load_obj.cpp
@@ -47,7 +47,6 @@ gfx_d3d/r_water.cpp
 gfx_d3d/r_water_load_obj.cpp
 gfx_d3d/r_xsurface.cpp
 gfx_d3d/r_xsurface_load_obj.cpp
-gfx_d3d/r_xsurface_optimize.cpp
 gfx_d3d/rb_backend.cpp
 gfx_d3d/rb_debug.cpp
 gfx_d3d/rb_fog.cpp
@@ -59,6 +58,7 @@ gfx_d3d/rb_shade.cpp
 gfx_d3d/rb_sky.cpp
 gfx_d3d/rb_state.cpp
 gfx_d3d/rb_tess.cpp
+universal/surfaceflags.cpp
 jpeg-6b/jcapimin.c
 jpeg-6b/jcapistd.c
 jpeg-6b/jccoefct.c
@@ -111,6 +111,5 @@ universal/com_shared.cpp
 universal/fft.cpp
 universal/q_parse.cpp
 universal/q_shared.cpp
-universal/surfaceflags.cpp
 qcommon/common.cpp
 win32/win_threads.cpp

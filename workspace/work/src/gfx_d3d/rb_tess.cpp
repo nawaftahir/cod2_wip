@@ -19,6 +19,105 @@ typedef char tessSurfaceLayoutCheck[(sizeof(srfPoly_t) == 16
     && offsetof(srfTriangles_t, indexCount) == 34
     && offsetof(srfTriangles_t, indices) == 36) ? 1 : -1];
 
+extern DxGlobals dx;
+extern const dvar_t *r_logFile;
+char *va(const char *format, ...);
+void RB_LogPrint(const char *text);
+
+typedef char cachedTessLayoutCheck[(offsetof(GfxStaticModelCachedSurface, surface) == 8
+    && offsetof(GfxStaticModelSurfaceCached, baseVertIndex) == 0
+    && offsetof(XSurface, triCount) == 4
+    && offsetof(DxGlobals, smodelCacheIndices) == 0x2dc8) ? 1 : -1];
+
+extern DxState dxState;
+extern r_backEndGlobals_t backEnd;
+void RB_ChangeIndices(IDirect3DIndexBuffer9 *buffer);
+void RB_ChangeStreamSource(int stream, IDirect3DVertexBuffer9 *buffer, int offset, int stride);
+void RB_PushMatrixStack();
+void RB_PopMatrixStack();
+void RB_ChangedWorldMatrix(float scale);
+void RB_DrawTechnique(int declaration, const GfxDrawPrimArgs *args);
+
+typedef char rigidTessLayoutCheck[(sizeof(GfxModelRigidSurface) == 56
+    && offsetof(GfxModelRigidSurface, boneAxis) == 8
+    && offsetof(XSurface, vertCount) == 2 && offsetof(XSurface, surfRigid) == 16
+    && offsetof(XSurface, indexBuffer) == 20
+    && sizeof(GfxCodeMatrices) == 0xcd0
+    && offsetof(r_backEndGlobals_t, codeMatrixStack) == 0x4e0
+    && offsetof(r_backEndGlobals_t, codeMatrixStackLevel) == 0x2b50
+    && offsetof(r_backEndGlobals_t, currentEntity) == 0x440
+    && offsetof(DxState, indexBuffer) == 0x20cc
+    && offsetof(DxState, streams) == 0x20d0
+    && offsetof(GfxEntity, scale) == 56 && sizeof(GfxDrawPrimArgs) == 20) ? 1 : -1];
+
+// PINNED PC skinned-model submission, 10041140..100413b5.
+extern GfxBackEndData *backEndData;
+void XSurfaceGetTris(const XSurface *surface, r_index_t *out, short offset);
+
+typedef char skinnedTessLayoutCheck[(sizeof(GfxModelSkinnedSurface) == 16
+    && offsetof(GfxModelSkinnedSurface, skinnedCachedOffset) == 8
+    && offsetof(GfxModelSkinnedSurface, skinnedVert) == 12
+    && sizeof(r_vb_state_t) == 12 && offsetof(r_vb_state_t, buffer) == 8
+    && offsetof(GfxBackEndData, skinnedCacheVb) == 0x217c78) ? 1 : -1];
+
+// PINNED PC particle-cloud submission, 10040ca0..10041024.
+#include <math.h>
+float Vec3Normalize(float *vector);
+
+typedef char particleTessLayoutCheck[(offsetof(GfxEntity, origin) == 0x3c
+    && offsetof(GfxEntity, endpos) == 0x48 && offsetof(GfxEntity, materialRGBA) == 0x58
+    && offsetof(GfxEntity, radius) == 0x64 && offsetof(GfxViewParms, viewMatrix) == 0x48
+    && offsetof(DxGlobals, particleCloudVertexBuffer) == 0x2db8
+    && offsetof(DxGlobals, particleCloudIndexBuffer) == 0x2dbc) ? 1 : -1];
+
+void MakeNormalVectors(const vec3_t forward, vec3_t right, vec3_t up);
+
+extern const dvar_t *r_railCoreWidth;
+
+// Private name unconfirmed; PINNED 1003ee10/68 is an out-of-line two-pointer call.
+#pragma optimize("p", on)
+static __declspec(noinline) int RB_ParticleCloudOriginsMatch(const float *a, const float *b)
+{
+    for (int index = 0; index < 3; ++index)
+    {
+        float delta = *a++ - *b++;
+        if (delta * delta > 0.0000010000001111620804f)
+            return 0;
+    }
+    return 1;
+}
+
+#pragma optimize("p", off)
+
+// Private name unconfirmed; PINNED 1003eea0/123, called only by RB_TessXModelRigid.
+static __declspec(noinline) void RB_SetWorldMatrixFromBoneAxis(const GfxModelRigidSurface *surface,
+    const GfxEntity *ent)
+{
+    float (*matrix)[4] = backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel].world.matrix[0].m;
+    matrix[0][0] = surface->boneAxis[0][0];
+    matrix[0][1] = surface->boneAxis[0][1];
+    matrix[0][2] = surface->boneAxis[0][2];
+    matrix[0][3] = 0.0f;
+    matrix[1][0] = surface->boneAxis[1][0];
+    matrix[1][1] = surface->boneAxis[1][1];
+    matrix[1][2] = surface->boneAxis[1][2];
+    matrix[1][3] = 0.0f;
+    matrix[2][0] = surface->boneAxis[2][0];
+    matrix[2][1] = surface->boneAxis[2][1];
+    matrix[2][2] = surface->boneAxis[2][2];
+    matrix[2][3] = 0.0f;
+    matrix[3][0] = surface->boneAxis[3][0];
+    matrix[3][1] = surface->boneAxis[3][1];
+    matrix[3][2] = surface->boneAxis[3][2];
+    matrix[3][3] = 1.0f;
+    RB_ChangedWorldMatrix(ent->scale);
+}
+
+// PINNED 1003ef20 is an actual empty return, not a replacement for missing kinds.
+void RB_TessBad(const surfaceType_t *surfType)
+{
+}
+
 // PINNED 1003ef30: declaration1, world vertices, then triangle-fan indices.
 void RB_TessPoly(const surfaceType_t *surfType)
 {
@@ -60,308 +159,6 @@ void RB_TessPoly(const surfaceType_t *surfType)
     tess.vertexCount += poly->vertCount;
 }
 
-// PINNED 100415f0: ordinary tess data is retained; optimized indices own these counts.
-void RB_TessTriangles(const surfaceType_t *surfType)
-{
-    const srfTriangles_t *triangles = (const srfTriangles_t *)surfType;
-    if (tess.optimizedIndexCount && (tess.firstOptimizedVertex != triangles->firstVertex
-        || tess.optimizedVertexCount != triangles->vertexCount))
-        RB_TessOverflow();
-    if (tess.optimizedIndexCount + triangles->indexCount > 0x100000)
-        RB_TessOverflow();
-    tess.optimizedVertexSource = 1;
-    Com_Memcpy(tess.secondaryIndices + tess.optimizedIndexCount,
-        triangles->indices, triangles->indexCount * 2);
-    tess.optimizedIndexCount += triangles->indexCount;
-    tess.firstOptimizedVertex = triangles->firstVertex;
-    tess.optimizedVertexCount = triangles->vertexCount;
-}
-
-extern DxGlobals dx;
-extern const dvar_t *r_logFile;
-char *va(const char *format, ...);
-void RB_LogPrint(const char *text);
-
-typedef char cachedTessLayoutCheck[(offsetof(GfxStaticModelCachedSurface, surface) == 8
-    && offsetof(GfxStaticModelSurfaceCached, baseVertIndex) == 0
-    && offsetof(XSurface, triCount) == 4
-    && offsetof(DxGlobals, smodelCacheIndices) == 0x2dc8) ? 1 : -1];
-
-// PINNED 10041510: capture signed triangle count, publish counts before copying.
-void RB_TessStaticModelCached(const surfaceType_t *surfType)
-{
-    const GfxStaticModelCachedSurface *surface = (const GfxStaticModelCachedSurface *)surfType;
-    int indexCount = surface->surf.xsurf->triCount * 3;
-    if (tess.optimizedIndexCount + indexCount > 0x100000)
-        RB_TessOverflow();
-    tess.optimizedVertexSource = 2;
-    tess.firstOptimizedVertex = 0;
-    tess.optimizedVertexCount = 0x10000;
-    if (r_logFile->current.integer)
-        RB_LogPrint(va("--- RB_TessStaticModelCached( %s ) ---\n", tess.material->info.name));
-    unsigned short *out = tess.secondaryIndices + tess.optimizedIndexCount;
-    tess.optimizedIndexCount += indexCount;
-    const byte *in = (const byte *)dx.smodelCacheIndices + surface->surface->baseVertIndex * 12;
-    Com_Memcpy(out, in, indexCount * 2);
-}
-
-extern DxState dxState;
-extern r_backEndGlobals_t backEnd;
-void RB_ChangeIndices(IDirect3DIndexBuffer9 *buffer);
-void RB_ChangeStreamSource(int stream, IDirect3DVertexBuffer9 *buffer, int offset, int stride);
-void RB_PushMatrixStack();
-void RB_PopMatrixStack();
-void RB_ChangedWorldMatrix(float scale);
-void RB_DrawTechnique(int declaration, const GfxDrawPrimArgs *args);
-
-typedef char rigidTessLayoutCheck[(sizeof(GfxModelRigidSurface) == 56
-    && offsetof(GfxModelRigidSurface, boneAxis) == 8
-    && offsetof(XSurface, vertCount) == 2 && offsetof(XSurface, surfRigid) == 16
-    && offsetof(XSurface, indexBuffer) == 20
-    && sizeof(GfxCodeMatrices) == 0xcd0
-    && offsetof(r_backEndGlobals_t, codeMatrixStack) == 0x4e0
-    && offsetof(r_backEndGlobals_t, codeMatrixStackLevel) == 0x2b50
-    && offsetof(r_backEndGlobals_t, currentEntity) == 0x440
-    && offsetof(DxState, indexBuffer) == 0x20cc
-    && offsetof(DxState, streams) == 0x20d0
-    && offsetof(GfxEntity, scale) == 56 && sizeof(GfxDrawPrimArgs) == 20) ? 1 : -1];
-
-// PINNED 100413c0: bind buffers, push the bone matrix, draw and restore.
-void RB_TessXModelRigid(const surfaceType_t *surfType)
-{
-    if (tess.indexCount || tess.optimizedIndexCount)
-        RB_EndSurface();
-    if (r_logFile->current.integer)
-        RB_LogPrint(va("--- RB_TessXModelRigid( %s ) ---\n", tess.material->info.name));
-    const GfxModelRigidSurface *surface = (const GfxModelRigidSurface *)surfType;
-    const XSurface *xsurf = surface->surf.xsurf;
-    GfxDrawPrimArgs args;
-    args.vertexCount = xsurf->vertCount;
-    args.primCount = xsurf->triCount;
-    args.u.buf.baseIndex = 0;
-    args.u.buf.baseVertex = 0;
-    args.firstVertexFromBase = 0;
-    if (dxState.indexBuffer != xsurf->indexBuffer)
-        RB_ChangeIndices(xsurf->indexBuffer);
-    int stride = r_rendererInUse->current.integer == 2 ? 36 : 64;
-    if (dxState.streams[0].vb != xsurf->surfRigid.vb || dxState.streams[0].offset != 0
-        || dxState.streams[0].stride != stride)
-        RB_ChangeStreamSource(0, xsurf->surfRigid.vb, 0, stride);
-    RB_PushMatrixStack();
-    float (*matrix)[4] = backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel].world.matrix[0].m;
-    matrix[0][0] = surface->boneAxis[0][0];
-    matrix[0][1] = surface->boneAxis[0][1];
-    matrix[0][2] = surface->boneAxis[0][2];
-    matrix[0][3] = 0.0f;
-    matrix[1][0] = surface->boneAxis[1][0];
-    matrix[1][1] = surface->boneAxis[1][1];
-    matrix[1][2] = surface->boneAxis[1][2];
-    matrix[1][3] = 0.0f;
-    matrix[2][0] = surface->boneAxis[2][0];
-    matrix[2][1] = surface->boneAxis[2][1];
-    matrix[2][2] = surface->boneAxis[2][2];
-    matrix[2][3] = 0.0f;
-    matrix[3][0] = surface->boneAxis[3][0];
-    matrix[3][1] = surface->boneAxis[3][1];
-    matrix[3][2] = surface->boneAxis[3][2];
-    matrix[3][3] = 1.0f;
-    RB_ChangedWorldMatrix(backEnd.currentEntity->scale);
-    RB_DrawTechnique(0, &args);
-    RB_PopMatrixStack();
-}
-
-// PINNED PC skinned-model submission, 10041140..100413b5.
-extern GfxBackEndData *backEndData;
-void XSurfaceGetTris(const XSurface *surface, r_index_t *out, short offset);
-
-typedef char skinnedTessLayoutCheck[(sizeof(GfxModelSkinnedSurface) == 16
-    && offsetof(GfxModelSkinnedSurface, skinnedCachedOffset) == 8
-    && offsetof(GfxModelSkinnedSurface, skinnedVert) == 12
-    && sizeof(r_vb_state_t) == 12 && offsetof(r_vb_state_t, buffer) == 8
-    && offsetof(GfxBackEndData, skinnedCacheVb) == 0x217c78) ? 1 : -1];
-
-static void RB_TessXModelSkinnedCached(const GfxModelSkinnedSurface *surface)
-{
-    if (tess.indexCount || tess.optimizedIndexCount)
-        RB_EndSurface();
-    if (r_logFile->current.integer)
-        RB_LogPrint(va("--- RB_TessXModelSkinnedCached( %s ) ---\n", tess.material->info.name));
-    int stride = r_rendererInUse->current.integer == 2 ? 36 : 64;
-    const XSurface *xsurf = surface->surf.xsurf;
-    GfxDrawPrimArgs args;
-    args.u.buf.baseIndex = 0;
-    args.firstVertexFromBase = 0;
-    args.u.buf.baseVertex = surface->skinnedCachedOffset / stride;
-    args.primCount = xsurf->triCount;
-    args.vertexCount = xsurf->vertCount;
-    if (dxState.indexBuffer != xsurf->indexBuffer)
-        RB_ChangeIndices(xsurf->indexBuffer);
-    IDirect3DVertexBuffer9 *buffer = backEndData->skinnedCacheVb->buffer;
-    if (dxState.streams[0].vb != buffer || dxState.streams[0].offset != 0
-        || dxState.streams[0].stride != stride)
-        RB_ChangeStreamSource(0, buffer, 0, stride);
-    RB_DrawTechnique(0, &args);
-}
-
-static void RB_TessXModelSkinnedUncached(const GfxModelSkinnedSurface *surface)
-{
-    if (r_logFile->current.integer)
-        RB_LogPrint(va("--- RB_TessXModelSkinnedUncached( %s ) ---\n", tess.material->info.name));
-    const XSurface *xsurf = surface->surf.xsurf;
-    int vertCount = xsurf->vertCount;
-    int indexCount = xsurf->triCount * 3;
-    if (tess.vertexCount + vertCount > 5450 || tess.indexCount + indexCount > 0x100000)
-        RB_TessOverflow();
-    if (tess.indexCount & 1)
-        RB_TessOverflow();
-    unsigned int baseVertex = tess.vertexCount;
-    int stride = r_rendererInUse->current.integer == 2 ? 36 : 64;
-    Com_Memcpy(tess.vertexData + (unsigned short)baseVertex * stride,
-        surface->skinnedVert.variant, vertCount * stride);
-    tess.vertexCount += vertCount;
-    XSurfaceGetTris(xsurf, tess.indices + tess.indexCount, (short)baseVertex);
-    tess.indexCount += indexCount;
-}
-
-// PINNED 10041390/38: cache eligibility is the signed offset, not renderer type.
-void RB_TessXModelSkinned(const surfaceType_t *surfType)
-{
-    const GfxModelSkinnedSurface *surface = (const GfxModelSkinnedSurface *)surfType;
-    if (surface->skinnedCachedOffset >= 0)
-        RB_TessXModelSkinnedCached(surface);
-    else
-        RB_TessXModelSkinnedUncached(surface);
-}
-
-// PINNED 1003ef20 is an actual empty return, not a replacement for missing kinds.
-void RB_TessBad(const surfaceType_t *surfType)
-{
-}
-
-// PINNED PC particle-cloud submission, 10040ca0..10041024.
-#include <math.h>
-float Vec3Normalize(float *vector);
-
-typedef char particleTessLayoutCheck[(offsetof(GfxEntity, origin) == 0x3c
-    && offsetof(GfxEntity, endpos) == 0x48 && offsetof(GfxEntity, materialRGBA) == 0x58
-    && offsetof(GfxEntity, radius) == 0x64 && offsetof(GfxViewParms, viewMatrix) == 0x48
-    && offsetof(DxGlobals, particleCloudVertexBuffer) == 0x2db8
-    && offsetof(DxGlobals, particleCloudIndexBuffer) == 0x2dbc) ? 1 : -1];
-
-// Private name unconfirmed; PINNED 10040ca0 uses Z,Y,X accumulation order.
-static void RB_RotateParticleCloudDirection(const float *in, float *out)
-{
-    const D3DMATRIX *view = &backEnd.viewParms->viewMatrix;
-    float matrix[3][3] = {
-        {view->m[0][0], view->m[0][1], view->m[0][2]},
-        {view->m[1][0], view->m[1][1], view->m[1][2]},
-        {view->m[2][0], view->m[2][1], view->m[2][2]}
-    };
-    out[0] = matrix[2][0] * in[2] + matrix[1][0] * in[1] + matrix[0][0] * in[0];
-    out[1] = matrix[2][1] * in[2] + matrix[1][1] * in[1] + matrix[0][1] * in[0];
-    out[2] = matrix[2][2] * in[2] + matrix[1][2] * in[1] + matrix[0][2] * in[0];
-}
-
-// Private name unconfirmed; PINNED 10040d40 tests signed components, not fabs.
-static void RB_ProjectParticleCloudAxis(const GfxEntity *ent, const float *viewUp, float *axis)
-{
-    if (viewUp[0] < 0.001f && viewUp[1] < 0.001f)
-    {
-        axis[0] = ent->radius[0];
-        axis[1] = axis[2] = 0.0f;
-        axis[3] = ent->radius[1];
-        return;
-    }
-    axis[0] = viewUp[1];
-    axis[1] = -viewUp[0];
-    axis[2] = viewUp[0];
-    axis[3] = viewUp[1];
-    float length = (float)sqrt(axis[0] * axis[0] + axis[1] * axis[1]);
-    float inverseLength = 1.0f / length;
-    float scale = inverseLength * ent->radius[0];
-    axis[0] *= scale;
-    axis[1] *= scale;
-    if (length < ent->radius[0])
-    {
-        inverseLength *= ent->radius[0];
-        axis[2] *= inverseLength;
-        axis[3] *= inverseLength;
-    }
-}
-
-// Private name unconfirmed; PINNED 1003ee10/68 is an out-of-line two-pointer call.
-#pragma optimize("p", on)
-static __declspec(noinline) int RB_ParticleCloudOriginsMatch(const float *a, const float *b)
-{
-    for (int index = 0; index < 3; ++index)
-    {
-        float delta = *a++ - *b++;
-        if (delta * delta > 0.0000010000001111620804f)
-            return 0;
-    }
-    return 1;
-}
-
-#pragma optimize("p", off)
-
-// Private name unconfirmed; PINNED 10040df0 publishes axis49 and RGBA48.
-static void RB_SetParticleCloudConstants(const GfxEntity *ent)
-{
-    float axis[4];
-    if (ent->radius[0] == ent->radius[1]
-        || RB_ParticleCloudOriginsMatch(ent->origin, ent->endpos))
-    {
-        axis[0] = ent->radius[0];
-        axis[1] = axis[2] = 0.0f;
-        axis[3] = ent->radius[1];
-    }
-    else
-    {
-        float worldUp[3], scaledWorldUp[3], viewUp[3];
-        worldUp[0] = ent->endpos[0] - ent->origin[0];
-        worldUp[1] = ent->endpos[1] - ent->origin[1];
-        worldUp[2] = ent->endpos[2] - ent->origin[2];
-        Vec3Normalize(worldUp);
-        scaledWorldUp[0] = worldUp[0] * ent->radius[1];
-        scaledWorldUp[1] = worldUp[1] * ent->radius[1];
-        scaledWorldUp[2] = worldUp[2] * ent->radius[1];
-        RB_RotateParticleCloudDirection(scaledWorldUp, viewUp);
-        RB_ProjectParticleCloudAxis(ent, viewUp, axis);
-    }
-    backEnd.codeConsts[49][0] = axis[0];
-    backEnd.codeConsts[49][1] = axis[1];
-    backEnd.codeConsts[49][2] = axis[2];
-    backEnd.codeConsts[49][3] = axis[3];
-    const float oneOver255 = 0.003921568859368563f; // PINNED float at1019bd54.
-    backEnd.codeConsts[48][0] = ent->materialRGBA[0] * oneOver255;
-    backEnd.codeConsts[48][1] = ent->materialRGBA[1] * oneOver255;
-    backEnd.codeConsts[48][2] = ent->materialRGBA[2] * oneOver255;
-    backEnd.codeConsts[48][3] = ent->materialRGBA[3] * oneOver255;
-}
-
-// PINNED 10040f30/245: PC does not add the reference's DX7 early return.
-void RB_TessParticleCloud(const GfxEntity *ent)
-{
-    if (tess.indexCount || tess.optimizedIndexCount)
-        RB_EndSurface();
-    if (r_logFile->current.integer)
-        RB_LogPrint(va("--- RB_TessParticleCloud( %s ) ---\n", tess.material->info.name));
-    GfxDrawPrimArgs args;
-    args.u.buf.baseVertex = 0;
-    args.u.buf.baseIndex = 0;
-    args.firstVertexFromBase = 0;
-    args.vertexCount = 4096;
-    args.primCount = 2048;
-    RB_SetParticleCloudConstants(ent);
-    if (dxState.indexBuffer != dx.particleCloudIndexBuffer)
-        RB_ChangeIndices(dx.particleCloudIndexBuffer);
-    IDirect3DVertexBuffer9 *buffer = dx.particleCloudVertexBuffer;
-    if (dxState.streams[0].vb != buffer || dxState.streams[0].offset != 0
-        || dxState.streams[0].stride != 20)
-        RB_ChangeStreamSource(0, buffer, 0, 20);
-    RB_DrawTechnique(2, &args);
-}
-
 // Sprite geometry and projection.
 // PINNED 1003f120: corner sums/differences precede the origin addition.
 static void RB_AddQuadStamp(const float *origin, const float *left, const float *up,
@@ -369,37 +166,64 @@ static void RB_AddQuadStamp(const float *origin, const float *left, const float 
 {
     if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
         RB_TessOverflow();
-    int base = tess.vertexCount, first = tess.indexCount;
-    tess.indices[first] = (unsigned short)base;
-    tess.indices[first + 1] = (unsigned short)(base + 1);
-    tess.indices[first + 2] = (unsigned short)(base + 3);
-    tess.indices[first + 3] = (unsigned short)(base + 3);
-    tess.indices[first + 4] = (unsigned short)(base + 1);
-    tess.indices[first + 5] = (unsigned short)(base + 2);
+    int base = tess.vertexCount;
+    tess.indices[tess.indexCount] = (unsigned short)base;
+    tess.indices[tess.indexCount + 1] = (unsigned short)(base + 1);
+    tess.indices[tess.indexCount + 2] = (unsigned short)(base + 3);
+    tess.indices[tess.indexCount + 3] = (unsigned short)(base + 3);
+    tess.indices[tess.indexCount + 4] = (unsigned short)(base + 1);
+    tess.indices[tess.indexCount + 5] = (unsigned short)(base + 2);
     GfxVertex *vertices = (GfxVertex *)tess.vertexData + (unsigned short)base;
-    for (int component = 0; component < 3; ++component)
+    float sum[3], difference[3], normal[3], tangent[3];
+    sum[0] = left[0] + up[0];
+    sum[1] = left[1] + up[1];
+    sum[2] = left[2] + up[2];
+    difference[0] = left[0] - up[0];
+    difference[1] = left[1] - up[1];
+    difference[2] = left[2] - up[2];
+    for (int c = 0; c < 3; ++c)
     {
-        float sum = left[component] + up[component];
-        float difference = left[component] - up[component];
-        vertices[0].xyzw[component] = sum + origin[component];
-        vertices[1].xyzw[component] = origin[component] - difference;
-        vertices[2].xyzw[component] = origin[component] - sum;
-        vertices[3].xyzw[component] = difference + origin[component];
-        float normal = -backEnd.viewParms->axis[0][component];
-        for (int corner = 0; corner < 4; ++corner)
-        {
-            vertices[corner].normal[component] = normal;
-            vertices[corner].binormal[component] = up[component];
-            vertices[corner].tangent[component] = -left[component];
-        }
+        vertices[0].xyzw[c] = sum[c] + origin[c];
+        vertices[1].xyzw[c] = origin[c] - difference[c];
+        vertices[2].xyzw[c] = origin[c] - sum[c];
+        vertices[3].xyzw[c] = difference[c] + origin[c];
+    }
+    for (int corner = 0; corner < 4; ++corner)
+        vertices[corner].xyzw[3] = 1.0f;
+    normal[0] = -backEnd.viewParms->axis[0][0];
+    normal[1] = -backEnd.viewParms->axis[0][1];
+    normal[2] = -backEnd.viewParms->axis[0][2];
+    for (int corner = 0; corner < 4; ++corner)
+    {
+        vertices[corner].normal[0] = normal[0];
+        vertices[corner].normal[1] = normal[1];
+        vertices[corner].normal[2] = normal[2];
     }
     for (int corner = 0; corner < 4; ++corner)
     {
-        vertices[corner].xyzw[3] = 1.0f;
-        vertices[corner].color.packed = color;
-        vertices[corner].texCoord[0] = corner == 1 || corner == 2 ? s1 : s0;
-        vertices[corner].texCoord[1] = corner >= 2 ? t1 : t0;
+        vertices[corner].binormal[0] = up[0];
+        vertices[corner].binormal[1] = up[1];
+        vertices[corner].binormal[2] = up[2];
     }
+    tangent[0] = -left[0];
+    tangent[1] = -left[1];
+    tangent[2] = -left[2];
+    for (int corner = 0; corner < 4; ++corner)
+    {
+        vertices[corner].tangent[0] = tangent[0];
+        vertices[corner].tangent[1] = tangent[1];
+        vertices[corner].tangent[2] = tangent[2];
+    }
+    vertices[0].texCoord[0] = s0;
+    vertices[0].texCoord[1] = t0;
+    vertices[1].texCoord[0] = s1;
+    vertices[1].texCoord[1] = t0;
+    vertices[2].texCoord[0] = s1;
+    vertices[2].texCoord[1] = t1;
+    vertices[3].texCoord[0] = s0;
+    vertices[3].texCoord[1] = t1;
+    for (int corner = 0; corner < 4; ++corner)
+        vertices[corner].color.packed = color;
     tess.vertexCount += 4;
     tess.indexCount += 6;
 }
@@ -410,34 +234,48 @@ static void RB_AddQuadStampDx7(const float *origin, const float *left, const flo
 {
     if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
         RB_TessOverflow();
-    int base = tess.vertexCount, first = tess.indexCount;
-    tess.indices[first] = (unsigned short)base;
-    tess.indices[first + 1] = (unsigned short)(base + 1);
-    tess.indices[first + 2] = (unsigned short)(base + 3);
-    tess.indices[first + 3] = (unsigned short)(base + 3);
-    tess.indices[first + 4] = (unsigned short)(base + 1);
-    tess.indices[first + 5] = (unsigned short)(base + 2);
+    int base = tess.vertexCount;
+    tess.indices[tess.indexCount] = (unsigned short)base;
+    tess.indices[tess.indexCount + 1] = (unsigned short)(base + 1);
+    tess.indices[tess.indexCount + 2] = (unsigned short)(base + 3);
+    tess.indices[tess.indexCount + 3] = (unsigned short)(base + 3);
+    tess.indices[tess.indexCount + 4] = (unsigned short)(base + 1);
+    tess.indices[tess.indexCount + 5] = (unsigned short)(base + 2);
     GfxVertexDx7 *vertices = (GfxVertexDx7 *)tess.vertexData + (unsigned short)base;
-    for (int component = 0; component < 3; ++component)
-    {
-        float sum = left[component] + up[component];
-        float difference = left[component] - up[component];
-        vertices[0].xyz[component] = sum + origin[component];
-        vertices[1].xyz[component] = origin[component] - difference;
-        vertices[2].xyz[component] = origin[component] - sum;
-        vertices[3].xyz[component] = difference + origin[component];
-        float normal = -backEnd.viewParms->axis[0][component];
-        for (int corner = 0; corner < 4; ++corner)
-        {
-            vertices[corner].normal[component] = normal;
-        }
-    }
+    float sum[3], difference[3], normal[3];
+    sum[0] = left[0] + up[0];
+    sum[1] = left[1] + up[1];
+    sum[2] = left[2] + up[2];
+    difference[0] = left[0] - up[0];
+    difference[1] = left[1] - up[1];
+    difference[2] = left[2] - up[2];
+    for (int c = 0; c < 3; ++c)
+        vertices[0].xyz[c] = sum[c] + origin[c];
+    for (int c = 0; c < 3; ++c)
+        vertices[1].xyz[c] = origin[c] - difference[c];
+    for (int c = 0; c < 3; ++c)
+        vertices[2].xyz[c] = origin[c] - sum[c];
+    for (int c = 0; c < 3; ++c)
+        vertices[3].xyz[c] = difference[c] + origin[c];
+    normal[0] = -backEnd.viewParms->axis[0][0];
+    normal[1] = -backEnd.viewParms->axis[0][1];
+    normal[2] = -backEnd.viewParms->axis[0][2];
     for (int corner = 0; corner < 4; ++corner)
     {
-        vertices[corner].color.packed = color;
-        vertices[corner].texCoord[0] = corner == 1 || corner == 2 ? s1 : s0;
-        vertices[corner].texCoord[1] = corner >= 2 ? t1 : t0;
+        vertices[corner].normal[0] = normal[0];
+        vertices[corner].normal[1] = normal[1];
+        vertices[corner].normal[2] = normal[2];
     }
+    vertices[0].texCoord[0] = s0;
+    vertices[0].texCoord[1] = t0;
+    vertices[1].texCoord[0] = s1;
+    vertices[1].texCoord[1] = t0;
+    vertices[2].texCoord[0] = s1;
+    vertices[2].texCoord[1] = t1;
+    vertices[3].texCoord[0] = s0;
+    vertices[3].texCoord[1] = t1;
+    for (int corner = 0; corner < 4; ++corner)
+        vertices[corner].color.packed = color;
     tess.vertexCount += 4;
     tess.indexCount += 6;
 }
@@ -480,7 +318,8 @@ static void RB_BuildSprite(const GfxEntity *ent, const float *radius)
     else
     {
         float radians = ent->rotation * 0.017453292f;
-        float cosine = (float)cos(radians), sine = (float)sin(radians);
+        float sine, cosine;
+        FastSinCos(radians, &sine, &cosine);
         float leftCos = cosine * radius[0], leftSin = -(sine * radius[0]);
         float upCos = cosine * radius[1], upSin = sine * radius[1];
         for (int component = 0; component < 3; ++component)
@@ -579,8 +418,6 @@ void RB_TessSprite(const GfxEntity *ent)
         RB_TessWorldSprite(ent);
 }
 
-void MakeNormalVectors(const vec3_t forward, vec3_t right, vec3_t up);
-
 // PINNED 1003fba0: oriented quads use entity axis0, without sprite size/lift flags.
 void RB_TessOrientedQuad(const GfxEntity *ent)
 {
@@ -597,7 +434,8 @@ void RB_TessOrientedQuad(const GfxEntity *ent)
     else
     {
         float radians = ent->rotation * 0.017453292f;
-        float cosine = (float)cos(radians), sine = (float)sin(radians);
+        float sine, cosine;
+        FastSinCos(radians, &sine, &cosine);
         float leftCos = cosine * ent->radius[0], leftSin = -(sine * ent->radius[0]);
         float upCos = cosine * ent->radius[1], upSin = sine * ent->radius[1];
         for (int component = 0; component < 3; ++component)
@@ -618,153 +456,6 @@ void RB_TessOrientedQuad(const GfxEntity *ent)
         RB_AddQuadStampDx7(ent->origin, left, up, color, uv[0], uv[1], uv[2], uv[3]);
     else
         RB_AddQuadStamp(ent->origin, left, up, color, uv[0], uv[1], uv[2], uv[3]);
-}
-
-// Line and rail geometry.
-// PINNED 10040580: frame vectors precede overflow; endpoint positions follow it.
-static void RB_AddLine(const float *start, const float *end, float width,
-    unsigned int color, float s0, float t0, float s1, float t1)
-{
-    const float *viewOrigin = backEnd.viewParms->origin;
-    float from[3], to[3], tangent[3], direction[3], normal[3], offset[3];
-    for (int component = 0; component < 3; ++component)
-    {
-        from[component] = start[component] - viewOrigin[component];
-        to[component] = end[component] - viewOrigin[component];
-    }
-    Vec3Cross(from, to, tangent);
-    Vec3Normalize(tangent);
-    for (int component = 0; component < 3; ++component)
-    {
-        offset[component] = tangent[component] * width;
-        direction[component] = end[component] - start[component];
-    }
-    Vec3Normalize(direction);
-    Vec3Cross(tangent, direction, normal);
-    if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
-        RB_TessOverflow();
-    int base = tess.vertexCount, first = tess.indexCount;
-    GfxVertex *vertices = (GfxVertex *)tess.vertexData + base;
-    for (int component = 0; component < 3; ++component)
-    {
-        vertices[0].xyzw[component] = offset[component] + start[component];
-        vertices[1].xyzw[component] = start[component] - offset[component];
-        vertices[2].xyzw[component] = offset[component] + end[component];
-        vertices[3].xyzw[component] = end[component] - offset[component];
-        for (int corner = 0; corner < 4; ++corner)
-        {
-            vertices[corner].normal[component] = normal[component];
-            vertices[corner].binormal[component] = direction[component];
-            vertices[corner].tangent[component] = tangent[component];
-        }
-    }
-    for (int corner = 0; corner < 4; ++corner)
-    {
-        vertices[corner].xyzw[3] = 1.0f;
-        vertices[corner].color.packed = color;
-        vertices[corner].texCoord[0] = corner & 1 ? s1 : s0;
-        vertices[corner].texCoord[1] = corner >= 2 ? t1 : t0;
-    }
-    tess.indices[first] = (unsigned short)base;
-    tess.indices[first + 1] = (unsigned short)(base + 1);
-    tess.indices[first + 2] = (unsigned short)(base + 2);
-    tess.indices[first + 3] = (unsigned short)(base + 2);
-    tess.indices[first + 4] = (unsigned short)(base + 1);
-    tess.indices[first + 5] = (unsigned short)(base + 3);
-    tess.vertexCount += 4;
-    tess.indexCount += 6;
-}
-
-// PINNED 10040920: frame vectors precede overflow; endpoint positions follow it.
-static void RB_AddLineDx7(const float *start, const float *end, float width,
-    unsigned int color, float s0, float t0, float s1, float t1)
-{
-    const float *viewOrigin = backEnd.viewParms->origin;
-    float from[3], to[3], tangent[3], direction[3], normal[3], offset[3];
-    for (int component = 0; component < 3; ++component)
-    {
-        from[component] = start[component] - viewOrigin[component];
-        to[component] = end[component] - viewOrigin[component];
-    }
-    Vec3Cross(from, to, tangent);
-    Vec3Normalize(tangent);
-    for (int component = 0; component < 3; ++component)
-    {
-        offset[component] = tangent[component] * width;
-        direction[component] = end[component] - start[component];
-    }
-    Vec3Normalize(direction);
-    Vec3Cross(tangent, direction, normal);
-    if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
-        RB_TessOverflow();
-    int base = tess.vertexCount, first = tess.indexCount;
-    GfxVertexDx7 *vertices = (GfxVertexDx7 *)tess.vertexData + base;
-    for (int component = 0; component < 3; ++component)
-    {
-        vertices[0].xyz[component] = offset[component] + start[component];
-        vertices[1].xyz[component] = start[component] - offset[component];
-        vertices[2].xyz[component] = offset[component] + end[component];
-        vertices[3].xyz[component] = end[component] - offset[component];
-        for (int corner = 0; corner < 4; ++corner)
-        {
-            vertices[corner].normal[component] = normal[component];
-        }
-    }
-    for (int corner = 0; corner < 4; ++corner)
-    {
-        vertices[corner].color.packed = color;
-        vertices[corner].texCoord[0] = corner & 1 ? s1 : s0;
-        vertices[corner].texCoord[1] = corner >= 2 ? t1 : t0;
-    }
-    tess.indices[first] = (unsigned short)base;
-    tess.indices[first + 1] = (unsigned short)(base + 1);
-    tess.indices[first + 2] = (unsigned short)(base + 2);
-    tess.indices[first + 3] = (unsigned short)(base + 2);
-    tess.indices[first + 4] = (unsigned short)(base + 1);
-    tess.indices[first + 5] = (unsigned short)(base + 3);
-    tess.vertexCount += 4;
-    tess.indexCount += 6;
-}
-
-extern const dvar_t *r_railCoreWidth;
-
-// PINNED 10040c00: rail width is the dvar; longitudinal UV is length/256.
-void RB_TessRailCore(const GfxEntity *ent)
-{
-    float x = ent->endpos[0] - ent->origin[0];
-    float y = ent->endpos[1] - ent->origin[1];
-    float z = ent->endpos[2] - ent->origin[2];
-    float lengthSquared = z * z + y * y + x * x;
-    float longitudinal = (float)(sqrt(lengthSquared) * 0.00390625f);
-    GfxColor rgba;
-    rgba.array[2] = ent->materialRGBA[0];
-    rgba.array[1] = ent->materialRGBA[1];
-    rgba.array[0] = ent->materialRGBA[2];
-    rgba.array[3] = ent->materialRGBA[3];
-    unsigned int color = rgba.packed;
-    if (r_rendererInUse->current.integer == 2)
-        RB_AddLineDx7(ent->origin, ent->endpos, r_railCoreWidth->current.value,
-            color, 0.0f, 0.0f, 1.0f, longitudinal);
-    else
-        RB_AddLine(ent->origin, ent->endpos, r_railCoreWidth->current.value,
-            color, 0.0f, 0.0f, 1.0f, longitudinal);
-}
-
-// PINNED 10041030: entity radius0 and the same signed frame atlas as sprites.
-void RB_TessLine(const GfxEntity *ent)
-{
-    GfxColor rgba;
-    rgba.array[2] = ent->materialRGBA[0];
-    rgba.array[1] = ent->materialRGBA[1];
-    rgba.array[0] = ent->materialRGBA[2];
-    rgba.array[3] = ent->materialRGBA[3];
-    unsigned int color = rgba.packed;
-    float uv[4];
-    RB_GetEntityAtlasCoords(ent, uv);
-    if (r_rendererInUse->current.integer == 2)
-        RB_AddLineDx7(ent->origin, ent->endpos, ent->radius[0], color, uv[0], uv[1], uv[2], uv[3]);
-    else
-        RB_AddLine(ent->origin, ent->endpos, ent->radius[0], color, uv[0], uv[1], uv[2], uv[3]);
 }
 
 // Cylinder geometry and entity dispatch.
@@ -927,6 +618,275 @@ static void RB_TessCylinderDx7(const GfxEntity *ent)
     tess.vertexCount += segments * 2 + 2;
 }
 
+// Line and rail geometry.
+// PINNED 10040580: frame vectors precede overflow; endpoint positions follow it.
+static void RB_AddLine(const float *start, const float *end, float width,
+    unsigned int color, float s0, float t0, float s1, float t1)
+{
+    const float *viewOrigin = backEnd.viewParms->origin;
+    float from[3], to[3], tangent[3], direction[3], normal[3], offset[3];
+    for (int component = 0; component < 3; ++component)
+    {
+        from[component] = start[component] - viewOrigin[component];
+        to[component] = end[component] - viewOrigin[component];
+    }
+    Vec3Cross(from, to, tangent);
+    Vec3Normalize(tangent);
+    for (int component = 0; component < 3; ++component)
+    {
+        offset[component] = tangent[component] * width;
+        direction[component] = end[component] - start[component];
+    }
+    Vec3Normalize(direction);
+    Vec3Cross(tangent, direction, normal);
+    if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
+        RB_TessOverflow();
+    GfxVertex *vertices = (GfxVertex *)tess.vertexData + tess.vertexCount;
+    for (int c = 0; c < 3; ++c)
+        vertices[0].xyzw[c] = offset[c] + start[c];
+    for (int c = 0; c < 3; ++c)
+        vertices[1].xyzw[c] = start[c] - offset[c];
+    for (int c = 0; c < 3; ++c)
+        vertices[2].xyzw[c] = offset[c] + end[c];
+    for (int c = 0; c < 3; ++c)
+        vertices[3].xyzw[c] = end[c] - offset[c];
+    for (int corner = 0; corner < 4; ++corner)
+        vertices[corner].xyzw[3] = 1.0f;
+    for (int corner = 0; corner < 4; ++corner)
+    {
+        vertices[corner].normal[0] = normal[0];
+        vertices[corner].normal[1] = normal[1];
+        vertices[corner].normal[2] = normal[2];
+    }
+    for (int corner = 0; corner < 4; ++corner)
+    {
+        vertices[corner].binormal[0] = direction[0];
+        vertices[corner].binormal[1] = direction[1];
+        vertices[corner].binormal[2] = direction[2];
+    }
+    for (int corner = 0; corner < 4; ++corner)
+    {
+        vertices[corner].tangent[0] = tangent[0];
+        vertices[corner].tangent[1] = tangent[1];
+        vertices[corner].tangent[2] = tangent[2];
+    }
+    vertices[0].texCoord[0] = s0;
+    vertices[0].texCoord[1] = t0;
+    vertices[1].texCoord[0] = s1;
+    vertices[1].texCoord[1] = t0;
+    vertices[2].texCoord[0] = s0;
+    vertices[2].texCoord[1] = t1;
+    vertices[3].texCoord[0] = s1;
+    vertices[3].texCoord[1] = t1;
+    for (int corner = 0; corner < 4; ++corner)
+        vertices[corner].color.packed = color;
+    int base = tess.vertexCount;
+    tess.indices[tess.indexCount] = (unsigned short)base;
+    tess.indices[tess.indexCount + 1] = (unsigned short)(base + 1);
+    tess.indices[tess.indexCount + 2] = (unsigned short)(base + 2);
+    tess.indices[tess.indexCount + 3] = (unsigned short)(base + 2);
+    tess.indices[tess.indexCount + 4] = (unsigned short)(base + 1);
+    tess.indices[tess.indexCount + 5] = (unsigned short)(base + 3);
+    tess.vertexCount += 4;
+    tess.indexCount += 6;
+}
+
+// PINNED 10040920: frame vectors precede overflow; endpoint positions follow it.
+static void RB_AddLineDx7(const float *start, const float *end, float width,
+    unsigned int color, float s0, float t0, float s1, float t1)
+{
+    const float *viewOrigin = backEnd.viewParms->origin;
+    float from[3], to[3], tangent[3], direction[3], normal[3], offset[3];
+    for (int component = 0; component < 3; ++component)
+    {
+        from[component] = start[component] - viewOrigin[component];
+        to[component] = end[component] - viewOrigin[component];
+    }
+    Vec3Cross(from, to, tangent);
+    Vec3Normalize(tangent);
+    for (int component = 0; component < 3; ++component)
+    {
+        offset[component] = tangent[component] * width;
+        direction[component] = end[component] - start[component];
+    }
+    Vec3Normalize(direction);
+    Vec3Cross(tangent, direction, normal);
+    if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
+        RB_TessOverflow();
+    GfxVertexDx7 *vertices = (GfxVertexDx7 *)tess.vertexData + tess.vertexCount;
+    for (int c = 0; c < 3; ++c)
+        vertices[0].xyz[c] = offset[c] + start[c];
+    for (int c = 0; c < 3; ++c)
+        vertices[1].xyz[c] = start[c] - offset[c];
+    for (int c = 0; c < 3; ++c)
+        vertices[2].xyz[c] = offset[c] + end[c];
+    for (int c = 0; c < 3; ++c)
+        vertices[3].xyz[c] = end[c] - offset[c];
+    for (int corner = 0; corner < 4; ++corner)
+    {
+        vertices[corner].normal[0] = normal[0];
+        vertices[corner].normal[1] = normal[1];
+        vertices[corner].normal[2] = normal[2];
+    }
+    vertices[0].texCoord[0] = s0;
+    vertices[0].texCoord[1] = t0;
+    vertices[1].texCoord[0] = s1;
+    vertices[1].texCoord[1] = t0;
+    vertices[2].texCoord[0] = s0;
+    vertices[2].texCoord[1] = t1;
+    vertices[3].texCoord[0] = s1;
+    vertices[3].texCoord[1] = t1;
+    for (int corner = 0; corner < 4; ++corner)
+        vertices[corner].color.packed = color;
+    int base = tess.vertexCount;
+    tess.indices[tess.indexCount] = (unsigned short)base;
+    tess.indices[tess.indexCount + 1] = (unsigned short)(base + 1);
+    tess.indices[tess.indexCount + 2] = (unsigned short)(base + 2);
+    tess.indices[tess.indexCount + 3] = (unsigned short)(base + 2);
+    tess.indices[tess.indexCount + 4] = (unsigned short)(base + 1);
+    tess.indices[tess.indexCount + 5] = (unsigned short)(base + 3);
+    tess.vertexCount += 4;
+    tess.indexCount += 6;
+}
+
+// PINNED 10040c00: rail width is the dvar; longitudinal UV is length/256.
+void RB_TessRailCore(const GfxEntity *ent)
+{
+    float x = ent->endpos[0] - ent->origin[0];
+    float y = ent->endpos[1] - ent->origin[1];
+    float z = ent->endpos[2] - ent->origin[2];
+    float lengthSquared = z * z + y * y + x * x;
+    float longitudinal = (float)(sqrt(lengthSquared) * 0.00390625f);
+    GfxColor rgba;
+    rgba.array[2] = ent->materialRGBA[0];
+    rgba.array[1] = ent->materialRGBA[1];
+    rgba.array[0] = ent->materialRGBA[2];
+    rgba.array[3] = ent->materialRGBA[3];
+    unsigned int color = rgba.packed;
+    if (r_rendererInUse->current.integer == 2)
+        RB_AddLineDx7(ent->origin, ent->endpos, r_railCoreWidth->current.value,
+            color, 0.0f, 0.0f, 1.0f, longitudinal);
+    else
+        RB_AddLine(ent->origin, ent->endpos, r_railCoreWidth->current.value,
+            color, 0.0f, 0.0f, 1.0f, longitudinal);
+}
+
+// Private name unconfirmed; PINNED 10040ca0 uses Z,Y,X accumulation order.
+static void RB_RotateParticleCloudDirection(const float *in, float *out)
+{
+    const D3DMATRIX *view = &backEnd.viewParms->viewMatrix;
+    float matrix[3][3] = {
+        {view->m[0][0], view->m[0][1], view->m[0][2]},
+        {view->m[1][0], view->m[1][1], view->m[1][2]},
+        {view->m[2][0], view->m[2][1], view->m[2][2]}
+    };
+    out[0] = matrix[2][0] * in[2] + matrix[1][0] * in[1] + matrix[0][0] * in[0];
+    out[1] = matrix[2][1] * in[2] + matrix[1][1] * in[1] + matrix[0][1] * in[0];
+    out[2] = matrix[2][2] * in[2] + matrix[1][2] * in[1] + matrix[0][2] * in[0];
+}
+
+// Private name unconfirmed; PINNED 10040d40 tests signed components, not fabs.
+static void RB_ProjectParticleCloudAxis(const GfxEntity *ent, const float *viewUp, float *axis)
+{
+    if (viewUp[0] < 0.001f && viewUp[1] < 0.001f)
+    {
+        axis[0] = ent->radius[0];
+        axis[1] = axis[2] = 0.0f;
+        axis[3] = ent->radius[1];
+        return;
+    }
+    axis[0] = viewUp[1];
+    axis[1] = -viewUp[0];
+    axis[2] = viewUp[0];
+    axis[3] = viewUp[1];
+    float length = Vec2Length(axis);
+    float inverseLength = 1.0f / length;
+    float scale = inverseLength * ent->radius[0];
+    axis[0] *= scale;
+    axis[1] *= scale;
+    if (length < ent->radius[0])
+    {
+        inverseLength *= ent->radius[0];
+        axis[2] *= inverseLength;
+        axis[3] *= inverseLength;
+    }
+}
+
+// Private name unconfirmed; PINNED 10040df0 publishes axis49 and RGBA48.
+static void RB_SetParticleCloudConstants(const GfxEntity *ent)
+{
+    float axis[4];
+    if (ent->radius[0] == ent->radius[1]
+        || RB_ParticleCloudOriginsMatch(ent->origin, ent->endpos))
+    {
+        axis[0] = ent->radius[0];
+        axis[1] = axis[2] = 0.0f;
+        axis[3] = ent->radius[1];
+    }
+    else
+    {
+        float worldUp[3], scaledWorldUp[3], viewUp[3];
+        worldUp[0] = ent->endpos[0] - ent->origin[0];
+        worldUp[1] = ent->endpos[1] - ent->origin[1];
+        worldUp[2] = ent->endpos[2] - ent->origin[2];
+        Vec3Normalize(worldUp);
+        scaledWorldUp[0] = worldUp[0] * ent->radius[1];
+        scaledWorldUp[1] = worldUp[1] * ent->radius[1];
+        scaledWorldUp[2] = worldUp[2] * ent->radius[1];
+        RB_RotateParticleCloudDirection(scaledWorldUp, viewUp);
+        RB_ProjectParticleCloudAxis(ent, viewUp, axis);
+    }
+    backEnd.codeConsts[49][0] = axis[0];
+    backEnd.codeConsts[49][1] = axis[1];
+    backEnd.codeConsts[49][2] = axis[2];
+    backEnd.codeConsts[49][3] = axis[3];
+    const float oneOver255 = 0.003921568859368563f; // PINNED float at1019bd54.
+    backEnd.codeConsts[48][0] = ent->materialRGBA[0] * oneOver255;
+    backEnd.codeConsts[48][1] = ent->materialRGBA[1] * oneOver255;
+    backEnd.codeConsts[48][2] = ent->materialRGBA[2] * oneOver255;
+    backEnd.codeConsts[48][3] = ent->materialRGBA[3] * oneOver255;
+}
+
+// PINNED 10040f30/245: PC does not add the reference's DX7 early return.
+void RB_TessParticleCloud(const GfxEntity *ent)
+{
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+    if (r_logFile->current.integer)
+        RB_LogPrint(va("--- RB_TessParticleCloud( %s ) ---\n", tess.material->info.name));
+    GfxDrawPrimArgs args;
+    args.u.buf.baseVertex = 0;
+    args.u.buf.baseIndex = 0;
+    args.firstVertexFromBase = 0;
+    args.vertexCount = 4096;
+    args.primCount = 2048;
+    RB_SetParticleCloudConstants(ent);
+    if (dxState.indexBuffer != dx.particleCloudIndexBuffer)
+        RB_ChangeIndices(dx.particleCloudIndexBuffer);
+    IDirect3DVertexBuffer9 *buffer = dx.particleCloudVertexBuffer;
+    if (dxState.streams[0].vb != buffer || dxState.streams[0].offset != 0
+        || dxState.streams[0].stride != 20)
+        RB_ChangeStreamSource(0, buffer, 0, 20);
+    RB_DrawTechnique(2, &args);
+}
+
+// PINNED 10041030: entity radius0 and the same signed frame atlas as sprites.
+void RB_TessLine(const GfxEntity *ent)
+{
+    GfxColor rgba;
+    rgba.array[2] = ent->materialRGBA[0];
+    rgba.array[1] = ent->materialRGBA[1];
+    rgba.array[0] = ent->materialRGBA[2];
+    rgba.array[3] = ent->materialRGBA[3];
+    unsigned int color = rgba.packed;
+    float uv[4];
+    RB_GetEntityAtlasCoords(ent, uv);
+    if (r_rendererInUse->current.integer == 2)
+        RB_AddLineDx7(ent->origin, ent->endpos, ent->radius[0], color, uv[0], uv[1], uv[2], uv[3]);
+    else
+        RB_AddLine(ent->origin, ent->endpos, ent->radius[0], color, uv[0], uv[1], uv[2], uv[3]);
+}
+
 // PINNED 100410b0: physical case-block order differs from the entity enum.
 void RB_TessEntity(const GfxEntity *ent)
 {
@@ -950,4 +910,119 @@ void RB_TessEntity(const GfxEntity *ent)
 void RB_TessBackEndEntity(const surfaceType_t *surfType)
 {
     RB_TessEntity((const GfxEntity *)backEnd.currentEntity);
+}
+
+static void RB_TessXModelSkinnedCached(const GfxModelSkinnedSurface *surface)
+{
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+    if (r_logFile->current.integer)
+        RB_LogPrint(va("--- RB_TessXModelSkinnedCached( %s ) ---\n", tess.material->info.name));
+    int stride = r_rendererInUse->current.integer == 2 ? 36 : 64;
+    const XSurface *xsurf = surface->surf.xsurf;
+    GfxDrawPrimArgs args;
+    args.u.buf.baseIndex = 0;
+    args.firstVertexFromBase = 0;
+    args.u.buf.baseVertex = surface->skinnedCachedOffset / stride;
+    args.primCount = xsurf->triCount;
+    args.vertexCount = xsurf->vertCount;
+    if (dxState.indexBuffer != xsurf->indexBuffer)
+        RB_ChangeIndices(xsurf->indexBuffer);
+    IDirect3DVertexBuffer9 *buffer = backEndData->skinnedCacheVb->buffer;
+    if (dxState.streams[0].vb != buffer || dxState.streams[0].offset != 0
+        || dxState.streams[0].stride != stride)
+        RB_ChangeStreamSource(0, buffer, 0, stride);
+    RB_DrawTechnique(0, &args);
+}
+
+static void RB_TessXModelSkinnedUncached(const GfxModelSkinnedSurface *surface)
+{
+    if (r_logFile->current.integer)
+        RB_LogPrint(va("--- RB_TessXModelSkinnedUncached( %s ) ---\n", tess.material->info.name));
+    const XSurface *xsurf = surface->surf.xsurf;
+    int vertCount = xsurf->vertCount;
+    int indexCount = xsurf->triCount * 3;
+    if (tess.vertexCount + vertCount > 5450 || tess.indexCount + indexCount > 0x100000)
+        RB_TessOverflow();
+    if (tess.indexCount & 1)
+        RB_TessOverflow();
+    unsigned int baseVertex = tess.vertexCount;
+    int stride = r_rendererInUse->current.integer == 2 ? 36 : 64;
+    Com_Memcpy(tess.vertexData + (unsigned short)baseVertex * stride,
+        surface->skinnedVert.variant, vertCount * stride);
+    tess.vertexCount += vertCount;
+    XSurfaceGetTris(xsurf, tess.indices + tess.indexCount, (short)baseVertex);
+    tess.indexCount += indexCount;
+}
+
+// PINNED 10041390/38: cache eligibility is the signed offset, not renderer type.
+void RB_TessXModelSkinned(const surfaceType_t *surfType)
+{
+    const GfxModelSkinnedSurface *surface = (const GfxModelSkinnedSurface *)surfType;
+    if (surface->skinnedCachedOffset >= 0)
+        RB_TessXModelSkinnedCached(surface);
+    else
+        RB_TessXModelSkinnedUncached(surface);
+}
+
+// PINNED 100413c0: bind buffers, push the bone matrix, draw and restore.
+void RB_TessXModelRigid(const surfaceType_t *surfType)
+{
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+    if (r_logFile->current.integer)
+        RB_LogPrint(va("--- RB_TessXModelRigid( %s ) ---\n", tess.material->info.name));
+    const GfxModelRigidSurface *surface = (const GfxModelRigidSurface *)surfType;
+    const XSurface *xsurf = surface->surf.xsurf;
+    GfxDrawPrimArgs args;
+    args.vertexCount = xsurf->vertCount;
+    args.primCount = xsurf->triCount;
+    args.u.buf.baseIndex = 0;
+    args.u.buf.baseVertex = 0;
+    args.firstVertexFromBase = 0;
+    if (dxState.indexBuffer != xsurf->indexBuffer)
+        RB_ChangeIndices(xsurf->indexBuffer);
+    int stride = r_rendererInUse->current.integer == 2 ? 36 : 64;
+    if (dxState.streams[0].vb != xsurf->surfRigid.vb || dxState.streams[0].offset != 0
+        || dxState.streams[0].stride != stride)
+        RB_ChangeStreamSource(0, xsurf->surfRigid.vb, 0, stride);
+    RB_PushMatrixStack();
+    RB_SetWorldMatrixFromBoneAxis(surface, backEnd.currentEntity);
+    RB_DrawTechnique(0, &args);
+    RB_PopMatrixStack();
+}
+
+// PINNED 10041510: capture signed triangle count, publish counts before copying.
+void RB_TessStaticModelCached(const surfaceType_t *surfType)
+{
+    const GfxStaticModelCachedSurface *surface = (const GfxStaticModelCachedSurface *)surfType;
+    int indexCount = surface->surf.xsurf->triCount * 3;
+    if (tess.optimizedIndexCount + indexCount > 0x100000)
+        RB_TessOverflow();
+    tess.optimizedVertexSource = 2;
+    tess.firstOptimizedVertex = 0;
+    tess.optimizedVertexCount = 0x10000;
+    if (r_logFile->current.integer)
+        RB_LogPrint(va("--- RB_TessStaticModelCached( %s ) ---\n", tess.material->info.name));
+    unsigned short *out = tess.secondaryIndices + tess.optimizedIndexCount;
+    tess.optimizedIndexCount += indexCount;
+    const byte *in = (const byte *)dx.smodelCacheIndices + surface->surface->baseVertIndex * 12;
+    Com_Memcpy(out, in, indexCount * 2);
+}
+
+// PINNED 100415f0: ordinary tess data is retained; optimized indices own these counts.
+void RB_TessTriangles(const surfaceType_t *surfType)
+{
+    const srfTriangles_t *triangles = (const srfTriangles_t *)surfType;
+    if (tess.optimizedIndexCount && (tess.firstOptimizedVertex != triangles->firstVertex
+        || tess.optimizedVertexCount != triangles->vertexCount))
+        RB_TessOverflow();
+    if (tess.optimizedIndexCount + triangles->indexCount > 0x100000)
+        RB_TessOverflow();
+    tess.optimizedVertexSource = 1;
+    Com_Memcpy(tess.secondaryIndices + tess.optimizedIndexCount,
+        triangles->indices, triangles->indexCount * 2);
+    tess.optimizedIndexCount += triangles->indexCount;
+    tess.firstOptimizedVertex = triangles->firstVertex;
+    tess.optimizedVertexCount = triangles->vertexCount;
 }

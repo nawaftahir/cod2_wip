@@ -1,4 +1,5 @@
 // XModel surface loading from the xmodelsurfs file stream.
+#include "r_local.h"
 #include "gfx.h"
 
 template<typename T>
@@ -147,6 +148,42 @@ typedef unsigned long(__stdcall *D3DReleaseFn)(void *obj);
 
 void R_FreeStaticIndexBuffer(IDirect3DIndexBuffer9 *ib);
 
+// Retail keeps the optimize helpers in this TU (1002da90..1002dd91).
+extern DxGlobals dx;
+void R_FinishStaticVertexBuffer(void *vb);
+void R_FinishStaticIndexBuffer(IDirect3DIndexBuffer9 *ib);
+void XSurfaceTransfer(const XVertexBuffer *src, GfxVertex *dst, int count);
+void XSurfaceTransferDx7(const XVertexBuffer *src, GfxVertexDx7 *dst, int count);
+extern "C" void Com_Memcpy(void *dst, const void *src, int count);
+
+void XSurfaceOptimizeRigid(XModel *model, XSurface *surface, XVertexBuffer *surfVerts)
+{
+    void *vertexData;
+    HRESULT hr;
+    IDirect3DVertexBuffer9 **vb = &surface->surfRigid.vb;
+
+    if (surface->surfRigid.vb)
+        return;
+    hr = dx.device->CreateVertexBuffer(surface->vertCount *
+        (r_rendererInUse->current.integer == 2 ? 36 : 64), 8, 0,
+        D3DPOOL_DEFAULT, vb, 0);
+    if (hr < 0)
+        goto failed;
+    hr = surface->surfRigid.vb->Lock(0, 0, &vertexData, 0);
+    if (hr < 0)
+    {
+        surface->surfRigid.vb->Release();
+        goto failed;
+    }
+    if (r_rendererInUse->current.integer == 2)
+        XSurfaceTransferDx7(surfVerts, (GfxVertexDx7 *)vertexData, surface->vertCount);
+    else
+        XSurfaceTransfer(surfVerts, (GfxVertex *)vertexData, surface->vertCount);
+    R_FinishStaticVertexBuffer(surface->surfRigid.vb);
+    return;
+failed:
+    surface->surfRigid.vb = 0;
+}
 // Out-of-line copies of both helpers exist in retail (0x1002db50, 0x1002dc40), so they are not static.
 void XSurfaceFreeVertexBuffer(XSurface *surf)
 {
@@ -162,6 +199,38 @@ void XSurfaceFreeVertexBuffer(XSurface *surf)
     }
 }
 
+// Name unconfirmed: retail 1002db80 inlines index allocation and checks its result.
+void XSurfaceOptimize(XModel *model, XSurface *surface)
+{
+    void *indexData;
+    int dataSize;
+    int bufferSize;
+    HRESULT hr;
+
+    if (!surface->indexBuffer)
+    {
+        dataSize = surface->triCount * 6;
+        bufferSize = (dataSize + 31) & ~31;
+        hr = dx.device->CreateIndexBuffer(bufferSize, 8, D3DFMT_INDEX16,
+            D3DPOOL_DEFAULT, &surface->indexBuffer, 0);
+        if (hr < 0)
+            return;
+        hr = surface->indexBuffer->Lock(0, 0, &indexData, 0);
+        if (hr < 0)
+        {
+            surface->indexBuffer->Release();
+            return;
+        }
+        if (!indexData)
+            return;
+        Com_Memcpy(indexData, surface->triIndices, dataSize);
+        memset((byte *)indexData + dataSize, 0, bufferSize - dataSize);
+        R_FinishStaticIndexBuffer(surface->indexBuffer);
+    }
+    if (surface->boneOffset != -1)
+        XSurfaceOptimizeRigid(model, surface, surface->verts);
+}
+
 void XSurfaceFreeBuffers(XSurface *surf)
 {
     if (surf->indexBuffer)
@@ -170,4 +239,42 @@ void XSurfaceFreeBuffers(XSurface *surf)
         surf->indexBuffer = 0;
     }
     XSurfaceFreeVertexBuffer(surf);
+}
+
+void XModelOptimize(XModel *model)
+{
+    XSurface **surfaces;
+    int *partBits;
+    int lodCount;
+    int surfCount;
+    int lod;
+    int surf;
+
+    lodCount = ri.XModelGetNumLods(model);
+    for (lod = 0; lod < lodCount; ++lod)
+    {
+        surfCount = ri.XModelGetSurfaces(model, &surfaces, lod, &partBits);
+        for (surf = 0; surf < surfCount; ++surf)
+            XSurfaceOptimize(model, surfaces[surf]);
+    }
+}
+
+void XModelUnoptimize(XModel *model)
+{
+    int lodCount;
+    int lodIndex;
+    int surfCount;
+    int surfIndex;
+    XSurface **surfaces;
+    int *partBits;
+
+    lodCount = ri.XModelGetNumLods(model);
+    for (lodIndex = 0; lodIndex < lodCount; lodIndex++)
+    {
+        surfCount = ri.XModelGetSurfaces(model, &surfaces, lodIndex, &partBits);
+        for (surfIndex = 0; surfIndex < surfCount; surfIndex++)
+        {
+            XSurfaceFreeBuffers(surfaces[surfIndex]);
+        }
+    }
 }

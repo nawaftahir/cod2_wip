@@ -693,6 +693,31 @@ void R_AddCmdDrawSun(int viewIndex)
     cmd->viewIndex = viewIndex;
 }
 
+/* Name unconfirmed: retail 10021980/79, 100219d0/129, 10021a60/116 are
+   uncalled writers for commands 6, 7, 8 (Mac payload structs). */
+void R_AddCmdSetStencilRefValue(int refValue)
+{
+    GfxCmdSetStencilRefValue *cmd = (GfxCmdSetStencilRefValue *)R_GetCommandBuffer(6, sizeof(GfxCmdSetStencilRefValue));
+    cmd->refValue = refValue;
+}
+
+void R_AddCmdStencilPlanes(int planeCount, float nearDist, const float *planeDists)
+{
+    GfxCmdStencilPlanes *cmd = (GfxCmdStencilPlanes *)R_GetCommandBuffer(7, offsetof(GfxCmdStencilPlanes, planeDists) + planeCount * 4);
+    cmd->nearDist = nearDist;
+    cmd->planeCount = planeCount;
+    memcpy(cmd->planeDists, planeDists, planeCount * 4);
+}
+
+void R_AddCmdSetClipPlanes(int planeCount, const float (*planes)[4])
+{
+    if (!dx.maxClipPlanes)
+        return;
+    GfxCmdSetClipPlanes *cmd = (GfxCmdSetClipPlanes *)R_GetCommandBuffer(8, offsetof(GfxCmdSetClipPlanes, clipPlanes) + planeCount * 16);
+    cmd->clipPlaneCount = planeCount;
+    memcpy(cmd->clipPlanes, planes, planeCount * 16);
+}
+
 void R_AddCmdId9(const RcWords16 *data, int extra)
 {
     RcCmdId9 *cmd;

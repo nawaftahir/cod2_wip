@@ -59,3 +59,23 @@ infoParm_t infoParms[] =
     { "nodlight", 0, 0x20000, 0, 0 },
     { NULL, 0, 0, 0, 0 }
 };
+
+// Mac names; PINNED 10041690/96 and 100416f0/26 (retail links this TU after rb_tess).
+int Com_SurfaceTypeFromName(const char *name)
+{
+    if (!_stricmp(name, "default"))
+        return 0;
+    for (int i = 0; i < 22; i++)
+    {
+        if (!_stricmp(name, infoParms[i].name))
+            return (infoParms[i].surfaceFlags & 0x1f00000) >> 20;
+    }
+    return -1;
+}
+
+const char *Com_SurfaceTypeToName(int iTypeIndex)
+{
+    if (iTypeIndex < 1 || iTypeIndex > 22)
+        return "default";
+    return infoParms[iTypeIndex - 1].name;
+}

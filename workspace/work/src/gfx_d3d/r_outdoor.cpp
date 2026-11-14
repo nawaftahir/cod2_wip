@@ -102,6 +102,29 @@ float R_OutdoorTexelToWorld(int axis, int texel)
     return ((float)texel + 0.5f - outdoorGlob.add[axis]) * outdoorGlob.invScale[axis];
 }
 
+// Name unconfirmed; PINNED 100208b0/77, no retail callers.
+int R_OutdoorWorldToTexel(int axis, float world)
+{
+    int texel = I_fround(world * outdoorGlob.scale[axis] + outdoorGlob.add[axis] - 0.5f);
+    int maxTexel = outdoorMapSize[axis] - 1;
+    if (texel < 0)
+        return 0;
+    if (texel > maxTexel)
+        return maxTexel;
+    return texel;
+}
+
+// Name unconfirmed; PINNED 10020900/78.
+inline void R_OutdoorEncodeHeight(float height, byte *out)
+{
+    int value = I_fround(outdoorGlob.scale[2] * height + outdoorGlob.add[2] - 0.5f);
+    if (value < 0)
+        value = 0;
+    else if (value > 255)
+        value = 255;
+    *out = (byte)value;
+}
+
 // PINNED 10020950/201: map traces to clamped depth bytes; instruction tuning remains deferred.
 void R_GenerateOutdoorLookup()
 {
@@ -113,13 +136,8 @@ void R_GenerateOutdoorLookup()
         {
             float x = R_OutdoorTexelToWorld(0, column);
             float height = R_OutdoorTraceHeight(x, y);
-            float encoded = height * outdoorGlob.scale[2] + outdoorGlob.add[2];
-            int value = I_fround(encoded - 0.5f);
-            if (value < 0)
-                value = 0;
-            else if (value > 255)
-                value = 255;
-            *pixel++ = (byte)value;
+            R_OutdoorEncodeHeight(height, pixel);
+            ++pixel;
         }
     }
 }
@@ -149,4 +167,12 @@ void R_CreateOutdoorImage(GfxImage *image)
     Image_Setup(image, 512, 512, 1, 3, 0, D3DFMT_L8);
     Image_UploadData(image, D3DFMT_L8, D3DCUBEMAP_FACE_POSITIVE_X, 0, pixels);
     ri.Hunk_FreeTempMemory(outdoorGlob.pic);
+}
+
+extern const dvar_t *r_zFeather;
+
+// Name unconfirmed; PINNED 10020b20/24, no retail callers.
+bool R_IsZFeatherActive()
+{
+    return r_rendererInUse->current.integer != 2 && r_zFeather->current.enabled;
 }
