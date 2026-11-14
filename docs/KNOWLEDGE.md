@@ -827,3 +827,10 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   (latencies 3,3,2,3,3) plus 0-latency order edges from each node to the later ones. The push (idx 0x1a) -> fadd scale
   (idx 0x20) edge has latency 2. Next: name each op code (0x45/0x46/0x48/0x60/0x63/0x269) by matching one small fn's picks
   to its asm, then find the builder of the 0x1a -> 0x20 edge (Ghidra: callers of the edge allocator used by the DAG pass).
+- PINNED (decompile 0x107b550a): priority [n+0x28] = sum of fields each shifted by a per-target table at *0x108a7d74:
+  flag bit1 of [n+0x3c], height [n+0x34] (longest latency path to block end: max over succs of succ.height + latency, +1),
+  flag bit0, flag bit2, ushort [n+0x22]; plus flag bit3 when the tuple's op class (([t+10] & 0xf000) == 0x4000).
+  [n+0x2c] = that sum. Nodes on the critical path get bit0. So an extra edge raises its source's height and moves picks.
+- DAG build (0x1078734c -> 0x107b3e88 per block): memory uses/defs on symbol kinds 3/4/5 go on lists 0x108817e4 (uses,
+  0x107b3f57) and 0x108817dc (defs, 0x107b3f92); 0x107b4558 = barrier node: every node with no succs gets an 0x80000 edge
+  to it (0x107b418c). 0x107b4690 walks the defs list [t+0x2c]: kind-3 operands and calls get 0x80 order edges (0x107b4730).
