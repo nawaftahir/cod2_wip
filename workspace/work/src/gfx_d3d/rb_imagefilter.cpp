@@ -243,10 +243,11 @@ void RB_GaussianFilterImage(float radius, GfxRenderTargetId target)
     filter.finalTarget = target;
     filter.pingPongTargets[0] = R_RENDERTARGET_PINGPONG_0;
     filter.pingPongTargets[1] = R_RENDERTARGET_PINGPONG_1;
-    filter.sourceImage = dx.renderTargets[R_RENDERTARGET_RESOLVED_SCENE].image;
+    GfxImage *sourceImage = dx.renderTargets[R_RENDERTARGET_RESOLVED_SCENE].image;
     filter.passCount = RB_GenerateGaussianFilterChain(radiusX, radiusY,
         vidConfig.width, vidConfig.height, dx.renderTargets[target].width,
         dx.renderTargets[target].height, filter.passes);
+    filter.sourceImage = sourceImage;
     RB_ApplyFilterPasses(&filter);
 }
 

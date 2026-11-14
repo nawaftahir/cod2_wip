@@ -16,6 +16,18 @@ typedef char OutdoorLayout[
     offsetof(GfxWorld, surfaceCount) == 0x10 && offsetof(GfxWorld, surfaces) == 0x14 &&
     offsetof(GfxWorld, outdoorLookupMatrix) == 0x1c0 ? 1 : -1];
 
+// PINNED 10020560/20, uncalled copy; name from KisakCOD r_outdoor.cpp.
+void Outdoor_TempHunkAllocatePic()
+{
+    outdoorGlob.pic = (byte *)ri.Hunk_AllocateTempMemoryInternal(262144);
+}
+
+// PINNED 10020580/14, uncalled copy; name from KisakCOD r_outdoor.cpp.
+void Outdoor_TempHunkFreePic()
+{
+    ri.Hunk_FreeTempMemory(outdoorGlob.pic);
+}
+
 // PINNED 10020590/175: trace from above the world to below it.
 float R_OutdoorTraceHeight(float x, float y)
 {

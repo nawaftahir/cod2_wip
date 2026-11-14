@@ -833,6 +833,17 @@ void RB_SetDepthHackNearClip(float nearClip)
 	RB_ProjectionMatrixChanged();
 }
 
+// Mac name; PINNED 1003e270/41. Uncalled in retail; invalidates stack zero only.
+void RB_SetShadowLookupMatrix(const D3DMATRIX *matrix)
+{
+	GfxCodeMatrix *lookup = &backEnd.codeMatrixStack[0].shadowLookupMatrix;
+	backEnd.shadowLookupMatrix = *matrix;
+	lookup->valid[0] = false;
+	lookup->valid[1] = false;
+	lookup->valid[2] = false;
+	lookup->valid[3] = false;
+}
+
 // name unconfirmed: copies the view parms matrices into the active code matrices
 static __declspec(noinline) void RB_CopyViewParmsMatrices(const GfxViewParms *viewParms)
 {
@@ -992,6 +1003,12 @@ void RB_UpdateViewport()
 	RB_SetViewport(&viewport);
 }
 
+// Name unconfirmed; PINNED 1003ea20/13. Uncalled in retail.
+GfxViewportBehavior RB_GetViewportBehavior()
+{
+	return s_viewportBehaviorForRenderTarget[dxState.renderTargetId];
+}
+
 // PINNED1003ea30--1003ec15; the inventory omits the final6 bytes.
 void RB_SetRenderTarget(GfxRenderTargetId newTargetId)
 {
@@ -1022,6 +1039,22 @@ void RB_SetRenderTarget(GfxRenderTargetId newTargetId)
 		dxState.depthStencilSurface = dx.renderTargets[newTargetId].depthStencilSurface;
 	}
 	RB_UpdateViewportConstants();
+}
+
+// Names unconfirmed; PINNED 1003ec20, 1003ec30, 1003ec40 (10 B each). Uncalled in retail.
+void RB_ClearPixelShader()
+{
+	RB_ChangePixelShader(0);
+}
+
+void RB_ClearVertexShader()
+{
+	RB_ChangeVertexShader(0);
+}
+
+void RB_ClearFVF()
+{
+	RB_SetFVF(0);
 }
 
 // PINNED 1003ec50/33: preserve each live sampler state while binding white.

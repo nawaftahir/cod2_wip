@@ -57,6 +57,12 @@ void R_LoadSun_f();
 void R_SaveSun(const char *name);
 void R_SaveSun_f();
 
+// PINNED 10028a00/6, uncalled; name from Mac r_sky (count of s_sundvars).
+int R_GetSundvarsSize()
+{
+    return 21;
+}
+
 void R_RegisterSunDvars()
 {
 	r_sunsprite_shader = ri.Dvar_RegisterString("r_sunsprite_shader", "sun", 0x2000);

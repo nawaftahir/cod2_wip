@@ -4,6 +4,16 @@
 
 r_logfile_globals_t r_logFileGlob;
 
+// PINNED 100377f0/29, uncalled copy; name from KisakCOD rb_logfile.cpp.
+void RB_CloseLogFile()
+{
+    if (r_logFileGlob.fp)
+    {
+        fclose(r_logFileGlob.fp);
+        r_logFileGlob.fp = 0;
+    }
+}
+
 static void RB_OpenLogFile()
 {
     time_t aclock;

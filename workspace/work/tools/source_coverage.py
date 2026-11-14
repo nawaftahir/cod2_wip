@@ -29,8 +29,8 @@ allowed = {
     'universal/box_on_plane_side_x86.inc': '01447f1d547da40d7d228d91157964b259f8ad8180074b6a95f0df332771328d',
     # owner-approved 2026-11-06: I_ffloor fld/fsub/fistp, same pattern as I_fround; 2026-11-14 C-only edits (w-light7), asm unchanged
     'gfx_d3d/rb_light.cpp': 'b3d21c510866d0e2b7659990816a81cbe612322811854a6223d3f5a5fe0590be',
-    # w-backend5/6/8/9: asm bodies unchanged (diffed vs gfx/main); C-only edits, owner approved 2026-11-14
-    'gfx_d3d/rb_backend.cpp': '85c38be0f6660bc9997046df0567ea5d9f8386d0af7ee387556572e6fa8b2c95',
+    # w-backend5/6/8/9, w-scan12: asm bodies unchanged (diffed vs gfx/main); C-only edits, owner approved 2026-11-14
+    'gfx_d3d/rb_backend.cpp': '17dc9bbeade5b23e6dd44e63b8ee7007957a0b2317aa99247ce3fd958ebbcee0',
     'compat/msvc71.h': '8b793ebbd41492a4289a9d26c7f39543022351c2e847273bfd68ec96f3598dab',
 }
 sources = {}
