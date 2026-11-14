@@ -1,10 +1,12 @@
 # CoD2MP_s.exe 1.0: status
 
-## Numbers (`meter-1.0.json`, commit b2af8f89; only the gate writes them)
-- Whole file same-offset: 1,699,171 / 1,699,840 = **99.961%** (669 B left). PE header excluded by shameter.
-- Sections same-offset: .text 1,408,369 / 1,408,683; .rdata 200,690; .data 100%; .rsrc 100%.
-- Matched functions: 7,154 / 7,269 game fns, 1,336,591 matched-fn bytes. TUs in `src/`: 181 / 271.
-- Not SHA-identical yet. Parked by the owner (11-04) while 1.3 runs: work here only on new evidence.
+## Numbers (`meter-1.0.json`, accept ed7898a3 on 11-13, clean gate)
+- Whole file same-offset: 1,699,582 / 1,699,840 = **99.985%** (258 B left). PE header equal to retail (two-pass mss32.lib).
+- 11-13: 1.3 fixes ported (Rich, AdsOverlay, CG_CalcCrosshairPosition +380, Sway); IW folder layout mirrored from 1.3,
+  exe byte-identical (05427834, 7b0fd376). No longer parked: 1.0 and 1.3 share every remaining residue.
+- Left (bytes): FX_CalcOriginAndAxis 56, CG_DrawCursorhint 30, CG_DrawGrenadePointer 16, G_GetPlayerViewOrigin 16,
+  XAnimCalc 15, EvalPrimitiveExpression 14, CG_CalcCrosshairPosition tail 12, Item_ListBox_MouseEnter 11,
+  DSound_UpdateSample 9 (tie), ~20 fns <= 7 B, data/address ~40. State per fn: client-1.3/docs/KNOWLEDGE.md.
 
 ## Remaining items (state 11-03, causes in KNOWLEDGE.md, attempts in TRIED.md)
 | Item | Bytes | Next attack |
