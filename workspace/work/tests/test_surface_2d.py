@@ -34,7 +34,8 @@ struct IDirect3DDevice9 {int transforms[3],begins,ends;HRESULT SetTransform(int,
 r_backEndGlobals_t backEnd,expectedBackend,flushBackend;
 GfxTess tess;SunFlareDynamic sunFlareState[4];
 struct {IDirect3DDevice9 *device;} dx={&device};
-struct State {int viewportBehavior,renderTargetWidth,renderTargetHeight;} dxState,flushState;
+struct IDirect3DIndexBuffer9;void RB_ChangeIndices(IDirect3DIndexBuffer9 *){}
+struct State {int viewportBehavior,renderTargetWidth,renderTargetHeight;IDirect3DIndexBuffer9 *indexBuffer;} dxState,flushState;
 struct dvar_t {struct {int integer;} current;} renderer;
 const dvar_t *r_rendererInUse=&renderer;
 const float identityMatrix44[4][4]={{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}};
