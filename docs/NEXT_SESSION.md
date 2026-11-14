@@ -1,4 +1,31 @@
-# Renderer next session (written 2026-11-11 evening)
+# Renderer next session (written 2026-11-14)
+
+## Start here
+- Helper scripts: copy ~/gfx_tools/* to /tmp (brief = gfx_brief.md, bar there is ac7f5c0a / 301,447).
+- gfx/main fe4fa81f = w-stack4 (ac7f5c0a) + w-font5. Local same-offset 303,624; CI meter green.
+- Threshold: .rdata reaches retail file 0x10c000 only when .text vsize > 0x10a000.
+
+## Stack waiting: gfx/w-stack8 (local, not pushed)
+gfx/main + w-backend5 0d6c3db9 + w-skyfilt5 bd64cec0 + w-matwav5 bf4ff455 + w-water5 5b0fcf38
++ w-state5 7bba254b + w-outdoor5 7bb7f340 + w-image5 13ee4f32 + w-guid cb2d8bf1.
+.text 0x109040 (needs > 0x10a000: 0x1050 B more). Whole-file 293,459, section-relative 324,759.
+w-specpos is superseded by w-skyfilt5 (same r_specularityimage move): do not stack it.
+build.sh returns rc=1 on stacks containing w-backend5 although the link succeeds: find the failing
+post-link step before pushing (source_coverage asm hash lock on rb_backend.cpp is the suspect).
+Owner check: several branches add uncalled retail bodies with "Name unconfirmed" + PINNED names
+(r_outdoor x3, r_image x2, r_init x2, r_font R_DrawConsoleIcon). Precedent: R_PointInLeaf.
+
+## Leads, biggest first (details in TRIED.md 2026-11-14 blocks)
+- rb_backend: ~1424 B still missing; disassemble the -17136..-14624 and -14608..-12752 steps.
+- rb_tess (w-state5): AddQuadStampDx7 376/528, AddLine +84 (TessOverflow inlined; retail start in
+  eax), BuildSprite fsincos helper, TessCylinder(+Dx7) too big, head inlines 1003ee60/70/80.
+- r_outdoor: -448 net; 0.5-2^-30 rounding form without asm, tail stubs 10020b00/10/40.
+- r_xsurface: drop the out-of-line XSurfaceTransformPosWeighted copy; Buf_Read copies order.
+- rb_backend head 1002dda0..df37 helpers before RB_TessOverflow.
+- rb_imagefilter: GaussianFilterChain 538/543, ~100 B elsewhere.
+- r_image 1000ccb0 (64 B, "$temp" image alloc), r_material two ret bodies, r_dpvs, r_staticmodel.
+
+## Previous handoff (2026-11-11)
 
 ## Start here
 - Helper scripts were in /tmp and get wiped on WSL restart. Copies: ~/gfx_tools (gfx_land.sh,
