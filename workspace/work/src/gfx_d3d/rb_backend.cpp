@@ -1274,14 +1274,12 @@ static void RB_StencilPlanesCmd(GfxRenderCommandExecState *state)
         RB_SetVertex4D(tess.vertexCount + 1, negative, distance, depth, distance, 0.0f, 0.0f, &white);
         RB_SetVertex4D(tess.vertexCount + 2, distance, distance, depth, distance, 0.0f, 0.0f, &white);
         RB_SetVertex4D(tess.vertexCount + 3, distance, negative, depth, distance, 0.0f, 0.0f, &white);
-        int base = tess.vertexCount;
-        int first = tess.indexCount;
-        tess.indices[first] = (unsigned short)base;
-        tess.indices[first + 1] = (unsigned short)(base + 1);
-        tess.indices[first + 2] = (unsigned short)(base + 2);
-        tess.indices[first + 3] = (unsigned short)(base + 2);
-        tess.indices[first + 4] = (unsigned short)(base + 3);
-        tess.indices[first + 5] = (unsigned short)base;
+        tess.indices[tess.indexCount] = (unsigned short)(tess.vertexCount);
+        tess.indices[tess.indexCount + 1] = (unsigned short)(tess.vertexCount + 1);
+        tess.indices[tess.indexCount + 2] = (unsigned short)(tess.vertexCount + 2);
+        tess.indices[tess.indexCount + 3] = (unsigned short)(tess.vertexCount + 2);
+        tess.indices[tess.indexCount + 4] = (unsigned short)(tess.vertexCount + 3);
+        tess.indices[tess.indexCount + 5] = (unsigned short)(tess.vertexCount);
         tess.vertexCount += 4;
         tess.indexCount += 6;
     }
@@ -1347,14 +1345,12 @@ static void RB_DrawPoints2D(const GfxCmdDrawPoints *cmd)
     {
         if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
             RB_TessOverflow();
-        int first = tess.indexCount;
-        int base = tess.vertexCount;
-        tess.indices[first] = (unsigned short)(base + 1);
-        tess.indices[first + 1] = (unsigned short)base;
-        tess.indices[first + 2] = (unsigned short)(base + 2);
-        tess.indices[first + 3] = (unsigned short)(base + 2);
-        tess.indices[first + 4] = (unsigned short)base;
-        tess.indices[first + 5] = (unsigned short)(base + 3);
+        tess.indices[tess.indexCount] = (unsigned short)(tess.vertexCount + 1);
+        tess.indices[tess.indexCount + 1] = (unsigned short)(tess.vertexCount);
+        tess.indices[tess.indexCount + 2] = (unsigned short)(tess.vertexCount + 2);
+        tess.indices[tess.indexCount + 3] = (unsigned short)(tess.vertexCount + 2);
+        tess.indices[tess.indexCount + 4] = (unsigned short)(tess.vertexCount);
+        tess.indices[tess.indexCount + 5] = (unsigned short)(tess.vertexCount + 3);
         tess.indexCount += 6;
         const GfxColor *color = (const GfxColor *)point->color;
         RB_SetVertex4D(tess.vertexCount, point->xyz[0] - halfSize,
@@ -1396,14 +1392,12 @@ static void RB_DrawPoints3D(const GfxCmdDrawPoints *cmd)
         clip[2] -= clip[3] * 0.001f;
         if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
             RB_TessOverflow();
-        int first = tess.indexCount;
-        int base = tess.vertexCount;
-        tess.indices[first] = (unsigned short)(base + 3);
-        tess.indices[first + 1] = (unsigned short)base;
-        tess.indices[first + 2] = (unsigned short)(base + 2);
-        tess.indices[first + 3] = (unsigned short)(base + 2);
-        tess.indices[first + 4] = (unsigned short)base;
-        tess.indices[first + 5] = (unsigned short)(base + 1);
+        tess.indices[tess.indexCount] = (unsigned short)(tess.vertexCount + 3);
+        tess.indices[tess.indexCount + 1] = (unsigned short)(tess.vertexCount);
+        tess.indices[tess.indexCount + 2] = (unsigned short)(tess.vertexCount + 2);
+        tess.indices[tess.indexCount + 3] = (unsigned short)(tess.vertexCount + 2);
+        tess.indices[tess.indexCount + 4] = (unsigned short)(tess.vertexCount);
+        tess.indices[tess.indexCount + 5] = (unsigned short)(tess.vertexCount + 1);
         tess.indexCount += 6;
         const GfxColor *color = (const GfxColor *)point->color;
         RB_SetVertex4D(tess.vertexCount, clip[0] - offsetX, clip[1] - offsetY,
@@ -1447,14 +1441,12 @@ static void RB_DrawLines2D(int count, const GfxPointVertex *verts)
         delta[1] *= 0.5f;
         if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
             RB_TessOverflow();
-        int first = tess.indexCount;
-        int base = tess.vertexCount;
-        tess.indices[first] = (unsigned short)(base + 1);
-        tess.indices[first + 1] = (unsigned short)base;
-        tess.indices[first + 2] = (unsigned short)(base + 2);
-        tess.indices[first + 3] = (unsigned short)(base + 2);
-        tess.indices[first + 4] = (unsigned short)base;
-        tess.indices[first + 5] = (unsigned short)(base + 3);
+        tess.indices[tess.indexCount] = (unsigned short)(tess.vertexCount + 1);
+        tess.indices[tess.indexCount + 1] = (unsigned short)(tess.vertexCount);
+        tess.indices[tess.indexCount + 2] = (unsigned short)(tess.vertexCount + 2);
+        tess.indices[tess.indexCount + 3] = (unsigned short)(tess.vertexCount + 2);
+        tess.indices[tess.indexCount + 4] = (unsigned short)(tess.vertexCount);
+        tess.indices[tess.indexCount + 5] = (unsigned short)(tess.vertexCount + 3);
         tess.indexCount += 6;
         RB_SetVertex3D(tess.vertexCount, verts[0].xyz[0] - delta[0],
             verts[0].xyz[1] - delta[1], verts[0].xyz[2], 0.0f, 0.0f, (const GfxColor *)verts[0].color);
@@ -1524,14 +1516,12 @@ void RB_DrawLines3D(int count, int width, const GfxPointVertex *verts, bool dept
         float toX = to[3] * delta[0], toY = to[3] * delta[1];
         if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
             RB_TessOverflow();
-        int first = tess.indexCount;
-        int base = tess.vertexCount;
-        tess.indices[first] = (unsigned short)(base + 3);
-        tess.indices[first + 1] = (unsigned short)base;
-        tess.indices[first + 2] = (unsigned short)(base + 2);
-        tess.indices[first + 3] = (unsigned short)(base + 2);
-        tess.indices[first + 4] = (unsigned short)base;
-        tess.indices[first + 5] = (unsigned short)(base + 1);
+        tess.indices[tess.indexCount] = (unsigned short)(tess.vertexCount + 3);
+        tess.indices[tess.indexCount + 1] = (unsigned short)(tess.vertexCount);
+        tess.indices[tess.indexCount + 2] = (unsigned short)(tess.vertexCount + 2);
+        tess.indices[tess.indexCount + 3] = (unsigned short)(tess.vertexCount + 2);
+        tess.indices[tess.indexCount + 4] = (unsigned short)(tess.vertexCount);
+        tess.indices[tess.indexCount + 5] = (unsigned short)(tess.vertexCount + 1);
         tess.indexCount += 6;
         RB_SetVertex4D(tess.vertexCount, from[0] - fromX, from[1] - fromY,
             from[2], from[3], 0.0f, 0.0f, (const GfxColor *)verts[0].color);
