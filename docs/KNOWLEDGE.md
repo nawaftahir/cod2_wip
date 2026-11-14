@@ -811,3 +811,15 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   12 -> 6 diff lines; left = two `fadd scale` issue positions around the text-site pushes.
 - Tool: /home/nawaf/w29/x13.py SPEC (one 1.3 TU, N variants, no /GL, ~4 s, prints chosen asm lines). Faithful for local
   x87 roles (Cursorhint reproduces); NOT for fns whose roles depend on LTCG inlining (crosshair DotProduct is called there).
+
+## 27. c2 list scheduler decoded (w29, 11-14, Ghidra decompile of c2.dll + tools/c2sched13.sh)
+- PINNED (decompile 0x107b5338 / 0x107b5309 / 0x107b4f08): ready list sorted by node [n+0x2c] descending (priority),
+  ties by ushort [n+0x36] ascending (creation index). Each cycle (global 0x108a8018) picks, in list order, the first node
+  whose unit is free and whose earliest cycle [n+0x30] <= now; successors get est = max(est, now + edge latency).
+- Tool: tools/c2sched13.sh NAME-prefix -> build/ra/sch.txt (R = enters ready list, S = picked: cycle node prio idx est op
+  unit). Output exe identical to ox.exe. Pick order lines up with emitted order to within ~1 slot (not exact: check ops).
+- Ghidra project of c2.dll (stock 7.1 c2, md5 as in client-1.0 KNOWLEDGE): /home/nawaf/w29/gh/c2proj, decompile any
+  address with ghs/Dec.java (env DEC_ADDRS, DEC_OUT), see TRIED w29 for the command.
+- Cursorhint hunk 1 (PINNED by sch.txt): our `fadd scale` has est 0x24 = `push ecx` (cycle 0x22) + 2, so the DAG has an
+  edge push -> fadd(esp-relative scale) that retail lacks (retail issues the fadd before the push). Next: find that edge's
+  builder (who adds stack-memory / esp edges) and what source shape drops it.
