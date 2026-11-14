@@ -69,6 +69,6 @@ $(B)/cl/%.obj: src/cl/%.cpp
 	@cd src/cl && $(CL) $(CLFLAGS) $(if $(DBG),/Fd..\\..\\$(subst /,\\,$@).pdb) $(shell awk '$$1=="$*.cpp"{$$1="";print}' $(SRCDIR)/cltus.txt) /Fo..\\..\\$(subst /,\\,$@) .\\$(subst /,\\,$*.cpp) > ../../$@.log 2>&1 || (cat ../../$@.log; false)
 
 $(OUT): $(OBJS)
-	$(LINK) $(LFLAGS) $(ROOTS) /OUT:$(subst /,\\,$(OUT)) $(subst /,\\,$(OBJS)) d3d9.lib d3dx9.lib DxErr9.lib user32.lib gdi32.lib advapi32.lib
+	$(LINK) $(LFLAGS) $(ROOTS) /OUT:$(subst /,\\,$(OUT)) $(subst /,\\,$(OBJS)) d3d9.lib d3dx9.lib DxErr9.lib uuid.lib user32.lib gdi32.lib advapi32.lib
 
 endif
