@@ -440,17 +440,19 @@ void RB_TessSprite(const GfxEntity *ent)
 void RB_TessOrientedQuad(const GfxEntity *ent)
 {
     float right[3], vertical[3], left[3], up[3];
-    MakeNormalVectors(ent->axis[0], right, vertical);
     if (ent->rotation == 0.0f)
     {
-        for (int component = 0; component < 3; ++component)
-        {
-            left[component] = right[component] * ent->radius[0];
-            up[component] = vertical[component] * ent->radius[1];
-        }
+        MakeNormalVectors(ent->axis[0], left, up);
+        left[0] *= ent->radius[0];
+        left[1] *= ent->radius[0];
+        left[2] *= ent->radius[0];
+        up[0] *= ent->radius[1];
+        up[1] *= ent->radius[1];
+        up[2] *= ent->radius[1];
     }
     else
     {
+        MakeNormalVectors(ent->axis[0], right, vertical);
         float radians = ent->rotation * 0.017453292f;
         float sine, cosine;
         FastSinCos(radians, &sine, &cosine);

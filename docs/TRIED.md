@@ -4551,3 +4551,8 @@ r_utils order is HashAssetName, HashString, 1002c010, Cull, Convert, PickMateria
 - Probe: __declspec(noinline) on the RB_TessOverflow declaration in rb_tess.cpp: ignored under LTCG (sizes unchanged). Reverted. Needs noinline on the rb_backend.cpp definition (rb_backend hash lock pending, not touched).
 - BuildSprite and TessOrientedQuad use the existing com_math FastSinCos (retail fsincos at 1003f762/1003fc4d): BuildSprite 448 -> 480 (retail 488), OrientedQuad 448 -> 480 (retail 528). Same-offset 290421 -> 298245.
 - Probe: BuildSprite left/up as scale-then-multiply-add (retail order: cos*r0*axis1, then += -sin*r0*axis2): 496 vs 488, same-offset 290822. Reverted.
+2026-11-14 gfx/w-tess7 rb_tess:
+- Head copies 1003ee60/70/80 added as inline XSurfaceGetIndexBuffer, RB_GetModelSurfaceXSurface, RB_CheckOptimizedIndexOverflow (names unconfirmed), used by Skinned/Rigid/StaticModelCached/Triangles: all three land at the head right after OriginsMatch.
+- RB_ParticleCloudOriginsMatch: probe 1 delta = *b++ - *a++ (still 59); probe 2 delta = b[index] - a[index]: retail form (esi = b - a, ecx stepping), 68 == retail.
+- TessOrientedQuad probe 1: rotated branch as scale-then-multiply-add (left = right*c; left += vertical*-s*r0; same for up): 480 -> 496ish slot 512 vs 528. Probe 2: MakeNormalVectors called per branch, unrotated branch scales left/up in place (retail calls 100597d0 twice): size slot unchanged 512, same-offset +8, kept.
+- Net: .text 0x1093b0 -> 0x109430 (+0x80), whole-file 305817 -> 296811 (later objects shift until .rdata moves).
