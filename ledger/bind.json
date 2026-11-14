@@ -727,6 +727,12 @@
 "obj": "r_image.obj",
 "why": []
 },
+"?Image_MipDimension@@YAHHH@Z": {
+"t": "0x1000c7a0",
+"n": 17,
+"obj": "r_image.obj",
+"why": []
+},
 "?Image_IsCodeTrack@@YAEH@Z": {
 "t": "0x1000c7c0",
 "n": 20,
@@ -817,6 +823,12 @@
 "obj": "r_image.obj",
 "why": []
 },
+"?Image_FreeZ@@YAXPAUGfxImage@@@Z": {
+"t": "0x1000ccf0",
+"n": 20,
+"obj": "r_image.obj",
+"why": []
+},
 "?Image_Create2DTexture@@YAXPAUGfxImage@@GGHKW4_D3DFORMAT@@W4_D3DPOOL@@@Z": {
 "t": "0x1000ce80",
 "n": 113,
@@ -903,14 +915,6 @@
 "obj": "r_image.obj",
 "why": []
 },
-"?R_LoadWaterSetup@@YAPAUwater_t@@PBU1@@Z": {
-"t": "0x1000dd70",
-"n": 122,
-"obj": "r_image.obj",
-"why": [
-"call ?R_WatersEquivalent@@YAHPBUwater_t@@0@Z"
-]
-},
 "?imagecompare@@YAHPAUGfxImage@@0@Z": {
 "t": "0x1000d900",
 "n": 49,
@@ -922,6 +926,14 @@
 "n": 1070,
 "obj": "r_image.obj",
 "why": []
+},
+"?R_LoadWaterSetup@@YAPAUwater_t@@PBU1@@Z": {
+"t": "0x1000dd70",
+"n": 122,
+"obj": "r_image.obj",
+"why": [
+"call ?R_WatersEquivalent@@YAHPBUwater_t@@0@Z"
+]
 },
 "??$_Unguarded_partition@PAPAUGfxImage@@P6AHPAU1@0@Z@std@@YA?AU?$pair@PAPAUGfxImage@@PAPAU1@@0@PAPAUGfxImage@@0P6AHPAU2@1@Z@Z": {
 "t": "0x1000e080",
@@ -1195,12 +1207,6 @@
 "obj": "r_image_load_obj.obj",
 "why": []
 },
-"?Image_BuildSpecularityMap@@YAXMPAE@Z": {
-"t": "0x10029320",
-"n": 262,
-"obj": "r_specularityimage.obj",
-"why": []
-},
 "?Wavelet_ConsumeBits@@YAXGPAUWaveletDecode@@@Z": {
 "t": "0x10010ba0",
 "n": 87,
@@ -1223,6 +1229,18 @@
 "t": "0x10010d40",
 "n": 1471,
 "obj": "r_image_wavelet.obj",
+"why": []
+},
+"?R_DynamicVertexSize@@YAHXZ": {
+"t": "0x10011340",
+"n": 25,
+"obj": "r_init.obj",
+"why": []
+},
+"?R_RestoreFpuControl@@YAXXZ": {
+"t": "0x10011360",
+"n": 34,
+"obj": "r_init.obj",
 "why": []
 },
 "?R_FatalInitError@@YAXPBD@Z": {
@@ -2611,6 +2629,12 @@
 "obj": "r_model.obj",
 "why": []
 },
+"?R_CopySkelMat@@YAXPAUDObjSkelMat_s@@PBU1@@Z": {
+"t": "0x1001e640",
+"n": 31,
+"obj": "r_model.obj",
+"why": []
+},
 "?R_SkinPositionSse@@YA?AU__m128@@ABU1@PBUDObjSkelMat_s@@@Z": {
 "t": "0x1001e660",
 "n": 58,
@@ -2896,6 +2920,24 @@
 "?R_AddCmdDrawSun@@YAXH@Z": {
 "t": "0x10021920",
 "n": 87,
+"obj": "r_rendercmds.obj",
+"why": []
+},
+"?R_AddCmdSetStencilRefValue@@YAXH@Z": {
+"t": "0x10021980",
+"n": 79,
+"obj": "r_rendercmds.obj",
+"why": []
+},
+"?R_AddCmdStencilPlanes@@YAXHMPBM@Z": {
+"t": "0x100219d0",
+"n": 129,
+"obj": "r_rendercmds.obj",
+"why": []
+},
+"?R_AddCmdSetClipPlanes@@YAXHPAY03$$CBM@Z": {
+"t": "0x10021a60",
+"n": 116,
 "obj": "r_rendercmds.obj",
 "why": []
 },
@@ -3639,6 +3681,12 @@
 "call ?R_SetSunFromDvars@@YAXPAUsunflare_t@@@Z"
 ]
 },
+"?Image_BuildSpecularityMap@@YAXMPAE@Z": {
+"t": "0x10029320",
+"n": 262,
+"obj": "r_specularityimage.obj",
+"why": []
+},
 "?R_InitDrawGroups@@YAXXZ": {
 "t": "0x10029430",
 "n": 53,
@@ -3919,6 +3967,18 @@
 "obj": "r_water_load_obj.obj",
 "why": []
 },
+"?XSurfaceTransformPos@@YAXPBMPBUDObjSkelMat_s@@PAM@Z": {
+"t": "0x1002cd80",
+"n": 80,
+"obj": "r_xsurface.obj",
+"why": []
+},
+"?XSurfaceRotateNormal@@YAXPBMPBUDObjSkelMat_s@@PAM@Z": {
+"t": "0x1002cdd0",
+"n": 71,
+"obj": "r_xsurface.obj",
+"why": []
+},
 "?XSurfaceGetNumVerts@@YAHPBUXSurface_s@@@Z": {
 "t": "0x1002ce20",
 "n": 9,
@@ -3943,18 +4003,6 @@
 "obj": "r_xsurface.obj",
 "why": []
 },
-"?XSurfaceRotateNormal@@YAXPBMPBUDObjSkelMat_s@@PAM@Z": {
-"t": "0x1002cdd0",
-"n": 71,
-"obj": "r_xsurface.obj",
-"why": []
-},
-"?XSurfaceTransformPos@@YAXPBMPBUDObjSkelMat_s@@PAM@Z": {
-"t": "0x1002cd80",
-"n": 80,
-"obj": "r_xsurface.obj",
-"why": []
-},
 "?XSurfaceTransferDx7@@YAXPBUXVertexBuffer@@PAUGfxVertexDx7@@H@Z": {
 "t": "0x1002d240",
 "n": 403,
@@ -3973,11 +4021,27 @@
 "obj": "r_xsurface_load_obj.obj",
 "why": []
 },
+"?XSurfaceOptimize@@YAXPAUXModel@@PAUXSurface_s@@@Z": {
+"t": "0x1002db80",
+"n": 180,
+"obj": "r_xsurface_load_obj.obj",
+"why": [
+"call ?XSurfaceOptimizeRigid@@YAXPAUXModel@@PAUXSurface_s@@PAUXVertexBuffer@@@Z"
+]
+},
 "?XSurfaceFreeBuffers@@YAXPAUXSurface_s@@@Z": {
 "t": "0x1002dc40",
 "n": 61,
 "obj": "r_xsurface_load_obj.obj",
 "why": []
+},
+"?XModelOptimize@@YAXPAUXModel@@@Z": {
+"t": "0x1002dc80",
+"n": 102,
+"obj": "r_xsurface_load_obj.obj",
+"why": [
+"call ?XSurfaceOptimize@@YAXPAUXModel@@PAUXSurface_s@@@Z"
+]
 },
 "??$Buf_Read@M@@YAMPAPBE@Z": {
 "t": "0x1002d400",
@@ -3985,20 +4049,34 @@
 "obj": "r_xsurface_load_obj.obj",
 "why": []
 },
-"?XSurfaceOptimize@@YAXPAUXModel@@PAUXSurface_s@@@Z": {
-"t": "0x1002db80",
-"n": 180,
-"obj": "r_xsurface_optimize.obj",
+"?RB_ClampNonNegative@@YAHH@Z": {
+"t": "0x1002ddc0",
+"n": 10,
+"obj": "rb_backend.obj",
+"why": []
+},
+"?RB_EndTessSurface@@YAXXZ": {
+"t": "0x1002de70",
+"n": 26,
+"obj": "rb_backend.obj",
 "why": [
-"call ?XSurfaceOptimizeRigid@@YAXPAUXModel@@PAUXSurface_s@@PAUXVertexBuffer@@@Z"
+"call ?RB_EndSurface@@YAXXZ"
 ]
 },
-"?XModelOptimize@@YAXPAUXModel@@@Z": {
-"t": "0x1002dc80",
-"n": 102,
-"obj": "r_xsurface_optimize.obj",
+"?RB_SetTessTechnique@@YAXPBUMaterial@@HH@Z": {
+"t": "0x1002ded0",
+"n": 62,
+"obj": "rb_backend.obj",
 "why": [
-"call ?XSurfaceOptimize@@YAXPAUXModel@@PAUXSurface_s@@@Z"
+"call ?RB_EndSurface@@YAXXZ"
+]
+},
+"?RB_SetTessDeclType@@YAXH@Z": {
+"t": "0x1002df10",
+"n": 40,
+"obj": "rb_backend.obj",
+"why": [
+"call ?RB_EndSurface@@YAXXZ"
 ]
 },
 "?RB_TessOverflow@@YAXXZ": {
@@ -4023,6 +4101,22 @@
 "obj": "rb_backend.obj",
 "why": [
 "call ?RB_Set2D@@YAXXZ"
+]
+},
+"?RB_DrawFullScreenColoredQuad@@YAXPBUMaterial@@MMMMI@Z": {
+"t": "0x1002e9e0",
+"n": 59,
+"obj": "rb_backend.obj",
+"why": [
+"call ?RB_DrawStretchPic@@YAXPBUMaterial@@MMMMMMMMI@Z"
+]
+},
+"?RB_FullScreenFilter@@YAXPBUMaterial@@@Z": {
+"t": "0x1002ea60",
+"n": 54,
+"obj": "rb_backend.obj",
+"why": [
+"call ?RB_DrawStretchPic@@YAXPBUMaterial@@MMMMMMMMI@Z"
 ]
 },
 "?RB_SetGammaRamp@@YAXPBUGfxGammaRamp@@@Z": {
@@ -4291,6 +4385,14 @@
 "call ?RB_DrawPoints2D@@YAXPBUGfxCmdDrawPoints@@@Z"
 ]
 },
+"?RB_DrawTrianglesCmd@@YAXPAUGfxRenderCommandExecState@@@Z": {
+"t": "0x10031e90",
+"n": 93,
+"obj": "rb_backend.obj",
+"why": [
+"call ?RB_DrawTriangles@@YAXPBUMaterial@@HFPBGFPAY03$$CBMPAY02$$CBMPBIPAY01$$CBM@Z"
+]
+},
 "?RB_EndFrame@@YAXXZ": {
 "t": "0x10033b20",
 "n": 256,
@@ -4326,6 +4428,12 @@
 "why": [
 "call ?RB_DrawTextInSpace@@YAXPBDPAUFont_s@@PBM22I@Z"
 ]
+},
+"?RB_SetMaterialTime@@YAXM@Z": {
+"t": "0x1002f2a0",
+"n": 140,
+"obj": "rb_backend.obj",
+"why": []
 },
 "?RB_DrawSunCmd@@YAXPAUGfxRenderCommandExecState@@@Z": {
 "t": "0x1002f970",
@@ -4374,6 +4482,18 @@
 "why": [
 "call ?RB_DrawFrameColorDebug@@YAXXZ"
 ]
+},
+"?RB_NeedsBlur@@YAEM@Z": {
+"t": "0x10030840",
+"n": 56,
+"obj": "rb_backend.obj",
+"why": []
+},
+"?RB_GetBlurRadius@@YAMM@Z": {
+"t": "0x10030a20",
+"n": 25,
+"obj": "rb_backend.obj",
+"why": []
 },
 "?RB_ApplyLatePostEffects@@YAXM@Z": {
 "t": "0x10030ab0",
@@ -5127,20 +5247,18 @@
 "obj": "rb_state.obj",
 "why": []
 },
-"?RB_TessStaticModelCached@@YAXPBW4surfaceType_t@@@Z": {
-"t": "0x10041510",
-"n": 209,
+"?Vec2Length@@YAMQBM@Z": {
+"t": "0x1003edf0",
+"n": 22,
 "obj": "rb_tess.obj",
-"why": [
-"call ?RB_TessOverflow@@YAXXZ"
-]
+"why": []
 },
-"?RB_TessXModelSkinned@@YAXPBW4surfaceType_t@@@Z": {
-"t": "0x10041390",
-"n": 38,
+"?RB_SetWorldMatrixFromBoneAxis@@YAXPBUGfxModelRigidSurface@@PBUGfxEntity@@@Z": {
+"t": "0x1003eea0",
+"n": 123,
 "obj": "rb_tess.obj",
 "why": [
-"call ?RB_TessXModelSkinnedCached@@YAXPBUGfxModelSkinnedSurface@@@Z"
+"call ?RB_ChangedWorldMatrix@@YAXM@Z"
 ]
 },
 "?RB_TessParticleCloud@@YAXPBUGfxEntity@@@Z": {
@@ -5151,20 +5269,20 @@
 "call ?RB_EndSurface@@YAXXZ"
 ]
 },
-"?RB_TessSprite@@YAXPBUGfxEntity@@@Z": {
-"t": "0x1003fb50",
-"n": 72,
+"?RB_TessXModelSkinned@@YAXPBW4surfaceType_t@@@Z": {
+"t": "0x10041390",
+"n": 38,
 "obj": "rb_tess.obj",
 "why": [
-"call ?RB_ScreenRadiusToWorld@@YA_NPBMMPAM@Z"
+"call ?RB_TessXModelSkinnedCached@@YAXPBUGfxModelSkinnedSurface@@@Z"
 ]
 },
-"?RB_TessEntity@@YAXPBUGfxEntity@@@Z": {
-"t": "0x100410b0",
-"n": 116,
+"?RB_TessStaticModelCached@@YAXPBW4surfaceType_t@@@Z": {
+"t": "0x10041510",
+"n": 209,
 "obj": "rb_tess.obj",
 "why": [
-"call ?RB_TessSprite@@YAXPBUGfxEntity@@@Z"
+"call ?RB_TessOverflow@@YAXXZ"
 ]
 },
 "_jpeg_CreateCompress": {
@@ -7078,12 +7196,6 @@
 "?Vector2Subtract@@YAXQBM0QAM@Z": {
 "t": "0x10058290",
 "n": 16,
-"obj": "com_math.obj",
-"why": []
-},
-"?Vec2Length@@YAMQBM@Z": {
-"t": "0x1003edf0",
-"n": 22,
 "obj": "com_math.obj",
 "why": []
 },
@@ -18347,6 +18459,12 @@
 "t": "0x10023620",
 "n": 9,
 "obj": "r_scene.obj",
+"why": []
+},
+"?log@@YAMM@Z": {
+"t": "0x10029310",
+"n": 11,
+"obj": "r_specularityimage.obj",
 "why": []
 },
 "?RB_BindDefaultImages@@YAXXZ": {
