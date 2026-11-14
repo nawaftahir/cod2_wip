@@ -50,6 +50,47 @@ inline void RB_SetTessDeclType(int declType)
     }
 }
 
+/* Uncalled retail head copies, names unconfirmed: PINNED 1002ddf0/19 vec2 scale,
+   1002de10/35 RGBA->BGRA swap, 1002de40/25 byte pack, 1002de90/34 and 1002dec0/12 code const. */
+void RB_Vec2Scale(const float *v, float s, float *out)
+{
+    out[0] = s * v[0];
+    out[1] = s * v[1];
+}
+
+void RB_SwapColorBytes(const unsigned char *in, unsigned char *out)
+{
+    unsigned char r = in[0], g = in[1], b = in[2], a = in[3];
+    out[2] = r;
+    out[1] = g;
+    out[0] = b;
+    out[3] = a;
+}
+
+unsigned int RB_PackColorBytes(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+{
+    unsigned char color[4];
+    color[2] = r;
+    color[1] = g;
+    color[0] = b;
+    color[3] = a;
+    return *(unsigned int *)color;
+}
+
+void RB_SetCodeConstantVec4(int constant, const float *value)
+{
+    float *dst = backEnd.codeConsts[constant - 128];
+    dst[0] = value[0];
+    dst[1] = value[1];
+    dst[2] = value[2];
+    dst[3] = value[3];
+}
+
+float *RB_GetCodeConstant(int constant)
+{
+    return backEnd.codeConsts[constant - 128];
+}
+
 // PINNED 1002df40: resume the current material while preserving declaration type.
 void RB_TessOverflow()
 {
@@ -64,6 +105,20 @@ void RB_CheckOverflow(int vertexCount, int indexCount)
 {
     if (tess.vertexCount + vertexCount > 5450 || tess.indexCount + indexCount > 0x100000)
         RB_TessOverflow();
+}
+
+/* Uncalled retail copies, names unconfirmed: PINNED 1002dfd0/6 feedback image set,
+   1002dfe0/18 index buffer change. */
+void RB_SetFeedbackImage(GfxImage *image)
+{
+    backEnd.currentFeedbackImage = image;
+}
+
+void RB_ChangeIndices(IDirect3DIndexBuffer9 *ib);
+void RB_SetIndices(IDirect3DIndexBuffer9 *ib)
+{
+    if (dxState.indexBuffer != ib)
+        RB_ChangeIndices(ib);
 }
 
 #pragma optimize("p", on)
@@ -1071,14 +1126,6 @@ void RB_BeginScene()
 	backEnd.frameCount++;
 }
 
-void RB_InitBackendGlobalStructs()
-{
-	memset(&backEnd, 0, sizeof(backEnd));
-	backEnd.worldEntityReType = 3;	// RT_MODEL
-	backEnd.resolvedPostSunTarget = 0xe;
-	backEnd.resolvedSceneTarget = 0xe;
-	RB_InitSceneViewport();
-}
 #include "r_permanent.h"
 #include <math.h>
 extern const dvar_t *sc_blur;
@@ -1227,14 +1274,12 @@ static void RB_StencilPlanesCmd(GfxRenderCommandExecState *state)
         RB_SetVertex4D(tess.vertexCount + 1, negative, distance, depth, distance, 0.0f, 0.0f, &white);
         RB_SetVertex4D(tess.vertexCount + 2, distance, distance, depth, distance, 0.0f, 0.0f, &white);
         RB_SetVertex4D(tess.vertexCount + 3, distance, negative, depth, distance, 0.0f, 0.0f, &white);
-        int base = tess.vertexCount;
-        int first = tess.indexCount;
-        tess.indices[first] = (unsigned short)base;
-        tess.indices[first + 1] = (unsigned short)(base + 1);
-        tess.indices[first + 2] = (unsigned short)(base + 2);
-        tess.indices[first + 3] = (unsigned short)(base + 2);
-        tess.indices[first + 4] = (unsigned short)(base + 3);
-        tess.indices[first + 5] = (unsigned short)base;
+        tess.indices[tess.indexCount] = (unsigned short)(tess.vertexCount);
+        tess.indices[tess.indexCount + 1] = (unsigned short)(tess.vertexCount + 1);
+        tess.indices[tess.indexCount + 2] = (unsigned short)(tess.vertexCount + 2);
+        tess.indices[tess.indexCount + 3] = (unsigned short)(tess.vertexCount + 2);
+        tess.indices[tess.indexCount + 4] = (unsigned short)(tess.vertexCount + 3);
+        tess.indices[tess.indexCount + 5] = (unsigned short)(tess.vertexCount);
         tess.vertexCount += 4;
         tess.indexCount += 6;
     }
@@ -1300,14 +1345,12 @@ static void RB_DrawPoints2D(const GfxCmdDrawPoints *cmd)
     {
         if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
             RB_TessOverflow();
-        int first = tess.indexCount;
-        int base = tess.vertexCount;
-        tess.indices[first] = (unsigned short)(base + 1);
-        tess.indices[first + 1] = (unsigned short)base;
-        tess.indices[first + 2] = (unsigned short)(base + 2);
-        tess.indices[first + 3] = (unsigned short)(base + 2);
-        tess.indices[first + 4] = (unsigned short)base;
-        tess.indices[first + 5] = (unsigned short)(base + 3);
+        tess.indices[tess.indexCount] = (unsigned short)(tess.vertexCount + 1);
+        tess.indices[tess.indexCount + 1] = (unsigned short)(tess.vertexCount);
+        tess.indices[tess.indexCount + 2] = (unsigned short)(tess.vertexCount + 2);
+        tess.indices[tess.indexCount + 3] = (unsigned short)(tess.vertexCount + 2);
+        tess.indices[tess.indexCount + 4] = (unsigned short)(tess.vertexCount);
+        tess.indices[tess.indexCount + 5] = (unsigned short)(tess.vertexCount + 3);
         tess.indexCount += 6;
         const GfxColor *color = (const GfxColor *)point->color;
         RB_SetVertex4D(tess.vertexCount, point->xyz[0] - halfSize,
@@ -1349,14 +1392,12 @@ static void RB_DrawPoints3D(const GfxCmdDrawPoints *cmd)
         clip[2] -= clip[3] * 0.001f;
         if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
             RB_TessOverflow();
-        int first = tess.indexCount;
-        int base = tess.vertexCount;
-        tess.indices[first] = (unsigned short)(base + 3);
-        tess.indices[first + 1] = (unsigned short)base;
-        tess.indices[first + 2] = (unsigned short)(base + 2);
-        tess.indices[first + 3] = (unsigned short)(base + 2);
-        tess.indices[first + 4] = (unsigned short)base;
-        tess.indices[first + 5] = (unsigned short)(base + 1);
+        tess.indices[tess.indexCount] = (unsigned short)(tess.vertexCount + 3);
+        tess.indices[tess.indexCount + 1] = (unsigned short)(tess.vertexCount);
+        tess.indices[tess.indexCount + 2] = (unsigned short)(tess.vertexCount + 2);
+        tess.indices[tess.indexCount + 3] = (unsigned short)(tess.vertexCount + 2);
+        tess.indices[tess.indexCount + 4] = (unsigned short)(tess.vertexCount);
+        tess.indices[tess.indexCount + 5] = (unsigned short)(tess.vertexCount + 1);
         tess.indexCount += 6;
         const GfxColor *color = (const GfxColor *)point->color;
         RB_SetVertex4D(tess.vertexCount, clip[0] - offsetX, clip[1] - offsetY,
@@ -1400,14 +1441,12 @@ static void RB_DrawLines2D(int count, const GfxPointVertex *verts)
         delta[1] *= 0.5f;
         if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
             RB_TessOverflow();
-        int first = tess.indexCount;
-        int base = tess.vertexCount;
-        tess.indices[first] = (unsigned short)(base + 1);
-        tess.indices[first + 1] = (unsigned short)base;
-        tess.indices[first + 2] = (unsigned short)(base + 2);
-        tess.indices[first + 3] = (unsigned short)(base + 2);
-        tess.indices[first + 4] = (unsigned short)base;
-        tess.indices[first + 5] = (unsigned short)(base + 3);
+        tess.indices[tess.indexCount] = (unsigned short)(tess.vertexCount + 1);
+        tess.indices[tess.indexCount + 1] = (unsigned short)(tess.vertexCount);
+        tess.indices[tess.indexCount + 2] = (unsigned short)(tess.vertexCount + 2);
+        tess.indices[tess.indexCount + 3] = (unsigned short)(tess.vertexCount + 2);
+        tess.indices[tess.indexCount + 4] = (unsigned short)(tess.vertexCount);
+        tess.indices[tess.indexCount + 5] = (unsigned short)(tess.vertexCount + 3);
         tess.indexCount += 6;
         RB_SetVertex3D(tess.vertexCount, verts[0].xyz[0] - delta[0],
             verts[0].xyz[1] - delta[1], verts[0].xyz[2], 0.0f, 0.0f, (const GfxColor *)verts[0].color);
@@ -1419,6 +1458,12 @@ static void RB_DrawLines2D(int count, const GfxPointVertex *verts)
             verts[0].xyz[1] + delta[1], verts[0].xyz[2], 1.0f, 0.0f, (const GfxColor *)verts[0].color);
         tess.vertexCount += 4;
     }
+}
+
+// Name unconfirmed; PINNED 10031770/12: uncalled line material depth-test bits setter.
+void RB_SetLineMaterialDepthBits(GfxLineMaterialStateView *material, unsigned int bits)
+{
+    material->stateBits[1] = (material->stateBits[1] & ~0xeu) | bits;
 }
 
 // PINNED 10031780: debug callers also pass depthTest0; command31 passes1.
@@ -1471,14 +1516,12 @@ void RB_DrawLines3D(int count, int width, const GfxPointVertex *verts, bool dept
         float toX = to[3] * delta[0], toY = to[3] * delta[1];
         if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
             RB_TessOverflow();
-        int first = tess.indexCount;
-        int base = tess.vertexCount;
-        tess.indices[first] = (unsigned short)(base + 3);
-        tess.indices[first + 1] = (unsigned short)base;
-        tess.indices[first + 2] = (unsigned short)(base + 2);
-        tess.indices[first + 3] = (unsigned short)(base + 2);
-        tess.indices[first + 4] = (unsigned short)base;
-        tess.indices[first + 5] = (unsigned short)(base + 1);
+        tess.indices[tess.indexCount] = (unsigned short)(tess.vertexCount + 3);
+        tess.indices[tess.indexCount + 1] = (unsigned short)(tess.vertexCount);
+        tess.indices[tess.indexCount + 2] = (unsigned short)(tess.vertexCount + 2);
+        tess.indices[tess.indexCount + 3] = (unsigned short)(tess.vertexCount + 2);
+        tess.indices[tess.indexCount + 4] = (unsigned short)(tess.vertexCount);
+        tess.indices[tess.indexCount + 5] = (unsigned short)(tess.vertexCount + 1);
         tess.indexCount += 6;
         RB_SetVertex4D(tess.vertexCount, from[0] - fromX, from[1] - fromY,
             from[2], from[3], 0.0f, 0.0f, (const GfxColor *)verts[0].color);
@@ -1649,6 +1692,13 @@ void RB_LookupColor(byte c, byte *color)
         memcpy(color, &backEnd.color_axis, 4);
     else
         color[0] = color[1] = color[2] = color[3] = 255;
+}
+
+// Name unconfirmed; PINNED 100323c0/49: uncalled glyph quad draw through RB_DrawStretchPic.
+void RB_DrawGlyphStretchPic(const Material *material, float x, float y, float w, float h,
+    const Glyph *glyph, unsigned int color)
+{
+    RB_DrawStretchPic(material, x, y, w, h, glyph->s0, glyph->t0, glyph->s1, glyph->t1, color);
 }
 
 // Private name unconfirmed; the PC cursor has one pass and signed time division.
@@ -2578,4 +2628,31 @@ void RB_ExecuteRenderCommands(const void *data)
         R_FinishGpuFence();
     if (dx.gpuSync == 2 || dx.gpuSync == 3)
         R_InsertGpuFence();
+}
+
+void RB_InitBackendGlobalStructs()
+{
+	memset(&backEnd, 0, sizeof(backEnd));
+	backEnd.worldEntityReType = 3;	// RT_MODEL
+	backEnd.resolvedPostSunTarget = 0xe;
+	backEnd.resolvedSceneTarget = 0xe;
+	RB_InitSceneViewport();
+}
+
+struct Font_s;
+Font_s *R_RegisterFont(const char *name, int imageTrack);
+// Name SUPPORTED (KisakBlack); PINNED 10033fc0/21, uncalled (R_Init inlines it).
+void RB_RegisterBackendAssets()
+{
+	backEnd.debugFont = R_RegisterFont("fonts/smalldevfont", 1);
+}
+
+// Name unconfirmed; PINNED 10033fe0/39: uncalled codeConsts[c-128] setter.
+void RB_SetCodeConstantFromArgs(int constant, float x, float y, float z, float w)
+{
+	float *dst = backEnd.codeConsts[constant - 128];
+	dst[0] = x;
+	dst[1] = y;
+	dst[2] = z;
+	dst[3] = w;
 }
