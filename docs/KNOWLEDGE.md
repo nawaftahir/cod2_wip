@@ -887,3 +887,10 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   (and the ids, fresh or recycled) follows SYMBOL CREATION order. fillRect field syms are x 0678af4c, y 0678b00c, w 0678b0cc
   (consecutive slots, interleaved with their piece syms) and h in a later chunk. Retail's order needs the w piece symbol created
   before the y piece symbol. Lever to find: what creates the field/piece symbols (scalar replacement order).
+
+## 30. Per-client index as a variable (w29, 11-15, PINNED on Item_ListBox_MouseEnter)
+- CoD4 shape `int localClientNum = 0;` + `dynamicFlags[localClientNum]` for every per-client array access matched
+  Item_ListBox_MouseEnter (0 lines; was 2). The constant index written as a local survives into c2's alias view long enough to
+  add the memory edge retail has (the horzAlign load waits for the dynamicFlags store). Index only the dynamicFlags accesses;
+  also indexing rect[] was worse (34 lines).
+- Try it on every residue that touches per-client arrays (dynamicFlags, rect, cursorItem, textRect, cg/cgs arrays).

@@ -1561,17 +1561,18 @@ int Item_ListBox_OverLB(itemDef_t *item, float x, float y)
 void Item_ListBox_MouseEnter(itemDef_t *item, float x, float y)
 {
     rectDef_t r;
+    int localClientNum = 0;
     listBoxDef_s *listPtr;
 
     listPtr = Item_GetListBoxDef(item);
     if (!listPtr)
         return;
     Window_RemoveDynamicFlags(&item->window, 0x1f00);
-    item->window.dynamicFlags[0] |= Item_ListBox_OverLB(item, x, y);
+    item->window.dynamicFlags[localClientNum] |= Item_ListBox_OverLB(item, x, y);
     r.horzAlign = item->window.rect[0].horzAlign;
     r.vertAlign = item->window.rect[0].vertAlign;
     if (Window_IsHorizontal(&item->window)) {
-        if (!(item->window.dynamicFlags[0] & 0x1f00)) {
+        if (!(item->window.dynamicFlags[localClientNum] & 0x1f00)) {
             if (listPtr->elementStyle == 1) {
                 r.x = item->window.rect[0].x;
                 r.y = item->window.rect[0].y;
@@ -1584,7 +1585,7 @@ void Item_ListBox_MouseEnter(itemDef_t *item, float x, float y)
                 }
             }
         }
-    } else if (!(item->window.dynamicFlags[0] & 0x1f00)) {
+    } else if (!(item->window.dynamicFlags[localClientNum] & 0x1f00)) {
         r.x = item->window.rect[0].x;
         r.y = item->window.rect[0].y;
         r.w = item->window.rect[0].w - 16.0f;
