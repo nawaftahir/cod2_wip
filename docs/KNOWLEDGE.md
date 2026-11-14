@@ -855,3 +855,11 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   anti-dependence edge sourcePos-store -> `mov al,1`, the store's height +1 (prio 0xc00 vs 0x800) and it issues first.
   Retail has sourcePos in ecx: no edge, all stores 0x800, so fstp (0x801) then type, sourcePos in idx order = retail.
   So fixing the eax/ecx colour fixes the whole 14 B. Arm reshapes tried (TRIED w29) change layout or nothing.
+
+## 28. Colour tie = creation index (w29, 11-15, PINNED on EvalPrimitiveExpression)
+- Read the pick order with `ra13.sh` + `split_all.py` + `client-1.0/tools/oracle/cpick.py f000.txt`: pop order is n3 descending,
+  ties by n17 (web creation index) DESCENDING, so the web created later is coloured first.
+- EvalPrimitiveExpression: the shared float tail's sourcePos temp (n17 77) beat the _constValue piece (n17 76) at n3 12 and took
+  eax. Fix: a function-scope `sval_u sourcePos` assigned in each float arm BEFORE `value`, passed at the join. The temp is created
+  earlier, constValue pops first and takes eax: function matched (lab). Assigning it after `value` makes it worse (11 lines).
+- Method for any eax/ecx swap: find the two tied webs in cpick, then move the first reference of the one that should lose earlier.
