@@ -8528,8 +8528,9 @@
 "name": "?IntersectPlanes@@YAHPAPBMQAM@Z",
 "obj": "com_math.obj",
 "size": 399,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x42aa10"
+]
 },
 {
 "name": "?SnapPointToIntersectingPlanes@@YAXPAPBMQAMMM@Z",
