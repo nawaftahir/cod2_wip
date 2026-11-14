@@ -58,6 +58,7 @@ gfx_d3d/rb_shade.cpp
 gfx_d3d/rb_sky.cpp
 gfx_d3d/rb_state.cpp
 gfx_d3d/rb_tess.cpp
+universal/surfaceflags.cpp
 jpeg-6b/jcapimin.c
 jpeg-6b/jcapistd.c
 jpeg-6b/jccoefct.c
@@ -110,6 +111,5 @@ universal/com_shared.cpp
 universal/fft.cpp
 universal/q_parse.cpp
 universal/q_shared.cpp
-universal/surfaceflags.cpp
 qcommon/common.cpp
 win32/win_threads.cpp
