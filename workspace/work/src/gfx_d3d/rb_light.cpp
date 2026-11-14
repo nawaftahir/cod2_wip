@@ -378,9 +378,11 @@ bool RB_GetNearestGridColors(const GfxLightGrid *grid, int x, int y, int z,
         return false;
     int index;
     RB_FindGridPoint(grid, x, y, z, &index);
-    const GfxLightGridPoint *point = &grid->points[index];
-    RB_AccumulateGridColors(out, &grid->colors[point->colorsIndex], 1.0f);
-    *sunVisibility = (point->xyzLowBitsAndSunVisible & 1) ? 1.0f : 0.0f;
+    RB_AccumulateGridColors(out, &grid->colors[grid->points[index].colorsIndex], 1.0f);
+    if (grid->points[index].xyzLowBitsAndSunVisible & 1)
+        *sunVisibility = 1.0f;
+    else
+        *sunVisibility = 0.0f;
     return true;
 }
 
@@ -580,26 +582,37 @@ static bool RB_FitDirectionalLight(int lightIndex, vec3_t *error, D3DLIGHT9 *lig
     return true;
 }
 
+// Name unconfirmed. PINNED 100373c0/17.
+static bool RB_MaterialUsesAmbientLighting(const Material *material)
+{
+    const MaterialTechnique *technique = material->techniqueSet->techniques[15];
+    if (!technique)
+        return false;
+    return technique->passArray.dx7[0].ambientLighting;
+}
+
+// Name unconfirmed. PINNED 100373e0/49.
+static void RB_SetAmbientLight(D3DLIGHT9 *light, const float *color)
+{
+    light->Type = D3DLIGHT_DIRECTIONAL;
+    light->Ambient.r = color[0] * 0.5f;
+    light->Ambient.g = color[1] * 0.5f;
+    light->Ambient.b = color[2] * 0.5f;
+    light->Direction.z = 1.0f;
+}
+
 static int RB_DeriveAmbientEntityLights(const float *colors, float sunVisibility,
     D3DLIGHT9 *lights, int maxLights)
 {
     vec3_t average;
     memset(lights, 0, maxLights * sizeof(*lights));
     RB_AverageLightColors(colors, average);
-    lights[0].Type = D3DLIGHT_DIRECTIONAL;
-    lights[0].Ambient.r = average[0] * 0.5f;
-    lights[0].Ambient.g = average[1] * 0.5f;
-    lights[0].Ambient.b = average[2] * 0.5f;
-    lights[0].Direction.z = 1.0f;
+    RB_SetAmbientLight(&lights[0], average);
     vec3_t sunColor;
     sunColor[0] = sunVisibility * rgp.world->sunLight.color[0] + rgp.world->sunLight.u.dir.ambientColor[0];
     sunColor[1] = sunVisibility * rgp.world->sunLight.color[1] + rgp.world->sunLight.u.dir.ambientColor[1];
     sunColor[2] = sunVisibility * rgp.world->sunLight.color[2] + rgp.world->sunLight.u.dir.ambientColor[2];
-    lights[1].Type = D3DLIGHT_DIRECTIONAL;
-    lights[1].Ambient.r = sunColor[0] * 0.5f;
-    lights[1].Ambient.g = sunColor[1] * 0.5f;
-    lights[1].Ambient.b = sunColor[2] * 0.5f;
-    lights[1].Direction.z = 1.0f;
+    RB_SetAmbientLight(&lights[1], sunColor);
     return 2;
 }
 
@@ -630,8 +643,7 @@ static int RB_DeriveDirectionalEntityLights(const float *colors, float sunVisibi
 int RB_DeriveEntityLights(vec4_t *colorForDir, float sunVisibility,
     const Material *material, D3DLIGHT9 *lights, int maxLights)
 {
-    const MaterialTechnique *technique = material->techniqueSet->techniques[15];
-    if (technique && technique->passArray.dx7[0].ambientLighting)
+    if (RB_MaterialUsesAmbientLighting(material))
         return RB_DeriveAmbientEntityLights((float *)colorForDir, sunVisibility, lights, maxLights);
     return RB_DeriveDirectionalEntityLights((float *)colorForDir, sunVisibility, lights, maxLights);
 }
