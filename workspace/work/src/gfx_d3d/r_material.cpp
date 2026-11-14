@@ -341,7 +341,15 @@ static bool Material_Compare(const Material *left, const Material *right);
 void Material_Sort();
 int Material_LoadFile(const char *filename, int *file);
 
+// Name unconfirmed; PINNED 10016290/1: an empty function; retail has an uncalled copy.
+void Material_NoOp16290()
+{
+}
 
+// Name unconfirmed; PINNED 100162a0/1: an empty function; retail has an uncalled copy.
+void Material_NoOp162a0()
+{
+}
 
 // PINNED 100162b0/11 (Mac 1.3 name); retail has an uncalled copy.
 void *Material_Alloc(int size)

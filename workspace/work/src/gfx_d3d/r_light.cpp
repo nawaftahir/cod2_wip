@@ -15,12 +15,6 @@ static LightGlobals lightGlobals;
 typedef char lightGlobalsLayoutCheck[(sizeof(LightGlobals) == 260 &&
     offsetof(LightGlobals, defs) == 4) ? 1 : -1];
 
-// PINNED in 10013080: the definition pointers are not cleared here.
-void R_ShutdownLightDefs()
-{
-    lightGlobals.count = 0;
-}
-
 // PINNED 10014c60/243: fallback is the registered default, not a missing-name alias.
 GfxLightDef *R_RegisterLightDef(const char *name)
 {
@@ -48,6 +42,18 @@ GfxLightDef *R_RegisterLightDef(const char *name)
             R_Error(ERR_DROP, "Can't load the default light def '%s'", name);
         name = "light_dynamic";
     }
+}
+
+// PINNED 10014d60/18 (Mac name); retail inlines it into R_InitSystems and keeps an uncalled copy.
+void R_InitLightDefs()
+{
+    rgp.dlightDef = R_RegisterLightDef("light_dynamic");
+}
+
+// PINNED in 10013080: the definition pointers are not cleared here.
+void R_ShutdownLightDefs()
+{
+    lightGlobals.count = 0;
 }
 
 // Point-light scene gathering.
