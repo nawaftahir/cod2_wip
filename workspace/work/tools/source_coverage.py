@@ -118,8 +118,10 @@ required['0x10011f10'] = 157
 required['0x1000fe90'] = 605
 # Retail's standalone floor helper (fld/fsub/fistp), owner-approved 2026-11-06.
 required['0x10020530'] = 33
+# Material time now uses floor(time); inlines the unchanged floor helper assembly.
+required['0x1002f2a0'] = 140
 assert {row['target']: row['bytes'] for row in excluded} == required
-assert len(excluded) == 41 and sum(row['bytes'] for row in excluded) == 10184
+assert len(excluded) == 42 and sum(row['bytes'] for row in excluded) == 10324
 cpp = report['bytes'] - sum(row['bytes'] for row in excluded)
 print(json.dumps(dict(
     status='authored-assembly attribution; not whole-file identity',
