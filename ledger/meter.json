@@ -13,7 +13,7 @@
   "verified_source_files": 12,
   "game_cpp_denominator_status": "provisional inventory; not whole-DLL completion",
   "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
-  "candidate_sha256": "2a8360e104f5843a101bead5c763039b2e78957be1876dbd2b7cf01371285a0b",
+  "candidate_sha256": "c765c85966754b41934f00f691f41f1adbaf98479be6391c97051d2abcb57bb3",
   "unverified_in_src": 0,
   "game_cpp_bytes": 128305,
   "game_cpp_total": 253580,
@@ -40,7 +40,7 @@
       "same_offset": 26188
     }
   },
-  "source_commit": "56f3aaf02def74098b9ba88a50c1e7184ac752dc",
+  "source_commit": "27478143328f30b7b7f929afc1adf03761efc3d6",
   "note": "Matched extents include libraries and relocation normalization, not identical linked files. Verified source snapshots are not complete historical TUs. Current emitted-body TU counts include short bodies certified by the binding referee. game_cpp uses a provisional inventory and excludes entire assembly-bearing bodies. Whole-file SHA is the finish line.",
   "current_source_tus_total": 111,
   "current_source_tus_verified": 44,
