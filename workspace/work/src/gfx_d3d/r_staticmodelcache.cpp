@@ -23,6 +23,7 @@ extern "C" const char *__stdcall DXGetErrorDescription9A(HRESULT hr);
 
 typedef HRESULT (__stdcall *CachedBufferLockFn)(void *, UINT, UINT, void **, DWORD);
 typedef HRESULT (__stdcall *CachedBufferUnlockFn)(void *);
+typedef ULONG (__stdcall *CachedBufferReleaseFn)(void *);
 
 typedef char cachePublicationLayoutCheck[(sizeof(static_model_tree_t) == 392 &&
     sizeof(static_model_cache_t) == 0xc438 && sizeof(GfxStaticModelSurfaceCached) == 16 &&
@@ -62,7 +63,9 @@ void R_UsedCachedStaticModelSurface(GfxStaticModelSurfaceCached *surface);
 void R_CreateSmodelCacheVertexBuffer();
 void SMC_ClearCache();
 void R_FlushStaticModelCache();
+void R_InitStaticModelCache();
 void R_InitStaticModelIndexCache();
+void R_ShutdownStaticModelCache();
 void R_StaticModelCacheStats_f();
 void R_StaticModelCacheFlush_f();
 
@@ -414,6 +417,13 @@ void SMC_ClearCache()
 }
 
 // PINNED 100016fd: inlined into R_LoadWorld.
+// PINNED 1002bac0/10 (Mac STABS name); r_init inlines it.
+void R_InitStaticModelCache()
+{
+    R_CreateSmodelCacheVertexBuffer();
+    SMC_ClearCache();
+}
+
 void R_InitStaticModelIndexCache()
 {
     dx.smodelCacheIndices = (r_index_t *)ri.Hunk_AllocInternal(0xc0000);
@@ -441,6 +451,19 @@ void R_FlushStaticModelCache()
         ((static_model_node_list_t *)freenode->next)->prev = (intptr_t)freenode;
     }
     SMC_ClearCache();
+}
+
+// PINNED 1002bb60/40 (Mac STABS name); r_init inlines it.
+void R_ShutdownStaticModelCache()
+{
+    R_FlushStaticModelCache();
+    if (dx.smodelCacheVb)
+        do
+        {
+            void *vb = (void *)dx.smodelCacheVb;
+            ((CachedBufferReleaseFn)(*(void ***)vb)[2])(vb);
+            dx.smodelCacheVb = 0;
+        } while (alwaysfails);
 }
 
 // PINNED 1002bb90/84: the denominator is the fixed65536-vertex cache capacity.

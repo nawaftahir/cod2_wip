@@ -4540,3 +4540,7 @@ r_utils order is HashAssetName, HashString, 1002c010, Cull, Convert, PickMateria
   retail 0x914a1, raw 0x92000 == retail. Section-relative .rdata equal 218,560 (combo6 build: 207,867).
   Whole-file same-offset 260,953 (< 279,684): .data now starts at 0x19b000 vs retail 0x19e000, so it
   waits until .text grows ~0x26f0 B. Parked on gfx/w-guid; land together with the .text growth.
+2026-11-14 gfx/w-rbmid6: rb_light RB_GetValidGridPoint moved after RB_FindGridPoint (retail 10036040) and RB_SetupEntityLighting after RB_GetLightingAtPoint (retail 100366b0); retail_order skipped both because their binds carry a 'why'. r_staticmodelcache: added R_InitStaticModelCache (1002bac0/10) and R_ShutdownStaticModelCache (1002bb60/40), Mac STABS names; r_init now calls them (LTCG inlines, as retail), tail Init..Stats now at retail sizes.
+- probe: RB_LightErrorIntensity as a macro drops its 32 B stray copy but RB_FitDirectionalLight shrinks 2848 -> 2800 (retail 2944). Reverted.
+- probe: R_UploadCachedVertices defined before its first user (no forward decl): stray 192 B copy still emitted. Reverted. A macro is the known fix (KNOWLEDGE: Image_TransformLightGridVector), not tried.
+- open: r_staticmodelcache Skin +48, SkinDx7 +48, LightCachedVertex -16, SkinStaticModelCachedCmd 256 vs retail 352 (retail calls each skin twice), 4 uncalled 16 B list helpers at 1002bc00..1002bc50 (unlink x2, insert-after x2); rb_light I_ffloor 48 B at head (retail none), GetNearestGridColors +16, FitDirectionalLight -96.
