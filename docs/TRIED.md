@@ -299,3 +299,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | EvalPrimitiveExpression w29 (11-14, 2 labs) | join: block-local `sval_u sourcePos = expr.node[2]` (=); join open-coded stores in EvalFloat order (407 B) | no gain |
 | Window_Paint w29 (11-14, 4 labs) | `((fillRect.x/y/w/h))` per UI_DrawHandlePic arg (style 1 site) | all = base (reloads ebx y, esi h, edi w after Fade; retail w, h, y). Note: lab link places Window_Paint 16 B later than release, so fb13 scores are invalid for it; use fdiff lines |
 | Window_Paint w29 (11-14, 4 labs) | border-block field update orders W H X Y / H W Y X / W H Y X / X W Y H | all worse (34/32/28/22 fdiff lines vs 14 base). Reverted |
+| StartWeaponAnim w29 (11-14, 5 labs) | `for (i = 1; i <= 20)` / `< 21` with i directly (145 B); `i + 1 == activeAnim` (4 lines); `int anim = i + 1` local (=); `rates[1 + i]` (=) | none matched; latch `inc esi` vs `add ebp,4` order unchanged |
