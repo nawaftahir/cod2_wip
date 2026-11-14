@@ -1449,8 +1449,8 @@ static void CG_DrawGrenadePointer(float centerX, float centerY, const float *gre
     float pointerPos[2];
     vec2_t verts[4];
 
-    width = GetRealWidthFromVirtualWidth(cg_hudGrenadePointerWidth->current.value);
-    height = GetRealHeightFromVirtualHeight(cg_hudGrenadePointerHeight->current.value);
+    width = ((GetRealWidthFromVirtualWidth(cg_hudGrenadePointerWidth->current.value)));
+    height = ((GetRealHeightFromVirtualHeight(cg_hudGrenadePointerHeight->current.value)));
     radius = GetRealHeightFromVirtualHeight(cg_hudGrenadeIconOffset->current.value);
     pivot[0] = cg_hudGrenadePointerPivot->current.vector[0];
     pivot[1] = cg_hudGrenadePointerPivot->current.vector[1];
