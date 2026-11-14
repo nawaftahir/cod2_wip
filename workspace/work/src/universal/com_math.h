@@ -269,6 +269,25 @@ TU_STATIC int I_fround(const float x)
 #endif
 }
 
+/* PINNED 10020530 (out-of-line copy, head of r_outdoor). Exact FP
+   instruction spelling remains unaccepted and its assembly is not C++ credit. */
+// Name from retail symbol ?I_ffloor@@YAHM@Z; fsub (0.5 - 2^-30) then fistp, like I_fround.
+TU_STATIC int I_ffloor(const float x)
+{
+#ifdef _MSC_VER
+    double bias = 0.5 - 1.0 / (1 << 30);
+    int result;
+
+    __asm fld x
+    __asm fsub bias
+    __asm fistp result
+
+    return result;
+#else
+	return (int)floor(x);
+#endif
+}
+
 /*
 ==============
 I_square

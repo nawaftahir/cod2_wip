@@ -117,7 +117,7 @@ float R_OutdoorTexelToWorld(int axis, int texel)
 // Name unconfirmed; PINNED 100208b0/77, no retail callers.
 int R_OutdoorWorldToTexel(int axis, float world)
 {
-    int texel = I_fround(world * outdoorGlob.scale[axis] + outdoorGlob.add[axis] - 0.5f);
+    int texel = I_ffloor(world * outdoorGlob.scale[axis] + outdoorGlob.add[axis]);
     int maxTexel = outdoorMapSize[axis] - 1;
     if (texel < 0)
         return 0;
@@ -129,7 +129,7 @@ int R_OutdoorWorldToTexel(int axis, float world)
 // Name unconfirmed; PINNED 10020900/78.
 inline void R_OutdoorEncodeHeight(float height, byte *out)
 {
-    int value = I_fround(outdoorGlob.scale[2] * height + outdoorGlob.add[2] - 0.5f);
+    int value = I_ffloor(outdoorGlob.scale[2] * height + outdoorGlob.add[2]);
     if (value < 0)
         value = 0;
     else if (value > 255)

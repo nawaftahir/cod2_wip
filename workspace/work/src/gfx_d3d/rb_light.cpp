@@ -32,7 +32,6 @@ bool RB_IsGridPointVisible(const GfxLightGridPoint *point, unsigned int corner,
     const float *pointOrigin, const float *sampleOrigin);
 const GfxLightGridPoint *RB_GetValidGridPoint(const GfxLightGrid *grid,
     int x, int y, int z, unsigned int corner, const float *sampleOrigin);
-static int I_ffloor(const float x);
 float RB_GetLightingAtPoint(const GfxLightGrid *grid, const float *sampleOrigin, vec4_t *out);
 
 typedef char entityLightingLayoutCheck[(offsetof(GfxEntity, renderFxFlags) == 4
@@ -69,7 +68,6 @@ int R_CullPointAndRadius(const vec_t *origin, float radius,
     const DpvsPlane *planes, int planeCount);
 void R_AddDebugString(DebugGlobals *debug, const float *origin, const float *color,
     float scale, const char *text);
-static int I_ffloor(const float x);
 float RB_GetLightingAtPoint(const GfxLightGrid *grid, const float *sampleOrigin, vec4_t *out);
 void RB_DrawGridSampleBox(const float *origin);
 void RB_DrawGridCellBox(int x, int y, int z);
@@ -102,21 +100,6 @@ void RB_InitLightVisHistory(const char *bspName);
 void RB_SaveLightVisHistory();
 void RB_ShowLightVisCachePoints(const GfxViewParms *viewParms,
     const DpvsPlane *planes, int planeCount);
-
-/* PINNED 100363a0. Reuse the existing biased rounding helper; exact FP
-   instruction spelling remains unaccepted and its assembly is not C++ credit. */
-// Name unconfirmed; retail inlines fsub (0.5 - 2^-30) then fistp, like I_fround.
-static int I_ffloor(const float x)
-{
-    double bias = 0.5 - 1.0 / (1 << 30);
-    int result;
-
-    __asm fld x
-    __asm fsub bias
-    __asm fistp result
-
-    return result;
-}
 
 // PINNED 10035940.
 void RB_DrawGridSampleBox(const float *origin)
