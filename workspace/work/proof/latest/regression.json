@@ -1,8 +1,8 @@
 {
-  "functions": 904,
-  "bytes": 137545,
+  "functions": 909,
+  "bytes": 137940,
   "total": 253580,
-  "percent": 54.24126508399716,
+  "percent": 54.39703446644057,
   "baseline_lost": [],
   "gains": [
     {
@@ -1440,6 +1440,12 @@
       "object": "r_model.obj"
     },
     {
+      "target": "0x1001e640",
+      "bytes": 31,
+      "name": "?R_CopySkelMat@@YAXPAUDObjSkelMat_s@@PBU1@@Z",
+      "object": "r_model.obj"
+    },
+    {
       "target": "0x1001e660",
       "bytes": 58,
       "name": "?R_SkinPositionSse@@YA?AU__m128@@ABU1@PBUDObjSkelMat_s@@@Z",
@@ -1581,6 +1587,24 @@
       "target": "0x10021920",
       "bytes": 87,
       "name": "?R_AddCmdDrawSun@@YAXH@Z",
+      "object": "r_rendercmds.obj"
+    },
+    {
+      "target": "0x10021980",
+      "bytes": 79,
+      "name": "?R_AddCmdSetStencilRefValue@@YAXH@Z",
+      "object": "r_rendercmds.obj"
+    },
+    {
+      "target": "0x100219d0",
+      "bytes": 129,
+      "name": "?R_AddCmdStencilPlanes@@YAXHMPBM@Z",
+      "object": "r_rendercmds.obj"
+    },
+    {
+      "target": "0x10021a60",
+      "bytes": 116,
+      "name": "?R_AddCmdSetClipPlanes@@YAXHPAY03$$CBM@Z",
       "object": "r_rendercmds.obj"
     },
     {
@@ -1971,6 +1995,12 @@
       "target": "0x1002bad0",
       "bytes": 20,
       "name": "?R_InitStaticModelIndexCache@@YAXXZ",
+      "object": "r_staticmodelcache.obj"
+    },
+    {
+      "target": "0x1002bb60",
+      "bytes": 40,
+      "name": "?R_ShutdownStaticModelCache@@YAXXZ",
       "object": "r_staticmodelcache.obj"
     },
     {
