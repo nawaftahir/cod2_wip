@@ -529,8 +529,7 @@ static void R_FinishAttachingToWindow(const GfxWindowParms *parms)
 }
 
 void R_InitRenderTargets();
-void R_CreateSmodelCacheVertexBuffer();
-void SMC_ClearCache();
+void R_InitStaticModelCache();
 void RB_SetInitialState();
 
 // PINNED 10012100/261: occlusion-query failures log and continue, event failure stops.
@@ -539,8 +538,7 @@ Bool R_CreateDeviceResources()
 	ri.Printf(0, "Initializing render targets...\n");
 	R_InitRenderTargets();
 	ri.Printf(0, "Initializing static model cache...\n");
-	R_CreateSmodelCacheVertexBuffer();
-	SMC_ClearCache();
+	R_InitStaticModelCache();
 	ri.Printf(0, "Initializing dynamic buffers...\n");
 	R_CreateDynamicBuffers();
 	ri.Printf(0, "Initializing particle cloud buffer...\n");
@@ -568,6 +566,7 @@ Bool R_CreateDeviceResources()
 
 void R_ShutdownRenderTargets();
 void R_FlushStaticModelCache();
+void R_ShutdownStaticModelCache();
 
 // PINNED 10012210/269: release each window, then targets, buffers and queries.
 void R_ReleaseForShutdownOrReset()
@@ -579,13 +578,7 @@ void R_ReleaseForShutdownOrReset()
 			dx.windows[index].swapChain = 0;
 		} while (alwaysfails);
 	R_ShutdownRenderTargets();
-	R_FlushStaticModelCache();
-	if (dx.smodelCacheVb)
-		do
-		{
-			dx.smodelCacheVb->Release();
-			dx.smodelCacheVb = 0;
-		} while (alwaysfails);
+	R_ShutdownStaticModelCache();
 	R_ReleaseDynamicBuffers();
 	R_DestroyParticleCloudBuffer();
 	if (dx.flushGpuQuery)

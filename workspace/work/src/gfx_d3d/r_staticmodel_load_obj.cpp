@@ -321,6 +321,7 @@ static void R_FilterStaticModelIntoCells_r(GfxWorld *world, mnode_t *node, GfxSt
     int side;
     vec3_t localMins;
     vec3_t localMaxs;
+    cplane_t *plane;
 
     for (;;)
     {
@@ -339,8 +340,9 @@ static void R_FilterStaticModelIntoCells_r(GfxWorld *world, mnode_t *node, GfxSt
                 VectorCopy(mins, localMins);
                 localMins[node->u.node.plane->type] = node->u.node.plane->dist;
                 VectorCopy(maxs, localMaxs);
-                localMaxs[node->u.node.plane->type] = node->u.node.plane->dist;
-                if (localMins[node->u.node.plane->type] < maxs[node->u.node.plane->type])
+                plane = node->u.node.plane;
+                localMaxs[plane->type] = plane->dist;
+                if (localMins[plane->type] < maxs[plane->type])
                     R_FilterStaticModelIntoCells_r(world, node->u.node.children[0], smodelInst, localMins, maxs);
                 R_FilterStaticModelIntoCells_r(world, node->u.node.children[1], smodelInst, mins, localMaxs);
                 return;

@@ -23,6 +23,7 @@ extern "C" const char *__stdcall DXGetErrorDescription9A(HRESULT hr);
 
 typedef HRESULT (__stdcall *CachedBufferLockFn)(void *, UINT, UINT, void **, DWORD);
 typedef HRESULT (__stdcall *CachedBufferUnlockFn)(void *);
+typedef ULONG (__stdcall *CachedBufferReleaseFn)(void *);
 
 typedef char cachePublicationLayoutCheck[(sizeof(static_model_tree_t) == 392 &&
     sizeof(static_model_cache_t) == 0xc438 && sizeof(GfxStaticModelSurfaceCached) == 16 &&
@@ -42,8 +43,28 @@ typedef char smodelCacheIndicesCheck[offsetof(DxGlobals, smodelCacheIndices) == 
 
 static void R_LightCachedVertex(const float *normal, const byte *color,
     const D3DLIGHT9 *lights, int lightCount, byte *out);
-static __forceinline void R_UploadCachedVertices(int baseVert, int size,
-    const void *vertices, int stride);
+// A macro: a forceinline helper leaves a stray out-of-line copy (see KNOWLEDGE).
+#define R_UploadCachedVertices(baseVert, size, vertices, stride) \
+    do \
+    { \
+        void *data; \
+        void *vb = (void *)dx.smodelCacheVb; \
+        HRESULT hr = ((CachedBufferLockFn)(*(void ***)vb)[11])( \
+            vb, (baseVert) * (stride), (size), &data, 0x1000); \
+        if (hr < 0) \
+        { \
+            ri.Printf(0, "********** DirectX failed a call to lock a vertex buffer or an index buffer **********\n"); \
+            ri.Printf(0, "********** error information:  %s\n", DXGetErrorDescription9A(hr)); \
+            ri.Sys_DirectXFatalError(); \
+        } \
+        Com_Memcpy(data, (vertices), (size)); \
+        do \
+        { \
+            RB_LogPrint("dx.smodelCacheVb->Unlock()\n"); \
+            vb = (void *)dx.smodelCacheVb; \
+            ((CachedBufferUnlockFn)(*(void ***)vb)[12])(vb); \
+        } while (*(volatile int *)&alwaysfails != 0); \
+    } while (0)
 static void R_SkinCachedVertices(const vec3_t *axis, const vec3_t *normalAxis,
     int smodelIndex, int baseVert, int vertCount, const XVertexInfo *src,
     GfxSModelCachedVertex *out);
@@ -62,9 +83,15 @@ void R_UsedCachedStaticModelSurface(GfxStaticModelSurfaceCached *surface);
 void R_CreateSmodelCacheVertexBuffer();
 void SMC_ClearCache();
 void R_FlushStaticModelCache();
+void R_InitStaticModelCache();
 void R_InitStaticModelIndexCache();
+void R_ShutdownStaticModelCache();
 void R_StaticModelCacheStats_f();
 void R_StaticModelCacheFlush_f();
+void SMC_UnlinkNode(static_model_node_list_t *node);
+void SMC_UnlinkTree(static_model_tree_list_t *node);
+void SMC_InsertNode(static_model_node_list_t *node, static_model_node_list_t *list);
+void SMC_InsertTree(static_model_tree_list_t *node, static_model_tree_list_t *list);
 
 
 static void SMC_FreeCachedSurface_r(static_model_cache_t *cache, static_model_tree_t *tree, int nodeIndex, int levelsToLeaf)
@@ -76,8 +103,7 @@ static void SMC_FreeCachedSurface_r(static_model_cache_t *cache, static_model_tr
     if (!tree->nodes[nodeIndex].usedVerts)
     {
         leaf = &tree->leafs[((nodeIndex + 1) << levelsToLeaf) - 16];
-        ((static_model_node_list_t *)leaf->freenode.next)->prev = leaf->freenode.prev;
-        ((static_model_node_list_t *)leaf->freenode.prev)->next = leaf->freenode.next;
+        SMC_UnlinkNode(&leaf->freenode);
         return;
     }
     tree->nodes[nodeIndex].usedVerts = 0;
@@ -112,14 +138,10 @@ static Bool SMC_ForceFreeBlock(static_model_cache_t *cache)
     if (frontEndDataOut->frameCount - tree->frameCount < 3)
         return 0;
     SMC_FreeCachedSurface_r(cache, tree, 0, 4);
-    ((static_model_tree_list_t *)tree->usedlist.next)->prev = tree->usedlist.prev;
-    ((static_model_tree_list_t *)tree->usedlist.prev)->next = tree->usedlist.next;
+    SMC_UnlinkTree(&tree->usedlist);
     freenode = &tree->leafs[0].freenode;
     freelist = &cache->freelist[0];
-    freenode->prev = (intptr_t)freelist;
-    freenode->next = freelist->next;
-    freelist->next = (intptr_t)freenode;
-    ((static_model_node_list_t *)freenode->next)->prev = (intptr_t)freenode;
+    SMC_InsertNode(freenode, freelist);
     return 1;
 }
 
@@ -138,27 +160,17 @@ Bool SMC_GetFreeBlockOfSize(static_model_cache_t *cache, int listIndex)
         return 0;
     }
     block = (static_model_node_list_t *)cache->freelist[listIndex - 1].next;
-    ((static_model_node_list_t *)block->next)->prev = block->prev;
-    ((static_model_node_list_t *)block->prev)->next = block->next;
+    SMC_UnlinkNode(block);
     tree = &cache->trees[((char *)block - (char *)cache) / (int)sizeof(static_model_tree_t)];
     if (listIndex == 1)
     {
         static_model_tree_list_t *usedlist = &cache->usedlist;
-        tree->usedlist.prev = (intptr_t)usedlist;
-        tree->usedlist.next = usedlist->next;
-        usedlist->next = (intptr_t)&tree->usedlist;
-        ((static_model_tree_list_t *)tree->usedlist.next)->prev = (intptr_t)&tree->usedlist;
+        SMC_InsertTree(&tree->usedlist, usedlist);
     }
     freelist = &cache->freelist[listIndex];
-    block->prev = (intptr_t)freelist;
-    block->next = freelist->next;
-    freelist->next = (intptr_t)block;
-    ((static_model_node_list_t *)block->next)->prev = (intptr_t)block;
+    SMC_InsertNode(block, freelist);
     buddy = &tree->leafs[(1 << (4 - listIndex)) + ((static_model_leaf_t *)block - tree->leafs)].freenode;
-    buddy->prev = (intptr_t)freelist;
-    buddy->next = freelist->next;
-    freelist->next = (intptr_t)buddy;
-    ((static_model_node_list_t *)buddy->next)->prev = (intptr_t)buddy;
+    SMC_InsertNode(buddy, freelist);
     return 1;
 }
 
@@ -170,17 +182,13 @@ static GfxStaticModelSurfaceCached *SMC_AllocCachedSurface(static_model_cache_t 
         && !SMC_GetFreeBlockOfSize(cache, listIndex))
         return 0;
     static_model_node_list_t *block = (static_model_node_list_t *)cache->freelist[listIndex].next;
-    ((static_model_node_list_t *)block->next)->prev = block->prev;
-    ((static_model_node_list_t *)block->prev)->next = block->next;
+    SMC_UnlinkNode(block);
     int treeIndex = ((byte *)block - (byte *)cache) / (int)sizeof(static_model_tree_t);
     static_model_tree_t *tree = &cache->trees[treeIndex];
     if (!listIndex)
     {
         static_model_tree_list_t *used = &cache->usedlist;
-        tree->usedlist.prev = (intptr_t)used;
-        tree->usedlist.next = used->next;
-        used->next = (intptr_t)&tree->usedlist;
-        ((static_model_tree_list_t *)tree->usedlist.next)->prev = (intptr_t)&tree->usedlist;
+        SMC_InsertTree(&tree->usedlist, used);
     }
     int leafIndex = (static_model_leaf_t *)block - tree->leafs;
     int nodeIndex = ((leafIndex + 16) >> (4 - listIndex)) - 1;
@@ -247,28 +255,6 @@ static void R_LightCachedVertex(const float *normal, const byte *color,
     R_QuantizeCachedColor(result, out);
 }
 
-static __forceinline void R_UploadCachedVertices(int baseVert, int size,
-    const void *vertices, int stride)
-{
-    void *data;
-    void *vb = (void *)dx.smodelCacheVb;
-    HRESULT hr = ((CachedBufferLockFn)(*(void ***)vb)[11])(
-        vb, baseVert * stride, size, &data, 0x1000);
-    if (hr < 0)
-    {
-        ri.Printf(0, "********** DirectX failed a call to lock a vertex buffer or an index buffer **********\n");
-        ri.Printf(0, "********** error information:  %s\n", DXGetErrorDescription9A(hr));
-        ri.Sys_DirectXFatalError();
-    }
-    Com_Memcpy(data, vertices, size);
-    do
-    {
-        RB_LogPrint("dx.smodelCacheVb->Unlock()\n");
-        vb = (void *)dx.smodelCacheVb;
-        ((CachedBufferUnlockFn)(*(void ***)vb)[12])(vb);
-    } while (*(volatile int *)&alwaysfails != 0);
-}
-
 // PINNED 1002b3c0: DX7 cached vertices have a 24-byte stride.
 static void R_SkinCachedVerticesDx7(const vec3_t *axis, const vec3_t *normalAxis,
     int smodelIndex, int baseVert, int vertCount, const XVertexInfo *src,
@@ -293,6 +279,20 @@ static void R_SkinCachedVerticesDx7(const vec3_t *axis, const vec3_t *normalAxis
     R_UploadCachedVertices(baseVert, vertCount * sizeof(*out), out, sizeof(*out));
 }
 
+/* Name unconfirmed. PINNED 1002b630/82: renderer dispatch, kept out of line
+   (no callers) and inlined into R_SkinStaticModelCachedCmd. */
+void R_SkinCachedVerticesForRenderer(const vec3_t *axis, const vec3_t *normalAxis,
+    int smodelIndex, int baseVert, int vertCount, const XVertexInfo *src,
+    const Material *material, SkinBuffers *skinBuffers)
+{
+    if (r_rendererInUse->current.integer == 2)
+        R_SkinCachedVerticesDx7(axis, normalAxis, smodelIndex,
+            baseVert, vertCount, src, material, skinBuffers->verts.dx7);
+    else
+        R_SkinCachedVertices(axis, normalAxis, smodelIndex,
+            baseVert, vertCount, src, skinBuffers->verts.dx9);
+}
+
 void R_SkinStaticModelCachedCmd(SkinStaticModelCachedCmd *skinCmd, SkinBuffers *skinBuffers)
 {
     GfxStaticModelSurfaceCached *cached = skinCmd->cached;
@@ -307,16 +307,9 @@ void R_SkinStaticModelCachedCmd(SkinStaticModelCachedCmd *skinCmd, SkinBuffers *
     Vec3NormalizeTo(axis[0], normalAxis[0]);
     Vec3NormalizeTo(axis[1], normalAxis[1]);
     Vec3NormalizeTo(axis[2], normalAxis[2]);
-    const XVertexInfo *vertices = (const XVertexInfo *)surface->verts;
-    int vertexCount = surface->vertCount;
-    int baseVertex = cached->baseVertIndex;
-    int modelIndex = skinCmd->smodelIndex;
-    if (r_rendererInUse->current.integer == 2)
-        R_SkinCachedVerticesDx7(axis, normalAxis, modelIndex,
-            baseVertex, vertexCount, vertices, skinCmd->material, skinBuffers->verts.dx7);
-    else
-        R_SkinCachedVertices(axis, normalAxis, modelIndex,
-            baseVertex, vertexCount, vertices, skinBuffers->verts.dx9);
+    R_SkinCachedVerticesForRenderer(axis, normalAxis, skinCmd->smodelIndex,
+        cached->baseVertIndex, surface->vertCount, (const XVertexInfo *)surface->verts,
+        skinCmd->material, skinBuffers);
 }
 
 // PINNED 1002b790/82: each iteration copies two packed triangles.
@@ -367,12 +360,8 @@ void R_UsedCachedStaticModelSurface(GfxStaticModelSurfaceCached *surface)
     int treeIndex = ((byte *)surface - (byte *)&s_cache) / (int)sizeof(static_model_tree_t);
     static_model_tree_t *tree = &s_cache.trees[treeIndex];
     tree->frameCount = frontEndDataOut->frameCount;
-    ((static_model_tree_list_t *)tree->usedlist.next)->prev = tree->usedlist.prev;
-    ((static_model_tree_list_t *)tree->usedlist.prev)->next = tree->usedlist.next;
-    tree->usedlist.prev = (intptr_t)&s_cache.usedlist;
-    tree->usedlist.next = s_cache.usedlist.next;
-    s_cache.usedlist.next = (intptr_t)&tree->usedlist;
-    ((static_model_tree_list_t *)tree->usedlist.next)->prev = (intptr_t)&tree->usedlist;
+    SMC_UnlinkTree(&tree->usedlist);
+    SMC_InsertTree(&tree->usedlist, &s_cache.usedlist);
 }
 
 // PINNED 1002b920/128: size is captured before the original logging/retry loop.
@@ -406,14 +395,18 @@ void SMC_ClearCache()
     for (treeIter = 0; treeIter < 128; ++treeIter)
     {
         freenode = &s_cache.trees[treeIter].leafs[0].freenode;
-        freenode->prev = (intptr_t)&s_cache.freelist[0];
-        freenode->next = s_cache.freelist[0].next;
-        s_cache.freelist[0].next = (intptr_t)freenode;
-        ((static_model_node_list_t *)freenode->next)->prev = (intptr_t)freenode;
+        SMC_InsertNode(freenode, &s_cache.freelist[0]);
     }
 }
 
 // PINNED 100016fd: inlined into R_LoadWorld.
+// PINNED 1002bac0/10 (Mac STABS name); r_init inlines it.
+void R_InitStaticModelCache()
+{
+    R_CreateSmodelCacheVertexBuffer();
+    SMC_ClearCache();
+}
+
 void R_InitStaticModelIndexCache()
 {
     dx.smodelCacheIndices = (r_index_t *)ri.Hunk_AllocInternal(0xc0000);
@@ -432,15 +425,24 @@ void R_FlushStaticModelCache()
         tree = (static_model_tree_t *)s_cache.usedlist.next;
         SMC_FreeCachedSurface_r(&s_cache, tree, 0, 4);
         next = (static_model_tree_list_t *)s_cache.usedlist.next;
-        ((static_model_tree_list_t *)next->next)->prev = next->prev;
-        ((static_model_tree_list_t *)next->prev)->next = next->next;
+        SMC_UnlinkTree(next);
         freenode = &tree->leafs[0].freenode;
-        freenode->prev = (intptr_t)&s_cache.freelist[0];
-        freenode->next = s_cache.freelist[0].next;
-        s_cache.freelist[0].next = (intptr_t)freenode;
-        ((static_model_node_list_t *)freenode->next)->prev = (intptr_t)freenode;
+        SMC_InsertNode(freenode, &s_cache.freelist[0]);
     }
     SMC_ClearCache();
+}
+
+// PINNED 1002bb60/40 (Mac STABS name); r_init inlines it.
+void R_ShutdownStaticModelCache()
+{
+    R_FlushStaticModelCache();
+    if (dx.smodelCacheVb)
+        do
+        {
+            void *vb = (void *)dx.smodelCacheVb;
+            ((CachedBufferReleaseFn)(*(void ***)vb)[2])(vb);
+            dx.smodelCacheVb = 0;
+        } while (alwaysfails);
 }
 
 // PINNED 1002bb90/84: the denominator is the fixed65536-vertex cache capacity.
@@ -457,4 +459,34 @@ void R_StaticModelCacheStats_f()
 void R_StaticModelCacheFlush_f()
 {
     R_FlushStaticModelCache();
+}
+
+/* Names unconfirmed. PINNED 1002bc00, 1002bc10 (unlink) and 1002bc20, 1002bc40
+   (insert after list head): kept out of line, inlined at every use. */
+void SMC_UnlinkNode(static_model_node_list_t *node)
+{
+    ((static_model_node_list_t *)node->next)->prev = node->prev;
+    ((static_model_node_list_t *)node->prev)->next = node->next;
+}
+
+void SMC_UnlinkTree(static_model_tree_list_t *node)
+{
+    ((static_model_tree_list_t *)node->next)->prev = node->prev;
+    ((static_model_tree_list_t *)node->prev)->next = node->next;
+}
+
+void SMC_InsertNode(static_model_node_list_t *node, static_model_node_list_t *list)
+{
+    node->prev = (intptr_t)list;
+    node->next = list->next;
+    list->next = (intptr_t)node;
+    ((static_model_node_list_t *)node->next)->prev = (intptr_t)node;
+}
+
+void SMC_InsertTree(static_model_tree_list_t *node, static_model_tree_list_t *list)
+{
+    node->prev = (intptr_t)list;
+    node->next = list->next;
+    list->next = (intptr_t)node;
+    ((static_model_tree_list_t *)node->next)->prev = (intptr_t)node;
 }
