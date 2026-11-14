@@ -1609,14 +1609,10 @@ static void R_VisitPortalsForCell(const GfxCell *cell, GfxPortal *parentPortal,
             GfxPortal *portal = &cell->portals[i];
             if (portal->writable.isAncestor)
                 continue;
-            float distance = dpvsViewOrg[0] * portal->plane.coeffs[0]
-                + dpvsViewOrg[3] * portal->plane.coeffs[3]
-                + dpvsViewOrg[2] * portal->plane.coeffs[2]
-                + dpvsViewOrg[1] * portal->plane.coeffs[1];
-            if (distance > 0.0f || R_PortalBehindAnyPlane(portal, planes, planeCount)
+            if (R_DpvsPlaneViewDist(&portal->plane) > 0.0f || R_PortalBehindAnyPlane(portal, planes, planeCount)
                 || R_IsPortalOccluded(portal))
                 continue;
-            if (dpvsViewOrg[3] == 0.0f || distance <= -0.125f)
+            if (dpvsViewOrg[3] == 0.0f || R_DpvsPlaneViewDist(&portal->plane) <= -0.125f)
             {
                 if (!R_ChopPortalAndAddHullPoints(portal, parentPlane, planes, planeCount))
                     continue;
