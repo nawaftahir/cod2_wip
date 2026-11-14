@@ -318,13 +318,33 @@ void R_SkinGfxEntityCmd(GfxEntity *ent)
     R_SkinGfxEntity(ent);
 }
 
+// PC 1.0 has no render thread, so the sync is empty; placed at the retail empty body 10020cf0.
+void R_SyncRenderThread()
+{
+}
+
+// Name unconfirmed; PINNED 10020d00/26, retail keeps this out-of-line copy.
+void R_ResetCommandCounters()
+{
+    frontEndDataOut->commands.usedTotal = 0;
+    frontEndDataOut->commands.usedCritical = 0;
+    frontEndDataOut->commands.lastCmd = 0;
+}
+
+// Name unconfirmed; PINNED 10020d20/36, retail keeps this out-of-line copy.
+void R_FreeTempSkinBuffer()
+{
+    if (!dx.tempSkinPos)
+        return;
+    ri.Z_VirtualDecommitInternal(dx.tempSkinBuf, dx.tempSkinPos);
+    dx.tempSkinPos = 0;
+}
+
 // PINNED 10020d50: counters reset before execution, while command bytes remain.
 void R_IssueRenderCommands()
 {
     R_AddCmdEndOfList();
-    frontEndDataOut->commands.usedTotal = 0;
-    frontEndDataOut->commands.usedCritical = 0;
-    frontEndDataOut->commands.lastCmd = 0;
+    R_ResetCommandCounters();
     RB_ExecuteRenderCommands(frontEndDataOut);
     RB_EndFrame();
     R_InitFrameBackendData();
@@ -335,18 +355,8 @@ void R_AbortRenderCommands()
     if (!rg.registered)
         return;
     R_UnlockSkinnedCache();
-    frontEndDataOut->commands.usedTotal = 0;
-    frontEndDataOut->commands.usedCritical = 0;
-    frontEndDataOut->commands.lastCmd = 0;
-    if (!dx.tempSkinPos)
-        return;
-    ri.Z_VirtualDecommitInternal(dx.tempSkinBuf, dx.tempSkinPos);
-    dx.tempSkinPos = 0;
-}
-
-// PC 1.0 has no render thread, so the sync is empty and only the main-thread query survives.
-void R_SyncRenderThread()
-{
+    R_ResetCommandCounters();
+    R_FreeTempSkinBuffer();
 }
 
 // Non-critical commands leave 0x2000 bytes reserved for critical ones.

@@ -179,24 +179,6 @@ bool RB_IsGridPointVisible(const GfxLightGridPoint *point, unsigned int corner,
     return true;
 }
 
-// PINNED 10036040: logging precedes lookup; callers still see trace rejection.
-const GfxLightGridPoint *RB_GetValidGridPoint(const GfxLightGrid *grid,
-    int x, int y, int z, unsigned int corner, const float *sampleOrigin)
-{
-    if (r_vc_makelog->current.integer)
-        RB_GridVisLogIndex(x, y, z, true);
-    int index;
-    if (!RB_FindGridPoint(grid, x, y, z, &index))
-        return 0;
-    vec3_t origin;
-    origin[0] = (float)(int)(((unsigned int)x - 4096U) << 5);
-    origin[1] = (float)(int)(((unsigned int)y - 4096U) << 5);
-    origin[2] = (float)(int)(((unsigned int)z - 2048U) << 6);
-    if (!RB_IsGridPointVisible(&grid->points[index], corner, origin, sampleOrigin))
-        return 0;
-    return &grid->points[index];
-}
-
 // PINNED 10035bd0: six-byte records in the existing history allocation.
 bool RB_InsertGridVisLog(int index, unsigned short x, unsigned short y, unsigned short z)
 {
@@ -241,21 +223,6 @@ int RB_GridVisLogIndex(int x, int y, int z, int insert)
     if (insert && RB_InsertGridVisLog(bottom, x, y, z))
         return bottom;
     return -1;
-}
-
-// PINNED 100366b0: publish viewCount before sampling, with no missing-world guard.
-void RB_SetupEntityLighting(const GfxEntity *entity, GfxEntityLighting *lighting)
-{
-    lighting->viewCount = backEnd.viewCount;
-    vec3_t origin;
-    if (entity->renderFxFlags & 0x80)
-        VectorCopy(entity->lighting.origin, origin);
-    else
-    {
-        VectorCopy(entity->origin, origin);
-        origin[2] += 4.0f;
-    }
-    lighting->sunVisibility = RB_GetLightingAtPoint(&rgp.world->lightGrid, origin, lighting->colorForDir);
 }
 
 // Retail 10035cd0 (name from Mac STABS draft).
@@ -342,6 +309,24 @@ bool RB_FindGridPoint(const GfxLightGrid *grid, int x, int y, int z, int *index)
     return false;
 }
 
+// PINNED 10036040: logging precedes lookup; callers still see trace rejection.
+const GfxLightGridPoint *RB_GetValidGridPoint(const GfxLightGrid *grid,
+    int x, int y, int z, unsigned int corner, const float *sampleOrigin)
+{
+    if (r_vc_makelog->current.integer)
+        RB_GridVisLogIndex(x, y, z, true);
+    int index;
+    if (!RB_FindGridPoint(grid, x, y, z, &index))
+        return 0;
+    vec3_t origin;
+    origin[0] = (float)(int)(((unsigned int)x - 4096U) << 5);
+    origin[1] = (float)(int)(((unsigned int)y - 4096U) << 5);
+    origin[2] = (float)(int)(((unsigned int)z - 2048U) << 6);
+    if (!RB_IsGridPointVisible(&grid->points[index], corner, origin, sampleOrigin))
+        return 0;
+    return &grid->points[index];
+}
+
 // PINNED 10036100: three groups of eight coefficients, not RGB per direction.
 void RB_AccumulateGridColors(vec4_t *out, const GfxLightGridColors *colors, float weight)
 {
@@ -393,9 +378,11 @@ bool RB_GetNearestGridColors(const GfxLightGrid *grid, int x, int y, int z,
         return false;
     int index;
     RB_FindGridPoint(grid, x, y, z, &index);
-    const GfxLightGridPoint *point = &grid->points[index];
-    RB_AccumulateGridColors(out, &grid->colors[point->colorsIndex], 1.0f);
-    *sunVisibility = (point->xyzLowBitsAndSunVisible & 1) ? 1.0f : 0.0f;
+    RB_AccumulateGridColors(out, &grid->colors[grid->points[index].colorsIndex], 1.0f);
+    if (grid->points[index].xyzLowBitsAndSunVisible & 1)
+        *sunVisibility = 1.0f;
+    else
+        *sunVisibility = 0.0f;
     return true;
 }
 
@@ -451,6 +438,21 @@ float RB_GetLightingAtPoint(const GfxLightGrid *grid, const float *sampleOrigin,
         }
     }
     return sunWeight;
+}
+
+// PINNED 100366b0: publish viewCount before sampling, with no missing-world guard.
+void RB_SetupEntityLighting(const GfxEntity *entity, GfxEntityLighting *lighting)
+{
+    lighting->viewCount = backEnd.viewCount;
+    vec3_t origin;
+    if (entity->renderFxFlags & 0x80)
+        VectorCopy(entity->lighting.origin, origin);
+    else
+    {
+        VectorCopy(entity->origin, origin);
+        origin[2] += 4.0f;
+    }
+    lighting->sunVisibility = RB_GetLightingAtPoint(&rgp.world->lightGrid, origin, lighting->colorForDir);
 }
 
 static void RB_InterleaveLightColors(const float *colors, vec3_t *error)
@@ -578,6 +580,25 @@ static bool RB_FitDirectionalLight(int lightIndex, vec3_t *error, D3DLIGHT9 *lig
         light->Direction.z = -direction[2];
     }
     return true;
+}
+
+// Name unconfirmed. PINNED 100373c0/17.
+bool RB_MaterialUsesAmbientLighting(const Material *material)
+{
+    const MaterialTechnique *technique = material->techniqueSet->techniques[15];
+    if (!technique)
+        return false;
+    return technique->passArray.dx7[0].ambientLighting;
+}
+
+// Name unconfirmed. PINNED 100373e0/49.
+void RB_SetAmbientLight(D3DLIGHT9 *light, const float *color)
+{
+    light->Type = D3DLIGHT_DIRECTIONAL;
+    light->Ambient.r = color[0] * 0.5f;
+    light->Ambient.g = color[1] * 0.5f;
+    light->Ambient.b = color[2] * 0.5f;
+    light->Direction.z = 1.0f;
 }
 
 static int RB_DeriveAmbientEntityLights(const float *colors, float sunVisibility,

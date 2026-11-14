@@ -80,7 +80,7 @@ static __declspec(noinline) int RB_ParticleCloudOriginsMatch(const float *a, con
 {
     for (int index = 0; index < 3; ++index)
     {
-        float delta = *a++ - *b++;
+        float delta = b[index] - a[index];
         if (delta * delta > 0.0000010000001111620804f)
             return 0;
     }
@@ -88,6 +88,24 @@ static __declspec(noinline) int RB_ParticleCloudOriginsMatch(const float *a, con
 }
 
 #pragma optimize("p", off)
+
+/* Header-style inline helpers. Retail keeps uncalled copies at 1003ee60/4, 1003ee70/3,
+   1003ee80/24 (PINNED); names unconfirmed. */
+inline IDirect3DIndexBuffer9 *XSurfaceGetIndexBuffer(const XSurface *surface)
+{
+    return surface->indexBuffer;
+}
+
+inline const XSurface *RB_GetModelSurfaceXSurface(const GfxModelSurface *surf)
+{
+    return surf->xsurf;
+}
+
+inline void RB_CheckOptimizedIndexOverflow(int indexCount)
+{
+    if (tess.optimizedIndexCount + indexCount > 0x100000)
+        RB_TessOverflow();
+}
 
 // Private name unconfirmed; PINNED 1003eea0/123, called only by RB_TessXModelRigid.
 static __declspec(noinline) void RB_SetWorldMatrixFromBoneAxis(const GfxModelRigidSurface *surface,
@@ -422,27 +440,38 @@ void RB_TessSprite(const GfxEntity *ent)
 void RB_TessOrientedQuad(const GfxEntity *ent)
 {
     float right[3], vertical[3], left[3], up[3];
-    MakeNormalVectors(ent->axis[0], right, vertical);
     if (ent->rotation == 0.0f)
     {
-        for (int component = 0; component < 3; ++component)
-        {
-            left[component] = right[component] * ent->radius[0];
-            up[component] = vertical[component] * ent->radius[1];
-        }
+        MakeNormalVectors(ent->axis[0], left, up);
+        left[0] *= ent->radius[0];
+        left[1] *= ent->radius[0];
+        left[2] *= ent->radius[0];
+        up[0] *= ent->radius[1];
+        up[1] *= ent->radius[1];
+        up[2] *= ent->radius[1];
     }
     else
     {
+        MakeNormalVectors(ent->axis[0], right, vertical);
         float radians = ent->rotation * 0.017453292f;
         float sine, cosine;
         FastSinCos(radians, &sine, &cosine);
-        float leftCos = cosine * ent->radius[0], leftSin = -(sine * ent->radius[0]);
-        float upCos = cosine * ent->radius[1], upSin = sine * ent->radius[1];
-        for (int component = 0; component < 3; ++component)
-        {
-            left[component] = leftSin * vertical[component] + right[component] * leftCos;
-            up[component] = upSin * right[component] + vertical[component] * upCos;
-        }
+        float scale = cosine * ent->radius[0];
+        left[0] = right[0] * scale;
+        left[1] = right[1] * scale;
+        left[2] = right[2] * scale;
+        scale = -(sine * ent->radius[0]);
+        left[0] = vertical[0] * scale + left[0];
+        left[1] = vertical[1] * scale + left[1];
+        left[2] = vertical[2] * scale + left[2];
+        scale = cosine * ent->radius[1];
+        up[0] = vertical[0] * scale;
+        up[1] = vertical[1] * scale;
+        up[2] = vertical[2] * scale;
+        scale = sine * ent->radius[1];
+        up[0] = right[0] * scale + up[0];
+        up[1] = right[1] * scale + up[1];
+        up[2] = right[2] * scale + up[2];
     }
     GfxColor rgba;
     rgba.array[2] = ent->materialRGBA[0];
@@ -919,15 +948,15 @@ static void RB_TessXModelSkinnedCached(const GfxModelSkinnedSurface *surface)
     if (r_logFile->current.integer)
         RB_LogPrint(va("--- RB_TessXModelSkinnedCached( %s ) ---\n", tess.material->info.name));
     int stride = r_rendererInUse->current.integer == 2 ? 36 : 64;
-    const XSurface *xsurf = surface->surf.xsurf;
+    const XSurface *xsurf = RB_GetModelSurfaceXSurface(&surface->surf);
     GfxDrawPrimArgs args;
     args.u.buf.baseIndex = 0;
     args.firstVertexFromBase = 0;
     args.u.buf.baseVertex = surface->skinnedCachedOffset / stride;
     args.primCount = xsurf->triCount;
     args.vertexCount = xsurf->vertCount;
-    if (dxState.indexBuffer != xsurf->indexBuffer)
-        RB_ChangeIndices(xsurf->indexBuffer);
+    if (dxState.indexBuffer != XSurfaceGetIndexBuffer(xsurf))
+        RB_ChangeIndices(XSurfaceGetIndexBuffer(xsurf));
     IDirect3DVertexBuffer9 *buffer = backEndData->skinnedCacheVb->buffer;
     if (dxState.streams[0].vb != buffer || dxState.streams[0].offset != 0
         || dxState.streams[0].stride != stride)
@@ -939,7 +968,7 @@ static void RB_TessXModelSkinnedUncached(const GfxModelSkinnedSurface *surface)
 {
     if (r_logFile->current.integer)
         RB_LogPrint(va("--- RB_TessXModelSkinnedUncached( %s ) ---\n", tess.material->info.name));
-    const XSurface *xsurf = surface->surf.xsurf;
+    const XSurface *xsurf = RB_GetModelSurfaceXSurface(&surface->surf);
     int vertCount = xsurf->vertCount;
     int indexCount = xsurf->triCount * 3;
     if (tess.vertexCount + vertCount > 5450 || tess.indexCount + indexCount > 0x100000)
@@ -973,15 +1002,15 @@ void RB_TessXModelRigid(const surfaceType_t *surfType)
     if (r_logFile->current.integer)
         RB_LogPrint(va("--- RB_TessXModelRigid( %s ) ---\n", tess.material->info.name));
     const GfxModelRigidSurface *surface = (const GfxModelRigidSurface *)surfType;
-    const XSurface *xsurf = surface->surf.xsurf;
+    const XSurface *xsurf = RB_GetModelSurfaceXSurface(&surface->surf);
     GfxDrawPrimArgs args;
     args.vertexCount = xsurf->vertCount;
     args.primCount = xsurf->triCount;
     args.u.buf.baseIndex = 0;
     args.u.buf.baseVertex = 0;
     args.firstVertexFromBase = 0;
-    if (dxState.indexBuffer != xsurf->indexBuffer)
-        RB_ChangeIndices(xsurf->indexBuffer);
+    if (dxState.indexBuffer != XSurfaceGetIndexBuffer(xsurf))
+        RB_ChangeIndices(XSurfaceGetIndexBuffer(xsurf));
     int stride = r_rendererInUse->current.integer == 2 ? 36 : 64;
     if (dxState.streams[0].vb != xsurf->surfRigid.vb || dxState.streams[0].offset != 0
         || dxState.streams[0].stride != stride)
@@ -996,9 +1025,8 @@ void RB_TessXModelRigid(const surfaceType_t *surfType)
 void RB_TessStaticModelCached(const surfaceType_t *surfType)
 {
     const GfxStaticModelCachedSurface *surface = (const GfxStaticModelCachedSurface *)surfType;
-    int indexCount = surface->surf.xsurf->triCount * 3;
-    if (tess.optimizedIndexCount + indexCount > 0x100000)
-        RB_TessOverflow();
+    int indexCount = RB_GetModelSurfaceXSurface(&surface->surf)->triCount * 3;
+    RB_CheckOptimizedIndexOverflow(indexCount);
     tess.optimizedVertexSource = 2;
     tess.firstOptimizedVertex = 0;
     tess.optimizedVertexCount = 0x10000;
@@ -1017,8 +1045,7 @@ void RB_TessTriangles(const surfaceType_t *surfType)
     if (tess.optimizedIndexCount && (tess.firstOptimizedVertex != triangles->firstVertex
         || tess.optimizedVertexCount != triangles->vertexCount))
         RB_TessOverflow();
-    if (tess.optimizedIndexCount + triangles->indexCount > 0x100000)
-        RB_TessOverflow();
+    RB_CheckOptimizedIndexOverflow(triangles->indexCount);
     tess.optimizedVertexSource = 1;
     Com_Memcpy(tess.secondaryIndices + tess.optimizedIndexCount,
         triangles->indices, triangles->indexCount * 2);
