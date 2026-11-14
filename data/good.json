@@ -19853,8 +19853,9 @@
 "name": "?EvalPrimitiveExpression@@YA_NTsval_u@@PAUVariableCompileValue@@@Z",
 "obj": "scr_compiler.obj",
 "size": 387,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x46c480"
+]
 },
 {
 "name": "?EmitOrEvalPrimitiveExpression@@YA_NTsval_u@@PAUVariableCompileValue@@PAUscr_block_s@@@Z",
