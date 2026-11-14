@@ -1043,6 +1043,12 @@
 "obj": "r_image_load_obj.obj",
 "why": []
 },
+"?Byte4Set@@YAXPAEEEEE@Z": {
+"t": "0x1000f160",
+"n": 20,
+"obj": "r_image_load_obj.obj",
+"why": []
+},
 "?Image_ValidateHeader@@YAEPBUGfxImageFileHeader@@PBD@Z": {
 "t": "0x1000f2a0",
 "n": 67,
