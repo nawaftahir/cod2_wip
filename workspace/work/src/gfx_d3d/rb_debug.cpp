@@ -197,11 +197,11 @@ static void RB_DrawDebugPlumes(const GfxViewParms *view)
         if (elapsed * 2 > plume->duration)
             plume->color[3] = 2.0f - (float)(elapsed * 2) / plume->duration;
         plume = &backEndData->debugGlobals.plumes[index];
-        double shift = sin((double)elapsed * 0.012566371f + index) * 4.0f;
+        float shift = sin((float)elapsed * 0.012566371f + index) * 4.0f;
         vec3_t origin;
-        origin[0] = (float)(shift * view->axis[1][0] + plume->origin[0]);
-        origin[1] = (float)(shift * view->axis[1][1] + plume->origin[1]);
-        origin[2] = (float)(shift * view->axis[1][2] + plume->origin[2] + (double)elapsed * 0.064f);
+        origin[0] = shift * view->axis[1][0] + plume->origin[0];
+        origin[1] = shift * view->axis[1][1] + plume->origin[1];
+        origin[2] = shift * view->axis[1][2] + plume->origin[2] + (float)elapsed * 0.064f;
         const char *text = va("%i", plume->score);
         R_AddDebugString(&backEndData->debugGlobals, origin,
             backEndData->debugGlobals.plumes[index].color, 0.5f, text);

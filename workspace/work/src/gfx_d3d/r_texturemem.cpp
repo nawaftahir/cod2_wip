@@ -1,12 +1,10 @@
 // Video/texture memory detection.
+#include <initguid.h>
 #include "r_local.h"
 
 #include <ddraw.h>
 
 #pragma comment(lib, "ddraw.lib")
-
-// Retail has this GUID only, not all of dxguid.lib.
-EXTERN_C const GUID IID_IDirectDraw7 = { 0x15e65ec0, 0x3b9c, 0x11d2, { 0xb9, 0x2f, 0x00, 0x60, 0x97, 0x97, 0xea, 0x5b } };
 
 static unsigned int R_VideoMemoryForDevice(GUID *lpGUID)
 {
