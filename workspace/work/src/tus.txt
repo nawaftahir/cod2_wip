@@ -47,7 +47,6 @@ gfx_d3d/r_water.cpp
 gfx_d3d/r_water_load_obj.cpp
 gfx_d3d/r_xsurface.cpp
 gfx_d3d/r_xsurface_load_obj.cpp
-gfx_d3d/r_xsurface_optimize.cpp
 gfx_d3d/rb_backend.cpp
 gfx_d3d/rb_debug.cpp
 gfx_d3d/rb_fog.cpp
