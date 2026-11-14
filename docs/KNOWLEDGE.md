@@ -837,3 +837,12 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
 - Cursorhint edges into fadd scale (idx 0x20), all flags 0: from idx 0x0f (latency 3), 0x11..0x19 (0), push 0x16 (0),
   push 0x1a (latency 2). Op 0x63 = push. Only the LAST push before the fadd carries latency 2 (esp write -> esp-relative
   address use, an AGI-style latency), so retail's order means its fadd was ready before the second push was emitted.
+- PINNED (w29, c2 disasm 0x107b4e2f..0x107b4e6d + c2sched13 on G_GetPlayerViewOrigin): c2 cuts a basic block into
+  scheduling regions of at most 0x50+1 tuples (the walk counts tuples, `cmp esi,0x50; jg` ends the region; some tuple
+  kinds/op 0x2c9 end it earlier, calls start a new one). Nothing moves across a cut. ViewOrigin: the region after the
+  BG_GetHorizontalBobFactor call has 81 nodes and ends exactly at the VectorMA `fstp [esi+8]`, so `push 20.0f` (next
+  region) cannot rise above it. Diagnostic `VectorCopy(origin, origin)` after the VectorMA moves the cut and the push lands
+  before the fstp like retail (z-chain moves too, 10 lines). So the residue = retail has a different tuple count before
+  the cut (one more, or about 4 fewer) with identical bytes. Op names: 0x0d = push, 0x01 = mov load, 0x0e = call,
+  0x2d = add esp, 0x63 = fstp (order edges to every later node), 0x60 = fld, 0x45 fadd, 0x46 fmul, 0x5d fcomp, 0x33 jcc.
+  Same lever likely for every "one push / load one slot off" residue (GrenadePointer, Cursorhint, MouseEnter, Window_Paint).
