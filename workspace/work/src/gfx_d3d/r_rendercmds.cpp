@@ -696,6 +696,18 @@ void R_AddCmdDrawSurfs(GfxDrawSurf *drawSurfs, int drawSurfCount,
     cmd->techType = techType;
 }
 
+// Name unconfirmed; PINNED 10021900/14, no retail callers: draw surfs with order 0.
+void R_AddCmdDrawSurfsOrder0(GfxDrawSurf *drawSurfs, int drawSurfCount, MaterialTechniqueType techType)
+{
+    R_AddCmdDrawSurfs(drawSurfs, drawSurfCount, techType, (GfxDrawSurfOrder)0);
+}
+
+// Name unconfirmed; PINNED 10021910/14, no retail callers: draw surfs with order 1.
+void R_AddCmdDrawSurfsOrder1(GfxDrawSurf *drawSurfs, int drawSurfCount, MaterialTechniqueType techType)
+{
+    R_AddCmdDrawSurfs(drawSurfs, drawSurfCount, techType, (GfxDrawSurfOrder)1);
+}
+
 // PINNED 10021920/87: sun commands use the noncritical reservation rule.
 void R_AddCmdDrawSun(int viewIndex)
 {
