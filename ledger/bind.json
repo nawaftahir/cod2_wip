@@ -3397,6 +3397,12 @@
 "obj": "r_scene.obj",
 "why": []
 },
+"?R_SetSceneRenderOptions@@YAXPBUrefdef_s@@PAUGfxSceneRenderOptions@@@Z": {
+"t": "0x10025690",
+"n": 46,
+"obj": "r_scene.obj",
+"why": []
+},
 "?R_SetLodOrigin@@YAXPBUrefdef_s@@@Z": {
 "t": "0x100256c0",
 "n": 212,
