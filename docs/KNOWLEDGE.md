@@ -748,7 +748,7 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   Retail bodies of fire_grenade, G_Spawn, Com_Error, SEH_*LanguageInfo/Strings, CL_NextDemo, CL_DemoCompleted equal ours (fdiff 0).
 
 ## 25. Small-residue classes (w13, 11-12, baseline 1973256, fdiff + c2slots13 + c2pickmap13)
-- PINNED (fdiff vs retail at the same address): (a) local-pick rotation: VM_Notify 6, EvalPrimitiveExpression 14. (b) slot permutation:
+- PINNED (fdiff vs retail at the same address): (a) local-pick rotation: VM_Notify 6. EvalPrimitiveExpression 14 is NOT a pick rotation (w29b c2picks13: 2 picks, both in the expression_list arm; tail regs are colour nodes). (b) slot permutation:
   CG_DrawScoreboard_Objective 26, Item_Text_AutoWrapped_Paint 10. (d) x87 role: CG_DrawCursorhint 30. Pure scheduling, same regs:
   CG_DrawAdsOverlay 29, CG_DrawGrenadePointer 16, G_GetPlayerViewOrigin 16, XAnimCalc 15, Item_ListBox_MouseEnter 11, CG_FireWeapon 7,
   IntersectPlanes 6, StartWeaponAnim 4, Window_Paint 4. Address-only: Player_GetUseList 8 and all fns <= 5 B except the KNOWLEDGE 21/23 three.
