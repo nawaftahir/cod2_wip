@@ -163,6 +163,12 @@
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
+"?R_SetSurfaceBoundsAndLmapCoords@@YAXPAUsrfTriangles_t@@PAUGfxWorldVertex@@PBUDiskGfxVertex@@PBUr_lightmapMerge_t@@@Z": {
+"t": "0x100026c0",
+"n": 244,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
 "?R_CalculateWorldBounds@@YAXPAM0@Z": {
 "t": "0x10002840",
 "n": 246,
@@ -240,6 +246,14 @@
 "n": 104,
 "obj": "r_bsp_load_obj.obj",
 "why": []
+},
+"?R_LoadEntities@@YAXPAUGfxBspLoad@@@Z": {
+"t": "0x10003880",
+"n": 1214,
+"obj": "r_bsp_load_obj.obj",
+"why": [
+"call ?R_PrepareStaticModelLightingCache@@YAXPAUGfxWorld@@H@Z"
+]
 },
 "?R_LoadAabbTrees@@YAXPAUGfxBspLoad@@@Z": {
 "t": "0x10003ee0",
@@ -3193,6 +3207,18 @@
 "obj": "r_scene.obj",
 "why": []
 },
+"?R_SortKeyEntIndex@@YAHI@Z": {
+"t": "0x10023710",
+"n": 30,
+"obj": "r_scene.obj",
+"why": []
+},
+"?R_SortKeyMaterial@@YAPAUMaterial@@I@Z": {
+"t": "0x10023730",
+"n": 36,
+"obj": "r_scene.obj",
+"why": []
+},
 "?R_ClearSceneEntityRecord@@YAXPAUGfxSceneEntity@@@Z": {
 "t": "0x10023760",
 "n": 14,
@@ -4709,6 +4735,12 @@
 "obj": "rb_light.obj",
 "why": []
 },
+"?RB_IsGridPointVisible@@YA_NPBUGfxLightGridPoint@@IPBM1@Z": {
+"t": "0x10035ac0",
+"n": 271,
+"obj": "rb_light.obj",
+"why": []
+},
 "?RB_GridVisLogIndex@@YAHHHHH@Z": {
 "t": "0x10035c40",
 "n": 129,
@@ -5150,6 +5182,14 @@
 "n": 352,
 "obj": "rb_sky.obj",
 "why": []
+},
+"?RB_DrawSunSpriteForView@@YAXPAUSunFlareDynamic@@@Z": {
+"t": "0x1003bf00",
+"n": 87,
+"obj": "rb_sky.obj",
+"why": [
+"call ?RB_DrawSunSpriteDx7@@YAXXZ"
+]
 },
 "?RB_DrawSunBlindGlare@@YAXPAUSunFlareDynamic@@H@Z": {
 "t": "0x1003bf60",
