@@ -139,6 +139,26 @@ void RB_DrawStretchPic(const Material *material, float x, float y, float width, 
     tess.indexCount += 6;
 }
 
+// PINNED out-of-line copies 1002e9e0/1002ea20/1002ea60 (KisakCOD names): whole-target quads.
+void RB_DrawFullScreenColoredQuad(const Material *material, float s0, float t0, float s1, float t1,
+    unsigned int color)
+{
+    RB_DrawStretchPic(material, 0.0f, 0.0f, (float)dxState.renderTargetWidth,
+        (float)dxState.renderTargetHeight, s0, t0, s1, t1, color);
+}
+
+void RB_FullScreenColoredFilter(const Material *material, unsigned int color)
+{
+    RB_DrawStretchPic(material, 0.0f, 0.0f, (float)dxState.renderTargetWidth,
+        (float)dxState.renderTargetHeight, 0.0f, 0.0f, 1.0f, 1.0f, color);
+}
+
+void RB_FullScreenFilter(const Material *material)
+{
+    RB_DrawStretchPic(material, 0.0f, 0.0f, (float)dxState.renderTargetWidth,
+        (float)dxState.renderTargetHeight, 0.0f, 0.0f, 1.0f, 1.0f, 0xffffffff);
+}
+
 // Backend frame driver.
 // Mac source places this shared setter in rb_backend, not an inline header.
 void RB_SetCodeConstant(int constant, float x, float y, float z, float w)
@@ -1519,11 +1539,15 @@ static void RB_DrawTrianglesCmd(GfxRenderCommandExecState *state)
 {
     const GfxCmdDrawTriangles *cmd = (const GfxCmdDrawTriangles *)state->cmd;
     int count = cmd->vertexCount;
-    const byte *positions = (const byte *)cmd + sizeof(*cmd);
-    const byte *normals = positions + count * 16;
-    const byte *colors = normals + count * 12;
-    const byte *texCoords = colors + count * 4;
-    const unsigned short *indices = (const unsigned short *)(texCoords + count * 8);
+    const byte *base = (const byte *)cmd;
+    int normalsOffset = sizeof(*cmd) + count * 16;
+    int colorsOffset = normalsOffset + count * 12;
+    int texCoordsOffset = colorsOffset + count * 4;
+    const byte *positions = base + sizeof(*cmd);
+    const byte *normals = base + normalsOffset;
+    const byte *colors = base + colorsOffset;
+    const byte *texCoords = base + texCoordsOffset;
+    const unsigned short *indices = (const unsigned short *)(base + texCoordsOffset + count * 8);
     RB_DrawTriangles(cmd->material, cmd->techType, cmd->indexCount, indices, cmd->vertexCount,
         (const float (*)[4])positions, (const float (*)[3])normals,
         (const GfxColor *)colors, (const float (*)[2])texCoords);
@@ -2103,14 +2127,20 @@ static void RB_DrawFrameColorDebug()
     float width = dxState.renderTargetWidth * 0.5f;
     float height = dxState.renderTargetHeight * 0.5f;
     float quarterWidth = width * 0.5f, quarterHeight = height * 0.5f;
+    // PINNED 10030190/286: retail builds each color byte by byte
+    byte color[4];
+    color[0] = 0; color[1] = 0; color[2] = 255; color[3] = 255;
     RB_DrawStretchPic(rgp.frameColorDebugMaterial, quarterWidth, quarterHeight, quarterWidth,
-        quarterHeight, 0.0f, 0.0f, 1.0f, 1.0f, 0xffff0000);
+        quarterHeight, 0.0f, 0.0f, 1.0f, 1.0f, *(unsigned int *)color);
+    color[0] = 0; color[1] = 255; color[2] = 0; color[3] = 255;
     RB_DrawStretchPic(rgp.frameColorDebugMaterial, width, quarterHeight, quarterWidth,
-        quarterHeight, 0.0f, 0.0f, 1.0f, 1.0f, 0xff00ff00);
+        quarterHeight, 0.0f, 0.0f, 1.0f, 1.0f, *(unsigned int *)color);
+    color[0] = 255; color[1] = 0; color[2] = 0; color[3] = 255;
     RB_DrawStretchPic(rgp.frameColorDebugMaterial, quarterWidth, height, quarterWidth,
-        quarterHeight, 0.0f, 0.0f, 1.0f, 1.0f, 0xff0000ff);
+        quarterHeight, 0.0f, 0.0f, 1.0f, 1.0f, *(unsigned int *)color);
+    color[0] = 255; color[1] = 255; color[2] = 255; color[3] = 255;
     RB_DrawStretchPic(rgp.frameAlphaDebugMaterial, width, height, quarterWidth,
-        quarterHeight, 0.0f, 0.0f, 1.0f, 1.0f, 0xffffffff);
+        quarterHeight, 0.0f, 0.0f, 1.0f, 1.0f, *(unsigned int *)color);
     RB_EndSurface();
 }
 
@@ -2246,6 +2276,27 @@ static void RB_DrawPostDebug()
         else if (sc_showDebug->current.enabled)
             RB_DrawShadowDebug();
     }
+}
+
+// Name unconfirmed; PINNED out-of-line copy 10030840.
+unsigned char RB_NeedsBlur(float blurRadius)
+{
+    return r_rendererInUse->current.integer != 2
+        && (r_blur->current.value > 0.0f || blurRadius > 0.0f);
+}
+
+// Name unconfirmed; PINNED out-of-line copy 10030880.
+unsigned char RB_NeedsGlow()
+{
+    return r_rendererInUse->current.integer != 2 && dx.hasSeparateAlphaBlend
+        && r_glow->current.enabled && !r_fullbright->current.enabled;
+}
+
+// Name unconfirmed; PINNED out-of-line copy 10030a20.
+float RB_GetBlurRadius(float blurRadius)
+{
+    float blur = r_blur->current.value;
+    return sqrtf(blur * blur + blurRadius * blurRadius);
 }
 
 // PINNED 10030ab0: resolve once, glow first, blur second.
