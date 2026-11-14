@@ -19,7 +19,6 @@ void XSurfaceTransferDx7(const XVertexBuffer *surfVerts, GfxVertexDx7 *verts, in
 void XSurfaceTransfer(const XVertexBuffer *surfVerts, GfxVertex *verts, int vertCount);
 static inline __attribute__((always_inline)) void XSurfaceRotateNormal(const float *normal, const DObjSkelMat *mat, float *out);
 static inline __attribute__((always_inline)) void XSurfaceTransformPos(const float *pos, const DObjSkelMat *mat, float *out);
-static inline __attribute__((always_inline)) void XSurfaceTransformPosWeighted(const float *pos, const DObjSkelMat *mat, float scale, float *out);
 void XSurfaceGetVerts(const XSurface *surf, DObjSkelMat *boneMatrix, float *pVert, float *pTexCoord, float *pNormal);
 
 static inline __attribute__((always_inline)) void XSurfaceTransformPos(const float *pos, const DObjSkelMat *mat, float *out)
@@ -34,13 +33,6 @@ static inline __attribute__((always_inline)) void XSurfaceRotateNormal(const flo
     out[0] = normal[1] * mat->axis[1][0] + normal[2] * mat->axis[2][0] + normal[0] * mat->axis[0][0];
     out[1] = normal[0] * mat->axis[0][1] + normal[1] * mat->axis[1][1] + normal[2] * mat->axis[2][1];
     out[2] = normal[0] * mat->axis[0][2] + normal[1] * mat->axis[1][2] + normal[2] * mat->axis[2][2];
-}
-
-static inline __attribute__((always_inline)) void XSurfaceTransformPosWeighted(const float *pos, const DObjSkelMat *mat, float scale, float *out)
-{
-    out[0] += (pos[1] * mat->axis[1][0] + pos[2] * mat->axis[2][0] + pos[0] * mat->axis[0][0] + mat->origin[0]) * scale;
-    out[1] += (pos[0] * mat->axis[0][1] + pos[1] * mat->axis[1][1] + pos[2] * mat->axis[2][1] + mat->origin[1]) * scale;
-    out[2] += (pos[0] * mat->axis[0][2] + pos[1] * mat->axis[1][2] + pos[2] * mat->axis[2][2] + mat->origin[2]) * scale;
 }
 
 int XSurfaceGetNumVerts(const XSurface *surface)
@@ -139,7 +131,10 @@ void XSurfaceGetVerts(const XSurface *surf, DObjSkelMat *boneMatrix, float *pVer
                 do
                 {
                     mat = (const DObjSkelMat *)((const char *)boneMatrix + blend->boneOffset);
-                    XSurfaceTransformPosWeighted(blend->offset, mat, blend->boneWeight * (1.0f / 65536.0f), pVert);
+                    scale = blend->boneWeight * (1.0f / 65536.0f);
+                    pVert[0] += (blend->offset[1] * mat->axis[1][0] + blend->offset[2] * mat->axis[2][0] + blend->offset[0] * mat->axis[0][0] + mat->origin[0]) * scale;
+                    pVert[1] += (blend->offset[0] * mat->axis[0][1] + blend->offset[1] * mat->axis[1][1] + blend->offset[2] * mat->axis[2][1] + mat->origin[1]) * scale;
+                    pVert[2] += (blend->offset[0] * mat->axis[0][2] + blend->offset[1] * mat->axis[1][2] + blend->offset[2] * mat->axis[2][2] + mat->origin[2]) * scale;
                     blend++;
                 } while (--numWeights);
                 vert = (const XVertexInfo *)blend;

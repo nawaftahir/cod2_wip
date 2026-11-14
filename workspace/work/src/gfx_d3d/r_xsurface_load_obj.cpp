@@ -3,18 +3,24 @@
 #include "gfx.h"
 
 template<typename T>
-T Buf_Read(const byte **pos)
-{
-    union
-    {
-        T value;
-        byte bytes[sizeof(T)];
-    } u;
+T Buf_Read(const byte **pos);
 
-    memcpy(u.bytes, *pos, sizeof(T));
-    *pos += sizeof(T);
-    return u.value;
+// Retail keeps out-of-line copies at 1002d3e0 (short, ushort, float) before XModelReadBlendInfo.
+#define BUF_READ_SPEC(T) \
+template<> T Buf_Read<T>(const byte **pos) \
+{ \
+    union \
+    { \
+        T value; \
+        byte bytes[sizeof(T)]; \
+    } u; \
+    memcpy(u.bytes, *pos, sizeof(T)); \
+    *pos += sizeof(T); \
+    return u.value; \
 }
+BUF_READ_SPEC(short)
+BUF_READ_SPEC(unsigned short)
+BUF_READ_SPEC(float)
 
 // Retail keeps an out-of-line copy of this helper at 0x1002d420 as well as the inlined uses.
 static void XModelReadBlendInfo(const byte **pos, XBlendInfo *blend, int *partBits)
@@ -94,7 +100,7 @@ XSurface *XModelReadSurface(XModel *model, int *partBits, const byte **pos, Allo
         vert->tangent[2] = Buf_Read<float>(pos);
         if (boneOffset == -1)
         {
-            numWeights = Buf_Read<byte>(pos);
+            numWeights = *(*pos)++;
             vert->numWeights = numWeights;
             vertBoneOffset = Buf_Read<short>(pos);
             partBits[vertBoneOffset >> 5] |= 1 << (vertBoneOffset & 31);
