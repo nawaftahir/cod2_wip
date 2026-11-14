@@ -1126,14 +1126,6 @@ void RB_BeginScene()
 	backEnd.frameCount++;
 }
 
-void RB_InitBackendGlobalStructs()
-{
-	memset(&backEnd, 0, sizeof(backEnd));
-	backEnd.worldEntityReType = 3;	// RT_MODEL
-	backEnd.resolvedPostSunTarget = 0xe;
-	backEnd.resolvedSceneTarget = 0xe;
-	RB_InitSceneViewport();
-}
 #include "r_permanent.h"
 #include <math.h>
 extern const dvar_t *sc_blur;
@@ -2633,4 +2625,31 @@ void RB_ExecuteRenderCommands(const void *data)
         R_FinishGpuFence();
     if (dx.gpuSync == 2 || dx.gpuSync == 3)
         R_InsertGpuFence();
+}
+
+void RB_InitBackendGlobalStructs()
+{
+	memset(&backEnd, 0, sizeof(backEnd));
+	backEnd.worldEntityReType = 3;	// RT_MODEL
+	backEnd.resolvedPostSunTarget = 0xe;
+	backEnd.resolvedSceneTarget = 0xe;
+	RB_InitSceneViewport();
+}
+
+struct Font_s;
+Font_s *R_RegisterFont(const char *name, int imageTrack);
+// Name SUPPORTED (KisakBlack); PINNED 10033fc0/21, uncalled (R_Init inlines it).
+void RB_RegisterBackendAssets()
+{
+	backEnd.debugFont = R_RegisterFont("fonts/smalldevfont", 1);
+}
+
+// Name unconfirmed; PINNED 10033fe0/39: uncalled codeConsts[c-128] setter.
+void RB_SetCodeConstantFromArgs(int constant, float x, float y, float z, float w)
+{
+	float *dst = backEnd.codeConsts[constant - 128];
+	dst[0] = x;
+	dst[1] = y;
+	dst[2] = z;
+	dst[3] = w;
 }
