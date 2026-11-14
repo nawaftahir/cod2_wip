@@ -332,3 +332,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | Window_Paint w29 (11-15, 2 labs) | fillRect as 4 float locals (copy order x,y,w,h and w,h,y,x) | both = base (same 3-reload swap): web ids / reload order do not follow source copy order |
 | Window_Paint w29 (11-15, correction + 4 labs) | the two "float locals" rows above were script no-ops (matched the prototype). Real runs: fillRect as 4 float locals, copy orders xywh / whyx / hwyx / ywhx | 46-49 lines, function 28-32 B shorter (the 6-field struct copy is retail). Keep the struct |
 | Window_Paint w29 (11-15, 1 lab) | `color` block-local in the debugMode block | does not compile (color used by later cases). Not a lever |
+| CG_DrawCursorhint w29 (11-15, 7 labs) | `((...))` on each float arg of both UI_DrawHandlePic calls (x, y, width, double height, x + textWidth) | all = base (710/749, same 6 lines: fadd scale issued before the pushes, retail after) |
