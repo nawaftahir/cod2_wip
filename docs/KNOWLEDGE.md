@@ -882,3 +882,8 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   them out 40, 33, 44 in IL-walk order of the pieces' first reference: ours h, y, w. Retail block order w,h,y needs ids
   w<h<y, i.e. hand-out order h, w, y: retail's IL references the w piece before the y piece in that round. Implicit vs
   explicit (int) casts in the CIN calls: no change (TRIED).
+- PINNED (w29 11-15, c2 disasm 0x1077fcd0..0x1077fd07): the node "walker" is NOT IL order: it steps ebp += 0x60 through the
+  symbol table (skips [sym+4] == 0x10 and syms without [sym+0x34]->[+0xc]) and calls 0x1077c10f per symbol. So node hand-out
+  (and the ids, fresh or recycled) follows SYMBOL CREATION order. fillRect field syms are x 0678af4c, y 0678b00c, w 0678b0cc
+  (consecutive slots, interleaved with their piece syms) and h in a later chunk. Retail's order needs the w piece symbol created
+  before the y piece symbol. Lever to find: what creates the field/piece symbols (scalar replacement order).
