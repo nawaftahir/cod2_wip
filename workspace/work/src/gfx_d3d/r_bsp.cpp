@@ -9,6 +9,9 @@ extern const dvar_t *r_lightTweakSunColor;
 extern const dvar_t *r_lightTweakSunDiffuseColor;
 extern const dvar_t *r_lightTweakSunDirection;
 
+// Mac STABS name; PINNED unreferenced at 101825c8.
+extern const vec3_t vec3_colorintensity = { 0.299f, 0.587f, 0.114f };
+
 void *R_AllocStaticVertexBuffer(void **vb, int sizeInBytes);
 void R_FinishStaticVertexBuffer(void *vb);
 void R_FreeStaticVertexBuffer(IDirect3DVertexBuffer9 *vb);
