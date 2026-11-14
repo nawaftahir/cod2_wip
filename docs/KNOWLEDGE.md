@@ -846,3 +846,7 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   the cut (one more, or about 4 fewer) with identical bytes. Op names: 0x0d = push, 0x01 = mov load, 0x0e = call,
   0x2d = add esp, 0x63 = fstp (order edges to every later node), 0x60 = fld, 0x45 fadd, 0x46 fmul, 0x5d fcomp, 0x33 jcc.
   Same lever likely for every "one push / load one slot off" residue (GrenadePointer, Cursorhint, MouseEnter, Window_Paint).
+- PINNED (w29 lab, fdiff 0 lines): ViewOrigin region 6 starts at the join block after the inlined BG_GetSpeed. Double
+  redundant parens `origin[2] = ((origin[2] + deltaVert));` add one IL tuple (no code), the cut moves one tuple earlier and
+  `push 20.0f` rises above the VectorMA fstp like retail. Single parens / casts / operand swaps do not. Method for this class:
+  find the region (c2sched13 block = cycle reset), then try paren depths on statements inside it.
