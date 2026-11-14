@@ -1,7 +1,7 @@
 # CoD2MP_s.exe 1.3: status
 
-## Numbers (`meter-1.3.json`, last accept a3d38744 on 11-13, clean gate)
-- Whole-file same-offset 1,973,317 / 1,974,272 = **99.952%**, 955 B differ. PE header fully equal to retail
+## Numbers (`meter-1.3.json`, last accept e7778762 on 11-14, clean gate)
+- Whole-file same-offset 1,973,410 / 1,974,272 = **99.956%**, 862 B differ (BSL matched, MOTD "1.3", Sway). All strings equal retail. PE header fully equal to retail
   (Rich fixed 11-13 by the two-pass VC7.0 lib.exe mss32.lib build; timestamp/CheckSum/RSDS set at link time).
 - Matched-fn bytes 1,563,230. Functions identical 9,485 / 9,504. TUs: empty TUs count as identical since 11-12
   (owner decision, tools/meter.py).
