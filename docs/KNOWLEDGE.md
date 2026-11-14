@@ -834,3 +834,6 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
 - DAG build (0x1078734c -> 0x107b3e88 per block): memory uses/defs on symbol kinds 3/4/5 go on lists 0x108817e4 (uses,
   0x107b3f57) and 0x108817dc (defs, 0x107b3f92); 0x107b4558 = barrier node: every node with no succs gets an 0x80000 edge
   to it (0x107b418c). 0x107b4690 walks the defs list [t+0x2c]: kind-3 operands and calls get 0x80 order edges (0x107b4730).
+- Cursorhint edges into fadd scale (idx 0x20), all flags 0: from idx 0x0f (latency 3), 0x11..0x19 (0), push 0x16 (0),
+  push 0x1a (latency 2). Op 0x63 = push. Only the LAST push before the fadd carries latency 2 (esp write -> esp-relative
+  address use, an AGI-style latency), so retail's order means its fadd was ready before the second push was emitted.
