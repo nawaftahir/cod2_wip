@@ -2795,6 +2795,18 @@
 "call ?R_InitFrameBackendData@@YAXXZ"
 ]
 },
+"?R_ResetCommandCounters@@YAXXZ": {
+"t": "0x10020d00",
+"n": 26,
+"obj": "r_rendercmds.obj",
+"why": []
+},
+"?R_FreeTempSkinBuffer@@YAXXZ": {
+"t": "0x10020d20",
+"n": 36,
+"obj": "r_rendercmds.obj",
+"why": []
+},
 "?R_IssueRenderCommands@@YAXXZ": {
 "t": "0x10020d50",
 "n": 111,
@@ -3535,6 +3547,14 @@
 "obj": "r_shadowcookie.obj",
 "why": []
 },
+"?R_GenerateShadowCookies@@YAXPBUGfxViewParms@@PAUShadowCookieList@@@Z": {
+"t": "0x100280e0",
+"n": 59,
+"obj": "r_shadowcookie.obj",
+"why": [
+"call ?R_BuildShadowCookieList@@YAXPBUGfxViewParms@@PBUShadowCandidate@@PAUShadowCookieList@@@Z"
+]
+},
 "??$sort@PAUShadowCandidate@@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@0P6A_NABU1@1@Z@Z": {
 "t": "0x10028150",
 "n": 20,
@@ -3859,6 +3879,12 @@
 "obj": "r_staticmodelcache.obj",
 "why": []
 },
+"?R_ShutdownStaticModelCache@@YAXXZ": {
+"t": "0x1002bb60",
+"n": 40,
+"obj": "r_staticmodelcache.obj",
+"why": []
+},
 "?R_StaticModelCacheStats_f@@YAXXZ": {
 "t": "0x1002bb90",
 "n": 84,
@@ -4009,6 +4035,12 @@
 "obj": "r_xsurface.obj",
 "why": []
 },
+"??$Buf_Read@M@@YAMPAPBE@Z": {
+"t": "0x1002d400",
+"n": 18,
+"obj": "r_xsurface_load_obj.obj",
+"why": []
+},
 "?XModelReadBlendInfo@@YAXPAPBEPAUXBlendInfo_s@@PAH@Z": {
 "t": "0x1002d420",
 "n": 123,
@@ -4042,12 +4074,6 @@
 "why": [
 "call ?XSurfaceOptimize@@YAXPAUXModel@@PAUXSurface_s@@@Z"
 ]
-},
-"??$Buf_Read@M@@YAMPAPBE@Z": {
-"t": "0x1002d400",
-"n": 18,
-"obj": "r_xsurface_load_obj.obj",
-"why": []
 },
 "?RB_ClampNonNegative@@YAHH@Z": {
 "t": "0x1002ddc0",
@@ -4565,6 +4591,14 @@
 "obj": "rb_imagefilter.obj",
 "why": []
 },
+"?RB_TouchImage@@YAXPAUGfxImage@@@Z": {
+"t": "0x10035810",
+"n": 63,
+"obj": "rb_imagetouch.obj",
+"why": [
+"call ?RB_DrawStretchPic@@YAXPBUMaterial@@MMMMMMMMI@Z"
+]
+},
 "?RB_CompareTouchImages@@YAHPBX0@Z": {
 "t": "0x10035850",
 "n": 56,
@@ -4597,14 +4631,6 @@
 "obj": "rb_light.obj",
 "why": []
 },
-"?RB_GetValidGridPoint@@YAPBUGfxLightGridPoint@@PBUGfxLightGrid@@HHHIPBM@Z": {
-"t": "0x10036040",
-"n": 188,
-"obj": "rb_light.obj",
-"why": [
-"call ?RB_IsGridPointVisible@@YA_NPBUGfxLightGridPoint@@IPBM1@Z"
-]
-},
 "?RB_GridVisLogIndex@@YAHHHHH@Z": {
 "t": "0x10035c40",
 "n": 129,
@@ -4613,19 +4639,19 @@
 "call ?RB_InsertGridVisLog@@YA_NHGGG@Z"
 ]
 },
-"?RB_SetupEntityLighting@@YAXPBUGfxEntity@@PAUGfxEntityLighting@@@Z": {
-"t": "0x100366b0",
-"n": 100,
-"obj": "rb_light.obj",
-"why": [
-"call ?RB_GetLightingAtPoint@@YAMPBUGfxLightGrid@@PBMPAY03M@Z"
-]
-},
 "?RB_FindGridPoint@@YA_NPBUGfxLightGrid@@HHHPAH@Z": {
 "t": "0x10035fb0",
 "n": 141,
 "obj": "rb_light.obj",
 "why": []
+},
+"?RB_GetValidGridPoint@@YAPBUGfxLightGridPoint@@PBUGfxLightGrid@@HHHIPBM@Z": {
+"t": "0x10036040",
+"n": 188,
+"obj": "rb_light.obj",
+"why": [
+"call ?RB_GridVisLogIndex@@YAHHHHH@Z"
+]
 },
 "?RB_AccumulateGridColors@@YAXPAY03MPBUGfxLightGridColors@@M@Z": {
 "t": "0x10036100",
@@ -4638,6 +4664,20 @@
 "n": 239,
 "obj": "rb_light.obj",
 "why": []
+},
+"?RB_GetNearestGridColors@@YA_NPBUGfxLightGrid@@HHHPAY03MPAM@Z": {
+"t": "0x10036320",
+"n": 121,
+"obj": "rb_light.obj",
+"why": []
+},
+"?RB_SetupEntityLighting@@YAXPBUGfxEntity@@PAUGfxEntityLighting@@@Z": {
+"t": "0x100366b0",
+"n": 100,
+"obj": "rb_light.obj",
+"why": [
+"call ?RB_GetLightingAtPoint@@YAMPBUGfxLightGrid@@PBMPAY03M@Z"
+]
 },
 "?RB_InterleaveLightColors@@YAXPBMPAY02M@Z": {
 "t": "0x10036720",
@@ -4654,6 +4694,12 @@
 "?RB_FitDirectionalLight@@YA_NHPAY02MPAU_D3DLIGHT9@@@Z": {
 "t": "0x100368a0",
 "n": 2834,
+"obj": "rb_light.obj",
+"why": []
+},
+"?RB_SetAmbientLight@@YAXPAU_D3DLIGHT9@@PBM@Z": {
+"t": "0x100373e0",
+"n": 49,
 "obj": "rb_light.obj",
 "why": []
 },
@@ -5253,6 +5299,14 @@
 "obj": "rb_tess.obj",
 "why": []
 },
+"?RB_CheckOptimizedIndexOverflow@@YAXH@Z": {
+"t": "0x1003ee80",
+"n": 24,
+"obj": "rb_tess.obj",
+"why": [
+"call ?RB_TessOverflow@@YAXXZ"
+]
+},
 "?RB_SetWorldMatrixFromBoneAxis@@YAXPBUGfxModelRigidSurface@@PBUGfxEntity@@@Z": {
 "t": "0x1003eea0",
 "n": 123,
@@ -5280,6 +5334,14 @@
 "?RB_TessStaticModelCached@@YAXPBW4surfaceType_t@@@Z": {
 "t": "0x10041510",
 "n": 209,
+"obj": "rb_tess.obj",
+"why": [
+"call ?RB_TessOverflow@@YAXXZ"
+]
+},
+"?RB_TessTriangles@@YAXPBW4surfaceType_t@@@Z": {
+"t": "0x100415f0",
+"n": 153,
 "obj": "rb_tess.obj",
 "why": [
 "call ?RB_TessOverflow@@YAXXZ"
@@ -18465,6 +18527,18 @@
 "t": "0x10029310",
 "n": 11,
 "obj": "r_specularityimage.obj",
+"why": []
+},
+"??$Buf_Read@F@@YAFPAPBE@Z": {
+"t": "0x1002d3e0",
+"n": 11,
+"obj": "r_xsurface_load_obj.obj",
+"why": []
+},
+"??$Buf_Read@G@@YAGPAPBE@Z": {
+"t": "0x1002d3f0",
+"n": 11,
+"obj": "r_xsurface_load_obj.obj",
 "why": []
 },
 "?RB_BindDefaultImages@@YAXXZ": {
