@@ -854,5 +854,4 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   colours, not the reverse. Ours sourcePos value in eax: the trailing `mov al,1` (return true) writes eax, so c2 adds an
   anti-dependence edge sourcePos-store -> `mov al,1`, the store's height +1 (prio 0xc00 vs 0x800) and it issues first.
   Retail has sourcePos in ecx: no edge, all stores 0x800, so fstp (0x801) then type, sourcePos in idx order = retail.
-  So fixing the eax/ecx colour fixes the whole 14 B. Arm reshapes (int goto-merge, string/istring order, 0/1 literals,
-  float arm direct call) are byte-identical: the front end merges them before RA.
+  So fixing the eax/ecx colour fixes the whole 14 B. Arm reshapes tried (TRIED w29) change layout or nothing.
