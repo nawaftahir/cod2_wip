@@ -2,6 +2,7 @@
 # c2sched13.sh NAME: log c2's list scheduler (0x107b5338) for the fn whose mangled name starts with NAME -> build/ra/sch.txt.
 # Needs a finished build + one tools/ra13.sh run. Lines (hex): R node prio idx est op = node enters the ready list
 # (0x107b5309; list sorted prio desc, then idx asc); S cycle node prio idx est op unit = node picked (0x107b5261).
+# E succidx latency flags = each successor edge of the picked node ([n+0xc] list).
 # prio = [n+0x2c], idx = [n+0x36] (tie break, lower first), est = [n+0x30] earliest cycle, op = [[n+0x1c]+4].
 W=$(cd "$(dirname "$0")/.." && pwd)
 cd "$W"; mkdir -p build/ra
@@ -75,6 +76,25 @@ caveS:
   push offset sNL
   call wstr
   add esp,4
+  mov esi,[ebx+0xc]
+6:
+  test esi,esi
+  je 8f
+  push offset strE
+  call wstr
+  add esp,4
+  mov eax,[esi+0xc]
+  movzx eax,word ptr [eax+0x36]
+  call hexw
+  movzx eax,word ptr [esi+0x14]
+  call hexw
+  movzx eax,byte ptr [esi+0x16]
+  call hexw
+  push offset sNL
+  call wstr
+  add esp,4
+  mov esi,[esi]
+  jmp 6b
 8:
   popad
   popfd
@@ -135,6 +155,7 @@ hexw:
   ret
 strR: .ascii "SCR\0"
 strS: .ascii "SCS\0"
+strE: .ascii "SCE\0"
 sNL: .ascii "\n\0"
 hexd: .ascii "0123456789abcdef"
 name: .ascii "$1\0"
