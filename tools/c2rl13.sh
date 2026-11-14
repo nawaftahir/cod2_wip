@@ -59,7 +59,6 @@ caveV:
   pushad
   pushfd
   mov ebx,edi
-  mov esi,edi
   push eax
   push offset strV
   call nlog
@@ -75,7 +74,6 @@ caveY:
   pushfd
   mov ebx,edi
   push dword ptr [esi+0x1c]
-  mov esi,edi
   push offset strY
   call nlog
   add esp,8
