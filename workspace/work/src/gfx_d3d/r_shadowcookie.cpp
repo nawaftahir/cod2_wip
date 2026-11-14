@@ -69,7 +69,6 @@ void R_ClearShadowReceiverTarget();
 void R_DrawShadowCookies(int viewIndex, const GfxViewParms *viewParms,
     const ShadowCookieList *shadows);
 static bool R_CompareShadowCandidates(const ShadowCandidate &a, const ShadowCandidate &b);
-void R_SortShadowCandidates(ShadowCandidate *candidates);
 static void R_GetShadowLightAxis(vec3_t *axis);
 static void R_SetShadowViewParms(GfxViewParms *view, const float *mins, const float *maxs);
 static bool R_IsShadowReceiverOutside(const float *bounds, const DpvsPlane *planes);
@@ -80,23 +79,10 @@ void R_BuildShadowCookieList(const GfxViewParms *viewParms, const ShadowCandidat
     ShadowCookieList *shadows);
 void R_DrawShadowCookieOverlay();
 
-void R_ResetShadowCookies()
-{
-    // shortcut: real call where retail keeps only dead setup; fits the R_LoadWorld slot, bytes differ.
-    Com_Memset(&shadowCookieGlob, 0, sizeof(shadowCookieGlob));
-    shadowCookieGlob.weightCap = 10.0f;
-    shadowCookieGlob.lastTime = -1;
-}
-
 // PINNED 10027170/30; the original VC7.1 STL supplies the sort implementation.
 static bool R_CompareShadowCandidates(const ShadowCandidate &a, const ShadowCandidate &b)
 {
     return a.weight < b.weight;
-}
-
-void R_SortShadowCandidates(ShadowCandidate *candidates)
-{
-    std::sort(candidates, candidates + 24, R_CompareShadowCandidates);
 }
 
 // PINNED 10027930/839: a new empty group still selects/clears its receiver target.
@@ -437,4 +423,22 @@ void R_BuildShadowCookieList(const GfxViewParms *viewParms, const ShadowCandidat
         shadowCookieGlob.weightCap -= seconds * sc_shadowInRate->current.value;
     if (shadowCookieGlob.weightCap < 0.0001f)
         shadowCookieGlob.weightCap = 0.0001f;
+}
+
+// Name unconfirmed; PINNED 100280e0/59: retail keeps this copy, inlined in R_GenerateSceneCommands.
+void R_GenerateShadowCookies(const GfxViewParms *viewParms, ShadowCookieList *shadows)
+{
+    ShadowCandidate candidates[24];
+    R_PopulateCandidates(viewParms->origin, candidates);
+    std::sort(candidates, candidates + 24, R_CompareShadowCandidates);
+    R_BuildShadowCookieList(viewParms, candidates, shadows);
+}
+
+// PINNED 10028120/35
+void R_ResetShadowCookies()
+{
+    // shortcut: real call where retail keeps only dead setup; fits the R_LoadWorld slot, bytes differ.
+    Com_Memset(&shadowCookieGlob, 0, sizeof(shadowCookieGlob));
+    shadowCookieGlob.weightCap = 10.0f;
+    shadowCookieGlob.lastTime = -1;
 }

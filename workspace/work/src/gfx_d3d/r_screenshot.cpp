@@ -125,8 +125,7 @@ void R_DownsamplePixelData(int oldSize, int newSize, int stride, int bytesPerPix
         color0 = residual * src[0];
         color1 = residual * src[1];
         src += nextSample;
-        residual = residual + newSize - oldSize;
-        while (residual <= 0)
+        for (int next = residual + newSize - oldSize; next <= 0; next += newSize)
         {
             color0 += newSize * src[0];
             color1 += newSize * src[1];
@@ -134,10 +133,11 @@ void R_DownsamplePixelData(int oldSize, int newSize, int stride, int bytesPerPix
             src += nextSample;
             residual += newSize;
         }
+        residual += newSize - oldSize;
         int frac = newSize - residual;
+        color0 += src[0] * frac;
         color1 += src[1] * frac;
         color2 += src[2] * frac;
-        color0 += src[0] * frac;
         dst[0] = (byte)I_fround(colorScale * color0);
         dst[1] = (byte)I_fround(colorScale * color1);
         dst[2] = (byte)I_fround(colorScale * color2);
