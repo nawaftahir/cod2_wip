@@ -204,7 +204,7 @@ __declspec(noinline) void Byte4UnpackBgra(const byte *from, float *to)
 // Names unconfirmed; PINNED 10023710/30 and 10023730/36, uncalled retail copies of the sort-key decode.
 int R_SortKeyEntIndex(unsigned int sortKey)
 {
-    int entIndex = (int)sortKey >= 0 ? (sortKey >> 4) & 0xfff : (sortKey >> 19) & 0xfff;
+    int entIndex = (sortKey & 0x80000000) ? (sortKey >> 19) & 0xfff : (sortKey >> 4) & 0xfff;
     if (entIndex >= 0x800)
         entIndex = 0x7fe;
     return entIndex;
@@ -212,7 +212,7 @@ int R_SortKeyEntIndex(unsigned int sortKey)
 
 Material *R_SortKeyMaterial(unsigned int sortKey)
 {
-    return rgp.sortedMaterials[(int)sortKey >= 0 ? (sortKey >> 21) & 0x3ff : (sortKey >> 9) & 0x3ff];
+    return rgp.sortedMaterials[(sortKey & 0x80000000) ? (sortKey >> 9) & 0x3ff : (sortKey >> 21) & 0x3ff];
 }
 
 // Names unconfirmed; PINNED 10023760/13 and 10023770/29, uncalled retail copies (zero 52 and 116 bytes).
