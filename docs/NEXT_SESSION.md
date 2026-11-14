@@ -1,4 +1,34 @@
-# Renderer next session (updated 2026-11-15)
+# Renderer next session (updated 2026-11-15 late)
+
+## State: gfx/main = 1,237,224 / 1,851,392 = 66.83% whole-file same-offset (clean build, gate
+green). .text exactly retail size (0x10a090). Game C/C++ reconstructed (CI meter before the
+rdata17 landing): 128,305 / 253,580 B = 50.6%, 888 functions. Session path: 279,707 -> 400,234
+-> 461,164 -> 960,175 -> 1,237,224.
+
+## How the big steps came (do these first on any binary; memory feedback_measure_byte_distribution_first)
+- .text total size exact -> d3dx9 + DxErr9 (600 KB) aligned.
+- .rdata: retail r_texturemem.cpp includes <initguid.h> (48 d3d9/ddraw GUIDs in that obj);
+  RB_DrawDebugPlumes float math (no double 4.0 COMDAT).
+
+## .rdata leftovers (gfx/w-rdata18 analysis, no commit)
+- LIBCMT object order (tidtable, output, crt0msg) ~0x1017c5a0: link order, no source fix found.
+- Strings/statics emitted in a different order inside the same objects (r_dvars enum tables,
+  sampler names, assert strings, q_parse tokens): LTCG emission order.
+- jpeg-6b static Huffman table: retail right after r_bsp_load_obj ($sunhalfangle, ~0x101825b4),
+  ours between rb_backend and jerror. Link/TU order question: OWNER DECISION (structure change).
+- Missing strings (0x19d .rdata short): "$temp" (r_image 0x1000ccb0 helper, needs paired .text
+  shrink), "NULL device", "Viewport is NULL" (not traced); PDB path differs (build path).
+
+## RULE: keep .text exactly 0x10a090; pair growth with shrink inside the same object/region.
+Parked parts: w-mid16 +48, w-dpvs17 +48, w-ffloor14 -48, w-midB (r_rendercmds net 0, 956,315),
+w-frontA (950,887). R_AddCmdTouchAllImages EXISTS in retail at 100226c0 (end of r_rendercmds).
+
+## Next
+1. Game code: 50.6% of game C/C++ bytes still not proven identical: that is the real remaining
+   reconstruction. Work unmatched functions in place, size-neutral.
+2. Per-object drift zero, front to back, size-neutral pairs.
+3. Owner decisions: jpeg/LIBCMT link order.
+
 
 ## State: gfx/main 3affad6a = 960,175 / 1,851,392 = 51.86% whole-file same-offset (clean local
 build, gate green). .text is EXACTLY retail size (0x10a090): d3dx9 (435 KB) + DxErr9 (169 KB)
