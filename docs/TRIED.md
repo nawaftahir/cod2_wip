@@ -4551,3 +4551,4 @@ r_utils order is HashAssetName, HashString, 1002c010, Cull, Convert, PickMateria
 - Probe: __declspec(noinline) on the RB_TessOverflow declaration in rb_tess.cpp: ignored under LTCG (sizes unchanged). Reverted. Needs noinline on the rb_backend.cpp definition (rb_backend hash lock pending, not touched).
 - BuildSprite and TessOrientedQuad use the existing com_math FastSinCos (retail fsincos at 1003f762/1003fc4d): BuildSprite 448 -> 480 (retail 488), OrientedQuad 448 -> 480 (retail 528). Same-offset 290421 -> 298245.
 - Probe: BuildSprite left/up as scale-then-multiply-add (retail order: cos*r0*axis1, then += -sin*r0*axis2): 496 vs 488, same-offset 290822. Reverted.
+2026-11-14 w-backend7: __declspec(noinline) on RB_TessOverflow definition: .text 0x1093b0 -> 0x1090b0 (-0x300), whole-file 291904; inlining it is what retail-sized code needs, reverted.
