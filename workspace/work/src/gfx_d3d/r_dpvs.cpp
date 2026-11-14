@@ -1319,6 +1319,14 @@ static void R_AddCellCullGroups(const GfxCell *cell, DpvsPlane *planes, int plan
     }
 }
 
+// Name unconfirmed; PINNED uncalled copy 100096d0/38.
+void R_AddCellSurfacesAndCullGroups(const GfxCell *cell, DpvsPlane *planes, int planeCount)
+{
+    R_AddVisibleSurfacesInCell(cell, planes, planeCount);
+    if (dpvsGlob.debug.drawWorld)
+        R_AddCellCullGroups(cell, planes, planeCount);
+}
+
 // PINNED 10009700/58; descriptive name, not recovered debug information.
 static __declspec(noinline) bool R_IsPortalOccluded(const GfxPortal *portal)
 {
