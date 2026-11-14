@@ -391,11 +391,6 @@ static void *R_GrowCommandBuffer(int bytes)
     return R_GetCommandBuffer(lastCmd->id, lastCmd->byteCount + bytes) ? result : 0;
 }
 
-void R_AddCmdTouchAllImages()
-{
-    R_GetCommandBuffer(0x21, sizeof(GfxCmdHeader));
-}
-
 // name unconfirmed: header-only command id 0 (end of list)
 void R_AddCmdEndOfList()
 {
@@ -1056,4 +1051,10 @@ void R_AddCmdDrawTriangles(Material *material, MaterialTechniqueType techType,
     memcpy((byte *)cmd + colorOffset, color, colorBytes);
     memcpy((byte *)cmd + stOffset, st, stBytes);
     memcpy((byte *)cmd + indexOffset, indices, indexBytes);
+}
+
+// PINNED 100226c0/79: retail keeps this writer at the object tail.
+void R_AddCmdTouchAllImages()
+{
+    R_GetCommandBuffer(0x21, sizeof(GfxCmdHeader));
 }
