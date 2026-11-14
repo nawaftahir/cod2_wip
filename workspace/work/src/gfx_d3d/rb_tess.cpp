@@ -234,34 +234,48 @@ static void RB_AddQuadStampDx7(const float *origin, const float *left, const flo
 {
     if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
         RB_TessOverflow();
-    int base = tess.vertexCount, first = tess.indexCount;
-    tess.indices[first] = (unsigned short)base;
-    tess.indices[first + 1] = (unsigned short)(base + 1);
-    tess.indices[first + 2] = (unsigned short)(base + 3);
-    tess.indices[first + 3] = (unsigned short)(base + 3);
-    tess.indices[first + 4] = (unsigned short)(base + 1);
-    tess.indices[first + 5] = (unsigned short)(base + 2);
+    int base = tess.vertexCount;
+    tess.indices[tess.indexCount] = (unsigned short)base;
+    tess.indices[tess.indexCount + 1] = (unsigned short)(base + 1);
+    tess.indices[tess.indexCount + 2] = (unsigned short)(base + 3);
+    tess.indices[tess.indexCount + 3] = (unsigned short)(base + 3);
+    tess.indices[tess.indexCount + 4] = (unsigned short)(base + 1);
+    tess.indices[tess.indexCount + 5] = (unsigned short)(base + 2);
     GfxVertexDx7 *vertices = (GfxVertexDx7 *)tess.vertexData + (unsigned short)base;
-    for (int component = 0; component < 3; ++component)
-    {
-        float sum = left[component] + up[component];
-        float difference = left[component] - up[component];
-        vertices[0].xyz[component] = sum + origin[component];
-        vertices[1].xyz[component] = origin[component] - difference;
-        vertices[2].xyz[component] = origin[component] - sum;
-        vertices[3].xyz[component] = difference + origin[component];
-        float normal = -backEnd.viewParms->axis[0][component];
-        for (int corner = 0; corner < 4; ++corner)
-        {
-            vertices[corner].normal[component] = normal;
-        }
-    }
+    float sum[3], difference[3], normal[3];
+    sum[0] = left[0] + up[0];
+    sum[1] = left[1] + up[1];
+    sum[2] = left[2] + up[2];
+    difference[0] = left[0] - up[0];
+    difference[1] = left[1] - up[1];
+    difference[2] = left[2] - up[2];
+    for (int c = 0; c < 3; ++c)
+        vertices[0].xyz[c] = sum[c] + origin[c];
+    for (int c = 0; c < 3; ++c)
+        vertices[1].xyz[c] = origin[c] - difference[c];
+    for (int c = 0; c < 3; ++c)
+        vertices[2].xyz[c] = origin[c] - sum[c];
+    for (int c = 0; c < 3; ++c)
+        vertices[3].xyz[c] = difference[c] + origin[c];
+    normal[0] = -backEnd.viewParms->axis[0][0];
+    normal[1] = -backEnd.viewParms->axis[0][1];
+    normal[2] = -backEnd.viewParms->axis[0][2];
     for (int corner = 0; corner < 4; ++corner)
     {
-        vertices[corner].color.packed = color;
-        vertices[corner].texCoord[0] = corner == 1 || corner == 2 ? s1 : s0;
-        vertices[corner].texCoord[1] = corner >= 2 ? t1 : t0;
+        vertices[corner].normal[0] = normal[0];
+        vertices[corner].normal[1] = normal[1];
+        vertices[corner].normal[2] = normal[2];
     }
+    vertices[0].texCoord[0] = s0;
+    vertices[0].texCoord[1] = t0;
+    vertices[1].texCoord[0] = s1;
+    vertices[1].texCoord[1] = t0;
+    vertices[2].texCoord[0] = s1;
+    vertices[2].texCoord[1] = t1;
+    vertices[3].texCoord[0] = s0;
+    vertices[3].texCoord[1] = t1;
+    for (int corner = 0; corner < 4; ++corner)
+        vertices[corner].color.packed = color;
     tess.vertexCount += 4;
     tess.indexCount += 6;
 }
@@ -304,7 +318,8 @@ static void RB_BuildSprite(const GfxEntity *ent, const float *radius)
     else
     {
         float radians = ent->rotation * 0.017453292f;
-        float cosine = (float)cos(radians), sine = (float)sin(radians);
+        float sine, cosine;
+        FastSinCos(radians, &sine, &cosine);
         float leftCos = cosine * radius[0], leftSin = -(sine * radius[0]);
         float upCos = cosine * radius[1], upSin = sine * radius[1];
         for (int component = 0; component < 3; ++component)
@@ -419,7 +434,8 @@ void RB_TessOrientedQuad(const GfxEntity *ent)
     else
     {
         float radians = ent->rotation * 0.017453292f;
-        float cosine = (float)cos(radians), sine = (float)sin(radians);
+        float sine, cosine;
+        FastSinCos(radians, &sine, &cosine);
         float leftCos = cosine * ent->radius[0], leftSin = -(sine * ent->radius[0]);
         float upCos = cosine * ent->radius[1], upSin = sine * ent->radius[1];
         for (int component = 0; component < 3; ++component)
@@ -697,31 +713,38 @@ static void RB_AddLineDx7(const float *start, const float *end, float width,
     Vec3Cross(tangent, direction, normal);
     if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
         RB_TessOverflow();
-    int base = tess.vertexCount, first = tess.indexCount;
-    GfxVertexDx7 *vertices = (GfxVertexDx7 *)tess.vertexData + base;
-    for (int component = 0; component < 3; ++component)
-    {
-        vertices[0].xyz[component] = offset[component] + start[component];
-        vertices[1].xyz[component] = start[component] - offset[component];
-        vertices[2].xyz[component] = offset[component] + end[component];
-        vertices[3].xyz[component] = end[component] - offset[component];
-        for (int corner = 0; corner < 4; ++corner)
-        {
-            vertices[corner].normal[component] = normal[component];
-        }
-    }
+    GfxVertexDx7 *vertices = (GfxVertexDx7 *)tess.vertexData + tess.vertexCount;
+    for (int c = 0; c < 3; ++c)
+        vertices[0].xyz[c] = offset[c] + start[c];
+    for (int c = 0; c < 3; ++c)
+        vertices[1].xyz[c] = start[c] - offset[c];
+    for (int c = 0; c < 3; ++c)
+        vertices[2].xyz[c] = offset[c] + end[c];
+    for (int c = 0; c < 3; ++c)
+        vertices[3].xyz[c] = end[c] - offset[c];
     for (int corner = 0; corner < 4; ++corner)
     {
-        vertices[corner].color.packed = color;
-        vertices[corner].texCoord[0] = corner & 1 ? s1 : s0;
-        vertices[corner].texCoord[1] = corner >= 2 ? t1 : t0;
+        vertices[corner].normal[0] = normal[0];
+        vertices[corner].normal[1] = normal[1];
+        vertices[corner].normal[2] = normal[2];
     }
-    tess.indices[first] = (unsigned short)base;
-    tess.indices[first + 1] = (unsigned short)(base + 1);
-    tess.indices[first + 2] = (unsigned short)(base + 2);
-    tess.indices[first + 3] = (unsigned short)(base + 2);
-    tess.indices[first + 4] = (unsigned short)(base + 1);
-    tess.indices[first + 5] = (unsigned short)(base + 3);
+    vertices[0].texCoord[0] = s0;
+    vertices[0].texCoord[1] = t0;
+    vertices[1].texCoord[0] = s1;
+    vertices[1].texCoord[1] = t0;
+    vertices[2].texCoord[0] = s0;
+    vertices[2].texCoord[1] = t1;
+    vertices[3].texCoord[0] = s1;
+    vertices[3].texCoord[1] = t1;
+    for (int corner = 0; corner < 4; ++corner)
+        vertices[corner].color.packed = color;
+    int base = tess.vertexCount;
+    tess.indices[tess.indexCount] = (unsigned short)base;
+    tess.indices[tess.indexCount + 1] = (unsigned short)(base + 1);
+    tess.indices[tess.indexCount + 2] = (unsigned short)(base + 2);
+    tess.indices[tess.indexCount + 3] = (unsigned short)(base + 2);
+    tess.indices[tess.indexCount + 4] = (unsigned short)(base + 1);
+    tess.indices[tess.indexCount + 5] = (unsigned short)(base + 3);
     tess.vertexCount += 4;
     tess.indexCount += 6;
 }
