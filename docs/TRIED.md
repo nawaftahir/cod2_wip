@@ -4541,3 +4541,6 @@ r_utils order is HashAssetName, HashString, 1002c010, Cull, Convert, PickMateria
   Whole-file same-offset 260,953 (< 279,684): .data now starts at 0x19b000 vs retail 0x19e000, so it
   waits until .text grows ~0x26f0 B. Parked on gfx/w-guid; land together with the .text growth.
 2026-11-14 r_rendercmds (gfx/w-rcmds6): retail 10021980/79, 100219d0/129, 10021a60/116 are uncalled writers for commands 6/7/8 (StencilRef 8 B; StencilPlanes nearDist+count+dists; ClipPlanes guarded by dx.maxClipPlanes, 8+16n). Added as R_AddCmdSetStencilRefValue/StencilPlanes/SetClipPlanes (names unconfirmed, Mac payload structs). All land at retail slots (DrawSun..Id9 const -528). .text +352 B; rendertarget -960 -> -608. Open: head steps -576 (InitRenderCmds..), -560 GetCommandBuffer/Grow, -480 EndOfList onwards; retail 10020cf0 (ret), 10020d00 (zero 3 dwords at frontEndData+249d0c), 10020d20 (VirtualDecommit tempSkin) not yet checked against ours.
+
+# r_model missing bodies - 2026-11-14 (gfx/w-model6)
+- Added 1001d800/4 (`mov eax,[eax+8]; ret`) after R_ConvertAnimMatToSkelMat and 1001e640/31 (64 B movaps copy) after R_AllocSkinnedCachedVerts, both Name unconfirmed. .text +0x30, r_model drift 6 steps (-496..-336) -> 4 (-448..-336). Probe 1 of the copy had in/out swapped (eax/ecx reversed); LTCG puts param 1 in ecx, so out comes first.

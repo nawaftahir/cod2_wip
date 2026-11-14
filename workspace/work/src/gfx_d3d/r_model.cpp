@@ -378,6 +378,12 @@ void R_ConvertAnimMatToSkelMat(const DObjAnimMat *in, DObjSkelMat *out)
     out->origin[3] = 1.0f;
 }
 
+// Name unconfirmed; PINNED out-of-line copy 1001d800/4, no callers: returns the third word.
+int R_GetThirdWord(const int *data)
+{
+    return data[2];
+}
+
 static void *Hunk_AllocXModelPrecache(int size)
 {
     return ri.Hunk_AllocInternal(size);
@@ -644,6 +650,15 @@ int R_AllocSkinnedCachedVerts(int vertCount)
         return -1;
     }
     return offset;
+}
+
+// Name unconfirmed; PINNED out-of-line copy 1001e640/31, no callers: 64 B aligned matrix copy.
+void R_CopySkelMat(DObjSkelMat *out, const DObjSkelMat *in)
+{
+    _mm_store_ps(out->axis[0], _mm_load_ps(in->axis[0]));
+    _mm_store_ps(out->axis[1], _mm_load_ps(in->axis[1]));
+    _mm_store_ps(out->axis[2], _mm_load_ps(in->axis[2]));
+    _mm_store_ps(out->origin, _mm_load_ps(in->origin));
 }
 
 inline __m128 Vec4SplatX(const __m128 &v);
