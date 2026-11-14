@@ -4540,3 +4540,6 @@ r_utils order is HashAssetName, HashString, 1002c010, Cull, Convert, PickMateria
   retail 0x914a1, raw 0x92000 == retail. Section-relative .rdata equal 218,560 (combo6 build: 207,867).
   Whole-file same-offset 260,953 (< 279,684): .data now starts at 0x19b000 vs retail 0x19e000, so it
   waits until .text grows ~0x26f0 B. Parked on gfx/w-guid; land together with the .text growth.
+
+# r_model missing bodies - 2026-11-14 (gfx/w-model6)
+- Added 1001d800/4 (`mov eax,[eax+8]; ret`) after R_ConvertAnimMatToSkelMat and 1001e640/31 (64 B movaps copy) after R_AllocSkinnedCachedVerts, both Name unconfirmed. .text +0x30, r_model drift 6 steps (-496..-336) -> 4 (-448..-336). Probe 1 of the copy had in/out swapped (eax/ecx reversed); LTCG puts param 1 in ecx, so out comes first.
