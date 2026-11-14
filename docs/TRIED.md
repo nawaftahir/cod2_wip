@@ -4617,3 +4617,5 @@ Base gfx/w-stack9: drift -96 (head) -128 -80 -32 -48 -32 -208 -176 -144; biggest
 - Skipped (scheduling class / 3 probes logged): RB_ChangedWorldMatrix, RB_GetGlowRadii, RB_SetVertexData, RB_TestTransform, RB_GlowFilterImage.
 2026-11-15 gfx/w-bm2b: R_SetSceneRenderOptions (46 B) MATCH: fullScreen computed into an int local, then stored (retail mov ecx,1 / xor ecx,ecx).
 - R_CacheStaticModelSurface probe 1: loop as `vertCount > (1 << sizeBits)` (fixes cmp/jg) + `if (cached) {...}` : still 54 rows, retail has short jumps to an inline fail block and lea loop padding. Probe 2 (whole body nested under `!deviceLost && vertCount <= 512`) building at handback.
+- 2026-11-15 gfx/w-bm1b R_IsAabbOutsideView probe 3: NearCornerBehind result in a bool local first: no change (near-corner x87 load order 2,1,0 vs retail 1,0,2). 3 probes used.
+- 2026-11-15 gfx/w-bm1b R_LoadNodesAndLeafs probe 1: total node count in a local before the store and alloc: no change (33 diffs; retail stores nodeCount before the size lea and scales child*3 inside each ternary arm). Probe 2: child fixed up with if (child < 0) then one index: worse (75 diffs), reverted.
