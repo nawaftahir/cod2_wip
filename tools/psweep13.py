@@ -3,7 +3,7 @@
 import sys, subprocess, re, shutil
 import os; W=os.path.dirname(os.path.dirname(os.path.abspath(__file__))); A='/home/nawaf/cod2/test/dev/cod2_wip/binaries/windows/1.3/CoD2MP_s.exe'
 F, OBJ, FN, AD, SZ, S, E = sys.argv[1:8]; S, E = int(S), int(E); p = f'{W}/{F}'
-orig = open(p, encoding='latin-1').read().split('\n'); shutil.copy(p, '/tmp/psweep.bak')
+orig = open(p, encoding='latin-1').read().split('\n')
 def run(lines, tag):
     open(p, 'w', encoding='latin-1').write('\n'.join(lines))
     subprocess.run(f'cd {W} && bash tools/lab13.sh {OBJ} >/dev/null 2>&1', shell=True)
@@ -18,4 +18,4 @@ try:
         if not m or '==' in orig[i]: continue
         l = orig[:]; l[i] = f'{m[1]}{m[2]} = (({m[3]}));'; run(l, f'L{i+1}')
 finally:
-    shutil.copy('/tmp/psweep.bak', p)
+    open(p, 'w', encoding='latin-1').write('\n'.join(orig))
