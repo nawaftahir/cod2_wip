@@ -408,12 +408,8 @@ void R_LoadMaterials(GfxBspLoad *load)
 static void R_SetSurfaceBoundsAndLmapCoords(srfTriangles_t *tris, GfxWorldVertex *verts,
     const DiskGfxVertex *diskVerts, const r_lightmapMerge_t *merge)
 {
-    tris->bounds[0][0] = 131072.0f;
-    tris->bounds[0][1] = 131072.0f;
-    tris->bounds[0][2] = 131072.0f;
-    tris->bounds[1][0] = -131072.0f;
-    tris->bounds[1][1] = -131072.0f;
-    tris->bounds[1][2] = -131072.0f;
+    VectorSet(tris->bounds[0], 131072.0f, 131072.0f, 131072.0f);
+    VectorSet(tris->bounds[1], -131072.0f, -131072.0f, -131072.0f);
     for (int index = 0; index < tris->indexCount; ++index)
     {
         int vertIndex = ((const unsigned short *)tris->indices)[index] + tris->firstVertex;
@@ -922,7 +918,6 @@ void R_BuildCellAabbTrees();
 
 // PINNED 10003880: both passes inline the same entity key/value loop; a macro leaves no stray copy.
 #define R_PARSE_SPAWN_VARS(textp, characters, vars, count) { \
-    int slot; \
     (vars)[0][0] = ""; \
     (count) = 1; \
     int used = 0; \
@@ -960,6 +955,7 @@ void R_LoadEntities(GfxBspLoad *load)
     const char *start = (const char *)load->fileBase + load->header->lumps[37].fileofs;
     char *characters = (char *)ri.Hunk_AllocateTempMemoryInternal(load->header->lumps[37].filelen);
     const char *vars[64][2];
+    int slot;
     int count;
     int modelCount = 0;
     const char *text = start;

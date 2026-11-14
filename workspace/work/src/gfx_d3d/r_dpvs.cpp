@@ -418,10 +418,10 @@ __declspec(noinline) bool R_IsAabbOutsideView(DpvsPlane *planes, int planeCount,
             if (stackLevel > plane->u.frontal)
                 continue;
             plane->u.frontal = 255;
-            if (R_DpvsPlaneNearCornerBehind(plane, bounds))
-                plane->u.frontal = (byte)stackLevel;
-            else
+            if (!R_DpvsPlaneNearCornerBehind(plane, bounds))
                 occluded = false;
+            else
+                plane->u.frontal = (byte)stackLevel;
         }
         if (occluded)
             return true;
