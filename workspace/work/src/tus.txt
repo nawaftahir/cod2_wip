@@ -112,4 +112,3 @@ universal/fft.cpp
 universal/q_parse.cpp
 universal/q_shared.cpp
 qcommon/common.cpp
-win32/win_threads.cpp
