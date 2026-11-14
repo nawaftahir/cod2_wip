@@ -127,7 +127,7 @@ extern const dvar_t *r_debugEntCounts;
 int R_CellForPoint(const vec_t *origin);
 void R_AddWorldSurfacesDpvs(const GfxViewParms *viewParms, int cameraCell);
 void R_PopulateCandidates(const float *viewOrigin, ShadowCandidate *candidates);
-void R_SortShadowCandidates(ShadowCandidate *candidates);
+void R_GenerateShadowCookies(const GfxViewParms *viewParms, ShadowCookieList *shadows);
 void R_BuildShadowCookieList(const GfxViewParms *viewParms, const ShadowCandidate *candidates,
     ShadowCookieList *shadows);
 int R_GetPointLightPartitions(const GfxDrawSurf *drawSurfs, int drawSurfCount,
@@ -1057,11 +1057,8 @@ static void R_GenerateSceneCommands(const GfxViewParms *cullView, int viewIndex,
     ShadowCookieList shadows;
     if (R_SceneDynamicShadowsEnabled())
     {
-        ShadowCandidate candidates[24];
         dynamicShadowType = 1;
-        R_PopulateCandidates(cullView->origin, candidates);
-        R_SortShadowCandidates(candidates);
-        R_BuildShadowCookieList(viewParms, candidates, &shadows);
+        R_GenerateShadowCookies(viewParms, &shadows);
     }
     PointLightPartition partitions[256];
     int lightCount = 0;
