@@ -52252,8 +52252,9 @@
 "name": "?Item_ListBox_MouseEnter@@YAXPAUitemDef_s@@MM@Z",
 "obj": "ui_shared_mp.obj",
 "size": 361,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x536360"
+]
 },
 {
 "name": "?Item_MouseEnter@@YAXPAUdisplayContextDef_s@@PAUitemDef_s@@MM@Z",
