@@ -89,11 +89,14 @@ static void RB_GenerateGaussianFilter2D(float radius, int srcWidth, int srcHeigh
     {
         for (int ix = 0; ix < 2; ++ix)
         {
-            Vector4Set(filterPass->tapOffsetsAndWeights[2 * tapEntryIdx],
-                -tapOffsetsX[ix], tapOffsetsY[iy], 0.0f, tapWeightsX[ix] * tapWeightsY[iy]);
-            Vector4Set(filterPass->tapOffsetsAndWeights[2 * tapEntryIdx + 1],
-                tapOffsetsX[ix], tapOffsetsY[iy], 0.0f, tapWeightsX[ix] * tapWeightsY[iy]);
-            ++tapEntryIdx;
+            filterPass->tapOffsetsAndWeights[2 * tapEntryIdx][0] = -tapOffsetsX[ix];
+            filterPass->tapOffsetsAndWeights[2 * tapEntryIdx][1] = tapOffsetsY[iy];
+            filterPass->tapOffsetsAndWeights[2 * tapEntryIdx][2] = 0.0f;
+            filterPass->tapOffsetsAndWeights[2 * tapEntryIdx][3] = tapWeightsX[ix] * tapWeightsY[iy];
+            filterPass->tapOffsetsAndWeights[2 * tapEntryIdx + 1][0] = tapOffsetsX[ix];
+            filterPass->tapOffsetsAndWeights[2 * tapEntryIdx + 1][1] = tapOffsetsY[iy];
+            filterPass->tapOffsetsAndWeights[2 * tapEntryIdx + 1][2] = 0.0f;
+            filterPass->tapOffsetsAndWeights[2 * tapEntryIdx++ + 1][3] = tapWeightsX[ix] * tapWeightsY[iy];
         }
     }
     filterPass->material = rgp.symmetricFilterMaterial[2 * tapEntryIdx - 1];
