@@ -801,3 +801,13 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   and leaves charWidth -192: one loop-test block is worth about 2 B points to a value live across it. The 36-point priority gap
   would need ~18 dead tests, so the w23 dead-test rule is not the AddLine lever. Only BSL had a fitting loop among the small
   residues (w27 sweep, TRIED).
+
+## 26. x87 operand roles: a double conversion on one operand (w29, 11-14)
+- PINNED (fast non-/GL harness + LTCG lab + clean gate 1973410 -> 1973423): for `a + b` with both operands in memory, a
+  float->double conversion on ONE operand (`(float)((double)rect->h + scale)`, or `(double)` on either side) flips the roles:
+  the converted add loads the memory-indirect operand (`fld [rect+0xc]; fadd scale`). A cast on the whole sum does nothing;
+  `sin` vs `sinf`, int locals, decl/statement order, pointer copies (propagated away) and named w/h locals never flip it.
+  The code is otherwise identical (float constants, same size). Applied to CG_DrawCursorhint (both rect->h + scale sites):
+  12 -> 6 diff lines; left = two `fadd scale` issue positions around the text-site pushes.
+- Tool: /home/nawaf/w29/x13.py SPEC (one 1.3 TU, N variants, no /GL, ~4 s, prints chosen asm lines). Faithful for local
+  x87 roles (Cursorhint reproduces); NOT for fns whose roles depend on LTCG inlining (crosshair DotProduct is called there).
