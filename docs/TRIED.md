@@ -4540,3 +4540,9 @@ r_utils order is HashAssetName, HashString, 1002c010, Cull, Convert, PickMateria
   retail 0x914a1, raw 0x92000 == retail. Section-relative .rdata equal 218,560 (combo6 build: 207,867).
   Whole-file same-offset 260,953 (< 279,684): .data now starts at 0x19b000 vs retail 0x19e000, so it
   waits until .text grows ~0x26f0 B. Parked on gfx/w-guid; land together with the .text growth.
+2026-11-14 gfx/w-tess6 rb_tess:
+- AddQuadStampDx7 straight-line in retail store order (indices reload tess.indexCount, xyz per corner, normal per corner, uv, color): 384 -> 528 == retail 1003f410/528.
+- AddLineDx7 same rewrite (positions per corner, normals, uv, color, then indices from tess.vertexCount): 816 vs retail 736; overshoot is the inlined RB_TessOverflow body (EndSurface/BeginSurface) where retail calls 1002df40.
+- Probe: __declspec(noinline) on the RB_TessOverflow declaration in rb_tess.cpp: ignored under LTCG (sizes unchanged). Reverted. Needs noinline on the rb_backend.cpp definition (rb_backend hash lock pending, not touched).
+- BuildSprite and TessOrientedQuad use the existing com_math FastSinCos (retail fsincos at 1003f762/1003fc4d): BuildSprite 448 -> 480 (retail 488), OrientedQuad 448 -> 480 (retail 528). Same-offset 290421 -> 298245.
+- Probe: BuildSprite left/up as scale-then-multiply-add (retail order: cos*r0*axis1, then += -sin*r0*axis2): 496 vs 488, same-offset 290822. Reverted.
