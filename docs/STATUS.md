@@ -7,6 +7,10 @@
   (owner decision, tools/meter.py).
 - Source tree follows IW's layout since 11-13 (docs/LAYOUT.md, 281/370 TUs pinned by Mac 1.3 STABS).
 
+## 11-15 w29: +14 EvalPrimitiveExpression matched (colour tie = creation index, KNOWLEDGE 28), ported to 1.0 (+14).
+Same-offset 1.3 1,973,469 (803 B left), 1.0 1,699,641 (199 B left). Reload order cause (Window_Paint / 1.0 SV_DirectConnect,
+Pickup_Weapon) narrowed in KNOWLEDGE 29 (block order = colour-node id ascending); id writer not found yet. New tool c2rl13.sh.
+
 ## 11-14 w29: +13 (Cursorhint h add in double, KNOWLEDGE 26), same-offset 1,973,423 (849 B left). New tools: fast
 non-/GL harness /home/nawaf/w29/x13.py (x87 roles), tools/c2sched13.sh + decoded scheduler (KNOWLEDGE 27), Ghidra c2 project.
 1.0 port of the same fix is green (+13) on client/1.0/w29 (19ef37a1), parked until 1.3 is done (owner 11-14).
