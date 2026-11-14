@@ -27,8 +27,8 @@ allowed = {
     # w-hull: asm bodies unchanged; C-only Com_Filter group added above them, owner review pending
     'universal/com_shared.cpp': '67c949e4ba0ebb381cde8752b302637af083190721a1fd74e81f6a32ff17733f',
     'universal/box_on_plane_side_x86.inc': '01447f1d547da40d7d228d91157964b259f8ad8180074b6a95f0df332771328d',
-    # owner-approved 2026-11-06: I_ffloor fld/fsub/fistp, same pattern as I_fround; 2026-11-14 C-only edits (w-light7), asm unchanged
-    'gfx_d3d/rb_light.cpp': 'b3d21c510866d0e2b7659990816a81cbe612322811854a6223d3f5a5fe0590be',
+    # owner-approved 2026-11-06: I_ffloor fld/fsub/fistp, same pattern as I_fround; 2026-11-14/15 C-only edits (w-light7, w-bm3), asm unchanged
+    'gfx_d3d/rb_light.cpp': '43c92f0831bb1e696b0dd5aea0d423e4dd91fcecdfe5b3f5e375a15af6006aa1',
     # w-backend5/6/8/9, w-scan12: asm bodies unchanged (diffed vs gfx/main); C-only edits, owner approved 2026-11-14
     'gfx_d3d/rb_backend.cpp': '17dc9bbeade5b23e6dd44e63b8ee7007957a0b2317aa99247ce3fd958ebbcee0',
     'compat/msvc71.h': '8b793ebbd41492a4289a9d26c7f39543022351c2e847273bfd68ec96f3598dab',
