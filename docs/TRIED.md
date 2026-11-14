@@ -52,3 +52,4 @@ Each row was measured. Tags/spec names point into `archive/LESSONS.md` and the o
 | Com_ErrorCleanup / subtitle static swap | link-position search exhausted |
 | Rich (28,9466)/(25,9466) order | mss32 member order |
 | Remaining 6 Rich C++ objects | PunkBuster/libwww (1.2+), fft/convexhull (renderer), Kisak speex extras ruled out; `unknown/after_*.cpp` placeholders have invented identities |
+| psweep10 (11-14, w29-10) on 1.0 FX_AddFxToScene, Pickup_Weapon, SV_DirectConnect, Menu_SetNextCursorItem, StartWeaponAnim, CG_FireWeapon, Item_ListBox_MouseEnter | `((rhs))` per assignment, whole fn | every variant identical to base: none of these is a region-cut residue |
