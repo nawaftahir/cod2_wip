@@ -133,44 +133,10 @@ void R_InitImages();
 water_t *R_LoadWaterSetup(const water_t *water);
 void Image_RebuildCosinePowerMap(float shift);
 
-// PINNED 1000de10: source and destination may be the same mip buffer.
-__declspec(noinline) void R_DownsampleMipMapBilinear(const byte *src, int srcBufferSize,
-    int srcWidth, int srcHeight, int texelPitch, byte *dst, int dstBufferSize)
+// Name unconfirmed; PINNED 1000c7a0/17. Uncalled retail copy of one mip dimension.
+int Image_MipDimension(int size, int mipLevel)
 {
-    int dstWidth, dstHeight, srcRowPitch, dstRowPitch;
-    int row, col, ch;
-    if (srcWidth == 1 && srcHeight == 1)
-        return;
-    dstWidth = srcWidth >> 1;
-    dstHeight = srcHeight >> 1;
-    srcRowPitch = srcWidth * texelPitch;
-    dstRowPitch = dstWidth * texelPitch;
-    if (!dstWidth || !dstHeight)
-    {
-        for (col = 0; col < dstWidth + dstHeight; ++col)
-        {
-            for (ch = 0; ch < texelPitch; ++ch)
-                dst[ch] = (byte)((src[ch] + src[ch + texelPitch]) >> 1);
-            dst += texelPitch;
-            src += 2 * texelPitch;
-        }
-        return;
-    }
-    for (row = 0; row < dstHeight; ++row)
-    {
-        const byte *srcPos = src;
-        byte *dstPos = dst;
-        for (col = 0; col < dstWidth; ++col)
-        {
-            for (ch = 0; ch < texelPitch; ++ch)
-                dstPos[ch] = (byte)((srcPos[ch] + srcPos[ch + texelPitch]
-                    + srcPos[ch + srcRowPitch] + srcPos[ch + srcRowPitch + texelPitch]) >> 2);
-            srcPos += 2 * texelPitch;
-            dstPos += texelPitch;
-        }
-        src += 2 * srcRowPitch;
-        dst += dstRowPitch;
-    }
+    return I_max(1, size >> mipLevel);
 }
 
 // PINNED1000c7c0: preserve the signed track test, including negative inputs.
@@ -406,6 +372,13 @@ inline bool Image_IsCodeImage(const GfxImage *image)
 void Image_Free(GfxImage *image)
 {
     Image_Release(image);
+}
+
+// Name unconfirmed; PINNED 1000ccf0/20. Uncalled retail release of a Z_Malloc image.
+void Image_FreeZ(GfxImage *image)
+{
+    Image_Release(image);
+    ri.Z_FreeInternal(image);
 }
 
 // PINNED 1000cd10: preserve programmable images and rebuild their hash entries.
@@ -826,27 +799,6 @@ void R_InitImages()
     rgp.rawTexdef.u.image = rgp.rawImage;
 }
 
-water_t *R_LoadWaterSetup(const water_t *water)
-{
-	int waterCount;
-	int waterMapSetupIndex;
-
-	waterCount = rg.sceneWaterMapSetupsCount;
-	for (waterMapSetupIndex = 0; waterMapSetupIndex < waterCount; ++waterMapSetupIndex)
-	{
-		if (R_WatersEquivalent(&rg.sceneWaterMapSetups[waterMapSetupIndex], water))
-			return &rg.sceneWaterMapSetups[waterMapSetupIndex];
-	}
-	if (waterMapSetupIndex == 16)
-	{
-		Com_Printf("^1ERROR: map uses more than %i waterMap textures\n", 16);
-		return 0;
-	}
-	R_CreateWaterSetup(water, waterMapSetupIndex, &rg.sceneWaterMapSetups[waterMapSetupIndex]);
-	++rg.sceneWaterMapSetupsCount;
-	return &rg.sceneWaterMapSetups[waterMapSetupIndex];
-}
-
 // PINNED1000d900: ascending track, then ascending current-platform memory.
 static int imagecompare(GfxImage *first, GfxImage *second)
 {
@@ -953,3 +905,76 @@ void R_ImageList_f()
     }
     ri.Printf(0, "Related commands: meminfo, imagelist, gfx_world, gfx_model, cg_drawfps, com_statmon, tempmeminfo\n");
 }
+
+water_t *R_LoadWaterSetup(const water_t *water)
+{
+	int waterCount;
+	int waterMapSetupIndex;
+
+	waterCount = rg.sceneWaterMapSetupsCount;
+	for (waterMapSetupIndex = 0; waterMapSetupIndex < waterCount; ++waterMapSetupIndex)
+	{
+		if (R_WatersEquivalent(&rg.sceneWaterMapSetups[waterMapSetupIndex], water))
+			return &rg.sceneWaterMapSetups[waterMapSetupIndex];
+	}
+	if (waterMapSetupIndex == 16)
+	{
+		Com_Printf("^1ERROR: map uses more than %i waterMap textures\n", 16);
+		return 0;
+	}
+	R_CreateWaterSetup(water, waterMapSetupIndex, &rg.sceneWaterMapSetups[waterMapSetupIndex]);
+	++rg.sceneWaterMapSetupsCount;
+	return &rg.sceneWaterMapSetups[waterMapSetupIndex];
+}
+
+// 1000ddf0/1000de00: SUPPORTED, Mac r_image_load_obj.c externs; uncalled copies kept in this object.
+void *Hunk_AllocateTempMemoryInternal(int size)
+{
+    return ri.Hunk_AllocateTempMemoryInternal(size);
+}
+
+void Hunk_FreeTempMemory(void *buf)
+{
+    ri.Hunk_FreeTempMemory(buf);
+}
+
+// PINNED 1000de10: source and destination may be the same mip buffer.
+__declspec(noinline) void R_DownsampleMipMapBilinear(const byte *src, int srcBufferSize,
+    int srcWidth, int srcHeight, int texelPitch, byte *dst, int dstBufferSize)
+{
+    int dstWidth, dstHeight, srcRowPitch, dstRowPitch;
+    int row, col, ch;
+    if (srcWidth == 1 && srcHeight == 1)
+        return;
+    dstWidth = srcWidth >> 1;
+    dstHeight = srcHeight >> 1;
+    srcRowPitch = srcWidth * texelPitch;
+    dstRowPitch = dstWidth * texelPitch;
+    if (!dstWidth || !dstHeight)
+    {
+        for (col = 0; col < dstWidth + dstHeight; ++col)
+        {
+            for (ch = 0; ch < texelPitch; ++ch)
+                dst[ch] = (byte)((src[ch] + src[ch + texelPitch]) >> 1);
+            dst += texelPitch;
+            src += 2 * texelPitch;
+        }
+        return;
+    }
+    for (row = 0; row < dstHeight; ++row)
+    {
+        const byte *srcPos = src;
+        byte *dstPos = dst;
+        for (col = 0; col < dstWidth; ++col)
+        {
+            for (ch = 0; ch < texelPitch; ++ch)
+                dstPos[ch] = (byte)((srcPos[ch] + srcPos[ch + texelPitch]
+                    + srcPos[ch + srcRowPitch] + srcPos[ch + srcRowPitch + texelPitch]) >> 2);
+            srcPos += 2 * texelPitch;
+            dstPos += texelPitch;
+        }
+        src += 2 * srcRowPitch;
+        dst += dstRowPitch;
+    }
+}
+
