@@ -1079,6 +1079,14 @@ int RB_IsGpuFenceFinished()
 	return true;
 }
 
+// PINNED 10032f80/15, uncalled copy; name from KisakCOD rb_pixelcost.cpp.
+void R_HW_FinishGpu()
+{
+	R_FinishGpuFence();
+	R_InsertGpuFence();
+	R_FinishGpuFence();
+}
+
 void RB_BeginBenchmarkGpu(LARGE_INTEGER *time)
 {
 	R_FinishGpuFence();
