@@ -439,39 +439,41 @@ void RB_TessSprite(const GfxEntity *ent)
 // PINNED 1003fba0: oriented quads use entity axis0, without sprite size/lift flags.
 void RB_TessOrientedQuad(const GfxEntity *ent)
 {
-    float right[3], vertical[3], left[3], up[3];
+    float radius[2] = {ent->radius[0], ent->radius[1]};
+    float right[3], left[3], up[3];
     if (ent->rotation == 0.0f)
     {
         MakeNormalVectors(ent->axis[0], left, up);
-        left[0] *= ent->radius[0];
-        left[1] *= ent->radius[0];
-        left[2] *= ent->radius[0];
-        up[0] *= ent->radius[1];
-        up[1] *= ent->radius[1];
-        up[2] *= ent->radius[1];
+        left[0] *= radius[0];
+        left[1] *= radius[0];
+        left[2] *= radius[0];
+        up[0] *= radius[1];
+        up[1] *= radius[1];
+        up[2] *= radius[1];
     }
     else
     {
-        MakeNormalVectors(ent->axis[0], right, vertical);
+        // up starts as the second basis vector and is rotated in place
+        MakeNormalVectors(ent->axis[0], right, up);
         float radians = ent->rotation * 0.017453292f;
         float sine, cosine;
         FastSinCos(radians, &sine, &cosine);
-        float scale = cosine * ent->radius[0];
+        float scale = cosine * radius[0];
         left[0] = right[0] * scale;
         left[1] = right[1] * scale;
         left[2] = right[2] * scale;
-        scale = -(sine * ent->radius[0]);
-        left[0] = vertical[0] * scale + left[0];
-        left[1] = vertical[1] * scale + left[1];
-        left[2] = vertical[2] * scale + left[2];
-        scale = cosine * ent->radius[1];
-        up[0] = vertical[0] * scale;
-        up[1] = vertical[1] * scale;
-        up[2] = vertical[2] * scale;
-        scale = sine * ent->radius[1];
-        up[0] = right[0] * scale + up[0];
-        up[1] = right[1] * scale + up[1];
-        up[2] = right[2] * scale + up[2];
+        radius[0] = -(sine * radius[0]);
+        left[0] = up[0] * radius[0] + left[0];
+        left[1] = up[1] * radius[0] + left[1];
+        left[2] = up[2] * radius[0] + left[2];
+        scale = cosine * radius[1];
+        up[0] = up[0] * scale;
+        up[1] = up[1] * scale;
+        up[2] = up[2] * scale;
+        radius[1] = sine * radius[1];
+        up[0] = right[0] * radius[1] + up[0];
+        up[1] = right[1] * radius[1] + up[1];
+        up[2] = right[2] * radius[1] + up[2];
     }
     GfxColor rgba;
     rgba.array[2] = ent->materialRGBA[0];
