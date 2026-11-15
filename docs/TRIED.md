@@ -405,3 +405,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | CL_ConsolePrint_AddLine w29 (11-15, 18-swap adjacent-statement sweep of the Asian block, /home/nawaf/w29/swp.py, after +5) | every adjacent simple-statement pair swapped | none above the 1602/2132 lab base; core charWidth spill unchanged. Paid earlier same day: overflow `curWidth = 0` first (+2), `off++` before `w +=` (+3) |
 | Adjacent-statement swap sweep (w29, 11-15, gsw.py lab per swap) | Cursorhint, CalcCrosshairPosition, GrenadePointer, Menu_SetNextCursorItem, Window_Paint, VM_Notify, XAnimCalc | no swap raises any fn above its lab base |
 | FX_CalcOriginAndAxis swap sweep (w29, 11-15, gsw2.py, lab base 1380/1472) | every adjacent simple-statement pair | no gain |
+| Distance-1/2 swap sweep (w29, 11-16, gsw3.py) | AddLine (d2), Cursorhint (d2), CG_FireWeapon (d1,d2), StartWeaponAnim (d1,d2) | no gain |
