@@ -1,6 +1,7 @@
 # Renderer next session (updated 2026-11-15 late)
 
-## State: gfx/main 19b1628a = 1,240,390 / 1,851,392 = 67.00% (w-stack20: vec3_colorintensity in r_bsp
+## State: gfx/main 8dd53a6a = 1,244,864 / 1,851,392 = 67.24% (w-rdata20: wavelet tables in
+retail order Blue/RedGreen/Alpha +3,933; iEdgePairs local to R_AddDebugBox +541). Before: 67.00% (w-stack20: vec3_colorintensity in r_bsp
 removes the early LTCG string group; uuid.lib linked before default libs). Was 66.83% whole-file same-offset (clean build, gate
 green). .text exactly retail size (0x10a090). Game C/C++ reconstructed (CI meter before the
 rdata17 landing): 128,305 / 253,580 B = 50.6%, 888 functions. Session path: 279,707 -> 400,234
@@ -11,7 +12,10 @@ rdata17 landing): 128,305 / 253,580 B = 50.6%, 888 functions. Session path: 279,
 - .rdata: retail r_texturemem.cpp includes <initguid.h> (48 d3d9/ddraw GUIDs in that obj);
   RB_DrawDebugPlumes float math (no double 4.0 COMDAT).
 
-## .rdata next: +0x48 drift from the q_shared colour block (retail colors at 0x101913b8, other order);
+## .rdata next (in order): s_lightGridLookupMatrix (rb_shade) emitted early, retail 0x10190600
+(function-local = -710, try other); identityMatrix44 + q_shared colours 16-aligned in ours, 8 in retail;
+tables point at strings +0x48 late (fix that = ~49 KB). Header edits: delete the .obj, deps not tracked.
+## .rdata older: +0x48 drift from the q_shared colour block (retail colors at 0x101913b8, other order);
 LIBCMT internal order; reals pool order. Tool: /tmp/gfx_rd.py (backup ~/gfx_tools/scripts).
 Byte-matching same-size fns stopped paying (round 2: 46 B for ~350k tok); structure first.
 
