@@ -390,3 +390,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | XAnimCalc w29 (11-15, server-1.0 text) | lnxded-1.0 shape: XAnimSetModel duplicated in both arms, `else if (counter != ...)`, no goto | 1653 B, 42 lines (worse) |
 | VM_Notify w29 (11-15, 2 labs) | server loop + `len = 5 * size` (22); our loop + `len = STACKBUF_BUFFER_SIZE * size` (= 7, the split len assignment is not needed) | no gain |
 | HTCache_isFresh w29 (11-15, upstream check) | libwww 5.3.2 (refrences) and w3c/libwww master text of the function head | identical to ours: residue is not a source revision |
+| fire_grenade 720.0f slot (w29, 11-15, 1 lab) | SnapVector via a static inline helper in g_missile_mp | helper keeps its own body (extra fn, whole file shifts 1.1 MB); no |
