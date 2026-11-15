@@ -176,3 +176,13 @@ All are split inline decisions; the cause is the site count, not the callee (sta
   (b) The symbol allocation order is IDENTICAL: data_len, data, sample, bytesToUpload, hr, dwLockLen2, pLock2, dwLockLen1, pLock1, dataOffset (P-line sym addresses).
   (c) What differs is the colour-NODE id (P-line col 9, = [node+0x1c], walked by the initial worklist), which follows node creation order. 1.3 creates data 1, data_len 2, t 3, sample 4, t 5, dwLockLen2 6, bytesToUpload 7, hr 8, pLock2 9, hr 10, pLock1 11, dwLockLen1 12. 1.0 creates data 1, data_len 2, t 3, dwLockLen1 4, t 5, hr 6, sample 7, bytesToUpload 8, dwLockLen2 9, pLock1 10, hr 11, pLock2 14.
   So the context-dependent step is colour-node creation order. Next: find the node allocator (0x60-byte nodes 065fe1f0..) and the walk that calls it.
+
+## 33. ROOT of the LTCG tie class: c2 hashes heap POINTERS (w29, 11-15, PINNED on DSound_UpdateSample 1.0 vs 1.3)
+- Node recycling: nodes freed in 0x10784d3b go LIFO onto 0x108a92d8; 0x1077c10f hands them out again keeping their old ids (KNOWLEDGE 29). In DSound the first-round creation (V) and reloads (R) are identical in both trees, but the recycled ids (Y) differ: 1.3 2,5,4,7,10,8,6,11,9,12,14; 1.0 2,5,7,8,6,11,9,12,14,4,10.
+- The free order comes from the walk at 0x1077ff53 over a 64-bucket table 0x10882050 (bucket ascending, then chain). Entries are inserted by 0x1077e132 with bucket = 0x1077e10b(operand) = [op+0x18] & 0x3f.
+  - kind 7 operands (constants, e.g. DSERR 0x88780046): key = the VALUE. Stable.
+  - kind 3 operands: key = a HEAP POINTER. 1.3 06505b44/a84/ae4/c04/ba4 -> buckets 4,4,36,4,36; 1.0 06284854/794/7f4/914/8b4 -> 20,20,52,20,52.
+  - 1.3 frees the kind-3 nodes before the 0x88780046 constant (bucket 6); 1.0 frees them after. That flips the recycled ids, then the colour worklist, the reload order, the `lea` operand order and the slot packer.
+- So these "ties" are decided by heap address low bits (entries 0x60 apart: bucket = base&0x3f + {0,32}). The base depends on everything c2 allocated before, which is why ties re-roll on unrelated edits and why the same obj gives different code in another build.
+- Consequence: a tie fn matches when the heap state at that fn gives retail's bucket order. It converges when everything compiled before it matches retail; or it can be steered by the in-function allocation offset ahead of the hashed objects.
+- Next: (1) find the allocator for these kind-3 objects (which arena, alignment); (2) measure which in-function source change shifts their offset by 16/32 B without changing code; (3) build a predictor: base & 0x3f per tie fn -> needed shift.
