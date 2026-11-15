@@ -374,3 +374,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | CG_DrawGrenadePointer w29 (11-15, schjoin13) | tail block b1: load op001 prio 0xa400 idx4 (sym 0ccf4 -> dfacc, then fld) vs op077 prio 0x2400 idx1 (uses dfc4c from the op060 at the end of b0) | not a tie: retail needs the op077 chain longer or the load chain shorter; no source lever found |
 | CG_DrawGrenadePointer w29 (11-15, 2 labs) | `yaw = -yaw;` before the call, plain yaw arg (35); `-(yaw)` (= 2) | no gain |
 | fire_grenade 720.0f pool slot (w29, 11-15, F list 6030-6170) | callee candidate between G_Spawn pass and Mantle_CreateAnims (6042) | none plausible for fire_grenade (neighbours: fire_rocket, G_BounceMissile, G_RunItem, SaveRegistered*, G_TempEntity 6045); VectorCopy is F 1848, SnapVector a macro |
+| FX_CalcOriginAndAxis w29 (11-15, 1 lab) | inline FX_NormalizeTo(v,out) returning the length for branch 1 (drops len refs) | code changes: 1387 B, 37 lines |
