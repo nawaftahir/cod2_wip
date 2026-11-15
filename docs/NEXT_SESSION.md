@@ -1,4 +1,37 @@
-# Renderer next session (updated 2026-11-15 late)
+# Renderer next session (updated 2026-11-15 night)
+
+## State: gfx/w-rdata21 d34f1d33 = 1,282,616 / 1,851,392 = 69.28% whole-file same-offset (local clean
+build, gate green; CI publishes on gfx/main). .text exactly 0x10a090. Session path 67.24 -> 68.65
+(imageLightGridBasis local: retail has no copy, ours emitted it unreferenced = +0x28 over 49 KB)
+-> 68.80 (shadowFrustumSidePlanes file-scope + w-dpvs17/w-mid16 pair) -> 69.14 (rb_state table
+order, s_textureArgTable[7]) -> 69.28 (r_dvars enum arrays retail order + g_profile_mode_values).
+
+## Method that paid (.rdata)
+- python3 /tmp/gfx_shift.py <dll> (backup ~/gfx_tools/scripts): prints the ours->retail shift where
+  it changes. Take the FIRST step, dump both sides (/tmp/gfx_dump.py, /tmp/gfx_str.py), name the
+  object that is extra/missing/out of order. Pointer tables only match once strings align.
+- Patterns: unreferenced static const data retail lacks (make it a local so it folds); file-scope
+  statics are emitted in definition order per object; function-local statics go into the string
+  pool; each function's/array's strings come out in reverse source order; .data arrays follow
+  definition order. KisakCOD (CoD4) has names for some unreferenced data (g_profile_mode_values).
+- identityMatrix44/colour "16 vs 8 alignment" was wrong: they only follow the upstream shift.
+
+## .rdata next (in order)
+1. 10192530..: uniform +0x10 = r_dpvs R_VisitPortals portal colour {0,1,1,0.25}: retail static at
+   10192528. static const lands there but .text shrinks 0x20 (VisitPortals 0x38a vs retail 0x39a,
+   retail keeps the hull pool head in edi + different tail). Needs a +0x20 retail-true .text growth.
+   Fixing it also realigns the r_image strings already put in retail order.
+2. 10193360: r_image R_RegisterBuiltinImages strings emitted before R_SetPicmip's (retail after).
+3. Then gfx_shift.py again; LIBCMT order (owner decision), reals pool, .data, .reloc.
+
+## RULE: keep .text exactly 0x10a090; the game half of .text is drifted throughout, so a growth
+anywhere in game code pairs with a shrink anywhere in game code (d3dx/DxErr9 after it stay aligned).
+Parked: w-ffloor14 -48. Used this session: w-dpvs17 +48, w-mid16 +48.
+
+## Next (game code)
+50% of game C/C++ bytes still unproven: work unmatched functions size-neutral, 3 probes max each.
+
+## Previous (2026-11-15 late)
 
 ## State: gfx/main 8dd53a6a = 1,244,864 / 1,851,392 = 67.24% (w-rdata20: wavelet tables in
 retail order Blue/RedGreen/Alpha +3,933; iEdgePairs local to R_AddDebugBox +541). Before: 67.00% (w-stack20: vec3_colorintensity in r_bsp

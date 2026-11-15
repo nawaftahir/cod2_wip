@@ -1283,7 +1283,7 @@
 {
 "name": "?R_VisitPortalsForCell@@YAXPBUGfxCell@@PAUGfxPortal@@PBUDpvsPlane@@PAU3@HW4DpvsClipChildren@@@Z",
 "obj": "r_dpvs.obj",
-"size": 506,
+"size": 547,
 "hits": []
 },
 {
@@ -5862,7 +5862,7 @@
 {
 "name": "?R_AddCmdLightProperties@@YAXHPBUGfxLight@@@Z",
 "obj": "r_rendercmds.obj",
-"size": 192,
+"size": 195,
 "hits": []
 },
 {
@@ -5880,6 +5880,18 @@
 "hits": [
 "0x10021890"
 ]
+},
+{
+"name": "?R_AddCmdDrawSurfsOrder0@@YAXPAUGfxDrawSurf@@HW4MaterialTechniqueType@@@Z",
+"obj": "r_rendercmds.obj",
+"size": 14,
+"hits": []
+},
+{
+"name": "?R_AddCmdDrawSurfsOrder1@@YAXPAUGfxDrawSurf@@HW4MaterialTechniqueType@@@Z",
+"obj": "r_rendercmds.obj",
+"size": 14,
+"hits": []
 },
 {
 "name": "?R_AddCmdDrawSun@@YAXH@Z",
@@ -6914,13 +6926,13 @@
 {
 "name": "?R_AddShadowReceivers@@YAXPAUShadowCookie@@HH@Z",
 "obj": "r_shadowcookie.obj",
-"size": 423,
+"size": 321,
 "hits": []
 },
 {
 "name": "?R_CreateShadowCookie@@YAXPBUGfxViewParms@@HHMPAUShadowCookieList@@@Z",
 "obj": "r_shadowcookie.obj",
-"size": 550,
+"size": 551,
 "hits": []
 },
 {

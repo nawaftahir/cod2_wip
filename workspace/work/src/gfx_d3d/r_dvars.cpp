@@ -141,17 +141,19 @@ const dvar_t *r_rendererPreference;
 const dvar_t *r_rendererInUse;
 const dvar_t *r_aspectRatio;
 
+const char *s_technologyNames[] = { "none", "dx9", "dx7", NULL };
+const char *s_aspectRatioNames[] = { "auto", "standard", "wide 16:10", "wide 16:9", NULL };
+const char *s_aaAlphaNames[] = { "off", "dither (fast)", "supersample (nice)", NULL };
 const char *textureModeNames[] = { "nearest", "linear", "bilinear", "trilinear", "anisotropic", NULL };
-const char *debugShaderNames[] = { "none", "normal", "basisTangent", "basisBinormal", "basisNormal", NULL };
+const char *xdebugNames[] = { "", "boxes", "axes", "both", NULL };
 const char *gpuSyncNames[] = { "off", "beginning", "beforePresent", "adaptive", NULL };
 const char *colorMapNames[] = { "Unchanged", "White", "Black", NULL };
 const char *normalMapNames[] = { "Unchanged", "Flat", NULL };
-const char *xdebugNames[] = { "", "boxes", "axes", "both", NULL };
-const char *s_aaAlphaNames[] = { "off", "dither (fast)", "supersample (nice)", NULL };
 const char *fbColorDebugNames[] = { "None", "Screen", "Feedback", NULL };
+const char *debugShaderNames[] = { "none", "normal", "basisTangent", "basisBinormal", "basisNormal", NULL };
+// KisakCOD name (SUPPORTED); PINNED 101a59a8, unreferenced in retail.
+const char *g_profile_mode_values[] = { "default", NULL };
 const char *r_forceLodNames[] = { "high", "medium", "low", "lowest", "none", NULL };
-const char *s_technologyNames[] = { "none", "dx9", "dx7", NULL };
-const char *s_aspectRatioNames[] = { "auto", "standard", "wide 16:10", "wide 16:9", NULL };
 
 void R_RegisterSunDvars();
 
