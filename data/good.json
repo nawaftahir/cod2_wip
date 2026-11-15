@@ -15806,8 +15806,9 @@
 "name": "?SV_DirectConnect@@YAXUnetadr_t@@@Z",
 "obj": "sv_client_mp.obj",
 "size": 2322,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x451be0"
+]
 },
 {
 "name": "?SV_FreeClientScriptPers@@YAXXZ",
