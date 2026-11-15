@@ -894,3 +894,8 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   add the memory edge retail has (the horzAlign load waits for the dynamicFlags store). Index only the dynamicFlags accesses;
   also indexing rect[] was worse (34 lines).
 - Try it on every residue that touches per-client arrays (dynamicFlags, rect, cursorItem, textRect, cg/cgs arrays).
+- PINNED (w29 11-15, labs): the symbol-chunk effect is real and per function. Window_Paint with 12+ extra used locals before
+  `w` (diagnostic `void *pN` alias chain, not source) goes from 6 to 4 diff lines: the w piece now reloads first (ours w, y, h;
+  retail w, h, y). 1-10 extra symbols: no change. The same 16 extra symbols in the function compiled just before
+  (Menu_ShowItemByName) change nothing, so the c2 symbol arena restarts per function. Retail therefore creates more symbols
+  ahead of fillRect's pieces than our source; moving the fillRect copy below the debug block changes the code (51 lines).
