@@ -42636,8 +42636,9 @@
 "name": "?CG_DrawScoreboard_Objective@@YAMPBMM@Z",
 "obj": "cg_scoreboard_mp.obj",
 "size": 1540,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4d95f0"
+]
 },
 {
 "name": "?CG_GetScoreboardInfo@@YAXPAPBUlistColumnInfo_t@@PAH@Z",
