@@ -363,3 +363,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | VM_Notify w29 (11-15, 3 labs on the lead) | `++newSize`; newSize re-read from stackValue->size; `newSize = size = ...` after currentValue | all 13 lines (colour swap stays) |
 | CG_DrawGrenadePointer w29 (11-15, retail read) | tail block | retail: fld [esp+0x14]; mov [esp+0x4c],edx; fchs; mov edx,[esp+0x24]; mov eax,[esp+0x20]; push ecx; fstp [esp]; push edx. Ours issues mov edx before fchs (prio 0xa400 vs 0x2400). The reloaded edx follows a store of edx (WAR); retail must give the load lower priority or a later ready cycle |
 | CG_DrawGrenadePointer w29 (11-15, 2 labs) | pointerPos stores after the verts block (38 lines); pointerPos[1] alone after verts (12) | worse (base 2) |
+| CG_DrawCursorhint w29 (11-15, 3 labs) | redundant parens on the UI_DrawText y arg; `rect->y + textHeight*0.5f`; parens on x | all 6 B (no change) |
