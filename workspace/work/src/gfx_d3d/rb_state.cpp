@@ -127,8 +127,8 @@ static const DxTextureOpDecode s_textureOpTable[23] =
 	{ 18, 3 }, { 19, 3 }, { 20, 3 }, { 21, 3 }, { 24, 3 }, { 25, 7 }, { 26, 7 }
 };
 
-// PC 1.0 table at 0x10190860: CONSTANT, CURRENT, DIFFUSE, SPECULAR, TEMP, TEXTURE, TFACTOR, DIFFUSE
-static const DWORD s_textureArgTable[8] = { 6, 1, 0, 4, 5, 2, 3, 0 };
+// PINNED 10190860, 7 entries (next table at 1019087c); index 7 reads past it as in retail.
+static const DWORD s_textureArgTable[7] = { 6, 1, 0, 4, 5, 2, 3 };
 
 // PINNED1019087c: one viewport policy for each of the13 render targets.
 static const GfxViewportBehavior s_viewportBehaviorForRenderTarget[13] = {
