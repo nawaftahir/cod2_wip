@@ -406,3 +406,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | Adjacent-statement swap sweep (w29, 11-15, gsw.py lab per swap) | Cursorhint, CalcCrosshairPosition, GrenadePointer, Menu_SetNextCursorItem, Window_Paint, VM_Notify, XAnimCalc | no swap raises any fn above its lab base |
 | FX_CalcOriginAndAxis swap sweep (w29, 11-15, gsw2.py, lab base 1380/1472) | every adjacent simple-statement pair | no gain |
 | Distance-1/2 swap sweep (w29, 11-16, gsw3.py) | AddLine (d2), Cursorhint (d2), CG_FireWeapon (d1,d2), StartWeaponAnim (d1,d2) | no gain |
+| psweep13 `((rhs))` (w29, 11-16) | CG_DrawGrenadePointer 1436-1468, CG_CalcCrosshairPosition 778-827, VM_Notify 2834-3079 | no variant below base diff lines (GP 2, CR 12, VM 7) |
