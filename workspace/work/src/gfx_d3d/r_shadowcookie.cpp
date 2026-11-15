@@ -184,7 +184,7 @@ static bool R_IsShadowReceiverOutside(const float *bounds, const DpvsPlane *plan
 static void R_AddShadowReceivers(ShadowCookie *cookie, int sourceCount, int casterIndex)
 {
     cookie->firstReceiverDrawSurf = cookie->firstUnusedDrawSurf = scene.drawSurfCount;
-    const vec4_t sides[5] = {{-1.0f, 0.0f, 0.0f, 1.0f}, {1.0f, 0.0f, 0.0f, 1.0f},
+    static const vec4_t sides[5] = {{-1.0f, 0.0f, 0.0f, 1.0f}, {1.0f, 0.0f, 0.0f, 1.0f},
         {0.0f, -1.0f, 0.0f, 1.0f}, {0.0f, 1.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f, 0.0f}};
     DpvsPlane planes[5];
     R_FrustumClipPlanes(&cookie->shadowViewParms->viewProjectionMatrix, sides, 5, planes);
