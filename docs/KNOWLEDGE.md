@@ -912,3 +912,4 @@ addresses (189 of 204 Cursorhint tuples join). `python3 tools/schjoin13.py build
 its U/D operand syms, so a tie can be tied to its statement. Finding: in CG_DrawCursorhint the call-argument pushes are not
 scheduler nodes (the UI_DrawText arg block shows only call/IL nodes, no fadd/push interleave), so the push-vs-fadd order there is
 set by a later lowering stage, not by the list scheduler.
+- PINNED (w29 c2sched13, 11-15): CG_FireWeapon entry block schedules the callee-save pushes as nodes (op 0xba: ebx 0x3000, ebp 0x2400, esi 0x1400, edi 0x0c00) with the `lea ebp,&cent->nextState` (op 0x12, prio 0x0c00 idx 7, only succ = the je). Ours: push edi (0x0c00 idx 5) wins the tie, then lea. Retail puts lea before push esi, so its lea needs prio > 0x1400: a priority gap (lea needs a longer in-block path), not an idx tie.
