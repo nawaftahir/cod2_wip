@@ -63,3 +63,4 @@ Each row was measured. Tags/spec names point into `archive/LESSONS.md` and the o
 | Pickup_Weapon 1.0 (w29, 11-15, server-1.0 source diff) | callee BG_GetEmptySlotForWeapon in server form (`unsigned weaponSlot; if (weaponSlot - 1 <= 1)`) | whole-file 46 KB shift (inlined size change); reverted. Server 1.0 Pickup_Weapon text equals ours (Q_rint name only) |
 | G_GivePlayerWeapon 1.0 (w29, 11-15, server form) | `(unsigned)weaponSlot - 1 <= 1` | fn breaks (127 B diff); reverted |
 | Player_GetUseList 1.0 (11-15, server-1.0 form) | `useRadius` as file-scope `const vec3_t` (lnxded-1.0) instead of local static | whole-file 160,648 B differ (data shifts) vs 184: local static is right for the client |
+| DSound_UpdateSample 1.0 (11-15, 1 lab) | residue = dwLockLen1/dwLockLen2 stack slots swapped (source identical to the matched 1.3 body); decl order swapped | = base 18 lines: a slot-packer tie, listed in ties.txt |
