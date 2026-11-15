@@ -397,3 +397,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | CG_FireWeapon w29 (11-15, 1 lab, retail VA 0x4d70b0) | `entityState_t *ent = &cent->nextState;` at the declaration | identical (8 B, lea ebp after push edi vs retail after push ebp) |
 | StartWeaponAnim w29 (11-15, 1 lab) | `float *rates = &weapInfo->viewModelAnimRates[1]` before the loop, `rates[i]` in both calls | = base (4 lines): IV creation order unchanged |
 | StartWeaponAnim w29 (11-15, 2 labs) | if-arm + `continue` instead of else (= base 2 lines); `while (i < 20) { i++; ... [i] }` (30 lines) | no gain: branch shape does not reorder the IV updates |
+| StartWeaponAnim w29 (11-15, 1 lab) | `float rate = rates[i + 1]` hoisted above the if (rechecked latch) | 27 lines and latch still add ebp before inc esi: use order in the body does not set derived-IV creation order |
