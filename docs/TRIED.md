@@ -381,3 +381,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | Window_Paint windowDef_t* param (w29a3 lead, 11-15, clean gate + map) | lab fdiff "2 lines" was read over retail length only: the fn shrinks 0x500 -> 0x490 (code changes), everything after shifts, 203 fns lost | REJECT, reverted. fdiff hides size changes: always compare map sizes |
 | VM_Notify w29 (11-15, 3 labs on the type-temp lead) | size/newSize init forms: `newSize = stackValue->size; size = newSize;`, currentValue first, `newSize = size = ...` | all 13 (colour swap stays) |
 | nb_decode w29 (11-15, read) | vocoder loop SIB base/index swap re-checked against TRIED r-math/r-nbdec rows | no untried spelling left in that loop; not labbed |
+| nb_decode w29 (11-15, 3 labs) | `exc[i]+=innov[i]` for ADD32 (11, code changes); voc_m2 store form (=6); `spx_sig_t exci` (=6) | no gain |
