@@ -422,7 +422,7 @@
     "gfx_d3d/rb_tess.cpp": "4956a17af1977afb285b11847d314484cbb3b00f7329330b59b5c683e072f873",
     "gfx_d3d/rb_commands.h": "bdc35e0196f2b5c06ab147f3e94946689c3db407af08e1c36d0eeae559271e41",
     "gfx_d3d/r_local.h": "a0fed723210a12c8274e7708ab84d3807b51e5a35f88b62fe412926f0954fa03",
-    "gfx_d3d/r_dvars.cpp": "552addec70844d4849bb450a5a5fb349b82cdcf057caac1562c6c617fe74d9de",
+    "gfx_d3d/r_dvars.cpp": "e9f25267d3803ccc82157bff8c39cf79fbea0616bc82323892cbd3cd7425ce20",
     "gfx_d3d/r_jpeg.cpp": "5fdaafafcffdffb2a942f4f64d945426b1e16501c94680c840480b5b08e902b8",
     "gfx_d3d/r_font.h": "8ecc1feaed3ffbfe659fdedce70ebbc50d405917cb550e00ace1344f5cb49e19",
     "gfx_d3d/r_refapi.h": "c4785fadac5897e34089812c0fda3b4ddfd0966c65a428c42628f25e2fd2c8d8",
