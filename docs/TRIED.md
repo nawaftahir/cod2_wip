@@ -399,3 +399,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | StartWeaponAnim w29 (11-15, 2 labs) | if-arm + `continue` instead of else (= base 2 lines); `while (i < 20) { i++; ... [i] }` (30 lines) | no gain: branch shape does not reorder the IV updates |
 | StartWeaponAnim w29 (11-15, 1 lab) | `float rate = rates[i + 1]` hoisted above the if (rechecked latch) | 27 lines and latch still add ebp before inc esi: use order in the body does not set derived-IV creation order |
 | StartWeaponAnim w29 (11-15, 1 lab) | `cg_weaponsArray[weaponNum].viewModelAnimRates[i + 1]` without the weapInfo local | 14 lines (worse) |
+| StartWeaponAnim w29 (11-15, 1 lab) | `unsigned int i` | = base 2 lines |
