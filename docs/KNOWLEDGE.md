@@ -156,3 +156,4 @@ All are split inline decisions; the cause is the site count, not the callee (sta
 - cls 0x60f2a0, clc 0x5c6860. scr_const 0x17ce8a0.
 - yylex = bison 1.28 skeleton (scr_yacc). Speex = upstream 1.1.9 text.
 - Retail debug dir names `c:\builds\crc6_v1\pc\cod2\pc\CoD2MP_s.pdb` (never shipped).
+- PINNED (w29, 11-15): DSound_UpdateSample retail 1.0 == retail 1.3 (address-masked disasm identical) and our TU play_dsound.cpp is byte-identical between the trees; 1.3 matches, 1.0 swaps the dwLockLen1/dwLockLen2 slots. Pure LTCG-context slot tie (decl order, return order no effect).
