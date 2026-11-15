@@ -400,3 +400,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | StartWeaponAnim w29 (11-15, 1 lab) | `float rate = rates[i + 1]` hoisted above the if (rechecked latch) | 27 lines and latch still add ebp before inc esi: use order in the body does not set derived-IV creation order |
 | StartWeaponAnim w29 (11-15, 1 lab) | `cg_weaponsArray[weaponNum].viewModelAnimRates[i + 1]` without the weapInfo local | 14 lines (worse) |
 | StartWeaponAnim w29 (11-15, 1 lab) | `unsigned int i` | = base 2 lines |
+| Heap-pointer tie steering via link paths (w29, 11-15, 4 plain LTCG relinks) | obj paths in objs.rsp prefixed with 0/1/3/8 `.\` (2-16 extra chars x 275 objs) | all four exes identical except the 2-byte timestamp: path/string lengths do not move the c2 heap pointers. With PADX env (1.0) also dead: the hashed addresses depend on link content only |
