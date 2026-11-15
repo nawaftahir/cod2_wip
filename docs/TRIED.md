@@ -393,3 +393,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | fire_grenade 720.0f slot (w29, 11-15, 1 lab) | SnapVector via a static inline helper in g_missile_mp | helper keeps its own body (extra fn, whole file shifts 1.1 MB); no |
 
 - Cursorhint 1.3: moved x/y/textHeight statements (y1 x<->y, y2 th<->x, y3 th after x,y): 26/27/28 B vs 17 base. Dead.
+| XAnimCalc w29 (11-15, server-1.0 spellings, 3 labs) | `(bits >> (i&31)) & 1` tests; inline `I_rsqrt(scale)*weightScale` arg; `for (++j; j<numAnims; ++j)` | 1711 B/28, 1855 B/32, 1714 B/34 lines vs base 1688/4: all worse |
