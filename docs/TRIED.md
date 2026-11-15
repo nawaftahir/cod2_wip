@@ -396,3 +396,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | XAnimCalc w29 (11-15, server-1.0 spellings, 3 labs) | `(bits >> (i&31)) & 1` tests; inline `I_rsqrt(scale)*weightScale` arg; `for (++j; j<numAnims; ++j)` | 1711 B/28, 1855 B/32, 1714 B/34 lines vs base 1688/4: all worse |
 | CG_FireWeapon w29 (11-15, 1 lab, retail VA 0x4d70b0) | `entityState_t *ent = &cent->nextState;` at the declaration | identical (8 B, lea ebp after push edi vs retail after push ebp) |
 | StartWeaponAnim w29 (11-15, 1 lab) | `float *rates = &weapInfo->viewModelAnimRates[1]` before the loop, `rates[i]` in both calls | = base (4 lines): IV creation order unchanged |
+| StartWeaponAnim w29 (11-15, 2 labs) | if-arm + `continue` instead of else (= base 2 lines); `while (i < 20) { i++; ... [i] }` (30 lines) | no gain: branch shape does not reorder the IV updates |
