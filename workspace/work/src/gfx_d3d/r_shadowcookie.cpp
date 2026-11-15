@@ -181,13 +181,15 @@ static bool R_IsShadowReceiverOutside(const float *bounds, const DpvsPlane *plan
 }
 
 // PINNED 10027590/303: ignore the caster itself and surfaces without receiver technique32.
+// KisakCOD name (SUPPORTED); PINNED 101904a8.
+static const vec4_t shadowFrustumSidePlanes[5] = {{-1.0f, 0.0f, 0.0f, 1.0f}, {1.0f, 0.0f, 0.0f, 1.0f},
+    {0.0f, -1.0f, 0.0f, 1.0f}, {0.0f, 1.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f, 0.0f}};
+
 static void R_AddShadowReceivers(ShadowCookie *cookie, int sourceCount, int casterIndex)
 {
     cookie->firstReceiverDrawSurf = cookie->firstUnusedDrawSurf = scene.drawSurfCount;
-    static const vec4_t sides[5] = {{-1.0f, 0.0f, 0.0f, 1.0f}, {1.0f, 0.0f, 0.0f, 1.0f},
-        {0.0f, -1.0f, 0.0f, 1.0f}, {0.0f, 1.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f, 0.0f}};
     DpvsPlane planes[5];
-    R_FrustumClipPlanes(&cookie->shadowViewParms->viewProjectionMatrix, sides, 5, planes);
+    R_FrustumClipPlanes(&cookie->shadowViewParms->viewProjectionMatrix, shadowFrustumSidePlanes, 5, planes);
     for (int i = 0; i < sourceCount; ++i)
     {
         const GfxDrawSurf *surf = &scene.drawSurfs[i];

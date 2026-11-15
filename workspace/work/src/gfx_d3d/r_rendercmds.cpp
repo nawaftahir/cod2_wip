@@ -667,10 +667,8 @@ void R_AddCmdLightProperties(int lightIndex, const GfxLight *light)
     cmd->ambient[2] = light->u.dir.ambientColor[2];
     cmd->ambient[3] = 1.0f;
     float scale = r_specularColorScale->current.value;
-    cmd->specular[0] = scale * cmd->color[0];
-    cmd->specular[1] = scale * cmd->color[1];
-    cmd->specular[2] = scale * cmd->color[2];
-    cmd->specular[3] = scale * cmd->color[3];
+    for (int i = 0; i < 4; ++i)
+        cmd->specular[i] = scale * cmd->color[i];
     cmd->lightDef = light->def;
 }
 
@@ -694,6 +692,18 @@ void R_AddCmdDrawSurfs(GfxDrawSurf *drawSurfs, int drawSurfCount,
     cmd->drawSurfs = drawSurfs;
     cmd->drawSurfCount = drawSurfCount;
     cmd->techType = techType;
+}
+
+// Name unconfirmed; PINNED 10021900/14, no retail callers: draw surfs with order 0.
+void R_AddCmdDrawSurfsOrder0(GfxDrawSurf *drawSurfs, int drawSurfCount, MaterialTechniqueType techType)
+{
+    R_AddCmdDrawSurfs(drawSurfs, drawSurfCount, techType, (GfxDrawSurfOrder)0);
+}
+
+// Name unconfirmed; PINNED 10021910/14, no retail callers: draw surfs with order 1.
+void R_AddCmdDrawSurfsOrder1(GfxDrawSurf *drawSurfs, int drawSurfCount, MaterialTechniqueType techType)
+{
+    R_AddCmdDrawSurfs(drawSurfs, drawSurfCount, techType, (GfxDrawSurfOrder)1);
 }
 
 // PINNED 10021920/87: sun commands use the noncritical reservation rule.
