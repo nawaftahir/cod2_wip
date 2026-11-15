@@ -384,3 +384,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | nb_decode w29 (11-15, 3 labs) | `exc[i]+=innov[i]` for ADD32 (11, code changes); voc_m2 store form (=6); `spx_sig_t exci` (=6) | no gain |
 | XAnimCalc w29 (11-15, schjoin13 block 13) | the parts->boneCount chain (load prio 0xc800 i2 -> movsx i3) beats the modelCounters chain (0xc000 i5/i6 -> movzx i7): a priority gap, not a tie | retail gives the boneCount chain a shorter path; no source lever without editing the matched scr_stringlist inline |
 | XAnimCalc w29 (11-15, 1 lab) | modelCounters store moved after the SL_RemoveRefToStringOfLen call | 1731 B, 40 lines (worse) |
+| CG_DrawCursorhint w29 (11-15, 3 labs) | h arg `(float)(rect->h + (double)scale)`; w arg `scale + widthScale*w`; `textWidth + x` | all 6 lines |
