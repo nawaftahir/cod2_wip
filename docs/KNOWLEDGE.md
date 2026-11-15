@@ -899,3 +899,9 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   retail w, h, y). 1-10 extra symbols: no change. The same 16 extra symbols in the function compiled just before
   (Menu_ShowItemByName) change nothing, so the c2 symbol arena restarts per function. Retail therefore creates more symbols
   ahead of fillRect's pieces than our source; moving the fillRect copy below the debug block changes the code (51 lines).
+
+## 31. CG_DrawScoreboard_Objective: tie in a shared tail (w29, 11-15, PINNED)
+c2sched13 block of 3 nodes (two op-01 movs at prio 0x0c00, idx 1/2, then the jcc): the tie picks the lower idx = the
+statement written first. Retail emits `mov ebp,edi` (textEnd = textStart) before `mov [esp+0x10],0` (whiteSpace = NULL),
+so the non-Asian textStart-newline site is written `textEnd = textStart; whiteSpace = NULL;`. Fn matched (+1540 fn, +8 same-offset).
+Find such ties: split S lines into blocks by cycle reset, look for equal-prio picks in the diff block.
