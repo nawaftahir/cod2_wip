@@ -58,68 +58,6 @@ struct MaterialStateMap
 
 MaterialGlobals materialGlobals;
 
-static const stream_source_info_t s_streamSourceInfo[4][7] =
-{
-    {
-        { 0, 0, D3DDECLTYPE_FLOAT4 },
-        { 0, 16, D3DDECLTYPE_FLOAT3 },
-        { 0, 28, D3DDECLTYPE_D3DCOLOR },
-        { 0, 32, D3DDECLTYPE_FLOAT2 },
-        { 255, 0, 0 },
-        { 0, 40, D3DDECLTYPE_FLOAT3 },
-        { 0, 52, D3DDECLTYPE_FLOAT3 },
-    },
-    {
-        { 0, 0, D3DDECLTYPE_FLOAT3 },
-        { 0, 12, D3DDECLTYPE_FLOAT3 },
-        { 0, 24, D3DDECLTYPE_D3DCOLOR },
-        { 0, 28, D3DDECLTYPE_FLOAT2 },
-        { 0, 36, D3DDECLTYPE_FLOAT2 },
-        { 0, 44, D3DDECLTYPE_FLOAT3 },
-        { 0, 56, D3DDECLTYPE_FLOAT3 },
-    },
-    {
-        { 0, 0, D3DDECLTYPE_FLOAT3 },
-        { 255, 0, 0 },
-        { 255, 0, 0 },
-        { 0, 12, D3DDECLTYPE_FLOAT2 },
-        { 255, 0, 0 },
-        { 255, 0, 0 },
-        { 255, 0, 0 },
-    },
-    {
-        { 0, 0, D3DDECLTYPE_FLOAT3 },
-        { 0, 12, D3DDECLTYPE_FLOAT3 },
-        { 0, 24, D3DDECLTYPE_D3DCOLOR },
-        { 0, 28, D3DDECLTYPE_FLOAT2 },
-        { 0, 36, D3DDECLTYPE_SHORT2 },
-        { 0, 40, D3DDECLTYPE_FLOAT3 },
-        { 0, 52, D3DDECLTYPE_FLOAT3 },
-    },
-};
-
-static const stream_dest_info_t s_streamDestInfo[12] =
-{
-    { D3DDECLUSAGE_POSITION, 0 },
-    { D3DDECLUSAGE_NORMAL, 0 },
-    { D3DDECLUSAGE_COLOR, 0 },
-    { D3DDECLUSAGE_COLOR, 1 },
-    { D3DDECLUSAGE_TEXCOORD, 0 },
-    { D3DDECLUSAGE_TEXCOORD, 1 },
-    { D3DDECLUSAGE_TEXCOORD, 2 },
-    { D3DDECLUSAGE_TEXCOORD, 3 },
-    { D3DDECLUSAGE_TEXCOORD, 4 },
-    { D3DDECLUSAGE_TEXCOORD, 5 },
-    { D3DDECLUSAGE_TEXCOORD, 6 },
-    { D3DDECLUSAGE_TEXCOORD, 7 },
-};
-
-// PINNED 1018eb34: retained technique types; three debug-only routes are unused.
-extern const byte g_useTechnique[34] =
-{
-    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-    1,1,1,1,1,1,1,1,1,1,0,0,1,0,1,1,1
-};
 static IDirect3DVertexDeclaration9 *Material_BuildVertexDecl(const MaterialStreamRouting *routingData, int streamCount, const stream_source_info_t *sourceTable);
 void Material_BuildVertexDecls(MaterialVertexDeclaration **declaration);
 void Material_ReloadAll();
@@ -294,6 +232,69 @@ static const BuiltInMaterialTable s_fillTestMaterials[] =
     { "filltest_stencil_twoside_reject", &rgp.stencilTwoSideRejectFillMaterial },
     { "filltest_phong_bump", &rgp.phongBumpFillMaterial },
     { "filltest_phong_bumpspec", &rgp.phongBumpSpecFillMaterial }
+};
+
+static const stream_source_info_t s_streamSourceInfo[4][7] =
+{
+    {
+        { 0, 0, D3DDECLTYPE_FLOAT4 },
+        { 0, 16, D3DDECLTYPE_FLOAT3 },
+        { 0, 28, D3DDECLTYPE_D3DCOLOR },
+        { 0, 32, D3DDECLTYPE_FLOAT2 },
+        { 255, 0, 0 },
+        { 0, 40, D3DDECLTYPE_FLOAT3 },
+        { 0, 52, D3DDECLTYPE_FLOAT3 },
+    },
+    {
+        { 0, 0, D3DDECLTYPE_FLOAT3 },
+        { 0, 12, D3DDECLTYPE_FLOAT3 },
+        { 0, 24, D3DDECLTYPE_D3DCOLOR },
+        { 0, 28, D3DDECLTYPE_FLOAT2 },
+        { 0, 36, D3DDECLTYPE_FLOAT2 },
+        { 0, 44, D3DDECLTYPE_FLOAT3 },
+        { 0, 56, D3DDECLTYPE_FLOAT3 },
+    },
+    {
+        { 0, 0, D3DDECLTYPE_FLOAT3 },
+        { 255, 0, 0 },
+        { 255, 0, 0 },
+        { 0, 12, D3DDECLTYPE_FLOAT2 },
+        { 255, 0, 0 },
+        { 255, 0, 0 },
+        { 255, 0, 0 },
+    },
+    {
+        { 0, 0, D3DDECLTYPE_FLOAT3 },
+        { 0, 12, D3DDECLTYPE_FLOAT3 },
+        { 0, 24, D3DDECLTYPE_D3DCOLOR },
+        { 0, 28, D3DDECLTYPE_FLOAT2 },
+        { 0, 36, D3DDECLTYPE_SHORT2 },
+        { 0, 40, D3DDECLTYPE_FLOAT3 },
+        { 0, 52, D3DDECLTYPE_FLOAT3 },
+    },
+};
+
+static const stream_dest_info_t s_streamDestInfo[12] =
+{
+    { D3DDECLUSAGE_POSITION, 0 },
+    { D3DDECLUSAGE_NORMAL, 0 },
+    { D3DDECLUSAGE_COLOR, 0 },
+    { D3DDECLUSAGE_COLOR, 1 },
+    { D3DDECLUSAGE_TEXCOORD, 0 },
+    { D3DDECLUSAGE_TEXCOORD, 1 },
+    { D3DDECLUSAGE_TEXCOORD, 2 },
+    { D3DDECLUSAGE_TEXCOORD, 3 },
+    { D3DDECLUSAGE_TEXCOORD, 4 },
+    { D3DDECLUSAGE_TEXCOORD, 5 },
+    { D3DDECLUSAGE_TEXCOORD, 6 },
+    { D3DDECLUSAGE_TEXCOORD, 7 },
+};
+
+// PINNED 1018eb34: retained technique types; three debug-only routes are unused.
+extern const byte g_useTechnique[34] =
+{
+    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+    1,1,1,1,1,1,1,1,1,1,0,0,1,0,1,1,1
 };
 
 void Com_Error(errorParm_t code, const char *format, ...);
