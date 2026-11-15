@@ -865,13 +865,13 @@ void R_ImageList_f()
         {
         case D3DFMT_X8R8G8B8: ri.Printf(0, "RGB32 "); break;
         case D3DFMT_A8R8G8B8: ri.Printf(0, "RGBA32"); break;
+        case D3DFMT_A8L8: ri.Printf(0, "AL16  "); break;
         case D3DFMT_A8: ri.Printf(0, "A8    "); break;
         case D3DFMT_L8: ri.Printf(0, "L8    "); break;
-        case D3DFMT_R5G6B5: ri.Printf(0, "RGB16 "); break;
-        case D3DFMT_A8L8: ri.Printf(0, "AL16  "); break;
         case D3DFMT_DXT1: ri.Printf(0, "DXT1  "); break;
         case D3DFMT_DXT3: ri.Printf(0, "DXT3  "); break;
         case D3DFMT_DXT5: ri.Printf(0, "DXT5  "); break;
+        case D3DFMT_R5G6B5: ri.Printf(0, "RGB16 "); break;
         case D3DFMT_R32F: ri.Printf(0, "R32F  "); break;
         }
         ri.Printf(0, "  %s", imageTypeName[image->track]);
