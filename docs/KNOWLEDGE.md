@@ -905,3 +905,10 @@ c2sched13 block of 3 nodes (two op-01 movs at prio 0x0c00, idx 1/2, then the jcc
 statement written first. Retail emits `mov ebp,edi` (textEnd = textStart) before `mov [esp+0x10],0` (whiteSpace = NULL),
 so the non-Asian textStart-newline site is written `textEnd = textStart; whiteSpace = NULL;`. Fn matched (+1540 fn, +8 same-offset).
 Find such ties: split S lines into blocks by cycle reset, look for equal-prio picks in the diff block.
+
+## 32. Scheduler node -> operand map (w29, 11-15, PINNED)
+c2sched13 S/R column 7 is the tuple pointer; tools/c2owt13.sh (c2opwalk13 + tuple pointer on T lines) logs the same heap
+addresses (189 of 204 Cursorhint tuples join). `python3 tools/schjoin13.py build/ra/sch.txt build/ra/ow.txt` prints every pick with
+its U/D operand syms, so a tie can be tied to its statement. Finding: in CG_DrawCursorhint the call-argument pushes are not
+scheduler nodes (the UI_DrawText arg block shows only call/IL nodes, no fadd/push interleave), so the push-vs-fadd order there is
+set by a later lowering stage, not by the list scheduler.
