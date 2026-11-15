@@ -387,3 +387,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | CG_DrawCursorhint w29 (11-15, 3 labs) | h arg `(float)(rect->h + (double)scale)`; w arg `scale + widthScale*w`; `textWidth + x` | all 6 lines |
 | StartWeaponAnim w29 (11-15, schjoin13 + 2 labs) | latch block b4: rates-ptr IV update (op02d, sym 9d184, idx1, prio 0x2000) before the i+1 IV inc (op021, sym 05a64, idx2, 0x1800). Labs: `float rate = rates[i+1]` local first (32); `!=` test with arms swapped (30) | worse |
 | VM_Notify w29 (11-15, server-1.0 text) | lnxded-1.0 loop `newSize++; currentValue--; assert; } while (currentValue->type != VAR_PRECODEPOS)` | 1580 B, 22 lines: sub before the load ([ebx+4]) and the 8 goes to ecx; retail loads [ebx-4] first |
+| XAnimCalc w29 (11-15, server-1.0 text) | lnxded-1.0 shape: XAnimSetModel duplicated in both arms, `else if (counter != ...)`, no goto | 1653 B, 42 lines (worse) |
