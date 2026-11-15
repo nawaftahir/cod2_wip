@@ -748,8 +748,8 @@ static int CL_ConsolePrint_AddLine(print_msg_type_t type, const char *txt, int d
                     letter = SEH_ReadCharFromString(&s, NULL);
                     if ((int)letter <= ' ')
                         break;
-                    w += charWidth;
                     off++;
+                    w += charWidth;
                     if (off > con.linewidth || (float)w * normScale > (float)linewidth * 6.5f) {
                         Con_Linefeed(type, duration);
                         lineBroken = 1;
