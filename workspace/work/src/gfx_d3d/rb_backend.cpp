@@ -1907,9 +1907,6 @@ void RB_ProjectionMatrixChanged();
 void RB_UpdateViewport();
 void MatrixSet44(float out[4][4], const vec3_t origin, const vec3_t axis[3], float scale);
 
-// PINNED 1019806c: entity types whose vertices already use world coordinates.
-static const Bool refEntIsInWorldSpace[10] = {0,0,0,0,1,1,0,1,1,1};
-
 // PINNED 1002f2a0: keep the fractional frame time for both render paths.
 static void RB_SetMaterialTime(float time)
 {
@@ -1955,6 +1952,8 @@ static int RB_DrawSurfTechnique(int technique, int entityIndex, int lightmap)
 // PINNED 1002f430: sorted runs share surfaces only across compatible entities.
 static void RB_RenderDrawSurfList(GfxDrawSurf *drawSurfs, int count, int technique, int order)
 {
+    // PINNED 1019806c: entity types whose vertices already use world coordinates.
+    static const Bool refEntIsInWorldSpace[10] = {0,0,0,0,1,1,0,1,1,1};
     const Material *previousMaterial = 0;
     int previousLightmap = 31, previousTechnique = technique, previousEntity = 2046;
     unsigned int previousSort = 0xffffffff;

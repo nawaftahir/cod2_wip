@@ -13,8 +13,8 @@ typedef char sampler_device_lost_offset[(offsetof(DxGlobals, deviceLost) == 0x2d
 void RB_SetDepthRange(float nearValue, float farValue);
 void RB_SetAnisotropy();
 
-// PC 1.0 table at 0x10190714: D3DTEXF_NONE, POINT, LINEAR, ANISOTROPIC
-static const DWORD s_filterTable[4] = { 0, 1, 2, 3 };
+// PINNED retail 0x101906b0, indexed by r_textureMode
+static const unsigned char defaultSamplerStateTable[] = { 1, 2, 6, 10, 11 };
 static void RB_GetSamplerFilterModes(unsigned char samplerState, DWORD *minFilter, DWORD *magFilter);
 __declspec(noinline) void RB_SetSampler(int samplerIndex, unsigned char samplerState, GfxImage *image);
 void RB_UnbindImage(const GfxImage *image);
@@ -71,6 +71,8 @@ enum
 	DXS1_DEPTHTEST_DISABLE = 2
 };
 
+// PC 1.0 table at 0x10190714: D3DTEXF_NONE, POINT, LINEAR, ANISOTROPIC
+static const DWORD s_filterTable[4] = { 0, 1, 2, 3 };
 static const DWORD s_stencilOpTable[8] = { 1, 2, 3, 4, 5, 6, 7, 8 };
 static const DWORD s_stencilFuncTable[8] = { 1, 2, 3, 4, 5, 6, 7, 8 };
 static const DxStencilDecode s_stencilOpDecode[6] =
@@ -100,8 +102,6 @@ r_backEndGlobals_t backEnd;
 
 extern const dvar_t *r_textureMode;
 
-// PINNED retail 0x101906b0, indexed by r_textureMode
-static const unsigned char defaultSamplerStateTable[] = { 1, 2, 6, 10, 11 };
 
 void MatrixInverse44(const float *mat, float *dst);
 void MatrixIdentity44(float out[4][4]);
