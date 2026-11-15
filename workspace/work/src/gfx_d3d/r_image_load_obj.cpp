@@ -570,11 +570,6 @@ float SmoothStep(float t)
     return (3.0f - (t + t)) * t * t;
 }
 
-static const vec3_t imageLightGridBasis[3] = {
-    {0.81649655f, -0.40824828f, -0.40824828f},
-    {0.0f, 0.70710677f, -0.70710677f},
-    {0.57735026f, 0.57735026f, 0.57735026f}
-};
 #define Image_TransformLightGridVector(x, y, z, out) AxisTransformVector(imageLightGridBasis, x, y, z, out)
 
 #pragma optimize("p", on)
@@ -585,6 +580,11 @@ void Image_GetLightGridWeightsForVector(const float *facePos, int subMap, byte *
     float weights[4];
     float smooth[3];
     float value;
+    const vec3_t imageLightGridBasis[3] = {
+        {0.81649655f, -0.40824828f, -0.40824828f},
+        {0.0f, 0.70710677f, -0.70710677f},
+        {0.57735026f, 0.57735026f, 0.57735026f}
+    };
     Image_TransformLightGridVector(facePos[0], facePos[1], facePos[2], transformed);
     int majorAxis = VecLargestAxis(transformed);
     float scale = 1.0f / I_fabs(transformed[majorAxis]);

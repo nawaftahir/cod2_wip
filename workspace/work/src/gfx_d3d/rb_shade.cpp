@@ -209,13 +209,7 @@ void RB_ChangeColorStageState(int stageIndex, int bits);
 void RB_ChangeAlphaStageState(int stageIndex, int bits);
 char *va(const char *format, ...);
 
-// PINNED 101906a0: all four vertex-declaration FVF values.
-static const DWORD s_fvfForVertDeclType[4] = {
-    D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1,
-    D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX2,
-    D3DFVF_XYZ | D3DFVF_TEX1,
-    D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1
-};
+
 typedef char passDx7LayoutCheck[(sizeof(MaterialPassDx7) == 92
     && offsetof(MaterialPassDx7, samplers) == 12
     && offsetof(MaterialPassDx7, colorStageBits) == 28
@@ -279,6 +273,13 @@ void RB_SetIteratorFog();
 
 // PINNED 10190690: the DX7 lightprobe override owns these four state words.
 static const GfxStateOverride overrideEnableRenormalize = {{-1, -1}, {0x40000000, 0}};
+// PINNED 101906a0: all four vertex-declaration FVF values.
+static const DWORD s_fvfForVertDeclType[4] = {
+    D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1,
+    D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX2,
+    D3DFVF_XYZ | D3DFVF_TEX1,
+    D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1
+};
 const char *RB_TechniqueName(int techType);
 int RB_SetIndexData(const unsigned short *indices, int indexCount);
 void RB_SetVertexData(unsigned int streamIndex, const void *data, int vertexCount, int stride);
