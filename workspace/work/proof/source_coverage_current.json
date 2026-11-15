@@ -398,7 +398,7 @@
     "gfx_d3d/r_staticmodel_load_obj.cpp": "5c747f8e30876938650ec7d9133182a40536e5f4bd5966126c753af3de1d6598",
     "gfx_d3d/r_dpvs_state.h": "fc4a51ce8a8eeb03bdf8879f7544eea579654f6d3ea401fa893df4310c0689ec",
     "gfx_d3d/r_bsp.cpp": "df27749a4c8f0e8a0a615cac87707a78e9012275f6a063df347d54c00b69d7cd",
-    "gfx_d3d/r_material.cpp": "d50831dd67b595a774f8627d19dc509dd1a4790d7902822fdc6a7676e5302bee",
+    "gfx_d3d/r_material.cpp": "83b10aaefcd57ae8e94e5f39d291af9c54e714dcfba2a8df3935a4c8e3d92e62",
     "gfx_d3d/r_material_state_tables.h": "2d19ad921b5ae1f8cf0a1c6b43a466243c00a8d30126d18835720ea5478ae0a2",
     "gfx_d3d/r_material_load_obj.cpp": "852ba7476d17e2a20b4bbf93cca24d3e94f86aff7dc87138ecc593f6ab16728e",
     "gfx_d3d/r_flares.cpp": "55f7a278e82e5f4a540f797c82b7d03a89ab66521c63b22bbcf2eaf66bfe99b7",
