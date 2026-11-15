@@ -779,10 +779,10 @@ static int CL_ConsolePrint_AddLine(print_msg_type_t type, const char *txt, int d
                 line = con.currentLine % con.totallines;
                 if (letter > 0xff) {
                     if (con.lineOffset + 1 >= con.linewidth) {
+                        curWidth = 0;
                         Con_Linefeed(type, duration);
                         line = con.currentLine % con.totallines;
                         lineBroken = 1;
-                        curWidth = 0;
                     }
                     con.textBuffer[line * con.linewidth + con.lineOffset] = (short)((color << 8) | (letter >> 8));
                     con.lineOffset++;
