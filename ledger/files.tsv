@@ -26,7 +26,7 @@ src/radiant/ModelDlg.cpp	PARTIAL	12	1228	PENDING	PENDING		Q3Radiant WIN_DLG.CPP 
 src/radiant/NameDlg.cpp	PARTIAL	5	245	PENDING	PENDING		FILE VERIFIED: full normalized code/helpers/metadata; see ledger/files.tsv; image placement pending
 src/radiant/NewProjDlg.cpp	PARTIAL	3	147	PENDING	PENDING		FILE VERIFIED: full normalized code/helpers/metadata; see ledger/files.tsv; image placement pending
 src/radiant/PatchDensityDlg.cpp	PARTIAL	4	240	PENDING	PENDING		4 game / 240 B verified without stubs; scalar/shared destructor/EH/metadata checked; OnOK unresolved pending real Pmesh; PARTIAL
-src/radiant/PatchDialog.cpp	PARTIAL	15	1391	PENDING	PENDING		15 game / 1391 B; class, scalar/lifetime, RTTI, message map audit; eight authored entries / 1203 B and globals/callees pending; workspace/research/codex_patchdialog
+src/radiant/PatchDialog.cpp	PARTIAL	17	1613	PENDING	PENDING		15 game / 1391 B; class, scalar/lifetime, RTTI, message map audit; eight authored entries / 1203 B and globals/callees pending; workspace/research/codex_patchdialog
 src/radiant/UNKNOWN_00425080.cpp	PARTIAL	1	1	PENDING	PENDING		Q3Radiant Win_main.cpp (1/5 string funcs); iw3xo (1/5)
 src/radiant/Pmesh.cpp	PARTIAL	21	2829	PENDING	PENDING		3 game / 676 B verified: real bounds and distance helpers; version/layout/sqrt/FP bindings pinned; generators pending
 src/radiant/PrefsDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant PrefsDlg.cpp (3/3 string funcs); iw3xo (2/3)

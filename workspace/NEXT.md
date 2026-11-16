@@ -32,8 +32,12 @@ emit-order warnings 18. FILE LEDGER 7 VERIFIED / 102 (audited set; other src/ fi
 1. **NameDlg + DlgEvent via dlgcamera:** **DONE** (`CDlgCamera` in `workspace/src/radiant/dlgcamera.{h,cpp}`,
    `0x409be0` / `0x40a790` / `0x40a8e0` matched; `NameDlg.cpp` + `DlgEvent.cpp` + headers verified with
    `drift.py --tu` and promoted to `src/radiant/`).
-2. **Finish the small files:** NewProjDlg/ScaleDialog (need MainFrm users), TextureLayout (PatchDialog
-   0x424920), then mru (done -> `src/`), KeyValueSelectDlg (done -> `src/`), points (done -> `src/`),
+2. **Finish the small files:** TextureLayout DONE 11-16 (PatchDialog OnBtnPatchreset 0x424920 + ~CTextureLayout
+   0x4249b0 matched first try; callee 0x432f60 named Patch_ResetTexturing(float,float,int), SUPPORTED by Q3).
+   Gate: 1114 rows, 31.10% fns, 18.98% bytes, same-offset 1.766%. NewProjDlg/ScaleDialog next: MainFrm users
+   0x417b50 (366 B, '.prj', Com_GetExtensionSubString eax-CC) and 0x418d40 (364 B, 'scale', OnlyPatchesSelected;
+   CScaleDialog built inline: CDialog(0x91) + three 1.0f). file_ledger audits DlgEvent/TextureLayout only once
+   NewProjDlg is in src/ too (test_dialog_batch groups them). Then mru (done -> `src/`), KeyValueSelectDlg (done -> `src/`), points (done -> `src/`),
    texturevecs (blocked on `com_math.cpp` `Snap` `0x489940`), UNKNOWN_00408f20 (blocked on `qe3` `0x46d3d0`
    / `dvar` `0x48f7c0`, `0x4910d0` / `FS_InitFilesystem` `0x4820a0`), TexEdit (blocked on `TexWnd::UpdateFilter`
    `0x442d60`), PatchDensityDlg, TerrainDensityDlg, DialogInfo. Check each with `drift.py --tu`
