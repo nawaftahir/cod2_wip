@@ -962,3 +962,7 @@ set by a later lowering stage, not by the list scheduler.
 - PINNED (w29 11-16): a compare on a char EXPRESSION is narrowed to `cmp al,imm` (even vs 48u: jb/ja); a compare on an int
   VARIABLE holding a char is never narrowed, even when the var is dead after (k5). The AddLine flip only comes with the int var,
   so retail gets its -8 on `_p` from somewhere other than the digit test, or c2 narrows after regalloc in a case not yet found.
+- PINNED (w29 11-16, ACCEPTED, AddLine MATCHED +2132): the Asian-branch `letter` is `int` (as in SEH_PrintStrlen), not
+  `unsigned int`; the colour test is the plain `*q` byte form, `letter > 0xff` and `letter >> 8` carry `(unsigned int)` casts.
+  The int type alone gave retail's whole regalloc. SUPERSEDES the z1 int-digit lead and the "-8 on _p" hunt above.
+  Lesson: when a near-match needs a register flip, check local TYPES against sibling functions with the same idiom first.
