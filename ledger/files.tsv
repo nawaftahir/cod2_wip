@@ -84,7 +84,7 @@ src/universal/splines/splines.cpp	PARTIAL	8	10	PENDING	PENDING		Q3Radiant spline
 src/universal/splines/util_str.cpp	PARTIAL	12	734	PENDING	PENDING		Q3Radiant util_str.h (5/6 string funcs); iw3xo (2/6)
 src/xanim/dobj.cpp	PARTIAL	35	5781	PENDING	PENDING		server source (copy-ready)
 src/script/scr_memorytree.cpp	PARTIAL	3	166	PENDING	PENDING		server source (copy-ready)
-src/script/scr_stringlist.cpp	PARTIAL	4	293	PENDING	PENDING		server source (copy-ready)
+src/script/scr_stringlist.cpp	PARTIAL	30	2198	PENDING	PENDING		server source (copy-ready)
 src/xanim/xmodel.cpp	PARTIAL	27	1633	PENDING	PENDING		server source (copy-ready)
 src/xanim/xmodel_load_obj.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant WIN_DLG.CPP (1/13 string funcs); iw3xo (1/13)
 src/xanim/xmodel_utils.cpp	PARTIAL	11	1090	PENDING	PENDING		server source (copy-ready)

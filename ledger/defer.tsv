@@ -85,3 +85,10 @@ addr	agent	date	reason
 0x00482100	claude-b	2026-11-16	FS_Restart best 67%, sizes 376/368, first diff +0x29
 0x004822a0	claude-b	2026-11-16	FS_FOpenFileByMode best 76%, sizes 204/268, first diff +0xcc
 0x00481990	claude-b	2026-11-16	FS_Shutdown matches 100% standalone but FUN_00408fd0 (UNKNOWN_00408f20) then calls an inlined copy instead of it: LTCG tie, retail callers missing
+0x004a88c0	claude-d	2026-11-16	SL_DebugConvertToString: best 92%; first diff +0x1e (retail 'mov eax,ecx; je; mov eax,<BINARY>', ours loads <BINARY> via ecx); 4 source variants tried; also ours inlines it into SL_TransferRefToUser, retail calls it.
+0x004a8b80	claude-d	2026-11-16	SL_FindStringOfLen: best 48%, sizes 924/887; first diff +0xd; written from CoD2rev + retail asserts, loop/xor shape differs; needs a closer look.
+0x004a9080	claude-d	2026-11-16	SL_GetStringOfLen: best 54%, sizes 2133/2104; first diff +0x4c; draft in scr_stringlist.cpp; tail merge of the three alloc paths differs.
+0x004a9a40	claude-d	2026-11-16	SL_ConvertToLowercase: best 31%, sizes 258/190; ours inlines SL_RemoveRefToString, retail calls 0x4a9ed0 and uses esi/edi params.
+0x004a9b00	claude-d	2026-11-16	SL_TransferRefToUser: best 52%, sizes 176/139; ours inlines SL_DebugConvertToString into the assert, retail calls 0x4a88c0.
+0x004aa1e0	claude-d	2026-11-16	SL_ShutdownSystem: best 51%, sizes 268/275; retail takes user in ebx and counts the table loop down from 0x3fff, ours uses a pointer end compare.
+0x004aa300	claude-d	2026-11-16	Scr_ShutdownGameStrings: best 46%; blocked on SL_ShutdownSystem 0x4aa1e0 (retail passes user in ebx).

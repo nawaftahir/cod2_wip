@@ -7,13 +7,13 @@ enum
 {
 	MEMORY_NODE_BITS = 0x10,
 	MEMORY_NODE_COUNT = 0x10000,
-	MT_SIZE = 0x100000,
+	MT_SIZE = 0x80000,
 	REFSTRING_STRING_OFFSET = 0x4,
 };
 
 enum
 {
-	MT_NODE_SIZE = 0x10
+	MT_NODE_SIZE = 0x8
 };
 
 struct __declspec(align(8)) MemoryNode
@@ -56,9 +56,9 @@ struct __declspec(align(4)) RefString
 	{
 		struct
 		{
-			unsigned char byteLen;
-			unsigned char user;
-			unsigned short refCount;
+			unsigned int byteLen : 8;
+			unsigned int user : 8;
+			unsigned int refCount : 16;
 		};
 		int data;
 	};
@@ -83,6 +83,16 @@ typedef struct __declspec(align(128)) scrStringGlob_s
 } scrStringGlob_t;
 
 void Scr_TerminalError(const char *error);
+enum
+{
+	SCR_SYS_GAME = 1
+};
+
+void MT_Init();
+void SL_Clear();
+unsigned short MT_AllocIndex(int numBytes, int type);
+void FUN_0047ae50(int level, const char *fmt, ...);
+unsigned int SL_GetStringOfLen(const char *str, unsigned int user, unsigned int len, int type);
 void MT_FreeIndex(unsigned int nodeNum, int numBytes);
 unsigned int GetHashCode(const char *str, unsigned int len);
 void SL_FreeString(unsigned int stringValue, RefString *refStr, unsigned int len);

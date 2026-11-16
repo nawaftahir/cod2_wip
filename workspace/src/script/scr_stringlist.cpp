@@ -6,6 +6,7 @@
 #include "../universal/assertive.h"
 #include "../universal/q_shared.h"
 #include "script_public.h"
+#include <stdio.h>
 extern "C" void *scrMemTreeBuffer;
 
 extern "C" void *SL_GetString(unsigned int stringValue)
@@ -32,6 +33,16 @@ extern "C" void *SL_GetString(unsigned int stringValue)
     return (char *)scrMemTreeBuffer + offset;
 }
 
+scrStringGlob_t scrStringGlob;
+
+static RefString *GetRefString(const char *str)
+{
+#line 145
+	assert(str >= scrMemTreePub.mt_buffer && str < scrMemTreePub.mt_buffer + MT_SIZE);
+	return (RefString *)(str - REFSTRING_STRING_OFFSET);
+}
+
+
 /* Original public script-string conversion (CoD2rev_Server reference).
  * Keep in script owner rather than xmodel, to avoid an extra xmodel emitter.
  */
@@ -42,11 +53,25 @@ const char *SL_ConvertToString(unsigned int stringValue)
     return 0;
 }
 
-scrStringGlob_t scrStringGlob;
-
 static RefString *GetRefString(unsigned int stringValue)
 {
 	return (RefString *)SL_GetString(stringValue);
+}
+
+static const char *SL_DebugConvertToString(unsigned int stringValue)
+{
+	RefString *refString;
+	const char *str;
+	int len;
+
+	if (!stringValue)
+		return "<NULL>";
+	refString = GetRefString(stringValue);
+	str = refString->str;
+	len = (refString->data - 1) & 0xff;
+	if (str[len])
+		str = "<BINARY>";
+	return str;
 }
 
 static int SL_GetRefStringLen(RefString *refString)
@@ -59,18 +84,23 @@ static int SL_GetRefStringLen(RefString *refString)
 	return len;
 }
 
-static const char *SL_DebugConvertToString(unsigned int stringValue)
+int SL_GetStringLen(unsigned int stringValue)
 {
-	RefString *refString;
-	int len;
+#line 194
+	assert(stringValue);
+	return SL_GetRefStringLen(GetRefString(stringValue));
+}
 
-	if (!stringValue)
-		return "<NULL>";
-	refString = GetRefString(stringValue);
-	len = (refString->data - 1) & 0xff;
-	if (refString->str[len])
-		return "<BINARY>";
-	return refString->str;
+int SL_ConvertFromRefString(RefString *refString)
+{
+	return ((char *)refString - scrMemTreePub.mt_buffer) / MT_NODE_SIZE;
+}
+
+int SL_ConvertFromString(const char *str)
+{
+#line 208
+	assert(str);
+	return SL_ConvertFromRefString(GetRefString(str));
 }
 
 unsigned int GetHashCode(const char *str, unsigned int len)
@@ -99,765 +129,402 @@ unsigned int GetHashCode(const char *str, unsigned int len)
 	return hash % (HASH_TABLE_SIZE - 1) + 1;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void SL_Init()
+{
+	unsigned int prev, hash;
+	HashEntry *entry;
+
+	MT_Init();
+
+	scrStringGlob.hashTable[0].status_next = 0;
+	prev = 0;
+
+	for (hash = 1; hash < HASH_TABLE_SIZE; hash++)
+	{
+#line 264
+		assert(!(hash & HASH_STAT_MASK));
+
+		entry = &scrStringGlob.hashTable[hash];
+		entry->status_next = 0;
+
+		scrStringGlob.hashTable[prev].status_next |= hash;
+
+		entry->prev = prev;
+		prev = hash;
+	}
+
+#line 272
+	assert(!(scrStringGlob.hashTable[prev].status_next & HASH_NEXT_MASK));
+	scrStringGlob.hashTable[0].prev = prev;
+	scrStringGlob.inited = true;
+}
+
+void SL_Restart()
+{
+	if (scrStringGlob.inited)
+		SL_Clear();
+	else
+		SL_Init();
+}
+
+void SL_Shutdown()
+{
+	if (scrStringGlob.inited)
+		scrStringGlob.inited = false;
+}
+
+unsigned int SL_FindStringOfLen(const char *str, unsigned int len)
+{
+	unsigned int stringValue, newIndex, hash, prev;
+	RefString *refStr;
+	HashEntry *newEntry, *entry;
+
+#line 324
+	assert(str);
+	hash = GetHashCode(str, len);
+	entry = &scrStringGlob.hashTable[hash];
+
+	if ((entry->status_next & HASH_STAT_MASK) != HASH_STAT_HEAD)
+		return 0;
+
+	refStr = GetRefString(entry->prev);
+
+	if (refStr->byteLen == (unsigned char)len && !memcmp(refStr->str, str, len))
+	{
+#line 341
+		assert((entry->status_next & HASH_STAT_MASK) != HASH_STAT_FREE);
+		stringValue = entry->str;
+#line 344
+		assert(refStr->str == SL_ConvertToString(stringValue));
+		return stringValue;
+	}
+
+	prev = hash;
+	newIndex = entry->status_next & HASH_NEXT_MASK;
+
+	for (newEntry = &scrStringGlob.hashTable[newIndex]; newEntry != entry; newEntry = &scrStringGlob.hashTable[newIndex])
+	{
+#line 358
+		assert((newEntry->status_next & HASH_STAT_MASK) == HASH_STAT_MOVABLE);
+		refStr = GetRefString(newEntry->prev);
+
+		if (refStr->byteLen == (unsigned char)len && !memcmp(refStr->str, str, len))
+		{
+			scrStringGlob.hashTable[prev].status_next = scrStringGlob.hashTable[prev].status_next & HASH_STAT_MASK | newEntry->status_next & HASH_NEXT_MASK;
+			newEntry->status_next = newEntry->status_next & HASH_STAT_MASK | entry->status_next & HASH_NEXT_MASK;
+
+			entry->status_next = entry->status_next & HASH_STAT_MASK | newIndex;
+			stringValue = newEntry->str;
+
+			newEntry->prev = entry->prev;
+			entry->str = stringValue;
+
+#line 371
+			assert((newEntry->status_next & HASH_STAT_MASK) != HASH_STAT_FREE);
+			assert((entry->status_next & HASH_STAT_MASK) != HASH_STAT_FREE);
+#line 374
+			assert(refStr->str == SL_ConvertToString(stringValue));
+
+			return stringValue;
+		}
+
+		prev = newIndex;
+		newIndex = newEntry->status_next & HASH_NEXT_MASK;
+	}
+
+	return 0;
+}
+
+unsigned int SL_FindString(const char *str)
+{
+	return SL_FindStringOfLen(str, strlen(str) + 1);
+}
+
+unsigned int SL_FindLowercaseString(const char *str)
+{
+	int len, i;
+	char buf[8192];
+
+	len = strlen(str) + 1;
+
+	if (len > (int)sizeof(buf))
+		return 0;
+
+	for (i = 0; i < len; i++)
+		buf[i] = tolower(str[i]);
+
+	return SL_FindStringOfLen(buf, len);
+}
+
+int FUN_004a8fc0(unsigned int stringValue)
+{
+	const char *str;
+
+#line 434
+	assert(stringValue);
+	str = SL_ConvertToString(stringValue);
+
+	while (*str)
+	{
+		if (*str != (char)tolower(*str))
+			return 0;
+		str++;
+	}
+
+	return 1;
+}
+
+void SL_AddUserInternal(RefString *refStr, unsigned int user)
+{
+	if (!(user & refStr->user))
+	{
+		refStr->user |= user;
+		refStr->refCount++;
+	}
+}
+
+void SL_AddUser(unsigned int stringValue, unsigned int user)
+{
+	SL_AddUserInternal(GetRefString(stringValue), user);
+}
+
+unsigned int SL_GetStringOfLen(const char *str, unsigned int user, unsigned int len, int type)
+{
+	unsigned int hash, next, prev, newIndex, stringValue;
+	HashEntry *entry, *newEntry;
+	RefString *refStr;
+
+#line 506
+	assert(str);
+	hash = GetHashCode(str, len);
+	entry = &scrStringGlob.hashTable[hash];
+
+	if ((entry->status_next & HASH_STAT_MASK) == HASH_STAT_HEAD)
+	{
+		refStr = GetRefString(entry->str);
+
+		if (refStr->byteLen == (unsigned char)len && !memcmp(refStr->str, str, len))
+		{
+			SL_AddUserInternal(refStr, user);
+
+#line 525
+			assert((entry->status_next & HASH_STAT_MASK) != HASH_STAT_FREE);
+#line 528
+			assert(refStr->str == SL_ConvertToString(entry->str));
+
+			return entry->str;
+		}
+
+		prev = hash;
+		newIndex = entry->status_next & HASH_NEXT_MASK;
+		newEntry = &scrStringGlob.hashTable[newIndex];
+
+		while (1)
+		{
+			if (newEntry == entry)
+				break;
+
+#line 542
+			assert((newEntry->status_next & HASH_STAT_MASK) == HASH_STAT_MOVABLE);
+			refStr = GetRefString(newEntry->prev);
+
+			if (refStr->byteLen == (unsigned char)len && !memcmp(refStr->str, str, len))
+			{
+				scrStringGlob.hashTable[prev].status_next = scrStringGlob.hashTable[prev].status_next & HASH_STAT_MASK | newEntry->status_next & HASH_NEXT_MASK;
+
+				newEntry->status_next = newEntry->status_next & HASH_STAT_MASK | entry->status_next & HASH_NEXT_MASK;
+				entry->status_next = entry->status_next & HASH_STAT_MASK | newIndex;
+
+				stringValue = newEntry->str;
+				newEntry->prev = entry->prev;
+				entry->str = stringValue;
+
+				SL_AddUserInternal(refStr, user);
+
+#line 557
+				assert((newEntry->status_next & HASH_STAT_MASK) != HASH_STAT_FREE);
+				assert((entry->status_next & HASH_STAT_MASK) != HASH_STAT_FREE);
+#line 560
+				assert(refStr->str == SL_ConvertToString(stringValue));
+
+				return stringValue;
+			}
+
+			prev = newIndex;
+			newIndex = newEntry->status_next & HASH_NEXT_MASK;
+			newEntry = &scrStringGlob.hashTable[newIndex];
+		}
+
+		newIndex = scrStringGlob.hashTable[0].status_next;
+
+		if (!newIndex)
+			FUN_0047ae50(1, "exceeded maximum number of script strings\n");
+
+		stringValue = MT_AllocIndex(len + REFSTRING_STRING_OFFSET, type);
+
+		newEntry = &scrStringGlob.hashTable[newIndex];
+#line 587
+		assert((newEntry->status_next & HASH_STAT_MASK) == HASH_STAT_FREE);
+
+		scrStringGlob.hashTable[0].status_next = newEntry->status_next & HASH_NEXT_MASK;
+		scrStringGlob.hashTable[scrStringGlob.hashTable[0].status_next].prev = 0;
+
+		newEntry->status_next = entry->status_next & HASH_NEXT_MASK | HASH_STAT_MOVABLE;
+		entry->status_next = entry->status_next & HASH_STAT_MASK | newIndex;
+		newEntry->prev = entry->prev;
+	}
+	else
+	{
+		if (entry->status_next & HASH_STAT_MASK)
+		{
+#line 613
+			assert((entry->status_next & HASH_STAT_MASK) == HASH_STAT_MOVABLE);
+			next = entry->status_next & HASH_NEXT_MASK;
+			prev = next;
+
+			while ((scrStringGlob.hashTable[prev].status_next & HASH_NEXT_MASK) != hash)
+				prev = scrStringGlob.hashTable[prev].status_next & HASH_NEXT_MASK;
+
+#line 620
+			assert(prev);
+			newIndex = scrStringGlob.hashTable[0].status_next;
+
+			if (!newIndex)
+				FUN_0047ae50(1, "exceeded maximum number of script strings\n");
+
+			stringValue = MT_AllocIndex(len + REFSTRING_STRING_OFFSET, type);
+
+			newEntry = &scrStringGlob.hashTable[newIndex];
+#line 635
+			assert((newEntry->status_next & HASH_STAT_MASK) == HASH_STAT_FREE);
+
+			scrStringGlob.hashTable[0].status_next = newEntry->status_next & HASH_NEXT_MASK;
+			scrStringGlob.hashTable[scrStringGlob.hashTable[0].status_next].prev = 0;
+			scrStringGlob.hashTable[prev].status_next = scrStringGlob.hashTable[prev].status_next & HASH_STAT_MASK | newIndex;
+
+			newEntry->status_next = next | HASH_STAT_MOVABLE;
+			newEntry->prev = entry->prev;
+		}
+		else
+		{
+			stringValue = MT_AllocIndex(len + REFSTRING_STRING_OFFSET, type);
+
+			next = entry->status_next & HASH_NEXT_MASK;
+			prev = entry->prev;
+
+			scrStringGlob.hashTable[prev].status_next = scrStringGlob.hashTable[prev].status_next & HASH_STAT_MASK | next;
+			scrStringGlob.hashTable[next].prev = prev;
+		}
+
+#line 647
+		assert(!(hash & HASH_STAT_MASK));
+		entry->status_next = hash | HASH_STAT_HEAD;
+	}
+
+#line 651
+	assert(stringValue);
+	entry->str = stringValue;
+
+	refStr = GetRefString(stringValue);
+	memcpy(refStr->str, str, len);
+
+	refStr->user = user;
+#line 658
+	assert(refStr->user == user);
+
+	refStr->refCount = 1;
+	refStr->byteLen = len;
+
+#line 673
+	assert((entry->status_next & HASH_STAT_MASK) != HASH_STAT_FREE);
+	assert(refStr->str == SL_ConvertToString(stringValue));
+
+	return stringValue;
+}
+
+unsigned int SL_GetString_(const char *str, unsigned int user, int type)
+{
+	return SL_GetStringOfLen(str, user, strlen(str) + 1, type);
+}
+
+unsigned int SL_GetString(const char *str, unsigned int user)
+{
+	return SL_GetString_(str, user, 6);
+}
+
+unsigned int SL_GetLowercaseStringOfLen(const char *str, unsigned int user, unsigned int len, int type)
+{
+	char buf[8192];
+	unsigned int i;
+
+	if (len > sizeof(buf))
+	{
+		FUN_0047ae50(1, "max string length exceeded: \"%s\"", str);
+		return 0;
+	}
+
+	for (i = 0; i < len; i++)
+		buf[i] = tolower(str[i]);
+
+	return SL_GetStringOfLen(buf, user, len, type);
+}
+
+unsigned int SL_GetLowercaseString_(const char *str, unsigned int user, int type)
+{
+	return SL_GetLowercaseStringOfLen(str, user, strlen(str) + 1, type);
+}
+
+unsigned int SL_GetLowercaseString(const char *str, unsigned int user)
+{
+	return SL_GetLowercaseString_(str, user, 6);
+}
+
+unsigned int SL_ConvertToLowercase(unsigned int stringValue, unsigned int user, int type)
+{
+	unsigned int ns, len, i;
+	const char *str;
+	char buf[8192];
+
+	len = SL_GetStringLen(stringValue) + 1;
+
+	if (len > sizeof(buf))
+		return stringValue;
+
+	str = SL_ConvertToString(stringValue);
+
+	for (i = 0; i < len; i++)
+		buf[i] = tolower(str[i]);
+
+	ns = SL_GetStringOfLen(buf, user, len, type);
+	SL_RemoveRefToString(stringValue);
+
+	return ns;
+}
+
+#line 765
+void SL_TransferRefToUser(unsigned int stringValue, unsigned int user)
+{
+	RefString *refStr = GetRefString(stringValue);
+
+	if (user & refStr->user)
+	{
+#line 769
+		assertMsg((refStr->refCount > 1), "(SL_DebugConvertToString( stringValue )) = '%s'", SL_DebugConvertToString(stringValue));
+		refStr->refCount--;
+		return;
+	}
+
+	refStr->user |= user;
+}
+
+void SL_AddRefToString(unsigned int stringValue)
+{
+	RefString *refStr = GetRefString(stringValue);
+
+	refStr->refCount++;
+}
+
+#line 861
 void SL_FreeString(unsigned int stringValue, RefString *refStr, unsigned int len)
 {
 	unsigned int index;
@@ -931,6 +598,23 @@ void SL_RemoveRefToString(unsigned int stringValue)
 	SL_RemoveRefToStringOfLen(stringValue, SL_GetRefStringLen(refStr) + 1);
 }
 
+void SL_RemoveAllRefToString(unsigned int stringValue)
+{
+	RefString *refStr = GetRefString(stringValue);
+
+	if (refStr->user & 4)
+	{
+		refStr->refCount = 1;
+		refStr->user = 4;
+		return;
+	}
+
+	refStr->refCount = 0;
+	refStr->user = 0;
+
+	SL_FreeString(stringValue, refStr, SL_GetRefStringLen(refStr) + 1);
+}
+
 void SL_RemoveRefToStringOfLen(unsigned int stringValue, unsigned int len)
 {
 	RefString *refStr = GetRefString(stringValue);
@@ -940,9 +624,87 @@ void SL_RemoveRefToStringOfLen(unsigned int stringValue, unsigned int len)
 		SL_FreeString(stringValue, refStr, len);
 }
 
-void SL_AddRefToString(unsigned int stringValue)
+void Scr_SetString(unsigned short *to, unsigned int from)
 {
-	RefString *refStr = GetRefString(stringValue);
+	if (from)
+		SL_AddRefToString(from);
 
-	refStr->refCount++;
+	if (*to)
+		SL_RemoveRefToString(*to);
+
+	*to = from;
+}
+
+void Scr_SetStringFromCharString(unsigned short *to, const char *from)
+{
+	if (*to)
+		SL_RemoveRefToString(*to);
+
+	*to = SL_GetString(from, 0);
+}
+
+unsigned int Scr_AllocString(const char *s, int sys)
+{
+#line 1061
+	assert(sys == SCR_SYS_GAME);
+	return SL_GetString(s, 1);
+}
+
+unsigned int SL_GetStringForFloat(float f)
+{
+	char tempString[128];
+
+	sprintf(tempString, "%g", f);
+	return SL_GetString_(tempString, 0, 14);
+}
+
+unsigned int SL_GetStringForInt(int i)
+{
+	char tempString[128];
+
+	sprintf(tempString, "%i", i);
+	return SL_GetString_(tempString, 0, 14);
+}
+
+unsigned int SL_GetStringForVector(const float *v)
+{
+	char tempString[128];
+
+	sprintf(tempString, "(%g, %g, %g)", v[0], v[1], v[2]);
+	return SL_GetString_(tempString, 0, 14);
+}
+
+#line 1094
+void SL_ShutdownSystem(unsigned int user)
+{
+	RefString *refStr;
+	HashEntry *entry;
+	unsigned int hash;
+
+	assert(user);
+
+	for (hash = 1; hash < HASH_TABLE_SIZE; hash++)
+	{
+		do
+		{
+			entry = &scrStringGlob.hashTable[hash];
+
+			if (!(entry->status_next & HASH_STAT_MASK))
+				break;
+
+			refStr = GetRefString(entry->str);
+
+			if (!(user & refStr->user))
+				break;
+
+			refStr->user &= ~user;
+			scrStringGlob.nextFreeEntry = 0;
+			SL_RemoveRefToString(entry->str);
+		} while (scrStringGlob.nextFreeEntry);
+	}
+}
+
+void Scr_ShutdownGameStrings()
+{
+	SL_ShutdownSystem(1);
 }
