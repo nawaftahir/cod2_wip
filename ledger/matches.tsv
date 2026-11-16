@@ -519,8 +519,10 @@ addr	size	source	symbol	name	tag
 0x0047f700	105	src/universal/com_files.cpp	?FS_Printf@@YAXHPBDZZ	FS_Printf	SUPPORTED
 0x0047fb00	11	src/universal/com_files.cpp	?FS_ResetFiles@@YAXXZ	FS_ResetFiles	SUPPORTED
 0x0047fb10	119	src/universal/com_files.cpp	?FS_FreeFile@@YAXPAX@Z	FS_FreeFile	SUPPORTED
+0x0047fb90	245	src/universal/com_files.cpp	?FS_WriteFile@@YAHPBDPBXH@Z	FS_WriteFile	SUPPORTED
 0x0047fc90	300	src/universal/com_files.cpp	?FS_GetOSPath@@YAHPBDPAD@Z	FS_GetOSPath	PINNED
 0x00480380	92	src/universal/com_files.cpp	?FS_ReturnPath@@YAHPBDPADPAH@Z	FS_ReturnPath	SUPPORTED
+0x00480940	36	src/universal/com_files.cpp	?FS_ListFiles@@YAPAPADPBD0W4FsListBehavior@@PAHH@Z	FS_ListFiles	SUPPORTED
 0x00480970	30	src/universal/com_files.cpp	?FS_ListFilesOfDirType@@YAPAPADPBD0W4FsListBehavior@@PAHHH@Z	FS_ListFilesOfDirType	SUPPORTED
 0x00480990	497	src/universal/com_files.cpp	?FS_IsBaseGameDirOfType@@YA_NPBDH@Z	FS_IsBaseGameDirOfType	SUPPORTED
 0x00480b90	363	src/universal/com_files.cpp	?FS_ListFilteredFilesOfDirType@@YAPAPADPBD00W4FsListBehavior@@PAHHH@Z	FS_ListFilteredFilesOfDirType	PINNED

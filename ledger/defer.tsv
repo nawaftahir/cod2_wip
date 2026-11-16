@@ -69,3 +69,19 @@ addr	agent	date	reason
 0x0047a760	claude	2026-11-15	Error: best 92% (132/137 B, first diff at +0x68); LTCG devirtualizes g_PrefsDlg.DoModal() while PrefsDlg.cpp (which constructs g_PrefsDlg) is not in the build.
 0x0047ae50	claude	2026-11-15	Sys_FatalError: best 96% (80/80 B, first diff at +0x18); passes buf to TranslateString (0x0047a4f0) in ebx instead of retail esi until caller 0x00477c72 in win_main.cpp is written.
 0x00454250	claude	2026-11-16	Face_WriteMaya: matched on 40463185, 99% (955/955 B, first diff +0x358) after the 11-15 cmdlib/q_shared batch; LTCG tie, source kept in brush.cpp
+0x0047e3c0	claude-b	2026-11-16	FS_GetHandleAndOpenFile best 65%, first diff +0x0: retail takes filename in edi and calls I_strncpyz 0x00496430 (edi/ebx/esi); I_strncpyz is deferred in q_shared.cpp
+0x0047e430	claude-b	2026-11-16	FS_FOpenFileWrite best 87%, sizes 171/173, first diff +0x78: blocked on FS_GetHandleAndOpenFile/I_strncpyz register convention
+0x0047e4e0	claude-b	2026-11-16	FS_FOpenTextFileWrite best 65%, sizes 257/269, first diff +0x5: I_strncpyz 0x00496430 convention
+0x0047e5f0	claude-b	2026-11-16	FS_FOpenFileAppend best 56%, sizes 248/258, first diff +0x5: I_strncpyz 0x00496430 convention
+0x0047f770	claude-b	2026-11-16	FS_SeekInternal best 93%, sizes 710/719, first diff +0x229: retail pushes seek constants via ecx; whence-variable rewrite gave 87% 733/719
+0x0047fdc0	claude-b	2026-11-16	FS_OpenFileForWrite best 65%, sizes 255/259, first diff +0x18: I_strncpyz convention
+0x004803e0	claude-b	2026-11-16	FS_AddFileToList best 23%, sizes 152/81, first diff +0x3: CopyStringInternal 0x00489dd0 inlined here, retail calls it (more retail callers missing)
+0x00480440	claude-b	2026-11-16	FS_ListFilteredFiles best 37%, sizes 1222/1267, first diff +0x15
+0x00481210	claude-b	2026-11-16	FS_AddIwdFilesForGameDirectory best 40%, sizes 987/963, first diff +0x4
+0x004815e0	claude-b	2026-11-16	FS_AddGameDirectoryInternal best 31%, sizes 626/773, first diff +0x5
+0x004819e0	claude-b	2026-11-16	FS_RegisterDvars best 68%, sizes 269/273, first diff +0x5
+0x00481b00	claude-b	2026-11-16	FS_Startup best 56%, sizes 1331/1184, first diff +0x1
+0x004820a0	claude-b	2026-11-16	FS_InitFilesystem best 72%, sizes 98/92, first diff +0x1
+0x00482100	claude-b	2026-11-16	FS_Restart best 67%, sizes 376/368, first diff +0x29
+0x004822a0	claude-b	2026-11-16	FS_FOpenFileByMode best 76%, sizes 204/268, first diff +0xcc
+0x00481990	claude-b	2026-11-16	FS_Shutdown matches 100% standalone but FUN_00408fd0 (UNKNOWN_00408f20) then calls an inlined copy instead of it: LTCG tie, retail callers missing

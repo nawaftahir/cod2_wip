@@ -64,7 +64,7 @@ src/radiant/win_main.cpp	PARTIAL	5	699	PENDING	PENDING		2 game / 260 B: real Sav
 src/radiant/win_qe3.cpp	PARTIAL	14	678	PENDING	PENDING		Q3Radiant WIN_QE3.CPP (8/10 string funcs); iw3xo (7/10)
 src/radiant/z.cpp	PARTIAL	0	0	PENDING	PENDING		Owner takeover: Codex repairs reviewed ZWnd dependencies; all original Gemini candidates preserved; no accepted source
 src/universal/assertive.cpp	PARTIAL	9	387	PENDING	PENDING		server source (copy-ready)
-src/universal/com_files.cpp	PARTIAL	59	8055	PENDING	PENDING		server source (copy-ready)
+src/universal/com_files.cpp	PARTIAL	61	8336	PENDING	PENDING		server source (copy-ready)
 src/universal/com_math.cpp	PARTIAL	119	20411	PENDING	PENDING		server source (copy-ready)
 src/universal/com_memory.cpp	PARTIAL	46	4167	PENDING	PENDING		46 matched; three routines left; allocator source uses verified global update flow
 src/universal/com_shared.cpp	PARTIAL	9	1214	PENDING	PENDING		server source (copy-ready)
