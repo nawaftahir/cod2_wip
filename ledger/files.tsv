@@ -18,7 +18,7 @@ src/radiant/FindTextureDlg.cpp	PARTIAL	15	1013	PENDING	PENDING		Q3Radiant FindTe
 src/radiant/GfxWrapper.cpp	PARTIAL	15	111	PENDING	PENDING		Q3Radiant Win_main.cpp (1/11 string funcs); iw3xo (8/11)
 src/radiant/KeyValueSelectDlg.cpp	VERIFIED	3	360	PASS	PENDING	workspace/research/gemini_review/test_keyvalue_complete.py	
 src/radiant/LstToolBar.cpp	VERIFIED	4	42	PASS	PENDING	workspace/research/gemini_review/test_finished_small.py	
-src/radiant/MainFrm.cpp	PARTIAL	27	151	PENDING	PENDING		Q3Radiant MainFrm.cpp (78/94 string funcs); iw3xo (26/94)
+src/radiant/MainFrm.cpp	PARTIAL	79	478	PENDING	PENDING		Q3Radiant MainFrm.cpp (78/94 string funcs); iw3xo (26/94)
 src/radiant/MapInfo.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant WIN_DLG.CPP (1/2 string funcs); iw3xo (1/2)
 src/radiant/UNKNOWN_00420930.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant PatchDialog.cpp (3/6 string funcs); iw3xo (4/6)
 src/radiant/mesh.cpp	UNSTARTED	0	0	PENDING	PENDING		none: from make show
