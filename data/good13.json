@@ -40407,8 +40407,9 @@
 "name": "?CG_CalcCrosshairPosition@@YAXPAM0@Z",
 "obj": "cg_draw_mp.obj",
 "size": 436,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4c85c0"
+]
 },
 {
 "name": "?CG_GetWeapReticleZoom@@YA_NPAM@Z",
