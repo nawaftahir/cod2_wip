@@ -69,3 +69,10 @@ addr	agent	date	reason
 0x0047a760	claude	2026-11-15	Error: best 92% (132/137 B, first diff at +0x68); LTCG devirtualizes g_PrefsDlg.DoModal() while PrefsDlg.cpp (which constructs g_PrefsDlg) is not in the build.
 0x0047ae50	claude	2026-11-15	Sys_FatalError: best 96% (80/80 B, first diff at +0x18); passes buf to TranslateString (0x0047a4f0) in ebx instead of retail esi until caller 0x00477c72 in win_main.cpp is written.
 0x00454250	claude	2026-11-16	Face_WriteMaya: matched on 40463185, 99% (955/955 B, first diff +0x358) after the 11-15 cmdlib/q_shared batch; LTCG tie, source kept in brush.cpp
+0x004a88c0	claude-d	2026-11-16	SL_DebugConvertToString: best 92%; first diff +0x1e (retail 'mov eax,ecx; je; mov eax,<BINARY>', ours loads <BINARY> via ecx); 4 source variants tried; also ours inlines it into SL_TransferRefToUser, retail calls it.
+0x004a8b80	claude-d	2026-11-16	SL_FindStringOfLen: best 48%, sizes 924/887; first diff +0xd; written from CoD2rev + retail asserts, loop/xor shape differs; needs a closer look.
+0x004a9080	claude-d	2026-11-16	SL_GetStringOfLen: best 54%, sizes 2133/2104; first diff +0x4c; draft in scr_stringlist.cpp; tail merge of the three alloc paths differs.
+0x004a9a40	claude-d	2026-11-16	SL_ConvertToLowercase: best 31%, sizes 258/190; ours inlines SL_RemoveRefToString, retail calls 0x4a9ed0 and uses esi/edi params.
+0x004a9b00	claude-d	2026-11-16	SL_TransferRefToUser: best 52%, sizes 176/139; ours inlines SL_DebugConvertToString into the assert, retail calls 0x4a88c0.
+0x004aa1e0	claude-d	2026-11-16	SL_ShutdownSystem: best 51%, sizes 268/275; retail takes user in ebx and counts the table loop down from 0x3fff, ours uses a pointer end compare.
+0x004aa300	claude-d	2026-11-16	Scr_ShutdownGameStrings: best 46%; blocked on SL_ShutdownSystem 0x4aa1e0 (retail passes user in ebx).
