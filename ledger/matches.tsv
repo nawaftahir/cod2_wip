@@ -276,6 +276,8 @@ addr	size	source	symbol	name	tag
 0x004248c0	30	src/radiant/PatchDialog.cpp	?OnBtnPatchdetails@CPatchDialog@@IAEXXZ	CPatchDialog::OnBtnPatchdetails	SUPPORTED
 0x004248e0	31	src/radiant/PatchDialog.cpp	?OnBtnPatchfit@CPatchDialog@@IAEXXZ	CPatchDialog::OnBtnPatchfit	SUPPORTED
 0x00424900	30	src/radiant/PatchDialog.cpp	?OnBtnPatchnatural@CPatchDialog@@IAEXXZ	CPatchDialog::OnBtnPatchnatural	SUPPORTED
+0x00424920	133	src/radiant/PatchDialog.cpp	?OnBtnPatchreset@CPatchDialog@@IAEXXZ	CPatchDialog::OnBtnPatchreset	SUPPORTED
+0x004249b0	89	src/radiant/PatchDialog.cpp	??1CTextureLayout@@UAE@XZ	CTextureLayout::~CTextureLayout	SUPPORTED
 0x00424a30	1	src/radiant/PatchDialog.cpp	?OnSelchangeComboType@CPatchDialog@@IAEXXZ	CPatchDialog::OnSelchangeComboType	SUPPORTED
 0x00424a40	12	src/radiant/PatchDialog.cpp	?OnOK@CPatchDialog@@MAEXXZ	CPatchDialog::OnOK	SUPPORTED
 0x00424a80	135	src/radiant/PatchDialog.cpp	?OnInitDialog@CPatchDialog@@MAEHXZ	CPatchDialog::OnInitDialog	SUPPORTED

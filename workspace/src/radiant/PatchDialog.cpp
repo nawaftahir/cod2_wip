@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "PatchDialog.h"
 #include "win_main.h"
+#include "TextureLayout.h"
 
 extern float dword_1128DC4;
 extern int g_nUpdateBits;
@@ -8,6 +9,7 @@ extern int g_nUpdateBits;
 void Patch_NaturalizeSelected(bool bDetails, bool bCycleCap, float fScaleS, float fScaleT);
 void Brush_FitTexture(float fS, float fT, int nZero);
 patchMesh_t* SinglePatchSelected();
+void Patch_ResetTexturing(float fx, float fy, int nOrientation);
 
 
 
@@ -85,6 +87,14 @@ void CPatchDialog::OnBtnPatchfit()
 void CPatchDialog::OnBtnPatchnatural()
 {
 	Patch_NaturalizeSelected(0, 0, dword_1128DC4, dword_1128DC4);
+	g_nUpdateBits = -1;
+}
+
+void CPatchDialog::OnBtnPatchreset()
+{
+	CTextureLayout dlg;
+	if (dlg.DoModal() == IDOK)
+		Patch_ResetTexturing(dlg.m_fX, dlg.m_fY, dlg.m_nOrientation);
 	g_nUpdateBits = -1;
 }
 
