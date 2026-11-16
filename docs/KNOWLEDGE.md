@@ -959,3 +959,6 @@ set by a later lowering stage, not by the list scheduler.
 - PINNED (w29 11-16, ACCEPTED +180, z1): `*q != '^' && (c = *(unsigned char *)q) >= '0' && c <= '9'` + `ColorIndex(c)` (c = fn int)
   flips the whole back half to retail: 13 fdiff lines, 1786/2132 same-offset (base 1602). Residue only: `movzx eax,al` +
   `cmp eax,imm` (retail `cmp al,imm`, +4 B, causes the align/jmp hunk) and one `[esp+0x14]=0` store order. Best AddLine lead.
+- PINNED (w29 11-16): a compare on a char EXPRESSION is narrowed to `cmp al,imm` (even vs 48u: jb/ja); a compare on an int
+  VARIABLE holding a char is never narrowed, even when the var is dead after (k5). The AddLine flip only comes with the int var,
+  so retail gets its -8 on `_p` from somewhere other than the digit test, or c2 narrows after regalloc in a case not yet found.
