@@ -604,6 +604,9 @@ addr	size	source	symbol	name	tag
 0x00482980	31	src/universal/com_math.cpp	?randomf@@YAMXZ	randomf	SUPPORTED
 0x004829a0	39	src/universal/com_math.cpp	?crandom@@YAMXZ	crandom	SUPPORTED
 0x004829d0	308	src/universal/com_math.cpp	?GaussianRandom@@YAXPAM0@Z	GaussianRandom	PINNED
+0x00482b10	96	src/universal/com_math.cpp	?PointInCircleFromUniformDeviates@@YAXMMPAM@Z	PointInCircleFromUniformDeviates	SUPPORTED
+0x00482b70	125	src/universal/com_math.cpp	?PointOnSphereFromUniformDeviates@@YAXMMPAM@Z	PointOnSphereFromUniformDeviates	SUPPORTED
+0x00482bf0	111	src/universal/com_math.cpp	?PointOnHemisphereFromUniformDeviates@@YAXMMPAM@Z	PointOnHemisphereFromUniformDeviates	SUPPORTED
 0x00482c60	310	src/universal/com_math.cpp	?SpiralPointsInCircle@@YAXHPAMH@Z	SpiralPointsInCircle	PINNED
 0x00482da0	328	src/universal/com_math.cpp	?SpiralPointsOnHemisphere@@YAXHPAMH@Z	SpiralPointsOnHemisphere	PINNED
 0x00482ef0	346	src/universal/com_math.cpp	?SpiralPointsOnSphere@@YAXHPAMH@Z	SpiralPointsOnSphere	PINNED
@@ -630,6 +633,7 @@ addr	size	source	symbol	name	tag
 0x00483c50	157	src/universal/com_math.cpp	?Vec4Normalize@@YAMQAM@Z	Vec4Normalize	SUPPORTED
 0x00483cf0	148	src/universal/com_math.cpp	?Vec3NormalizeTo@@YAMQBMQAM@Z	Vec3NormalizeTo	SUPPORTED
 0x00483d90	128	src/universal/com_math.cpp	?Vec2NormalizeTo@@YAMQBMQAM@Z	Vec2NormalizeTo	SUPPORTED
+0x00483e10	135	src/universal/com_math.cpp	?Vec3PackUnitVec@@YAHQBM@Z	Vec3PackUnitVec	SUPPORTED
 0x00483ea0	92	src/universal/com_math.cpp	?Vec3UnpackUnitVec@@YAXHQAM@Z	Vec3UnpackUnitVec	SUPPORTED
 0x00483f00	62	src/universal/com_math.cpp	?Vec3MaxComponent@@YAMQBM@Z	Vec3MaxComponent	SUPPORTED
 0x00483f40	136	src/universal/com_math.cpp	?Vec3Rotate@@YAXQBMQAY02$$CBMQAM@Z	Vec3Rotate	PINNED
@@ -663,6 +667,7 @@ addr	size	source	symbol	name	tag
 0x004863e0	145	src/universal/com_math.cpp	?MatrixTransformVector43@@YAXQBMQAY02$$CBMQAM@Z	MatrixTransformVector43	PINNED
 0x00486480	174	src/universal/com_math.cpp	?MatrixTransposeTransformVector43@@YAXQBMQAY02$$CBMQAM@Z	MatrixTransposeTransformVector43	PINNED
 0x00486530	101	src/universal/com_math.cpp	?MatrixTransformVector43Equals@@YAXQAMQAY02$$CBM@Z	MatrixTransformVector43Equals	SUPPORTED
+0x004865a0	90	src/universal/com_math.cpp	?RotateVec2@@YAXQAMM@Z	RotateVec2	SUPPORTED
 0x00486600	124	src/universal/com_math.cpp	?QuatMultiply@@YAXPBM0PAM@Z	QuatMultiply	SUPPORTED
 0x00486680	29	src/universal/com_math.cpp	?QuatInverse@@YAXQBMQAM@Z	QuatInverse	SUPPORTED
 0x004866a0	372	src/universal/com_math.cpp	?QuatToAxis@@YAXQBMQAY02M@Z	QuatToAxis	PINNED
@@ -670,6 +675,13 @@ addr	size	source	symbol	name	tag
 0x004868c0	54	src/universal/com_math.cpp	?SinSquaredDeg@@YAMM@Z	SinSquaredDeg	SUPPORTED
 0x00486900	57	src/universal/com_math.cpp	?QuatDiffAxisLengthSq@@YAMQBM0@Z	QuatDiffAxisLengthSq	SUPPORTED
 0x00486940	189	src/universal/com_math.cpp	?RotationToYaw@@YAMQBM@Z	RotationToYaw	PINNED
+0x00486a00	66	src/universal/com_math.cpp	?QuatFromPitch@@YAXMQAM@Z	QuatFromPitch	SUPPORTED
+0x00486a50	66	src/universal/com_math.cpp	?QuatFromYaw@@YAXMQAM@Z	QuatFromYaw	SUPPORTED
+0x00486aa0	56	src/universal/com_math.cpp	?QuatFromRoll@@YAXMQAM@Z	QuatFromRoll	SUPPORTED
+0x00486ae0	78	src/universal/com_math.cpp	?QuatFromAxisAngle@@YAXMQBMQAM@Z	QuatFromAxisAngle	SUPPORTED
+0x00486b30	96	src/universal/com_math.cpp	?MatrixRotationX@@YAXQAY02MM@Z	MatrixRotationX	SUPPORTED
+0x00486b90	98	src/universal/com_math.cpp	?MatrixRotationY@@YAXQAY02MM@Z	MatrixRotationY	SUPPORTED
+0x00486c00	98	src/universal/com_math.cpp	?MatrixRotationZ@@YAXQAY02MM@Z	MatrixRotationZ	SUPPORTED
 0x00486c70	277	src/universal/com_math.cpp	?InfinitePerspectiveMatrix@@YAXQAY03MMMM@Z	InfinitePerspectiveMatrix	PINNED
 0x00486d90	358	src/universal/com_math.cpp	?OrthographicMatrix@@YAXQAY03MMMM@Z	OrthographicMatrix	PINNED
 0x00486f00	366	src/universal/com_math.cpp	?MatrixForViewer@@YAXQAY03MQBMQAY02$$CBM@Z	MatrixForViewer	PINNED
@@ -719,6 +731,7 @@ addr	size	source	symbol	name	tag
 0x00489500	75	src/universal/com_math.cpp	?flrand@@YAMMM@Z	flrand	SUPPORTED
 0x00489550	35	src/universal/com_math.cpp	?irand@@YAHHH@Z	irand	SUPPORTED
 0x00489590	554	src/universal/com_math.cpp	?AxisToQuat@@YAXQAY02$$CBMQAM@Z	AxisToQuat	PINNED
+0x004897c0	306	src/universal/com_math.cpp	?SinCosDegrees@@YAXMPAM0@Z	SinCosDegrees	PINNED
 0x00489900	57	src/universal/com_math.cpp	?SnapFloatBits@@YAMMHH@Z	SnapFloatBits	SUPPORTED
 0x00489b20	9	src/universal/com_memory.cpp	_Z_FreeInternal	Z_FreeInternal	SUPPORTED
 0x00489b30	22	src/universal/com_memory.cpp	?Z_VirtualFreeInternal@@YAXPAX@Z	Z_VirtualFreeInternal	SUPPORTED

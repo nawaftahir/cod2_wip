@@ -223,6 +223,55 @@ void GaussianRandom( float *f0, float *f1 )
 	*f1 = y * lenSq;
 }
 
+void PointInCircleFromUniformDeviates( float radiusDeviate, float yawDeviate, float *point )
+{
+	float deviate;
+	float radius;
+	float yaw;
+	float yawSin;
+	float yawCos;
+
+	deviate = radiusDeviate;
+	radius = I_sqrt(deviate);
+	yaw = yawDeviate * 6.283185307179586f;
+	FastSinCos(yaw, &yawSin, &yawCos);
+	point[0] = radius * yawCos;
+	point[1] = radius * yawSin;
+}
+
+void PointOnSphereFromUniformDeviates( float heightDeviate, float yawDeviate, float *point )
+{
+	float height;
+	float radius;
+	float yaw;
+	float yawSin;
+	float yawCos;
+
+	height = heightDeviate * 2.0f - 1.0f;
+	radius = I_sqrt(1.0f - height * height);
+	yaw = yawDeviate * 6.283185307179586f;
+	FastSinCos(yaw, &yawSin, &yawCos);
+	point[0] = radius * yawCos;
+	point[1] = radius * yawSin;
+	point[2] = height;
+}
+
+void PointOnHemisphereFromUniformDeviates( float heightDeviate, float yawDeviate, float *point )
+{
+	float height;
+	float radius;
+	float yaw;
+	float yawSin;
+	float yawCos;
+
+	height = heightDeviate;
+	radius = I_sqrt(1.0f - height * height);
+	yaw = yawDeviate * 6.283185307179586f;
+	FastSinCos(yaw, &yawSin, &yawCos);
+	point[0] = radius * yawCos;
+	point[1] = radius * yawSin;
+	point[2] = height;
+}
 void SpiralPointsInCircle( int count, float *points, int stride )
 {
 	int i;
@@ -880,6 +929,18 @@ vec_t Vec2NormalizeTo( const vec2_t v, vec2_t out )
 Vec3UnpackUnitVec
 ==============
 */
+int Vec3PackUnitVec( const vec3_t v )
+{
+	int x;
+	int y;
+	int z;
+
+	x = I_fround(v[0] * 511.0f) & 0x3ff;
+	y = I_fround(v[1] * 511.0f) & 0x3ff;
+	z = I_fround(v[2] * 511.0f) & 0x3ff;
+
+	return x | (y << 10) | (z << 20);
+}
 void Vec3UnpackUnitVec( int packed, vec3_t v )
 {
 	int x;
@@ -1707,6 +1768,17 @@ void MatrixTransformVector43Equals( vec3_t inout, const float in2[4][3] )
 QuatMultiply
 ==============
 */
+void RotateVec2( vec2_t v, float degrees )
+{
+	float c;
+	float s;
+	float x;
+
+	FastSinCos(degrees * 0.017453292519943295f, &s, &c);
+	x = v[0] * c - v[1] * s;
+	v[1] = v[1] * c + v[0] * s;
+	v[0] = x;
+}
 void QuatMultiply( const float *in1, const float *in2, float *out )
 {
 	out[0] = in1[0] * in2[3] + in1[3] * in2[0] + in1[2] * in2[1] - in1[1] * in2[2];
@@ -1842,6 +1914,89 @@ float RotationToYaw( const vec2_t rot )
 	return (float)atan2(rot[0] * rot[1] * r, 1.0f - zz * r) * (180.0f / 3.141592741012573f);
 }
 
+void QuatFromPitch( float angle, vec4_t quat )
+{
+	angle *= 0.008726646259971648f;
+	quat[0] = 0;
+	quat[2] = 0;
+	FastSinCos(angle, &quat[1], &quat[3]);
+}
+
+void QuatFromYaw( float angle, vec4_t quat )
+{
+	angle *= 0.008726646259971648f;
+	quat[0] = 0;
+	quat[1] = 0;
+	FastSinCos(angle, &quat[2], &quat[3]);
+}
+
+void QuatFromRoll( float angle, vec4_t quat )
+{
+	angle *= 0.008726646259971648f;
+	quat[1] = 0;
+	quat[2] = 0;
+	FastSinCos(angle, &quat[0], &quat[3]);
+}
+
+void QuatFromAxisAngle( float angle, const vec3_t axis, vec4_t quat )
+{
+	float s;
+
+	angle *= 0.008726646259971648f;
+	FastSinCos(angle, &s, &quat[3]);
+	VectorScale(axis, s, quat);
+}
+
+void MatrixRotationX( vec3_t m[3], float angle )
+{
+	float c;
+	float s;
+
+	FastSinCos((angle * 0.017453292519943295f), &s, &c);
+	m[0][0] = 1.0f;
+	m[0][1] = 0;
+	m[0][2] = 0;
+	m[1][0] = 0;
+	m[1][1] = c;
+	m[1][2] = -s;
+	m[2][0] = 0;
+	m[2][1] = s;
+	m[2][2] = c;
+}
+
+void MatrixRotationY( vec3_t m[3], float angle )
+{
+	float c;
+	float s;
+
+	FastSinCos(angle * 0.017453292519943295f, &s, &c);
+	m[0][0] = c;
+	m[0][1] = 0;
+	m[0][2] = s;
+	m[1][0] = 0;
+	m[1][1] = 1.0f;
+	m[1][2] = 0;
+	m[2][0] = -s;
+	m[2][1] = 0;
+	m[2][2] = c;
+}
+
+void MatrixRotationZ( vec3_t m[3], float angle )
+{
+	float c;
+	float s;
+
+	FastSinCos(angle * 0.017453292519943295f, &s, &c);
+	m[0][0] = c;
+	m[0][1] = -s;
+	m[0][2] = 0;
+	m[1][0] = s;
+	m[1][1] = c;
+	m[1][2] = 0;
+	m[2][0] = 0;
+	m[2][1] = 0;
+	m[2][2] = 1.0f;
+}
 void InfinitePerspectiveMatrix( float mtx[4][4], float fovX, float fovY, float zNear )
 {
 	float k;
@@ -3048,6 +3203,43 @@ void AxisToQuat( const vec3_t mat[3], vec4_t out )
 	}
 }
 
+void SinCosDegrees( float angle, float *s, float *c )
+{
+#line 3953
+	assert(s);
+#line 3954
+	assert(c);
+
+	if ( angle < 0.0f )
+		angle += 360.0f;
+
+	if ( angle == 0.0f )
+	{
+		*c = 1.0f;
+		*s = 0.0f;
+		return;
+	}
+	if ( angle == 90.0f )
+	{
+		*c = 0.0f;
+		*s = 1.0f;
+		return;
+	}
+	if ( angle == 180.0f )
+	{
+		*c = -1.0f;
+		*s = 0.0f;
+		return;
+	}
+	if ( angle == 270.0f )
+	{
+		*c = 0.0f;
+		*s = -1.0f;
+		return;
+	}
+
+	FastSinCos(angle * 0.01745329238474369f, s, c);
+}
 /*
 ==============
 SnapFloatBits
@@ -3082,5 +3274,3 @@ float SnapFloatBits( float f, int tolerance, int bits )
 
 	return u.f;
 }
-
-
