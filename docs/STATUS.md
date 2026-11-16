@@ -7,6 +7,9 @@
   (owner decision, tools/meter.py).
 - Source tree follows IW's layout since 11-13 (docs/LAYOUT.md, 281/370 TUs pinned by Mac 1.3 STABS).
 
+## 11-16 w29: CG_CalcCrosshairPosition matched (+436 matched-fn, +12 same-offset 1,973,505) by three dead reads of
+viewaxis[k][2] (x87 object numbering, KNOWLEDGE w29 11-16); ported to 1.0 (+436, same-offset 1,699,668).
+
 ## 11-15 w29: +14 EvalPrimitiveExpression matched (colour tie = creation index, KNOWLEDGE 28), ported to 1.0 (+14).
 Same-offset 1.3 1,973,469 (803 B left), 1.0 1,699,641 (199 B left). Reload order cause (Window_Paint / 1.0 SV_DirectConnect,
 Pickup_Weapon) narrowed in KNOWLEDGE 29 (block order = colour-node id ascending); id writer not found yet. New tool c2rl13.sh.
