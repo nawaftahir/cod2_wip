@@ -251,7 +251,15 @@ I_fround
 */
 TU_STATIC int I_fround(const float x)
 {
-	return (int)floor(x + 0.5f);
+	// fistp rounds to nearest; the bias sends exact halves up
+	const double bias = 1.0 / (1 << 30);
+	int result;
+
+	__asm fld x
+	__asm fadd bias
+	__asm fistp result
+
+	return result;
 }
 
 /*
@@ -333,8 +341,20 @@ FastSinCos
 */
 TU_STATIC void FastSinCos(const float value, float *pSin, float *pCos)
 {
-	*pSin = sin(value);
-	*pCos = cos(value);
+	// one fsincos; MSVC 7.1 never emits it from C
+	__asm
+	{
+		push eax
+		push ecx
+		fld value
+		fsincos
+		mov ecx, pCos
+		mov eax, pSin
+		fstp dword ptr [ecx]
+		fstp dword ptr [eax]
+		pop ecx
+		pop eax
+	}
 }
 
 /*

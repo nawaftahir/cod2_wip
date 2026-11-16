@@ -92,3 +92,7 @@ addr	agent	date	reason
 0x004a9b00	claude-d	2026-11-16	SL_TransferRefToUser: best 52%, sizes 176/139; ours inlines SL_DebugConvertToString into the assert, retail calls 0x4a88c0.
 0x004aa1e0	claude-d	2026-11-16	SL_ShutdownSystem: best 51%, sizes 268/275; retail takes user in ebx and counts the table loop down from 0x3fff, ours uses a pointer end compare.
 0x004aa300	claude-d	2026-11-16	Scr_ShutdownGameStrings: best 46%; blocked on SL_ShutdownSystem 0x4aa1e0 (retail passes user in ebx).
+0x00489940	claude-b	2026-11-16	SnapFloatToGrid (assert text pinned, 3 tries) best 72%, sizes 470/471, first diff +0x5: retail frame sub esp,0x18 with an extra 4-byte local and pop esi kept to the epilogues; ours sub esp,0x10 and pop esi hoisted after the third assert. Tried assertMsg, detail local in-block, detail local at function scope. Candidate saved in scratchpad b_snap_candidate.cpp
+0x00487430	claude-b	2026-11-16	AngleDelta best 18%, sizes 79/23, first diff +0x6: retail calls AngleNormalize180 (0x487300); /GL inlines it into AngleDelta here (+56 B)
+0x004830f0	claude-b	2026-11-16	LinearTrackAngle best 68%, sizes 213/151, first diff +0x89: retail calls AngleNormalize180 (0x487300), ours inlines it (+62 B)
+0x00483220	claude-b	2026-11-16	DiffTrackAngle best 68%, sizes 213/151, first diff +0x89: same AngleNormalize180 inlining as 0x004830f0

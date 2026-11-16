@@ -136,6 +136,8 @@ def banned_sources():
     bad = []
     for root in (BASE / "src", BASE / "workspace" / "src"):
         for path in sorted(root.rglob("*")):
+            if path.name == "com_math.h":  # x87 helper exception (CLAUDE.md, 2026-11-16)
+                continue
             if path.suffix.lower() in (".c", ".cpp", ".h", ".inl") and BANNED.search(path.read_text(errors="replace")):
                 bad.append(str(path.relative_to(BASE)))
     return bad
