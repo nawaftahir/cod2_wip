@@ -85,7 +85,13 @@ referee and every complete-file audit pass: python3 tools/file_ledger.py.
 
 Real C/C++ only. No retail-byte arrays, copying/patching retail bytes after link,
 asm/_emit/naked functions, fake callers/wrappers, forced noinline, invented ABI
-annotations or weakened comparison masks. Numeric constants are allowed when
+annotations or weakened comparison masks. One exception (owner, 2026-11-16): inline
+`__asm` is allowed for the original x87 math helpers only, meaning the sin/cos pair
+(`fsincos`) and float-to-int rounding (`fistp`), as small named functions or macros
+in the shared math header. Evidence: MSVC 7.1 never emits `fsincos` from C under any
+tested flag set (with /Op it calls `_sin`/`_cos`; without /Op it emits a separate
+`fsin` and `fcos`), and opencod1 g_debug_mp.c documents inline-asm `fistp` in the
+same engine family. Nothing else may use asm. Numeric constants are allowed when
 proved by the target (for example window-style flags and allocator magic);
 absolute retail addresses must not substitute for proper source symbols.
 
