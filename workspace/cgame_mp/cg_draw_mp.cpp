@@ -781,6 +781,10 @@ static void __attribute_regparm__(2) CG_CalcCrosshairPosition(float *x, float *y
     vec3_t gunDir;
     float forward;
 
+    // dead reads; they set the dot term order
+    forward = cg->refdef.viewaxis[0][2];
+    forward = cg->refdef.viewaxis[1][2];
+    forward = cg->refdef.viewaxis[2][2];
     gunAng[0] = cg->gunPitch;
     gunAng[1] = cg->gunYaw;
     gunAng[2] = cg->refdefViewAngles[2];
