@@ -6,9 +6,14 @@ Worktree `cod2_wip/.worktrees/claude`, branch `radiant/claude`. Native Linux she
 only reachable outside the agent sandbox. Logs in /tmp. Before a clean gate, clear `build/obj` and
 `build/src` (chown first with the alpine docker one-liner if a container left them root-owned).
 
-## State (clean gate, 2026-11-11)
-855/855 rows, 23.90% game functions, 12.85% game bytes, same-offset 1.508%.
-`src/`: CapDialog, DialogThick, LstToolBar, EditWnd(+.h), RADEditWnd (FILE LEDGER 5 VERIFIED / 102).
+## State (clean gate, radiant/main 39d9c8a4, 2026-11-16)
+1112/1112 rows, 1112/3582 = 31.04% game functions, 18.95% game bytes (132,573 B), same-offset 1.766%,
+emit-order warnings 18. FILE LEDGER 7 VERIFIED / 102 (audited set; other src/ files have no audit yet).
+- 2026-11-16 merge: lanes front/editor-*/engine-* + the 11-15 uncommitted batch (cmdlib, q_shared,
+  com_shared, win_qe3, Pmesh, CommandsDlg, EntityListDlg, ZWnd, win_common -> src/universal).
+- Deferred tie: Face_WriteMaya 0x00454250 matched on 40463185, 99% after the 11-15 batch (first diff
+  +0x358, sizes equal). Re-test when brush.cpp is worked.
+- test_dialog_batch.py: CDlgEvent passes allow_generated_elsewhere (its dtor now sits in dlgcamera, as retail).
 
 ## Done 2026-11-11
 - drift.py pairs `??_G` AUTO rows with the class's `??_G` (4b2b0af3). With it, the five files above
