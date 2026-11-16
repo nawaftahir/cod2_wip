@@ -956,3 +956,6 @@ set by a later lowering stage, not by the list scheduler.
   loop make their constants ('0', '9') constant nodes, materialised before the loop and referenced in the compare blocks; byte
   compares on a char use immediates and reference only the loaded temp. So retail needs two extra referenced nodes in those two
   compare blocks while still emitting `cmp al,imm`.
+- SUPPORTED (w29 11-16, lab z1): `*q != '^' && (c = *(unsigned char *)q) >= '0' && c <= '9'` + `ColorIndex(c)` (c = fn int)
+  flips the whole back half to retail: 13 fdiff lines, 1786/2132 same-offset (base 1602). Residue only: `movzx eax,al` +
+  `cmp eax,imm` (retail `cmp al,imm`, +4 B, causes the align/jmp hunk) and one `[esp+0x14]=0` store order. Best AddLine lead.
