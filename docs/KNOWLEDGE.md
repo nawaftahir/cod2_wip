@@ -935,3 +935,7 @@ set by a later lowering stage, not by the list scheduler.
   residue is the FIRST inlined ReadChar: `p[1]` is CSE'd with its second-byte read (ours `movzx ecx,[ebx+1]`, retail reads via q:
   `lea eax,[ebx+1]; mov [esp+0x10],eax; movzx eax,[eax]`), which shifts bytes (fb 435/2132). So the flip is reachable from the
   colour-arm/first-ReadChar region; retail keeps the q read there. Variants that keep the q read (z1-z4, w1-w3, x2, q1) do not flip.
+- PINNED (w29 11-16, GAIN=2 v2 vs base vs e1): v2 does NOT win round 2 (charWidth -192 vs `_p` -185 as base); its flip comes in a later
+  round. Common to e1 and v2: three round-1 nodes move identically (06852370 -324 -> -312, 068523b8 -328 -> -288, 06852400 -268 ->
+  -256; n16 4/20/16), so the shared trigger is those nodes, not charWidth alone. Names not mapped yet (GAIN=0 node addresses differ
+  from GAIN=2 runs; map them inside one GAIN=2 run via the A/B sym of a K line, or add sym to the I line).
