@@ -1089,6 +1089,12 @@ addr	size	source	symbol	name	tag
 0x004aae10	11	src/xanim/xmodel.cpp	?XModelDataReadShort@@YAFPAPBE@Z	XModelDataReadShort	SUPPORTED
 0x004aae20	10	src/xanim/xmodel.cpp	?XModelDataReadInt@@YAHPAPBE@Z	XModelDataReadInt	SUPPORTED
 0x004aae30	23	src/xanim/xmodel.cpp	?XModelDataReadFloat@@YAMPAPBE@Z	XModelDataReadFloat	SUPPORTED
+0x004ab610	251	src/xanim/xmodel_load_obj.cpp	?XModelLoadConfigFile@@YA_NPBDPAPBEPAUXModelConfig@@@Z	XModelLoadConfigFile	SUPPORTED
+0x004ac3e0	80	src/xanim/xmodel_load_obj.cpp	?FUN_004ac3e0@@YAPAXPAUXModel@@PAHPAPBEP6APAXH@Z@Z	FUN_004ac3e0	PINNED
+0x004ac430	80	src/xanim/xmodel_load_obj.cpp	?FUN_004ac430@@YAPAUMaterial@@PAUXModel@@@Z	FUN_004ac430	PINNED
+0x004ac480	14	src/xanim/xmodel_load_obj.cpp	?FUN_004ac480@@YA_NXZ	FUN_004ac480	SUPPORTED
+0x004ac490	443	src/xanim/xmodel_load_obj.cpp	?FUN_004ac490@@YAXPAUXModel@@PAHPAPBEP6APAXH@ZPAPAUXSurface@@H@Z	FUN_004ac490	PINNED
+0x004ac9f0	352	src/xanim/xmodel_load_obj.cpp	?FUN_004ac9f0@@YAHPAY02$$CBMPAUXModel@@PAM2@Z	FUN_004ac9f0	PINNED
 0x004acb50	14	src/xanim/xmodel_utils.cpp	?XModelGetName@@YAPBDPBUXModel@@@Z	XModelGetName	SUPPORTED
 0x004acb60	14	src/xanim/xmodel_utils.cpp	?XModelGetFlags@@YADPBUXModel@@@Z	XModelGetFlags	SUPPORTED
 0x004acb70	191	src/xanim/xmodel_utils.cpp	?XModelGetSurfaceName@@YAPBDPBUXModel@@HH@Z	XModelGetSurfaceName	SUPPORTED

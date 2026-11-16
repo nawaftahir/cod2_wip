@@ -958,28 +958,28 @@ qboolean Hunk_DataOnHunk( void *data )
 
 
 
-const char *Hunk_SetDataForFile( int type, const char *name, void *data, void *(*alloc)(int) );
+const char *Hunk_SetDataForFile( int type, const char *name, void *data, void *(*alloc)(int) )
+{
+	unsigned int size;
+	fileData_s *fileData;
+	int hash;
+	hash = FS_HashFileName( name, FILEDATA_HASH_SIZE );
+	assert( !Hunk_FindDataForFileInternal( type, name, hash ) );
+	size = I_strlen( name ) + sizeof( fileData_t );
+	fileData = (fileData_s *)alloc( size );
+	fileData->data = data;
+	fileData->type = type;
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	assert( type == fileData->type );
+	strcpy( fileData->name, name );
+	fileData->next = com_fileDataHashTable[hash];
+	com_fileDataHashTable[hash] = fileData;
+	return fileData->name;
+}
 
 
 
