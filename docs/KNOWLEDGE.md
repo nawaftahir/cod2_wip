@@ -951,3 +951,8 @@ set by a later lowering stage, not by the list scheduler.
   -192 and now pops first). The new int c node (I80/24 and I3/32) adds one distinct node to blocks where `_p` is live and
   unreferenced (4 x 2). So any no-code change that adds 4 distinct-node units (weight 2) to `_p`-live blocks, or cuts `_p` by
   8, gives retail's colouring. Constants are nodes too: int-typed compares in m1 carry their own constant nodes.
+- PINNED (w29 11-16, per-block `_p` B diff base2 vs m1): the -8 is 3 blocks: the two digit-compare blocks go from 1 to 3 and 2
+  distinct nodes (B2 -> B6 / B4, weight 2) and one weight-1 block before the loop goes 25 -> 27. Reading: int-typed compares in a
+  loop make their constants ('0', '9') constant nodes, materialised before the loop and referenced in the compare blocks; byte
+  compares on a char use immediates and reference only the loaded temp. So retail needs two extra referenced nodes in those two
+  compare blocks while still emitting `cmp al,imm`.
