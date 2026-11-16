@@ -731,8 +731,8 @@ static int CL_ConsolePrint_AddLine(print_msg_type_t type, const char *txt, int d
             const char *q = p;
 
             letter = SEH_ReadCharFromString(&q, NULL);
-            if (letter == '^' && q && *q != '^' && *q >= '0' && *q <= '9') {
-                color = ColorIndex(*q);
+            if (letter == '^' && q && *q != '^' && (c = *(unsigned char *)q) >= '0' && c <= '9') {
+                color = ColorIndex(c);
                 p = q + 1;
                 continue;
             }
