@@ -947,3 +947,7 @@ set by a later lowering stage, not by the list scheduler.
   `*q != '^' && (c = *q) >= '0' && c <= '9'` + `ColorIndex(c)` (c = the function's int c). Residue: `movsx eax,al` + dword compares
   (+4 B) and one overflow store order. Not a flip: char/unsigned char locals (copy-propagated), c only in the colour arm, c only in
   the '^' compare, `(char)c` compares (m5). So the trigger is a dword-class node referenced in the two digit-compare blocks.
+- PINNED (w29 11-16, GAIN=2 m1 vs base2, ow_g2_m1.txt): m1 flips because `_p` drops -185 -> -193 in round 2 (charWidth stays
+  -192 and now pops first). The new int c node (I80/24 and I3/32) adds one distinct node to blocks where `_p` is live and
+  unreferenced (4 x 2). So any no-code change that adds 4 distinct-node units (weight 2) to `_p`-live blocks, or cuts `_p` by
+  8, gives retail's colouring. Constants are nodes too: int-typed compares in m1 carry their own constant nodes.
