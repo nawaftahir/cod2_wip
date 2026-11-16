@@ -553,6 +553,10 @@ addr	size	source	symbol	name	tag
 0x0047e170	114	src/universal/com_files.cpp	?FS_FileExists@@YAHPBD@Z	FS_FileExists	SUPPORTED
 0x0047e1f0	257	src/universal/com_files.cpp	?FS_Rename@@YAXPBD0@Z	FS_Rename	SUPPORTED
 0x0047e300	177	src/universal/com_files.cpp	?FS_FCloseFile@@YAXH@Z	FS_FCloseFile	SUPPORTED
+0x0047e3c0	103	src/universal/com_files.cpp	?FS_GetHandleAndOpenFile@@YAHPBD00W4FsThread@@@Z	FS_GetHandleAndOpenFile	SUPPORTED
+0x0047e430	173	src/universal/com_files.cpp	?FS_FOpenFileWrite@@YAHPBD@Z	FS_FOpenFileWrite	SUPPORTED
+0x0047e4e0	269	src/universal/com_files.cpp	?FS_FOpenTextFileWrite@@YAHPBD@Z	FS_FOpenTextFileWrite	SUPPORTED
+0x0047e5f0	258	src/universal/com_files.cpp	?FS_FOpenFileAppend@@YAHPBD@Z	FS_FOpenFileAppend	SUPPORTED
 0x0047e700	82	src/universal/com_files.cpp	?FS_FilenameCompare@@YAHPBD0@Z	FS_FilenameCompare	SUPPORTED
 0x0047e760	457	src/universal/com_files.cpp	?FS_FileCompare@@YAHPBD0@Z	FS_FileCompare	SUPPORTED
 0x0047e930	103	src/universal/com_files.cpp	?FS_ShiftedStrStr@@YAPADPBD0H@Z	FS_ShiftedStrStr	SUPPORTED
@@ -573,6 +577,7 @@ addr	size	source	symbol	name	tag
 0x0047fb10	119	src/universal/com_files.cpp	?FS_FreeFile@@YAXPAX@Z	FS_FreeFile	SUPPORTED
 0x0047fb90	245	src/universal/com_files.cpp	?FS_WriteFile@@YAHPBDPBXH@Z	FS_WriteFile	SUPPORTED
 0x0047fc90	300	src/universal/com_files.cpp	?FS_GetOSPath@@YAHPBDPAD@Z	FS_GetOSPath	PINNED
+0x0047fdc0	259	src/universal/com_files.cpp	?FS_OpenFileForWrite@@YAHPBD@Z	FS_OpenFileForWrite	PINNED
 0x00480380	92	src/universal/com_files.cpp	?FS_ReturnPath@@YAHPBDPADPAH@Z	FS_ReturnPath	SUPPORTED
 0x00480940	36	src/universal/com_files.cpp	?FS_ListFiles@@YAPAPADPBD0W4FsListBehavior@@PAHH@Z	FS_ListFiles	SUPPORTED
 0x00480970	30	src/universal/com_files.cpp	?FS_ListFilesOfDirType@@YAPAPADPBD0W4FsListBehavior@@PAHHH@Z	FS_ListFilesOfDirType	SUPPORTED
@@ -827,7 +832,7 @@ addr	size	source	symbol	name	tag
 0x0048f110	50	src/universal/dvar.cpp	?Dvar_GetReinterpretedResetValue@@YA?AUDvarValue@@PAUdvar_s@@U1@EGTDvarLimits@@@Z	Dvar_GetReinterpretedResetValue	PINNED
 0x0048f240	44	src/universal/dvar.cpp	?Dvar_UpdateRegistration@@YAXPAUdvar_s@@PBDEGUDvarValue@@TDvarLimits@@@Z	Dvar_UpdateRegistration	PINNED
 0x0048f280	36	src/universal/dvar.cpp	?Dvar_ClearLatchedValue@@YAXPAUdvar_s@@@Z	Dvar_ClearLatchedValue	SUPPORTED
-0x00490ba0	24	src/universal/dvar.cpp	?Dvar_SetFromString@@YAXPAUdvar_s@@PBD@Z	Dvar_SetFromString	SUPPORTED
+0x00490ba0	24	src/universal/dvar.cpp	?Dvar_SetBool@@YAXPAUdvar_s@@_N@Z	Dvar_SetBool	SUPPORTED
 0x004912a0	54	src/universal/dvar.cpp	?Dvar_SetCommand@@YAXPBD0@Z	Dvar_SetCommand	PINNED
 0x004912e0	155	src/universal/dvar.cpp	?Dvar_AddFlags@@YAXPAUdvar_s@@H@Z	Dvar_AddFlags	PINNED
 0x00491450	54	src/universal/dvar.cpp	?Dvar_AnyLatchedValues@@YA_NXZ	Dvar_AnyLatchedValues	SUPPORTED
@@ -899,6 +904,7 @@ addr	size	source	symbol	name	tag
 0x004963a0	19	src/universal/q_shared.cpp	?I_isdigit@@YA_NH@Z	I_isdigit	SUPPORTED
 0x004963c0	39	src/universal/q_shared.cpp	?I_isalnum@@YA_NH@Z	I_isalnum	SUPPORTED
 0x004963f0	49	src/universal/q_shared.cpp	?I_isforfilename@@YA_NH@Z	I_isforfilename	SUPPORTED
+0x00496430	245	src/universal/q_shared.cpp	?I_strncpyz@@YAXPADPBDH@Z	I_strncpyz	SUPPORTED
 0x00496530	83	src/universal/q_shared.cpp	?I_strnicmp@@YAHPBD0H@Z	I_strnicmp	SUPPORTED
 0x00496590	53	src/universal/q_shared.cpp	?I_strncmp@@YAHPBD0H@Z	I_strncmp	SUPPORTED
 0x004965d0	169	src/universal/q_shared.cpp	?I_stricmp@@YAHPBD0@Z	I_stricmp	SUPPORTED

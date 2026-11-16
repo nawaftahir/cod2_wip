@@ -521,9 +521,15 @@ bool I_isforfilename( int c )
 	return I_isalnum( c ) || c == '_' || c == '-';
 }
 
-/*
- * I_strncpyz (0x00496430) deferred: exposing it perturbs Dvar_SetFromString (0x00490ba0).
- */
+#line 546
+void I_strncpyz( char *dest, const char *src, int destsize )
+{
+	assert( src );
+	assert( dest );
+	assertMsg( ( destsize >= 1 ), "(destsize) = %i", destsize );
+	strncpy( dest, src, destsize - 1 );
+	dest[destsize - 1] = 0;
+}
 
 #line 478
 int I_strnicmp( const char *s0, const char *s1, int n )
@@ -654,13 +660,6 @@ int I_strncmp( const char *s0, const char *s1, int n )
 
 
 
-#line 614
-int I_strcmp( const char *s0, const char *s1 )
-{
-	assert( s0 );
-	assert( s1 );
-	return I_strncmp( s0, s1, 0x7FFFFFFF );
-}
 #line 606
 int I_stricmp( const char *s0, const char *s1 )
 {
@@ -668,6 +667,13 @@ int I_stricmp( const char *s0, const char *s1 )
 	assert( s1 );
 
 	return I_strnicmp( s0, s1, 0x7FFFFFFF );
+}
+#line 614
+int I_strcmp( const char *s0, const char *s1 )
+{
+	assert( s0 );
+	assert( s1 );
+	return I_strncmp( s0, s1, 0x7FFFFFFF );
 }
 
 // '*' matches any run of characters, '?' any single character
