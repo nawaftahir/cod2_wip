@@ -1350,9 +1350,10 @@
 {
 "name": "?CL_ConsolePrint_AddLine@@YAHW4print_msg_type_t@@PBDHHH@Z",
 "obj": "cl_console_mp.obj",
-"size": 2136,
-"hits": [],
-"reason": "no masked match"
+"size": 2132,
+"hits": [
+"0x404690"
+]
 },
 {
 "name": "?CL_ConsolePrint@@YAXW4print_msg_type_t@@PBDHH@Z",
