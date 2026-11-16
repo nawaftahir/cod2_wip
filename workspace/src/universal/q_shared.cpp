@@ -50,11 +50,37 @@ const char *Com_GetFilenameSubString( const char *pathname )
 	return last;
 }
 
+void Com_AssembleFilepath( const char *folder, const char *name, const char *extension, char *path, int maxCharCount )
+{
+	int folderLen;
+	int nameLen;
+	int extensionLen;
 
+#line 141
+	assert( folder );
+	assert( name );
+	assert( extension );
+	assert( path );
+	assert( maxCharCount > 0 );
+#line 67
 
+	folderLen = strlen( folder );
+	nameLen = strlen( name );
+	extensionLen = strlen( extension );
 
+	if ( folderLen + nameLen + extensionLen >= maxCharCount )
+	{
+		Com_Error( ERR_DROP, "filepath '%s%s%s' is longer than %i characters", folder, name, extension, maxCharCount - 1 );
+	}
 
+	memcpy( path, folder, folderLen );
+	path += folderLen;
+	memcpy( path, name, nameLen );
+	path += nameLen;
+	memcpy( path, extension, extensionLen + 1 );
+}
 
+#line 84
 
 
 
@@ -163,6 +189,10 @@ const char *Com_GetFilenameSubString( const char *pathname )
 
 
 
+
+
+
+#line 166
 const char *Com_GetExtensionSubString( const char *filename )
 {
 	const char *substr;
@@ -210,6 +240,29 @@ void Com_StripFilename( const char *in, char *out )
 	out[len] = 0;
 }
 
+/* DEFERRED: calls I_strncpyz (0x00496430) which perturbs Dvar_SetFromString.
+void Com_DefaultExtension( char *path, int maxSize, const char *extension )
+{
+	char oldPath[64];
+	const char *src;
+
+	src = path + strlen( path ) - 1;
+
+	while ( *src != '/' && src != path )
+	{
+		if ( *src == '.' )
+		{
+			return;
+		}
+		src--;
+	}
+
+	I_strncpyz( oldPath, path, sizeof( oldPath ) );
+	Com_sprintf( path, maxSize, "%s%s", oldPath, extension );
+}
+*/
+
+#line 213
 // byte order handlers, bound once by Swap_Init
 static short ( *_BigShort )( short l );
 static short ( *_LittleShort )( short l );
@@ -468,13 +521,11 @@ bool I_isforfilename( int c )
 	return I_isalnum( c ) || c == '_' || c == '-';
 }
 
-void I_strncpyz( char *dest, const char *src, int destsize );
+/*
+ * I_strncpyz (0x00496430) deferred: exposing it perturbs Dvar_SetFromString (0x00490ba0).
+ */
 
-
-
-
-
-
+#line 478
 int I_strnicmp( const char *s0, const char *s1, int n )
 {
 	int c0;
@@ -620,50 +671,50 @@ int I_stricmp( const char *s0, const char *s1 )
 }
 
 // '*' matches any run of characters, '?' any single character
+int I_stricmpwild( const char *wild, const char *s )
+{
+	char c;
+	int diff;
 
+#line 628
+	assert( wild );
+	assert( s );
+#line 631
 
+	while ( 1 )
+	{
+		c = *wild++;
+		if ( c == '*' )
+		{
+			if ( !*wild )
+			{
+				return 0;
+			}
+			if ( *s && !I_stricmpwild( wild - 1, s + 1 ) )
+			{
+				return 0;
+			}
+		}
+		else
+		{
+			char cs = *s++;
+			if ( c != cs && c != '?' )
+			{
+				diff = tolower( c ) - tolower( cs );
+				if ( diff )
+				{
+					return ( diff < 0 ) ? -1 : 1;
+				}
+			}
+			if ( !c )
+			{
+				return 0;
+			}
+		}
+	}
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#line 667
 char *I_strlwr( char *s )
 {
 	char *iter;
@@ -695,6 +746,25 @@ char *I_strupr( char *s )
 	return s;
 }
 
+/* DEFERRED: calls I_strncpyz (0x00496430) which perturbs Dvar_SetFromString.
+void I_strncat( char *dest, int size, const char *src )
+{
+	int l1;
+
+#line 695
+	assertMsg( size != sizeof( char * ), "%s", "Chances are really high that you passed in a sizeof( pointer )" );
+#line 706
+
+	l1 = strlen( dest );
+	if ( l1 >= size )
+	{
+		Com_Error( ERR_FATAL, "I_strncat: already overflowed" );
+	}
+	I_strncpyz( dest + l1, src, size - l1 );
+}
+*/
+
+#line 698
 // length without ^N color codes
 int I_DrawStrlen( const char *str )
 {
@@ -748,28 +818,53 @@ int Com_sprintf( char *dest, size_t size, const char *format, ... )
 }
 
 // false when the string lives on the current stack or in this thread's va() buffer
+static char g_vaBuffer[32000];
 
+qboolean CanKeepStringPointer( const char *string )
+{
+	int stackLocal;
 
+	if ( string >= (const char *)&stackLocal && string < (const char *)&stackLocal + 0x2000 )
+	{
+		return qfalse;
+	}
+	if ( string >= g_vaBuffer && string < &g_vaBuffer[sizeof( g_vaBuffer )] )
+	{
+		return qfalse;
+	}
+	return qtrue;
+}
 
+char *va( const char *format, ... )
+{
+	static int index = 0;
+	static char temp[32000];
+	va_list argptr;
+	int len;
+	char *buf;
 
+	va_start( argptr, format );
+	len = _vsnprintf( temp, sizeof( temp ), format, argptr );
+	va_end( argptr );
+	temp[sizeof( temp ) - 1] = 0;
 
+	if ( len < 0 || len >= (int)sizeof( temp ) )
+	{
+		Com_Error( ERR_DROP, "Attempted to overrun string in call to va()\n" );
+	}
 
+	if ( index + len >= (int)sizeof( g_vaBuffer ) - 1 )
+	{
+		index = 0;
+	}
 
+	buf = &g_vaBuffer[index];
+	memcpy( buf, temp, len + 1 );
+	index += len + 1;
+	return buf;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-char *va( const char *format, ... );
-
+#line 773
 // narrows a little-endian UTF-16 string, keeping the high byte of each unit
 void Com_WideToNarrow( const char *in, char *out, int len )
 {
@@ -1052,230 +1147,181 @@ qboolean Info_Validate( const char *s )
 }
 
 // changes or adds a key/value pair
-void Info_SetValueForKey( char *s, const char *key, const char *value );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void Info_SetValueForKey( char *s, const char *key, const char *value )
+{
+	char newi[MAX_INFO_STRING];
+	char cleanValue[MAX_INFO_STRING];
+	int i;
+	int j;
+	int len;
+	char c;
+
+#line 1196
+	assert( value );
+#line 1067
+
+	if ( strlen( s ) >= MAX_INFO_STRING )
+	{
+		Com_Printf( "Info_SetValueForKey: oversize infostring" );
+		return;
+	}
+
+	j = 0;
+
+	for ( i = 0; i < MAX_INFO_STRING - 1; i++ )
+	{
+		c = value[i];
+
+		if ( !c )
+		{
+			break;
+		}
+
+		if ( c != '\\' && c != ';' && c != '\"' )
+		{
+#line 1212
+			assert( j < MAX_INFO_STRING );
+#line 1089
+			cleanValue[j] = c;
+			j++;
+		}
+	}
+
+#line 1217
+	assert( j < MAX_INFO_STRING );
+#line 1096
+	cleanValue[j] = 0;
+
+	if ( strchr( key, '\\' ) )
+	{
+		Com_Printf( "Can't use keys with a \\\nkey: '%s'\nvalue: '%s'", key, value );
+		return;
+	}
+
+	if ( strchr( key, ';' ) )
+	{
+		Com_Printf( "Can't use keys with a semicolon\nkey: '%s'\nvalue: '%s'", key, value );
+		return;
+	}
+
+	if ( strchr( key, '\"' ) )
+	{
+		Com_Printf( "Can't use keys with a \"\nkey: '%s'\nvalue: '%s'", key, value );
+		return;
+	}
+
+	Info_RemoveKey( s, key );
+
+	if ( !cleanValue[0] )
+	{
+		return;
+	}
+
+	len = Com_sprintf( newi, sizeof( newi ), "\\%s\\%s", key, cleanValue );
+
+	if ( len <= 0 )
+	{
+		Com_Printf( "Info buffer length exceeded, not including key/value pair in response\n" );
+		return;
+	}
+
+	if ( strlen( newi ) + strlen( s ) > MAX_INFO_STRING )
+	{
+		Com_Printf( "Info string length exceeded\nkey: '%s'\nvalue: '%s'\nInfo string:\n%s\n", key, value, s );
+		return;
+	}
+
+	strcat( s, newi );
+}
+
+void Info_SetValueForKey_Big( char *s, const char *key, const char *value )
+{
+	char newi[BIG_INFO_STRING];
+	char cleanValue[BIG_INFO_STRING];
+	int i;
+	int j;
+	int len;
+	char c;
+
+#line 1276
+	assert( value );
+#line 1150
+
+	if ( strlen( s ) >= BIG_INFO_STRING )
+	{
+		Com_Printf( "Info_SetValueForKey: oversize infostring" );
+		return;
+	}
+
+	j = 0;
+
+	for ( i = 0; i < BIG_INFO_STRING - 1; i++ )
+	{
+		c = value[i];
+
+		if ( !c )
+		{
+			break;
+		}
+
+		if ( c != '\\' && c != ';' && c != '\"' )
+		{
+#line 1292
+			assert( j < BIG_INFO_STRING );
+#line 1172
+			cleanValue[j] = c;
+			j++;
+		}
+	}
+
+#line 1297
+	assert( j < BIG_INFO_STRING );
+#line 1179
+	cleanValue[j] = 0;
+
+	if ( strchr( key, '\\' ) )
+	{
+		Com_Printf( "Can't use keys with a \\\nkey: '%s'\nvalue: '%s'", key, value );
+		return;
+	}
+
+	if ( strchr( key, ';' ) )
+	{
+		Com_Printf( "Can't use keys with a semicolon\nkey: '%s'\nvalue: '%s'", key, value );
+		return;
+	}
+
+	if ( strchr( key, '\"' ) )
+	{
+		Com_Printf( "Can't use keys with a \"\nkey: '%s'\nvalue: '%s'", key, value );
+		return;
+	}
+
+	Info_RemoveKey_Big( s, key );
+
+	if ( !cleanValue[0] )
+	{
+		return;
+	}
+
+	len = Com_sprintf( newi, sizeof( newi ), "\\%s\\%s", key, cleanValue );
+
+	if ( len <= 0 )
+	{
+		Com_Printf( "Info buffer length exceeded, not including key/value pair in response\n" );
+		return;
+	}
+
+	if ( strlen( newi ) + strlen( s ) > MAX_INFO_STRING )
+	{
+		Com_Printf( "Info string length exceeded\nkey: '%s'\nvalue: '%s'\nInfo string:\n%s\n", key, value, s );
+		return;
+	}
+
+	strcat( s, newi );
+}
+
+#line 1282
 
 
 
@@ -1403,96 +1449,89 @@ void OrientationDirToLocal( const orientation_t *orient, const float *dir, float
 // Unreferenced storage; original declarations unknown (sized from the layout).
 static int unusedStorage[2];
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* DEFERRED: calls I_strncpyz (0x00496430) which perturbs Dvar_SetFromString.
+qboolean ParseConfigStringToStruct( unsigned char *pStruct, const cspField_t *pFieldList, int iNumFields, const char *pszBuffer, int iMaxFieldTypes,
+                                    int ( *parseSpecialFieldType )( unsigned char *, const char *, const int ), void ( *parseStrCpy )( unsigned char *, const char * ) )
+{
+	int iField;
+	const char *pszKeyValue;
+	const cspField_t *pField;
+
+	for ( iField = 0, pField = pFieldList; iField < iNumFields; iField++, pField++ )
+	{
+		pszKeyValue = Info_ValueForKey( pszBuffer, pField->szName );
+		if ( !*pszKeyValue )
+		{
+			continue;
+		}
+		if ( pField->iFieldType < CSPFT_NUM_BASE_FIELD_TYPES )
+		{
+			switch ( pField->iFieldType )
+			{
+			case CSPFT_STRING:
+				parseStrCpy( &pStruct[pField->iOffset], pszKeyValue );
+				break;
+			case CSPFT_STRING_MAX_STRING_CHARS:
+				I_strncpyz( (char *)&pStruct[pField->iOffset], pszKeyValue, MAX_STRING_CHARS );
+				break;
+			case CSPFT_STRING_MAX_QPATH:
+				I_strncpyz( (char *)&pStruct[pField->iOffset], pszKeyValue, MAX_QPATH );
+				break;
+			case CSPFT_STRING_MAX_OSPATH:
+				I_strncpyz( (char *)&pStruct[pField->iOffset], pszKeyValue, MAX_OSPATH );
+				break;
+			case CSPFT_INT:
+				*(int *)&pStruct[pField->iOffset] = atoi( pszKeyValue );
+				break;
+			case CSPFT_QBOOLEAN:
+				*(qboolean *)&pStruct[pField->iOffset] = atoi( pszKeyValue ) != 0;
+				break;
+			case CSPFT_FLOAT:
+				*(float *)&pStruct[pField->iOffset] = atof( pszKeyValue );
+				break;
+			case CSPFT_MILLISECONDS:
+				*(int *)&pStruct[pField->iOffset] = (float)atof( pszKeyValue ) * 1000.0f;
+				break;
+			default:
+				if ( pField->iFieldType < 0 )
+				{
+#line 1391
+					assertFail( 0, "Negative field type %i given to ParseConfigStringToStruct\n", pField->iFieldType );
+				}
+				else
+				{
+#line 1393
+					assertFailMsg( 0, "ParseConfigStringToStruct is out of sync with the csParseFieldType_t enum list\n" );
+				}
+				break;
+			}
+		}
+		else if ( iMaxFieldTypes > 0 && pField->iFieldType < iMaxFieldTypes )
+		{
+#line 1398
+			assert( parseSpecialFieldType != NULL );
+			if ( !parseSpecialFieldType( pStruct, pszKeyValue, pField->iFieldType ) )
+			{
+				return qfalse;
+			}
+		}
+		else
+		{
+#line 1404
+			assertFail( 0, "Bad field type %i\n", pField->iFieldType );
+#line 1465
+			Com_Error( ERR_DROP, "Bad field type %i\n", pField->iFieldType );
+		}
+	}
+	if ( iField != iNumFields )
+	{
+		return qfalse;
+	}
+	return qtrue;
+}
+*/
+
+#line 1488
 
 
 
@@ -1547,19 +1586,19 @@ void OrientationDirToLocal( const orientation_t *orient, const float *dir, float
 	out[2] = dir[0]*orient->axis[2][0] + dir[1]*orient->axis[2][1] + dir[2]*orient->axis[2][2];
 }
 
+void OrientationConcatenate( const orientation_t *orFirst, const orientation_t *orSecond, orientation_t *out )
+{
+#line 1545
+	assert( out != orFirst );
+	assert( out != orSecond );
+#line 1554
+	OrientationDirToWorld( orSecond, orFirst->axis[0], out->axis[0] );
+	OrientationDirToWorld( orSecond, orFirst->axis[1], out->axis[1] );
+	OrientationDirToWorld( orSecond, orFirst->axis[2], out->axis[2] );
+	OrientationPosToWorld( orSecond, orFirst->origin, out->origin );
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+#line 1555
 void OrientationPlaneToLocal( const orientation_t *orient, const float *plane, float *out )
 {
 	assert(plane != out);
@@ -1567,16 +1606,19 @@ void OrientationPlaneToLocal( const orientation_t *orient, const float *plane, f
 	out[3] = plane[3] - (orient->origin[0] * plane[0] + orient->origin[1] * plane[1] + orient->origin[2] * plane[2]);
 }
 
+/* DEFERRED 0x00497b30 (158B): 3/3 tries mismatched at +0x46 (axis[0]*pos[0] vs axis[2]*pos[2] order)
+void OrientationPosToWorldScaled( const orientation_t *orient, const float *pos, float scale, float *out )
+{
+#line 1565
+	assert( pos != out );
+#line 1578
+	out[0] = scale * ( orient->axis[0][0] * pos[0] + orient->axis[1][0] * pos[1] + orient->axis[2][0] * pos[2] ) + orient->origin[0];
+	out[1] = scale * ( orient->axis[0][1] * pos[0] + orient->axis[1][1] * pos[1] + orient->axis[2][1] * pos[2] ) + orient->origin[1];
+	out[2] = scale * ( orient->axis[0][2] * pos[0] + orient->axis[1][2] * pos[1] + orient->axis[2][2] * pos[2] ) + orient->origin[2];
+}
+*/
 
-
-
-
-
-
-
-
-
-
+#line 1572
 void OrientationPlaneToWorldScaled( const orientation_t *orient, const float *plane, float scale, float *out )
 {
 	assert(plane != out);

@@ -94,9 +94,6 @@ extern float dword_1128DC4;
 extern int DAT_011298b0;
 static int g_nFaceCycle = 0;
 
-extern float DAT_0109c500[];
-extern float DAT_0109c514[];
-
 void BuildTextureVecs(const vec3_t normal, const vec2_t scale, const vec2_t shift, float rotate, float skew, vec4_t texVecs[2]);
 void FUN_00421150(mesh_t *m);
 int FUN_00421500(mesh_t *m, vec3_t normal);
@@ -891,12 +888,113 @@ float FUN_0042b6d0(int unused1, int unused2,
     return factor * scale + offset;
 }
 
-// Retail 0x0042b760, 45 B. Address-taken callback MATCH.
-float FUN_0042b760(int unused1, int index, float offset, int unused2, float scale)
+static float g_patchAccumWeights[5];
+static float g_patchAccumVals[5];
+
+// Retail 0x0042b760, 45 B: weighted control-point accumulator callback (5 components).
+float FUN_0042b760(int unused1, int index, float value, int unused2, float weight)
 {
-    DAT_0109c514[index] += offset * scale;
-    DAT_0109c500[index] += scale;
-    return offset;
+    g_patchAccumVals[index] += value * weight;
+    g_patchAccumWeights[index] += weight;
+    return value;
+}
+
+struct patch_eclass_t { unsigned char pad[8]; int fixedsize; };
+struct patch_entity_def_t { unsigned char pad[0x50]; patch_eclass_t *eclass; };
+struct entity_s { unsigned char pad[8]; patch_entity_def_t *def; };
+struct patch_t { patchMesh_t *def; };
+struct selbrush_t
+{
+    selbrush_t *prev;
+    selbrush_t *next;
+    entity_s *owner;
+    unsigned char pad0[8];
+    brush_t *def;
+    int faceCount;
+    unsigned char pad1[4];
+    patch_t *patch;
+    unsigned char pad2[2];
+    unsigned char hiddenBrush;
+};
+
+struct CPatchBendXYProjection
+{
+    unsigned char pad[0xf4];
+    int m_nViewType;
+};
+
+struct CPatchBendMainProjection
+{
+    unsigned char pad[0x7e0];
+    CPatchBendXYProjection *m_pActiveXY;
+};
+
+class CMainFrame;
+extern CMainFrame *g_pParentWnd;
+extern selbrush_t selected_brushes;
+extern CPtrArray g_ptrSelectedFaces;
+extern void Sys_Printf(const char *fmt, ...);
+extern vec3_t g_vRotateOrigin;
+static vec3_t g_vBendOrigin;
+
+bool OnlyPatchesSelected()
+{
+    if (g_ptrSelectedFaces.GetSize() > 0 || selected_brushes.next == &selected_brushes)
+        return false;
+    for (selbrush_t *pb = selected_brushes.next; pb != &selected_brushes; pb = pb->next)
+    {
+        if (!pb->patch)
+            return false;
+    }
+    return true;
+}
+
+bool AnyPatchesSelected()
+{
+    for (selbrush_t *pb = selected_brushes.next; pb != &selected_brushes; pb = pb->next)
+    {
+        if (pb->patch)
+            return true;
+    }
+    return false;
+}
+
+static bool QE_SingleBrush_Pmesh(bool bQuiet = false)
+{
+    if (selected_brushes.next == &selected_brushes || selected_brushes.next->next != &selected_brushes)
+    {
+        if (!bQuiet)
+            Sys_Printf("Error: you must have a single brush selected\n");
+        return false;
+    }
+    if (selected_brushes.next->owner->def->eclass->fixedsize)
+    {
+        if (!bQuiet)
+            Sys_Printf("Error: you cannot manipulate fixed size entities\n");
+        return false;
+    }
+    return true;
+}
+
+patchMesh_t *SinglePatchSelected()
+{
+    if (QE_SingleBrush_Pmesh(false))
+    {
+        selbrush_t *b = selected_brushes.next;
+        if (b->patch)
+            return b->patch->def;
+    }
+    return NULL;
+}
+
+void Patch_SetBendRotateOrigin()
+{
+    int nType = reinterpret_cast<const CPatchBendMainProjection *>(g_pParentWnd)->m_pActiveXY->m_nViewType;
+    int nDim3 = (nType == 2) ? 2 : (nType == 0) ? 0 : 1;
+    g_vBendOrigin[nDim3] = 0.0f;
+    g_vRotateOrigin[0] = g_vBendOrigin[0];
+    g_vRotateOrigin[1] = g_vBendOrigin[1];
+    g_vRotateOrigin[2] = g_vBendOrigin[2];
 }
 
 // Retail one-byte RET bodies verified with MSVC 7.1. Original entry-point ownership/signatures remain provisional.

@@ -100,14 +100,17 @@ ID_INLINE mat3_t::mat3_t( const float xx, const float xy, const float xz, const 
 }
 
 ID_INLINE idVec3_t mat3_t::operator[]( int index ) const {
+#line 105
 	assert( ( index >= 0 ) && ( index < 3 ) );
 	return mat[ index ];
 }
 
 ID_INLINE idVec3_t& mat3_t::operator[]( int index ) {
+#line 110
 	assert( ( index >= 0 ) && ( index < 3 ) );
 	return mat[ index ];
 }
+#line 111
 
 ID_INLINE idVec3_t mat3_t::operator*( const idVec3_t &vec ) const {
 	return idVec3_t( 

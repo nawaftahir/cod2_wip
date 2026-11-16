@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define __MATH_ANGLES_H__
 
 #include <stdlib.h>
-#include <assert.h>
+#include "../assertive.h"
 
 #include "math_vector.h"
 

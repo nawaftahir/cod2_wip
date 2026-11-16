@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #ifndef __MATH_QUATERNION_H__
 #define __MATH_QUATERNION_H__
 
-#include <assert.h>
+#include "../assertive.h"
 #include <math.h>
 
 class idVec3_t;
@@ -86,14 +86,17 @@ inline float *quat_t::vec4( void ) {
 }
 
 inline float quat_t::operator[]( int index ) const {
+#line 77
 	assert( ( index >= 0 ) && ( index < 4 ) );
 	return ( &x )[ index ];
 }
 
 inline float& quat_t::operator[]( int index ) {
+#line 82
 	assert( ( index >= 0 ) && ( index < 4 ) );
 	return ( &x )[ index ];
 }
+#line 97
 
 inline void quat_t::set( float x, float y, float z, float w ) {
 	this->x = x;

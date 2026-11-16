@@ -3182,7 +3182,7 @@ addr	size	tu	evidence
 0x00496e30	35	src/universal/q_shared.cpp	SUPPORTED
 0x00496e60	711	src/universal/q_shared.cpp	PINNED
 0x00497130	711	src/universal/q_shared.cpp	PINNED
-0x00497400	761	src/universal/q_shared.cpp	PINNED
+0x00497400	760	src/universal/q_shared.cpp	PINNED
 0x00497700	145	src/universal/q_shared.cpp	PINNED
 0x004977a0	137	src/universal/q_shared.cpp	PINNED
 0x00497830	109	src/universal/q_shared.cpp	PINNED

@@ -3,9 +3,9 @@
 extern "C" {
 __declspec(dllimport) void __stdcall DebugBreak(void);
 int AssertFailed(const char *expr, const char *file, int line, int a4, int a5);
-char *va(const char *format, ...);
 void *SL_GetString(unsigned int stringValue);
 }
+char *va(const char *format, ...);
 
 const char *SL_ConvertToString(unsigned int stringValue);
 

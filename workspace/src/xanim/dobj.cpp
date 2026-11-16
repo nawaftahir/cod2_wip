@@ -23,6 +23,15 @@ void DObjInit()
 	g_empty = SL_GetStringOfLen((const char *)duplicatePartBits, 0, 17, 12);
 }
 
+void DObjShutdown()
+{
+	if ( g_empty )
+	{
+		SL_RemoveRefToStringOfLen(g_empty, 17);
+		g_empty = 0;
+	}
+}
+
 void DObjAbort()
 {
 	g_empty = 0;
@@ -149,6 +158,22 @@ void DObjSetTree(DObj_s *obj, XAnimTree_s *tree)
 	}
 
 	*parent = childInfoIndex;
+}
+
+void DObjClone(const DObj_s *from, XAnimTree_s *tree, DObj_s *obj)
+{
+	DObj_s *to;
+
+#line 1126
+	assert(obj);
+	to = obj;
+	*to = *from;
+	to->skel = 0;
+
+	if ( to->duplicateParts && to->duplicateParts != g_empty )
+		SL_AddRefToString(to->duplicateParts);
+
+	DObjSetTree(to, tree);
 }
 
 void DObjGetCreateParms(const DObj_s *obj, DObjModel_s *dobjModels, unsigned short *numModels, XAnimTree_s **tree, unsigned short *entnum)
