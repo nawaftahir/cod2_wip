@@ -28,6 +28,26 @@ emit-order warnings 18. FILE LEDGER 7 VERIFIED / 102 (audited set; other src/ fi
   in NameDlg) because those users do not exist yet. Fix: class in a header, write the user function in
   the earlier file. Not linker ICF: 46 duplicate groups in retail are raw-byte identical and kept apart.
 
+## 2026-11-17 state (clean gate after lane rounds 1+2)
+1219/3582 = 34.03% game functions, 19.90% game bytes (139,256 B), same-offset 1.776%, emit-order 14, 0 failing.
+- Round 1 merged: MainFrm +52 (bodies now in retail order), scr_stringlist +26, com_files +2.
+- Round 2 merged: I_strncpyz + 5 FS callers + Dvar_SetBool row fix (a2), com_math +13 via x87 asm helpers
+  in com_math.h (b3), xmodel_load_obj +6 (d2). 21 stale defer rows dropped.
+- REFEREE CHANGE (announce): tools/verify.py banned_sources() now skips com_math.h, the one file allowed to
+  hold the owner-approved x87 asm helpers (CLAUDE.md exception 2026-11-16).
+- Not merged: radiant/claude-a (dvar, evidence-free defers), radiant/claude-b (defer-only), claude-c splines
+  draft (unverified).
+- Lane brief for workers: workspace/drafts/LANE_BRIEF.md.
+- Next blockers, by payoff:
+  1. Hunk_SetDataForFile 0x48a170: retail takes type in eax and name in esi. Blocks 6 xmodel rows.
+  2. AngleNormalize180 0x487300: inlined in ours, called in retail. Blocks AngleDelta, LinearTrackAngle,
+     DiffTrackAngle.
+  3. CopyStringInternal 0x489dd0: inlined only into FS_AddFileToList. Link order is untested.
+  4. splines idList/idStr register helpers: do them together with their callers.
+- Untouched engine TUs with a CoD2rev source: scr_memorytree (16), assertive (~26), q_parse, com_shared.
+  Also the q_shared DEFERRED blocks (Com_DefaultExtension, I_strncat, ParseConfigStringToStruct), now
+  unblocked by I_strncpyz.
+
 ## x87 helpers (PINNED 2026-11-16, ~/cltest/t.c compiled in cod2-radiant-msvc71)
 MSVC 7.1 never emits `fsincos` from C: `/O2 /Oy- /Op` gives `_sin`/`_cos` + `_ftol2`; without /Op it gives
 separate `fsin` + `fcos`; `/QIfist` turns `_ftol2` into `fistp`. Retail com_math/dvar have single
