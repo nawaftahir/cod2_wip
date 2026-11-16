@@ -407,3 +407,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | FX_CalcOriginAndAxis swap sweep (w29, 11-15, gsw2.py, lab base 1380/1472) | every adjacent simple-statement pair | no gain |
 | Distance-1/2 swap sweep (w29, 11-16, gsw3.py) | AddLine (d2), Cursorhint (d2), CG_FireWeapon (d1,d2), StartWeaponAnim (d1,d2) | no gain |
 | psweep13 `((rhs))` (w29, 11-16) | CG_DrawGrenadePointer 1436-1468, CG_CalcCrosshairPosition 778-827, VM_Notify 2834-3079 | no variant below base diff lines (GP 2, CR 12, VM 7) |
+| CL_ConsolePrint_AddLine w29 (11-16, 6 labs) | f1 `charWidth &&` / f2 `charWidth >= 0` dead tests (DIAG only, 2144 B); f3 `curWidth = charWidth - charWidth`; g1/g2 chained zero stores; g3 `curWidth - curWidth` | f1/f2 flip the colour but grow the fn; f3/g1-g3 folded, byte-identical. KNOWLEDGE e1 |
