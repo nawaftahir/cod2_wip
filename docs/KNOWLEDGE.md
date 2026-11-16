@@ -925,3 +925,13 @@ set by a later lowering stage, not by the list scheduler.
   numbers, and dead reads number objects. Three dead reads `forward = cg->refdef.viewaxis[k][2];` (k = 0,1,2) at the top give
   retail's p1, p2, p0 order with every role right; one or two of them, or direct `gunDir[k]` writes, flip a role instead
   (labs d1-d16 in /home/nawaf/w29/cr_d*.txt). Pair order: the pair whose axis element is numbered later is emitted first.
+- PINNED (w29 11-16, GAIN=2 opwalk base vs lab e1, /home/nawaf/w29/ow_g2_{base,e1}.txt): the w21 bound ("charWidth needs n3 > -157 in
+  round 1") is WRONG. Round 1 is identical in both (targetLineWidth -157 ends it, charWidth stays in the list). The flip happens in
+  ROUND 2: charWidth node 06852448 keeps its list entry, base n3 -192 vs `_p` (06686bc0) -185, so `_p` pops first and empties it;
+  e1 has charWidth -166 vs `_p` -189, charWidth pops (P ffffff5a) and takes ebp. Gap to close in base: 8 (charWidth +8 or `_p` -8).
+  Per extra distinct node in a weight-2 block: +2*refs for a node referenced there, -2 for a node live there unreferenced.
+- LEAD (w29 11-16, lab v2): `color = ColorIndex(p[1]);` (same value as `*q`) in the Asian colour-code arm flips the colouring to
+  retail's over the whole back half (core charWidth/zero hunk, overflow imm 0 and store order all match; 676 = 676 insns). The only
+  residue is the FIRST inlined ReadChar: `p[1]` is CSE'd with its second-byte read (ours `movzx ecx,[ebx+1]`, retail reads via q:
+  `lea eax,[ebx+1]; mov [esp+0x10],eax; movzx eax,[eax]`), which shifts bytes (fb 435/2132). So the flip is reachable from the
+  colour-arm/first-ReadChar region; retail keeps the q read there. Variants that keep the q read (z1-z4, w1-w3, x2, q1) do not flip.
