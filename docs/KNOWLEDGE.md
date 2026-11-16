@@ -966,3 +966,9 @@ set by a later lowering stage, not by the list scheduler.
   `unsigned int`; the colour test is the plain `*q` byte form, `letter > 0xff` and `letter >> 8` carry `(unsigned int)` casts.
   The int type alone gave retail's whole regalloc. SUPERSEDES the z1 int-digit lead and the "-8 on _p" hunt above.
   Lesson: when a near-match needs a register flip, check local TYPES against sibling functions with the same idiom first.
+- PINNED (w29, 11-16, tools/declmv13.py on fresh dfs13 ord.txt): offline DFS replay (roots = observed D-root order, each node's
+  edges in D/T/C log order) reproduces all 261 cuts; with peel13's symlist it gives every fn's pass. Com_ErrorCleanup fix in the model
+  needs exactly one extra cut, SEH_StringEd_SetLanguageStrings -> Com_Error (then SetLS p12, UpdLI p16, ErrorCleanup p56, 3 fns move,
+  nothing else). That cut needs SetLS first reached inside Com_Error's DFS subtree; ours reaches it from root CL_WWWDownload
+  (CL_NextDownload > CL_DownloadsComplete > FS_Restart > SEH_UpdateLanguageInfo), and Com_Error from root UI_LoadArenas
+  (String_Alloc > Hunk_AllocAlignInternal). Single TU decl moves give at most 2 of 3 targets at >= 39 pass changes (gate -1.38 M).
