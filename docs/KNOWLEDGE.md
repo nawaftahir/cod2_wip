@@ -939,3 +939,7 @@ set by a later lowering stage, not by the list scheduler.
   three "moved" round-1 nodes were an artifact (fresh base already has -312/-288/-256). Round-2 model stands: e1 wins round 2
   (charWidth -166 > `_p` -189). v2 has round 1 and 2 equal to base; the only difference is one extra pop `P78/24` in round 3,
   where the charWidth piece then gets its colour. Always rebuild the lab obj before an opwalk run.
+- PINNED (w29 11-16, c2 disasm 0x107828c2..0x1078292d): in the n3 walk, [n+0x18] is the node's reference count IN THE CURRENT BLOCK
+  (read, multiplied by edx, then zeroed at 0x1078292d); edx = (entries on the block's referenced-node list) x block weight. So a node
+  gains refs x distinct x weight per block. For AddLine round 2 one more charWidth ref in its def block (+12) or use block (+14)
+  would close the 8-point gap to `_p`.
