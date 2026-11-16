@@ -36,8 +36,8 @@ for cls,ctor,getter,tv,helper,end,count in (
  ('CTextureLayout',0x43f710,0x43f830,0x548ec4,0x43f7a0,0x43f8a0,5),
 ):
     shared=('?SetRange@CSpinButtonCtrl@@QAEXFF@Z','??0CSpinButtonCtrl@@QAE@XZ','??_GCSpinButtonCtrl@@UAEPAXI@Z','??_ECSpinButtonCtrl@@UAEPAXI@Z') if cls=='CTextureLayout' else ()
-    # retail emits ~CDlgEvent after its first user, dlgcamera OnBtnAddevent
-    dialog(cls,ctor,getter,tv,helper,end,count,shared,allow_generated_elsewhere=cls=='CDlgEvent')
+    # retail emits these dtors after their first user (dlgcamera, PatchDialog)
+    dialog(cls,ctor,getter,tv,helper,end,count,shared,allow_generated_elsewhere=cls in ('CDlgEvent','CTextureLayout'))
     scalar,_=v.matcher.carve(hex(helper));calls=v.masks(scalar,helper)[1]
     dt=calls[min(calls)];symbol='??1'+cls+'@@UAE@XZ'
     status,detail=v.check(img,hex(dt),symbol,names)
