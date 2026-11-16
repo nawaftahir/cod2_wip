@@ -716,7 +716,7 @@ static int CL_ConsolePrint_AddLine(print_msg_type_t type, const char *txt, int d
         FontHandle font;
         int curWidth;
         int charWidth;
-        unsigned int letter;
+        int letter;
 
         if (type == PMSG_SUBTITLE)
             charHeight = (float)cg_subtitleCharHeight->current.integer;
@@ -731,8 +731,8 @@ static int CL_ConsolePrint_AddLine(print_msg_type_t type, const char *txt, int d
             const char *q = p;
 
             letter = SEH_ReadCharFromString(&q, NULL);
-            if (letter == '^' && q && *q != '^' && (c = *(unsigned char *)q) >= '0' && c <= '9') {
-                color = ColorIndex(c);
+            if (letter == '^' && q && *q != '^' && *q >= '0' && *q <= '9') {
+                color = ColorIndex(*q);
                 p = q + 1;
                 continue;
             }
@@ -746,7 +746,7 @@ static int CL_ConsolePrint_AddLine(print_msg_type_t type, const char *txt, int d
                     charWidth = re.TextWidth(s, 1, font);
 
                     letter = SEH_ReadCharFromString(&s, NULL);
-                    if ((int)letter <= ' ')
+                    if (letter <= ' ')
                         break;
                     off++;
                     w += charWidth;
@@ -777,14 +777,14 @@ static int CL_ConsolePrint_AddLine(print_msg_type_t type, const char *txt, int d
                 if (!con.lineOffset && letter == ' ' && lineBroken)
                     break;
                 line = con.currentLine % con.totallines;
-                if (letter > 0xff) {
+                if ((unsigned int)letter > 0xff) {
                     if (con.lineOffset + 1 >= con.linewidth) {
                         Con_Linefeed(type, duration);
                         line = con.currentLine % con.totallines;
                         lineBroken = 1;
                         curWidth = 0;
                     }
-                    con.textBuffer[line * con.linewidth + con.lineOffset] = (short)((color << 8) | (letter >> 8));
+                    con.textBuffer[line * con.linewidth + con.lineOffset] = (short)((color << 8) | ((unsigned int)letter >> 8));
                     con.lineOffset++;
                     letter &= 0xff;
                 }
