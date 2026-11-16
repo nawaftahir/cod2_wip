@@ -943,3 +943,7 @@ set by a later lowering stage, not by the list scheduler.
   (read, multiplied by edx, then zeroed at 0x1078292d); edx = (entries on the block's referenced-node list) x block weight. So a node
   gains refs x distinct x weight per block. For AddLine round 2 one more charWidth ref in its def block (+12) or use block (+14)
   would close the 8-point gap to `_p`.
+- LEAD (w29 11-16, lab m1): an `int` holding the colour digit flips AddLine to retail colouring without touching the first ReadChar:
+  `*q != '^' && (c = *q) >= '0' && c <= '9'` + `ColorIndex(c)` (c = the function's int c). Residue: `movsx eax,al` + dword compares
+  (+4 B) and one overflow store order. Not a flip: char/unsigned char locals (copy-propagated), c only in the colour arm, c only in
+  the '^' compare, `(char)c` compares (m5). So the trigger is a dword-class node referenced in the two digit-compare blocks.
