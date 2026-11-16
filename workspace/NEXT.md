@@ -28,6 +28,13 @@ emit-order warnings 18. FILE LEDGER 7 VERIFIED / 102 (audited set; other src/ fi
   in NameDlg) because those users do not exist yet. Fix: class in a header, write the user function in
   the earlier file. Not linker ICF: 46 duplicate groups in retail are raw-byte identical and kept apart.
 
+## x87 helpers (PINNED 2026-11-16, ~/cltest/t.c compiled in cod2-radiant-msvc71)
+MSVC 7.1 never emits `fsincos` from C: `/O2 /Oy- /Op` gives `_sin`/`_cos` + `_ftol2`; without /Op it gives
+separate `fsin` + `fcos`; `/QIfist` turns `_ftol2` into `fistp`. Retail com_math/dvar have single
+`fsincos` and bare `fistp`, so the original used inline asm helpers (opencod1 g_debug_mp.c documents the same
+for `fistp`). Blocks ~20 com_math + 3 dvar rows. Needs the owner to amend the CLAUDE.md "no asm" rule for
+these helpers only (proposed text in the 11-16 session report); agents may not edit CLAUDE.md.
+
 ## Order of work
 1. **NameDlg + DlgEvent via dlgcamera:** **DONE** (`CDlgCamera` in `workspace/src/radiant/dlgcamera.{h,cpp}`,
    `0x409be0` / `0x40a790` / `0x40a8e0` matched; `NameDlg.cpp` + `DlgEvent.cpp` + headers verified with
