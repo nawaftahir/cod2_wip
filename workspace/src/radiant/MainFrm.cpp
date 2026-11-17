@@ -1,11 +1,8 @@
 #include "stdafx.h"
 #include "FindTextureDlg.h"
 #include "PrefsDlg.h"
-<<<<<<< HEAD
 #include "../universal/assertive.h"
-=======
 #include <math.h>
->>>>>>> radiant/lane-a-r13
 
 // Bodies sit in retail address order; FUN_ names and signatures are provisional.
 
