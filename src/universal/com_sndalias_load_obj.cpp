@@ -1308,6 +1308,8 @@ const char *Com_GetSubtitleStringEdReference( const char *text )
 		return NULL;
 	}
 	Com_BeginParseSession("soundaliases/subtitle.st");
+	// stand-in: dead call only sets the LTCG compile slot (static order after Com_ErrorCleanup)
+	if (0) FS_InitFilesystem();
 	data = (const char *)buffer;
 	while ( 1 )
 	{
