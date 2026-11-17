@@ -1207,19 +1207,19 @@ const float *Dvar_GetVec4(const char *dvarName)
 }
 
 
+const char *Dvar_GetString(const char *dvarName)
+{
+	dvar_t *dvar;
 
+	dvar = Dvar_FindVar(dvarName);
+	if ( !dvar )
+		return "";
 
-
-
-
-
-
-
-
-
-
-
-
+	assertMsg( (dvar->type == DVAR_TYPE_STRING || dvar->type == DVAR_TYPE_ENUM), "(dvar->type) = %i", dvar->type );
+	if ( dvar->type == DVAR_TYPE_ENUM )
+		return Dvar_EnumToString(dvar);
+	return dvar->current.string;
+}
 
 
 const char *Dvar_GetVariantString(const char *dvarName)
