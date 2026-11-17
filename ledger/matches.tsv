@@ -371,6 +371,7 @@ addr	size	source	symbol	name	tag
 0x0041af10	9	src/radiant/MainFrm.cpp	_FUN_0041af10	FUN_0041af10	UNNAMED
 0x0041af20	9	src/radiant/MainFrm.cpp	_FUN_0041af20	FUN_0041af20	UNNAMED
 0x0041b0f0	1	src/radiant/MainFrm.cpp	_FUN_0041b0f0	FUN_0041b0f0	UNNAMED
+0x0041b190	301	src/radiant/MainFrm.cpp	_FUN_0041b190	FUN_0041b190	UNNAMED
 0x0041b6e0	5	src/radiant/MainFrm.cpp	_FUN_0041b6e0	FUN_0041b6e0	UNNAMED
 0x0041b700	5	src/radiant/MainFrm.cpp	_FUN_0041b700	FUN_0041b700	UNNAMED
 0x0041b710	5	src/radiant/MainFrm.cpp	_FUN_0041b710	FUN_0041b710	UNNAMED
@@ -504,6 +505,8 @@ addr	size	source	symbol	name	tag
 0x0042b6d0	14	src/radiant/Pmesh.cpp	?FUN_0042b6d0@@YAMHHMMM@Z	FUN_0042b6d0	UNNAMED
 0x0042b760	45	src/radiant/Pmesh.cpp	?FUN_0042b760@@YAMHHMHM@Z	FUN_0042b760	UNNAMED
 0x0042bd10	121	src/radiant/Pmesh.cpp	?FUN_0042bd10@@YAXPAUselbrush_t@@@Z	FUN_0042bd10	PINNED
+0x0042beb0	88	src/radiant/Pmesh.cpp	?FUN_0042beb0@@YAXXZ	FUN_0042beb0	UNNAMED
+0x0042f950	21	src/radiant/Pmesh.cpp	?FUN_0042f950@@YAXH@Z	FUN_0042f950	UNNAMED
 0x0042f660	290	src/radiant/Pmesh.cpp	?FUN_0042f660@@YAXPAUpatchMesh_t@@@Z	FUN_0042f660	PINNED
 0x0042f950	21	src/radiant/Pmesh.cpp	?FUN_0042f950@@YAXH@Z	FUN_0042f950	UNNAMED
 0x00433a20	44	src/radiant/Pmesh.cpp	?OnlyPatchesSelected@@YA_NXZ	OnlyPatchesSelected	SUPPORTED
@@ -655,6 +658,7 @@ addr	size	source	symbol	name	tag
 0x0044c3c0	511	src/radiant/XYWnd.cpp	?XY_ToGridPoint@CXYWnd@@QAEXHHQAM@Z	CXYWnd::XY_ToGridPoint	SUPPORTED
 0x0044c5c0	90	src/radiant/XYWnd.cpp	?FUN_0044c5c0@CXYWnd@@QAEXHHQAM0@Z	CXYWnd::FUN_0044c5c0	UNNAMED
 0x0044cf30	58	src/radiant/XYWnd.cpp	?XY_MouseUp@CXYWnd@@QAEXHHH@Z	CXYWnd::XY_MouseUp	SUPPORTED
+0x0044cf70	330	src/radiant/XYWnd.cpp	?DragDelta@CXYWnd@@QAEHHHQAM@Z	CXYWnd::DragDelta	SUPPORTED
 0x00452900	4	src/radiant/XYWnd.cpp	?GetOrigin@CXYWnd@@QAEAAY02MXZ	CXYWnd::GetOrigin	SUPPORTED
 0x00452910	18	src/radiant/XYWnd.cpp	?SetOrigin@CXYWnd@@QAEXQAM@Z	CXYWnd::SetOrigin	SUPPORTED
 0x00452ae0	26	src/radiant/XYWnd.cpp	?FUN_00452ae0@@YAXXZ	FUN_00452ae0	UNNAMED

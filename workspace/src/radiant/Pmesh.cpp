@@ -965,6 +965,27 @@ void FUN_0042bd10(selbrush_t *list)
     }
 }
 
+// Projection of CAdvCurveEditDlg (AdvCurveDlg.cpp) for the one global instance used here.
+class CAdvCurveEditDlg
+{
+public:
+    int FUN_00401d90();
+    void FUN_00401df0(int selected);
+};
+extern CAdvCurveEditDlg DAT_01233b68;
+void FUN_0042bde0(selbrush_t *list);
+void FUN_00444150();
+
+void FUN_0042beb0()
+{
+    if (DAT_01233b68.FUN_00401d90() == 5)
+        DAT_01233b68.FUN_00401df0(2);
+    if (SendMessageA(g_hwndCheck_01234004, 0xf0, 0, 0))
+        FUN_0042bde0(&DAT_010a44dc);
+    FUN_0042bde0(&DAT_010a44b4);
+    FUN_00444150();
+}
+
 struct CPatchBendXYProjection
 {
     unsigned char pad[0xf4];
