@@ -996,3 +996,8 @@ set by a later lowering stage, not by the list scheduler.
   before dead-code removal): `if (0) CL_Disconnect_f();` in CL_DemoCompleted (1.0 calls CL_Disconnect_f there; puts the 1000.0
   pool entry after CG_FxTest, +58) and `if (0) G_TempEntity(start, 0);` in fire_grenade (720.0f after Mantle_CreateAnims, +20).
   Replace with the real source if IW evidence appears.
+- PINNED (w29, 11-18, fresh dfs13 oracle + peel13 model on 1974140): Com_ErrorCleanup swap mechanics. bss order of the 3 statics
+  follows F order. Subtitle fn = pass 56 (F 5865); ErrorCleanup pass 57 (held by its real UI_SetActiveMenu call, pass 56; its
+  bytes match retail) at the head of pass 57, ChopWindingInPlace same pass 5 slots later. Any dead edge puts subtitle in pass 57 at
+  its symbol-list slot, which is after Chop (measured twice, -29). In-pass slot = symbol list (link order), so no callee choice
+  lands it between. Open: a cause that changes list order inside pass 57 without moving link order.
