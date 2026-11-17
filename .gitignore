@@ -22,3 +22,4 @@ workspace/research/filemap/cache.json
 workspace/research/filemap/work/
 workspace/research/filemap/functions_ghidra.json
 workspace/lanes/claims/
+toolchain/p4api/
