@@ -918,7 +918,6 @@ static void DObjSetTrans(DObjAnimMat *rotTrans, const float *trans)
 void DObjSetLocalTagInternal(const DObj_s *obj, const float *trans, const float *angles, int boneIndex)
 {
 	DObjAnimMat *rotTrans;
-	DObjAnimMat *childRotTrans;
 	float yaw[2], pitch[2], roll[2];
 	float t[4];
 
@@ -926,7 +925,7 @@ void DObjSetLocalTagInternal(const DObj_s *obj, const float *trans, const float 
 
 	if ( rotTrans )
 	{
-		childRotTrans = &rotTrans[boneIndex];
+		rotTrans += boneIndex;
 
 		if ( angles )
 		{
@@ -938,15 +937,15 @@ void DObjSetLocalTagInternal(const DObj_s *obj, const float *trans, const float 
 			t[1] = yaw[1] * pitch[0];
 			t[2] = pitch[1] * yaw[0];
 			t[3] = pitch[1] * yaw[1];
-			childRotTrans->quat[0] = roll[0] * t[3] + roll[1] * t[0];
-			childRotTrans->quat[1] = roll[0] * t[2] + roll[1] * t[1];
-			childRotTrans->quat[2] = roll[1] * t[2] - roll[0] * t[1];
-			childRotTrans->quat[3] = roll[1] * t[3] - roll[0] * t[0];
+			rotTrans->quat[0] = roll[0] * t[3] + roll[1] * t[0];
+			rotTrans->quat[1] = roll[0] * t[2] + roll[1] * t[1];
+			rotTrans->quat[2] = roll[1] * t[2] - roll[0] * t[1];
+			rotTrans->quat[3] = roll[1] * t[3] - roll[0] * t[0];
 		}
 		else
-			DObjClearAngles(childRotTrans);
+			DObjClearAngles(rotTrans);
 
-		DObjSetTrans(childRotTrans, trans);
+		DObjSetTrans(rotTrans, trans);
 	}
 }
 
