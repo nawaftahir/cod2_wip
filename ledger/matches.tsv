@@ -252,6 +252,7 @@ addr	size	source	symbol	name	tag
 0x004100a0	8	src/radiant/FindTextureDlg.cpp	?OnSetfocusEditFind@CFindTextureDlg@@IAEXXZ	CFindTextureDlg::OnSetfocusEditFind	SUPPORTED
 0x004100b0	8	src/radiant/FindTextureDlg.cpp	?OnSetfocusEditReplace@CFindTextureDlg@@IAEXXZ	CFindTextureDlg::OnSetfocusEditReplace	SUPPORTED
 0x004100c0	73	src/radiant/GfxWrapper.cpp	_FUN_004100c0	FUN_004100c0	SUPPORTED
+0x00410110	6	src/radiant/GfxWrapper.cpp	_FUN_00410110	FUN_00410110	UNNAMED
 0x004101c0	1	src/radiant/GfxWrapper.cpp	_FUN_004101c0	FUN_004101c0	SUPPORTED
 0x004101d0	1	src/radiant/GfxWrapper.cpp	_FUN_004101d0	FUN_004101d0	SUPPORTED
 0x004101e0	1	src/radiant/GfxWrapper.cpp	_FUN_004101e0	FUN_004101e0	SUPPORTED
@@ -270,6 +271,10 @@ addr	size	source	symbol	name	tag
 0x00410330	104	src/radiant/GfxWrapper.cpp	_FUN_00410330	FUN_00410330	UNNAMED
 0x004103a0	74	src/radiant/GfxWrapper.cpp	_FUN_004103a0	FUN_004103a0	UNNAMED
 0x004103f0	3	src/radiant/GfxWrapper.cpp	_FUN_004103f0	FUN_004103f0	SUPPORTED
+0x00410400	69	src/radiant/GfxWrapper.cpp	_FUN_00410400	FUN_00410400	UNNAMED
+0x00410450	74	src/radiant/GfxWrapper.cpp	_FUN_00410450	FUN_00410450	UNNAMED
+0x004104a0	80	src/radiant/GfxWrapper.cpp	_FUN_004104a0	FUN_004104a0	UNNAMED
+0x004104f0	69	src/radiant/GfxWrapper.cpp	_FUN_004104f0	FUN_004104f0	UNNAMED
 0x004105f0	1607	src/radiant/GfxWrapper.cpp	_FUN_004105f0	FUN_004105f0	UNNAMED
 0x00410e40	278	src/radiant/KeyValueSelectDlg.cpp	??0CKeyValueSelectDlg@@QAE@PAVCWnd@@@Z	CKeyValueSelectDlg::CKeyValueSelectDlg	SUPPORTED
 0x00410fe0	76	src/radiant/KeyValueSelectDlg.cpp	?DoDataExchange@CKeyValueSelectDlg@@MAEXPAVCDataExchange@@@Z	CKeyValueSelectDlg::DoDataExchange	SUPPORTED
@@ -1104,6 +1109,9 @@ addr	size	source	symbol	name	tag
 0x0048da70	27	src/universal/dvar.cpp	?Dvar_IsAtDefaultValue@@YA_NPBUdvar_s@@@Z	Dvar_IsAtDefaultValue	SUPPORTED
 0x0048de60	50	src/universal/dvar.cpp	?Dvar_FindMalleableVar@@YAPAUdvar_s@@PBD@Z	Dvar_FindMalleableVar	PINNED
 0x0048dea0	50	src/universal/dvar.cpp	?Dvar_FindVar@@YAPAUdvar_s@@PBD@Z	Dvar_FindVar	PINNED
+0x0048dee0	84	src/universal/dvar.cpp	?Dvar_ClearModified@@YAXPAUdvar_s@@@Z	Dvar_ClearModified	SUPPORTED
+0x0048df40	93	src/universal/dvar.cpp	?Dvar_SetModified@@YAXPAUdvar_s@@@Z	Dvar_SetModified	SUPPORTED
+0x0048dfa0	494	src/universal/dvar.cpp	?Dvar_UpdateEnumDomain@@YAXPBUdvar_s@@PAPBD@Z	Dvar_UpdateEnumDomain	SUPPORTED
 0x0048e190	194	src/universal/dvar.cpp	?Dvar_GetBool@@YA_NPBD@Z	Dvar_GetBool	SUPPORTED
 0x0048e260	202	src/universal/dvar.cpp	?Dvar_GetInt@@YAHPBD@Z	Dvar_GetInt	SUPPORTED
 0x0048e330	201	src/universal/dvar.cpp	?Dvar_GetFloat@@YAMPBD@Z	Dvar_GetFloat	SUPPORTED
@@ -1117,6 +1125,7 @@ addr	size	source	symbol	name	tag
 0x0048e8f0	329	src/universal/dvar.cpp	?Dvar_Shutdown@@YAXXZ	Dvar_Shutdown	SUPPORTED
 0x0048ea40	176	src/universal/dvar.cpp	?Dvar_PerformUnregistration@@YAXPAUdvar_s@@@Z	Dvar_PerformUnregistration	PINNED
 0x0048eaf0	374	src/universal/dvar.cpp	?Dvar_ClearFlags@@YAXPBUdvar_s@@H@Z	Dvar_ClearFlags	PINNED
+0x0048ec70	115	src/universal/dvar.cpp	?Dvar_ClearFlagsFromAll@@YAXH@Z	Dvar_ClearFlagsFromAll	SUPPORTED
 0x0048ecf0	220	src/universal/dvar.cpp	?Dvar_UpdateResetValue@@YAXPAUdvar_s@@UDvarValue@@@Z	Dvar_UpdateResetValue	PINNED
 0x0048eed0	232	src/universal/dvar.cpp	?Dvar_UpdateValue@@YAXPAUdvar_s@@UDvarValue@@@Z	Dvar_UpdateValue	PINNED
 0x0048f110	50	src/universal/dvar.cpp	?Dvar_GetReinterpretedResetValue@@YA?AUDvarValue@@PAUdvar_s@@U1@EGTDvarLimits@@@Z	Dvar_GetReinterpretedResetValue	PINNED
@@ -1127,9 +1136,19 @@ addr	size	source	symbol	name	tag
 0x00490be0	24	src/universal/dvar.cpp	?Dvar_SetFloat@@YAXPAUdvar_s@@M@Z	Dvar_SetFloat	SUPPORTED
 0x00490c00	28	src/universal/dvar.cpp	?Dvar_SetVec2@@YAXPAUdvar_s@@MM@Z	Dvar_SetVec2	SUPPORTED
 0x00490c20	32	src/universal/dvar.cpp	?Dvar_SetVec3@@YAXPAUdvar_s@@MMM@Z	Dvar_SetVec3	SUPPORTED
+0x00490c40	36	src/universal/dvar.cpp	?Dvar_SetVec4@@YAXPAUdvar_s@@MMMM@Z	Dvar_SetVec4	SUPPORTED
 0x00490c70	22	src/universal/dvar.cpp	?Dvar_SetString@@YAXPAUdvar_s@@PBD@Z	Dvar_SetString	SUPPORTED
 0x00490c90	36	src/universal/dvar.cpp	?Dvar_SetColor@@YAXPAUdvar_s@@MMMM@Z	Dvar_SetColor	SUPPORTED
 0x00490d50	24	src/universal/dvar.cpp	?Dvar_SetFromString@@YAXPAUdvar_s@@PBD@Z	Dvar_SetFromString	SUPPORTED
+0x00490d70	113	src/universal/dvar.cpp	?Dvar_SetBoolByName@@YAXPBD_N@Z	Dvar_SetBoolByName	SUPPORTED
+0x00490df0	148	src/universal/dvar.cpp	?Dvar_SetIntByName@@YAXPBDH@Z	Dvar_SetIntByName	SUPPORTED
+0x00490e90	118	src/universal/dvar.cpp	?Dvar_SetFloatByName@@YAXPBDM@Z	Dvar_SetFloatByName	SUPPORTED
+0x00490f10	129	src/universal/dvar.cpp	?Dvar_SetVec2ByName@@YAXPBDMM@Z	Dvar_SetVec2ByName	SUPPORTED
+0x00490fa0	140	src/universal/dvar.cpp	?Dvar_SetVec3ByName@@YAXPBDMMM@Z	Dvar_SetVec3ByName	SUPPORTED
+0x00491030	151	src/universal/dvar.cpp	?Dvar_SetVec4ByName@@YAXPBDMMMM@Z	Dvar_SetVec4ByName	SUPPORTED
+0x004910d0	99	src/universal/dvar.cpp	?Dvar_SetStringByName@@YAXPBD0@Z	Dvar_SetStringByName	SUPPORTED
+0x00491140	197	src/universal/dvar.cpp	?Dvar_SetColorByName@@YAXPBDEEEE@Z	Dvar_SetColorByName	SUPPORTED
+0x00491210	99	src/universal/dvar.cpp	?Dvar_SetFromStringByNameFromSource@@YAPAUdvar_s@@PBD0W4DvarSetSource@@@Z	Dvar_SetFromStringByNameFromSource	SUPPORTED
 0x00491280	23	src/universal/dvar.cpp	?Dvar_SetFromStringByName@@YAXPBD0@Z	Dvar_SetFromStringByName	SUPPORTED
 0x004912a0	54	src/universal/dvar.cpp	?Dvar_SetCommand@@YAXPBD0@Z	Dvar_SetCommand	PINNED
 0x004912e0	155	src/universal/dvar.cpp	?Dvar_AddFlags@@YAXPAUdvar_s@@H@Z	Dvar_AddFlags	PINNED
@@ -1347,6 +1366,7 @@ addr	size	source	symbol	name	tag
 0x004a57e0	211	src/xanim/dobj.cpp	?DObjGetBoneIndex@@YAHPBUDObj_s@@I@Z	DObjGetBoneIndex	PINNED
 0x004a58c0	335	src/xanim/dobj.cpp	?DObjGetBoneName@@YAPBDPBUDObj_s@@H@Z	DObjGetBoneName	PINNED
 0x004a5a10	67	src/xanim/dobj.cpp	?DObjGetTree@@YAPAUXAnimTree_s@@PBUDObj_s@@@Z	DObjGetTree	PINNED
+0x004a5a60	117	src/xanim/dobj.cpp	_FUN_004a5a60	FUN_004a5a60	UNNAMED
 0x004a5ae0	12	src/xanim/dobj.cpp	?DObjNumBones@@YAHPBUDObj_s@@@Z	DObjNumBones	SUPPORTED
 0x004a6a40	299	src/xanim/dobj.cpp	?DObjGeomTraceline@@YAXPAUDObj_s@@PAM1HPAUDObjTrace_s@@@Z	DObjGeomTraceline	PINNED
 0x004a6b70	28	src/xanim/dobj.cpp	?DObjGetModelLodForDist@@YAHPBUDObj_s@@HM@Z	DObjGetModelLodForDist	SUPPORTED
