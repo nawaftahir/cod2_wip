@@ -221,26 +221,29 @@ XModelParts *XModelPartsFindData(const char *partName)
 	return (XModelParts *)Hunk_FindDataForFile(FILEDATA_XMODELPARTS, partName);
 }
 
+/* DEFER 0x004aa9e0 XModelPartsSetData: Hunk_SetDataForFile (0x0048a170) needs xmodel_load_obj.cpp /GL callers for (eax, esi) ABI
 const char *XModelPartsSetData(const char *name, XModelParts *parts, void *(*Alloc)(int))
 {
 	return Hunk_SetDataForFile(FILEDATA_XMODELPARTS, name, parts, Alloc);
-}
+} */
 
 XModelSurfs *XModelSurfsFindData(const char *surfName)
 {
 	return (XModelSurfs *)Hunk_FindDataForFile(FILEDATA_XMODELSURFS, surfName);
 }
 
+/* DEFER 0x004aaa10 XModelSurfsSetData: Hunk_SetDataForFile (0x0048a170) needs xmodel_load_obj.cpp /GL callers for (eax, esi) ABI
 const char *XModelSurfsSetData(const char *name, XModelSurfs *surface, void *(*Alloc)(int))
 {
 	return Hunk_SetDataForFile(FILEDATA_XMODELSURFS, name, surface, Alloc);
-}
+} */
 
 XModel *XModelFindExisting(const char *name)
 {
 	return (XModel *)Hunk_FindDataForFile(FILEDATA_XMODEL, name);
 }
 
+/* DEFER 0x004aaa40 XModelDefaultModel: Hunk_SetDataForFile (0x0048a170) needs xmodel_load_obj.cpp /GL callers for (eax, esi) ABI
 XModel *XModelDefaultModel(const char *name, void *(*Alloc)(int))
 {
 	XModel *model;
@@ -250,7 +253,7 @@ XModel *XModelDefaultModel(const char *name, void *(*Alloc)(int))
 	Hunk_SetDataForFile(FILEDATA_XMODEL, name, model, Alloc);
 
 	return model;
-}
+} */
 
 void XModelReplace(XModel *model, XModel *replacement)
 {
@@ -278,6 +281,7 @@ void XModelReplace(XModel *model, XModel *replacement)
 	}
 }
 
+/* DEFER 0x004aab00 XModelPrecache: diverges at +0x24 calling unimplemented LTCG XModelLoad (0x004ac9a0) and Hunk_SetDataForFile
 XModel *XModelPrecache(const char *name, void *(*Alloc)(int), void *(*AllocColl)(int))
 {
 	XModel *model;
@@ -295,7 +299,7 @@ XModel *XModelPrecache(const char *name, void *(*Alloc)(int), void *(*AllocColl)
 
 	Com_Printf("^1ERROR: Cannot find xmodel '%s'.\n", name);
 	return XModelDefaultModel(name, Alloc);
-}
+} */
 
 
 
