@@ -1687,7 +1687,7 @@ dvar_t *Dvar_RegisterNew(const char *dvarName, unsigned char type, unsigned shor
 
 
 
-
+qboolean CanKeepStringPointer( const char *string );
 
 
 
@@ -1699,7 +1699,7 @@ static dvar_t *Dvar_RegisterVariant(const char *dvarName, unsigned char type, un
 	dvar_t *dvar;
 
 	assertMsg( (flags & DVAR_SYS_MASK) != 0, "%s", dvarName );
-	// DEFERRED: assertMsg((flags & DVAR_SYS_EXTERNAL) || CanKeepStringPointer( dvarName ), ...)
+	assertMsg( (flags & DVAR_SYS_EXTERNAL) || CanKeepStringPointer( dvarName ), "%s", dvarName );
 
 	dvar = Dvar_FindMalleableVar(dvarName);
 	if ( dvar )
@@ -1796,7 +1796,7 @@ dvar_t *Dvar_RegisterString(const char *dvarName, const char *value, unsigned sh
 
 	assert( dvarName );
 	assert( value );
-	// DEFERRED: assertMsg((flags & DVAR_SYS_EXTERNAL) || CanKeepStringPointer( value ), ...)
+	assertMsg( (flags & DVAR_SYS_EXTERNAL) || CanKeepStringPointer( value ), "%s", dvarName );
 
 	dvarValue.string = value;
 	memset(&dvarDomain, 0, sizeof(dvarDomain));

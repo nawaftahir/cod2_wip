@@ -768,6 +768,19 @@ XAnimTree_s *DObjGetTree(const DObj_s *obj)
 	return obj->tree;
 }
 
+extern "C" int FUN_004a5a60(const DObj_s *obj)
+{
+	int i;
+
+	for ( i = obj->numModels - 1; i >= 0; i-- )
+	{
+		if ( XModelBad(obj->models[i]) )
+			return 1;
+	}
+	return 0;
+}
+
+#line 1703
 int DObjNumBones(const DObj *obj)
 {
 	return obj->numBones;

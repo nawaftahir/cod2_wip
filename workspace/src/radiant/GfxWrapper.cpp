@@ -5,6 +5,7 @@
  */
 #include "stdafx.h"
 #include "../universal/assertive.h"
+#include <mmsystem.h>
 #include <stdarg.h>
 #include <stdio.h>
 
@@ -21,8 +22,7 @@ extern "C" void FUN_004100c0(int, const char *fmt, ...)
     Sys_Printf("%s", text);
 }
 
-
-
+extern "C" int FUN_00410110() { return timeGetTime(); }
 
 
 
@@ -83,6 +83,32 @@ extern "C" int FUN_004103a0()
 
 extern "C" int FUN_004103f0() { return 0; }
 
+#line 152
+extern "C" void FUN_00410400()
+{
+	assertFailMsg(0, "not handled");
+}
+
+#line 158
+extern "C" int FUN_00410450()
+{
+	assertFailMsg(0, "not handled");
+	return 0;
+}
+
+#line 165
+extern "C" int FUN_004104a0()
+{
+	assertFailMsg(0, "not handled");
+	return 2;
+}
+
+#line 172
+extern "C" void FUN_004104f0()
+{
+	assertFailMsg(0, "not handled");
+}
+
 // refimport handed to the renderer DLL; field names are not known
 struct refimport_t
 {
@@ -100,11 +126,6 @@ HMODULE dword_0059c4fc;
 
 void FUN_0047a760(const char *fmt, ...);
 void FUN_0047ae50(int level, const char *fmt, ...);
-extern "C" void FUN_00410110();
-extern "C" void FUN_00410400();
-extern "C" void FUN_00410450();
-extern "C" void FUN_004104a0();
-extern "C" void FUN_004104f0();
 extern "C" void FUN_00410580();
 extern "C" void FUN_0048a480();
 extern "C" void FUN_004a2250();
