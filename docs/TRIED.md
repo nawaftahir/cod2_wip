@@ -487,3 +487,5 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | StartWeaponAnim w29 (11-18, gate) | `if (activeAnim - 1 == i)` | worse: extra dec + spill in prologue |
 | StartWeaponAnim w29 (11-18, gate) | `if (i + 1 == activeAnim)` | worse: cmp operands swap, tail unchanged |
 | StartWeaponAnim w29 (11-18, labs) | `rates` local (cmp fixed, base lea +4), `rates = &...[1]` + rates[i] (mov ebp,eax), `activeAnim - i == 1` (29), `i++` at loop top (30) | no; two source IVs `i, anim` = 0 lines (landed) |
+| CG_FireWeapon w29 (11-18, 3 labs) | weapon tests through `ent->` (both: prologue lea fixed, but weapInfo index CSEs the test load, retail reloads `[ebp+0xc8]`, 542 B); only first / only second via ent (548 B, 62 lines) | no; lead: an ent-> read in block 0 gives the lea its height |
+| CG_FireWeapon w29 (11-18, 5 labs) | tests via ent + weapInfo via `cent->nextState.weapon` / `(&cent->nextState)->weapon`: prologue matches, reload not CSEd but base ebx (1 line); + muzzle store before weapInfo via ent: load after the store (4 lines); mixed cent/ent tests (62 lines) | no; open: an ent-> index read that c2 does not CSE with the tests |
