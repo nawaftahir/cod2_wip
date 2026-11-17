@@ -982,7 +982,7 @@ public:
 };
 extern CAdvCurveEditDlg DAT_01233b68;
 void FUN_0042bde0(selbrush_t *list);
-void FUN_00444150();
+void Undo_End();
 
 void FUN_0042beb0()
 {
@@ -991,7 +991,7 @@ void FUN_0042beb0()
     if (SendMessageA(g_hwndCheck_01234004, 0xf0, 0, 0))
         FUN_0042bde0(&DAT_010a44dc);
     FUN_0042bde0(&DAT_010a44b4);
-    FUN_00444150();
+    Undo_End();
 }
 
 struct CPatchBendXYProjection
