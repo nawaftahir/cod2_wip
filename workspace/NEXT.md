@@ -48,6 +48,16 @@ emit-order warnings 18. FILE LEDGER 7 VERIFIED / 102 (audited set; other src/ fi
   Also the q_shared DEFERRED blocks (Com_DefaultExtension, I_strncat, ParseConfigStringToStruct), now
   unblocked by I_strncpyz.
 
+## Hint source: dev/generated_src.zip (from the opencod2 author, 2026-11-17)
+Machine-generated pseudo-C of CoD2Radiant 1.0 itself: 4,720 functions, every one tagged `// @ 0x<addr>`.
+4,271 of them are on addresses in our tu_map, including 523 of our unmatched game functions.
+- Names are HYPOTHESIS: 3,737 come from agents, and only 219 of 366 agree with our matched names.
+- Better names come from rtti (667), mfc-msgmap (122) and eh-tables (161).
+- Most useful: `__usercall arg@<reg>` annotations, which map the LTCG register conventions (e.g. CXYWnd::Paste
+  takes arg_0 in edi), plus struct layouts in include/recovered_types.h.
+- Use it as a hint like Ghidra: never ship a name or type on it alone, and confirm against retail via show.py.
+  Unpack it to dev/refrences/opencod2_radiant_generated/ (read-only), never into the worktree.
+
 ## x87 helpers (PINNED 2026-11-16, ~/cltest/t.c compiled in cod2-radiant-msvc71)
 MSVC 7.1 never emits `fsincos` from C: `/O2 /Oy- /Op` gives `_sin`/`_cos` + `_ftol2`; without /Op it gives
 separate `fsin` + `fcos`; `/QIfist` turns `_ftol2` into `fistp`. Retail com_math/dvar have single
