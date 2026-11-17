@@ -11,9 +11,7 @@ unsigned int SL_GetStringOfLen(const char *str, unsigned int user, unsigned int 
 void SL_AddRefToString(unsigned int stringValue);
 void SL_RemoveRefToStringOfLen(unsigned int stringValue, unsigned int len);
 
-int FUN_004a8fc0(unsigned int stringValue);
-// the retail assert text names this function; scr_stringlist.cpp still calls it FUN_004a8fc0
-#define SL_IsLowercaseString FUN_004a8fc0
+int SL_IsLowercaseString(unsigned int stringValue);
 int FUN_004a1890(const DObj_s *obj, unsigned int name);
 
 static unsigned int g_empty = 0;

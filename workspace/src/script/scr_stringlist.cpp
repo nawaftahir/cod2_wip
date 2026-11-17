@@ -256,7 +256,7 @@ unsigned int SL_FindLowercaseString(const char *str)
 	return SL_FindStringOfLen(buf, len);
 }
 
-int FUN_004a8fc0(unsigned int stringValue)
+int SL_IsLowercaseString(unsigned int stringValue)
 {
 	const char *str;
 
