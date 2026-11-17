@@ -1028,6 +1028,11 @@ void FUN_0042f640(patch_t *p)
     p->field_06 = 1;
 }
 
+void FUN_0042f650(patch_t *p)
+{
+    p->field_06 = 0;
+}
+
 struct CPatchBendXYProjection
 {
     unsigned char pad[0xf4];
