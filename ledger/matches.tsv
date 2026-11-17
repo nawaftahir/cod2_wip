@@ -628,6 +628,8 @@ addr	size	source	symbol	name	tag
 0x00455110	41	src/radiant/brush.cpp	?Winding_TriangleArea2D@@YAMQBM00HH@Z	Winding_TriangleArea2D	SUPPORTED
 0x00455140	541	src/radiant/brush.cpp	?Winding_InsertEdgePoint@@YAXPAUwinding_t@@QBMHHHH@Z	Winding_InsertEdgePoint	PINNED
 0x00455360	370	src/radiant/brush.cpp	?Winding_AddPointOrdered@@YAXPAUwinding_t@@QBMHH@Z	Winding_AddPointOrdered	PINNED
+0x00455950	151	src/radiant/brush.cpp	?FUN_00455950@@YAXPAUbrushdef_t@@@Z	FUN_00455950	SUPPORTED
+0x004559f0	52	src/radiant/brush.cpp	?FUN_004559f0@@YAXPAUbrushdef_t@@_N1@Z	FUN_004559f0	SUPPORTED
 0x00455bd0	218	src/radiant/brush.cpp	?Brush_RemoveFace@@YAXPAUbrushdef_t@@H@Z	Brush_RemoveFace	PINNED
 0x00455cb0	57	src/radiant/brush.cpp	?Brush_RemoveEmptyFaces@@YAXPAUbrushdef_t@@@Z	Brush_RemoveEmptyFaces	SUPPORTED
 0x00456fb0	56	src/radiant/brush.cpp	?Brush_SetDefaultTexdefs@@YAXPAUbrushdef_t@@HM@Z	Brush_SetDefaultTexdefs	SUPPORTED
@@ -637,6 +639,7 @@ addr	size	source	symbol	name	tag
 0x00458d20	30	src/radiant/brush.cpp	?Face_MemorySize@@YAHPBUface_t@@@Z	Face_MemorySize	SUPPORTED
 0x00458d40	113	src/radiant/brush.cpp	?BrushDef_MemorySize@@YAHPBUbrushdef_t@@@Z	BrushDef_MemorySize	SUPPORTED
 0x004592c0	36	src/radiant/brush.cpp	?FUN_004592c0@@YA_NPAUbrush_t@@@Z	FUN_004592c0	SUPPORTED
+0x0045a150	201	src/radiant/brush.cpp	?FUN_0045a150@@YAHPAUbrushdef_t@@PBHQBMHPAX3@Z	FUN_0045a150	SUPPORTED
 0x0045b630	36	src/radiant/brush.cpp	?FUN_0045b630@@YA_NPAUbrush_t@@@Z	FUN_0045b630	SUPPORTED
 0x0045ebc0	40	src/radiant/brush.cpp	?FUN_0045ebc0@@YAMMM@Z	FUN_0045ebc0	SUPPORTED
 0x0045efb0	92	src/radiant/brush.cpp	?FUN_0045efb0@@YAXPAUface_t@@@Z	FUN_0045efb0	SUPPORTED
@@ -651,6 +654,7 @@ addr	size	source	symbol	name	tag
 0x00464c10	8	src/radiant/entity.cpp	?ValueForKey@@YAPADPAUentity_t@@PBD@Z	ValueForKey	SUPPORTED
 0x00464c60	25	src/radiant/entity.cpp	?FUN_00464c60@@YAXPAUentityInst_t@@@Z	FUN_00464c60	UNNAMED
 0x004656a0	5	src/radiant/entity.cpp	?FUN_004656a0@@YAXPAUentity_t@@@Z	FUN_004656a0	UNNAMED
+0x00465920	328	src/radiant/entity.cpp	?FUN_00465920@@YAXPAUentity_t@@PBD@Z	FUN_00465920	PINNED
 0x00465a70	111	src/radiant/entity.cpp	?FUN_00465a70@@YAXPAUentity_t@@PBD@Z	FUN_00465a70	SUPPORTED
 0x00465ae0	111	src/radiant/entity.cpp	?FUN_00465ae0@@YAXPAUentity_t@@PBD@Z	FUN_00465ae0	SUPPORTED
 0x00465b50	145	src/radiant/entity.cpp	?FUN_00465b50@@YAXAAPAUepair_t@@PBD1@Z	FUN_00465b50	SUPPORTED
