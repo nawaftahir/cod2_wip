@@ -32,7 +32,6 @@ void FUN_00472bd0(int);
 void FUN_0043e440();
 void FUN_00449800();
 void FUN_00469950();
-void FUN_00469140();
 void FUN_004694d0();
 void FUN_004692a0();
 void FUN_00469420();
@@ -58,6 +57,7 @@ void FUN_00438120();
 void FUN_00438ff0();
 void FUN_004745d0();
 }
+void Map_RemoveRegion();
 
 void Undo_Undo();
 void Undo_Redo();
@@ -524,7 +524,7 @@ extern "C" void FUN_00415e20() { DoColor(4); dword_0123348c |= 0xffffffff; }
 extern "C" void FUN_00415e40() { DoColor(3); dword_0123348c |= 0xffffffff; }
 extern "C" void FUN_00415e60() { DoColor(2); dword_0123348c |= 0xffffffff; }
 extern "C" void FUN_00415e80() { DoColor(1); dword_0123348c |= 0xffffffff; }
-extern "C" void FUN_00416270() { FUN_00469140(); }
+extern "C" void FUN_00416270() { Map_RemoveRegion(); }
 extern "C" void FUN_00416280() { FUN_004694d0(); }
 extern "C" void FUN_00416290() { FUN_004692a0(); }
 extern "C" void FUN_004162a0() { FUN_00469420(); }

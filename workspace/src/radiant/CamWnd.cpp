@@ -47,6 +47,20 @@ extern CamWndRefExport re;
 
 class CCamWnd;
 void __stdcall FUN_00405380(CCamWnd *camera);
+float Vec3Normalize(float v[3]);
+
+struct plane_t
+{
+    float normal[3];
+    double dist;
+    int type;
+};
+
+struct CMainFrameCamView
+{
+    unsigned char pad[0x78c];
+    CCamWnd *m_pCamWnd;
+};
 
 class CCamWnd : public CWnd
 {
@@ -56,6 +70,7 @@ public:
     virtual ~CCamWnd();
     void SetXYFriend(CXYWnd *window);
     void Cam_Init();
+    void FUN_00403ce0(int x, int y, float *dir);
     CXYWnd *m_pXYFriend;
     CameraState m_Camera;
     int m_nCambuttonstate;
@@ -288,6 +303,75 @@ void CCamWnd::Cam_Init()
     m_Camera.color[0] = 0.3f;
     m_Camera.color[1] = 0.3f;
     m_Camera.color[2] = 0.3f;
+}
+
+void CCamWnd::FUN_00403ce0(int x, int y, float *dir)
+{
+    float scale;
+    if (m_Camera.height > m_Camera.width)
+        scale = 2.0f / m_Camera.height;
+    else
+        scale = 2.0f / m_Camera.width;
+    int dy = y - m_Camera.height / 2;
+    int dx = x - m_Camera.width / 2;
+    float u = dy * scale;
+    float r = dx * scale;
+    dir[0] = r * m_Camera.vright[0] + u * m_Camera.vup[0] + m_Camera.vpn[0];
+    dir[1] = r * m_Camera.vright[1] + u * m_Camera.vup[1] + m_Camera.vpn[1];
+    dir[2] = r * m_Camera.vright[2] + u * m_Camera.vup[2] + m_Camera.vpn[2];
+    Vec3Normalize(dir);
+}
+
+#define CrossProduct(v1, v2, cross) \
+    { \
+        (cross)[0] = (v1)[1] * (v2)[2] - (v1)[2] * (v2)[1]; \
+        (cross)[1] = (v1)[2] * (v2)[0] - (v1)[0] * (v2)[2]; \
+        (cross)[2] = (v1)[0] * (v2)[1] - (v1)[1] * (v2)[0]; \
+    }
+#define DotProduct(x, y) ((x)[0] * (y)[0] + (x)[1] * (y)[1] + (x)[2] * (y)[2])
+
+void FUN_00403dc0(int x1, int y1, int x2, int y2, plane_t *planes)
+{
+    int t = x1;
+    if (t < x2)
+        x1 = t;
+    else
+        x1 = x2;
+    x2 = t - x1 + x2;
+    t = y1;
+    if (t < y2)
+        y1 = t;
+    else
+        y1 = y2;
+    y2 = t - y1 + y2;
+
+    CCamWnd *cam = reinterpret_cast<CMainFrameCamView *>(g_pParentWnd)->m_pCamWnd;
+    float origin[3], d[3], c[3], b[3], a[3];
+    cam->FUN_00403ce0(x1, y1, a);
+    cam->FUN_00403ce0(x1, y2, b);
+    cam->FUN_00403ce0(x2, y2, c);
+    cam->FUN_00403ce0(x2, y1, d);
+
+    origin[0] = cam->m_Camera.origin[0];
+    origin[1] = cam->m_Camera.origin[1];
+    origin[2] = cam->m_Camera.origin[2];
+
+    plane_t *p = planes;
+    CrossProduct(a, d, p->normal);
+    p->dist = DotProduct(origin, p->normal);
+    p->type = -1;
+    p++;
+    CrossProduct(b, a, p->normal);
+    p->dist = DotProduct(origin, p->normal);
+    p->type = -1;
+    p++;
+    CrossProduct(c, b, p->normal);
+    p->dist = DotProduct(origin, p->normal);
+    p->type = -1;
+    p++;
+    CrossProduct(d, c, p->normal);
+    p->dist = DotProduct(origin, p->normal);
+    p->type = -1;
 }
 
 void FUN_00462760(int buttons);

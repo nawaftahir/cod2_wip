@@ -12,6 +12,8 @@ struct patch_def_t
 struct patch_t
 {
     patch_def_t *def;
+    unsigned char pad0[2];
+    unsigned char field06;
 };
 
 struct face_t
@@ -166,6 +168,56 @@ extern "C" void FUN_004745d0()
     for (b = active_brushes.next; b != &active_brushes; b = b->next)
         b->hiddenBrush = false;
     g_nUpdateBits = -1;
+}
+
+void Sys_Printf(const char *fmt, ...);
+
+void Select_Invert()
+{
+    brush_t *next, *prev;
+
+    Sys_Printf("inverting selection...\n");
+
+    next = active_brushes.next;
+    prev = active_brushes.prev;
+    if (selected_brushes.next != &selected_brushes)
+    {
+        active_brushes.next = selected_brushes.next;
+        active_brushes.prev = selected_brushes.prev;
+        active_brushes.next->prev = &active_brushes;
+        active_brushes.prev->next = &active_brushes;
+    }
+    else
+    {
+        active_brushes.next = &active_brushes;
+        active_brushes.prev = &active_brushes;
+    }
+    if (next != &active_brushes)
+    {
+        selected_brushes.next = next;
+        selected_brushes.prev = prev;
+        selected_brushes.next->prev = &selected_brushes;
+        selected_brushes.prev->next = &selected_brushes;
+    }
+    else
+    {
+        selected_brushes.next = &selected_brushes;
+        selected_brushes.prev = &selected_brushes;
+    }
+
+    brush_t *b;
+    for (b = active_brushes.next; b != &active_brushes; b = b->next)
+    {
+        if (b->patch)
+            b->patch->field06 = 0;
+    }
+    for (b = selected_brushes.next; b != &selected_brushes; b = b->next)
+    {
+        if (b->patch)
+            b->patch->field06 = 1;
+    }
+    g_nUpdateBits = -1;
+    Sys_Printf("done.\n");
 }
 
 // 12-byte element, contents unknown (only the size is pinned by the retail copies)
