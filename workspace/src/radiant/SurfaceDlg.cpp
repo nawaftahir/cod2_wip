@@ -9,7 +9,12 @@ class CSurfaceDlg : public CDialog
 {
 protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	DECLARE_MESSAGE_MAP()
 };
+
+// Message map entries are not reconstructed yet; the retail map is at 0x548690.
+BEGIN_MESSAGE_MAP(CSurfaceDlg, CDialog)
+END_MESSAGE_MAP()
 
 int CSurfaceDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {

@@ -393,6 +393,7 @@ addr	size	source	symbol	name	tag
 0x0043c710	36	src/radiant/ScaleDialog.cpp	??0CScaleDialog@@QAE@PAVCWnd@@@Z	CScaleDialog::CScaleDialog	SUPPORTED
 0x0043c770	61	src/radiant/ScaleDialog.cpp	?DoDataExchange@CScaleDialog@@MAEXPAVCDataExchange@@@Z	CScaleDialog::DoDataExchange	SUPPORTED
 0x0043c7b0	6	src/radiant/ScaleDialog.cpp	?GetMessageMap@CScaleDialog@@MBEPBUAFX_MSGMAP@@XZ	CScaleDialog::GetMessageMap	SUPPORTED
+0x0043caf0	6	src/radiant/SurfaceDlg.cpp	?GetMessageMap@CSurfaceDlg@@MBEPBUAFX_MSGMAP@@XZ	CSurfaceDlg::GetMessageMap	SUPPORTED
 0x0043e910	1	src/radiant/SurfaceDlg.cpp	_FUN_0043e910	FUN_0043e910	UNNAMED
 0x0043e930	19	src/radiant/SurfaceDlg.cpp	?OnCreate@CSurfaceDlg@@IAEHPAUtagCREATESTRUCTA@@@Z	CSurfaceDlg::OnCreate	SUPPORTED
 0x0043ec80	117	src/radiant/TerrainDensityDlg.cpp	??0CTerrainDensityDlg@@QAE@PAVCWnd@@@Z	CTerrainDensityDlg::CTerrainDensityDlg	SUPPORTED
@@ -425,6 +426,13 @@ addr	size	source	symbol	name	tag
 0x00441400	27	src/radiant/TexWnd.cpp	?Texture_ClearInUse@@YAXXZ	Texture_ClearInUse	SUPPORTED
 0x00441440	27	src/radiant/TexWnd.cpp	?Texture_ShowAll@@YAXXZ	Texture_ShowAll	SUPPORTED
 0x00442290	1	src/radiant/TexWnd.cpp	_FUN_00442290	FUN_00442290	UNNAMED
+0x004428c0	6	src/radiant/TexWnd.cpp	?GetRuntimeClass@CTexWnd@@UBEPAUCRuntimeClass@@XZ	CTexWnd::GetRuntimeClass	SUPPORTED
+0x004429e0	6	src/radiant/TexWnd.cpp	?GetMessageMap@CTexWnd@@MBEPBUAFX_MSGMAP@@XZ	CTexWnd::GetMessageMap	SUPPORTED
+0x00442d50	9	src/radiant/TexWnd.cpp	?OnParentNotify@CTexWnd@@IAEXIJ@Z	CTexWnd::OnParentNotify	SUPPORTED
+0x00442ef0	75	src/radiant/TexWnd.cpp	?OnTimer@CTexWnd@@IAEXI@Z	CTexWnd::OnTimer	SUPPORTED
+0x00442f40	15	src/radiant/TexWnd.cpp	?OnKeyDown@CTexWnd@@IAEXIII@Z	CTexWnd::OnKeyDown	SUPPORTED
+0x00442f50	23	src/radiant/TexWnd.cpp	?OnKeyUp@CTexWnd@@IAEXIII@Z	CTexWnd::OnKeyUp	SUPPORTED
+0x00443140	34	src/radiant/TexWnd.cpp	?OnMouseWheel@CTexWnd@@IAEHIFVCPoint@@@Z	CTexWnd::OnMouseWheel	SUPPORTED
 0x004431f0	166	src/radiant/Undo.cpp	?FUN_004431f0@@YAXPAUbrush_t@@0@Z	FUN_004431f0	PINNED
 0x004432a0	242	src/radiant/Undo.cpp	?FUN_004432a0@@YAXPAUbrush_t@@@Z	FUN_004432a0	PINNED
 0x004433a0	6	src/radiant/Undo.cpp	?Undo_RedoAvailable@@YAPAUundo_s@@XZ	Undo_RedoAvailable	SUPPORTED
