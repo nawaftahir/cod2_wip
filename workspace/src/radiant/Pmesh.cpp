@@ -885,7 +885,12 @@ struct patch_t
     patchMesh_t *def;
     short version;
     unsigned char field_06;
-    unsigned char pad07[0x19];
+    unsigned char pad07;
+    void *matHandle;
+    void *vertHandle;
+    int vertCount;
+    int indexCount;
+    unsigned short *indices[2];
 };
 struct selbrush_t
 {
@@ -998,6 +1003,38 @@ void FUN_0042beb0()
         FUN_0042bde0(&DAT_010a44dc);
     FUN_0042bde0(&DAT_010a44b4);
     Undo_End();
+}
+
+#define PM_FRONT_FACE 0
+#define PM_BACK_FACE 1
+extern void (*R_FreeStaticSurface)(void *matHandle, int vertCount, void *vertHandle);
+
+void FUN_0042ca80(patch_t *pm)
+{
+#line 3018
+    assert( pm );
+    if (!pm->vertHandle)
+    {
+#line 3022
+        assert( !pm->indices[PM_FRONT_FACE] );
+#line 3023
+        assert( !pm->indices[PM_BACK_FACE] );
+#line 3024
+        assert( !pm->indexCount );
+#line 3025
+        assert( !pm->vertCount );
+        return;
+    }
+    (*R_FreeStaticSurface)(pm->matHandle, pm->vertCount, pm->vertHandle);
+    pm->matHandle = NULL;
+    pm->vertHandle = NULL;
+#line 3032
+    assert( pm->indices[PM_BACK_FACE] == pm->indices[PM_FRONT_FACE] + pm->indexCount );
+    free(pm->indices[PM_FRONT_FACE]);
+    pm->indices[PM_FRONT_FACE] = NULL;
+    pm->indices[PM_BACK_FACE] = NULL;
+    pm->indexCount = 0;
+    pm->vertCount = 0;
 }
 
 class CMainFrame;
@@ -1134,6 +1171,24 @@ void FUN_0042f660(patchMesh_t *p)
     if (g_PatchDialog.GetSafeHwnd())
         g_PatchDialog.GetPatchInfo();
 #undef SYMBIOT
+}
+
+// 0x004393c0 (142 B), p in edx
+void FUN_004393c0(patchMesh_t *p)
+{
+    p->field_20 = ((int *)&p->image_18)[DAT_01128d90];
+    p->field_3830[0] = p->flag_382f;
+    const int *pLayer = &DAT_01128d94;
+    for (int j = 0; j < p->height; j++)
+    {
+        for (int i = 0; i < p->width; i++)
+        {
+            int *dst = (int *)p->ctrl[i][j].field_2c;
+            const int *src = (const int *)p->ctrl[i][j].st[*pLayer];
+            dst[0] = src[0];
+            dst[1] = src[1];
+        }
+    }
 }
 
 void FUN_0042fad0(patchMesh_t *p, int amount)

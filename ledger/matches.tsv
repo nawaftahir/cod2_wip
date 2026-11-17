@@ -496,6 +496,7 @@ addr	size	source	symbol	name	tag
 0x00424c70	121	src/radiant/PatchDialog.cpp	?DoPatchInspector@@YAXXZ	DoPatchInspector	SUPPORTED
 0x00424cf0	20	src/radiant/PatchDialog.cpp	?UpdatePatchInspector@@YAXXZ	UpdatePatchInspector	SUPPORTED
 0x00424d10	62	src/radiant/PatchDialog.cpp	?OnDestroy@CPatchDialog@@IAEXXZ	CPatchDialog::OnDestroy	SUPPORTED
+0x00424d50	199	src/radiant/PatchDialog.cpp	?UpdateRowColInfo@CPatchDialog@@IAEXXZ	CPatchDialog::UpdateRowColInfo	SUPPORTED
 0x00424e20	5	src/radiant/PatchDialog.cpp	?UpdateInfo@CPatchDialog@@QAEXXZ	CPatchDialog::UpdateInfo	SUPPORTED
 0x00425030	30	src/radiant/PatchDialog.cpp	?SetRange@CSpinButtonCtrl@@QAEXFF@Z	CSpinButtonCtrl::SetRange	SUPPORTED
 0x00425050	16	src/radiant/PatchDialog.cpp	??0CSpinButtonCtrl@@QAE@XZ	CSpinButtonCtrl::CSpinButtonCtrl	SUPPORTED
@@ -528,6 +529,7 @@ addr	size	source	symbol	name	tag
 0x0042b760	45	src/radiant/Pmesh.cpp	?FUN_0042b760@@YAMHHMHM@Z	FUN_0042b760	UNNAMED
 0x0042bd10	121	src/radiant/Pmesh.cpp	?FUN_0042bd10@@YAXPAUselbrush_t@@@Z	FUN_0042bd10	PINNED
 0x0042beb0	88	src/radiant/Pmesh.cpp	?FUN_0042beb0@@YAXXZ	FUN_0042beb0	UNNAMED
+0x0042ca80	452	src/radiant/Pmesh.cpp	?FUN_0042ca80@@YAXPAUpatch_t@@@Z	FUN_0042ca80	SUPPORTED
 0x0042ea50	154	src/radiant/Pmesh.cpp	?FUN_0042ea50@@YAXPAUpatchMesh_t@@QBM@Z	FUN_0042ea50	UNNAMED
 0x0042f5d0	112	src/radiant/Pmesh.cpp	?FUN_0042f5d0@@YAXXZ	FUN_0042f5d0	UNNAMED
 0x0042f640	5	src/radiant/Pmesh.cpp	?FUN_0042f640@@YAXPAUpatch_t@@@Z	FUN_0042f640	UNNAMED
@@ -541,6 +543,7 @@ addr	size	source	symbol	name	tag
 0x00434100	1	src/radiant/Pmesh.cpp	_FUN_00434100	FUN_00434100	UNNAMED
 0x00435840	182	src/radiant/Pmesh.cpp	?FUN_00435840@@YAXXZ	FUN_00435840	UNNAMED
 0x004392a0	275	src/radiant/Pmesh.cpp	?FUN_004392a0@@YAPAUpatch_t@@PAUpatchMesh_t@@@Z	FUN_004392a0	UNNAMED
+0x004393c0	142	src/radiant/Pmesh.cpp	?FUN_004393c0@@YAXPAUpatchMesh_t@@@Z	FUN_004393c0	SUPPORTED
 0x004394f0	16	src/radiant/Pmesh.cpp	?FUN_004394f0@@YAXQBM0QAM@Z	FUN_004394f0	UNNAMED
 0x00439500	28	src/radiant/Pmesh.cpp	?FUN_00439500@@YAXQBM0QAM@Z	FUN_00439500	UNNAMED
 0x00439670	14	src/radiant/Pmesh.cpp	?FUN_00439670@@YAXQAM@Z	FUN_00439670	UNNAMED
@@ -575,6 +578,7 @@ addr	size	source	symbol	name	tag
 0x0043c770	61	src/radiant/ScaleDialog.cpp	?DoDataExchange@CScaleDialog@@MAEXPAVCDataExchange@@@Z	CScaleDialog::DoDataExchange	SUPPORTED
 0x0043c7b0	6	src/radiant/ScaleDialog.cpp	?GetMessageMap@CScaleDialog@@MBEPBUAFX_MSGMAP@@XZ	CScaleDialog::GetMessageMap	SUPPORTED
 0x0043caf0	6	src/radiant/SurfaceDlg.cpp	?GetMessageMap@CSurfaceDlg@@MBEPBUAFX_MSGMAP@@XZ	CSurfaceDlg::GetMessageMap	SUPPORTED
+0x0043dff0	509	src/radiant/SurfaceDlg.cpp	?FUN_0043dff0@@YAXXZ	FUN_0043dff0	SUPPORTED
 0x0043e910	1	src/radiant/SurfaceDlg.cpp	_FUN_0043e910	FUN_0043e910	UNNAMED
 0x0043e930	19	src/radiant/SurfaceDlg.cpp	?OnCreate@CSurfaceDlg@@IAEHPAUtagCREATESTRUCTA@@@Z	CSurfaceDlg::OnCreate	SUPPORTED
 0x0043ec80	117	src/radiant/TerrainDensityDlg.cpp	??0CTerrainDensityDlg@@QAE@PAVCWnd@@@Z	CTerrainDensityDlg::CTerrainDensityDlg	SUPPORTED
@@ -591,6 +595,7 @@ addr	size	source	symbol	name	tag
 0x0043f150	214	src/radiant/TextureBar.cpp	?DoDataExchange@CTextureBar@@MAEXPAVCDataExchange@@@Z	CTextureBar::DoDataExchange	SUPPORTED
 0x0043f420	1	src/radiant/TextureBar.cpp	_FUN_0043f420	FUN_0043f420	UNNAMED
 0x0043f430	27	src/radiant/TextureBar.cpp	?OnCreate@CTextureBar@@IAEHPAUtagCREATESTRUCTA@@@Z	CTextureBar::OnCreate	SUPPORTED
+0x0043f460	353	src/radiant/TextureBar.cpp	?FUN_0043f460@CTextureBar@@QAEXXZ	CTextureBar::FUN_0043f460	SUPPORTED
 0x0043f6f0	17	src/radiant/TextureBar.cpp	?Create@CDialogBar@@UAEHPAVCWnd@@III@Z	CDialogBar::Create	SUPPORTED
 0x0043f710	135	src/radiant/TextureLayout.cpp	??0CTextureLayout@@QAE@PAVCWnd@@@Z	CTextureLayout::CTextureLayout	SUPPORTED
 0x0043f7d0	94	src/radiant/TextureLayout.cpp	?DoDataExchange@CTextureLayout@@MAEXPAVCDataExchange@@@Z	CTextureLayout::DoDataExchange	SUPPORTED
@@ -772,6 +777,7 @@ addr	size	source	symbol	name	tag
 0x0045ebc0	40	src/radiant/brush.cpp	?FUN_0045ebc0@@YAMMM@Z	FUN_0045ebc0	SUPPORTED
 0x0045efb0	92	src/radiant/brush.cpp	?FUN_0045efb0@@YAXPAUface_t@@@Z	FUN_0045efb0	SUPPORTED
 0x0045f010	96	src/radiant/brush.cpp	?FUN_0045f010@@YAXPAUface_t@@PAUbrushdef_t@@@Z	FUN_0045f010	SUPPORTED
+0x0045f070	219	src/radiant/brush.cpp	?FUN_0045f070@@YAXPAUbrushdef_t@@@Z	FUN_0045f070	SUPPORTED
 0x0045f830	46	src/radiant/brush.cpp	?FUN_0045f830@@YAXQBM0QAMM@Z	FUN_0045f830	HYPOTHESIS
 0x00460160	373	src/radiant/csg.cpp	?Brush_GetFaceFlags@@YAXPAUbrush_t@@PAH111@Z	Brush_GetFaceFlags	SUPPORTED
 0x004602e0	225	src/radiant/csg.cpp	?Brush_IsFixedOrPatch@@YA_NPAUbrush_t@@@Z	Brush_IsFixedOrPatch	SUPPORTED

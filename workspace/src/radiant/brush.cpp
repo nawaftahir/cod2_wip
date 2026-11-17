@@ -48,6 +48,7 @@ extern void GetVectorForKey(entity_t *e, const char *key, float *out);
 extern void FUN_0047a760(const char *fmt, ...);
 extern patch_t *FUN_004392a0(patchMesh_t *def);
 extern void FUN_0042f660(patchMesh_t *p);
+extern void FUN_004393c0(patchMesh_t *p);
 extern void FUN_0042f790(patch_t *p);
 extern void FUN_004592f0(brush_t *b);
 extern int FUN_00434880(patchMesh_t *p);
@@ -834,6 +835,17 @@ void FUN_0045f010(face_t *f, brushdef_t *b)
     assert(f);
     f->texdef[g_qeglobals.activeMaterial] = f->lmTexdef;
     b->version++;
+}
+
+// 0x0045f070 (219 B), b in ebx
+void FUN_0045f070(brushdef_t *b)
+{
+#line 4180
+    assert(b);
+    for (int i = 0; i < b->faceCount; i++)
+        FUN_0045efb0(&b->faces[i]);
+    if (b->patch)
+        FUN_004393c0(b->patch);
 }
 
 void FUN_0045f830(const vec3_t a, const vec3_t b, vec3_t out, float t)
