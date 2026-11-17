@@ -21,7 +21,7 @@ struct MemoryNode
 {
 	unsigned short prev;
 	unsigned short next;
-	unsigned int unused;
+	unsigned int unused; // HYPOTHESIS: inferred from the 8-byte stride, name unknown
 };
 
 struct scrMemTreePub_t
