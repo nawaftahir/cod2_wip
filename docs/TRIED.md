@@ -65,3 +65,4 @@ Each row was measured. Tags/spec names point into `archive/LESSONS.md` and the o
 | Player_GetUseList 1.0 (11-15, server-1.0 form) | `useRadius` as file-scope `const vec3_t` (lnxded-1.0) instead of local static | whole-file 160,648 B differ (data shifts) vs 184: local static is right for the client |
 | DSound_UpdateSample 1.0 (11-15, 1 lab) | residue = dwLockLen1/dwLockLen2 stack slots swapped (source identical to the matched 1.3 body); decl order swapped | = base 18 lines: a slot-packer tie, listed in ties.txt |
 | Adjacent-statement swap sweep (w29, 11-15, gsw10.py lab per swap) | CL_SetCGameTime, Pickup_Weapon, DSound_UpdateSample | no gain |
+| Pickup_Weapon 1.0 tie (w10o, 11-18, gate) | compile-slot stand-in `if (0) G_TempEntity(...)` | 1699696, no change: the 4 B reload swap does not follow its compile slot |
