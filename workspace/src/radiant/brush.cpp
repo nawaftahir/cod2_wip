@@ -24,10 +24,10 @@ extern void * (*R_AllocStaticSurface)(void *matHandle, int vertCount, const vec3
 extern void (*R_FreeStaticSurface)(void *matHandle, int vertCount, void *vertHandle);
 extern bool FUN_00439620(const vec3_t v1, const vec3_t v2);
 extern void FUN_0043fbc0(vec2_t outSize, vec4_t texMat[2], const vec3_t normal, float planeDist, vec2_t outShift, float *outRotate, float *outCrossterm);
-extern winding_t * FUN_00447c60(const facePlane_t *plane);
+extern winding_t *Winding_BaseForPlane(const facePlane_t *p);
 extern winding_t * Winding_Clone(const winding_t *w);
 extern winding_t * Winding_Reverse(winding_t *w);
-extern winding_t * FUN_00448280(winding_t *w, const facePlane_t *plane, float epsilon);
+extern winding_t *FUN_00448280(winding_t *in, const facePlane_t *split, int keepon);
 extern int IntersectPlanes(const float **plane, vec3_t xyz); extern int PlaneFromPoints(vec4_t plane, const vec3_t a, const vec3_t b, const vec3_t c);
 extern void OrientationPosToWorld(const orientation_t *orient, const float *pos, float *out); extern void OrientationDirToWorld(const orientation_t *orient, const float *dir, float *out);
 extern void FUN_004884a0(const float **planes, float xyz[3], float snap, float epsilon);
@@ -59,7 +59,7 @@ extern void (*FUN_0059c468)(const float *inColor, unsigned int *outColor);
 extern char *va(const char *format, ...);
 extern brushdef_t *BrushDef_CloneNoWinding(const brushdef_t *b);
 extern void BrushDef_Free(brushdef_t *def);
-extern bool FUN_004481e0(const winding_t *w1, const winding_t *w2, const vec3_t normal1, float dist1, const vec3_t normal2, float dist2);
+extern bool FUN_004481e0(const winding_t *w1, const winding_t *w2, const vec3_t normal1, const vec3_t normal2, float dist1, float dist2);
 #line 37
 brush_t *Brush_Alloc()
 {
