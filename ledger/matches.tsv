@@ -76,6 +76,7 @@ addr	size	source	symbol	name	tag
 0x00403520	74	src/radiant/CamWnd.cpp	?OriginalMouseDown@CCamWnd@@IAEXIVCPoint@@@Z	CCamWnd::OriginalMouseDown	SUPPORTED
 0x00403570	43	src/radiant/CamWnd.cpp	?Cam_Init@CCamWnd@@QAEXXZ	CCamWnd::Cam_Init	SUPPORTED
 0x00404d70	65	src/radiant/CamWnd.cpp	?Cam_MouseUp@CCamWnd@@IAEXHHH@Z	CCamWnd::Cam_MouseUp	SUPPORTED
+0x00405220	348	src/radiant/CamWnd.cpp	?InitCull@CCamWnd@@IAEXXZ	InitCull	SUPPORTED
 0x00405380	207	src/radiant/CamWnd.cpp	?FUN_00405380@@YGXPAVCCamWnd@@@Z	FUN_00405380	UNNAMED
 0x00407550	1	src/radiant/CamWnd.cpp	_FUN_00407550	FUN_00407550	UNNAMED
 0x00407560	23	src/radiant/CamWnd.cpp	?OnKeyUp@CCamWnd@@IAEXIII@Z	CCamWnd::OnKeyUp	SUPPORTED
@@ -468,6 +469,7 @@ addr	size	source	symbol	name	tag
 0x00453240	31	src/radiant/XYWnd.cpp	?OnKillFocus@CXYWnd@@IAEXPAVCWnd@@@Z	CXYWnd::OnKillFocus	SUPPORTED
 0x00453260	39	src/radiant/XYWnd.cpp	?OnSetFocus@CXYWnd@@IAEXPAVCWnd@@@Z	CXYWnd::OnSetFocus	SUPPORTED
 0x00453290	5	src/radiant/XYWnd.cpp	?OnClose@CXYWnd@@IAEXXZ	CXYWnd::OnClose	SUPPORTED
+0x004532a0	26	src/radiant/XYWnd.cpp	?AreaSelectOK@CXYWnd@@QAEHXZ	CXYWnd::AreaSelectOK	SUPPORTED
 0x004535f0	1	src/radiant/XYWnd.cpp	_FUN_004535f0	FUN_004535f0	UNNAMED
 0x00453600	1	src/radiant/XYWnd.cpp	_FUN_00453600	FUN_00453600	UNNAMED
 0x00453610	34	src/radiant/XYWnd.cpp	??0XYWndNode@@QAE@XZ	XYWndNode::XYWndNode	UNNAMED
@@ -521,6 +523,7 @@ addr	size	source	symbol	name	tag
 0x00458d40	113	src/radiant/brush.cpp	?BrushDef_MemorySize@@YAHPBUbrushdef_t@@@Z	BrushDef_MemorySize	SUPPORTED
 0x004592c0	36	src/radiant/brush.cpp	?FUN_004592c0@@YA_NPAUbrush_t@@@Z	FUN_004592c0	SUPPORTED
 0x0045b630	36	src/radiant/brush.cpp	?FUN_0045b630@@YA_NPAUbrush_t@@@Z	FUN_0045b630	SUPPORTED
+0x0045ebc0	40	src/radiant/brush.cpp	?FUN_0045ebc0@@YAMMM@Z	FUN_0045ebc0	SUPPORTED
 0x0045efb0	92	src/radiant/brush.cpp	?FUN_0045efb0@@YAXPAUface_t@@@Z	FUN_0045efb0	SUPPORTED
 0x0045f010	96	src/radiant/brush.cpp	?FUN_0045f010@@YAXPAUface_t@@PAUbrushdef_t@@@Z	FUN_0045f010	SUPPORTED
 0x0045f830	46	src/radiant/brush.cpp	?FUN_0045f830@@YAXQBM0QAMM@Z	FUN_0045f830	HYPOTHESIS

@@ -78,6 +78,7 @@ protected:
     void OriginalMouseUp(UINT flags, CPoint point);
     void Cam_MouseDown(int x, int y, int buttons);
     void Cam_MouseUp(int x, int y, int buttons);
+    void InitCull();
     void Cam_MouseMoved(int x, int y, int buttons);
     afx_msg void OnKeyDown(UINT key, UINT repeat, UINT flags);
     afx_msg void OnPaint();
@@ -297,6 +298,30 @@ void CCamWnd::Cam_MouseUp(int x, int y, int buttons)
     field_128 = true;
     while (ShowCursor(TRUE) < 0)
         ;
+}
+
+void CCamWnd::InitCull()
+{
+    m_vCull1[0] = m_Camera.vpn[0] - m_Camera.vright[0];
+    m_vCull1[1] = m_Camera.vpn[1] - m_Camera.vright[1];
+    m_vCull1[2] = m_Camera.vpn[2] - m_Camera.vright[2];
+    m_vCull2[0] = m_Camera.vpn[0] + m_Camera.vright[0];
+    m_vCull2[1] = m_Camera.vpn[1] + m_Camera.vright[1];
+    m_vCull2[2] = m_Camera.vpn[2] + m_Camera.vright[2];
+
+    for (int i = 0; i < 3; i++)
+    {
+        if (m_vCull1[i] > 0)
+            m_nCullv1[i] = 3 + i;
+        else
+            m_nCullv1[i] = i;
+        if (m_vCull2[i] > 0)
+            m_nCullv2[i] = 3 + i;
+        else
+            m_nCullv2[i] = i;
+    }
+
+    FUN_00405380(this);
 }
 
 void __stdcall FUN_00405380(CCamWnd *camera)
