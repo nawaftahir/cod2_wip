@@ -425,6 +425,11 @@ addr	size	source	symbol	name	tag
 0x00446310	225	src/radiant/VertEditDlg.cpp	?DoDataExchange@CVertEditDlg@@MAEXPAVCDataExchange@@@Z	CVertEditDlg::DoDataExchange	SUPPORTED
 0x00446410	116	src/radiant/VertEditDlg.cpp	?FUN_00446410@@YGJPAUHWND__@@IIJ@Z	FUN_00446410	UNNAMED
 0x00446bc0	84	src/radiant/VertEditDlg.cpp	?OnDrawItem@CVertEditDlg@@IAEXHPAUtagDRAWITEMSTRUCT@@@Z	CVertEditDlg::OnDrawItem	SUPPORTED
+0x00447c00	84	src/radiant/Winding.cpp	?Point_Equal@@YA_NQBM0M@Z	Point_Equal	SUPPORTED
+0x00447f20	39	src/radiant/Winding.cpp	?Winding_Alloc@@YAPAUwinding_t@@H@Z	Winding_Alloc	SUPPORTED
+0x00447f50	8	src/radiant/Winding.cpp	?Winding_Free@@YAXPAUwinding_t@@@Z	Winding_Free	SUPPORTED
+0x00447f60	77	src/radiant/Winding.cpp	?Winding_Clone@@YAPAUwinding_t@@PBU1@@Z	Winding_Clone	SUPPORTED
+0x00447fb0	104	src/radiant/Winding.cpp	?Winding_Reverse@@YAPAUwinding_t@@PAU1@@Z	Winding_Reverse	SUPPORTED
 0x004493f0	88	src/radiant/XYWnd.cpp	?CreateObject@CXYWnd@@SGPAVCObject@@XZ	CXYWnd::CreateObject	SUPPORTED
 0x00449450	6	src/radiant/XYWnd.cpp	?GetRuntimeClass@CXYWnd@@UBEPAUCRuntimeClass@@XZ	CXYWnd::GetRuntimeClass	SUPPORTED
 0x00449460	227	src/radiant/XYWnd.cpp	??0CXYWnd@@QAE@XZ	CXYWnd::CXYWnd	SUPPORTED
@@ -481,11 +486,13 @@ addr	size	source	symbol	name	tag
 0x00453da0	28	src/radiant/brush.cpp	?BrushDef_Alloc@@YAPAUbrushdef_t@@XZ	BrushDef_Alloc	HYPOTHESIS
 0x00453dc0	111	src/radiant/brush.cpp	?FaceRender_Free@@YAXPAUfaceRender_t@@@Z	FaceRender_Free	PINNED
 0x00453e30	90	src/radiant/brush.cpp	?Face_FreeWinding@@YAXPAUface_t@@@Z	Face_FreeWinding	PINNED
+0x00454610	27	src/radiant/brush.cpp	?FUN_00454610@@YAXPAUface_t@@PBUwinding_t@@@Z	FUN_00454610	SUPPORTED
 0x00454630	109	src/radiant/brush.cpp	?Face_AllocArray@@YAPAUface_t@@H@Z	Face_AllocArray	PINNED
 0x004546a0	254	src/radiant/brush.cpp	?Face_FreeArray@@YAXPAUface_t@@H@Z	Face_FreeArray	PINNED
 0x004547a0	109	src/radiant/brush.cpp	?FaceRender_AllocArray@@YAPAUfaceRender_t@@H@Z	FaceRender_AllocArray	PINNED
 0x00454810	330	src/radiant/brush.cpp	?FaceRender_FreeArray@@YAXPAUbrush_t@@PAUfaceRender_t@@H@Z	FaceRender_FreeArray	PINNED
 0x00454960	66	src/radiant/brush.cpp	?FUN_00454960@@YAXPBUface_t@@PAU1@@Z	FUN_00454960	SUPPORTED
+0x004549b0	117	src/radiant/brush.cpp	?FUN_004549b0@@YAXPBUface_t@@PAU1@@Z	FUN_004549b0	SUPPORTED
 0x00454a30	122	src/radiant/brush.cpp	?Face_GetTextureVecs@@YAXPBUface_t@@QAY03M@Z	Face_GetTextureVecs	PINNED
 0x00454d70	23	src/radiant/brush.cpp	?FacePlane_ToVec4@@YAXPBUfacePlane_t@@QAM@Z	FacePlane_ToVec4	SUPPORTED
 0x00454d90	346	src/radiant/brush.cpp	?Brush_ForEachVertex@@YAHPAUbrushdef_t@@P6AH0PBHQBMHPAX3@Z33@Z	Brush_ForEachVertex	SUPPORTED
