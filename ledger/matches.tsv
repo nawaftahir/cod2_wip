@@ -223,7 +223,7 @@ addr	size	source	symbol	name	tag
 0x0040ce00	30	src/radiant/EntityListDlg.cpp	??_GCListCtrl@@UAEPAXI@Z	CListCtrl::scalar_deleting_dtor	SUPPORTED
 0x0040cf00	25	src/radiant/filtersettings.cpp	?DoDataExchange@CFilterSettings@@UAEXPAVCDataExchange@@@Z	CFilterSettings::DoDataExchange	SUPPORTED
 0x0040cf30	1765	src/radiant/filtersettings.cpp	_FUN_0040cf30	FUN_0040cf30	UNNAMED
-0x0040d620	241	src/radiant/filtersettings.cpp	?OnShowWindow@CFilterSettings@@IAEXHI@Z	CFilterSettings::OnShowWindow	SUPPORTED
+0x0040d620	241	src/radiant/filtersettings.cpp	?OnShowWindow@CFilterSettings@@QAEXHI@Z	CFilterSettings::OnShowWindow	SUPPORTED
 0x0040d720	1047	src/radiant/filtersettings.cpp	?OnInitDialog@CFilterSettings@@UAEHXZ	CFilterSettings::OnInitDialog	SUPPORTED
 0x0040db40	2457	src/radiant/filtersettings.cpp	?OnOK@CFilterSettings@@UAEXXZ	CFilterSettings::OnOK	SUPPORTED
 0x0040e4e0	1	src/radiant/filtersettings.cpp	_FUN_0040e4e0	FUN_0040e4e0	UNNAMED
