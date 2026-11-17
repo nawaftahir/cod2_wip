@@ -1095,15 +1095,19 @@ addr	size	source	symbol	name	tag
 0x004a0200	63	src/universal/splines/util_str.cpp	??YidStr@@QAEAAV0@I@Z	idStr::operator+=	SUPPORTED
 0x004a0480	45	src/universal/splines/util_str.cpp	?BackSlashesToSlashes@idStr@@QAEXXZ	idStr::BackSlashesToSlashes	SUPPORTED
 0x004a10f0	68	src/universal/splines/util_str.cpp	??_GidStr@@QAEPAXI@Z	idStr::scalar_deleting_dtor	SUPPORTED
+0x004a1170	719	src/xanim/dobj.cpp	?FUN_004a1170@@YAXPBUDObjAnimMat@@PAUDObjSkelMat_s@@@Z	FUN_004a1170	SUPPORTED
 0x004a14c0	49	src/xanim/dobj.cpp	?DObjInit@@YAXXZ	DObjInit	SUPPORTED
 0x004a1500	56	src/xanim/dobj.cpp	?DObjShutdown@@YAXXZ	DObjShutdown	SUPPORTED
 0x004a1540	11	src/xanim/dobj.cpp	?DObjAbort@@YAXXZ	DObjAbort	SUPPORTED
 0x004a1550	342	src/xanim/dobj.cpp	?DObjDumpInfo@@YAXPBUDObj_s@@@Z	DObjDumpInfo	SUPPORTED
 0x004a16b0	19	src/xanim/dobj.cpp	?DObjIgnoreCollision@@YA_NPBUDObj_s@@H@Z	DObjIgnoreCollision	SUPPORTED
+0x004a1890	265	src/xanim/dobj.cpp	?FUN_004a1890@@YAHPBUDObj_s@@I@Z	FUN_004a1890	PINNED
 0x004a2590	165	src/xanim/dobj.cpp	?DObjSkelIsBoneUpToDate@@YAHPAUDObj_s@@H@Z	DObjSkelIsBoneUpToDate	PINNED
 0x004a2640	177	src/xanim/dobj.cpp	?DObjSkelAreBonesUpToDate@@YAHPBUDObj_s@@PAH@Z	DObjSkelAreBonesUpToDate	PINNED
 0x004a4130	151	src/xanim/dobj.cpp	?DObjSetTree@@YAXPAUDObj_s@@PAUXAnimTree_s@@@Z	DObjSetTree	PINNED
+0x004a41d0	688	src/xanim/dobj.cpp	?DObjSetBounds@@YAXPAUDObj_s@@@Z	DObjSetBounds	PINNED
 0x004a48e0	131	src/xanim/dobj.cpp	?DObjClone@@YAXPBUDObj_s@@PAUXAnimTree_s@@PAU1@@Z	DObjClone	PINNED
+0x004a4970	384	src/xanim/dobj.cpp	?DObjFree@@YAXPAUDObj_s@@@Z	DObjFree	PINNED
 0x004a4af0	679	src/xanim/dobj.cpp	?DObjGetCreateParms@@YAXPBUDObj_s@@PAUDObjModel_s@@PAGPAPAUXAnimTree_s@@2@Z	DObjGetCreateParms	PINNED
 0x004a4da0	18	src/xanim/dobj.cpp	?DObjGetAllocSkelSize@@YAHPBUDObj_s@@@Z	DObjGetAllocSkelSize	SUPPORTED
 0x004a4dc0	30	src/xanim/dobj.cpp	?DObjSkelExists@@YAHPAUDObj_s@@H@Z	DObjSkelExists	SUPPORTED
@@ -1114,6 +1118,7 @@ addr	size	source	symbol	name	tag
 0x004a4ea0	15	src/xanim/dobj.cpp	?DObjGetModel@@YAPAUXModel@@PBUDObj_s@@H@Z	DObjGetModel	SUPPORTED
 0x004a4eb0	113	src/xanim/dobj.cpp	?DObjGetBounds@@YAXPBUDObj_s@@PAM1@Z	DObjGetBounds	PINNED
 0x004a4f30	87	src/xanim/dobj.cpp	?DObjGetRotTransArray@@YAPAUDObjAnimMat@@PBUDObj_s@@@Z	DObjGetRotTransArray	PINNED
+0x004a4f90	236	src/xanim/dobj.cpp	?DObjGetMatrixArray@@YAXPBUDObj_s@@PBHPAUDObjSkelMat_s@@@Z	DObjGetMatrixArray	PINNED
 0x004a5080	90	src/xanim/dobj.cpp	?DObjGetMatOffset@@YAHPBUDObj_s@@H@Z	DObjGetMatOffset	PINNED
 0x004a50e0	92	src/xanim/dobj.cpp	?DObjGetBoneInfo@@YAXPBUDObj_s@@PAPAUXBoneInfo@@@Z	DObjGetBoneInfo	SUPPORTED
 0x004a5140	315	src/xanim/dobj.cpp	?DObjSetRotTransIndex@@YAHPBUDObj_s@@PBHH@Z	DObjSetRotTransIndex	PINNED
@@ -1122,6 +1127,7 @@ addr	size	source	symbol	name	tag
 0x004a5460	100	src/xanim/dobj.cpp	?DObjGetModelSurface@@YAPAXPBUDObj_s@@HHH@Z	DObjGetModelSurface	PINNED
 0x004a54d0	212	src/xanim/dobj.cpp	?DObjGetModelSurfaceName@@YAPBDPBUDObj_s@@HHH@Z	DObjGetModelSurfaceName	PINNED
 0x004a55b0	555	src/xanim/dobj.cpp	?DObjGetSurfaceList@@YAHPBUDObj_s@@PAUDObjSurfRef@@PAIPBD@Z	DObjGetSurfaceList	PINNED
+0x004a57e0	211	src/xanim/dobj.cpp	?DObjGetBoneIndex@@YAHPBUDObj_s@@I@Z	DObjGetBoneIndex	PINNED
 0x004a58c0	335	src/xanim/dobj.cpp	?DObjGetBoneName@@YAPBDPBUDObj_s@@H@Z	DObjGetBoneName	PINNED
 0x004a5a10	67	src/xanim/dobj.cpp	?DObjGetTree@@YAPAUXAnimTree_s@@PBUDObj_s@@@Z	DObjGetTree	PINNED
 0x004a5ae0	12	src/xanim/dobj.cpp	?DObjNumBones@@YAHPBUDObj_s@@@Z	DObjNumBones	SUPPORTED

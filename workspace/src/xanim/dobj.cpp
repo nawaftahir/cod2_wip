@@ -11,10 +11,74 @@ unsigned int SL_GetStringOfLen(const char *str, unsigned int user, unsigned int 
 void SL_AddRefToString(unsigned int stringValue);
 void SL_RemoveRefToStringOfLen(unsigned int stringValue, unsigned int len);
 
+int FUN_004a8fc0(unsigned int stringValue);
+// the retail assert text names this function; scr_stringlist.cpp still calls it FUN_004a8fc0
+#define SL_IsLowercaseString FUN_004a8fc0
+int FUN_004a1890(const DObj_s *obj, unsigned int name);
+
 static unsigned int g_empty = 0;
 
 const char *DObjGetBoneName(const DObj_s *obj, int boneIndex);
 
+#undef IS_NAN
+#define nanmask (255<<23)
+#define IS_NAN(x) (((*(int *)&(x))&nanmask)==nanmask)
+
+typedef struct DObjSkelMat_s
+{
+	vec4_t axis[3];
+	vec4_t origin;
+} DObjSkelMat;
+
+// retail asserts name xanim_public.h for this function
+#line 340 "e:\\trees\\cod2src\\src\\xanim\\xanim_public.h"
+void FUN_004a1170(const DObjAnimMat *mat, DObjSkelMat *skelMat)
+{
+	float xx, xy, xz, xw, yy, yz, yw, zz, zw;
+	vec3_t scaledQuat;
+
+#line 348
+	assert(!IS_NAN((mat->quat)[0]) && !IS_NAN((mat->quat)[1]) && !IS_NAN((mat->quat)[2]) && !IS_NAN((mat->quat)[3]));
+
+	VectorScale(mat->quat, mat->transWeight, scaledQuat);
+
+	xx = scaledQuat[0] * mat->quat[0];
+	xy = scaledQuat[0] * mat->quat[1];
+	xz = scaledQuat[0] * mat->quat[2];
+	xw = scaledQuat[0] * mat->quat[3];
+	yy = scaledQuat[1] * mat->quat[1];
+	yz = scaledQuat[1] * mat->quat[2];
+	yw = scaledQuat[1] * mat->quat[3];
+	zz = scaledQuat[2] * mat->quat[2];
+	zw = scaledQuat[2] * mat->quat[3];
+
+	skelMat->axis[0][0] = 1.0f - (yy + zz);
+	skelMat->axis[0][1] = xy + zw;
+	skelMat->axis[0][2] = xz - yw;
+	skelMat->axis[0][3] = 0.0f;
+
+	skelMat->axis[1][0] = xy - zw;
+	skelMat->axis[1][1] = 1.0f - (xx + zz);
+	skelMat->axis[1][2] = yz + xw;
+	skelMat->axis[1][3] = 0.0f;
+
+	skelMat->axis[2][0] = xz + yw;
+	skelMat->axis[2][1] = yz - xw;
+	skelMat->axis[2][2] = 1.0f - (xx + yy);
+	skelMat->axis[2][3] = 0.0f;
+
+#line 379
+	assert(!IS_NAN((skelMat->axis[0])[0]) && !IS_NAN((skelMat->axis[0])[1]) && !IS_NAN((skelMat->axis[0])[2]));
+#line 380
+	assert(!IS_NAN((skelMat->axis[1])[0]) && !IS_NAN((skelMat->axis[1])[1]) && !IS_NAN((skelMat->axis[1])[2]));
+#line 381
+	assert(!IS_NAN((skelMat->axis[2])[0]) && !IS_NAN((skelMat->axis[2])[1]) && !IS_NAN((skelMat->axis[2])[2]));
+
+	VectorCopy(mat->trans, skelMat->origin);
+	skelMat->origin[3] = 1.0f;
+}
+
+#line 82 "\\trees\\cod2src\\src\\xanim\\dobj.cpp"
 void DObjInit()
 {
 	int duplicatePartBits[5];
@@ -94,6 +158,35 @@ bool DObjIgnoreCollision(const DObj_s *obj, int modelIndex)
 	return (obj->ignoreCollision & (1 << modelIndex)) != 0;
 }
 
+int FUN_004a1890(const DObj_s *obj, unsigned int name)
+{
+	int offset;
+	XModel *model;
+	int index;
+	int i;
+	int numModels;
+
+#line 215
+	assert(obj);
+	numModels = obj->numModels;
+	index = 0;
+
+	for ( i = 0; i < numModels; ++i )
+	{
+		model = obj->models[i];
+		offset = XModelGetBoneIndex(model, name);
+
+		if ( offset >= 0 )
+			return index + offset;
+
+#line 226
+		assertMsg((model->parts->numBones >= 0), "(model->parts->numBones) = %i", model->parts->numBones);
+		index += model->parts->numBones;
+	}
+
+	return -1;
+}
+
 int DObjSkelIsBoneUpToDate(DObj_s *obj, int boneIndex)
 {
 	DSkel_t *skel;
@@ -160,6 +253,42 @@ void DObjSetTree(DObj_s *obj, XAnimTree_s *tree)
 	*parent = childInfoIndex;
 }
 
+void DObjSetBounds(DObj_s *obj)
+{
+	int numModels;
+	int i;
+	vec3_t modelmins;
+	vec3_t modelmaxs;
+	vec3_t dobjmins;
+	vec3_t dobjmaxs;
+
+#line 977
+	assert(obj);
+	numModels = obj->numModels;
+
+	VectorSet(dobjmins, 0, 0, 0);
+	VectorSet(dobjmaxs, 0, 0, 0);
+
+	for ( i = 0; i < numModels; ++i )
+	{
+		if ( obj->models[i] )
+		{
+			VectorCopy(obj->models[i]->mins, modelmins);
+			VectorCopy(obj->models[i]->maxs, modelmaxs);
+
+			dobjmins[0] = dobjmins[0] + modelmins[0];
+			dobjmins[1] = dobjmins[1] + modelmins[1];
+			dobjmins[2] = dobjmins[2] + modelmins[2];
+			dobjmaxs[0] = dobjmaxs[0] + modelmaxs[0];
+			dobjmaxs[1] = dobjmaxs[1] + modelmaxs[1];
+			dobjmaxs[2] = dobjmaxs[2] + modelmaxs[2];
+		}
+	}
+
+	VectorCopy(dobjmins, obj->mins);
+	VectorCopy(dobjmaxs, obj->maxs);
+}
+
 void DObjClone(const DObj_s *from, XAnimTree_s *tree, DObj_s *obj)
 {
 	DObj_s *to;
@@ -174,6 +303,40 @@ void DObjClone(const DObj_s *from, XAnimTree_s *tree, DObj_s *obj)
 		SL_AddRefToString(to->duplicateParts);
 
 	DObjSetTree(to, tree);
+}
+
+void DObjFree(DObj_s *obj)
+{
+	const char *string;
+	size_t len;
+
+#line 1147
+	assert(obj);
+
+	if ( obj->tree )
+	{
+#line 1152
+		assert(obj->tree->anims);
+#line 1153
+		assert(obj->animToModel);
+		obj->animToModel = 0;
+		obj->tree = 0;
+	}
+
+#line 1159
+	assert(g_empty);
+
+	if ( obj->duplicateParts )
+	{
+		if ( obj->duplicateParts != g_empty )
+		{
+			string = SL_ConvertToString(obj->duplicateParts);
+			len = strlen(string + 16);
+			SL_RemoveRefToStringOfLen(obj->duplicateParts, len + 17);
+		}
+
+		obj->duplicateParts = 0;
+	}
 }
 
 void DObjGetCreateParms(const DObj_s *obj, DObjModel_s *dobjModels, unsigned short *numModels, XAnimTree_s **tree, unsigned short *entnum)
@@ -293,6 +456,27 @@ DObjAnimMat *DObjGetRotTransArray(const DObj_s *obj)
 		return &obj->skel->Mat;
 	else
 		return 0;
+}
+
+void DObjGetMatrixArray(const DObj_s *obj, const int *partBits, DObjSkelMat *skelMat)
+{
+	int i;
+	int boneCount;
+	DObjAnimMat *mat;
+
+	boneCount = obj->numBones;
+#line 1359
+	assert(boneCount <= DOBJ_MAX_PARTS);
+
+	mat = DObjGetRotTransArray(obj);
+#line 1362
+	assert(mat);
+
+	for ( i = 0; i < boneCount; ++i, ++skelMat, ++mat )
+	{
+		if ( partBits[i >> 5] & (1 << (i & 0x1F)) )
+			FUN_004a1170(mat, skelMat);
+	}
 }
 
 int DObjGetMatOffset(const DObj_s *obj, int modelIndex)
@@ -529,6 +713,15 @@ int DObjGetSurfaceList(const DObj *obj, DObjSurfRef *list, unsigned int *surfPar
 	}
 
 	return total;
+}
+
+int DObjGetBoneIndex(const DObj_s *obj, unsigned int boneName)
+{
+#line 1636
+	assert(boneName);
+#line 1640
+	assertMsg(SL_IsLowercaseString( boneName ), "%s", va("%s", SL_ConvertToString(boneName)));
+	return FUN_004a1890(obj, boneName);
 }
 
 const char *DObjGetBoneName(const DObj_s *obj, int boneIndex)
