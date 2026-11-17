@@ -240,7 +240,6 @@ void Com_StripFilename( const char *in, char *out )
 	out[len] = 0;
 }
 
-/* DEFERRED: calls I_strncpyz (0x00496430) which perturbs Dvar_SetFromString.
 void Com_DefaultExtension( char *path, int maxSize, const char *extension )
 {
 	char oldPath[64];
@@ -260,7 +259,6 @@ void Com_DefaultExtension( char *path, int maxSize, const char *extension )
 	I_strncpyz( oldPath, path, sizeof( oldPath ) );
 	Com_sprintf( path, maxSize, "%s%s", oldPath, extension );
 }
-*/
 
 #line 213
 // byte order handlers, bound once by Swap_Init
@@ -752,7 +750,6 @@ char *I_strupr( char *s )
 	return s;
 }
 
-/* DEFERRED: calls I_strncpyz (0x00496430) which perturbs Dvar_SetFromString.
 void I_strncat( char *dest, int size, const char *src )
 {
 	int l1;
@@ -768,7 +765,6 @@ void I_strncat( char *dest, int size, const char *src )
 	}
 	I_strncpyz( dest + l1, src, size - l1 );
 }
-*/
 
 #line 698
 // length without ^N color codes
@@ -1455,7 +1451,6 @@ void OrientationDirToLocal( const orientation_t *orient, const float *dir, float
 // Unreferenced storage; original declarations unknown (sized from the layout).
 static int unusedStorage[2];
 
-/* DEFERRED: calls I_strncpyz (0x00496430) which perturbs Dvar_SetFromString.
 qboolean ParseConfigStringToStruct( unsigned char *pStruct, const cspField_t *pFieldList, int iNumFields, const char *pszBuffer, int iMaxFieldTypes,
                                     int ( *parseSpecialFieldType )( unsigned char *, const char *, const int ), void ( *parseStrCpy )( unsigned char *, const char * ) )
 {
@@ -1535,7 +1530,6 @@ qboolean ParseConfigStringToStruct( unsigned char *pStruct, const cspField_t *pF
 	}
 	return qtrue;
 }
-*/
 
 #line 1488
 
