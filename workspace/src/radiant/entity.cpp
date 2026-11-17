@@ -4,6 +4,8 @@
 #include <string.h>
 #include "../universal/assertive.h"
 
+typedef float vec3_t[3];
+
 struct epair_t
 {
 	epair_t *next;
@@ -11,7 +13,18 @@ struct epair_t
 	char *value;
 };
 
-struct eclass_t;
+struct eclass_t
+{
+	unsigned char pad00[4];
+	char *unk04;
+	int unk08;
+	float mins[3];
+	float maxs[3];
+	unsigned char pad24[0x158 - 0x24];
+	char *modelName;
+	unsigned char pad15c[4];
+	unsigned int flags;
+};
 struct entity_t;
 
 struct brushdef_t
@@ -63,6 +76,19 @@ struct entity_t
 };
 
 extern entity_t entities;
+extern int DAT_011298b0;
+extern char *FUN_0046cb10(const char *str);
+extern eclass_t *FUN_00464770(int a, const char *name);
+extern void Brush_InitSolid(brushdef_t *b, const vec3_t mins, const vec3_t maxs, eclass_t *eclass);
+extern void FUN_0045a220(brushdef_t *b, bool snap);
+extern void FUN_00457bd0(brushdef_t *b);
+extern void FUN_00475350();
+extern void Sys_MarkMapModified(void);
+extern void FUN_0045b310(brushdef_t *b, const float *mins, const float *maxs);
+extern void AddPointToBounds(const vec3_t v, vec3_t mins, vec3_t maxs);
+void FUN_00467470(entity_t *e);
+void FUN_00467510(entity_t *e);
+void FUN_00465bf0(entity_t *e, const char *key, const char *value);
 extern void FUN_0047a760(const char *fmt, ...);
 extern char *va(const char *format, ...);
 extern void (__cdecl *dword_0059c490)(void *);
@@ -94,10 +120,177 @@ void FUN_00464c60(entityInst_t *inst)
 	}
 }
 
+// 0x004655f0 (175 B)
+void FUN_004655f0(entity_t *e, const char *key)
+{
+#line 202
+	assert(e);
+	if (e->eclass && e->eclass->unk08)
+	{
+		if (!_stricmp(key, "angles") || !_stricmp(key, "modelscale") || !_stricmp(key, "modelscale_vec"))
+		{
+			FUN_00467470(e);
+			e->version++;
+		}
+	}
+	if (!_stricmp(key, "model"))
+	{
+		e->modelClass = NULL;
+		e->brushes.onext->modelFailed = 0;
+		e->version++;
+	}
+}
+
 // 0x004656a0 (5 B)
 void FUN_004656a0(entity_t *e)
 {
 	e->version++;
+}
+
+// 0x004656b0 (202 B)
+void FUN_004656b0(const char *key, entity_t *e, const char *value)
+{
+	if (!_stricmp(key, "classname") && e->eclass && e->eclass->unk08)
+	{
+		eclass_t *ec = FUN_00464770(0, value);
+
+		if (ec->unk08)
+		{
+			vec3_t mins;
+			vec3_t maxs;
+
+			e->eclass = ec;
+			FUN_00467510(e);
+			mins[0] = ec->mins[0] + e->origin[0];
+			mins[1] = ec->mins[1] + e->origin[1];
+			mins[2] = ec->mins[2] + e->origin[2];
+			maxs[0] = ec->maxs[0] + e->origin[0];
+			maxs[1] = ec->maxs[1] + e->origin[1];
+			maxs[2] = ec->maxs[2] + e->origin[2];
+			brushdef_t *b = e->brushes.onext;
+			Brush_InitSolid(b, mins, maxs, ec);
+			FUN_0045a220(b, true);
+			if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
+				FUN_00475350();
+			Sys_MarkMapModified();
+			b->version++;
+		}
+	}
+}
+
+// 0x004657a0 (373 B)
+void FUN_004657a0(entity_t *e, const char *key)
+{
+	if ((!_stricmp(key, "_color") || !_stricmp(key, "targetname")) && e->eclass->unk08)
+	{
+#line 277
+		assert(e->brushes.onext);
+#line 278
+		assert(e->brushes.onext != &e->brushes);
+#line 279
+		assert(e->brushes.onext->onext == &e->brushes);
+		if (!_stricmp(key, "_color")
+			|| ((e->eclass->flags & 0x20) && strncmp(e->eclass->unk04, "node_scr", 8)
+				&& strncmp(ValueForKey(e->epairs, "targetname"), "auto", 4)))
+			FUN_00457bd0(e->brushes.onext);
+	}
+}
+
+// 0x00465920 (328 B)
+void FUN_00465920(entity_t *e, const char *key)
+{
+	float mins[3];
+	float maxs[3];
+
+#line 307
+	assert(!stricmp( key, "radius" ) || !stricmp( key, "height" ));
+	float radius = atof(ValueForKey(e->epairs, "radius"));
+	if (radius <= 0)
+		return;
+
+	float height;
+	if (!(e->eclass->flags & 0x80))
+	{
+		height = atof(ValueForKey(e->epairs, "height"));
+		if (height <= 0)
+			return;
+	}
+	else
+		height = 32;
+	FUN_0045a220(e->brushes.onext, true);
+	mins[0] = e->origin[0] - radius;
+	mins[1] = e->origin[1] - radius;
+	mins[2] = e->eclass->mins[2] + e->origin[2];
+	maxs[0] = e->origin[0] + radius;
+	maxs[1] = e->origin[1] + radius;
+	maxs[2] = mins[2] + height;
+	AddPointToBounds(mins, e->brushes.onext->mins, e->brushes.onext->maxs);
+	AddPointToBounds(maxs, e->brushes.onext->mins, e->brushes.onext->maxs);
+}
+
+// 0x00465a70 (111 B)
+void FUN_00465a70(entity_t *e, const char *key)
+{
+	if (!_stricmp(key, "radius") && (e->eclass->flags & 0xc0))
+	{
+		float radius = atof(ValueForKey(e->epairs, "radius"));
+		if (radius <= 0)
+		{
+			FUN_00465bf0(e, "radius", "256");
+			return;
+		}
+		FUN_00465920(e, key);
+	}
+}
+
+// 0x00465ae0 (111 B)
+void FUN_00465ae0(entity_t *e, const char *key)
+{
+	if (!_stricmp(key, "height") && (e->eclass->flags & 0x40))
+	{
+		float height = atof(ValueForKey(e->epairs, "height"));
+		if (height <= 0)
+		{
+			FUN_00465bf0(e, "height", "128");
+			return;
+		}
+		FUN_00465920(e, key);
+	}
+}
+
+// 0x00465b50 (145 B)
+void FUN_00465b50(epair_t *&list, const char *key, const char *value)
+{
+	for (epair_t *ep = list; ep; ep = ep->next)
+	{
+		if (!strcmp(ep->key, key))
+		{
+			delete[] ep->value;
+			ep->value = FUN_0046cb10(value);
+			return;
+		}
+	}
+	epair_t *ep = new epair_t;
+	ep->next = list;
+	list = ep;
+	ep->key = FUN_0046cb10(key);
+	ep->value = FUN_0046cb10(value);
+}
+
+// 0x00465bf0 (111 B)
+void FUN_00465bf0(entity_t *e, const char *key, const char *value)
+{
+	if (e && key && *key)
+	{
+		FUN_00465b50(e->epairs, key, value);
+		FUN_004655f0(e, key);
+		FUN_004656b0(key, e, value);
+		if (!_stricmp(key, "model"))
+			FUN_00467510(e);
+		FUN_004657a0(e, key);
+		FUN_00465a70(e, key);
+		FUN_00465ae0(e, key);
+	}
 }
 
 // 0x00465c60 (117 B)
@@ -380,6 +573,41 @@ entity_t *FindEntityInt(const char *pszKey, int iValue)
 			return pe;
 	}
 	return NULL;
+}
+
+// 0x00467470 (153 B)
+void FUN_00467470(entity_t *e)
+{
+	vec3_t mins;
+	vec3_t maxs;
+
+#line 1220
+	assert(e);
+	mins[0] = e->eclass->mins[0] + e->origin[0];
+	mins[1] = e->eclass->mins[1] + e->origin[1];
+	mins[2] = e->eclass->mins[2] + e->origin[2];
+	maxs[0] = e->eclass->maxs[0] + e->origin[0];
+	maxs[1] = e->eclass->maxs[1] + e->origin[1];
+	maxs[2] = e->eclass->maxs[2] + e->origin[2];
+	FUN_0045b310(e->brushes.onext, mins, maxs);
+}
+
+// 0x00467510 (200 B)
+void FUN_00467510(entity_t *e)
+{
+	if (e->eclass && e->eclass->unk08 && e->eclass->modelName && *e->eclass->modelName)
+	{
+		const char *modelName = ValueForKey(e->epairs, "model");
+#line 1245
+		assert(modelName);
+		if (_stricmp(modelName, e->eclass->modelName))
+		{
+			FUN_00465bf0(e, "model", e->eclass->modelName);
+			e->version++;
+			e->modelClass = NULL;
+			e->brushes.onext->modelFailed = 0;
+		}
+	}
 }
 
 // 0x00467640 (59 B)

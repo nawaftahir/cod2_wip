@@ -536,6 +536,9 @@ addr	size	source	symbol	name	tag
 0x00464c10	8	src/radiant/entity.cpp	?ValueForKey@@YAPADPAUentity_t@@PBD@Z	ValueForKey	SUPPORTED
 0x00464c60	25	src/radiant/entity.cpp	?FUN_00464c60@@YAXPAUentityInst_t@@@Z	FUN_00464c60	UNNAMED
 0x004656a0	5	src/radiant/entity.cpp	?FUN_004656a0@@YAXPAUentity_t@@@Z	FUN_004656a0	UNNAMED
+0x00465a70	111	src/radiant/entity.cpp	?FUN_00465a70@@YAXPAUentity_t@@PBD@Z	FUN_00465a70	SUPPORTED
+0x00465ae0	111	src/radiant/entity.cpp	?FUN_00465ae0@@YAXPAUentity_t@@PBD@Z	FUN_00465ae0	SUPPORTED
+0x00465b50	145	src/radiant/entity.cpp	?FUN_00465b50@@YAXAAPAUepair_t@@PBD1@Z	FUN_00465b50	SUPPORTED
 0x00465c60	117	src/radiant/entity.cpp	?DeleteKey@@YAXAAPAUepair_t@@PBD@Z	DeleteKey	SUPPORTED
 0x00465d10	31	src/radiant/entity.cpp	?FloatForKey@@YAMPAUentity_t@@PBD@Z	FloatForKey	SUPPORTED
 0x00465d30	18	src/radiant/entity.cpp	?IntForKey@@YAHPAUentity_t@@PBD@Z	IntForKey	SUPPORTED
@@ -560,6 +563,7 @@ addr	size	source	symbol	name	tag
 0x00467370	114	src/radiant/entity.cpp	?GetUniqueTargetId@@YAHH@Z	GetUniqueTargetId	SUPPORTED
 0x004673f0	52	src/radiant/entity.cpp	?FUN_004673f0@@YAPAUentity_t@@PBD0@Z	FUN_004673f0	UNNAMED
 0x00467430	58	src/radiant/entity.cpp	?FindEntityInt@@YAPAUentity_t@@PBDH@Z	FindEntityInt	SUPPORTED
+0x00467510	200	src/radiant/entity.cpp	?FUN_00467510@@YAXPAUentity_t@@@Z	FUN_00467510	PINNED
 0x00467640	59	src/radiant/entity.cpp	?FUN_00467640@@YAXPAUentity_t@@PAM@Z	FUN_00467640	UNNAMED
 0x00467680	237	src/radiant/entity.cpp	?FUN_00467680@@YAXPAUentity_t@@H@Z	FUN_00467680	UNNAMED
 0x00467df0	28	src/radiant/map.cpp	?FUN_00467df0@@YAXPAUFileWrapper@@PBDZZ	FUN_00467df0	UNNAMED
@@ -567,6 +571,13 @@ addr	size	source	symbol	name	tag
 0x00467ff0	55	src/radiant/map.cpp	?Map_FindClass@@YAPAUentity_t@@PBD@Z	Map_FindClass	SUPPORTED
 0x004681b0	27	src/radiant/map.cpp	?FUN_004681b0@@YAPAUentity_t@@XZ	FUN_004681b0	UNNAMED
 0x00469100	53	src/radiant/map.cpp	?Map_IsBrushFiltered@@YA_NPAUbrushDef_t@@@Z	Map_IsBrushFiltered	SUPPORTED
+0x0046bba0	18	src/radiant/map.cpp	?FUN_0046bba0@@YAXPAUUNKNOWN_0046bba0@@PBM@Z	FUN_0046bba0	SUPPORTED
+0x0046bbc0	18	src/radiant/map.cpp	?FUN_0046bbc0@@YAXPAUUNKNOWN_0046bba0@@PAM@Z	FUN_0046bbc0	SUPPORTED
+0x0046bbe0	10	src/radiant/map.cpp	??0UNKNOWN_0054ebb0@@QAE@PAVCFile@@@Z	UNKNOWN_0054ebb0::UNKNOWN_0054ebb0	SUPPORTED
+0x0046bbf0	84	src/radiant/map.cpp	?FUN_0046bbf0@UNKNOWN_0054ebb0@@UAAXPBDZZ	UNKNOWN_0054ebb0::FUN_0046bbf0	SUPPORTED
+0x0046bca0	4	src/radiant/map.cpp	?FUN_0046bca0@@YAHPAUUNKNOWN_0046bca0@@@Z	FUN_0046bca0	SUPPORTED
+0x0046bcb0	4	src/radiant/map.cpp	?FUN_0046bcb0@@YAHPAUUNKNOWN_0046bca0@@@Z	FUN_0046bcb0	SUPPORTED
+0x0046bcc0	7	src/radiant/map.cpp	?FUN_0046bcc0@@YAHPAUUNKNOWN_0046bcc0@@@Z	FUN_0046bcc0	SUPPORTED
 0x0046bcd0	126	src/radiant/mru.cpp	?CreateMruMenu@@YAPAUMRUMENU@@GGGG@Z	CreateMruMenu	SUPPORTED
 0x0046bd50	28	src/radiant/mru.cpp	?CreateMruMenuDefault@@YAPAUMRUMENU@@XZ	CreateMruMenuDefault	SUPPORTED
 0x0046bd70	55	src/radiant/mru.cpp	?DeleteMruMenu@@YAXPAUMRUMENU@@@Z	DeleteMruMenu	SUPPORTED
@@ -589,6 +600,7 @@ addr	size	source	symbol	name	tag
 0x0046ca50	156	src/radiant/points.cpp	?Pointfile_Draw@@YAXXZ	Pointfile_Draw	SUPPORTED
 0x0046caf0	11	src/radiant/points.cpp	?Pointfile_Clear@@YAXXZ	Pointfile_Clear	SUPPORTED
 0x0046cb00	14	src/radiant/points.cpp	?Pointfile_HasPoints@@YAHXZ	Pointfile_HasPoints	SUPPORTED
+0x0046cb10	111	src/radiant/qe3.cpp	?FUN_0046cb10@@YAPADPBD@Z	FUN_0046cb10	PINNED
 0x004721a0	224	src/radiant/select.cpp	?FUN_004721a0@@YAXHH@Z	FUN_004721a0	UNNAMED
 0x00472280	224	src/radiant/select.cpp	?FUN_00472280@@YAXHH@Z	FUN_00472280	UNNAMED
 0x004727a0	18	src/radiant/select.cpp	?FUN_004727a0@@YAXXZ	FUN_004727a0	UNNAMED
