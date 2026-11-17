@@ -28,7 +28,7 @@ src/radiant/NewProjDlg.cpp	PARTIAL	3	147	PENDING	PENDING		FILE VERIFIED: full no
 src/radiant/PatchDensityDlg.cpp	PARTIAL	4	240	PENDING	PENDING		4 game / 240 B verified without stubs; scalar/shared destructor/EH/metadata checked; OnOK unresolved pending real Pmesh; PARTIAL
 src/radiant/PatchDialog.cpp	PARTIAL	17	1613	PENDING	PENDING		15 game / 1391 B; class, scalar/lifetime, RTTI, message map audit; eight authored entries / 1203 B and globals/callees pending; workspace/research/codex_patchdialog
 src/radiant/UNKNOWN_00425080.cpp	PARTIAL	1	1	PENDING	PENDING		Q3Radiant Win_main.cpp (1/5 string funcs); iw3xo (1/5)
-src/radiant/Pmesh.cpp	PARTIAL	21	2829	PENDING	PENDING		3 game / 676 B verified: real bounds and distance helpers; version/layout/sqrt/FP bindings pinned; generators pending
+src/radiant/Pmesh.cpp	PARTIAL	26	3348	PENDING	PENDING		3 game / 676 B verified: real bounds and distance helpers; version/layout/sqrt/FP bindings pinned; generators pending
 src/radiant/PrefsDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant PrefsDlg.cpp (3/3 string funcs); iw3xo (2/3)
 src/radiant/RADEditWnd.cpp	VERIFIED	5	320	PASS	PENDING	workspace/research/gemini_review/test_editor_completion.py	
 src/radiant/Radiant.cpp	PARTIAL	3	57	PENDING	PENDING		Q3Radiant Radiant.cpp (1/1 string funcs)
@@ -45,18 +45,18 @@ src/radiant/Undo.cpp	PARTIAL	7	465	PENDING	PENDING		Q3Radiant Undo.cpp (11/14 st
 src/radiant/VehicleDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant DRAG.CPP (1/52 string funcs); iw3xo (1/52)
 src/radiant/VertEditDlg.cpp	PARTIAL	4	599	PENDING	PENDING		none: from make show
 src/radiant/Winding.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Winding.cpp (7/7 string funcs)
-src/radiant/XYWnd.cpp	PARTIAL	4	35	PENDING	PENDING		Q3Radiant XYWnd.cpp (22/26 string funcs); iw3xo (12/26)
+src/radiant/XYWnd.cpp	PARTIAL	31	1086	PENDING	PENDING		Q3Radiant XYWnd.cpp (22/26 string funcs); iw3xo (12/26)
 src/radiant/ZWnd.cpp	PARTIAL	21	971	PENDING	PENDING		Owner takeover: Codex repairs reviewed ZWnd dependencies; all original Gemini candidates preserved; no accepted source
-src/radiant/brush.cpp	PARTIAL	24	4095	PENDING	PENDING		Q3Radiant Brush.cpp (28/64 string funcs); iw3xo (21/64)
+src/radiant/brush.cpp	PARTIAL	30	4467	PENDING	PENDING		Q3Radiant Brush.cpp (28/64 string funcs); iw3xo (21/64)
 src/radiant/csg.cpp	PARTIAL	4	688	PENDING	PENDING		Q3Radiant CSG.CPP (1/7 string funcs); iw3xo (1/7)
-src/radiant/drag.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant DRAG.CPP (6/6 string funcs); iw3xo (2/6)
+src/radiant/drag.cpp	PARTIAL	1	309	PENDING	PENDING		Q3Radiant DRAG.CPP (6/6 string funcs); iw3xo (2/6)
 src/radiant/eclass.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant ECLASS.CPP (7/13 string funcs); iw3xo (4/13)
 src/radiant/entity.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant DRAG.CPP (23/28 string funcs); iw3xo (20/28)
 src/radiant/map.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant MAP.CPP (22/29 string funcs); iw3xo (12/29)
 src/radiant/mru.cpp	VERIFIED	15	2055	PASS	PENDING	workspace/research/gemini_review/test_mru_complete.py	
 src/radiant/points.cpp	PARTIAL	7	1433	PENDING	PENDING		4 matched; camera layouts and renderer caller group pending
 src/radiant/qe3.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant QE3.CPP (10/18 string funcs); iw3xo (6/18)
-src/radiant/select.cpp	PARTIAL	1	1	PENDING	PENDING		Q3Radiant DRAG.CPP (22/39 string funcs); iw3xo (24/39)
+src/radiant/select.cpp	PARTIAL	13	730	PENDING	PENDING		Q3Radiant DRAG.CPP (22/39 string funcs); iw3xo (24/39)
 src/radiant/vertsel.cpp	PARTIAL	2	284	PENDING	PENDING		Q3Radiant VERTSEL.CPP (3/3 string funcs)
 src/radiant/win_dlg.cpp	PARTIAL	9	361	PENDING	PENDING		Q3Radiant WIN_DLG.CPP (3/6 string funcs); iw3xo (3/6)
 src/radiant/win_ent.cpp	PARTIAL	0	0	PENDING	PENDING		Codex seeded proven hwndEnt[33] in original owner; preserve definition; remaining methods belong to Gemini
@@ -69,7 +69,7 @@ src/universal/com_math.cpp	PARTIAL	132	21832	PENDING	PENDING		server source (cop
 src/universal/com_memory.cpp	PARTIAL	46	4167	PENDING	PENDING		46 matched; three routines left; allocator source uses verified global update flow
 src/universal/com_shared.cpp	PARTIAL	10	1258	PENDING	PENDING		server source (copy-ready)
 src/universal/dvar.cpp	PARTIAL	63	10787	PENDING	PENDING		server source (copy-ready)
-src/universal/g_vehicle_path.cpp	PARTIAL	1	1	PENDING	PENDING		Q3Radiant DRAG.CPP (1/3 string funcs); iw3xo (1/3)
+src/universal/g_vehicle_path.cpp	PARTIAL	9	466	PENDING	PENDING		Q3Radiant DRAG.CPP (1/3 string funcs); iw3xo (1/3)
 src/universal/linearmapping.cpp	UNSTARTED	0	0	PENDING	PENDING		none: from make show
 src/universal/UNKNOWN_00494480.cpp	PARTIAL	1	89	PENDING	PENDING		none: from make show
 src/universal/q_parse.cpp	PARTIAL	34	3665	PENDING	PENDING		server source (copy-ready)

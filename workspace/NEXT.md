@@ -28,6 +28,17 @@ emit-order warnings 18. FILE LEDGER 7 VERIFIED / 102 (audited set; other src/ fi
   in NameDlg) because those users do not exist yet. Fix: class in a header, write the user function in
   the earlier file. Not linker ICF: 46 duplicate groups in retail are raw-byte identical and kept apart.
 
+## 2026-11-17 round 2 (clean gate cbafb09d)
+1315/3582 = 36.71% game functions, 21.23% game bytes (148,586 B), same-offset 1.745%, emit-order 12, 0 failing.
+- Lanes: Pmesh +5, brush +6, XYWnd +27 (CXYWnd layout 0x120), select +12 / drag +1, g_vehicle_path +8.
+- Recurring LTCG tie: GraphGetValueFromFraction 0x4832c0 (com_math) flips when new bodies are added
+  (0x42b810, 0x45ebc0, 0x4532a0 all deferred for that). Candidate for data/ties.
+- Main limit now: callees with LTCG register args whose callers are unwritten (Winding 0x447f60, Pmesh
+  0x439620, ExpandBounds 0x487d50 callers, FUN_004267d0). Write callee+callers as clusters.
+- AngleNormalize180: full g_vehicle_path draft gives 3 out-of-line calls, com_math callers still inline it.
+- g_vehicle_path: 0x492130 matched only with params declared (src, dst): order is HYPOTHESIS.
+- XYWnd 0x449760: masked bytes equal but tu_map says 159 B, built is 160 B -> check the inventory row.
+
 ## 2026-11-17 late state (clean gate after lanes A-D, radiant/main)
 1256/3582 = 35.06% game functions, 20.74% game bytes (145,141 B), same-offset 1.722% (down from 1.776%:
 new bodies shift later code; report-only), emit-order 13, 0 failing.
