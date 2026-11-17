@@ -20,6 +20,31 @@ struct CameraState
 };
 
 class CXYWnd;
+class CMainFrame;
+struct orientation_t { float origin[3]; float axis[3][3]; };
+extern orientation_t g_editorOrientation;
+void OrientationPosToLocal(const orientation_t *orient, const float *pos, float *out);
+void OrientationDirToLocal(const orientation_t *orient, const float *dir, float *out);
+extern CMainFrame *g_pParentWnd;
+extern HWND dword_010bcd58;
+
+struct CCamWndMainProjection
+{
+    void __stdcall OnKeyUp(UINT key);
+    void OnKeyDown(UINT key, UINT repeat, UINT flags);
+    BOOL OnMouseWheel(UINT flags, short delta, CPoint point);
+};
+
+struct CamWndRefExport
+{
+    unsigned char pad[0x148];
+    void (*ResizeWindow)(HWND window, int width, int height);
+};
+extern CamWndRefExport re;
+
+class CCamWnd;
+void __stdcall FUN_00405380(CCamWnd *camera);
+
 class CCamWnd : public CWnd
 {
     DECLARE_DYNCREATE(CCamWnd)
@@ -35,13 +60,16 @@ public:
     CPoint m_ptCursor;
     CPoint m_ptLastCursor;
     // Retail storage between cursor state and the clip flag; fields remain undecoded.
-    unsigned char field_0ec[0x30];
+    float m_vCull1[3];
+    float m_vCull2[3];
+    int m_nCullv1[3];
+    int m_nCullv2[3];
     bool m_bClipMode;
     int field_120;
     int field_124;
     bool field_128;
     // Retail storage before the culling vectors; fields remain undecoded.
-    unsigned char field_12c[12];
+    float field_12c[3];
     float cullNormals[2][3];
     int cullIndices[2][3];
 protected:
@@ -155,6 +183,11 @@ BOOL CCamWnd::PreCreateWindow(CREATESTRUCT &create)
     return CWnd::PreCreateWindow(create);
 }
 
+void CCamWnd::OnKeyDown(UINT key, UINT repeat, UINT flags)
+{
+    reinterpret_cast<CCamWndMainProjection *>(g_pParentWnd)->OnKeyDown(key, repeat, flags);
+}
+
 void CCamWnd::SetXYFriend(CXYWnd *window)
 {
     m_pXYFriend = window;
@@ -196,9 +229,27 @@ void CCamWnd::OnMButtonDown(UINT flags, CPoint point)
 
 
 
+void CCamWnd::OnMButtonUp(UINT flags, CPoint point)
+{
+    OriginalMouseUp(flags, point);
+}
+
 void CCamWnd::OnRButtonDown(UINT flags, CPoint point)
 {
     OriginalMouseDown(flags, point);
+}
+
+void CCamWnd::OnRButtonUp(UINT flags, CPoint point)
+{
+    OriginalMouseUp(flags, point);
+}
+
+int CCamWnd::OnCreate(LPCREATESTRUCT create)
+{
+    if (Default() == -1)
+        return -1;
+    dword_010bcd58 = GetSafeHwnd();
+    return 0;
 }
 
 
@@ -248,6 +299,53 @@ void CCamWnd::Cam_MouseUp(int x, int y, int buttons)
         ;
 }
 
+void __stdcall FUN_00405380(CCamWnd *camera)
+{
+    OrientationPosToLocal(&g_editorOrientation, camera->m_Camera.origin, camera->field_12c);
+    OrientationDirToLocal(&g_editorOrientation, camera->m_vCull1, camera->cullNormals[0]);
+    OrientationDirToLocal(&g_editorOrientation, camera->m_vCull2, camera->cullNormals[1]);
+    for (int k = 0; k < 2; k++)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            if (camera->cullNormals[k][i] > 0)
+                camera->cullIndices[k][i] = 3 + i;
+            else
+                camera->cullIndices[k][i] = i;
+        }
+    }
+}
+
+void CCamWnd::OnSize(UINT type, int cx, int cy)
+{
+    CWnd::OnSize(type, cx, cy);
+    CRect rect;
+    GetClientRect(rect);
+    int width = rect.right;
+    int height = rect.bottom;
+    m_Camera.width = width;
+    m_Camera.height = height;
+    if (re.ResizeWindow)
+        re.ResizeWindow(dword_010bcd58, width, height);
+    Invalidate(FALSE);
+}
+
 // Retail one-byte RET bodies verified with MSVC 7.1. Original entry-point ownership/signatures remain provisional.
 extern "C" void FUN_00407550() {}
+
+void CCamWnd::OnKeyUp(UINT key, UINT repeat, UINT flags)
+{
+    reinterpret_cast<CCamWndMainProjection *>(g_pParentWnd)->OnKeyUp(key);
+}
+
+BOOL CCamWnd::OnMouseWheel(UINT flags, short delta, CPoint point)
+{
+    return reinterpret_cast<CCamWndMainProjection *>(g_pParentWnd)->OnMouseWheel(flags, delta, point);
+}
+
+void CCamWnd::OnSysKeyDown(UINT key, UINT repeat, UINT flags)
+{
+    reinterpret_cast<CCamWndMainProjection *>(g_pParentWnd)->OnKeyDown(key, repeat, flags);
+}
+
 extern "C" void FUN_004077c0() {}
