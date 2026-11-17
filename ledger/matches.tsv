@@ -586,6 +586,8 @@ addr	size	source	symbol	name	tag
 0x0042ea50	154	src/radiant/Pmesh.cpp	?FUN_0042ea50@@YAXPAUpatchMesh_t@@QBM@Z	FUN_0042ea50	UNNAMED
 0x0042f5d0	112	src/radiant/Pmesh.cpp	?FUN_0042f5d0@@YAXXZ	FUN_0042f5d0	UNNAMED
 0x0042f640	5	src/radiant/Pmesh.cpp	?FUN_0042f640@@YAXPAUpatch_t@@@Z	FUN_0042f640	UNNAMED
+0x0042f650	5	src/radiant/Pmesh.cpp	?FUN_0042f650@@YAXPAUpatch_t@@@Z	FUN_0042f650	UNNAMED
+0x0042ea50	154	src/radiant/Pmesh.cpp	?FUN_0042ea50@@YAXPAUpatchMesh_t@@QBM@Z	FUN_0042ea50	UNNAMED
 0x0042f660	290	src/radiant/Pmesh.cpp	?FUN_0042f660@@YAXPAUpatchMesh_t@@@Z	FUN_0042f660	PINNED
 0x0042f950	21	src/radiant/Pmesh.cpp	?FUN_0042f950@@YAXH@Z	FUN_0042f950	UNNAMED
 0x00433a20	44	src/radiant/Pmesh.cpp	?OnlyPatchesSelected@@YA_NXZ	OnlyPatchesSelected	SUPPORTED
@@ -950,10 +952,15 @@ addr	size	source	symbol	name	tag
 0x00476d00	76	src/radiant/win_dlg.cpp	?AboutDlgProc@@YGHPAUHWND__@@IIJ@Z	AboutDlgProc	SUPPORTED
 0x00476d50	29	src/radiant/win_dlg.cpp	?DoAbout@@YAXXZ	DoAbout	SUPPORTED
 0x00476d70	62	src/radiant/win_dlg.cpp	?FUN_00476d70@@YGHPAUHWND__@@IIJ@Z	FUN_00476d70	UNNAMED
+0x00476dd0	226	src/radiant/win_ent.cpp	?FUN_00476dd0@@YGJPAUHWND__@@IIJ@Z	FUN_00476dd0	UNNAMED
+0x00476ec0	79	src/radiant/win_ent.cpp	?FUN_00476ec0@@YGJPAUHWND__@@IIJ@Z	FUN_00476ec0	UNNAMED
+0x00477270	79	src/radiant/win_ent.cpp	?FUN_00477270@@YAXXZ	FUN_00477270	UNNAMED
 0x004777c0	409	src/radiant/win_ent.cpp	?FUN_004777c0@@YAXXZ	FUN_004777c0	UNNAMED
 0x00477960	93	src/radiant/win_ent.cpp	?FUN_00477960@@YAXXZ	FUN_00477960	UNNAMED
 0x00477ba0	335	src/radiant/win_ent.cpp	?FUN_00477ba0@@YAHHPAUeclass_t@@@Z	FUN_00477ba0	UNNAMED
 0x00477cf0	10	src/radiant/win_ent.cpp	?FUN_00477cf0@@YAHXZ	FUN_00477cf0	UNNAMED
+0x00478140	175	src/radiant/win_ent.cpp	?FUN_00478140@@YAXXZ	FUN_00478140	UNNAMED
+0x004781f0	38	src/radiant/win_ent.cpp	?FUN_004781f0@@YAXPAUHWND__@@HHHH0H@Z	FUN_004781f0	UNNAMED
 0x00479760	180	src/radiant/win_main.cpp	?InitCustColors@CMyColorDialog@@KAXXZ	CMyColorDialog::InitCustColors	SUPPORTED
 0x00479820	242	src/radiant/win_main.cpp	?SaveCustColors@CMyColorDialog@@KAXXZ	CMyColorDialog::SaveCustColors	SUPPORTED
 0x004799d0	17	src/radiant/win_main.cpp	?DoModal@CMyColorDialog@@UAEHXZ	CMyColorDialog::DoModal	SUPPORTED

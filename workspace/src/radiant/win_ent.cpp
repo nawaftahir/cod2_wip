@@ -21,7 +21,7 @@ struct epair_t
 
 struct eclass_t
 {
-    unsigned char pad00[4];
+    eclass_t *next;
     char *name;
     unsigned char pad08[0x48];
     char *comments;
@@ -57,6 +57,103 @@ extern int multiple_entities;
 extern int g_nUpdateBits;
 char *ValueForKey(epair_t *&e, const char *key);
 char *TranslateString(const char *string);
+void DeleteKey(epair_t *&e, const char *key);
+void FUN_00465bf0(entity_t *e, const char *key, const char *value);
+void FUN_004655f0(entity_t *e, const char *key);
+void FUN_004657a0(entity_t *e, const char *key);
+void FUN_004433b0();
+void Undo_GeneralStart(char *operation);
+void Undo_AddEntity(entity_t *ent);
+void Undo_End();
+void FUN_004777c0();
+void FUN_00477e80();
+extern HWND dword_010bcd58;
+extern HWND dword_010bcd60;
+extern WNDPROC dword_01129990;
+extern WNDPROC dword_01129994;
+extern eclass_t *dword_012334dc;
+extern int inspector_mode;
+extern int col;
+extern HWND dword_010bcd54;
+eclass_t *FUN_00464770(int a, const char *name);
+entity_t *FUN_00466d80(eclass_t *ec);
+void FUN_0046fbe0(int a);
+void FUN_0046f0b0(brush_t *b, int a, int b2, int c);
+
+// Q3Radiant Win_ent.cpp FieldWndProc shape
+LRESULT CALLBACK FUN_00476dd0(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+    switch (uMsg)
+    {
+    case WM_CHAR:
+        if (LOWORD(wParam) == VK_TAB)
+            return FALSE;
+        if (LOWORD(wParam) == VK_RETURN)
+            return FALSE;
+        if (LOWORD(wParam) == VK_ESCAPE)
+        {
+            SetFocus(dword_010bcd58);
+            return FALSE;
+        }
+        break;
+    case WM_KEYDOWN:
+        if (LOWORD(wParam) == VK_TAB)
+        {
+            if (hwnd == hwndEnt[EntKeyField])
+            {
+                SendMessage(hwndEnt[EntValueField], WM_SETTEXT, 0, (LPARAM)"");
+                SetFocus(hwndEnt[EntValueField]);
+            }
+            else
+                SetFocus(hwndEnt[EntKeyField]);
+        }
+        if (LOWORD(wParam) == VK_RETURN)
+        {
+            if (hwnd == hwndEnt[EntKeyField])
+            {
+                SendMessage(hwndEnt[EntValueField], WM_SETTEXT, 0, (LPARAM)"");
+                SetFocus(hwndEnt[EntValueField]);
+            }
+            else
+            {
+                FUN_00477e80();
+                SetFocus(dword_010bcd58);
+            }
+        }
+        break;
+    case WM_LBUTTONDOWN:
+        SetFocus(hwnd);
+        break;
+    }
+    return CallWindowProc(dword_01129994, hwnd, uMsg, wParam, lParam);
+}
+
+// Q3Radiant Win_ent.cpp EntityListWndProc shape
+LRESULT CALLBACK FUN_00476ec0(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+    switch (uMsg)
+    {
+    case WM_KEYDOWN:
+        if (LOWORD(wParam) == VK_RETURN)
+        {
+            SendMessage(dword_010bcd60, WM_COMMAND, (LBN_DBLCLK << 16) + 0x47f, 0);
+            return 0;
+        }
+        break;
+    }
+    return CallWindowProc(dword_01129990, hwnd, uMsg, wParam, lParam);
+}
+
+// Q3Radiant Win_ent.cpp FillClassList shape
+void FUN_00477270()
+{
+    SendMessage(hwndEnt[EntList], LB_RESETCONTENT, 0, 0);
+    for (eclass_t *pec = dword_012334dc; pec; pec = pec->next)
+    {
+        int iIndex = SendMessage(hwndEnt[EntList], LB_ADDSTRING, 0, (LPARAM)pec->name);
+        SendMessage(hwndEnt[EntList], LB_SETITEMDATA, iIndex, (LPARAM)pec);
+    }
+}
 
 // Q3Radiant Win_ent.cpp SetKeyValuePairs shape
 void FUN_004777c0()
@@ -141,4 +238,127 @@ int FUN_00477ba0(int iItem, eclass_t *pec)
 int FUN_00477cf0()
 {
     return FUN_00477ba0(-1, NULL);
+}
+
+// Q3Radiant Win_ent.cpp CreateEntity shape
+void FUN_00477d00()
+{
+    char sz[1024];
+
+    if (selected_brushes.next == &selected_brushes)
+    {
+        MessageBox(dword_010bcd54, "You must have a selected brush to create an entity", "info", 0);
+        return;
+    }
+    HWND hwnd = hwndEnt[EntList];
+    int i = SendMessage(hwndEnt[EntList], LB_GETCURSEL, 0, 0);
+    if (i < 0)
+    {
+        MessageBox(dword_010bcd54, "You must have a selected class to create an entity", "info", 0);
+        return;
+    }
+    SendMessage(hwnd, LB_GETTEXT, i, (LPARAM)sz);
+    if (!_stricmp(sz, "worldspawn"))
+    {
+        MessageBox(dword_010bcd54, "Can't create an entity with worldspawn.", "info", 0);
+        return;
+    }
+    eclass_t *pecNew = FUN_00464770(0, sz);
+    entity_t *petNew = FUN_00466d80(pecNew);
+    if (petNew == NULL)
+    {
+        MessageBox(dword_010bcd54, "Failed to create entity.", "info", 0);
+        return;
+    }
+    if (selected_brushes.next == &selected_brushes)
+        edit_entity = world_entity->def;
+    else
+    {
+        edit_entity = selected_brushes.next->owner->def;
+        FUN_0046fbe0(1);
+        FUN_0046f0b0(selected_brushes.next, 1, 1, 0);
+    }
+    FUN_004777c0();
+    g_nUpdateBits = -1;
+}
+
+// Q3Radiant Win_ent.cpp DelProp shape, with the undo calls
+void FUN_00477f80()
+{
+    char sz[4096];
+
+    if (edit_entity == NULL)
+        return;
+    SendMessage(hwndEnt[EntKeyField], WM_GETTEXT, sizeof(sz) - 1, (LPARAM)sz);
+    FUN_004433b0();
+    Undo_GeneralStart("delete key value pair");
+    if (multiple_entities)
+    {
+        for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+        {
+            Undo_AddEntity(b->owner->def);
+            entity_t *e = b->owner->def;
+            DeleteKey(e->epairs, sz);
+            FUN_004655f0(e, sz);
+            FUN_004657a0(e, sz);
+        }
+    }
+    else
+    {
+        Undo_AddEntity(edit_entity);
+        entity_t *e = edit_entity;
+        DeleteKey(e->epairs, sz);
+        FUN_004655f0(e, sz);
+        FUN_004657a0(e, sz);
+    }
+    FUN_004777c0();
+    Undo_End();
+}
+
+// Q3Radiant Win_ent.cpp GetSelectAllCriteria shape
+BOOL FUN_00478090(CString &strKey, CString &strVal)
+{
+    char sz[4096];
+    HWND hwnd = hwndEnt[EntProps];
+    int i = SendMessage(hwnd, LB_GETCURSEL, 0, 0);
+    if (i >= 0 && inspector_mode == 0x80)
+    {
+        SendMessage(hwndEnt[EntKeyField], WM_GETTEXT, sizeof(sz), (LPARAM)sz);
+        strKey = sz;
+        SendMessage(hwndEnt[EntValueField], WM_GETTEXT, sizeof(sz), (LPARAM)sz);
+        strVal = sz;
+        return TRUE;
+    }
+    return FALSE;
+}
+
+// Q3Radiant Win_ent.cpp EditProp shape
+void FUN_00478140()
+{
+    int i;
+    HWND hwnd;
+    char sz[4096];
+    char *val;
+
+    if (edit_entity == NULL)
+        return;
+    hwnd = hwndEnt[EntProps];
+    i = SendMessage(hwnd, LB_GETCURSEL, 0, 0);
+    if (i < 0)
+        return;
+    SendMessage(hwnd, LB_GETTEXT, i, (LPARAM)sz);
+    for (i = 0; sz[i] != '\t'; i++)
+        ;
+    sz[i] = '\0';
+    val = sz + i + 1;
+    if (*val == '\t')
+        val++;
+    SendMessage(hwndEnt[EntKeyField], WM_SETTEXT, 0, (LPARAM)sz);
+    SendMessage(hwndEnt[EntValueField], WM_SETTEXT, 0, (LPARAM)val);
+}
+
+// Q3Radiant Win_ent.cpp MOVE shape
+void FUN_004781f0(HWND e, int x, int y, int w, int h, HWND hwndPlacement, int swp)
+{
+    SetWindowPos(e, hwndPlacement, col + x, y, w, h, swp);
 }
