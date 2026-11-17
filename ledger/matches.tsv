@@ -855,6 +855,7 @@ addr	size	source	symbol	name	tag
 0x004944d0	89	src/universal/UNKNOWN_00494480.cpp	_FUN_004944d0	R_NoiseInit	SUPPORTED
 0x004947d0	6	src/universal/q_parse.cpp	?Com_GetParseThreadInfo@@YAPAUParseThreadInfo@@XZ	Com_GetParseThreadInfo	SUPPORTED
 0x004947e0	73	src/universal/q_parse.cpp	?Com_InitParseInfo@@YAXPAUparseInfo_t@@@Z	Com_InitParseInfo	SUPPORTED
+0x00494830	213	src/universal/q_parse.cpp	?Com_BeginParseSession@@YAXPBD@Z	Com_BeginParseSession	SUPPORTED
 0x00494910	31	src/universal/q_parse.cpp	?Com_EndParseSession@@YAXXZ	Com_EndParseSession	SUPPORTED
 0x00494930	11	src/universal/q_parse.cpp	?Com_ResetParseSessions@@YAXXZ	Com_ResetParseSessions	SUPPORTED
 0x00494940	24	src/universal/q_parse.cpp	?Com_SetSpaceDelimited@@YAXH@Z	Com_SetSpaceDelimited	SUPPORTED
@@ -879,11 +880,13 @@ addr	size	source	symbol	name	tag
 0x00495590	132	src/universal/q_parse.cpp	?Com_SkipBracedSection@@YAHPAPBDH@Z	Com_SkipBracedSection	SUPPORTED
 0x00495620	57	src/universal/q_parse.cpp	?Com_SkipRestOfLine@@YAXPAPBD@Z	Com_SkipRestOfLine	SUPPORTED
 0x00495660	131	src/universal/q_parse.cpp	?Com_GetArgCountOnLine@@YAHPAPBD@Z	Com_GetArgCountOnLine	SUPPORTED
+0x004956f0	265	src/universal/q_parse.cpp	?Com_ParseRestOfLine@@YAPBDPAPBD@Z	Com_ParseRestOfLine	SUPPORTED
 0x00495800	84	src/universal/q_parse.cpp	?Com_ParseFloat@@YAMPAPBD@Z	Com_ParseFloat	SUPPORTED
 0x00495880	71	src/universal/q_parse.cpp	?Com_ParseInt@@YAHPAPBD@Z	Com_ParseInt	SUPPORTED
 0x004958e0	235	src/universal/q_parse.cpp	?Com_Parse1DMatrix@@YAXPAPBDHPAM@Z	Com_Parse1DMatrix	SUPPORTED
 0x004959d0	167	src/universal/q_parse.cpp	?Com_Parse2DMatrix@@YAXPAPBDHHPAM@Z	Com_Parse2DMatrix	SUPPORTED
 0x00495a80	184	src/universal/q_parse.cpp	?Com_Parse3DMatrix@@YAXPAPBDHHHPAM@Z	Com_Parse3DMatrix	SUPPORTED
+0x00495b40	8	src/universal/q_parse.cpp	?FUN_00495b40@@YAMM@Z	FUN_00495b40	SUPPORTED
 0x00495b50	15	src/universal/q_shared.cpp	?ColorIndex@@YAHE@Z	ColorIndex	SUPPORTED
 0x00495b60	25	src/universal/q_shared.cpp	?Com_GetFilenameSubString@@YAPBDPBD@Z	Com_GetFilenameSubString	SUPPORTED
 0x00495b80	517	src/universal/q_shared.cpp	?Com_AssembleFilepath@@YAXPBD00PADH@Z	Com_AssembleFilepath	PINNED
