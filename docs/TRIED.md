@@ -481,3 +481,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | Com_ErrorCleanup swap (w29, 11-18, gate) | subtitle stand-in + rename Chop local static dot -> chopDot (name-hash test) | same bytes as subtitle-only: local-static slot is not a name hash either |
 | FX_CalcOriginAndAxis compile-slot probe (w29, 11-18, gate) | stand-in dead call in FX to Com_ErrorCleanup (pass 22 -> 58) / Com_DedicatedModified (-> 23) | both REJECT, ~400 fns lost: code shifts +0x20 from 0x47d6c0 (before FX), the slot change re-rolls inlining elsewhere. FX's slot is retail's; its residue is not compile order |
 | VM_Notify w29 (11-18, gate) | size loop as `for(;;){ if ((cv--)[-1].type == PRECODEPOS) { newSize++; break; } newSize++; }` | REJECT -2247: loop rotated (test peeled before the loop, 1596 B) |
+| CG_DrawGrenadePointer w29 (11-18, gate) | `angle = -yaw;` right after FastSinCos, angle as the arg | worse: 372 B, slots move |
