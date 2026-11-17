@@ -52,9 +52,10 @@ extern void FUN_004592f0(brush_t *b);
 extern int FUN_00434880(patch_t *p);
 extern void FUN_00467240(brushdef_t *b);
 extern void FUN_004671b0(void *owner, brushdef_t *def);
+int VecNCompareCustomEpsilon(const float *v0, const float *v1, float epsilon, int coordCount);
 extern void FUN_0045a220(brushdef_t *b, bool snap);
-extern void FUN_00475350();
 extern winding_t *FUN_00455660(int faceIndex, const brushVertex_t *verts, int count, const brushdef_t *b);
+extern void FUN_00475350();
 extern char *dword_01233b64;
 extern winding_t * Winding_Alloc(int points);
 extern void Sys_MarkMapModified();
@@ -409,6 +410,36 @@ void Winding_AddPointOrdered(winding_t *w, const vec3_t point, int i, int j)
     memmove(&w->points[bestIndex + 1], &w->points[bestIndex], (w->pointCount - bestIndex) * sizeof(vec3_t));
     VectorCopy(point, w->points[bestIndex]);
     w->pointCount++;
+}
+
+float FUN_004554e0(const winding_t *w, const float *normal, int *i0, int *i1, int *i2)
+{
+    vec3_t vb, va, vc;
+    *i0 = 0;
+    *i1 = 1;
+    *i2 = 2;
+    float areaBest = 0.0f;
+    for (int k = 2; k < w->pointCount; ++k)
+    {
+        for (int j = 1; j < k; ++j)
+        {
+            VectorSubtract(w->points[k], w->points[j], vb);
+            for (int i = 0; i < j; ++i)
+            {
+                VectorSubtract(w->points[i], w->points[j], va);
+                Vec3Cross(va, vb, vc);
+                float area = (float)fabs(DotProduct(vc, normal));
+                if (area > areaBest)
+                {
+                    areaBest = area;
+                    *i0 = i;
+                    *i1 = j;
+                    *i2 = k;
+                }
+            }
+        }
+    }
+    return areaBest;
 }
 
 void FUN_00455950(brushdef_t *b)

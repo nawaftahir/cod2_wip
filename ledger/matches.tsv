@@ -653,6 +653,7 @@ addr	size	source	symbol	name	tag
 0x00455110	41	src/radiant/brush.cpp	?Winding_TriangleArea2D@@YAMQBM00HH@Z	Winding_TriangleArea2D	SUPPORTED
 0x00455140	541	src/radiant/brush.cpp	?Winding_InsertEdgePoint@@YAXPAUwinding_t@@QBMHHHH@Z	Winding_InsertEdgePoint	PINNED
 0x00455360	370	src/radiant/brush.cpp	?Winding_AddPointOrdered@@YAXPAUwinding_t@@QBMHH@Z	Winding_AddPointOrdered	PINNED
+0x004554e0	379	src/radiant/brush.cpp	?FUN_004554e0@@YAMPBUwinding_t@@PBMPAH22@Z	FUN_004554e0	SUPPORTED
 0x00455950	151	src/radiant/brush.cpp	?FUN_00455950@@YAXPAUbrushdef_t@@@Z	FUN_00455950	SUPPORTED
 0x004559f0	52	src/radiant/brush.cpp	?FUN_004559f0@@YAXPAUbrushdef_t@@_N1@Z	FUN_004559f0	SUPPORTED
 0x00455bd0	218	src/radiant/brush.cpp	?Brush_RemoveFace@@YAXPAUbrushdef_t@@H@Z	Brush_RemoveFace	PINNED
