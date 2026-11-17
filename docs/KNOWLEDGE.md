@@ -1015,3 +1015,6 @@ set by a later lowering stage, not by the list scheduler.
   Retail = a second SOURCE IV: `for (i = 0, anim = 1; i < 20; i++, anim++)` with anim for the index and the rate; the anim++
   update comes first and the pointer IV follows it. Same lever for any latch where an SR pointer update sits before an int update.
   Tool: tools/c2tup13.sh NAME logs tuple allocs (A ret head kind + stack) and replaces (P ret old new) for one fn.
+- PINNED (w29, 11-18, VM_Notify lab t1 + cpick): writing the type read, the pointer decrement and newSize++ as three statements in
+  that order gives retail's latch order (sub ebx,8; inc ebp). Residue then is one colour tie: _type pops at n3 64 (n17 408) before
+  _size at 62 (n17 402) and takes eax; retail has size in eax. Needs size +3 or type -3 (size is live-unreferenced in the loop).
