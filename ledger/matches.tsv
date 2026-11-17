@@ -497,10 +497,12 @@ addr	size	source	symbol	name	tag
 0x00447210	28	src/radiant/VertEditDlg.cpp	?FUN_00447210@@YAXXZ	FUN_00447210	UNNAMED
 0x00447230	468	src/radiant/VertEditDlg.cpp	?FUN_00447230@@YA?AUVertEditHsl@@UVertEditRgb@@@Z	FUN_00447230	UNNAMED
 0x00447c00	84	src/radiant/Winding.cpp	?Point_Equal@@YA_NQBM0M@Z	Point_Equal	SUPPORTED
+0x00447c60	691	src/radiant/Winding.cpp	?Winding_BaseForPlane@@YAPAUwinding_t@@PBUfacePlane_t@@@Z	Winding_BaseForPlane	SUPPORTED
 0x00447f20	39	src/radiant/Winding.cpp	?Winding_Alloc@@YAPAUwinding_t@@H@Z	Winding_Alloc	SUPPORTED
 0x00447f50	8	src/radiant/Winding.cpp	?Winding_Free@@YAXPAUwinding_t@@@Z	Winding_Free	SUPPORTED
 0x00447f60	77	src/radiant/Winding.cpp	?Winding_Clone@@YAPAUwinding_t@@PBU1@@Z	Winding_Clone	SUPPORTED
 0x00447fb0	104	src/radiant/Winding.cpp	?Winding_Reverse@@YAPAUwinding_t@@PAU1@@Z	Winding_Reverse	SUPPORTED
+0x00448280	714	src/radiant/Winding.cpp	?FUN_00448280@@YAPAUwinding_t@@PAU1@PBUfacePlane_t@@H@Z	FUN_00448280	SUPPORTED
 0x004493f0	88	src/radiant/XYWnd.cpp	?CreateObject@CXYWnd@@SGPAVCObject@@XZ	CXYWnd::CreateObject	SUPPORTED
 0x00449450	6	src/radiant/XYWnd.cpp	?GetRuntimeClass@CXYWnd@@UBEPAUCRuntimeClass@@XZ	CXYWnd::GetRuntimeClass	SUPPORTED
 0x00449460	227	src/radiant/XYWnd.cpp	??0CXYWnd@@QAE@XZ	CXYWnd::CXYWnd	SUPPORTED

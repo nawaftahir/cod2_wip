@@ -107,6 +107,26 @@ separate `fsin` + `fcos`; `/QIfist` turns `_ftol2` into `fistp`. Retail com_math
 for `fistp`). Blocks ~20 com_math + 3 dvar rows. Needs the owner to amend the CLAUDE.md "no asm" rule for
 these helpers only (proposed text in the 11-16 session report); agents may not edit CLAUDE.md.
 
+## Operand order rule (lane e, 2026-11-17)
+PINNED. MSVC 7.1 /O2 sorts the operands of commutative fadd/fmul/add into a canonical order, so source term
+order does not matter. Every permutation of `a[0]*n[0]+a[1]*n[1]+a[2]*n[2]` gives the same code (scratch tests
+in `~/cltest/e/*.c`, run with `~/cltest/e/cc.sh`, /O2 /Oy- /Op, no /GL). The order follows the identity and
+first-reference order of the memory leaves, not the text:
+- `g=n[0]; g=n[1]; g=n[2];` then the dot gives z,x,y. `g=n[2]; g=n[0];` gives x,z,y. An extra read of
+  `n[3]` between them also flips it. Writes to unrelated globals change nothing (o.c, n.c, k.c).
+- Spelling the same address another way makes a new leaf: `const float *n = p->normal;` versus
+  `p->normal[k]` flips the order (p.c c2/c3).
+- The /GL build hashes it differently from the scratch build, so test the real function with make try.
+  The lever is the same: use a local pointer alias for a member array in one place, or drop it.
+Results:
+- Winding_BaseForPlane 0x447c60 MATCH: `normal = p->normal` alias for fabs/VectorMA/scale/cross, but
+  `DotProduct(vup, p->normal)` for the dot.
+- Winding_Clip 0x448280 MATCH (the integer `add ecx,eax` swap had the same cause):
+  `const float *normal = split->normal;` before the j loop.
+- Winding_PlanesConcave 0x4481e0 still 95%: aliasing did not fix it (defer row). Retail reloads normal2
+  inside loop 2.
+- Not tried yet, same lever: brush 0x45f860 `[ecx+esi]`, Patch_GetAxisFace 0x427290, Patch_MeshNormals 0x425910.
+
 ## Order of work
 1. **NameDlg + DlgEvent via dlgcamera:** **DONE** (`CDlgCamera` in `workspace/src/radiant/dlgcamera.{h,cpp}`,
    `0x409be0` / `0x40a790` / `0x40a8e0` matched; `NameDlg.cpp` + `DlgEvent.cpp` + headers verified with
