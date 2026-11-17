@@ -1174,7 +1174,7 @@ addr	size	source	symbol	name	tag
 0x004a8b60	17	src/script/scr_stringlist.cpp	?SL_Shutdown@@YAXXZ	SL_Shutdown	SUPPORTED
 0x004a8f00	28	src/script/scr_stringlist.cpp	?SL_FindString@@YAIPBD@Z	SL_FindString	SUPPORTED
 0x004a8f20	157	src/script/scr_stringlist.cpp	?SL_FindLowercaseString@@YAIPBD@Z	SL_FindLowercaseString	SUPPORTED
-0x004a8fc0	123	src/script/scr_stringlist.cpp	?FUN_004a8fc0@@YAHI@Z	FUN_004a8fc0	PINNED
+0x004a8fc0	123	src/script/scr_stringlist.cpp	?SL_IsLowercaseString@@YAHI@Z	SL_IsLowercaseString	PINNED
 0x004a9040	24	src/script/scr_stringlist.cpp	?SL_AddUserInternal@@YAXPAURefString@@I@Z	SL_AddUserInternal	SUPPORTED
 0x004a9060	31	src/script/scr_stringlist.cpp	?SL_AddUser@@YAXII@Z	SL_AddUser	SUPPORTED
 0x004a98c0	47	src/script/scr_stringlist.cpp	?SL_GetString_@@YAIPBDIH@Z	SL_GetString_	SUPPORTED
