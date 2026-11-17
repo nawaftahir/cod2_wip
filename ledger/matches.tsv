@@ -541,6 +541,11 @@ addr	size	source	symbol	name	tag
 0x00467430	58	src/radiant/entity.cpp	?FindEntityInt@@YAPAUentity_t@@PBDH@Z	FindEntityInt	SUPPORTED
 0x00467640	59	src/radiant/entity.cpp	?FUN_00467640@@YAXPAUentity_t@@PAM@Z	FUN_00467640	UNNAMED
 0x00467680	237	src/radiant/entity.cpp	?FUN_00467680@@YAXPAUentity_t@@H@Z	FUN_00467680	UNNAMED
+0x00467df0	28	src/radiant/map.cpp	?FUN_00467df0@@YAXPAUFileWrapper@@PBDZZ	FUN_00467df0	UNNAMED
+0x00467ec0	57	src/radiant/map.cpp	?CheckForTinyBrush@@YA_NPAUbrushDef_t@@HM@Z	CheckForTinyBrush	SUPPORTED
+0x00467ff0	55	src/radiant/map.cpp	?Map_FindClass@@YAPAUentity_t@@PBD@Z	Map_FindClass	SUPPORTED
+0x004681b0	27	src/radiant/map.cpp	?FUN_004681b0@@YAPAUentity_t@@XZ	FUN_004681b0	UNNAMED
+0x00469100	53	src/radiant/map.cpp	?Map_IsBrushFiltered@@YA_NPAUbrushDef_t@@@Z	Map_IsBrushFiltered	SUPPORTED
 0x0046bcd0	126	src/radiant/mru.cpp	?CreateMruMenu@@YAPAUMRUMENU@@GGGG@Z	CreateMruMenu	SUPPORTED
 0x0046bd50	28	src/radiant/mru.cpp	?CreateMruMenuDefault@@YAPAUMRUMENU@@XZ	CreateMruMenuDefault	SUPPORTED
 0x0046bd70	55	src/radiant/mru.cpp	?DeleteMruMenu@@YAXPAUMRUMENU@@@Z	DeleteMruMenu	SUPPORTED
