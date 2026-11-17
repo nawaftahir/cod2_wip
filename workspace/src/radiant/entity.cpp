@@ -77,6 +77,7 @@ struct entity_t
 
 extern entity_t entities;
 extern int DAT_011298b0;
+extern int DAT_00591cd8;
 extern char *FUN_0046cb10(const char *str);
 extern eclass_t *FUN_00464770(int a, const char *name);
 extern void Brush_InitSolid(brushdef_t *b, const vec3_t mins, const vec3_t maxs, eclass_t *eclass);
@@ -526,6 +527,28 @@ void FUN_00467240(brushdef_t *b)
 	b->oprev = NULL;
 	b->onext = NULL;
 	b->owner = NULL;
+}
+
+// 0x004672e0 (135 B)
+entity_t *FUN_004672e0(entity_t *e)
+{
+	entity_t *n = new entity_t;
+	memset(n, 0, sizeof(entity_t));
+	n->entityId = DAT_00591cd8++;
+	n->brushes.onext = n->brushes.oprev = &n->brushes;
+	n->eclass = e->eclass;
+	n->origin[0] = e->origin[0];
+	n->origin[1] = e->origin[1];
+	n->origin[2] = e->origin[2];
+	for (epair_t *ep = e->epairs; ep; ep = ep->next)
+	{
+		epair_t *np = new epair_t;
+		np->key = FUN_0046cb10(ep->key);
+		np->value = FUN_0046cb10(ep->value);
+		np->next = n->epairs;
+		n->epairs = np;
+	}
+	return n;
 }
 
 // 0x00467370 (114 B)

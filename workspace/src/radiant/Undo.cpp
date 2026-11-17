@@ -2,8 +2,22 @@
 #include "../universal/assertive.h"
 
 struct entity_t;
-struct eclass_t;
 struct epair_t;
+
+struct eclass_t
+{
+	unsigned char pad00[8];
+	int fixedsize;
+};
+
+// brush list node of the selection lists; the brush itself is def
+struct selbrush_t
+{
+	selbrush_t *prev;
+	selbrush_t *next;
+	unsigned char pad08[0x0c];
+	struct brushdef_t *def;
+};
 
 struct brushdef_t
 {
@@ -59,11 +73,13 @@ extern int g_undoMemorySize;
 extern entityInst_t *world_entity;
 
 char *va(const char *format, ...);
+void Sys_Printf(const char *text, ...);
 extern brushdef_t *FUN_00458eb0(brushdef_t *brush);
 extern entity_t *FUN_004672e0(entity_t *entity);
 int BrushDef_MemorySize(const brushdef_t *b);
 void Entity_AddToList(entity_t *e, entity_t *list);
 int Entity_MemorySize(entity_t *e);
+void FUN_00443fd0(entity_t *entity);
 
 // 0x004431f0 (166 B)
 void FUN_004431f0(brushdef_t *list, brushdef_t *brush)
@@ -130,7 +146,9 @@ bool FUN_00443c30(undo_t *undo, brushdef_t *brush)
 #line 335
 	assert(undo);
 	assert(brush);
-	return brush->undoId == g_lastundo->id;
+	if (brush->undoId == g_lastundo->id)
+		return true;
+	return false;
 }
 
 // 0x00443cd0 (150 B)
@@ -139,7 +157,11 @@ bool FUN_00443cd0(undo_t *undo, entity_t *ent)
 #line 351
 	assert(undo);
 	assert(ent);
-	return ent->undoId == undo->id || ent == world_entity->def;
+	if (ent->undoId == undo->id)
+		return true;
+	if (ent == world_entity->def)
+		return true;
+	return false;
 }
 
 // 0x00443d90 (157 B)
@@ -161,6 +183,76 @@ void FUN_00443d90(brushdef_t *brush)
 	}
 }
 
+// 0x00443e70 (75 B)
+void Undo_AddBrush(brushdef_t *brush)
+{
+	if (!g_lastundo)
+	{
+		Sys_Printf("Undo_AddBrush: no last undo.\n");
+		return;
+	}
+	if (g_lastundo->entitylist.next != &g_lastundo->entitylist)
+		Sys_Printf("Undo_AddBrush: WARNING adding brushes after entity.\n");
+	if (brush->owner->eclass->fixedsize)
+		FUN_00443fd0(brush->owner);
+	FUN_00443d90(brush);
+}
+
+// 0x00443ec0 (92 B)
+void Undo_AddBrushList(selbrush_t *list)
+{
+	if (!g_lastundo)
+	{
+		Sys_Printf("Undo_AddBrushList: no last undo.\n");
+		return;
+	}
+	if (g_lastundo->entitylist.next != &g_lastundo->entitylist)
+		Sys_Printf("Undo_AddBrushList: WARNING adding brushes after entity.\n");
+	for (selbrush_t *b = list->prev; b != list; b = b->prev)
+	{
+		if (b->def->owner->eclass->fixedsize)
+			FUN_00443fd0(b->def->owner);
+		FUN_00443d90(b->def);
+	}
+}
+
+// 0x00443f20 (34 B)
+void FUN_00443f20(brushdef_t *brush)
+{
+	brush->undoId = g_lastundo->id;
+	if (brush->owner->eclass->fixedsize)
+		brush->owner->undoId = g_lastundo->id;
+}
+
+// 0x00443f50 (44 B)
+void FUN_00443f50(brushdef_t *brush)
+{
+	if (!g_lastundo)
+		return;
+	if (g_lastundo->done)
+		return;
+	brush->undoId = g_lastundo->id;
+	if (brush->owner->eclass->fixedsize)
+		brush->owner->undoId = g_lastundo->id;
+}
+
+// 0x00443f80 (74 B)
+void FUN_00443f80(selbrush_t *list)
+{
+	if (!g_lastundo)
+		return;
+	if (g_lastundo->done)
+		return;
+	for (selbrush_t *b = list->next; b != NULL && b != list; b = b->next)
+	{
+		brushdef_t *def = b->def;
+		def->undoId = g_lastundo->id;
+		entity_t *owner = def->owner;
+		if (owner->eclass->fixedsize)
+			owner->undoId = g_lastundo->id;
+	}
+}
+
 // 0x00443fd0 (229 B)
 void FUN_00443fd0(entity_t *entity)
 {
@@ -170,6 +262,7 @@ void FUN_00443fd0(entity_t *entity)
 	if (!FUN_00443cd0(g_lastundo, entity))
 	{
 		entity_t *clone = FUN_004672e0(entity);
+
 		vassert((clone->refCount == 0), "(clone->refCount) = %i", clone->refCount);
 		++clone->refCount;
 		clone->undoId = entity->undoId;
@@ -178,6 +271,36 @@ void FUN_00443fd0(entity_t *entity)
 		Entity_AddToList(clone, &g_lastundo->entitylist);
 		g_undoMemorySize += Entity_MemorySize(clone);
 	}
+}
+
+// 0x004440c0 (70 B)
+void Undo_AddEntity(entity_t *ent)
+{
+	if (!g_lastundo)
+	{
+		Sys_Printf("Undo_AddEntity: no last undo.\n");
+		return;
+	}
+	FUN_00443fd0(ent);
+	if (ent != world_entity->def)
+	{
+		for (brushdef_t *b = ent->brushes.onext; b != &ent->brushes; b = b->onext)
+			FUN_00443d90(b);
+	}
+}
+
+// 0x00444110 (63 B)
+void FUN_00444110(entity_t *ent)
+{
+	if (!g_lastundo)
+		return;
+	if (g_lastundo->done)
+		return;
+	if (ent == world_entity->def)
+		return;
+	ent->undoId = g_lastundo->id;
+	for (brushdef_t *b = ent->brushes.onext; b != &ent->brushes; b = b->onext)
+		b->undoId = g_lastundo->id;
 }
 
 // 0x00445020 (14 B)

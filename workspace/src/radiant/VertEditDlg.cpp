@@ -1,4 +1,6 @@
 #include "stdafx.h"
+#include "Pmesh.h"
+#include "../universal/assertive.h"
 
 
 extern CWnd *g_curveParent;
@@ -38,6 +40,37 @@ struct VertEditHsl
     int s;
     int l;
 };
+
+struct VertEditPatchRef
+{
+    patchMesh_t *def;
+};
+
+struct VertEditBrushDef
+{
+    unsigned char pad[0x44];
+    patchMesh_t *patch;
+};
+
+// selected_brushes list node: def at 0x14, patch instance at 0x20
+struct VertEditBrush
+{
+    VertEditBrush *prev;
+    VertEditBrush *next;
+    unsigned char pad08[0x0c];
+    VertEditBrushDef *def;
+    unsigned char pad18[8];
+    VertEditPatchRef *patch;
+};
+
+struct brushdef_t;
+void Undo_AddBrush(brushdef_t *brush);
+void FUN_004269d0(patchMesh_t *p, bool bRebuildBrush);
+
+extern VertEditBrush selected_brushes;
+extern int g_nUpdateBits;
+extern int DAT_010c4d84;
+extern PatchControl *DAT_010c4d88[];
 
 VertEditHsl FUN_00447230(VertEditRgb rgb);
 VertEditRgb FUN_00447410(VertEditHsl hsl);
@@ -201,6 +234,67 @@ void CVertEditDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar *pScrollBar)
             FUN_00446830(this);
     }
     CDialog::OnHScroll(nSBCode, nPos, pScrollBar);
+}
+
+// first picked control point of the move list, or -1
+static int FindMovePoint(PatchControl *c)
+{
+    for (int i = 0; i < DAT_010c4d84; i++)
+        if (c == DAT_010c4d88[i])
+            return i;
+    return -1;
+}
+
+static void BracketPatch(patchMesh_t *p)
+{
+    if (!p->field_382e)
+    {
+        brushdef_t *brush = (brushdef_t *)p->cache_3828;
+        p->field_382e = 1;
+        Undo_AddBrush(brush);
+    }
+}
+
+// 0x00446830 (609 B)
+void __stdcall FUN_00446830(CVertEditDlg *dlg)
+{
+    for (VertEditBrush *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+    {
+        if (!b->patch)
+            continue;
+#line 199
+        assert(b->patch->def == b->def->patch);
+        patchMesh_t *p = b->patch->def;
+        int changed = 0;
+        for (int col = 0; col < p->width; col++)
+        {
+            for (int row = 0; row < p->height; row++)
+            {
+                PatchControl *c = &p->ctrl[col][row];
+                if (c->flags_34 & 2)
+                    continue;
+                if (FindMovePoint(c) < 0)
+                    continue;
+                if (dlg->m_btnColor.GetCheck())
+                {
+                    changed = 1;
+                    BracketPatch(p);
+                    c->color_28[2] = (unsigned char)dlg->m_rgb.r;
+                    c->color_28[1] = (unsigned char)dlg->m_rgb.g;
+                    c->color_28[0] = (unsigned char)dlg->m_rgb.b;
+                }
+                if (dlg->m_btnAlpha.GetCheck())
+                {
+                    changed = 1;
+                    BracketPatch(p);
+                    c->color_28[3] = (unsigned char)dlg->m_nAlpha;
+                }
+            }
+        }
+        if (changed)
+            FUN_004269d0(p, true);
+    }
+    g_nUpdateBits = -1;
 }
 
 void CVertEditDlg::FUN_00446aa0()

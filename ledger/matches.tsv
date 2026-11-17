@@ -549,8 +549,14 @@ addr	size	source	symbol	name	tag
 0x00443850	6	src/radiant/Undo.cpp	?Undo_GetMaxMemorySize@@YAHXZ	Undo_GetMaxMemorySize	SUPPORTED
 0x00443c30	159	src/radiant/Undo.cpp	?FUN_00443c30@@YA_NPAUundo_s@@PAUbrushdef_t@@@Z	FUN_00443c30	UNNAMED
 0x00443cd0	150	src/radiant/Undo.cpp	?FUN_00443cd0@@YA_NPAUundo_s@@PAUentity_t@@@Z	FUN_00443cd0	UNNAMED
-0x00443d90	157	src/radiant/Undo.cpp	?FUN_00443d90@@YAXPAUbrushdef_t@@@Z	FUN_00443d90	UNNAMED
+0x00443e70	75	src/radiant/Undo.cpp	?Undo_AddBrush@@YAXPAUbrushdef_t@@@Z	Undo_AddBrush	SUPPORTED
+0x00443ec0	92	src/radiant/Undo.cpp	?Undo_AddBrushList@@YAXPAUselbrush_t@@@Z	Undo_AddBrushList	SUPPORTED
+0x00443f20	34	src/radiant/Undo.cpp	?FUN_00443f20@@YAXPAUbrushdef_t@@@Z	FUN_00443f20	UNNAMED
+0x00443f50	44	src/radiant/Undo.cpp	?FUN_00443f50@@YAXPAUbrushdef_t@@@Z	FUN_00443f50	UNNAMED
+0x00443f80	74	src/radiant/Undo.cpp	?FUN_00443f80@@YAXPAUselbrush_t@@@Z	FUN_00443f80	UNNAMED
 0x00443fd0	229	src/radiant/Undo.cpp	?FUN_00443fd0@@YAXPAUentity_t@@@Z	FUN_00443fd0	UNNAMED
+0x004440c0	70	src/radiant/Undo.cpp	?Undo_AddEntity@@YAXPAUentity_t@@@Z	Undo_AddEntity	SUPPORTED
+0x00444110	63	src/radiant/Undo.cpp	?FUN_00444110@@YAXPAUentity_t@@@Z	FUN_00444110	UNNAMED
 0x00445020	14	src/radiant/Undo.cpp	?FUN_00445020@@YA_NXZ	FUN_00445020	UNNAMED
 0x00445030	25	src/radiant/Undo.cpp	?Undo_UndoAvailable@@YAHXZ	Undo_UndoAvailable	SUPPORTED
 0x004460e0	6	src/radiant/VertEditDlg.cpp	?GetRuntimeClass@CVertEditDlg@@UBEPAUCRuntimeClass@@XZ	CVertEditDlg::GetRuntimeClass	SUPPORTED
@@ -561,6 +567,7 @@ addr	size	source	symbol	name	tag
 0x00446410	116	src/radiant/VertEditDlg.cpp	?FUN_00446410@@YGJPAUHWND__@@IIJ@Z	FUN_00446410	UNNAMED
 0x00446490	211	src/radiant/VertEditDlg.cpp	?OnInitDialog@CVertEditDlg@@MAEHXZ	CVertEditDlg::OnInitDialog	SUPPORTED
 0x00446570	701	src/radiant/VertEditDlg.cpp	?OnHScroll@CVertEditDlg@@IAEXIIPAVCScrollBar@@@Z	CVertEditDlg::OnHScroll	SUPPORTED
+0x00446830	609	src/radiant/VertEditDlg.cpp	?FUN_00446830@@YGXPAVCVertEditDlg@@@Z	FUN_00446830	UNNAMED
 0x00446aa0	7	src/radiant/VertEditDlg.cpp	?FUN_00446aa0@CVertEditDlg@@IAEXXZ	FUN_00446aa0	UNNAMED
 0x00446ab0	264	src/radiant/VertEditDlg.cpp	?FUN_00446ab0@CVertEditDlg@@IAEXXZ	FUN_00446ab0	UNNAMED
 0x00446bc0	84	src/radiant/VertEditDlg.cpp	?OnDrawItem@CVertEditDlg@@IAEXHPAUtagDRAWITEMSTRUCT@@@Z	CVertEditDlg::OnDrawItem	SUPPORTED
@@ -692,6 +699,7 @@ addr	size	source	symbol	name	tag
 0x004668f0	73	src/radiant/entity.cpp	?FUN_004668f0@@YAXPBDPAU_iobuf@@@Z	FUN_004668f0	UNNAMED
 0x00466940	41	src/radiant/entity.cpp	?FUN_00466940@@YAXPBDPAU_iobuf@@0@Z	FUN_00466940	UNNAMED
 0x00467240	152	src/radiant/entity.cpp	?FUN_00467240@@YAXPAUbrushdef_t@@@Z	FUN_00467240	PINNED
+0x004672e0	135	src/radiant/entity.cpp	?FUN_004672e0@@YAPAUentity_t@@PAU1@@Z	FUN_004672e0	UNNAMED
 0x00467370	114	src/radiant/entity.cpp	?GetUniqueTargetId@@YAHH@Z	GetUniqueTargetId	SUPPORTED
 0x004673f0	52	src/radiant/entity.cpp	?FUN_004673f0@@YAPAUentity_t@@PBD0@Z	FUN_004673f0	UNNAMED
 0x00467430	58	src/radiant/entity.cpp	?FindEntityInt@@YAPAUentity_t@@PBDH@Z	FindEntityInt	SUPPORTED
