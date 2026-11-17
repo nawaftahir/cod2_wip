@@ -3,9 +3,10 @@
 Target: CoD2Radiant.exe 1.0 rebuilt from readable C/C++ (MSVC 7.1 /O2 /GL + link /LTCG) to byte identity.
 
 ## Shell
-- Windows host. Run shell steps as bash script files: `wsl.exe bash -l /mnt/c/<scratchpad path>/<lane>_x.sh` via the PowerShell tool.
-- Prefix every scratch file with your lane letter (`e_try.sh`); other lanes share the scratchpad.
-- Edit sources with Edit/Write on `\\wsl.localhost\Ubuntu\home\nawaf\...`.
+- Native Linux shell (WSL). No wsl.exe or PowerShell: run make/docker/python directly in your worktree.
+- Prefix scratch files with your lane letter (`e_try.sh`).
+- Wrong symbol from `make try`: `docker run --rm -v $PWD:/w -w /w -e RADIANT_IN_IMAGE=1 cod2-radiant-msvc71 python3 tools/verify.py <src> <addr> --symbol '<mangled>'` (mangled name from build/CoD2Radiant.map).
+- Hint source (read-only): ~/cod2/test/dev/refrences/opencod2_radiant_generated/ (names HYPOTHESIS; `__usercall` register notes useful).
 
 ## Setup (once)
 In your worktree: `git merge --ff-only radiant/main`.
