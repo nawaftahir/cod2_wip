@@ -71,6 +71,29 @@ extern int g_undoMaxSize;
 extern int g_undoMaxMemorySize;
 extern int g_undoMemorySize;
 extern entityInst_t *world_entity;
+extern undo_t *g_redolist;
+extern undo_t *g_undolist;
+extern int g_redoId;
+extern int g_undoId;
+extern int g_undoSize;
+
+// level-1 assert: retail passes 1 as the fourth argument
+#define assert1(expr) \
+	do { \
+		static bool s_assertDisable; \
+		if ( !(expr) && !s_assertDisable ) \
+		{ \
+			switch ( FUN_0047d980( #expr, __FILE__, __LINE__, 1, 1 ) ) \
+			{ \
+			case 0: \
+				DebugBreak(); \
+				break; \
+			case 2: \
+				s_assertDisable = true; \
+				break; \
+			} \
+		} \
+	} while ( 0 )
 
 char *va(const char *format, ...);
 void Sys_Printf(const char *text, ...);
@@ -80,6 +103,9 @@ int BrushDef_MemorySize(const brushdef_t *b);
 void Entity_AddToList(entity_t *e, entity_t *list);
 int Entity_MemorySize(entity_t *e);
 void FUN_00443fd0(entity_t *entity);
+void FUN_00458af0(brushdef_t *def);
+void FUN_004661f0(entity_t *e);
+void FUN_00443590(void);
 
 // 0x004431f0 (166 B)
 void FUN_004431f0(brushdef_t *list, brushdef_t *brush)
@@ -116,7 +142,85 @@ undo_t *Undo_RedoAvailable(void)
 	return g_lastredo;
 }
 
-extern "C" void FUN_00443590();
+// 0x004433b0 (476 B)
+void FUN_004433b0(void)
+{
+	undo_t *redo = g_redolist;
+	while (redo)
+	{
+		undo_t *nextredo = redo->next;
+		brushdef_t *brush = redo->brushlist.onext;
+		while (brush != &redo->brushlist)
+		{
+#line 128
+			assert(brush);
+			brushdef_t *pNext = brush->onext;
+			FUN_004432a0(brush);
+			vassert((brush->refCount == 0), "(brush->refCount) = %i", brush->refCount);
+			FUN_00458af0(brush);
+			brush = pNext;
+		}
+		entity_t *entity = redo->entitylist.next;
+		while (entity != &redo->entitylist)
+		{
+#line 136
+			assert(entity);
+			entity_t *pNext = entity->next;
+			assert1(entity->refCount == 1);
+			--entity->refCount;
+			FUN_004661f0(entity);
+			entity = pNext;
+		}
+		delete redo;
+		redo = nextredo;
+	}
+	g_redolist = NULL;
+	g_lastredo = NULL;
+	g_redoId = 1;
+}
+
+// 0x00443590 (615 B)
+void FUN_00443590(void)
+{
+	FUN_004433b0();
+	undo_t *undo = g_undolist;
+	while (undo)
+	{
+		undo_t *nextundo = undo->next;
+		brushdef_t *brush = undo->brushlist.onext;
+		while (brush != &undo->brushlist)
+		{
+#line 162
+			assert(brush);
+			brushdef_t *pNext = brush->onext;
+			g_undoMemorySize -= BrushDef_MemorySize(brush);
+			FUN_004432a0(brush);
+			vassert((brush->refCount == 0), "(brush->refCount) = %i", brush->refCount);
+			FUN_00458af0(brush);
+			brush = pNext;
+		}
+		entity_t *entity = undo->entitylist.next;
+		while (entity != &undo->entitylist)
+		{
+#line 171
+			assert(entity);
+			entity_t *pNext = entity->next;
+			g_undoMemorySize -= Entity_MemorySize(entity);
+			assert1(entity->refCount == 1);
+			--entity->refCount;
+			FUN_004661f0(entity);
+			entity = pNext;
+		}
+		g_undoMemorySize -= sizeof(undo_t);
+		delete undo;
+		undo = nextundo;
+	}
+	g_undolist = NULL;
+	g_lastundo = NULL;
+	g_undoSize = 0;
+	g_undoMemorySize = 0;
+	g_undoId = 1;
+}
 
 // 0x00443800 (27 B)
 void Undo_SetMaxSize(int size)
@@ -138,6 +242,39 @@ int Undo_GetMaxSize(void)
 int Undo_GetMaxMemorySize(void)
 {
 	return g_undoMaxMemorySize;
+}
+
+// 0x00443860 (553 B)
+void FUN_00443860(void)
+{
+	undo_t *undo = g_undolist;
+	g_undolist = undo->next;
+	g_undolist->prev = NULL;
+	for (brushdef_t *brush = undo->brushlist.onext; brush != &undo->brushlist; brush = undo->brushlist.onext)
+	{
+#line 235
+		assert(brush);
+		g_undoMemorySize -= BrushDef_MemorySize(brush);
+		assert1(brush->refCount == 1);
+		FUN_004432a0(brush);
+		vassert((brush->refCount == 0), "(brush->refCount) = %i", brush->refCount);
+		FUN_00458af0(brush);
+	}
+	entity_t *entity = undo->entitylist.next;
+	while (entity != &undo->entitylist)
+	{
+#line 244
+		assert(entity);
+		entity_t *pNext = entity->next;
+		g_undoMemorySize -= Entity_MemorySize(entity);
+		assert1(entity->refCount == 1);
+		--entity->refCount;
+		FUN_004661f0(entity);
+		entity = pNext;
+	}
+	g_undoMemorySize -= sizeof(undo_t);
+	delete undo;
+	--g_undoSize;
 }
 
 // 0x00443c30 (159 B)
