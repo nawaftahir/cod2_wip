@@ -921,6 +921,8 @@ addr	size	source	symbol	name	tag
 0x0048f240	44	src/universal/dvar.cpp	?Dvar_UpdateRegistration@@YAXPAUdvar_s@@PBDEGUDvarValue@@TDvarLimits@@@Z	Dvar_UpdateRegistration	PINNED
 0x0048f280	36	src/universal/dvar.cpp	?Dvar_ClearLatchedValue@@YAXPAUdvar_s@@@Z	Dvar_ClearLatchedValue	SUPPORTED
 0x00490ba0	24	src/universal/dvar.cpp	?Dvar_SetBool@@YAXPAUdvar_s@@_N@Z	Dvar_SetBool	SUPPORTED
+0x00490c20	32	src/universal/dvar.cpp	?Dvar_SetVec3@@YAXPAUdvar_s@@MMM@Z	Dvar_SetVec3	SUPPORTED
+0x00490c90	36	src/universal/dvar.cpp	?Dvar_SetColor@@YAXPAUdvar_s@@MMMM@Z	Dvar_SetColor	SUPPORTED
 0x004912a0	54	src/universal/dvar.cpp	?Dvar_SetCommand@@YAXPBD0@Z	Dvar_SetCommand	PINNED
 0x004912e0	155	src/universal/dvar.cpp	?Dvar_AddFlags@@YAXPAUdvar_s@@H@Z	Dvar_AddFlags	PINNED
 0x00491450	54	src/universal/dvar.cpp	?Dvar_AnyLatchedValues@@YA_NXZ	Dvar_AnyLatchedValues	SUPPORTED
