@@ -287,6 +287,58 @@ void CopyMessageToClipboard()
     }
 }
 
+}
+
+int FUN_0047d830(int type, int flag);
+void FUN_0047d720(char *dest, int a, int skip);
+
+char assertModuleName[260];
+
+// 0x0047d8b0: builds the assert text; file in ecx, expr in edx, dest in edi
+void FUN_0047d8b0(const char *expr, const char *file, char *dest, int line, int skip)
+{
+    char unknown[10] = "<unknown>";
+    if (!file)
+        file = unknown;
+    if (!expr)
+        expr = unknown;
+    if (!GetModuleFileNameA(NULL, assertModuleName, sizeof(assertModuleName)))
+        strcpy(assertModuleName, "<unknown application>");
+    char *end = dest + sprintf(dest, "Expression:\n\t%s\n\nModule:\t%s\nFile:\t%s\nLine:\t%d\n\n", expr, assertModuleName, file, line);
+    FUN_0047d720(end, 0x20, skip + 1);
+}
+
+bool g_assertRecursive;
+int g_assertType;
+
+// 0x0047d980
+int FUN_0047d980(const char *expr, const char *file, int line, int type, int skip)
+{
+    if (g_assertRecursive)
+    {
+        CopyMessageToClipboard();
+        FUN_0047d830(g_assertType, 1);
+        FUN_0047d8b0(expr, file, assertMessage, line, skip);
+        Com_Printf("ASSERTBEGIN - ( Recursive assert )---------------------------------------------\n");
+        Com_Printf(assertMessage);
+        Com_Printf("ASSERTEND - ( Recursive assert ) ----------------------------------------------\n\n");
+        exit(-1);
+    }
+    g_assertType = type;
+    g_assertRecursive = true;
+    FUN_0047d8b0(expr, file, assertMessage, line, skip);
+    Com_Printf("ASSERTBEGIN -------------------------------------------------------------------\n");
+    Com_Printf(assertMessage);
+    Com_Printf("ASSERTEND ---------------------------------------------------------------------\n");
+    g_assertUnknownFlag = false;
+    CopyMessageToClipboard();
+    int result = FUN_0047d830(type, 0);
+    g_assertRecursive = false;
+    return result;
+}
+
+extern "C" {
+
 void FUN_0047da40()
 {
     g_assertUnknownFlag = false;

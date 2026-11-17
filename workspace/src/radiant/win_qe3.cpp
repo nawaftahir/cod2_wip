@@ -24,6 +24,7 @@ extern int modified;
 extern char currentmap[];
 void ConvertDOSToUnixName(char *dst, const char *src);
 void Sys_Printf(const char *text, ...);
+void Error(const char *error, ...);
 
 bool FUN_0046ba10(void);
 void FUN_0046b9b0(void);
@@ -76,12 +77,71 @@ void Sys_Beep(void)
     MessageBeep(MB_ICONASTERISK);
 }
 
+char translateBuffer[0x10000];
+
+// 0x0047a4f0
+char *TranslateString(const char *string)
+{
+#line 83
+    assert(string);
+    int out = 0;
+    int i = 0;
+    for (; string[i]; i++)
+    {
+        if (out == 0x10000)
+        {
+            Error("TranslateString buffer exceeded");
+            return 0;
+        }
+        if (string[i] == '\n')
+        {
+            translateBuffer[out++] = '\r';
+            translateBuffer[out++] = '\n';
+        }
+        else
+            translateBuffer[out++] = string[i];
+    }
+    translateBuffer[out] = 0;
+    return translateBuffer;
+}
+
 void Sys_ClearPrintf(void)
 {
     char text[4];
     text[0] = 0;
 
     SendMessage(g_qeglobals.d_hwndEdit, WM_SETTEXT, 0, (LPARAM)text);
+}
+
+void Sys_Printf(const char *text, ...)
+{
+    va_list argptr;
+    char replaceText[5];
+    char buf[32768];
+    char *out;
+    LRESULT result;
+    DWORD oldPosS, oldPosE;
+
+    va_start(argptr, text);
+    vsprintf(buf, text, argptr);
+    va_end(argptr);
+
+    out = TranslateString(buf);
+
+    result = SendMessage(g_qeglobals.d_hwndEdit, EM_GETLINECOUNT, 0, 0);
+    if (result > 600)
+    {
+        replaceText[0] = '\0';
+
+        SendMessage(g_qeglobals.d_hwndEdit, WM_SETREDRAW, (WPARAM)0, (LPARAM)0);
+        SendMessage(g_qeglobals.d_hwndEdit, EM_GETSEL, (WPARAM)&oldPosS, (LPARAM)&oldPosE);
+        SendMessage(g_qeglobals.d_hwndEdit, EM_SETSEL, 0, 500);
+        SendMessage(g_qeglobals.d_hwndEdit, EM_REPLACESEL, (WPARAM)0, (LPARAM)replaceText);
+        SendMessage(g_qeglobals.d_hwndEdit, EM_SETSEL, oldPosS, oldPosE);
+        SendMessage(g_qeglobals.d_hwndEdit, WM_SETREDRAW, (WPARAM)1, (LPARAM)0);
+    }
+
+    SendMessage(g_qeglobals.d_hwndEdit, EM_REPLACESEL, 0, (LPARAM)out);
 }
 
 double Sys_DoubleTime(void)

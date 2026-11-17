@@ -92,6 +92,9 @@ void FUN_00467510(entity_t *e);
 void FUN_00465bf0(entity_t *e, const char *key, const char *value);
 extern void FUN_0047a760(const char *fmt, ...);
 extern char *va(const char *format, ...);
+extern void FUN_00458af0(brushdef_t *def);
+void FUN_00467240(brushdef_t *b);
+#define assert1(expr) do { static bool s_assertDisable; if (!(expr) && !s_assertDisable) { switch (FUN_0047d980(#expr, __FILE__, __LINE__, 1, 1)) { case 0: DebugBreak(); break; case 2: s_assertDisable = true; break; } } } while (0)
 extern void (__cdecl *dword_0059c490)(void *);
 
 // 0x00464bb0 (88 B)
@@ -468,6 +471,28 @@ void Entity_RemoveFromList(entity_t *e)
 	e->prev->next = e->next;
 	e->prev = NULL;
 	e->next = NULL;
+}
+
+// 0x004661f0 (446 B)
+void FUN_004661f0(entity_t *e)
+{
+#line 645
+	assert(e);
+	assertMsg((e->refCount == 0), "(e->refCount) = %i", e->refCount);
+	if (e->next)
+		Entity_RemoveFromList(e);
+	for (brushdef_t *b = e->brushes.onext; b != &e->brushes; b = e->brushes.onext)
+	{
+#line 654
+		assert1(b->owner == e);
+		assert1(b->oprev == &e->brushes);
+		FUN_00467240(b);
+#line 657
+		vassert((b->refCount == 0), "(b->refCount) = %i", b->refCount);
+		FUN_00458af0(b);
+	}
+	Entity_FreeEpairs(e);
+	delete e;
 }
 
 // 0x004663b0 (66 B)

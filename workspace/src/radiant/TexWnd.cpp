@@ -176,10 +176,10 @@ qtexture_s *FUN_004406c0(char *name, void *handle, RadMtlInfo *mtlInfo)
     newRadMat->height = mtlInfo->autoTexScaleHeight;
     newRadMat->field_1c = mtlInfo->field_24;
     newRadMat->field_20 = mtlInfo->field_28;
-    newRadMat->next = texWndGlobals.qtextures;
-    texWndGlobals.qtextures = newRadMat;
-    texWndGlobals.sorted[texWndGlobals.sortedCount] = newRadMat;
-    texWndGlobals.sortedCount++;
+    qtexture_s **head = &texWndGlobals.qtextures;
+    newRadMat->next = *head;
+    *head = newRadMat;
+    texWndGlobals.sorted[texWndGlobals.sortedCount++] = newRadMat;
     return newRadMat;
 }
 
