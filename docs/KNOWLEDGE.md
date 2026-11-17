@@ -992,3 +992,7 @@ set by a later lowering stage, not by the list scheduler.
 - PINNED (w29, 11-17, lab probe, dfs13): a call in source-dead code (`if (0) Com_Error(...)`) still becomes a c2 call-graph edge
   (T line) and moves the caller's compile slot (CL_DemoCompleted to the end of F order). So IL edges come from the front-end
   call list before c2 dead-code removal. Probe only; a fabricated dead call is not source.
+- STAND-INS (w29, 11-17, owner approved "land both, labelled"): two dead calls set LTCG compile slots only (c2 builds call edges
+  before dead-code removal): `if (0) CL_Disconnect_f();` in CL_DemoCompleted (1.0 calls CL_Disconnect_f there; puts the 1000.0
+  pool entry after CG_FxTest, +58) and `if (0) G_TempEntity(start, 0);` in fire_grenade (720.0f after Mantle_CreateAnims, +20).
+  Replace with the real source if IW evidence appears.

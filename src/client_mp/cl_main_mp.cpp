@@ -894,6 +894,8 @@ void CL_DemoCompleted(void)
     }
 
     CL_Disconnect();
+    // stand-in: dead call only sets the LTCG compile slot (1.0 calls CL_Disconnect_f here)
+    if (0) CL_Disconnect_f();
     CL_NextDemo();
 }
 
