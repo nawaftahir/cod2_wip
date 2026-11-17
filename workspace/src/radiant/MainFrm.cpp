@@ -47,8 +47,6 @@ void FUN_00471270();
 void FUN_004713e0();
 void FUN_00471670();
 void FUN_00471a90();
-void FUN_004441b0();
-void FUN_00444a00();
 void FUN_0045c890();
 void FUN_0045ca10();
 void FUN_0045c950();
@@ -61,6 +59,8 @@ void FUN_00438ff0();
 void FUN_004745d0();
 }
 
+void Undo_Undo();
+void Undo_Redo();
 void QE_CountBrushesAndUpdateStatusBar();
 void QE_CheckAutoSave();
 
@@ -502,8 +502,8 @@ extern "C" void __fastcall FUN_00418cf0(CMainFrame *self)
   prefs->SavePrefs();
   ::SendMessage(self->field_0180, 0x402, 0x8019, MAKELONG(PF(0x248) == 0, 0));
 }
-extern "C" void FUN_00419080() { FUN_004441b0(); }
-extern "C" void FUN_00419090() { FUN_00444a00(); }
+extern "C" void FUN_00419080() { Undo_Undo(); }
+extern "C" void FUN_00419090() { Undo_Redo(); }
 extern int DAT_0109fdc4;
 void CMainFrame::FUN_004190e0(CCmdUI *pCmdUI)
 {

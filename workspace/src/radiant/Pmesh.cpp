@@ -883,8 +883,9 @@ struct entity_s { unsigned char pad[8]; patch_entity_def_t *def; };
 struct patch_t
 {
     patchMesh_t *def;
-    unsigned char pad4[2];
+    short version;
     unsigned char field_06;
+    unsigned char pad07[0x19];
 };
 struct selbrush_t
 {
@@ -1365,6 +1366,23 @@ void FUN_00439160(int amount)
         }
     }
     DAT_0123348c = -1;
+}
+
+
+// 0x004392a0 (275 B), def in esi
+patch_t *FUN_004392a0(patchMesh_t *def)
+{
+#define SYMBIOT ((symbiot_t *)def->cache_3828)
+#line 8097
+    assert( def );
+    assertText(SYMBIOT, "def->symbiot");
+    assertMsgText(SYMBIOT->refCount >= 0, "(def->symbiot->refCount >= 0)", "(def->symbiot->refCount) = %i", SYMBIOT->refCount);
+    patch_t *p = new patch_t;
+    memset(p, 0, sizeof(patch_t));
+    p->def = def;
+    p->version = def->version - 1;
+    return p;
+#undef SYMBIOT
 }
 
 
