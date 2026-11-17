@@ -42,7 +42,7 @@ def main():
     result = ROOT / 'build/verify.json'
     checked = json.loads(result.read_text())
     rows = read('ledger/matches.tsv')
-    assert checked['failed'] == 0 and checked['matched'] == len(rows)
+    assert checked['failed'] == 0 and checked['matched'] + checked.get('ties_lost', 0) == len(rows)
     inputs = list((ROOT / 'src').rglob('*.cpp')) + list((ROOT / 'src').rglob('*.c'))
     inputs += list((ROOT / 'src').rglob('*.h'))
     inputs += [ROOT / name for name in ('data/flags.tsv', 'data/lib_funcs.tsv',

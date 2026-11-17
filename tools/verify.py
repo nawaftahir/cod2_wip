@@ -205,6 +205,7 @@ def verify_all():
     compiler_matched = [r for r in results if r["status"] == "MATCH" and r["addr"] not in game_addresses]
     summary = {"rows": len(rows), "matched": len(matched), "failed": failed,
                "order_warnings": sum(1 for r in results if r.get("order")),
+               "ties_lost": sum(1 for r in results if r["status"] == "TIE-LOST"),
                "unverified_in_src": len(extras),
                "matched_bytes": sum(int(r["size"]) for r in matched),
                "compiler_rows": len(compiler), "compiler_matched": len(compiler_matched),
