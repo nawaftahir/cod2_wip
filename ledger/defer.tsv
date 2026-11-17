@@ -87,3 +87,21 @@ addr	agent	date	reason
 0x004a80c0	claude-a	2026-11-17	MT_FreeIndex: best 69%; 656/562; first diff +0x6: ours inlines MT_NodeInfoString at the mt_usage_size assertMsg (94 B) where retail calls 0x004a7270 (esi). Same variants as 0x004a7e70, no change.
 0x004a84e0	claude-a	2026-11-17	MT_Alloc: best 44%; 27/21; first diff +0x0: follows the MT_AllocIndex ABI; retail takes numBytes in ecx and type in eax and pushes both to 0x004a7e70, ours keeps numBytes on the stack with an ebp frame. Retail has no direct callers.
 0x004a85c0	claude-a	2026-11-17	MT_ForceAllocIndex: best 44%; 549/374; first diff +0x10: ours inlines MT_NodeInfoString at both assertMsg sites (175 B) where retail calls 0x004a7270 (esi); GetSize result also lives in ebx in ours, eax in retail. Same variants as 0x004a7e70, no change.
+0x00491c80	claude-e	2026-11-17	FUN_00491c80: best 74%; 347/341; first diff +0x5; arg registers/frame differ (ltcg row says ebx,edi; no caller context yet); draft in workspace/drafts/g_vehicle_path_full.cpp.
+0x00491de0	claude-e	2026-11-17	FUN_00491de0: best 32%; 702/750; first diff +0x5; 48 B too large, vertex/matrix block shape not found; draft in workspace/drafts/g_vehicle_path_full.cpp.
+0x004920d0	claude-e	2026-11-17	FUN_004920d0: best 59%; 88/88; first diff +0x2: ours takes index in ecx, retail in edx (eax,edx), and the -1.0f stores for speed/lookahead and angles[2] are scheduled later than retail. Tried chained assign, int param (22%), short param; draft in workspace/drafts/g_vehicle_path_full.cpp.
+0x004921b0	claude-e	2026-11-17	FUN_004921b0: best 34%; 186/191; first diff +0x8; targetname/origin search loop shape; draft in workspace/drafts/g_vehicle_path_full.cpp.
+0x004922d0	claude-e	2026-11-17	FUN_004922d0: best 68%; 367/377; first diff +0xb; 10 B larger in retail, same for twin 0x00492450 (identical shape); draft in workspace/drafts/g_vehicle_path_full.cpp.
+0x00492450	claude-e	2026-11-17	FUN_00492450: best 68%; 367/377; first diff +0xb; twin of 0x004922d0; draft in workspace/drafts/g_vehicle_path_full.cpp.
+0x004925d0	claude-e	2026-11-17	FUN_004925d0: best 42%; 929/983; first diff +0xa; 54 B short, node walk shape; draft in workspace/drafts/g_vehicle_path_full.cpp.
+0x00492a50	claude-e	2026-11-17	FUN_00492a50: best 66%; 138/152; first diff +0x45; retail tests rotated flags as a jump chain (je/jne into shared tails) that the if/else forms did not reproduce (4 shapes tried: 56-66%); draft in workspace/drafts/g_vehicle_path_full.cpp.
+0x00492af0	claude-e	2026-11-17	FUN_00492af0: best 41%; 380/342; first diff +0x5; 38 B too large, inline AngleNormalize180/LerpAngle split differs; draft in workspace/drafts/g_vehicle_path_full.cpp.
+0x00492c50	claude-e	2026-11-17	FUN_00492c50: best 29%; 212/172; first diff +0x17; 40 B too large; draft in workspace/drafts/g_vehicle_path_full.cpp.
+0x00492d00	claude-e	2026-11-17	FUN_00492d00: best 36%; 553/534; first diff +0x5; stop-node walk shape; draft in workspace/drafts/g_vehicle_path_full.cpp.
+0x00492f80	claude-e	2026-11-17	FUN_00492f80: best 33%; 302/292; first diff +0x15; draft in workspace/drafts/g_vehicle_path_full.cpp.
+0x004930d0	claude-e	2026-11-17	FUN_004930d0: best 39%; 695/701; first diff +0x4; node-list build loop; draft in workspace/drafts/g_vehicle_path_full.cpp.
+0x00493390	claude-e	2026-11-17	FUN_00493390: best 71%; 933/901; first diff +0x12; 32 B too large, link-resolve loop; draft in workspace/drafts/g_vehicle_path_full.cpp.
+0x00493720	claude-e	2026-11-17	FUN_00493720: best 63%; 274/274; first diff +0x4: same -1.0f store scheduling as 0x004920d0 (ours hoists the mov esi,0xbf800000 and the 0x4c/0x50 and 0x94/0x98 stores above the zero stores, retail keeps source order); draft in workspace/drafts/g_vehicle_path_full.cpp.
+0x00493850	claude-e	2026-11-17	FUN_00493850: best 83%; 334/334; first diff +0x6e: same -1.0f store hoist as 0x00493720, plus the 0xbc store lands before pop edi in retail; draft in workspace/drafts/g_vehicle_path_full.cpp.
+0x004939a0	claude-e	2026-11-17	FUN_004939a0: best 59%; 320/321; first diff +0x5; blocks the AngleNormalize180 re-test of 0x00487430/0x004830f0/0x00483220; draft in workspace/drafts/g_vehicle_path_full.cpp.
+0x00493af0	claude-e	2026-11-17	FUN_00493af0: best 53%; 292/284; first diff +0x6; draft in workspace/drafts/g_vehicle_path_full.cpp.

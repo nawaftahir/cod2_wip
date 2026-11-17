@@ -868,6 +868,14 @@ addr	size	source	symbol	name	tag
 0x00491450	54	src/universal/dvar.cpp	?Dvar_AnyLatchedValues@@YA_NXZ	Dvar_AnyLatchedValues	SUPPORTED
 0x00491490	345	src/universal/dvar.cpp	?Dvar_SaveDvars@@YAHPADH@Z	Dvar_SaveDvars	PINNED
 0x00491760	302	src/universal/dvar.cpp	?Com_SaveDvarsToBuffer@@YAHPAPBDHPADH@Z	Com_SaveDvarsToBuffer	PINNED
+0x00492130	119	src/universal/g_vehicle_path.cpp	?FUN_00492130@@YAXPBUvp_node_t@@PAU1@@Z	FUN_00492130	UNNAMED
+0x00492270	84	src/universal/g_vehicle_path.cpp	?FUN_00492270@@YAHFF@Z	FUN_00492270	UNNAMED
+0x004929b0	75	src/universal/g_vehicle_path.cpp	?FUN_004929b0@@YAMPBUvp_pos_t@@@Z	FUN_004929b0	UNNAMED
+0x00492a00	75	src/universal/g_vehicle_path.cpp	?FUN_00492a00@@YAMPBUvp_pos_t@@@Z	FUN_00492a00	UNNAMED
+0x00492f20	48	src/universal/g_vehicle_path.cpp	?FUN_00492f20@@YAXPAUvp_pos_t@@@Z	FUN_00492f20	UNNAMED
+0x00492f50	44	src/universal/g_vehicle_path.cpp	?FUN_00492f50@@YAXPAUvp_pos_t@@@Z	FUN_00492f50	UNNAMED
+0x004930b0	10	src/universal/g_vehicle_path.cpp	?FUN_004930b0@@YAXXZ	FUN_004930b0	UNNAMED
+0x004930c0	10	src/universal/g_vehicle_path.cpp	?FUN_004930c0@@YAXXZ	FUN_004930c0	UNNAMED
 0x00493840	1	src/universal/g_vehicle_path.cpp	_FUN_00493840	FUN_00493840	UNNAMED
 0x004944d0	89	src/universal/UNKNOWN_00494480.cpp	_FUN_004944d0	R_NoiseInit	SUPPORTED
 0x004947d0	6	src/universal/q_parse.cpp	?Com_GetParseThreadInfo@@YAPAUParseThreadInfo@@XZ	Com_GetParseThreadInfo	SUPPORTED
