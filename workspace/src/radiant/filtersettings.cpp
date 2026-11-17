@@ -59,6 +59,7 @@ class CFilterSettings : public CDialog
 {
 public:
   CString m_text470; // offset 0x70, bound to edit 0x470
+  CFilterSettings(CWnd *pParent);
   virtual void DoDataExchange(CDataExchange *pDX);
   virtual BOOL OnInitDialog();
   void OnShowWindow(BOOL bShow, UINT nStatus);
@@ -67,6 +68,11 @@ public:
   void FUN_0040e660();
   virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
 };
+
+CFilterSettings::CFilterSettings(CWnd *pParent) : CDialog(0xb4, pParent)
+{
+  m_text470 = "";
+}
 
 // Refresh the filter dialog check boxes from the exclude bits (a set bit means unchecked).
 #define SET_CHECK(id, expr) dlg->GetDlgItem(id)->SendMessage(BM_SETCHECK, !(expr), 0)
