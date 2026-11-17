@@ -39206,8 +39206,9 @@
 "name": "?StartWeaponAnim@@YAXHPAUXAnimTree_s@@H@Z",
 "obj": "cg_weapons.obj",
 "size": 155,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4cd480"
+]
 },
 {
 "name": "?CG_PlayADSAnim@@YAXHPAUXAnimTree_s@@@Z",
