@@ -371,6 +371,7 @@ addr	size	source	symbol	name	tag
 0x0041af10	9	src/radiant/MainFrm.cpp	_FUN_0041af10	FUN_0041af10	UNNAMED
 0x0041af20	9	src/radiant/MainFrm.cpp	_FUN_0041af20	FUN_0041af20	UNNAMED
 0x0041b0f0	1	src/radiant/MainFrm.cpp	_FUN_0041b0f0	FUN_0041b0f0	UNNAMED
+0x0041b190	301	src/radiant/MainFrm.cpp	?FUN_0041b190@@YAXPAUMainFrameToolbarView@@@Z	FUN_0041b190	SUPPORTED
 0x0041b6e0	5	src/radiant/MainFrm.cpp	_FUN_0041b6e0	FUN_0041b6e0	UNNAMED
 0x0041b700	5	src/radiant/MainFrm.cpp	_FUN_0041b700	FUN_0041b700	UNNAMED
 0x0041b710	5	src/radiant/MainFrm.cpp	_FUN_0041b710	FUN_0041b710	UNNAMED
@@ -823,6 +824,7 @@ addr	size	source	symbol	name	tag
 0x0046cb00	14	src/radiant/points.cpp	?Pointfile_HasPoints@@YAHXZ	Pointfile_HasPoints	SUPPORTED
 0x0046cb10	111	src/radiant/qe3.cpp	?FUN_0046cb10@@YAPADPBD@Z	FUN_0046cb10	PINNED
 0x0046e280	229	src/radiant/qe3.cpp	?COM_Parse@@YAPADPAD@Z	COM_Parse	SUPPORTED
+0x0046e4a0	55	src/radiant/select.cpp	?FUN_0046e4a0@@YAXXZ	FUN_0046e4a0	SUPPORTED
 0x004721a0	224	src/radiant/select.cpp	?FUN_004721a0@@YAXHH@Z	FUN_004721a0	UNNAMED
 0x00472280	224	src/radiant/select.cpp	?FUN_00472280@@YAXHH@Z	FUN_00472280	UNNAMED
 0x004727a0	18	src/radiant/select.cpp	?FUN_004727a0@@YAXXZ	FUN_004727a0	UNNAMED

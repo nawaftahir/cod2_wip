@@ -310,6 +310,31 @@ extern "C" void FUN_0041af00() { FUN_00432bb0(); }
 extern "C" void FUN_0041af10() { FUN_00432ca0(0); }
 extern "C" void FUN_0041af20() { FUN_00432ca0(1); }
 extern "C" void FUN_0041b0f0() {}
+
+// Toolbar window handle of the main frame (offset 0x180); the rest of the layout is not needed here.
+struct MainFrameToolbarView
+{
+  unsigned char pad0[0x180];
+  HWND hwndToolbar;
+};
+extern char DAT_012334b9;
+extern char DAT_012334ba;
+extern char DAT_0112993e;
+extern char DAT_0112993f;
+extern int DAT_011298b0;
+extern HWND DAT_010bcd54;
+
+void FUN_0041b190(MainFrameToolbarView *self)
+{
+  ::SendMessage(self->hwndToolbar, TB_CHECKBUTTON, 0x8072, MAKELONG(DAT_012334ba != 0, 0));
+  ::SendMessage(self->hwndToolbar, TB_CHECKBUTTON, 0x8068, MAKELONG(DAT_012334b9 != 0, 0));
+  ::SendMessage(self->hwndToolbar, TB_CHECKBUTTON, 0x8174, MAKELONG(DAT_0112993e != 0, 0));
+  ::SendMessage(self->hwndToolbar, TB_CHECKBUTTON, 0x8173, MAKELONG(DAT_0112993f != 0, 0));
+  ::SendMessage(self->hwndToolbar, TB_CHECKBUTTON, 0x8175, MAKELONG(DAT_011298b0 == 0xb, 0));
+  CheckMenuItem(::GetMenu(DAT_010bcd54), 0x8174, DAT_0112993e ? MF_CHECKED : MF_UNCHECKED);
+  CheckMenuItem(::GetMenu(DAT_010bcd54), 0x8173, DAT_0112993f ? MF_CHECKED : MF_UNCHECKED);
+  CheckMenuItem(::GetMenu(DAT_010bcd54), 0x8175, DAT_011298b0 == 0xb ? MF_CHECKED : MF_UNCHECKED);
+}
 extern "C" void FUN_0041b6e0() { FUN_00437e50(); }
 extern "C" void FUN_0041b700() { FUN_00438120(); }
 extern "C" void FUN_0041b710() { FUN_00438ff0(); }

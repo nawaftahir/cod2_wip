@@ -45,6 +45,24 @@ extern brush_t selected_brushes;
 extern brush_t active_brushes;
 extern int g_nUpdateBits;
 
+struct MainFrameToolbarView;
+void FUN_0041b190(MainFrameToolbarView *self);
+void FUN_0042beb0();
+extern MainFrameToolbarView *dword_01233488;
+extern int DAT_011298b0;
+extern int DAT_011298b4;
+
+void FUN_0046e4a0()
+{
+    int mode = DAT_011298b0;
+    DAT_011298b0 = 0;
+    if (mode == 0xb)
+        FUN_0041b190(dword_01233488);
+    else if (mode == 0xa)
+        FUN_0042beb0();
+    DAT_011298b4 = 0;
+}
+
 static void FUN_004721a0(int clear, int set)
 {
     for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
