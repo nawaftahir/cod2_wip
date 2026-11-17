@@ -463,3 +463,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | /Op per TU (w29, 11-17, opscan.sh, clean ratchets) | /Op on FxUtil, cg_newDraw_mp, xanim, cg_weapons, ui_shared_mp, scr_vm, cg_draw_mp, common, nb_celp | every TU far worse (same-offset 0.26-1.03 M): /Op is HTCache-only |
 | FX_CalcOriginAndAxis (w29, 11-17, gate) | `#pragma optimize("p", on)` around the fn | same-offset unchanged 1974041, fn diff same: no effect |
 | per-TU flags (w29, 11-17, flscan.sh, 24 gate builds) | /Ob2, /G6, /GB, /Oy- on FxUtil, cg_newDraw_mp, xanim, cg_weapons, scr_vm, ui_shared_mp | /Ob2 /G6 /GB: no change (1974041); /Oy-: 0.89-1.21 M (far worse). Flags are not the lever for these TUs |
+| speex as C (w29, 11-17, 2 builds) | nb_celp.c without /TP (+extern C header); all speex without /TP | nb_celp alone: link fails (C++ callees); all: src misc.c uses extern "C" (IW-edited C++ TU). Speex stays /TP |
