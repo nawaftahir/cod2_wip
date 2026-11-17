@@ -2,7 +2,7 @@
 #include "stdafx.h"
 #include "../universal/assertive.h"
 
-struct qeglobals_t { unsigned char pad0[0x6cb74]; unsigned d_exclude; unsigned d_exclude2; };
+struct qeglobals_t { unsigned char pad0[0x6cb74]; int d_exclude; unsigned d_exclude2; };
 extern qeglobals_t g_qeglobals;
 
 extern "C" {
@@ -67,7 +67,7 @@ extern "C" void FUN_0040cf30(CWnd *dlg)
   SET_CHECK(0x575, g_qeglobals.d_exclude & 0x2000000);
   SET_CHECK(0x57d, g_qeglobals.d_exclude2 & 0x10);
   SET_CHECK(0x57b, g_qeglobals.d_exclude & 0x8000000);
-  dlg->GetDlgItem(0x581)->SendMessage(BM_SETCHECK, (g_qeglobals.d_exclude & 0x80000000) == 0, 0);
+  SET_CHECK(0x581, g_qeglobals.d_exclude & (int)0x80000000);
   SET_CHECK(0x603, g_qeglobals.d_exclude2 & 0x200);
   SET_CHECK(0x605, g_qeglobals.d_exclude2 & 0x800);
   SET_CHECK(0x60b, g_qeglobals.d_exclude2 & 0x1000);
