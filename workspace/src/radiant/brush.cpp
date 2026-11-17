@@ -34,6 +34,7 @@ extern void FUN_004884a0(const float **planes, float xyz[3], float snap, float e
 extern bool FUN_00494360(const vec3_t planepts[3], float out[4][4]); extern void FUN_00494400(vec4_t out, vec3_t a, vec3_t b, vec3_t c);
 extern void Sys_Printf(const char *fmt, ...); extern void Error(const char *error, ...);
 extern int FUN_0045f860(const brushdef_t *b, const vec3_t point, float epsilon);
+extern brush_t selected_brushes;
 #include <malloc.h>
 struct eclass_t { int pad_00[2]; int nShowFlags; int pad_0c[6]; float color[4]; unsigned char pad_34[0x160 - 0x34]; int flags_160; };
 struct entity_t { unsigned char pad_00[8]; void *def; brush_t brushes; unsigned char pad_34[0x50 - 0x34]; eclass_t *eclass; };
@@ -196,6 +197,16 @@ void FaceRender_FreeArray(brush_t *b, faceRender_t *f, int count)
     delete[] f;
 }
 
+void FUN_00454960(const face_t *src, face_t *dst)
+{
+    memcpy(dst->texdef, src->texdef, sizeof(dst->texdef));
+    memcpy(&dst->lmTexdef, &src->lmTexdef, sizeof(dst->lmTexdef));
+    dst->color = src->color;
+    dst->contents = src->contents;
+    dst->toolFlags = src->toolFlags;
+    memcpy(dst->planepts, src->planepts, sizeof(dst->planepts));
+}
+
 #line 269
 void Face_GetTextureVecs(const face_t *f, float texVecs[2][4])
 {
@@ -209,11 +220,13 @@ void Face_MakePlane(face_t *f)
     vec3_t d1, d2;
     VectorSubtract(f->planepts[0], f->planepts[1], d1);
     VectorSubtract(f->planepts[2], f->planepts[1], d2);
-    CrossProduct(d2, d1, f->plane.normal);
+    f->plane.normal[0] = d2[2] * d1[1] - d2[1] * d1[2];
+    f->plane.normal[1] = d1[2] * d2[0] - d2[2] * d1[0];
+    f->plane.normal[2] = d2[1] * d1[0] - d1[1] * d2[0];
     if (FUN_00439620(f->plane.normal, vec3_origin))
         printf("WARNING: brush plane with no normal\n");
     Vec3Normalize(f->plane.normal);
-    f->plane.dist = DotProduct(f->plane.normal, f->planepts[1]);
+    f->plane.dist = f->plane.normal[2] * f->planepts[1][2] + f->plane.normal[1] * f->planepts[1][1] + f->plane.normal[0] * f->planepts[1][0];
 }
 #line 320
 void FacePlane_ToVec4(const facePlane_t *p, float out[4])
@@ -579,3 +592,46 @@ int BrushDef_MemorySize(const brushdef_t *b)
         size += Face_MemorySize(&b->faces[i]);
     return size;
 }
+
+bool FUN_004592c0(brush_t *b)
+{
+    for (brush_t *p = selected_brushes.next; p != &selected_brushes; p = p->next)
+    {
+        if (p == b)
+            return true;
+    }
+    return false;
+}
+
+bool FUN_0045b630(brush_t *b)
+{
+    for (brush_t *p = selected_brushes.next; p != &selected_brushes; p = p->next)
+    {
+        if (p == b)
+            return true;
+    }
+    return false;
+}
+
+void FUN_0045efb0(face_t *f)
+{
+#line 4163
+    assert(f);
+    f->lmTexdef = f->texdef[g_qeglobals.activeMaterial];
+}
+
+void FUN_0045f010(face_t *f, brushdef_t *b)
+{
+#line 4170
+    assert(f);
+    f->texdef[g_qeglobals.activeMaterial] = f->lmTexdef;
+    b->version++;
+}
+
+void FUN_0045f830(const vec3_t a, const vec3_t b, vec3_t out, float t)
+{
+    out[0] = (b[0] - a[0]) * t + a[0];
+    out[1] = (b[1] - a[1]) * t + a[1];
+    out[2] = (b[2] - a[2]) * t + a[2];
+}
+
