@@ -377,6 +377,7 @@ void idStr::CapLength
    )
 
    {
+#line 307
    assert ( m_data );
    
    if ( length() <= newlen )
@@ -394,6 +395,7 @@ void idStr::EnsureDataWritable
    )
 
    {
+#line 321
    assert ( m_data );
    strdata *olddata;
    int len;
@@ -429,6 +431,7 @@ void idStr::EnsureAlloced (int amount, bool keepold) {
 		return;
 	}
 
+#line 360
 	assert ( amount );
 	if ( amount == 1 ) {
 		m_data->alloced = 1;
@@ -488,6 +491,7 @@ void idStr::snprintf
 	len = vsprintf (buffer,fmt,argptr);
 	va_end (argptr);
 	
+#line 420
    assert ( len < size );
 
    strncpy (dst, buffer, size-1);

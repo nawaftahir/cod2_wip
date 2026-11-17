@@ -1403,6 +1403,7 @@ addr	size	source	symbol	name	tag
 0x0049a410	1	src/universal/splines/splines.cpp	_FUN_0049a410	FUN_0049a410	SUPPORTED
 0x0049b210	1	src/universal/splines/splines.cpp	_FUN_0049b210	FUN_0049b210	SUPPORTED
 0x0049b790	3	src/universal/splines/splines.cpp	_FUN_0049b790	FUN_0049b790	SUPPORTED
+0x0049f740	181	src/universal/splines/splines.cpp	?append@idStr@@QAEXPBD@Z	idStr::append	SUPPORTED
 0x0049fd40	42	src/universal/splines/util_str.cpp	?tolower@idStr@@SAPADPAD@Z	idStr::tolower	SUPPORTED
 0x0049fd70	42	src/universal/splines/util_str.cpp	?toupper@idStr@@SAPADPAD@Z	idStr::toupper	SUPPORTED
 0x0049fda0	84	src/universal/splines/util_str.cpp	?icmpn@idStr@@SAHPBD0H@Z	idStr::icmpn	SUPPORTED
@@ -1410,10 +1411,17 @@ addr	size	source	symbol	name	tag
 0x0049fe50	54	src/universal/splines/util_str.cpp	?cmpn@idStr@@SAHPBD0H@Z	idStr::cmpn	SUPPORTED
 0x0049fe90	35	src/universal/splines/util_str.cpp	?cmp@idStr@@SAHPBD0@Z	idStr::cmp	SUPPORTED
 0x0049fec0	105	src/universal/splines/util_str.cpp	?isNumeric@idStr@@SA_NPBD@Z	idStr::isNumeric	SUPPORTED
+0x0049ff30	191	src/universal/splines/util_str.cpp	??H@YA?AVidStr@@ABV0@M@Z	operator+	SUPPORTED
+0x0049fff0	186	src/universal/splines/util_str.cpp	??H@YA?AVidStr@@ABV0@H@Z	operator+	SUPPORTED
+0x004a00b0	186	src/universal/splines/util_str.cpp	??H@YA?AVidStr@@ABV0@I@Z	operator+	SUPPORTED
 0x004a0170	68	src/universal/splines/util_str.cpp	??YidStr@@QAEAAV0@M@Z	idStr::operator+=	SUPPORTED
 0x004a01c0	63	src/universal/splines/util_str.cpp	??YidStr@@QAEAAV0@H@Z	idStr::operator+=	SUPPORTED
 0x004a0200	63	src/universal/splines/util_str.cpp	??YidStr@@QAEAAV0@I@Z	idStr::operator+=	SUPPORTED
+0x004a0240	106	src/universal/splines/util_str.cpp	?CapLength@idStr@@QAEXH@Z	idStr::CapLength	PINNED
+0x004a02b0	205	src/universal/splines/util_str.cpp	?EnsureDataWritable@idStr@@IAEXXZ	idStr::EnsureDataWritable	PINNED
+0x004a0380	250	src/universal/splines/util_str.cpp	?EnsureAlloced@idStr@@IAEXH_N@Z	idStr::EnsureAlloced	PINNED
 0x004a0480	45	src/universal/splines/util_str.cpp	?BackSlashesToSlashes@idStr@@QAEXXZ	idStr::BackSlashesToSlashes	SUPPORTED
+0x004a04b0	146	src/universal/splines/util_str.cpp	?snprintf@idStr@@SAXPADHPBDZZ	idStr::snprintf	PINNED
 0x004a10f0	68	src/universal/splines/util_str.cpp	??_GidStr@@QAEPAXI@Z	idStr::scalar_deleting_dtor	SUPPORTED
 0x004a1170	719	src/xanim/dobj.cpp	?FUN_004a1170@@YAXPBUDObjAnimMat@@PAUDObjSkelMat_s@@@Z	FUN_004a1170	SUPPORTED
 0x004a14c0	49	src/xanim/dobj.cpp	?DObjInit@@YAXXZ	DObjInit	SUPPORTED

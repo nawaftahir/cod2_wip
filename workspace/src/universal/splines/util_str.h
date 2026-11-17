@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define __UTIL_STR_H__
 
 #include <assert.h>
+#include "../assertive.h"
 #include <string.h>
 #include <stdio.h>
 
@@ -174,6 +175,7 @@ inline idStr::idStr
 	{
    int len;
 
+#line 163
 	assert( text );
 
 	if ( text )
@@ -312,6 +314,7 @@ inline int idStr::allocated( void ) const
 
 inline const char *idStr::c_str( void ) const
 	{
+#line 282
 	assert( m_data );
 
 	return m_data->data;
@@ -325,6 +328,7 @@ inline void idStr::append
 	{
    int len;
 
+#line 291
 	assert( text );
 
 	if ( text )
