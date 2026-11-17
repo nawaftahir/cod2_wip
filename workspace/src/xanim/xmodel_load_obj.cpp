@@ -28,10 +28,10 @@ void ConsumeQuat(const unsigned char **pos, short *out)
 	out[1] = XModelDataReadShort(pos);
 	out[2] = XModelDataReadShort(pos);
 
-	temp = 1073676289;
-	temp -= out[2] * out[2];
-	temp -= out[1] * out[1];
-	temp -= out[0] * out[0];
+	iQ[0] = out[0];
+	iQ[1] = out[1];
+	iQ[2] = out[2];
+	temp = 1073676289 - iQ[2] * iQ[2] - iQ[1] * iQ[1] - iQ[0] * iQ[0];
 	iQ[3] = temp > 0 ? (int)floor(I_sqrt((float)temp) + 0.5f) : 0;
 	assert(iQ[3] == (short)iQ[3]);
 	out[3] = iQ[3];

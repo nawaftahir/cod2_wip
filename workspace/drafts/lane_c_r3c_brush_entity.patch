@@ -1,0 +1,282 @@
+--- /tmp/c_save/brush_head.cpp	2026-11-17 22:19:59.251834865 +0500
++++ /tmp/c_save/brush_full.cpp	2026-11-17 22:19:21.354264467 +0500
+@@ -575,6 +575,41 @@
+     return def;
+ }
+ 
++void BrushDef_Free(brushdef_t *def)
++{
++#line 1780
++    assert(def);
++    assertMsg((def->refCount == 0), "(def->refCount) = %i", def->refCount);
++    if (def->patch)
++        FUN_0042f660(def->patch);
++    if (def->faces)
++        Face_FreeArray(def->faces, def->faceCount);
++#line 1789
++    assert(def->onext == NULL);
++    delete def;
++}
++
++void Brush_Free(brush_t *b)
++{
++    if (b->next)
++        FUN_004592f0(b);
++    if (b->patch)
++        FUN_0042f790(b->patch);
++    if (b->faces)
++        FaceRender_FreeArray(b, b->faces, b->faceCount);
++    Brush_RemoveFromEntity(b, NULL);
++#line 1808
++    assert(b->def);
++    if (b->def->owner && b->def->onext && b->def->refCount == 2)
++        FUN_00467240(b->def);
++#line 1812
++    assertMsg((b->def->refCount > 0), "(b->def->refCount) = %i", b->def->refCount);
++    b->def->refCount--;
++    if (b->def->refCount == 0)
++        BrushDef_Free(b->def);
++    delete b;
++}
++
+ int Face_MemorySize(const face_t *f)
+ {
+     int size = sizeof(face_t);
+--- /tmp/c_save/entity_head.cpp	2026-11-17 22:19:59.259834865 +0500
++++ /tmp/c_save/entity_full.cpp	2026-11-17 22:19:21.335835668 +0500
+@@ -11,13 +11,24 @@
+ 	char *value;
+ };
+ 
+-struct eclass_t;
++struct eclass_t
++{
++	unsigned char pad00[8];
++	int unk08;
++	float mins[3];
++	float maxs[3];
++	unsigned char pad24[0x158 - 0x24];
++	char *modelName;
++	unsigned char pad15c[4];
++	unsigned int flags;
++};
+ struct entity_t;
++struct entityInst_t;
+ 
+-struct brushDef_t
++struct brushdef_t
+ {
+-	brushDef_t *oprev;
+-	brushDef_t *onext;
++	brushdef_t *oprev;
++	brushdef_t *onext;
+ 	entity_t *owner;
+ 	unsigned char pad0c[4];
+ 	int undoId;
+@@ -35,13 +46,24 @@
+ };
+ 
+ // the placed instance of an entity; its definition is entity_t
++struct brush_t
++{
++	brush_t *prev;
++	brush_t *next;
++	entityInst_t *owner;
++	brush_t *ownerNext;
++	brush_t *ownerPrev;
++	unsigned char pad14[0x14];
++};
++
+ struct entityInst_t
+ {
+ 	entityInst_t *prev;
+ 	entityInst_t *next;
+ 	entity_t *def;
+-	unsigned char pad0c[0x28];
++	brush_t brushes; // 0x0c
+ 	void *modelInst; // 0x34
++	entityInst_t *children; // 0x38
+ };
+ 
+ // brushes at 0x08 (0x48 B), eclass 0x50, epairs 0x64 (retail offsets)
+@@ -49,7 +71,7 @@
+ {
+ 	entity_t *prev;
+ 	entity_t *next;
+-	brushDef_t brushes;
++	brushdef_t brushes;
+ 	eclass_t *eclass;
+ 	eclass_t *modelClass;
+ 	float origin[3];
+@@ -63,6 +85,16 @@
+ };
+ 
+ extern entity_t entities;
++extern void Brush_Free(brush_t *b);
++extern void BrushDef_Free(brushdef_t *def);
++extern void FUN_0045b310(brushdef_t *b, const float *mins, const float *maxs);
++extern void FUN_0047a760(const char *fmt, ...);
++extern char *va(const char *format, ...);
++void FUN_004678c0(entityInst_t *e);
++void FUN_004661f0(entity_t *e);
++void FUN_00467240(brushdef_t *b);
++void FUN_00467470(entity_t *e);
++#define assert1(expr) do { static bool s_assertDisable; if (!(expr) && !s_assertDisable) { switch (FUN_0047d980(#expr, __FILE__, __LINE__, 1, 1)) { case 0: DebugBreak(); break; case 2: s_assertDisable = true; break; } } } while (0)
+ extern void (__cdecl *dword_0059c490)(void *);
+ 
+ // 0x00464bb0 (88 B)
+@@ -82,6 +114,18 @@
+ 	return ValueForKey(ent->epairs, key);
+ }
+ 
++// 0x00464c20 (60 B)
++void FUN_00464c20(entityInst_t *inst)
++{
++	if (inst->children)
++	{
++		while (inst->children->next != inst->children)
++			FUN_004678c0(inst->children->next);
++		delete inst->children;
++		inst->children = NULL;
++	}
++}
++
+ // 0x00464c60 (25 B)
+ void FUN_00464c60(entityInst_t *inst)
+ {
+@@ -92,6 +136,27 @@
+ 	}
+ }
+ 
++// 0x004655f0 (175 B)
++void FUN_004655f0(entity_t *e, const char *key)
++{
++#line 202
++	assert(e);
++	if (e->eclass && e->eclass->unk08)
++	{
++		if (!_stricmp(key, "angles") || !_stricmp(key, "modelscale") || !_stricmp(key, "modelscale_vec"))
++		{
++			FUN_00467470(e);
++			e->version++;
++		}
++	}
++	if (!_stricmp(key, "model"))
++	{
++		e->modelClass = NULL;
++		e->brushes.onext->modelFailed = 0;
++		e->version++;
++	}
++}
++
+ // 0x004656a0 (5 B)
+ void FUN_004656a0(entity_t *e)
+ {
+@@ -274,6 +339,28 @@
+ 	e->next = NULL;
+ }
+ 
++// 0x004661f0 (446 B)
++void FUN_004661f0(entity_t *e)
++{
++#line 645
++	assert(e);
++	assertMsg((e->refCount == 0), "(e->refCount) = %i", e->refCount);
++	if (e->next)
++		Entity_RemoveFromList(e);
++	for (brushdef_t *b = e->brushes.onext; b != &e->brushes; b = e->brushes.onext)
++	{
++#line 654
++		assert1(b->owner == e);
++		assert1(b->oprev == &e->brushes);
++		FUN_00467240(b);
++#line 657
++		vassert((b->refCount == 0), "(b->refCount) = %i", b->refCount);
++		BrushDef_Free(b);
++	}
++	Entity_FreeEpairs(e);
++	delete e;
++}
++
+ // 0x004663b0 (66 B)
+ int Entity_MemorySize(entity_t *e)
+ {
+@@ -318,6 +405,21 @@
+ 	fputc('\n', f);
+ }
+ 
++// 0x00467240 (152 B)
++void FUN_00467240(brushdef_t *b)
++{
++	if (!b->onext || !b->oprev)
++		FUN_0047a760("Entity_UnlinkBrush: Not currently linked");
++#line 1115
++	assertMsg((b->refCount > 0), "(b->refCount) = %i", b->refCount);
++	b->refCount--;
++	b->onext->oprev = b->oprev;
++	b->oprev->onext = b->onext;
++	b->oprev = NULL;
++	b->onext = NULL;
++	b->owner = NULL;
++}
++
+ // 0x00467370 (114 B)
+ int GetUniqueTargetId(int iHint)
+ {
+@@ -365,6 +467,23 @@
+ 	return NULL;
+ }
+ 
++// 0x00467470 (153 B)
++void FUN_00467470(entity_t *e)
++{
++	float mins[3];
++	float maxs[3];
++
++#line 1220
++	assert(e);
++	mins[0] = e->eclass->mins[0] + e->origin[0];
++	mins[1] = e->eclass->mins[1] + e->origin[1];
++	mins[2] = e->eclass->mins[2] + e->origin[2];
++	maxs[0] = e->eclass->maxs[0] + e->origin[0];
++	maxs[1] = e->eclass->maxs[1] + e->origin[1];
++	maxs[2] = e->eclass->maxs[2] + e->origin[2];
++	FUN_0045b310(e->brushes.onext, mins, maxs);
++}
++
+ // 0x00467640 (59 B)
+ void FUN_00467640(entity_t *ent, float *vec)
+ {
+@@ -389,10 +508,31 @@
+ #line 1292
+ 	assert(entity->refCount > 0);
+ 
+-	for (brushDef_t *b = entity->brushes.onext; b != &entity->brushes; b = b->onext)
++	for (brushdef_t *b = entity->brushes.onext; b != &entity->brushes; b = b->onext)
+ 	{
+ 		b->refCount += delta;
+ #line 1296
+ 		assert(b->refCount > 0);
+ 	}
+ }
++
++// 0x004678c0 (432 B)
++void FUN_004678c0(entityInst_t *e)
++{
++#line 1336
++	assert(e);
++	assert(e->def);
++	assertMsg((e->def->refCount > 0), "(e->def->refCount) = %i", e->def->refCount);
++	assert(e->next);
++	assert(e->prev);
++	e->next->prev = e->prev;
++	e->prev->next = e->next;
++	FUN_00464c20(e);
++	FUN_00464c60(e);
++	while (e->brushes.ownerNext != &e->brushes)
++		Brush_Free(e->brushes.ownerNext);
++	e->def->refCount--;
++	if (e->def->refCount == 0)
++		FUN_004661f0(e->def);
++	delete e;
++}

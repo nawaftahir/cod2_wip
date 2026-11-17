@@ -6,6 +6,10 @@
 void Pointfile_Next(void);
 void Pointfile_Prev(void);
 void DoPatchInspector();
+void __fastcall Texture_SetMode(int iTexMenu);
+void FUN_00441100(int index);
+void FUN_00441200(int index);
+void FUN_00441300(int index);
 
 extern "C" {
 extern unsigned dword_0123348c;
@@ -105,6 +109,10 @@ extern "C" void FUN_00414df0() { FUN_00425260(&dword_010a4508); }
 extern "C" void FUN_00414e00() { FUN_00425500(&dword_010a4508); }
 extern "C" void FUN_00414e10() { FUN_004253d0(&dword_010a4508); }
 extern "C" void FUN_00414e20() { FUN_00425630(&dword_010a4508); }
+extern "C" void __stdcall FUN_00415320(int nID) { Texture_SetMode(nID); }
+extern "C" void __stdcall FUN_00415330(int nID) { FUN_00441100(nID - 60000); }
+extern "C" void __stdcall FUN_00415350(int nID) { FUN_00441200(nID - 60256); }
+extern "C" void __stdcall FUN_00415370(int nID) { FUN_00441300(nID - 60512); }
 extern "C" void FUN_00415690() {}
 extern "C" void FUN_00415b90() { FUN_0043e440(); }
 extern "C" void FUN_00415ba0() {}

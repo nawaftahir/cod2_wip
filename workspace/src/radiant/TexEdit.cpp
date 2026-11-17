@@ -2,24 +2,11 @@
  * Q3Radiant TexEdit.cpp and TexEdit.h (GPL-2.0-or-later) were
  * structural references, then five authored bodies were individually
  * verified against the retail MSVC 7.1 output.
- * OnChange is declared but not defined: its CTexWnd::UpdateFilter
- * dependency needs reconstruction in the owning TexWnd TU.
+ * OnChange is declared but not defined: see workspace/drafts/TexWnd_00442d60.cpp.
  */
 #include "stdafx.h"
 
-class CTexWnd;
-class CTexEdit : public CEdit {
-public:
-    CTexEdit();
-    virtual ~CTexEdit();
-    CTexWnd *m_pTexWnd;
-    CFont m_Font;
-protected:
-    afx_msg HBRUSH CtlColor(CDC *dc, UINT type);
-    afx_msg void OnChange();
-    afx_msg int OnCreate(LPCREATESTRUCT cs);
-    DECLARE_MESSAGE_MAP()
-};
+#include "TexWnd.h"
 
 CTexEdit::CTexEdit() { m_pTexWnd = NULL; }
 CTexEdit::~CTexEdit() { }

@@ -24,10 +24,10 @@ extern void * (*R_AllocStaticSurface)(void *matHandle, int vertCount, const vec3
 extern void (*R_FreeStaticSurface)(void *matHandle, int vertCount, void *vertHandle);
 extern bool FUN_00439620(const vec3_t v1, const vec3_t v2);
 extern void FUN_0043fbc0(vec2_t outSize, vec4_t texMat[2], const vec3_t normal, float planeDist, vec2_t outShift, float *outRotate, float *outCrossterm);
-extern winding_t * FUN_00447c60(const facePlane_t *plane);
+extern winding_t *Winding_BaseForPlane(const facePlane_t *p);
 extern winding_t * Winding_Clone(const winding_t *w);
 extern winding_t * Winding_Reverse(winding_t *w);
-extern winding_t * FUN_00448280(winding_t *w, const facePlane_t *plane, float epsilon);
+extern winding_t *FUN_00448280(winding_t *in, const facePlane_t *split, int keepon);
 extern int IntersectPlanes(const float **plane, vec3_t xyz); extern int PlaneFromPoints(vec4_t plane, const vec3_t a, const vec3_t b, const vec3_t c);
 extern void OrientationPosToWorld(const orientation_t *orient, const float *pos, float *out); extern void OrientationDirToWorld(const orientation_t *orient, const float *dir, float *out);
 extern void FUN_004884a0(const float **planes, float xyz[3], float snap, float epsilon);
@@ -54,12 +54,15 @@ extern void FUN_00467240(brushdef_t *b);
 extern void FUN_004671b0(void *owner, brushdef_t *def);
 extern void FUN_0045a220(brushdef_t *b, bool snap);
 extern void FUN_00475350();
-extern void FUN_0047a3c0();
+extern winding_t *FUN_00455660(int faceIndex, const brushVertex_t *verts, int count, const brushdef_t *b);
+extern char *dword_01233b64;
+extern winding_t * Winding_Alloc(int points);
+extern void Sys_MarkMapModified();
 extern void (*FUN_0059c468)(const float *inColor, unsigned int *outColor);
 extern char *va(const char *format, ...);
 extern brushdef_t *BrushDef_CloneNoWinding(const brushdef_t *b);
 extern void BrushDef_Free(brushdef_t *def);
-extern bool FUN_004481e0(const winding_t *w1, const winding_t *w2, const vec3_t normal1, float dist1, const vec3_t normal2, float dist2);
+extern bool FUN_004481e0(const winding_t *w1, const winding_t *w2, const vec3_t normal1, const vec3_t normal2, float dist1, float dist2);
 #line 37
 brush_t *Brush_Alloc()
 {
@@ -408,6 +411,29 @@ void Winding_AddPointOrdered(winding_t *w, const vec3_t point, int i, int j)
     w->pointCount++;
 }
 
+void FUN_00455950(brushdef_t *b)
+{
+    if (*(int *)(dword_01233b64 + 0x248) != 0)
+        return;
+    for (int i = 0; i < b->faceCount; ++i)
+    {
+        face_t *f = &b->faces[i];
+        for (int j = 0; j < 3; ++j)
+            for (int k = 0; k < 3; ++k)
+                f->planepts[j][k] = (float)floor(f->planepts[j][k] + 0.5f);
+    }
+}
+
+void FUN_004559f0(brushdef_t *b, bool snap, bool markMap)
+{
+    FUN_0045a220(b, snap);
+    if (g_qeglobals.d_select_mode == 1 || g_qeglobals.d_select_mode == 2)
+        FUN_00475350();
+    if (markMap)
+        Sys_MarkMapModified();
+    b->version++;
+}
+
 #line 724
 void Brush_RemoveFace(brushdef_t *b, int faceIndex)
 {
@@ -624,6 +650,51 @@ bool FUN_004592c0(brush_t *b)
             return true;
     }
     return false;
+}
+
+int FUN_0045a150(brushdef_t *b, const int *indices, const vec3_t xyz, int count, void *maxPtr, void *out)
+{
+    int maxPoints = (int)maxPtr;
+    for (int i = 0; i < b->faceCount; ++i)
+    {
+        if (i == indices[0] || i == indices[1] || i == indices[2])
+            continue;
+        const facePlane_t *p = &b->faces[i].plane;
+        float d = p->normal[0] * xyz[0] + p->normal[1] * xyz[1] + p->normal[2] * xyz[2] - p->dist;
+        if (d > 0.01)
+            return count;
+    }
+    if (count == maxPoints)
+        Error("More than %i points from plane intersections on %i-sided brush\n", count, b->faceCount);
+    brushVertex_t *v = (brushVertex_t *)out + count;
+    VectorCopy(xyz, v->xyz);
+    v->faceIndex[0] = indices[0];
+    v->faceIndex[1] = indices[1];
+    v->faceIndex[2] = indices[2];
+    return count + 1;
+}
+
+void FUN_0045a220(brushdef_t *b, bool snap)
+{
+    brushVertex_t verts[1024];
+    if (snap)
+        FUN_00455950(b);
+    Brush_MakeFacePlanes(b);
+    int count = Brush_ForEachVertex(b, FUN_0045a150, (void *)1024, verts);
+    if (count < 4)
+        Error("Brush_BuildWindings:  degenerate brush");
+    for (int i = 0; i < b->faceCount; ++i)
+    {
+        face_t *f = &b->faces[i];
+        Face_FreeWinding(f);
+#line 2413
+        assert(f->w == NULL);
+        f->w = FUN_00455660(i, verts, count, b);
+    }
+    b->mins[0] = b->mins[1] = b->mins[2] = 131072.0f;
+    b->maxs[0] = b->maxs[1] = b->maxs[2] = -131072.0f;
+    for (int i = 0; i < count; ++i)
+        AddPointToBounds(verts[i].xyz, b->mins, b->maxs);
 }
 
 bool FUN_0045b630(brush_t *b)
