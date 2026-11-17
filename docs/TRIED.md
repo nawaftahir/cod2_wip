@@ -483,3 +483,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | VM_Notify w29 (11-18, gate) | size loop as `for(;;){ if ((cv--)[-1].type == PRECODEPOS) { newSize++; break; } newSize++; }` | REJECT -2247: loop rotated (test peeled before the loop, 1596 B) |
 | CG_DrawGrenadePointer w29 (11-18, gate) | `angle = -yaw;` right after FastSinCos, angle as the arg | worse: 372 B, slots move |
 | StartWeaponAnim w29 (11-18, 2 gates) | (1) `anim = i + 1` local at loop top; (2) explicit `rate` pointer, `i++, rate++` increment | (1) = base (inc esi / add ebp,4 order unchanged); (2) worse: frame and prologue change |
+| StartWeaponAnim w29 (11-18, gate) | `rate = viewModelAnimRates[i + 1]` local at loop top | worse: frame 8 -> 0xc, extra spill |

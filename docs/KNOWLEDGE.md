@@ -1005,3 +1005,7 @@ set by a later lowering stage, not by the list scheduler.
   statics land in F order of their fn. Fix = two stand-ins: subtitle fn -> FS_InitFilesystem (pass 57 -> subtitle pass 58) and
   ChopWindingInPlace -> Com_GetSubtitleStringEdReference (Chop after it). Earlier "dot is not F order" was wrong: the Chop edge to
   CM_LoadStaticModels never moved Chop (callee compiles earlier in the same pass = live in-pass emission). Check moves with dfs13.
+- PINNED (w29, 11-18, c2sched13 on 1974147): StartWeaponAnim loop tail is not a tie. `add ebp,4` (op 2d, prio 0x2000) has a
+  successor edge to `inc esi` (op 21, prio 0x1800): both write EFLAGS, so IL creation order fixes the order. Retail's IL creates
+  the i+1 IV update before the rates-pointer IV update. Lever = IV creation order in strength reduction, not statement order
+  (anim local, rate local, explicit rate pointer all tried).
