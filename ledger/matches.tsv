@@ -445,6 +445,17 @@ addr	size	source	symbol	name	tag
 0x0041f200	4	src/radiant/MainFrm.cpp	@FUN_0041f200@4	FUN_0041f200	UNNAMED
 0x0041f210	4	src/radiant/MainFrm.cpp	@FUN_0041f210@4	FUN_0041f210	UNNAMED
 0x0041f240	7	src/radiant/MainFrm.cpp	@FUN_0041f240@4	FUN_0041f240	UNNAMED
+0x00420e90	69	src/radiant/mesh.cpp	?FUN_00420e90@@YAMABUvec3_s@@@Z	FUN_00420e90	UNNAMED
+0x00420ee0	165	src/radiant/mesh.cpp	?LerpDrawVert@@YAXPAUdrawVert_t@@00@Z	LerpDrawVert	SUPPORTED
+0x00420f90	8	src/radiant/mesh.cpp	?FreeMesh@@YAXPAUmesh_t@@@Z	FreeMesh	SUPPORTED
+0x00420fa0	61	src/radiant/mesh.cpp	?CopyMesh@@YAPAUmesh_t@@PAU1@@Z	CopyMesh	SUPPORTED
+0x00420fe0	142	src/radiant/mesh.cpp	?TransposeMesh@@YAPAUmesh_t@@PAU1@@Z	TransposeMesh	SUPPORTED
+0x00421070	211	src/radiant/mesh.cpp	?InvertMesh@@YAXPAUmesh_t@@@Z	InvertMesh	SUPPORTED
+0x00421830	329	src/radiant/mesh.cpp	?PutMeshOnCurve@@YAXUmesh_t@@@Z	PutMeshOnCurve	SUPPORTED
+0x00421980	2531	src/radiant/mesh.cpp	?SubdivideMesh@@YAPAUmesh_t@@U1@MMPAH1@Z	SubdivideMesh	SUPPORTED
+0x00422370	1059	src/radiant/mesh.cpp	?RemoveLinearMeshColumnsRows@@YAPAUmesh_t@@PAU1@PAH1@Z	RemoveLinearMeshColumnsRows	SUPPORTED
+0x004227a0	351	src/radiant/mesh.cpp	?LerpDrawVertAmount@@YAXPAUdrawVert_t@@0M0@Z	LerpDrawVertAmount	SUPPORTED
+0x00422900	1454	src/radiant/mesh.cpp	?SubdivideMeshQuads@@YAPAUmesh_t@@PAU1@MHQAH111@Z	SubdivideMeshQuads	SUPPORTED
 0x00422f00	6	src/radiant/ModelDlg.cpp	?GetRuntimeClass@CModelDlg@@UBEPAUCRuntimeClass@@XZ	CModelDlg::GetRuntimeClass	SUPPORTED
 0x00422f10	22	src/radiant/ModelDlg.cpp	??0CModelDlg@@QAE@PAVCWnd@@@Z	CModelDlg::CModelDlg	SUPPORTED
 0x00422f60	11	src/radiant/ModelDlg.cpp	??1CModelDlg@@UAE@XZ	CModelDlg::~CModelDlg	SUPPORTED
