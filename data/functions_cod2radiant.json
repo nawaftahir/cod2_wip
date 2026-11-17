@@ -10047,7 +10047,7 @@
   {
    "name": "FUN_00440620",
    "addr": "0x00440620",
-   "size": 159,
+   "size": 160,
    "thunk": false
   },
   {
@@ -10515,13 +10515,7 @@
   {
    "name": "FUN_00443d90",
    "addr": "0x00443d90",
-   "size": 157,
-   "thunk": false
-  },
-  {
-   "name": "FUN_00443e30",
-   "addr": "0x00443e30",
-   "size": 63,
+   "size": 223,
    "thunk": false
   },
   {
@@ -11397,7 +11391,7 @@
   {
    "name": "FUN_00449760",
    "addr": "0x00449760",
-   "size": 159,
+   "size": 160,
    "thunk": false
   },
   {
