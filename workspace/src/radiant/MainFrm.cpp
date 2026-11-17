@@ -17,14 +17,14 @@ void __fastcall Texture_SetMode(int iTexMenu);
 void FUN_00441100(int index);
 void FUN_00441200(int index);
 void FUN_00441300(int index);
+bool FUN_00425260(int *);
+bool FUN_00425500(int *);
+bool FUN_004253d0(int *);
+bool FUN_00425630(int *);
 
 extern "C" {
 extern unsigned dword_0123348c;
 extern int dword_010a4508;
-void FUN_00425260(int *);
-void FUN_00425500(int *);
-void FUN_004253d0(int *);
-void FUN_00425630(int *);
 void FUN_00432ca0(int);
 void FUN_004733f0(int);
 void FUN_0046b070(int);
@@ -91,9 +91,12 @@ struct qeglobals_t
 {
   unsigned char pad0[0x20];
   entity_t *field_20;
-  unsigned char pad24[0x40 - 0x24];
+  unsigned char pad24[0x3c - 0x24];
+  HINSTANCE d_hInstance;
   HWND d_hwndMain;
-  unsigned char pad44[0x6c8e8 - 0x44];
+  unsigned char pad44[0x4c - 0x44];
+  HWND field_4c;
+  unsigned char pad50[0x6c8e8 - 0x50];
   MRUMENU *d_lpMruMenu;
   unsigned char d_savedinfo[0x6cb74 - 0x6c8ec]; // 0x294 B in total, the exclude flags sit inside it
   unsigned d_exclude;
@@ -364,9 +367,15 @@ extern "C" void FUN_004159a0()
 }
 extern "C" void FUN_00415b90() { FUN_0043e440(); }
 extern "C" void FUN_00415ba0() {}
+void DoFind(void);
+extern "C" void FUN_00415bb0() { DoFind(); }
+void FUN_004763c0(void);
+extern "C" void FUN_00415bd0() { FUN_004763c0(); }
 extern "C" void FUN_00415bf0() { Pointfile_Next(); }
 extern "C" void FUN_00415c00() { Pointfile_Prev(); }
 extern "C" void FUN_00415c10() { FUN_00449800(); }
+BOOL CALLBACK FUN_00476840(HWND, UINT, WPARAM, LPARAM);
+extern "C" void FUN_00415dd0() { DialogBox(g_qeglobals.d_hInstance, (LPCSTR)217, g_qeglobals.d_hwndMain, FUN_00476840); }
 extern "C" void FUN_00415df0() { FUN_00469950(); }
 extern "C" void FUN_00415e00() { DoColor(0); dword_0123348c |= 0xffffffff; }
 extern "C" void FUN_00415e20() { DoColor(4); dword_0123348c |= 0xffffffff; }
@@ -399,11 +408,15 @@ extern "C" void FUN_00417030() { FUN_00471270(); }
 extern "C" void FUN_00417040() { FUN_004713e0(); }
 extern "C" void FUN_00417050() { FUN_00471670(); }
 extern "C" void FUN_00417080() { FUN_00471a90(); }
+void FUN_00476ce0(void);
+extern "C" void FUN_00417090() { FUN_00476ce0(); }
 extern "C" void FUN_00417140() { dword_0123348c |= 1; }
 void CMainFrame::FUN_00417150(CCmdUI *pCmdUI)
 {
   pCmdUI->Enable(!field_07e4);
 }
+void DoAbout(void);
+extern "C" void FUN_00417190() { DoAbout(); }
 extern "C" void __fastcall FUN_00417220(CMainFrame *self)
 {
   CAM->angles[0] -= 22.5;
@@ -536,6 +549,9 @@ void CMainFrame::FUN_004190e0(CCmdUI *pCmdUI)
 extern "C" void FUN_00419670() { CFindTextureDlg::show(); }
 extern void (*dword_0059c474)(void);
 extern "C" void FUN_00419680() { dword_0059c474(); dword_0123348c |= 0xffffffff; }
+void DoProjectSettings(void);
+extern "C" void FUN_00419930() { DoProjectSettings(); }
+extern "C" void FUN_00419950() { DialogBox(g_qeglobals.d_hInstance, (LPCSTR)217, g_qeglobals.d_hwndMain, FUN_00476840); }
 extern "C" void FUN_00419970() { FUN_0045c890(); }
 extern "C" void FUN_00419980() { FUN_0045ca10(); }
 extern int DAT_0109fecc;
@@ -822,6 +838,18 @@ extern "C" void FUN_0041d4a0()
     DAT_01234040.ShowWindow(SW_HIDE);
   else
     DAT_01234040.ShowWindow(SW_SHOW);
+  dword_0123348c |= 1;
+}
+extern CWnd DAT_01234300;
+extern "C" void FUN_0041d4e0()
+{
+  if (::IsWindowVisible(DAT_01234300.m_hWnd))
+    DAT_01234300.ShowWindow(SW_HIDE);
+  else
+  {
+    ::ShowWindow(g_qeglobals.field_4c, SW_HIDE);
+    DAT_01234300.ShowWindow(SW_SHOW);
+  }
   dword_0123348c |= 1;
 }
 extern "C" void FUN_0041d520()
