@@ -28,6 +28,15 @@ emit-order warnings 18. FILE LEDGER 7 VERIFIED / 102 (audited set; other src/ fi
   in NameDlg) because those users do not exist yet. Fix: class in a header, write the user function in
   the earlier file. Not linker ICF: 46 duplicate groups in retail are raw-byte identical and kept apart.
 
+## 2026-11-17 round 4 (clean gate 63404c52)
+1453/3582 = 40.56% game functions, 23.45% game bytes (164,096 B), same-offset 1.809%, 0 failing.
+- Merged: filtersettings +43 (assert forwarders), VertEditDlg +9, entity/map/qe3 +12 (copystring), TexWnd +7 /
+  SurfaceDlg +1, InitCull/AreaSelectOK/0x45ebc0, Winding BaseForPlane + Clip (operand order rule).
+- GraphGetValueFromFraction 0x4832c0 flips with the function SET; merging more lanes has restored it every
+  time. Workflow: on a flip, merge the next ready lane and re-gate before bisecting. Owner did not take a tie list.
+- Next clusters: MainFrm filter callees 0x41c440..0x41d400 (callers now exist), Brush_BuildWindings 0x45a220,
+  Eclass_ForName 0x464770, Cam_MouseMoved 0x404dc0 (drag 0x4623e0), PrefsDlg as a whole class.
+
 ## 2026-11-17 round 3 (clean gate, 68936968)
 1374/3582 = 38.36% game functions, 22.08% game bytes (154,516 B), same-offset 1.751%, emit-order 12, 0 failing.
 - Merged: dobj +6, Winding +5 / brush +2, dvar +2, CamWnd +10, entity +29 (new file), map +5 (new file).
