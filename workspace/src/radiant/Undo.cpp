@@ -113,6 +113,18 @@ undo_t *Undo_RedoAvailable(void)
 	return g_lastredo;
 }
 
+extern "C" void FUN_00443590();
+
+// 0x00443800 (27 B)
+void Undo_SetMaxSize(int size)
+{
+	FUN_00443590();
+	if (size < 1)
+		g_undoMaxSize = 1;
+	else
+		g_undoMaxSize = size;
+}
+
 // 0x00443820 (6 B)
 int Undo_GetMaxSize(void)
 {
