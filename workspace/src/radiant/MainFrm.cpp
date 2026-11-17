@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "FindTextureDlg.h"
 #include "PrefsDlg.h"
+#include "../universal/assertive.h"
 
 // Bodies sit in retail address order; FUN_ names and signatures are provisional.
 
@@ -64,14 +65,19 @@ BOOL SaveMruInReg(MRUMENU *lpMruMenu, char *lpszKey);
 void DeleteMruMenu(MRUMENU *lpMruMenu);
 int SaveRegistryInfo(const char *name, void *data, long size);
 void FUN_0046fbe0(int a);
+char *va(const char *format, ...);
 void FUN_0047a250(HWND hwnd, const char *name);
 void FUN_004426e0(void);
 void FUN_00443590(void);
 void CleanUpEntities(void);
 
 // partial views for the shutdown path; instance and entity lists link through prev/next
-struct entityInst_t { entityInst_t *prev; entityInst_t *next; };
+struct entity_t;
+struct entityInst_t { entityInst_t *prev; entityInst_t *next; entity_t *def; };
+struct brushdef_t { brushdef_t *oprev; brushdef_t *onext; entity_t *owner; unsigned char pad0c[0x10]; int refCount; };
+struct brush_t { brush_t *prev; brush_t *next; entityInst_t *owner; unsigned char pad0c[8]; brushdef_t *def; };
 struct entity_t { entity_t *prev; entity_t *next; };
+void FUN_0041d930(entityInst_t *list, const char *msg);
 void FUN_004678c0(entityInst_t *e);
 void FUN_004661f0(entity_t *e);
 
@@ -90,6 +96,8 @@ struct qeglobals_t
 };
 extern qeglobals_t g_qeglobals;
 extern entityInst_t DAT_010a43d0;
+extern brush_t active_brushes;
+extern brush_t selected_brushes;
 extern int DAT_012334ec;
 extern CWnd *DAT_01233484;
 extern CPrefsDlg *dword_01233b64;
@@ -414,6 +422,42 @@ extern "C" void FUN_0041d560() { FUN_00472bd0(0); }
 extern "C" void FUN_0041d570() { FUN_00472bd0(1); }
 extern "C" void FUN_0041d580() { FUN_004733f0(90); }
 extern "C" void FUN_0041d590() { FUN_0046b070(0); }
+
+// 0x0041d5e0 (843 B)
+void FUN_0041d5e0(brush_t *brushList, const char *msg)
+{
+#line 6398
+  assert(brushList);
+  for (brush_t *brush = brushList->next; brush != brushList; brush = brush->next)
+  {
+#line 6401
+    assertMsg(brush, "%s", msg);
+#line 6402
+    assertMsg(brush->prev, "%s", msg);
+#line 6403
+    assertMsg(brush->next, "%s", msg);
+#line 6404
+    assertMsg(brush->prev->next == brush, "%s", msg);
+#line 6405
+    assertMsg(brush->next->prev == brush, "%s", msg);
+#line 6407
+    assertMsg(brush->def, "%s", msg);
+#line 6408
+    assertMsg(brush->owner, "%s", msg);
+#line 6409
+    assertMsg(brush->def->owner == brush->owner->def, "%s", msg);
+#line 6410
+    assertMsg(brush->def->refCount >= 1, "%s", msg);
+  }
+}
+// 0x0041e160 (63 B)
+void FUN_0041e160(const char *msg)
+{
+  FUN_0041d5e0(&active_brushes, va("%s - active_brushes", msg));
+  FUN_0041d5e0(&selected_brushes, va("%s - active_brushes", msg));
+  FUN_0041d930(&DAT_010a43d0, msg);
+}
+
 extern "C" int __fastcall FUN_0041e730(const int *value) { return value[16]; }
 extern "C" int __fastcall FUN_0041e740(const int *value) { return value[1]; }
 extern "C" int __fastcall FUN_0041e750(const int *value) { return *value; }
