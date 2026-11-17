@@ -486,3 +486,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | StartWeaponAnim w29 (11-18, gate) | `rate = viewModelAnimRates[i + 1]` local at loop top | worse: frame 8 -> 0xc, extra spill |
 | StartWeaponAnim w29 (11-18, gate) | `if (activeAnim - 1 == i)` | worse: extra dec + spill in prologue |
 | StartWeaponAnim w29 (11-18, gate) | `if (i + 1 == activeAnim)` | worse: cmp operands swap, tail unchanged |
+| StartWeaponAnim w29 (11-18, labs) | `rates` local (cmp fixed, base lea +4), `rates = &...[1]` + rates[i] (mov ebp,eax), `activeAnim - i == 1` (29), `i++` at loop top (30) | no; two source IVs `i, anim` = 0 lines (landed) |

@@ -1009,3 +1009,9 @@ set by a later lowering stage, not by the list scheduler.
   successor edge to `inc esi` (op 21, prio 0x1800): both write EFLAGS, so IL creation order fixes the order. Retail's IL creates
   the i+1 IV update before the rates-pointer IV update. Lever = IV creation order in strength reduction, not statement order
   (anim local, rate local, explicit rate pointer all tried).
+- PINNED (w29, 11-18, lab 0 lines, tools/c2tup13.sh + winedbg): StartWeaponAnim IV order. Our `for (i...) f(i + 1, rates[i + 1])`
+  makes c2 build two strength-reduced IVs from i (i+1 in esi, &rates[i+1] in ebp); both updates are created by the IL rewrite
+  passes, and the replace pass 0x10799b04 (called from 0x107883b9) keeps their block order, so the order is fixed before regalloc.
+  Retail = a second SOURCE IV: `for (i = 0, anim = 1; i < 20; i++, anim++)` with anim for the index and the rate; the anim++
+  update comes first and the pointer IV follows it. Same lever for any latch where an SR pointer update sits before an int update.
+  Tool: tools/c2tup13.sh NAME logs tuple allocs (A ret head kind + stack) and replaces (P ret old new) for one fn.
