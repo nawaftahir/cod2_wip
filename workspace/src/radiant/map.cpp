@@ -19,6 +19,19 @@ struct entity_t
 	eclass_t *modelClass; // 0x54
 	unsigned char pad58[0x0c];
 	epair_t *epairs; // 0x64
+	short field68;
+};
+
+struct inst14_t
+{
+	unsigned char pad00[0x40];
+	unsigned char field40;
+};
+
+struct inst18_t
+{
+	unsigned char pad00[0x14];
+	inst14_t *field14;
 };
 
 struct entityInst_t
@@ -26,7 +39,10 @@ struct entityInst_t
 	entityInst_t *prev;
 	entityInst_t *next;
 	entity_t *def;
-	unsigned char pad0c[0x2c];
+	unsigned char pad0c[0xc];
+	inst18_t *field18;
+	unsigned char pad1c[0x18];
+	void *modelInst; // 0x34
 	entityInst_t *children; // 0x38
 };
 
@@ -46,6 +62,10 @@ struct brushDef_t
 // from entity.cpp
 char *ValueForKey(epair_t *&e, const char *key);
 int FUN_0047d980(const char *expr, const char *file, int line, int type, int skip);
+#define map_assert2(expr) do { static bool s_assertDisable; if (!(expr) && !s_assertDisable) { switch (FUN_0047d980(#expr, __FILE__, __LINE__, 1, 1)) { case 0: DebugBreak(); break; case 2: s_assertDisable = true; break; } } } while (0)
+#define ECLASS_PREFAB 0x10
+void FUN_00464c20(entityInst_t *inst);
+extern void (__cdecl *dword_0059c490)(void *);
 #define map_assert1(expr) do { static bool s_assertDisable; if (!(expr) && !s_assertDisable) { switch (FUN_0047d980(#expr, __FILE__, __LINE__, 0, 1)) { case 0: DebugBreak(); break; case 2: s_assertDisable = true; break; } } } while (0)
 bool FUN_00465e10(entity_t *ent, const char *key, const char *value);
 void Sys_Printf(const char *fmt, ...);
@@ -232,6 +252,35 @@ void FUN_0046ae70(entityInst_t *begin, entityInst_t *end, entityInst_t *skip, ec
 				def->modelClass = NULL;
 			else if (e->children)
 				FUN_0046ae70(e->children->next, e->children, skip, model);
+		}
+	}
+}
+
+// 0x0046aee0 (212 B)
+void FUN_0046aee0(entityInst_t *begin, entityInst_t *end, entityInst_t *skip, eclass_t *model)
+{
+	for (entityInst_t *e = begin; e != end; e = e->next)
+	{
+		if (e->children)
+		{
+#line 1306
+			map_assert2(e->def->eclass->nShowFlags & ECLASS_PREFAB);
+			if (e != skip)
+			{
+				if (e->def->modelClass != model)
+					FUN_0046aee0(e->children->next, e->children, skip, model);
+				else
+				{
+					FUN_00464c20(e);
+					if (e->modelInst)
+					{
+						dword_0059c490(e->modelInst);
+						e->modelInst = NULL;
+					}
+					e->def->field68++;
+					e->field18->field14->field40 = 0;
+				}
+			}
 		}
 	}
 }

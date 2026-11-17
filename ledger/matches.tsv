@@ -976,6 +976,7 @@ addr	size	source	symbol	name	tag
 0x00469570	284	src/radiant/map.cpp	?UniqueTargetName@@YAXAAV?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@Z	UniqueTargetName	SUPPORTED
 0x00469690	165	src/radiant/map.cpp	?FUN_00469690@@YAXAAV?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@Z	FUN_00469690	UNNAMED
 0x0046ae70	106	src/radiant/map.cpp	?FUN_0046ae70@@YAXPAUentityInst_t@@00PAUeclass_t@@@Z	FUN_0046ae70	UNNAMED
+0x0046aee0	212	src/radiant/map.cpp	?FUN_0046aee0@@YAXPAUentityInst_t@@00PAUeclass_t@@@Z	FUN_0046aee0	UNNAMED
 0x0046b550	96	src/radiant/map.cpp	?FUN_0046b550@@YA_NXZ	FUN_0046b550	UNNAMED
 0x0046bba0	18	src/radiant/map.cpp	?FUN_0046bba0@@YAXPAUUNKNOWN_0046bba0@@PBM@Z	FUN_0046bba0	SUPPORTED
 0x0046bbc0	18	src/radiant/map.cpp	?FUN_0046bbc0@@YAXPAUUNKNOWN_0046bba0@@PAM@Z	FUN_0046bbc0	SUPPORTED
