@@ -28,6 +28,19 @@ emit-order warnings 18. FILE LEDGER 7 VERIFIED / 102 (audited set; other src/ fi
   in NameDlg) because those users do not exist yet. Fix: class in a header, write the user function in
   the earlier file. Not linker ICF: 46 duplicate groups in retail are raw-byte identical and kept apart.
 
+## 2026-11-18 lane e r8: GfxWrapper refimport table (clean gate success)
+1543/3582 = 43.08% game functions, 26.36% game bytes (184,444 B), same-offset 1.872%, emit-order 14, 0 failing.
+- FUN_004105f0 (GetRefAPI loader, 1607 B) matched first try: `refimport_t { void *fn[0xa1]; }`, memset, the
+  136 stores in retail order + explicit `= 0` for fn[68], fn[139..142]; `re = *ret` (0x7f dwords). Field names unknown.
+- Taking the addresses fixes the stack-arg convention: Dvar_GetBool/GetInt/GetFloat/GetVariantString now match,
+  Dvar_GetString 0x48e640 written (assert line 1218) and matches, and the "callee relocation" setters
+  Dvar_SetInt/SetFloat/SetVec2/SetString/SetFromString/SetFromStringByName match. Not fixed: FS_ReadFile 0x47fa40
+  (99%, +0xa4), Dvar_ChangeResetValue 0x48edd0 (99%, +0x8c).
+- GraphGetValueFromFraction 0x4832c0 flipped (79%) with the loader alone; adding the four GfxWrapper "not handled"
+  stubs 0x410290/0x4102e0/0x410330/0x4103a0 (assertFailMsg, #line 119..139) restored it.
+- Still unwritten table targets (FUN_ externs, unresolved): 0x410110 import thunk, 0x410400..0x410580, dvar Register*
+  and *ByName, ClearModified etc. Their bodies now get retail stack conventions once their rows exist: next wave.
+
 ## 2026-11-17 round 4 (clean gate 63404c52)
 1453/3582 = 40.56% game functions, 23.45% game bytes (164,096 B), same-offset 1.809%, 0 failing.
 - Merged: filtersettings +43 (assert forwarders), VertEditDlg +9, entity/map/qe3 +12 (copystring), TexWnd +7 /
