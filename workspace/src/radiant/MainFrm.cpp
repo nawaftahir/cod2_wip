@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "FindTextureDlg.h"
+#include "PrefsDlg.h"
 
 // Bodies sit in retail address order; FUN_ names and signatures are provisional.
 
@@ -58,15 +59,59 @@ void FUN_004745d0();
 void QE_CountBrushesAndUpdateStatusBar();
 void QE_CheckAutoSave();
 
+struct MRUMENU;
+BOOL SaveMruInReg(MRUMENU *lpMruMenu, char *lpszKey);
+void DeleteMruMenu(MRUMENU *lpMruMenu);
+int SaveRegistryInfo(const char *name, void *data, long size);
+void FUN_0046fbe0(int a);
+void FUN_0047a250(HWND hwnd, const char *name);
+void FUN_004426e0(void);
+void FUN_00443590(void);
+void CleanUpEntities(void);
+
+// partial views for the shutdown path; instance and entity lists link through prev/next
+struct entityInst_t { entityInst_t *prev; entityInst_t *next; };
+struct entity_t { entity_t *prev; entity_t *next; };
+void FUN_004678c0(entityInst_t *e);
+void FUN_004661f0(entity_t *e);
+
+// g_qeglobals at 0x10bcd14: field_20 = 0x10bcd34, mru menu = 0x11295fc, saved info = 0x1129600
+struct qeglobals_t
+{
+  unsigned char pad0[0x20];
+  entity_t *field_20;
+  unsigned char pad24[0x40 - 0x24];
+  HWND d_hwndMain;
+  unsigned char pad44[0x6c8e8 - 0x44];
+  MRUMENU *d_lpMruMenu;
+  unsigned char d_savedinfo[0x6cb74 - 0x6c8ec]; // 0x294 B in total, the exclude flags sit inside it
+  unsigned d_exclude;
+  unsigned d_exclude2;
+};
+extern qeglobals_t g_qeglobals;
+extern entityInst_t DAT_010a43d0;
+extern int DAT_012334ec;
+extern CWnd *DAT_01233484;
+extern CPrefsDlg *dword_01233b64;
+
 class CMainFrame : public CFrameWnd
 {
 public:
   virtual BOOL PreCreateWindow(CREATESTRUCT &cs);
   virtual BOOL PreTranslateMessage(MSG *pMsg);
   afx_msg void OnTimer(UINT nIDEvent);
+  afx_msg void OnDestroy();
   afx_msg void OnFileExit();
-  char pad[0x798 - sizeof(CFrameWnd)];
+  // three CSplitterWnd at 0x500, 0x5d8, 0x6b0
+  char pad[0x500 - sizeof(CFrameWnd)];
+  char wndSplit[0x788 - 0x500];
+  CWnd *field_0788;
+  CWnd *field_078c;
+  CWnd *field_0790;
+  CWnd *field_0794;
   CWnd *field_0798;
+  CWnd *field_079c;
+  int field_07a0;
 };
 
 extern "C" int __stdcall FUN_00411230(int a0, int a1) { return 0; }
@@ -95,6 +140,111 @@ void CMainFrame::OnTimer(UINT nIDEvent)
     QE_CountBrushesAndUpdateStatusBar();
     QE_CheckAutoSave();
   }
+}
+
+// 0x00413250 (1336 B)
+void CMainFrame::OnDestroy()
+{
+  WINDOWPLACEMENT wp;
+  int info[2];
+  CSplitterWnd *split1 = (CSplitterWnd *)(wndSplit);
+  CSplitterWnd *split2 = (CSplitterWnd *)(wndSplit + 0xd8);
+  CSplitterWnd *split3 = (CSplitterWnd *)(wndSplit + 0x1b0);
+
+  KillTimer(1);
+  FUN_0046fbe0(1);
+  SaveBarState("RadiantToolBars2");
+  SaveMruInReg(g_qeglobals.d_lpMruMenu, "Software\\iw\\CoD2Radiant\\MRU");
+  DeleteMruMenu(g_qeglobals.d_lpMruMenu);
+  wp.length = sizeof(WINDOWPLACEMENT);
+  if (::GetWindowPlacement(m_hWnd, &wp))
+    SaveRegistryInfo("Radiant::MainWindowPlace", &wp, sizeof(wp));
+  if (field_07a0 != 0 && field_07a0 != 3)
+  {
+    wp.length = sizeof(WINDOWPLACEMENT);
+    if (::GetWindowPlacement(field_0788->GetSafeHwnd(), &wp))
+      SaveRegistryInfo("xywindow", &wp, sizeof(wp));
+    wp.length = sizeof(WINDOWPLACEMENT);
+    if (::GetWindowPlacement(field_078c->GetSafeHwnd(), &wp))
+      SaveRegistryInfo("camerawindow", &wp, sizeof(wp));
+    wp.length = sizeof(WINDOWPLACEMENT);
+    if (::GetWindowPlacement(field_0794->GetSafeHwnd(), &wp))
+      SaveRegistryInfo("zwindow", &wp, sizeof(wp));
+    FUN_0047a250(field_0790->GetSafeHwnd(), "texwindow");
+    FUN_0047a250(field_079c->GetSafeHwnd(), "editwindow");
+  }
+  else
+  {
+    FUN_0047a250(split1->GetSafeHwnd(), "Radiant::Split");
+    FUN_0047a250(split2->GetSafeHwnd(), "Radiant::Split2");
+    FUN_0047a250(split3->GetSafeHwnd(), "Radiant::Split3");
+    split1->GetRowInfo(0, info[1], info[0]);
+    SaveRegistryInfo("Radiant::Split::Row_0", info, 8);
+    split1->GetRowInfo(1, info[1], info[0]);
+    SaveRegistryInfo("Radiant::Split::Row_1", info, 8);
+    split2->GetColumnInfo(0, info[1], info[0]);
+    SaveRegistryInfo("Radiant::Split2::Col_0", info, 8);
+    split2->GetColumnInfo(1, info[1], info[0]);
+    SaveRegistryInfo("Radiant::Split2::Col_1", info, 8);
+    split2->GetColumnInfo(2, info[1], info[0]);
+    SaveRegistryInfo("Radiant::Split2::Col_2", info, 8);
+    split3->GetRowInfo(0, info[1], info[0]);
+    SaveRegistryInfo("Radiant::Split3::Row_0", info, 8);
+    split3->GetRowInfo(1, info[1], info[0]);
+    SaveRegistryInfo("Radiant::Split3::Row_1", info, 8);
+  }
+  if (field_0788 && field_0788->m_hWnd)
+    ::SendMessage(field_0788->m_hWnd, WM_DESTROY, 0, 0);
+  delete field_0788;
+  field_0788 = NULL;
+  if (field_0794 && field_0794->m_hWnd)
+    ::SendMessage(field_0794->m_hWnd, WM_DESTROY, 0, 0);
+  delete field_0794;
+  field_0794 = NULL;
+  if (field_0790 && field_0790->m_hWnd)
+    ::SendMessage(field_0790->m_hWnd, WM_DESTROY, 0, 0);
+  delete field_0790;
+  field_0790 = NULL;
+  if (field_079c && field_079c->m_hWnd)
+    ::SendMessage(field_079c->m_hWnd, WM_DESTROY, 0, 0);
+  delete field_079c;
+  field_079c = NULL;
+  if (field_078c && field_078c->m_hWnd)
+    ::SendMessage(field_078c->m_hWnd, WM_DESTROY, 0, 0);
+  delete field_078c;
+  field_078c = NULL;
+  if (field_0798 && field_0798->m_hWnd)
+    ::SendMessage(field_0798->m_hWnd, WM_DESTROY, 0, 0);
+  delete field_0798;
+  field_0798 = NULL;
+  if (DAT_01233484)
+  {
+    if (DAT_01233484->m_hWnd)
+      ::SendMessage(DAT_01233484->m_hWnd, WM_DESTROY, 0, 0);
+    delete DAT_01233484;
+  }
+  DAT_01233484 = NULL;
+  SaveRegistryInfo("SavedInfo", g_qeglobals.d_savedinfo, 0x294);
+  if (_stricmp((const char *)&dword_010a4508, "unnamed.map") != 0)
+  {
+    dword_01233b64->m_strLastMap = (const char *)&dword_010a4508;
+    dword_01233b64->SavePrefs();
+  }
+  while (DAT_010a43d0.next && DAT_010a43d0.next != &DAT_010a43d0)
+    FUN_004678c0(DAT_010a43d0.next);
+  DAT_012334ec = 0;
+  for (entity_t *e = g_qeglobals.field_20->next; e && e != g_qeglobals.field_20; )
+  {
+    entity_t *next = e->next;
+    FUN_004661f0(e);
+    e = next;
+  }
+  FUN_004661f0(g_qeglobals.field_20);
+  g_qeglobals.field_20 = NULL;
+  FUN_00443590();
+  CleanUpEntities();
+  FUN_004426e0();
+  CFrameWnd::OnDestroy();
 }
 
 extern "C" void FUN_00414c70() {}
@@ -171,8 +321,6 @@ extern "C" void FUN_0041c0c0() {}
 extern "C" void FUN_0041c0d0() {}
 
 // Filter toggles: flip one exclude bit, sync the menu check, refresh the filter dialog (FUN_0040cf30).
-struct qeglobals_t { unsigned char pad0[0x40]; HWND d_hwndMain; unsigned char pad1[0x6cb74 - 0x44]; unsigned d_exclude; unsigned d_exclude2; };
-extern qeglobals_t g_qeglobals;
 extern "C" void FUN_0040cf30(CWnd *filterSettings);
 extern "C" void FUN_00467f00();
 #define FILTER_TOGGLE(name, field, mask, menuId, redraw) \

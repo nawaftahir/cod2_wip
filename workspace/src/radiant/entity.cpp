@@ -26,6 +26,7 @@ struct eclass_t
 	unsigned int flags;
 };
 struct entity_t;
+struct entityInst_t;
 
 struct brushdef_t
 {
@@ -48,13 +49,24 @@ struct brushdef_t
 };
 
 // the placed instance of an entity; its definition is entity_t
+struct brush_t
+{
+	brush_t *prev;
+	brush_t *next;
+	entityInst_t *owner;
+	brush_t *ownerNext;
+	brush_t *ownerPrev;
+	unsigned char pad14[0x14];
+};
+
 struct entityInst_t
 {
 	entityInst_t *prev;
 	entityInst_t *next;
 	entity_t *def;
-	unsigned char pad0c[0x28];
+	brush_t brushes; // 0x0c
 	void *modelInst; // 0x34
+	entityInst_t *children; // 0x38
 };
 
 // brushes at 0x08 (0x48 B), eclass 0x50, epairs 0x64 (retail offsets)
@@ -96,6 +108,9 @@ extern void FUN_00458af0(brushdef_t *def);
 void FUN_00467240(brushdef_t *b);
 #define assert1(expr) do { static bool s_assertDisable; if (!(expr) && !s_assertDisable) { switch (FUN_0047d980(#expr, __FILE__, __LINE__, 1, 1)) { case 0: DebugBreak(); break; case 2: s_assertDisable = true; break; } } } while (0)
 extern void (__cdecl *dword_0059c490)(void *);
+extern void FUN_00458c00(brush_t *b);
+void FUN_004678c0(entityInst_t *e);
+void FUN_004661f0(entity_t *e);
 
 // 0x00464bb0 (88 B)
 char *ValueForKey(epair_t *&e, const char *key)
@@ -112,6 +127,18 @@ char *ValueForKey(epair_t *&e, const char *key)
 char *ValueForKey(entity_t *ent, const char *key)
 {
 	return ValueForKey(ent->epairs, key);
+}
+
+// 0x00464c20 (60 B)
+void FUN_00464c20(entityInst_t *inst)
+{
+	if (inst->children)
+	{
+		while (inst->children->next != inst->children)
+			FUN_004678c0(inst->children->next);
+		delete inst->children;
+		inst->children = NULL;
+	}
 }
 
 // 0x00464c60 (25 B)
@@ -688,4 +715,25 @@ void FUN_00467680(entity_t *entity, int delta)
 #line 1296
 		assert(b->refCount > 0);
 	}
+}
+
+// 0x004678c0 (432 B)
+void FUN_004678c0(entityInst_t *e)
+{
+#line 1336
+	assert(e);
+	assert(e->def);
+	assertMsg((e->def->refCount > 0), "(e->def->refCount) = %i", e->def->refCount);
+	assert(e->next);
+	assert(e->prev);
+	e->next->prev = e->prev;
+	e->prev->next = e->next;
+	FUN_00464c20(e);
+	FUN_00464c60(e);
+	while (e->brushes.ownerNext != &e->brushes)
+		FUN_00458c00(e->brushes.ownerNext);
+	e->def->refCount--;
+	if (e->def->refCount == 0)
+		FUN_004661f0(e->def);
+	delete e;
 }
