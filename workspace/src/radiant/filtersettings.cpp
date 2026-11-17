@@ -5,6 +5,9 @@
 struct qeglobals_t { unsigned char pad0[0x6cb74]; int d_exclude; unsigned d_exclude2; };
 extern qeglobals_t g_qeglobals;
 
+extern CString DAT_012345c4;
+extern unsigned dword_0123348c;
+
 extern "C" {
 void __fastcall FUN_0041c440(CWnd *mainWnd);
 void __fastcall FUN_0041c500(CWnd *mainWnd);
@@ -50,6 +53,20 @@ void __fastcall FUN_0041ce60(CWnd *mainWnd);
 void __fastcall FUN_0041cec0(CWnd *mainWnd);
 void __fastcall FUN_0041cf20(CWnd *mainWnd);
 }
+
+/* CFilterSettings is the retail class name (RTTI); only the members written here are declared. */
+class CFilterSettings : public CDialog
+{
+public:
+  CString m_text470; // offset 0x70, bound to edit 0x470
+  virtual void DoDataExchange(CDataExchange *pDX);
+  virtual BOOL OnInitDialog();
+  void OnShowWindow(BOOL bShow, UINT nStatus);
+  virtual void OnOK();
+  void FUN_0040e4f0();
+  void FUN_0040e660();
+  virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
+};
 
 // Refresh the filter dialog check boxes from the exclude bits (a set bit means unchecked).
 #define SET_CHECK(id, expr) dlg->GetDlgItem(id)->SendMessage(BM_SETCHECK, !(expr), 0)
@@ -101,7 +118,210 @@ extern "C" void FUN_0040cf30(CWnd *dlg)
   SET_CHECK(0x5f3, g_qeglobals.d_exclude2 & 0x100);
 }
 
+void CFilterSettings::DoDataExchange(CDataExchange *pDX)
+{
+  DDX_Text(pDX, 0x470, m_text470);
+}
+
+// Fill list 0x511 from the comma/semicolon separated filter string.
+void CFilterSettings::OnShowWindow(BOOL bShow, UINT nStatus)
+{
+  char buffer[1024];
+  Default();
+  if (bShow == 1)
+  {
+    FUN_0040cf30(this);
+    GetDlgItem(0x470)->SetWindowText("");
+    CListBox *list = (CListBox *)GetDlgItem(0x511);
+    while (list->DeleteString(0) > 0)
+      ;
+    const char *src = DAT_012345c4;
+    char *dst = buffer;
+    while ((*dst++ = *src++))
+      ;
+    if (DAT_012345c4.GetLength() > 0)
+    {
+      char *token = strtok(buffer, ",;");
+      if (token)
+      {
+        while (*token == ' ')
+          token++;
+        do
+        {
+          list->AddString(token);
+          token = strtok(NULL, ",;");
+        } while (token);
+      }
+    }
+  }
+}
+
+BOOL CFilterSettings::OnInitDialog()
+{
+  CDialog::OnInitDialog();
+  GetDlgItem(0x578)->SetWindowText("Lights");
+  GetDlgItem(0x56e)->SetWindowText("Entities");
+  GetDlgItem(0x577)->SetWindowText("Connections");
+  GetDlgItem(0x585)->SetWindowText("Path Nodes");
+  GetDlgItem(0x57c)->SetWindowText("Water");
+  GetDlgItem(0x587)->SetWindowText("World");
+  GetDlgItem(0x568)->SetWindowText("Clip");
+  GetDlgItem(0x579)->SetWindowText("Detail");
+  GetDlgItem(0x56a)->SetWindowText("Structural");
+  GetDlgItem(0x57e)->SetWindowText("Translucent");
+  GetDlgItem(0x57f)->SetWindowText("Portals");
+  GetDlgItem(0x567)->SetWindowText("Curves");
+  GetDlgItem(0x586)->SetWindowText("Terrain");
+  GetDlgItem(0x574)->SetWindowText("Hint/Skip");
+  GetDlgItem(0x573)->SetWindowText("Caulk");
+  GetDlgItem(0x56b)->SetWindowText("Names");
+  GetDlgItem(0x566)->SetWindowText("Blocks");
+  GetDlgItem(0x588)->SetWindowText("Coordinates");
+  GetDlgItem(0x565)->SetWindowText("Angles");
+  GetDlgItem(0x5cf)->SetWindowText("Triggers");
+  GetDlgItem(0x5d0)->SetWindowText("Ammo/Items");
+  GetDlgItem(0x56f)->SetWindowText("AI/Spawners");
+  GetDlgItem(0x584)->SetWindowText("Info");
+  GetDlgItem(0x570)->SetWindowText("Static Models");
+  GetDlgItem(0x576)->SetWindowText("Weapons");
+  GetDlgItem(0x571)->SetWindowText("Funcs");
+  GetDlgItem(0x575)->SetWindowText("Weapon Clip");
+  GetDlgItem(0x57d)->SetWindowText("Non-Colliding");
+  GetDlgItem(0x57b)->SetWindowText("Sky");
+  GetDlgItem(0x56c)->SetWindowText("Misc");
+  GetDlgItem(0x580)->SetWindowText("Decals");
+  GetDlgItem(0x56d)->SetWindowText("Action Nodes");
+  GetDlgItem(0x572)->SetWindowText("Entity Models");
+  GetDlgItem(0x5f3)->SetWindowText("Goal Volumes");
+  GetDlgItem(0x581)->SetWindowText("Mantle");
+  GetDlgItem(0x603)->SetWindowText("BCS");
+  GetDlgItem(0x605)->SetWindowText("Escort");
+  GetDlgItem(0x60b)->SetWindowText("Kill");
+  GetDlgItem(0x658)->SetWindowText("Spawner");
+  GetDlgItem(0x608)->SetWindowText("Stop Spawner");
+  GetDlgItem(0x659)->SetWindowText("Friendly Chain");
+  GetDlgItem(0x657)->SetWindowText("Ambient");
+  GetDlgItem(0x582)->SetWindowText("NonDecals");
+  return TRUE;
+}
+
+// Store the check boxes back into the exclude bits (checked = bit clear) and the list into the filter string.
+#define CHECK(id, field, mask) \
+  if (!GetDlgItem(id)->SendMessage(BM_GETCHECK, 0, 0)) \
+    g_qeglobals.field |= (mask); \
+  else \
+    g_qeglobals.field &= ~(mask)
+void CFilterSettings::OnOK()
+{
+  CString text;
+  CListBox *list = (CListBox *)GetDlgItem(0x511);
+  int count = list->GetCount();
+  DAT_012345c4.Empty();
+  for (int i = 0; i < count; i++)
+  {
+    list->GetText(i, text);
+    DAT_012345c4 += text;
+    DAT_012345c4 += ",";
+  }
+  CHECK(0x573, d_exclude, 0x2000);
+  CHECK(0x56e, d_exclude, 2);
+  CHECK(0x577, d_exclude, 4);
+  CHECK(0x575, d_exclude, 0x2000000);
+  CHECK(0x57b, d_exclude, 0x8000000);
+  CHECK(0x581, d_exclude, 0x80000000);
+  CHECK(0x603, d_exclude, 0x200);
+  CHECK(0x605, d_exclude, 0x800);
+  CHECK(0x60b, d_exclude, 0x1000);
+  CHECK(0x658, d_exclude, 0x2000);
+  CHECK(0x608, d_exclude, 0x4000);
+  CHECK(0x659, d_exclude, 0x8000);
+  CHECK(0x657, d_exclude, 0x10000);
+  CHECK(0x578, d_exclude, 1);
+  CHECK(0x57c, d_exclude, 8);
+  CHECK(0x568, d_exclude, 0x20);
+  CHECK(0x587, d_exclude, 0x10);
+  CHECK(0x579, d_exclude, 0x40);
+  CHECK(0x56a, d_exclude, 0x20000000);
+  CHECK(0x57e, d_exclude, 0x10000000);
+  CHECK(0x574, d_exclude, 0x1000);
+  CHECK(0x567, d_exclude, 0x80);
+  CHECK(0x586, d_exclude, 0x8000);
+  CHECK(0x565, d_exclude, 0x4000);
+  CHECK(0x5cf, d_exclude, 0x800000);
+  CHECK(0x5d0, d_exclude, 0x10000);
+  CHECK(0x56f, d_exclude, 0x20000);
+  CHECK(0x584, d_exclude, 0x40000);
+  CHECK(0x570, d_exclude, 0x80000);
+  CHECK(0x576, d_exclude, 0x100000);
+  CHECK(0x571, d_exclude, 0x200000);
+  CHECK(0x56c, d_exclude, 0x1000000);
+  CHECK(0x572, d_exclude, 0x40000000);
+  CHECK(0x585, d_exclude2, 1);
+  CHECK(0x57d, d_exclude2, 0x10);
+  CHECK(0x57f, d_exclude2, 2);
+  CHECK(0x580, d_exclude2, 8);
+  CHECK(0x582, d_exclude2, 0x400);
+  CHECK(0x56d, d_exclude2, 4);
+  CHECK(0x56b, d_exclude2, 0x20);
+  CHECK(0x566, d_exclude2, 0x40);
+  CHECK(0x588, d_exclude2, 0x80);
+  CHECK(0x5f3, d_exclude2, 0x100);
+  dword_0123348c |= 0xb;
+}
+
 extern "C" void FUN_0040e4e0() {}
+
+// Add the text of edit 0x470 to list 0x511, or remove it when already listed.
+void CFilterSettings::FUN_0040e4f0()
+{
+  CString text;
+  CListBox *list = (CListBox *)GetDlgItem(0x511);
+  if (!list)
+    return;
+  CEdit *edit = (CEdit *)GetDlgItem(0x470);
+  if (edit)
+  {
+    edit->GetWindowText(text);
+    if (text.GetLength() < 1)
+      return;
+    int found = list->FindStringExact(-1, text);
+    if (found != -1)
+    {
+      list->DeleteString(found);
+      list->SetCurSel(-1);
+      edit->SetWindowText("");
+    }
+    else
+    {
+      int added = list->AddString(text);
+      if (added >= 0)
+        list->SetCurSel(added);
+      edit->SetSel(0, -1);
+    }
+  }
+}
+
+void CFilterSettings::FUN_0040e660()
+{
+  SetDefID(0x564);
+}
+
+BOOL CFilterSettings::OnCommand(WPARAM wParam, LPARAM lParam)
+{
+  char buffer[256];
+  if (HIWORD(wParam) == 1 && LOWORD(wParam) == 0x511)
+  {
+    CListBox *list = (CListBox *)GetDlgItem(0x511);
+    CEdit *edit = (CEdit *)GetDlgItem(0x470);
+    if (list && edit)
+    {
+      list->GetText(list->GetCurSel(), buffer);
+      edit->SetWindowText(buffer);
+      edit->SetSel(0, -1);
+    }
+  }
+  return CDialog::OnCommand(wParam, lParam);
+}
 extern "C" void FUN_0040e760() {}
 extern "C" void FUN_0040e770() {}
 
