@@ -135,3 +135,16 @@ Absolute placement is reported separately.
 One file per session, then update this file and /clear. Batch functions per build (about 2 min each).
 Max 3 attempts per function, then draft and move on. Never retry what OFFSET_PLAN lists as tried.
 Unmerged lane leftovers are in `workspace/drafts/` and `workspace/lanes/reports/`.
+
+## Operand order rule: edx register args (lane c r7 probe, 2026-11-17, scan of the built exe vs matched rows)
+PINNED (matched rows, plain C source, no annotation): LTCG does give edx args to our own functions.
+- `FUN_0045f830(a, b, out, t)` and `FUN_004668b0(a, b, out)` (leaf vector math, all pointer params used in the
+  hot path): a=eax, b=edx, out=ecx, a 4th float stays on the stack. `DObjSkelExists(DObj*, int)`: eax, edx.
+  `AddPointToBounds(v, mins, maxs)`: ecx, edx, esi. `ExpandBounds`: ecx, edx, esi, edi (a 4th reg param comes from the
+  callee-saved set). Callers set edx right before the call (`lea edx,[ebp-0x18]`).
+- So the retail 0x454f70 shape (xyz eax, verts edx, count ecx, faceIndex/limit on stack) is the ordinary result for a
+  3+-pointer-param function; the register picks follow how heavily each PARAM is used, not its position: ours put
+  count in eax and verts in ecx and left xyz on the stack (xyz is touched once per j). SUPPORTED, not pinned: raise
+  xyz's use weight (read xyz[] directly in the inner loop instead of through a hoisted pointer).
+- Probe: /tmp-style script = objdump of build/CoD2Radiant.exe, first-read registers of every matched symbol
+  (about 40 patterns; ('eax','ecx','edx') FS_BuildOSPath/ReadMapLine, ('edx','eax','ecx') BoxDistSqrdExceeds).
