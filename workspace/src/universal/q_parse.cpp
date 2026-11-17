@@ -29,6 +29,30 @@ void Com_InitParseInfo( parseInfo_t *pi )
 	pi->backup_text = NULL;
 }
 
+void Com_BeginParseSession( const char *filename )
+{
+	parseInfo_t *pi;
+	ParseThreadInfo *parse;
+	int i;
+
+	parse = Com_GetParseThreadInfo();
+
+	if ( parse->parseInfoNum == MAX_PARSE_INFO - 1 )
+	{
+		Com_Printf( "Already parsing:\n" );
+
+		for ( i = 0; i < parse->parseInfoNum; i++ )
+			Com_Printf( "%i. %s\n", i, parse->parseInfo[i].parseFile );
+
+		Com_Error( ERR_FATAL, "Com_BeginParseSession: session overflow trying to parse %s\n", filename );
+	}
+
+	pi = &parse->parseInfo[++parse->parseInfoNum];
+
+	Com_InitParseInfo( pi );
+	I_strncpyz( pi->parseFile, filename, sizeof( pi->parseFile ) );
+}
+
 void Com_EndParseSession( void )
 {
 	ParseThreadInfo *parse;
@@ -1140,6 +1164,30 @@ int Com_GetArgCountOnLine( const char **data_p )
 	return count;
 }
 
+const char *Com_ParseRestOfLine( const char **data_p )
+{
+	char *line;
+	const char *token;
+
+	line = Com_GetParseThreadInfo()->line;
+	line[0] = 0;
+	while ( 1 )
+	{
+		token = Com_ParseOnLine( data_p );
+		if ( !token[0] )
+		{
+			break;
+		}
+		if ( line[0] )
+		{
+			I_strncat( line, MAX_TOKEN_CHARS, " " );
+		}
+		I_strncat( line, MAX_TOKEN_CHARS, token );
+	}
+
+	return line;
+}
+
 float Com_ParseFloat( const char **buf_p )
 {
 	const char *token;
@@ -1211,3 +1259,8 @@ void Com_Parse3DMatrix( const char **buf_p, int z, int y, int x, float *m )
 	Com_MatchToken( buf_p, ")", qfalse );
 }
 
+// unreferenced in the exe, role unknown
+float FUN_00495b40( float f )
+{
+	return f;
+}
