@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Pmesh.h"
+#include "PatchDialog.h"
 #include <malloc.h>
 #include <string.h>
 #include "../universal/com_math.h"
@@ -990,6 +991,62 @@ void FUN_0042f950(int value)
 {
     byte_12334B8 = (value == dword_5909F8);
     dword_5909F8 = value;
+}
+
+extern CPatchDialog g_PatchDialog;
+char *va(const char *format, ...);
+
+// the brush def a patch hangs off; retail asserts call it p->symbiot
+struct symbiot_t
+{
+    unsigned char pad00[0x1c];
+    int refCount;
+    unsigned char pad20[0x44 - 0x20];
+    patchMesh_t *patch;
+};
+
+// asserts whose retail text is the field name, not the C++ spelling used here
+#define assertText(cond, text) \
+    do { \
+        static bool s_assertDisable; \
+        if ( !(cond) && !s_assertDisable ) \
+        { \
+            switch ( FUN_0047d980( text, __FILE__, __LINE__, 0, 1 ) ) \
+            { \
+            case 0: DebugBreak(); break; \
+            case 2: s_assertDisable = true; break; \
+            } \
+        } \
+    } while ( 0 )
+
+#define assertMsgText(cond, text, fmt, a1) \
+    do { \
+        static bool s_assertDisable; \
+        if ( !(cond) && !s_assertDisable ) \
+        { \
+            switch ( FUN_0047d980( va( "%s\n\t" fmt, text, a1 ), __FILE__, __LINE__, 0, 1 ) ) \
+            { \
+            case 0: DebugBreak(); break; \
+            case 2: s_assertDisable = true; break; \
+            } \
+        } \
+    } while ( 0 )
+
+// 0x0042f660 (290 B), patch in esi
+void FUN_0042f660(patchMesh_t *p)
+{
+#define SYMBIOT ((symbiot_t *)p->cache_3828)
+#line 3857
+    assertText(SYMBIOT, "p->symbiot");
+    assertText(SYMBIOT->patch == p, "p->symbiot->patch == p");
+    assertMsgText(SYMBIOT->refCount == 0, "(p->symbiot->refCount == 0)", "(p->symbiot->refCount) = %i", SYMBIOT->refCount);
+    SYMBIOT->patch = NULL;
+    if (p->cache_3824)
+        free(p->cache_3824);
+    delete p;
+    if (g_PatchDialog.GetSafeHwnd())
+        g_PatchDialog.GetPatchInfo();
+#undef SYMBIOT
 }
 
 bool OnlyPatchesSelected()

@@ -466,6 +466,7 @@ addr	size	source	symbol	name	tag
 0x0042b760	45	src/radiant/Pmesh.cpp	?FUN_0042b760@@YAMHHMHM@Z	FUN_0042b760	UNNAMED
 0x0042bd10	121	src/radiant/Pmesh.cpp	?FUN_0042bd10@@YAXPAUselbrush_t@@@Z	FUN_0042bd10	PINNED
 0x0042f950	21	src/radiant/Pmesh.cpp	?FUN_0042f950@@YAXH@Z	FUN_0042f950	UNNAMED
+0x0042f660	290	src/radiant/Pmesh.cpp	?FUN_0042f660@@YAXPAUpatchMesh_t@@@Z	FUN_0042f660	PINNED
 0x00433a20	44	src/radiant/Pmesh.cpp	?OnlyPatchesSelected@@YA_NXZ	OnlyPatchesSelected	SUPPORTED
 0x00433a50	39	src/radiant/Pmesh.cpp	?AnyPatchesSelected@@YA_NXZ	AnyPatchesSelected	SUPPORTED
 0x00433a80	79	src/radiant/Pmesh.cpp	?SinglePatchSelected@@YAPAUpatchMesh_t@@XZ	SinglePatchSelected	SUPPORTED
@@ -673,6 +674,7 @@ addr	size	source	symbol	name	tag
 0x00457ce0	236	src/radiant/brush.cpp	?Brush_CreateFromTexdef@@YAPAUbrushdef_t@@PAUeclass_t@@PBUtexdef_t@@@Z	Brush_CreateFromTexdef	SUPPORTED
 0x004581e0	602	src/radiant/brush.cpp	?Brush_RemoveFromEntity@@YAXPAUbrush_t@@PAUentity_t@@@Z	Brush_RemoveFromEntity	PINNED
 0x00458640	35	src/radiant/brush.cpp	?BrushDef_Create@@YAPAUbrushdef_t@@QBM0PAUeclass_t@@PBUtexdef_t@@@Z	BrushDef_Create	SUPPORTED
+0x00458af0	260	src/radiant/brush.cpp	?FUN_00458af0@@YAXPAUbrushdef_t@@@Z	FUN_00458af0	PINNED
 0x00458d20	30	src/radiant/brush.cpp	?Face_MemorySize@@YAHPBUface_t@@@Z	Face_MemorySize	SUPPORTED
 0x00458d40	113	src/radiant/brush.cpp	?BrushDef_MemorySize@@YAHPBUbrushdef_t@@@Z	BrushDef_MemorySize	SUPPORTED
 0x004592c0	36	src/radiant/brush.cpp	?FUN_004592c0@@YA_NPAUbrush_t@@@Z	FUN_004592c0	SUPPORTED
