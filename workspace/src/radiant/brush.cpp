@@ -613,6 +613,11 @@ bool FUN_0045b630(brush_t *b)
     return false;
 }
 
+float FUN_0045ebc0(float a, float b)
+{
+    return a - (float)floor(a / b) * b;
+}
+
 void FUN_0045efb0(face_t *f)
 {
 #line 4163
