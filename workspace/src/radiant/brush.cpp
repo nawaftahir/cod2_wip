@@ -25,8 +25,8 @@ extern void (*R_FreeStaticSurface)(void *matHandle, int vertCount, void *vertHan
 extern bool FUN_00439620(const vec3_t v1, const vec3_t v2);
 extern void FUN_0043fbc0(vec2_t outSize, vec4_t texMat[2], const vec3_t normal, float planeDist, vec2_t outShift, float *outRotate, float *outCrossterm);
 extern winding_t * FUN_00447c60(const facePlane_t *plane);
-extern winding_t * FUN_00447f60(const winding_t *w);
-extern winding_t * FUN_00447fb0(winding_t *w);
+extern winding_t * Winding_Clone(const winding_t *w);
+extern winding_t * Winding_Reverse(winding_t *w);
 extern winding_t * FUN_00448280(winding_t *w, const facePlane_t *plane, float epsilon);
 extern int IntersectPlanes(const float **plane, vec3_t xyz); extern int PlaneFromPoints(vec4_t plane, const vec3_t a, const vec3_t b, const vec3_t c);
 extern void OrientationPosToWorld(const orientation_t *orient, const float *pos, float *out); extern void OrientationDirToWorld(const orientation_t *orient, const float *dir, float *out);
@@ -142,6 +142,14 @@ bool Face_WriteMaya(const faceRender_t *face, const face_t *def, const orientati
     return true;
 }
 
+void FUN_00454610(face_t *f, const winding_t *w)
+{
+    if (w)
+        f->w = Winding_Clone(w);
+    else
+        f->w = NULL;
+}
+
 #line 185
 face_t *Face_AllocArray(int count)
 {
@@ -205,6 +213,21 @@ void FUN_00454960(const face_t *src, face_t *dst)
     dst->contents = src->contents;
     dst->toolFlags = src->toolFlags;
     memcpy(dst->planepts, src->planepts, sizeof(dst->planepts));
+}
+
+void FUN_004549b0(const face_t *src, face_t *dst)
+{
+    memcpy(dst->texdef, src->texdef, sizeof(dst->texdef));
+    memcpy(&dst->lmTexdef, &src->lmTexdef, sizeof(dst->lmTexdef));
+    dst->color = src->color;
+    dst->contents = src->contents;
+    dst->toolFlags = src->toolFlags;
+    memcpy(dst->planepts, src->planepts, sizeof(dst->planepts));
+    memcpy(&dst->plane, &src->plane, 0x20);
+    if (src->w)
+        dst->w = Winding_Clone(src->w);
+    else
+        dst->w = NULL;
 }
 
 #line 269
@@ -611,6 +634,11 @@ bool FUN_0045b630(brush_t *b)
             return true;
     }
     return false;
+}
+
+float FUN_0045ebc0(float a, float b)
+{
+    return a - (float)floor(a / b) * b;
 }
 
 void FUN_0045efb0(face_t *f)

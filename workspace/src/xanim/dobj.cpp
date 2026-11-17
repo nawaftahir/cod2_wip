@@ -11,10 +11,72 @@ unsigned int SL_GetStringOfLen(const char *str, unsigned int user, unsigned int 
 void SL_AddRefToString(unsigned int stringValue);
 void SL_RemoveRefToStringOfLen(unsigned int stringValue, unsigned int len);
 
+int SL_IsLowercaseString(unsigned int stringValue);
+int FUN_004a1890(const DObj_s *obj, unsigned int name);
+
 static unsigned int g_empty = 0;
 
 const char *DObjGetBoneName(const DObj_s *obj, int boneIndex);
 
+#undef IS_NAN
+#define nanmask (255<<23)
+#define IS_NAN(x) (((*(int *)&(x))&nanmask)==nanmask)
+
+typedef struct DObjSkelMat_s
+{
+	vec4_t axis[3];
+	vec4_t origin;
+} DObjSkelMat;
+
+// retail asserts name xanim_public.h for this function
+#line 340 "e:\\trees\\cod2src\\src\\xanim\\xanim_public.h"
+void FUN_004a1170(const DObjAnimMat *mat, DObjSkelMat *skelMat)
+{
+	float xx, xy, xz, xw, yy, yz, yw, zz, zw;
+	vec3_t scaledQuat;
+
+#line 348
+	assert(!IS_NAN((mat->quat)[0]) && !IS_NAN((mat->quat)[1]) && !IS_NAN((mat->quat)[2]) && !IS_NAN((mat->quat)[3]));
+
+	VectorScale(mat->quat, mat->transWeight, scaledQuat);
+
+	xx = scaledQuat[0] * mat->quat[0];
+	xy = scaledQuat[0] * mat->quat[1];
+	xz = scaledQuat[0] * mat->quat[2];
+	xw = scaledQuat[0] * mat->quat[3];
+	yy = scaledQuat[1] * mat->quat[1];
+	yz = scaledQuat[1] * mat->quat[2];
+	yw = scaledQuat[1] * mat->quat[3];
+	zz = scaledQuat[2] * mat->quat[2];
+	zw = scaledQuat[2] * mat->quat[3];
+
+	skelMat->axis[0][0] = 1.0f - (yy + zz);
+	skelMat->axis[0][1] = xy + zw;
+	skelMat->axis[0][2] = xz - yw;
+	skelMat->axis[0][3] = 0.0f;
+
+	skelMat->axis[1][0] = xy - zw;
+	skelMat->axis[1][1] = 1.0f - (xx + zz);
+	skelMat->axis[1][2] = yz + xw;
+	skelMat->axis[1][3] = 0.0f;
+
+	skelMat->axis[2][0] = xz + yw;
+	skelMat->axis[2][1] = yz - xw;
+	skelMat->axis[2][2] = 1.0f - (xx + yy);
+	skelMat->axis[2][3] = 0.0f;
+
+#line 379
+	assert(!IS_NAN((skelMat->axis[0])[0]) && !IS_NAN((skelMat->axis[0])[1]) && !IS_NAN((skelMat->axis[0])[2]));
+#line 380
+	assert(!IS_NAN((skelMat->axis[1])[0]) && !IS_NAN((skelMat->axis[1])[1]) && !IS_NAN((skelMat->axis[1])[2]));
+#line 381
+	assert(!IS_NAN((skelMat->axis[2])[0]) && !IS_NAN((skelMat->axis[2])[1]) && !IS_NAN((skelMat->axis[2])[2]));
+
+	VectorCopy(mat->trans, skelMat->origin);
+	skelMat->origin[3] = 1.0f;
+}
+
+#line 82 "\\trees\\cod2src\\src\\xanim\\dobj.cpp"
 void DObjInit()
 {
 	int duplicatePartBits[5];
@@ -94,6 +156,35 @@ bool DObjIgnoreCollision(const DObj_s *obj, int modelIndex)
 	return (obj->ignoreCollision & (1 << modelIndex)) != 0;
 }
 
+int FUN_004a1890(const DObj_s *obj, unsigned int name)
+{
+	int offset;
+	XModel *model;
+	int index;
+	int i;
+	int numModels;
+
+#line 215
+	assert(obj);
+	numModels = obj->numModels;
+	index = 0;
+
+	for ( i = 0; i < numModels; ++i )
+	{
+		model = obj->models[i];
+		offset = XModelGetBoneIndex(model, name);
+
+		if ( offset >= 0 )
+			return index + offset;
+
+#line 226
+		assertMsg((model->parts->numBones >= 0), "(model->parts->numBones) = %i", model->parts->numBones);
+		index += model->parts->numBones;
+	}
+
+	return -1;
+}
+
 int DObjSkelIsBoneUpToDate(DObj_s *obj, int boneIndex)
 {
 	DSkel_t *skel;
@@ -160,6 +251,42 @@ void DObjSetTree(DObj_s *obj, XAnimTree_s *tree)
 	*parent = childInfoIndex;
 }
 
+void DObjSetBounds(DObj_s *obj)
+{
+	int numModels;
+	int i;
+	vec3_t modelmins;
+	vec3_t modelmaxs;
+	vec3_t dobjmins;
+	vec3_t dobjmaxs;
+
+#line 977
+	assert(obj);
+	numModels = obj->numModels;
+
+	VectorSet(dobjmins, 0, 0, 0);
+	VectorSet(dobjmaxs, 0, 0, 0);
+
+	for ( i = 0; i < numModels; ++i )
+	{
+		if ( obj->models[i] )
+		{
+			VectorCopy(obj->models[i]->mins, modelmins);
+			VectorCopy(obj->models[i]->maxs, modelmaxs);
+
+			dobjmins[0] = dobjmins[0] + modelmins[0];
+			dobjmins[1] = dobjmins[1] + modelmins[1];
+			dobjmins[2] = dobjmins[2] + modelmins[2];
+			dobjmaxs[0] = dobjmaxs[0] + modelmaxs[0];
+			dobjmaxs[1] = dobjmaxs[1] + modelmaxs[1];
+			dobjmaxs[2] = dobjmaxs[2] + modelmaxs[2];
+		}
+	}
+
+	VectorCopy(dobjmins, obj->mins);
+	VectorCopy(dobjmaxs, obj->maxs);
+}
+
 void DObjClone(const DObj_s *from, XAnimTree_s *tree, DObj_s *obj)
 {
 	DObj_s *to;
@@ -174,6 +301,40 @@ void DObjClone(const DObj_s *from, XAnimTree_s *tree, DObj_s *obj)
 		SL_AddRefToString(to->duplicateParts);
 
 	DObjSetTree(to, tree);
+}
+
+void DObjFree(DObj_s *obj)
+{
+	const char *string;
+	size_t len;
+
+#line 1147
+	assert(obj);
+
+	if ( obj->tree )
+	{
+#line 1152
+		assert(obj->tree->anims);
+#line 1153
+		assert(obj->animToModel);
+		obj->animToModel = 0;
+		obj->tree = 0;
+	}
+
+#line 1159
+	assert(g_empty);
+
+	if ( obj->duplicateParts )
+	{
+		if ( obj->duplicateParts != g_empty )
+		{
+			string = SL_ConvertToString(obj->duplicateParts);
+			len = strlen(string + 16);
+			SL_RemoveRefToStringOfLen(obj->duplicateParts, len + 17);
+		}
+
+		obj->duplicateParts = 0;
+	}
 }
 
 void DObjGetCreateParms(const DObj_s *obj, DObjModel_s *dobjModels, unsigned short *numModels, XAnimTree_s **tree, unsigned short *entnum)
@@ -293,6 +454,27 @@ DObjAnimMat *DObjGetRotTransArray(const DObj_s *obj)
 		return &obj->skel->Mat;
 	else
 		return 0;
+}
+
+void DObjGetMatrixArray(const DObj_s *obj, const int *partBits, DObjSkelMat *skelMat)
+{
+	int i;
+	int boneCount;
+	DObjAnimMat *mat;
+
+	boneCount = obj->numBones;
+#line 1359
+	assert(boneCount <= DOBJ_MAX_PARTS);
+
+	mat = DObjGetRotTransArray(obj);
+#line 1362
+	assert(mat);
+
+	for ( i = 0; i < boneCount; ++i, ++skelMat, ++mat )
+	{
+		if ( partBits[i >> 5] & (1 << (i & 0x1F)) )
+			FUN_004a1170(mat, skelMat);
+	}
 }
 
 int DObjGetMatOffset(const DObj_s *obj, int modelIndex)
@@ -531,6 +713,15 @@ int DObjGetSurfaceList(const DObj *obj, DObjSurfRef *list, unsigned int *surfPar
 	return total;
 }
 
+int DObjGetBoneIndex(const DObj_s *obj, unsigned int boneName)
+{
+#line 1636
+	assert(boneName);
+#line 1640
+	assertMsg(SL_IsLowercaseString( boneName ), "%s", va("%s", SL_ConvertToString(boneName)));
+	return FUN_004a1890(obj, boneName);
+}
+
 const char *DObjGetBoneName(const DObj_s *obj, int boneIndex)
 {
 	int numModels;
@@ -706,6 +897,98 @@ void DObjCalcAnim(const DObj_s *obj, int *partBits)
 			quats += 4;
 		}
 	}
+}
+
+static void DObjClearAngles(DObjAnimMat *rotTrans)
+{
+	rotTrans->quat[0] = 0.0f;
+	rotTrans->quat[1] = 0.0f;
+	rotTrans->quat[2] = 0.0f;
+	rotTrans->quat[3] = 1.0f;
+}
+
+static void DObjSetTrans(DObjAnimMat *rotTrans, const float *trans)
+{
+	rotTrans->transWeight = 0.0f;
+	rotTrans->trans[0] = trans[0];
+	rotTrans->trans[1] = trans[1];
+	rotTrans->trans[2] = trans[2];
+}
+
+void DObjSetLocalTagInternal(const DObj_s *obj, const float *trans, const float *angles, int boneIndex)
+{
+	DObjAnimMat *rotTrans;
+	DObjAnimMat *childRotTrans;
+	float yaw[2], pitch[2], roll[2];
+	float t[4];
+
+	rotTrans = DObjGetRotTransArray(obj);
+
+	if ( rotTrans )
+	{
+		childRotTrans = &rotTrans[boneIndex];
+
+		if ( angles )
+		{
+			/* the asm in FastSinCos stops DObjSetAngles from being inlined, so it is spelled out here */
+			FastSinCos(angles[1] * 0.0087266462f, &yaw[0], &yaw[1]);
+			FastSinCos(angles[0] * 0.0087266462f, &pitch[0], &pitch[1]);
+			FastSinCos(angles[2] * 0.0087266462f, &roll[0], &roll[1]);
+			t[0] = -(pitch[0] * yaw[0]);
+			t[1] = yaw[1] * pitch[0];
+			t[2] = pitch[1] * yaw[0];
+			t[3] = pitch[1] * yaw[1];
+			childRotTrans->quat[0] = roll[0] * t[3] + roll[1] * t[0];
+			childRotTrans->quat[1] = roll[0] * t[2] + roll[1] * t[1];
+			childRotTrans->quat[2] = roll[1] * t[2] - roll[0] * t[1];
+			childRotTrans->quat[3] = roll[1] * t[3] - roll[0] * t[0];
+		}
+		else
+			DObjClearAngles(childRotTrans);
+
+		DObjSetTrans(childRotTrans, trans);
+	}
+}
+
+bool DObjSetControlTagAngles(const DObj_s *obj, int *partBits, unsigned int boneIndex, float *angles)
+{
+	int index;
+
+	index = DObjGetBoneIndex(obj, boneIndex);
+
+	if ( index < 0 )
+		return false;
+
+	if ( !DObjSetControlRotTransIndex(obj, partBits, index) )
+		return false;
+
+	DObjSetLocalTagInternal(obj, vec3_origin, angles, index);
+	return true;
+}
+
+bool DObjSetLocalTag(const DObj_s *obj, int *partBits, unsigned int boneIndex, const float *trans, const float *angles)
+{
+	int index;
+
+	index = DObjGetBoneIndex(obj, boneIndex);
+
+	if ( index < 0 )
+		return false;
+
+	if ( !DObjSetRotTransIndex(obj, partBits, index) )
+		return false;
+
+	DObjSetLocalTagInternal(obj, trans, angles, index);
+	return true;
+}
+
+int DObjSetLocalBoneIndex(const DObj_s *obj, int *partBits, int boneIndex, const float *trans, const float *angles)
+{
+	if ( !DObjSetRotTransIndex(obj, partBits, boneIndex) )
+		return 0;
+
+	DObjSetLocalTagInternal(obj, trans, angles, boneIndex);
+	return 1;
 }
 
 void DObjSetModel(DObj_s *obj, XModel *model)
