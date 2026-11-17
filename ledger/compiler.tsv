@@ -9,3 +9,15 @@ addr	size	source	symbol	name	tag
 0x00409070	74	src/radiant/CommandsDlg.cpp	??1CCommandsDlg@@UAE@XZ	CCommandsDlg::implicit destructor	AUTO
 0x0043f7a0	34	src/radiant/TextureLayout.cpp	??_GCTextureLayout@@UAEPAXI@Z	CTextureLayout::scalar deleting destructor	AUTO
 0x00410f90	65	src/radiant/KeyValueSelectDlg.cpp	??1CKeyValueSelectDlg@@UAE@XZ	CKeyValueSelectDlg::implicit destructor	AUTO
+0x004076b0	8	src/radiant/CamWnd.cpp	?OnSize@CWnd@@IAEXIHH@Z	CWnd::OnSize (header inline)	AUTO
+0x004077f0	3	src/radiant/CamWnd.cpp	??0CPoint@@QAE@XZ	CPoint::CPoint (header inline; 4 identical retail copies, assigned in emit order)	AUTO
+0x00407e00	17	src/radiant/CamWnd.cpp	?SetCapture@CWnd@@QAEPAV1@XZ	CWnd::SetCapture (header inline)	AUTO
+0x00407e20	3	src/radiant/CamWnd.cpp	??0CRect@@QAE@XZ	CRect::CRect (header inline; identical-bytes copy)	AUTO
+0x00407e30	18	src/radiant/CamWnd.cpp	?GetClientRect@CWnd@@QBEXPAUtagRECT@@@Z	CWnd::GetClientRect (header inline)	AUTO
+0x00407e50	3	src/radiant/CamWnd.cpp	??BCRect@@QAEPAUtagRECT@@XZ	CRect::operator LPRECT (header inline; identical-bytes copy)	AUTO
+0x00407ef0	9	src/radiant/CamWnd.cpp	?AfxGetInstanceHandle@@YGPAUHINSTANCE__@@XZ	AfxGetInstanceHandle (header inline)	AUTO
+0x00407f00	8	src/radiant/CamWnd.cpp	?OnKillFocus@CWnd@@IAEXPAV1@@Z	CWnd::OnKillFocus (header inline)	AUTO
+0x00407f10	8	src/radiant/CamWnd.cpp	?OnNcCalcSize@CWnd@@IAEXHPAUtagNCCALCSIZE_PARAMS@@@Z	CWnd::OnNcCalcSize (header inline)	AUTO
+0x00407f30	16	src/radiant/CamWnd.cpp	??2CObject@@SGPAXI@Z	CObject::operator new (header inline)	AUTO
+0x00479990	33	src/radiant/win_main.cpp	??_GCMyColorDialog@@UAEPAXI@Z	CMyColorDialog::scalar deleting destructor	AUTO
+0x004799c0	5	src/radiant/win_main.cpp	??1CMyColorDialog@@UAE@XZ	CMyColorDialog::implicit destructor	AUTO

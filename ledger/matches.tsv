@@ -883,6 +883,10 @@ addr	size	source	symbol	name	tag
 0x00467ff0	55	src/radiant/map.cpp	?Map_FindClass@@YAPAUentity_t@@PBD@Z	Map_FindClass	SUPPORTED
 0x004681b0	27	src/radiant/map.cpp	?FUN_004681b0@@YAPAUentity_t@@XZ	FUN_004681b0	UNNAMED
 0x00469100	53	src/radiant/map.cpp	?Map_IsBrushFiltered@@YA_NPAUbrushDef_t@@@Z	Map_IsBrushFiltered	SUPPORTED
+0x00469570	284	src/radiant/map.cpp	?UniqueTargetName@@YAXAAV?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@Z	UniqueTargetName	SUPPORTED
+0x00469690	165	src/radiant/map.cpp	?FUN_00469690@@YAXAAV?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@Z	FUN_00469690	UNNAMED
+0x0046ae70	106	src/radiant/map.cpp	?FUN_0046ae70@@YAXPAUentityInst_t@@00PAUeclass_t@@@Z	FUN_0046ae70	UNNAMED
+0x0046b550	96	src/radiant/map.cpp	?FUN_0046b550@@YA_NXZ	FUN_0046b550	UNNAMED
 0x0046bba0	18	src/radiant/map.cpp	?FUN_0046bba0@@YAXPAUUNKNOWN_0046bba0@@PBM@Z	FUN_0046bba0	SUPPORTED
 0x0046bbc0	18	src/radiant/map.cpp	?FUN_0046bbc0@@YAXPAUUNKNOWN_0046bba0@@PAM@Z	FUN_0046bbc0	SUPPORTED
 0x0046bbe0	10	src/radiant/map.cpp	??0UNKNOWN_0054ebb0@@QAE@PAVCFile@@@Z	UNKNOWN_0054ebb0::UNKNOWN_0054ebb0	SUPPORTED
@@ -954,9 +958,13 @@ addr	size	source	symbol	name	tag
 0x00477960	93	src/radiant/win_ent.cpp	?FUN_00477960@@YAXXZ	FUN_00477960	UNNAMED
 0x00477ba0	335	src/radiant/win_ent.cpp	?FUN_00477ba0@@YAHHPAUeclass_t@@@Z	FUN_00477ba0	UNNAMED
 0x00477cf0	10	src/radiant/win_ent.cpp	?FUN_00477cf0@@YAHXZ	FUN_00477cf0	UNNAMED
+0x004796f0	94	src/radiant/win_main.cpp	?CreateObject@CMyColorDialog@@SGPAVCObject@@XZ	CMyColorDialog::CreateObject	SUPPORTED
+0x00479750	6	src/radiant/win_main.cpp	?GetRuntimeClass@CMyColorDialog@@UBEPAUCRuntimeClass@@XZ	CMyColorDialog::GetRuntimeClass	SUPPORTED
 0x00479760	180	src/radiant/win_main.cpp	?InitCustColors@CMyColorDialog@@KAXXZ	CMyColorDialog::InitCustColors	SUPPORTED
 0x00479820	242	src/radiant/win_main.cpp	?SaveCustColors@CMyColorDialog@@KAXXZ	CMyColorDialog::SaveCustColors	SUPPORTED
+0x00479920	97	src/radiant/win_main.cpp	??0CMyColorDialog@@QAE@KKPAVCWnd@@@Z	CMyColorDialog::CMyColorDialog	SUPPORTED
 0x004799d0	17	src/radiant/win_main.cpp	?DoModal@CMyColorDialog@@UAEHXZ	CMyColorDialog::DoModal	SUPPORTED
+0x00479a00	6	src/radiant/win_main.cpp	?GetMessageMap@CMyColorDialog@@MBEPBUAFX_MSGMAP@@XZ	CMyColorDialog::GetMessageMap	SUPPORTED
 0x0047a140	141	src/radiant/win_main.cpp	?SaveRegistryInfo@@YAHPBDPAXJ@Z	SaveRegistryInfo	SUPPORTED
 0x0047a1d0	119	src/radiant/win_main.cpp	?LoadRegistryInfo@@YAHPBDPAXPAJ@Z	LoadRegistryInfo	SUPPORTED
 0x0047a3c0	137	src/radiant/win_qe3.cpp	?Sys_MarkMapModified@@YAXXZ	Sys_MarkMapModified	SUPPORTED
