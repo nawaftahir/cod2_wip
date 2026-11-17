@@ -45,6 +45,7 @@ class CMyColorDialog : public CColorDialog
 public:
 	CMyColorDialog(COLORREF clrInit = 0, DWORD dwFlags = 0, CWnd *pParentWnd = NULL);
 	virtual int DoModal();
+	virtual void DoDataExchange(CDataExchange *pDX);
 protected:
 	DECLARE_MESSAGE_MAP()
 	static void InitCustColors();
@@ -97,5 +98,40 @@ int CMyColorDialog::DoModal() {
      return code;
 }
 
+void CMyColorDialog::DoDataExchange(CDataExchange *pDX) {
+}
+
 BEGIN_MESSAGE_MAP(CMyColorDialog, CColorDialog)
 END_MESSAGE_MAP()
+
+extern float DAT_01129708[][4];
+extern unsigned dword_0123348c;
+
+BOOL DoColor(int iIndex) {
+     COLORREF cr = RGB((int)(DAT_01129708[iIndex][0] * 255), (int)(DAT_01129708[iIndex][1] * 255),
+                       (int)(DAT_01129708[iIndex][2] * 255));
+     CMyColorDialog dlg(cr, CC_FULLOPEN | CC_RGBINIT);
+     if (dlg.DoModal() != IDOK) return FALSE;
+     DAT_01129708[iIndex][0] = GetRValue(dlg.GetColor()) * (1.0f / 255.0f);
+     DAT_01129708[iIndex][3] = 1.0f;
+     dword_0123348c |= 0xffffffff;
+     DAT_01129708[iIndex][1] = GetGValue(dlg.GetColor()) * (1.0f / 255.0f);
+     DAT_01129708[iIndex][2] = GetBValue(dlg.GetColor()) * (1.0f / 255.0f);
+     return TRUE;
+}
+
+extern HWND dword_010bcd54;
+
+// Q3 SaveWindowState: stores the window rect relative to the main window
+void FUN_0047a250(HWND hWnd, const char *pszName)
+{
+    RECT rc;
+    GetWindowRect(hWnd, &rc);
+    if (hWnd != dword_010bcd54)
+    {
+        if (GetParent(hWnd) != dword_010bcd54)
+            SetParent(hWnd, dword_010bcd54);
+        MapWindowPoints(NULL, dword_010bcd54, (LPPOINT)&rc, 2);
+    }
+    SaveRegistryInfo(pszName, &rc, sizeof(rc));
+}

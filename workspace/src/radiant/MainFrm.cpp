@@ -69,6 +69,7 @@ BOOL SaveMruInReg(MRUMENU *lpMruMenu, char *lpszKey);
 void DeleteMruMenu(MRUMENU *lpMruMenu);
 int SaveRegistryInfo(const char *name, void *data, long size);
 void FUN_0046fbe0(int a);
+BOOL DoColor(int iIndex);
 char *va(const char *format, ...);
 void FUN_0047a250(HWND hwnd, const char *name);
 void FUN_004426e0(void);
@@ -367,6 +368,11 @@ extern "C" void FUN_00415bf0() { Pointfile_Next(); }
 extern "C" void FUN_00415c00() { Pointfile_Prev(); }
 extern "C" void FUN_00415c10() { FUN_00449800(); }
 extern "C" void FUN_00415df0() { FUN_00469950(); }
+extern "C" void FUN_00415e00() { DoColor(0); dword_0123348c |= 0xffffffff; }
+extern "C" void FUN_00415e20() { DoColor(4); dword_0123348c |= 0xffffffff; }
+extern "C" void FUN_00415e40() { DoColor(3); dword_0123348c |= 0xffffffff; }
+extern "C" void FUN_00415e60() { DoColor(2); dword_0123348c |= 0xffffffff; }
+extern "C" void FUN_00415e80() { DoColor(1); dword_0123348c |= 0xffffffff; }
 extern "C" void FUN_00416270() { FUN_00469140(); }
 extern "C" void FUN_00416280() { FUN_004694d0(); }
 extern "C" void FUN_00416290() { FUN_004692a0(); }
@@ -485,6 +491,23 @@ extern "C" void __fastcall FUN_00417e10(CMainFrame *self)
 }
 extern "C" void FUN_00417f00() {}
 extern "C" void FUN_00417f10() {}
+extern "C" void FUN_00417f20() { DoColor(9); dword_0123348c |= 0xffffffff; }
+extern "C" void FUN_00417f40() { DoColor(12); dword_0123348c |= 0xffffffff; }
+extern "C" void FUN_00417f60() { DoColor(23); dword_0123348c |= 0xffffffff; }
+extern "C" void FUN_00417f80() { DoColor(8); dword_0123348c |= 0xffffffff; }
+extern "C" void FUN_00417fa0() { DoColor(10); dword_0123348c |= 0xffffffff; }
+extern "C" void FUN_00417fc0() { DoColor(11); dword_0123348c |= 0xffffffff; }
+extern "C" void FUN_00417fe0() { DoColor(7); dword_0123348c |= 0xffffffff; }
+extern "C" void FUN_00418000() { DoColor(13); dword_0123348c |= 0xffffffff; }
+extern "C" void FUN_00418020() { DoColor(14); dword_0123348c |= 0xffffffff; }
+extern "C" void FUN_00418040() { DoColor(15); dword_0123348c |= 0xffffffff; }
+extern "C" void FUN_00418060() { DoColor(19); dword_0123348c |= 0xffffffff; }
+extern "C" void FUN_00418080() { DoColor(22); dword_0123348c |= 0xffffffff; }
+extern "C" void FUN_004180a0() { DoColor(16); dword_0123348c |= 0xffffffff; }
+extern "C" void FUN_004180c0() { DoColor(17); dword_0123348c |= 0xffffffff; }
+extern "C" void FUN_004180e0() { DoColor(18); dword_0123348c |= 0xffffffff; }
+extern "C" void FUN_00418100() { DoColor(20); dword_0123348c |= 0xffffffff; }
+extern "C" void FUN_00418120() { DoColor(21); dword_0123348c |= 0xffffffff; }
 extern bool DAT_0109fe5f;
 extern "C" void FUN_00418fd0()
 {
