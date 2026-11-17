@@ -847,9 +847,9 @@ void Patch_CapTexture(patchMesh_t *p, bool bCycleCap, float fScaleS, float fScal
         f = Patch_GetAxisFace(p);
     texdef_t td = f->texdef[DAT_01128d90];
     td.rotate = 0.0f;
+    td.scale[0] = (float)td.mat->width * fScaleS;
     td.shift[0] = 0.0f;
     td.shift[1] = 0.0f;
-    td.scale[0] = (float)td.mat->width * fScaleS;
     td.scale[1] = (float)td.mat->height * fScaleT;
     FUN_00426dc0(p, f->plane.normal, &td);
 }
@@ -865,6 +865,24 @@ void FillPatch(patchMesh_t *p, vec3_t v)
     }
 }
 
+struct patch_eclass_t { unsigned char pad[8]; int fixedsize; };
+struct patch_entity_def_t { unsigned char pad[0x50]; patch_eclass_t *eclass; };
+struct entity_s { unsigned char pad[8]; patch_entity_def_t *def; };
+struct patch_t { patchMesh_t *def; };
+struct selbrush_t
+{
+    selbrush_t *prev;
+    selbrush_t *next;
+    entity_s *owner;
+    unsigned char pad0[8];
+    brush_t *def;
+    int faceCount;
+    unsigned char pad1[4];
+    patch_t *patch;
+    unsigned char pad2[2];
+    unsigned char hiddenBrush;
+};
+
 // Retail 0x00429df0 / 34 B; MSVC 7.1 isolated referee MATCH
 // in run 42071492272. The decompiler names identify two existing
 // global objects: an index count and a contiguous 32-bit table.
@@ -879,6 +897,31 @@ int __fastcall FUN_00429df0(void *, int value)
             return i;
     }
     return -1;
+}
+
+extern HWND g_hwndCheck_01234004;
+extern selbrush_t DAT_010a44b4;
+extern selbrush_t DAT_010a44dc;
+void FUN_0042ae30(patchMesh_t *patch, float offset);
+
+void FUN_0042aed0(selbrush_t *list, float offset)
+{
+    for (selbrush_t *b = list->next; b != list; b = b->next)
+    {
+        if (b->patch)
+        {
+#line 2287
+            assert( b->patch->def == b->def->patch );
+            FUN_0042ae30(b->patch->def, offset);
+        }
+    }
+}
+
+void FUN_0042af50(float offset)
+{
+    if (SendMessageA(g_hwndCheck_01234004, 0xf0, 0, 0))
+        FUN_0042aed0(&DAT_010a44dc, offset);
+    FUN_0042aed0(&DAT_010a44b4, offset);
 }
 
 // Retail 0x0042b6d0, 14 B. Isolated exact MATCH in run 42070669799.
@@ -899,23 +942,18 @@ float FUN_0042b760(int unused1, int index, float value, int unused2, float weigh
     return value;
 }
 
-struct patch_eclass_t { unsigned char pad[8]; int fixedsize; };
-struct patch_entity_def_t { unsigned char pad[0x50]; patch_eclass_t *eclass; };
-struct entity_s { unsigned char pad[8]; patch_entity_def_t *def; };
-struct patch_t { patchMesh_t *def; };
-struct selbrush_t
+void FUN_0042bd10(selbrush_t *list)
 {
-    selbrush_t *prev;
-    selbrush_t *next;
-    entity_s *owner;
-    unsigned char pad0[8];
-    brush_t *def;
-    int faceCount;
-    unsigned char pad1[4];
-    patch_t *patch;
-    unsigned char pad2[2];
-    unsigned char hiddenBrush;
-};
+    for (selbrush_t *b = list->next; b != list; b = b->next)
+    {
+        if (b->patch)
+        {
+#line 2640
+            assert( b->patch->def == b->def->patch );
+            b->patch->def->field_382e = 0;
+        }
+    }
+}
 
 struct CPatchBendXYProjection
 {
@@ -985,6 +1023,28 @@ patchMesh_t *SinglePatchSelected()
             return b->patch->def;
     }
     return NULL;
+}
+
+extern bool DAT_012334ba;
+extern patchMesh_t DAT_0109c538;
+extern int DAT_0123348c;
+void FUN_00433ad0();
+
+void FUN_00433e30()
+{
+    if (DAT_012334ba)
+    {
+        FUN_00433ad0();
+        patchMesh_t *p = SinglePatchSelected();
+        if (p)
+        {
+            p->width = DAT_0109c538.width;
+            p->height = DAT_0109c538.height;
+            p->type_10 = DAT_0109c538.type_10;
+            memcpy(p->ctrl, DAT_0109c538.ctrl, sizeof(p->ctrl));
+        }
+        DAT_0123348c = -1;
+    }
 }
 
 void Patch_SetBendRotateOrigin()
