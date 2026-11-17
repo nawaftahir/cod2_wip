@@ -473,6 +473,7 @@ addr	size	source	symbol	name	tag
 0x004602e0	225	src/radiant/csg.cpp	?Brush_IsFixedOrPatch@@YA_NPAUbrush_t@@@Z	Brush_IsFixedOrPatch	SUPPORTED
 0x004603d0	37	src/radiant/csg.cpp	?Brush_FaceFlags_Check80@@YADPAUbrush_t@@@Z	Brush_FaceFlags_Check80	SUPPORTED
 0x00460400	53	src/radiant/csg.cpp	?Brush_IsFiltered@@YA_NPAUbrush_t@@@Z	Brush_IsFiltered	SUPPORTED
+0x004608a0	309	src/radiant/drag.cpp	?AxializeVector@@YAXPAM@Z	AxializeVector	SUPPORTED
 0x0046bcd0	126	src/radiant/mru.cpp	?CreateMruMenu@@YAPAUMRUMENU@@GGGG@Z	CreateMruMenu	SUPPORTED
 0x0046bd50	28	src/radiant/mru.cpp	?CreateMruMenuDefault@@YAPAUMRUMENU@@XZ	CreateMruMenuDefault	SUPPORTED
 0x0046bd70	55	src/radiant/mru.cpp	?DeleteMruMenu@@YAXPAUMRUMENU@@@Z	DeleteMruMenu	SUPPORTED
@@ -495,7 +496,19 @@ addr	size	source	symbol	name	tag
 0x0046ca50	156	src/radiant/points.cpp	?Pointfile_Draw@@YAXXZ	Pointfile_Draw	SUPPORTED
 0x0046caf0	11	src/radiant/points.cpp	?Pointfile_Clear@@YAXXZ	Pointfile_Clear	SUPPORTED
 0x0046cb00	14	src/radiant/points.cpp	?Pointfile_HasPoints@@YAHXZ	Pointfile_HasPoints	SUPPORTED
+0x004721a0	224	src/radiant/select.cpp	?FUN_004721a0@@YAXHH@Z	FUN_004721a0	UNNAMED
+0x00472280	224	src/radiant/select.cpp	?FUN_00472280@@YAXHH@Z	FUN_00472280	UNNAMED
+0x004727a0	18	src/radiant/select.cpp	?FUN_004727a0@@YAXXZ	FUN_004727a0	UNNAMED
+0x004727c0	21	src/radiant/select.cpp	?FUN_004727c0@@YAXXZ	FUN_004727c0	UNNAMED
+0x004727e0	18	src/radiant/select.cpp	?FUN_004727e0@@YAXXZ	FUN_004727e0	UNNAMED
+0x00472800	18	src/radiant/select.cpp	?FUN_00472800@@YAXXZ	FUN_00472800	UNNAMED
+0x00472820	18	src/radiant/select.cpp	?FUN_00472820@@YAXXZ	FUN_00472820	UNNAMED
+0x00472840	18	src/radiant/select.cpp	?FUN_00472840@@YAXXZ	FUN_00472840	UNNAMED
 0x00474540	1	src/radiant/select.cpp	_FUN_00474540	FUN_00474540	UNNAMED
+0x00474550	18	src/radiant/select.cpp	?FUN_00474550@@YAXPAUbrush_t@@_N@Z	FUN_00474550	UNNAMED
+0x00474570	40	src/radiant/select.cpp	?Select_Hide@@YAXXZ	Select_Hide	SUPPORTED
+0x004745a0	40	src/radiant/select.cpp	?FUN_004745a0@@YAXXZ	FUN_004745a0	UNNAMED
+0x004745d0	72	src/radiant/select.cpp	_FUN_004745d0	FUN_004745d0	UNNAMED
 0x00475190	180	src/radiant/vertsel.cpp	?FindPoint@@YAHQAM@Z	FindPoint	SUPPORTED
 0x00475250	104	src/radiant/vertsel.cpp	?FindEdge@@YAHHHPAUface_t@@@Z	FindEdge	SUPPORTED
 0x00475ca0	32	src/radiant/win_dlg.cpp	?DoProjectSettings@@YAXXZ	DoProjectSettings	SUPPORTED
