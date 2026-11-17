@@ -689,6 +689,107 @@ void Undo_Undo(void)
 	g_nUpdateBits = -1;
 }
 
+// 0x00444a00 (1561 B)
+void Undo_Redo(void)
+{
+	if (!g_lastredo)
+	{
+		Sys_Printf("Nothing left to redo.\n");
+		return;
+	}
+	if (g_lastundo)
+	{
+		if (!g_lastundo->done)
+			Sys_Printf("WARNING: last undo not finished.\n");
+	}
+	undo_t *redo = g_lastredo;
+	FUN_0041e160(redo->operation);
+	if (redo->prev)
+		redo->prev->next = NULL;
+	else
+		g_redolist = NULL;
+	g_lastredo = redo->prev;
+	Undo_GeneralStart(redo->operation);
+	FUN_0046fbe0(1);
+	for (brush_t *b = active_brushes.next; b != &active_brushes; )
+	{
+		brush_t *pNext = b->next;
+		brushdef_t *brushDef = b->def;
+		if (brushDef->undoId == redo->id)
+		{
+#line 845
+			vassert((brushDef->refCount >= 2), "(brushDef->refCount) = %i", brushDef->refCount);
+			brushDef->ownerId = brushDef->owner->entityId;
+			FUN_00467240(brushDef);
+			FUN_004431f0(&g_lastundo->brushlist, brushDef);
+			g_undoMemorySize += BrushDef_MemorySize(brushDef);
+			FUN_00458c00(b);
+		}
+		b = pNext;
+	}
+	for (entityInst_t *inst = entityInsts.next; inst != &entityInsts; )
+	{
+		entityInst_t *pNext = inst->next;
+		entity_t *entity = inst->def;
+		if (entity->undoId == redo->id)
+		{
+			Entity_RemoveFromList(entity);
+			Entity_AddToList(entity, &g_lastundo->entitylist);
+#line 863
+			assert1(entity->refCount == 1);
+			++entity->refCount;
+			FUN_004678c0(inst);
+#line 866
+			assert1(entity->refCount == 1);
+			g_undoMemorySize += Entity_MemorySize(entity);
+		}
+		inst = pNext;
+	}
+	for (entity_t *entity = redo->entitylist.next; entity; entity = redo->entitylist.next)
+	{
+		if (entity == &redo->entitylist)
+			break;
+		if (entity->entityId != world_entity->def->entityId)
+		{
+			Entity_RemoveFromList(entity);
+			Entity_AddToList(entity, &entities);
+#line 887
+			assert1(entity->refCount == 1);
+			FUN_00467770(entity, &entityInsts, &active_brushes);
+			--entity->refCount;
+#line 890
+			assert1(entity->refCount == 1);
+#line 891
+			assert(entity->brushes.onext == &entity->brushes);
+#line 892
+			assert(entity->brushes.oprev == &entity->brushes);
+		}
+		else
+		{
+			entity_t *world = world_entity->def;
+			Entity_FreeEpairs(world);
+			world_entity->def->epairs = entity->epairs;
+			FUN_004661f0(entity);
+		}
+	}
+	for (brushdef_t *brush = redo->brushlist.onext; brush != &redo->brushlist; brush = redo->brushlist.onext)
+	{
+		FUN_004432a0(brush);
+		entityInst_t *inst = entityInsts.next;
+		while (inst != &entityInsts && inst->def->entityId != brush->ownerId)
+			inst = inst->next;
+		FUN_004671b0(brush, inst == &entityInsts ? world_entity->def : inst->def);
+		FUN_00459210(FUN_00458440(brush, inst), &selected_brushes);
+	}
+	Undo_End();
+	Sys_Printf("%s redone.\n", redo->operation);
+	--g_redoId;
+	delete redo;
+	g_updateFlag = 1;
+	FUN_0041e160("after redo");
+	g_nUpdateBits = -1;
+}
+
 // 0x00445020 (14 B)
 bool FUN_00445020(void)
 {

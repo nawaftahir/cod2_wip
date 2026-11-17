@@ -42,8 +42,6 @@ void FUN_00471270();
 void FUN_004713e0();
 void FUN_00471670();
 void FUN_00471a90();
-void FUN_004441b0();
-void FUN_00444a00();
 void FUN_0045c890();
 void FUN_0045ca10();
 void FUN_0045c950();
@@ -57,6 +55,8 @@ void FUN_00441460();
 void FUN_004745d0();
 }
 
+void Undo_Undo();
+void Undo_Redo();
 void QE_CountBrushesAndUpdateStatusBar();
 void QE_CheckAutoSave();
 
@@ -299,8 +299,8 @@ extern "C" void FUN_00417140() { dword_0123348c |= 1; }
 extern "C" void FUN_00417e00(unsigned v) { dword_0123348c |= v; }
 extern "C" void FUN_00417f00() {}
 extern "C" void FUN_00417f10() {}
-extern "C" void FUN_00419080() { FUN_004441b0(); }
-extern "C" void FUN_00419090() { FUN_00444a00(); }
+extern "C" void FUN_00419080() { Undo_Undo(); }
+extern "C" void FUN_00419090() { Undo_Redo(); }
 extern "C" void FUN_00419670() { CFindTextureDlg::show(); }
 extern "C" void FUN_00419970() { FUN_0045c890(); }
 extern "C" void FUN_00419980() { FUN_0045ca10(); }

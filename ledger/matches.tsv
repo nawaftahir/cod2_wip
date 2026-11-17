@@ -521,6 +521,7 @@ addr	size	source	symbol	name	tag
 0x00433e80	79	src/radiant/Pmesh.cpp	?Patch_SetBendRotateOrigin@@YAXXZ	Patch_SetBendRotateOrigin	SUPPORTED
 0x00434100	1	src/radiant/Pmesh.cpp	_FUN_00434100	FUN_00434100	UNNAMED
 0x00435840	182	src/radiant/Pmesh.cpp	?FUN_00435840@@YAXXZ	FUN_00435840	UNNAMED
+0x004392a0	275	src/radiant/Pmesh.cpp	?FUN_004392a0@@YAPAUpatch_t@@PAUpatchMesh_t@@@Z	FUN_004392a0	UNNAMED
 0x004394f0	16	src/radiant/Pmesh.cpp	?FUN_004394f0@@YAXQBM0QAM@Z	FUN_004394f0	UNNAMED
 0x00439500	28	src/radiant/Pmesh.cpp	?FUN_00439500@@YAXQBM0QAM@Z	FUN_00439500	UNNAMED
 0x00439670	14	src/radiant/Pmesh.cpp	?FUN_00439670@@YAXQAM@Z	FUN_00439670	UNNAMED
@@ -794,6 +795,7 @@ addr	size	source	symbol	name	tag
 0x004668b0	51	src/radiant/entity.cpp	?FUN_004668b0@@YAXPBM0PAM@Z	FUN_004668b0	UNNAMED
 0x004668f0	73	src/radiant/entity.cpp	?FUN_004668f0@@YAXPBDPAU_iobuf@@@Z	FUN_004668f0	UNNAMED
 0x00466940	41	src/radiant/entity.cpp	?FUN_00466940@@YAXPBDPAU_iobuf@@0@Z	FUN_00466940	UNNAMED
+0x004671b0	142	src/radiant/entity.cpp	?FUN_004671b0@@YAXPAUbrushdef_t@@PAUentity_t@@@Z	FUN_004671b0	UNNAMED
 0x00467240	152	src/radiant/entity.cpp	?FUN_00467240@@YAXPAUbrushdef_t@@@Z	FUN_00467240	PINNED
 0x004672e0	135	src/radiant/entity.cpp	?FUN_004672e0@@YAPAUentity_t@@PAU1@@Z	FUN_004672e0	UNNAMED
 0x00467370	114	src/radiant/entity.cpp	?GetUniqueTargetId@@YAHH@Z	GetUniqueTargetId	SUPPORTED

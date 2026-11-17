@@ -880,7 +880,7 @@ void FillPatch(patchMesh_t *p, vec3_t v)
 struct patch_eclass_t { unsigned char pad[8]; int fixedsize; };
 struct patch_entity_def_t { unsigned char pad[0x50]; patch_eclass_t *eclass; };
 struct entity_s { unsigned char pad[8]; patch_entity_def_t *def; };
-struct patch_t { patchMesh_t *def; };
+struct patch_t { patchMesh_t *def; short version; unsigned char pad06[0x1a]; };
 struct selbrush_t
 {
     selbrush_t *prev;
@@ -982,7 +982,7 @@ public:
 };
 extern CAdvCurveEditDlg DAT_01233b68;
 void FUN_0042bde0(selbrush_t *list);
-void FUN_00444150();
+void Undo_End();
 
 void FUN_0042beb0()
 {
@@ -991,7 +991,7 @@ void FUN_0042beb0()
     if (SendMessageA(g_hwndCheck_01234004, 0xf0, 0, 0))
         FUN_0042bde0(&DAT_010a44dc);
     FUN_0042bde0(&DAT_010a44b4);
-    FUN_00444150();
+    Undo_End();
 }
 
 struct CPatchBendXYProjection
@@ -1328,6 +1328,23 @@ void FUN_00439160(int amount)
         }
     }
     DAT_0123348c = -1;
+}
+
+
+// 0x004392a0 (275 B), def in esi
+patch_t *FUN_004392a0(patchMesh_t *def)
+{
+#define SYMBIOT ((symbiot_t *)def->cache_3828)
+#line 8097
+    assert( def );
+    assertText(SYMBIOT, "def->symbiot");
+    assertMsgText(SYMBIOT->refCount >= 0, "(def->symbiot->refCount >= 0)", "(def->symbiot->refCount) = %i", SYMBIOT->refCount);
+    patch_t *p = new patch_t;
+    memset(p, 0, sizeof(patch_t));
+    p->def = def;
+    p->version = def->version - 1;
+    return p;
+#undef SYMBIOT
 }
 
 
