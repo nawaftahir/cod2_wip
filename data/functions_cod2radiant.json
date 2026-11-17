@@ -2943,13 +2943,7 @@
   {
    "name": "FUN_0040d620",
    "addr": "0x0040d620",
-   "size": 77,
-   "thunk": false
-  },
-  {
-   "name": "FUN_0040d670",
-   "addr": "0x0040d670",
-   "size": 161,
+   "size": 241,
    "thunk": false
   },
   {

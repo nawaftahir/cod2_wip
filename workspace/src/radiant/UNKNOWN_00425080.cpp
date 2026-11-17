@@ -4,7 +4,6 @@
 #include "p4/clientapi.h"
 
 // This TU is built with frame pointer omission; the shared flags force /Oy-.
-#pragma optimize("y", on)
 
 extern int DAT_012334b4;
 

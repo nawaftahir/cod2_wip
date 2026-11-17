@@ -489,8 +489,7 @@ addr	size	tu	evidence
 0x0040cf00	25	radiant/filtersettings.cpp	SUPPORTED
 0x0040cf20	6	radiant/filtersettings.cpp	SUPPORTED
 0x0040cf30	1765	radiant/filtersettings.cpp	SUPPORTED
-0x0040d620	77	radiant/filtersettings.cpp	SUPPORTED
-0x0040d670	161	radiant/filtersettings.cpp	SUPPORTED
+0x0040d620	241	radiant/filtersettings.cpp	SUPPORTED
 0x0040d720	1047	radiant/filtersettings.cpp	SUPPORTED
 0x0040db40	2457	radiant/filtersettings.cpp	SUPPORTED
 0x0040e4e0	1	radiant/filtersettings.cpp	SUPPORTED
