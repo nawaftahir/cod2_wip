@@ -451,10 +451,13 @@ extern "C" void FUN_00442290() {}
 
 // Layout projection of the main frame: +0x7a0 is the window layout style (retail load at 0x442dbf);
 // the three methods are CMainFrame functions called through g_pParentWnd.
-class CMainFrame;
-struct CTexWndMainProjection {
+class CMainFrame
+{
+public:
     void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
-    void __stdcall OnKeyUp(UINT nChar);
+};
+void __stdcall FUN_004137d0(CMainFrame *self, UINT nChar);
+struct CTexWndMainProjection {
     BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
     unsigned char inheritedAndFrameFields[0x7a0];
     int m_nCurrentStyle;
@@ -553,13 +556,13 @@ void CTexWnd::OnTimer(UINT nIDEvent)
 // 0x00442f40 (15 B)
 void CTexWnd::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-    reinterpret_cast<CTexWndMainProjection *>(g_pParentWnd)->OnKeyDown(nChar, nRepCnt, nFlags);
+    g_pParentWnd->OnKeyDown(nChar, nRepCnt, nFlags);
 }
 
 // 0x00442f50 (23 B)
 void CTexWnd::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-    reinterpret_cast<CTexWndMainProjection *>(g_pParentWnd)->OnKeyUp(nChar);
+    FUN_004137d0(g_pParentWnd, nChar);
 }
 
 // 0x00443140 (34 B)

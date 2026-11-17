@@ -65,6 +65,20 @@ void QE_CountBrushesAndUpdateStatusBar();
 void QE_CheckAutoSave();
 
 struct MRUMENU;
+const int RAD_SHIFT = 0x01;
+const int RAD_ALT = 0x02;
+const int RAD_CONTROL = 0x04;
+const int RAD_PRESS = 0x08;
+struct SCommandInfo
+{
+  char *m_strCommand;
+  unsigned int m_nKey;
+  unsigned int m_nModifiers;
+  unsigned int m_nCommand;
+};
+extern SCommandInfo g_Commands[];
+extern int g_nCommandCount;
+BOOL LoadRegistryInfo(const char *pszName, void *pvBuf, long *plSize);
 BOOL SaveMruInReg(MRUMENU *lpMruMenu, char *lpszKey);
 void DeleteMruMenu(MRUMENU *lpMruMenu);
 int SaveRegistryInfo(const char *name, void *data, long size);
@@ -115,7 +129,12 @@ class CMainFrame : public CFrameWnd
 public:
   virtual BOOL PreCreateWindow(CREATESTRUCT &cs);
   virtual BOOL PreTranslateMessage(MSG *pMsg);
+  virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
+  virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
+  afx_msg void OnClose();
   afx_msg void OnTimer(UINT nIDEvent);
+  afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
+  afx_msg void OnSysKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
   afx_msg void OnDestroy();
   afx_msg void OnFileExit();
   // three CSplitterWnd at 0x500, 0x5d8, 0x6b0
@@ -175,6 +194,16 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT &cs)
   return CFrameWnd::PreCreateWindow(cs);
 }
 
+BOOL CMainFrame::OnCommand(WPARAM wParam, LPARAM lParam)
+{
+  return CFrameWnd::OnCommand(wParam, lParam);
+}
+
+LRESULT CMainFrame::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
+{
+  return CFrameWnd::WindowProc(message, wParam, lParam);
+}
+
 bool MouseDown()
 {
   if (::GetAsyncKeyState(VK_LBUTTON))
@@ -193,6 +222,29 @@ void CMainFrame::OnTimer(UINT nIDEvent)
     QE_CountBrushesAndUpdateStatusBar();
     QE_CheckAutoSave();
   }
+}
+
+// Q3Radiant LoadWindowPlacement
+bool FUN_004131d0(const char *pszName, HWND hwnd)
+{
+  WINDOWPLACEMENT wp;
+  wp.length = sizeof(wp);
+  long lSize = sizeof(wp);
+  if (LoadRegistryInfo(pszName, &wp, &lSize))
+  {
+    SetWindowPlacement(hwnd, &wp);
+    return true;
+  }
+  return false;
+}
+
+// Q3Radiant SaveWindowPlacement
+void FUN_00413210(HWND hwnd, const char *pszName)
+{
+  WINDOWPLACEMENT wp;
+  wp.length = sizeof(wp);
+  if (GetWindowPlacement(hwnd, &wp))
+    SaveRegistryInfo(pszName, &wp, sizeof(wp));
 }
 
 // 0x00413250 (1336 B)
@@ -298,6 +350,96 @@ void CMainFrame::OnDestroy()
   CleanUpEntities();
   FUN_004426e0();
   CFrameWnd::OnDestroy();
+}
+
+bool FUN_0046ba10();
+void FUN_0046b9b0();
+
+// Q3Radiant CMainFrame::OnClose with ConfirmModified
+void CMainFrame::OnClose()
+{
+  if (FUN_0046ba10())
+  {
+    if (::MessageBox(g_qeglobals.d_hwndMain, "This will lose changes to the map", "warning", MB_OKCANCEL) == IDCANCEL)
+      return;
+  }
+  FUN_0046b9b0();
+  CFrameWnd::OnClose();
+}
+
+// Q3Radiant CMainFrame::OnKeyUp: runs the command bound to a released key
+void __stdcall FUN_004137d0(CMainFrame *self, UINT nChar)
+{
+  for (int i = 0; i < g_nCommandCount; i++)
+  {
+    if (g_Commands[i].m_nKey == nChar)
+    {
+      bool bGo = true;
+      if (g_Commands[i].m_nModifiers & RAD_PRESS)
+      {
+        int nModifiers = g_Commands[i].m_nModifiers & ~RAD_PRESS;
+        if (nModifiers)
+        {
+          if (nModifiers & RAD_ALT)
+            if (!(GetKeyState(VK_MENU) & 0x8000))
+              bGo = false;
+          if (nModifiers & RAD_CONTROL)
+            if (!(GetKeyState(VK_CONTROL) & 0x8000))
+              bGo = false;
+          if (nModifiers & RAD_SHIFT)
+            if (!(GetKeyState(VK_SHIFT) & 0x8000))
+              bGo = false;
+        }
+        else
+        {
+          if (GetKeyState(VK_MENU) & 0x8000)
+            bGo = false;
+          if (GetKeyState(VK_CONTROL) & 0x8000)
+            bGo = false;
+          if (GetKeyState(VK_SHIFT) & 0x8000)
+            bGo = false;
+        }
+        if (bGo)
+        {
+          ::SendMessage(self->m_hWnd, WM_COMMAND, g_Commands[i].m_nCommand, 0);
+          break;
+        }
+      }
+    }
+  }
+}
+
+void CMainFrame::OnSysKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+  OnKeyDown(nChar, nRepCnt, nFlags);
+}
+
+// Q3Radiant CMainFrame::OnKeyDown: runs the command bound to a pressed key
+void CMainFrame::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+  if (nChar == 0)
+    return;
+  for (int i = 0; i < g_nCommandCount; i++)
+  {
+    if (g_Commands[i].m_nKey == nChar)
+    {
+      unsigned int nState = 0;
+      if (GetKeyState(VK_MENU) & 0x8000)
+        nState |= RAD_ALT;
+      if (GetKeyState(VK_CONTROL) & 0x8000)
+        nState |= RAD_CONTROL;
+      if (GetKeyState(VK_SHIFT) & 0x8000)
+        nState |= RAD_SHIFT;
+      if ((g_Commands[i].m_nModifiers & 0x7) == nState)
+      {
+        SendMessage(WM_COMMAND, g_Commands[i].m_nCommand, 0);
+        if (nRepCnt == 0 && nFlags == 0)
+          SendMessage(WM_COMMAND, g_Commands[i].m_nCommand, 0);
+        return;
+      }
+    }
+  }
+  Default();
 }
 
 extern "C" void __fastcall FUN_00414c50(CMainFrame *self) { self->field_07e4 = !self->field_07e4; }

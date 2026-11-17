@@ -336,8 +336,16 @@ addr	size	source	symbol	name	tag
 0x00411240	1	src/radiant/MainFrm.cpp	_FUN_00411240	FUN_00411240	UNNAMED
 0x004115a0	3	src/radiant/MainFrm.cpp	_FUN_004115a0@8	FUN_004115a0	UNNAMED
 0x00412df0	9	src/radiant/MainFrm.cpp	?PreCreateWindow@CMainFrame@@UAEHAAUtagCREATESTRUCTA@@@Z	CMainFrame::PreCreateWindow	SUPPORTED
+0x00413020	9	src/radiant/MainFrm.cpp	?OnCommand@CMainFrame@@UAEHIJ@Z	CMainFrame::OnCommand	SUPPORTED
+0x00413160	9	src/radiant/MainFrm.cpp	?WindowProc@CMainFrame@@UAEJIIJ@Z	CMainFrame::WindowProc	SUPPORTED
 0x00413170	41	src/radiant/MainFrm.cpp	?MouseDown@@YA_NXZ	MouseDown	SUPPORTED
 0x004131a0	48	src/radiant/MainFrm.cpp	?OnTimer@CMainFrame@@QAEXI@Z	CMainFrame::OnTimer	SUPPORTED
+0x004131d0	63	src/radiant/MainFrm.cpp	?FUN_004131d0@@YA_NPBDPAUHWND__@@@Z	FUN_004131d0	UNNAMED
+0x00413210	50	src/radiant/MainFrm.cpp	?FUN_00413210@@YAXPAUHWND__@@PBD@Z	FUN_00413210	UNNAMED
+0x00413790	56	src/radiant/MainFrm.cpp	?OnClose@CMainFrame@@QAEXXZ	CMainFrame::OnClose	SUPPORTED
+0x004137d0	228	src/radiant/MainFrm.cpp	?FUN_004137d0@@YGXPAVCMainFrame@@I@Z	FUN_004137d0	UNNAMED
+0x004138f0	9	src/radiant/MainFrm.cpp	?OnSysKeyDown@CMainFrame@@QAEXIII@Z	CMainFrame::OnSysKeyDown	SUPPORTED
+0x00413900	221	src/radiant/MainFrm.cpp	?OnKeyDown@CMainFrame@@QAEXIII@Z	CMainFrame::OnKeyDown	SUPPORTED
 0x00414c50	18	src/radiant/MainFrm.cpp	@FUN_00414c50@4	FUN_00414c50	UNNAMED
 0x00414c70	1	src/radiant/MainFrm.cpp	_FUN_00414c70	FUN_00414c70	UNNAMED
 0x00414c80	17	src/radiant/MainFrm.cpp	?OnFileExit@CMainFrame@@QAEXXZ	CMainFrame::OnFileExit	SUPPORTED
@@ -1062,6 +1070,7 @@ addr	size	source	symbol	name	tag
 0x0047a140	141	src/radiant/win_main.cpp	?SaveRegistryInfo@@YAHPBDPAXJ@Z	SaveRegistryInfo	SUPPORTED
 0x0047a1d0	119	src/radiant/win_main.cpp	?LoadRegistryInfo@@YAHPBDPAXPAJ@Z	LoadRegistryInfo	SUPPORTED
 0x0047a250	93	src/radiant/win_main.cpp	?FUN_0047a250@@YAXPAUHWND__@@PBD@Z	FUN_0047a250	UNNAMED
+0x0047a2b0	126	src/radiant/win_main.cpp	?FUN_0047a2b0@@YAHPBDPAUHWND__@@@Z	FUN_0047a2b0	UNNAMED
 0x0047a3c0	137	src/radiant/win_qe3.cpp	?Sys_MarkMapModified@@YAXXZ	Sys_MarkMapModified	SUPPORTED
 0x0047a450	15	src/radiant/win_qe3.cpp	?Sys_SetTitle@@YAXPAD@Z	Sys_SetTitle	SUPPORTED
 0x0047a460	26	src/radiant/win_qe3.cpp	?Sys_BeginWait@@YAXXZ	Sys_BeginWait	SUPPORTED
