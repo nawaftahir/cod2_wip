@@ -506,7 +506,6 @@ addr	size	source	symbol	name	tag
 0x0042b760	45	src/radiant/Pmesh.cpp	?FUN_0042b760@@YAMHHMHM@Z	FUN_0042b760	UNNAMED
 0x0042bd10	121	src/radiant/Pmesh.cpp	?FUN_0042bd10@@YAXPAUselbrush_t@@@Z	FUN_0042bd10	PINNED
 0x0042beb0	88	src/radiant/Pmesh.cpp	?FUN_0042beb0@@YAXXZ	FUN_0042beb0	UNNAMED
-0x0042f950	21	src/radiant/Pmesh.cpp	?FUN_0042f950@@YAXH@Z	FUN_0042f950	UNNAMED
 0x0042f660	290	src/radiant/Pmesh.cpp	?FUN_0042f660@@YAXPAUpatchMesh_t@@@Z	FUN_0042f660	PINNED
 0x0042f950	21	src/radiant/Pmesh.cpp	?FUN_0042f950@@YAXH@Z	FUN_0042f950	UNNAMED
 0x00433a20	44	src/radiant/Pmesh.cpp	?OnlyPatchesSelected@@YA_NXZ	OnlyPatchesSelected	SUPPORTED
@@ -577,6 +576,7 @@ addr	size	source	symbol	name	tag
 0x004405d0	31	src/radiant/TexWnd.cpp	_FUN_004405d0	FUN_004405d0	SUPPORTED
 0x004405f0	27	src/radiant/TexWnd.cpp	?SortTextures@@YAXXZ	SortTextures	SUPPORTED
 0x00440610	6	src/radiant/TexWnd.cpp	?TexWnd_GetDecalLocaleBit@@YAHXZ	TexWnd_GetDecalLocaleBit	SUPPORTED
+0x00440620	160	src/radiant/TexWnd.cpp	?Texture_SetMode@@YIXH@Z	Texture_SetMode	PINNED
 0x004406c0	297	src/radiant/TexWnd.cpp	?FUN_004406c0@@YAPAUqtexture_s@@PADPAXPAURadMtlInfo@@@Z	FUN_004406c0	PINNED
 0x00440840	320	src/radiant/TexWnd.cpp	?FUN_00440840@@YIPAUqtexture_s@@PAD@Z	FUN_00440840	PINNED
 0x00440be0	48	src/radiant/TexWnd.cpp	?RemapMaterialName@@YAPBDPBD@Z	RemapMaterialName	SUPPORTED
@@ -641,6 +641,7 @@ addr	size	source	symbol	name	tag
 0x00449460	227	src/radiant/XYWnd.cpp	??0CXYWnd@@QAE@XZ	CXYWnd::CXYWnd	SUPPORTED
 0x004496a0	6	src/radiant/XYWnd.cpp	?GetMessageMap@CXYWnd@@MBEPBUAFX_MSGMAP@@XZ	CXYWnd::GetMessageMap	SUPPORTED
 0x004496b0	168	src/radiant/XYWnd.cpp	?PreCreateWindow@CXYWnd@@MAEHAAUtagCREATESTRUCTA@@@Z	CXYWnd::PreCreateWindow	SUPPORTED
+0x00449760	160	src/radiant/XYWnd.cpp	?FUN_00449760@@YAHXZ	FUN_00449760	UNNAMED
 0x004499e0	49	src/radiant/XYWnd.cpp	?OnCreate@CXYWnd@@IAEHPAUtagCREATESTRUCTA@@@Z	CXYWnd::OnCreate	SUPPORTED
 0x00449a20	9	src/radiant/XYWnd.cpp	_FUN_00449a20	FUN_00449a20	UNNAMED
 0x0044a2d0	32	src/radiant/XYWnd.cpp	?fDiff@@YAMMM@Z	fDiff	SUPPORTED
