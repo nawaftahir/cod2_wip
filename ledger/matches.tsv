@@ -1135,6 +1135,7 @@ addr	size	source	symbol	name	tag
 0x004a6b70	28	src/xanim/dobj.cpp	?DObjGetModelLodForDist@@YAHPBUDObj_s@@HM@Z	DObjGetModelLodForDist	SUPPORTED
 0x004a6b90	356	src/xanim/dobj.cpp	?DObjGetMaxLodOutDist@@YAMPBUDObj_s@@@Z	DObjGetMaxLodOutDist	SUPPORTED
 0x004a6d00	613	src/xanim/dobj.cpp	?DObjCalcAnim@@YAXPBUDObj_s@@PAH@Z	DObjCalcAnim	PINNED
+0x004a71d0	52	src/xanim/dobj.cpp	?DObjSetLocalBoneIndex@@YAHPBUDObj_s@@PAHHPBM2@Z	DObjSetLocalBoneIndex	SUPPORTED
 0x004a7210	29	src/xanim/dobj.cpp	?DObjSetModel@@YAXPAUDObj_s@@PAUXModel@@@Z	DObjSetModel	SUPPORTED
 0x004a7230	58	src/script/scr_memorytree.cpp	?MT_GetSubTreeSize@@YAHH@Z	MT_GetSubTreeSize	SUPPORTED
 0x004a7270	91	src/script/scr_memorytree.cpp	?MT_NodeInfoString@@YAPBDI@Z	MT_NodeInfoString	SUPPORTED
@@ -1165,7 +1166,7 @@ addr	size	source	symbol	name	tag
 0x004a8b60	17	src/script/scr_stringlist.cpp	?SL_Shutdown@@YAXXZ	SL_Shutdown	SUPPORTED
 0x004a8f00	28	src/script/scr_stringlist.cpp	?SL_FindString@@YAIPBD@Z	SL_FindString	SUPPORTED
 0x004a8f20	157	src/script/scr_stringlist.cpp	?SL_FindLowercaseString@@YAIPBD@Z	SL_FindLowercaseString	SUPPORTED
-0x004a8fc0	123	src/script/scr_stringlist.cpp	?FUN_004a8fc0@@YAHI@Z	FUN_004a8fc0	PINNED
+0x004a8fc0	123	src/script/scr_stringlist.cpp	?SL_IsLowercaseString@@YAHI@Z	SL_IsLowercaseString	PINNED
 0x004a9040	24	src/script/scr_stringlist.cpp	?SL_AddUserInternal@@YAXPAURefString@@I@Z	SL_AddUserInternal	SUPPORTED
 0x004a9060	31	src/script/scr_stringlist.cpp	?SL_AddUser@@YAXII@Z	SL_AddUser	SUPPORTED
 0x004a98c0	47	src/script/scr_stringlist.cpp	?SL_GetString_@@YAIPBDIH@Z	SL_GetString_	SUPPORTED

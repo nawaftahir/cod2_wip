@@ -899,6 +899,98 @@ void DObjCalcAnim(const DObj_s *obj, int *partBits)
 	}
 }
 
+static void DObjClearAngles(DObjAnimMat *rotTrans)
+{
+	rotTrans->quat[0] = 0.0f;
+	rotTrans->quat[1] = 0.0f;
+	rotTrans->quat[2] = 0.0f;
+	rotTrans->quat[3] = 1.0f;
+}
+
+static void DObjSetTrans(DObjAnimMat *rotTrans, const float *trans)
+{
+	rotTrans->transWeight = 0.0f;
+	rotTrans->trans[0] = trans[0];
+	rotTrans->trans[1] = trans[1];
+	rotTrans->trans[2] = trans[2];
+}
+
+void DObjSetLocalTagInternal(const DObj_s *obj, const float *trans, const float *angles, int boneIndex)
+{
+	DObjAnimMat *rotTrans;
+	DObjAnimMat *childRotTrans;
+	float yaw[2], pitch[2], roll[2];
+	float t[4];
+
+	rotTrans = DObjGetRotTransArray(obj);
+
+	if ( rotTrans )
+	{
+		childRotTrans = &rotTrans[boneIndex];
+
+		if ( angles )
+		{
+			/* the asm in FastSinCos stops DObjSetAngles from being inlined, so it is spelled out here */
+			FastSinCos(angles[1] * 0.0087266462f, &yaw[0], &yaw[1]);
+			FastSinCos(angles[0] * 0.0087266462f, &pitch[0], &pitch[1]);
+			FastSinCos(angles[2] * 0.0087266462f, &roll[0], &roll[1]);
+			t[0] = -(pitch[0] * yaw[0]);
+			t[1] = yaw[1] * pitch[0];
+			t[2] = pitch[1] * yaw[0];
+			t[3] = pitch[1] * yaw[1];
+			childRotTrans->quat[0] = roll[0] * t[3] + roll[1] * t[0];
+			childRotTrans->quat[1] = roll[0] * t[2] + roll[1] * t[1];
+			childRotTrans->quat[2] = roll[1] * t[2] - roll[0] * t[1];
+			childRotTrans->quat[3] = roll[1] * t[3] - roll[0] * t[0];
+		}
+		else
+			DObjClearAngles(childRotTrans);
+
+		DObjSetTrans(childRotTrans, trans);
+	}
+}
+
+bool DObjSetControlTagAngles(const DObj_s *obj, int *partBits, unsigned int boneIndex, float *angles)
+{
+	int index;
+
+	index = DObjGetBoneIndex(obj, boneIndex);
+
+	if ( index < 0 )
+		return false;
+
+	if ( !DObjSetControlRotTransIndex(obj, partBits, index) )
+		return false;
+
+	DObjSetLocalTagInternal(obj, vec3_origin, angles, index);
+	return true;
+}
+
+bool DObjSetLocalTag(const DObj_s *obj, int *partBits, unsigned int boneIndex, const float *trans, const float *angles)
+{
+	int index;
+
+	index = DObjGetBoneIndex(obj, boneIndex);
+
+	if ( index < 0 )
+		return false;
+
+	if ( !DObjSetRotTransIndex(obj, partBits, index) )
+		return false;
+
+	DObjSetLocalTagInternal(obj, trans, angles, index);
+	return true;
+}
+
+int DObjSetLocalBoneIndex(const DObj_s *obj, int *partBits, int boneIndex, const float *trans, const float *angles)
+{
+	if ( !DObjSetRotTransIndex(obj, partBits, boneIndex) )
+		return 0;
+
+	DObjSetLocalTagInternal(obj, trans, angles, boneIndex);
+	return 1;
+}
+
 void DObjSetModel(DObj_s *obj, XModel *model)
 {
 	obj->skel = &model->parts->skel;
