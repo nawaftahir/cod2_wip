@@ -54,7 +54,7 @@ void FUN_0042fda0(patchMesh_t *p, int index)
     if (w + 1 >= 16)
         return;
     float half = (float)w * 0.5f;
-    if ((float)index <= half && index != w - 1)
+    if (!((float)index > half) && index != w - 1)
     {
         for (int i = w; i > 0; i--)
         {
@@ -100,7 +100,7 @@ void FUN_00430010(patchMesh_t *p, int index)
     if (w + 1 >= 16)
         return;
     float half = (float)w * 0.5f;
-    if ((float)index <= half && index != w - 1)
+    if (!((float)index > half) && index != w - 1)
     {
         for (int i = w; i > 0; i--)
         {
@@ -170,3 +170,9 @@ void FUN_00438020()
     }
 }
 
+
+/* r21: retail convention test. Adding an unreferenced
+   static void c_probe_unused(void (**out)(patchMesh_t *, int)) { out[0] = FUN_0042fda0; out[1] = FUN_00430010; }
+   makes LTCG keep the stack convention (the probe itself is dropped from the exe) and 0x438020
+   MATCHES 100%. Not landed: the retail image holds no pointer to either function, so the probe is
+   invented code. 42fda0/430010 then sit at 39%/30%: p in ebx vs retail esi + reload from [ebp+8]. */
