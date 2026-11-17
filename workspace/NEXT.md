@@ -28,6 +28,15 @@ emit-order warnings 18. FILE LEDGER 7 VERIFIED / 102 (audited set; other src/ fi
   in NameDlg) because those users do not exist yet. Fix: class in a header, write the user function in
   the earlier file. Not linker ICF: 46 duplicate groups in retail are raw-byte identical and kept apart.
 
+## 2026-11-17 round 4 (clean gate 63404c52)
+1453/3582 = 40.56% game functions, 23.45% game bytes (164,096 B), same-offset 1.809%, 0 failing.
+- Merged: filtersettings +43 (assert forwarders), VertEditDlg +9, entity/map/qe3 +12 (copystring), TexWnd +7 /
+  SurfaceDlg +1, InitCull/AreaSelectOK/0x45ebc0, Winding BaseForPlane + Clip (operand order rule).
+- GraphGetValueFromFraction 0x4832c0 flips with the function SET; merging more lanes has restored it every
+  time. Workflow: on a flip, merge the next ready lane and re-gate before bisecting. Owner did not take a tie list.
+- Next clusters: MainFrm filter callees 0x41c440..0x41d400 (callers now exist), Brush_BuildWindings 0x45a220,
+  Eclass_ForName 0x464770, Cam_MouseMoved 0x404dc0 (drag 0x4623e0), PrefsDlg as a whole class.
+
 ## 2026-11-17 round 3 (clean gate, 68936968)
 1374/3582 = 38.36% game functions, 22.08% game bytes (154,516 B), same-offset 1.751%, emit-order 12, 0 failing.
 - Merged: dobj +6, Winding +5 / brush +2, dvar +2, CamWnd +10, entity +29 (new file), map +5 (new file).
@@ -106,6 +115,41 @@ separate `fsin` + `fcos`; `/QIfist` turns `_ftol2` into `fistp`. Retail com_math
 `fsincos` and bare `fistp`, so the original used inline asm helpers (opencod1 g_debug_mp.c documents the same
 for `fistp`). Blocks ~20 com_math + 3 dvar rows. Needs the owner to amend the CLAUDE.md "no asm" rule for
 these helpers only (proposed text in the 11-16 session report); agents may not edit CLAUDE.md.
+
+## Operand order rule (lane e, 2026-11-17)
+PINNED. MSVC 7.1 /O2 sorts the operands of commutative fadd/fmul/add into a canonical order, so source term
+order does not matter. Every permutation of `a[0]*n[0]+a[1]*n[1]+a[2]*n[2]` gives the same code (scratch tests
+in `~/cltest/e/*.c`, run with `~/cltest/e/cc.sh`, /O2 /Oy- /Op, no /GL). The order follows the identity and
+first-reference order of the memory leaves, not the text:
+- `g=n[0]; g=n[1]; g=n[2];` then the dot gives z,x,y. `g=n[2]; g=n[0];` gives x,z,y. An extra read of
+  `n[3]` between them also flips it. Writes to unrelated globals change nothing (o.c, n.c, k.c).
+- Spelling the same address another way makes a new leaf: `const float *n = p->normal;` versus
+  `p->normal[k]` flips the order (p.c c2/c3).
+- The /GL build hashes it differently from the scratch build, so test the real function with make try.
+  The lever is the same: use a local pointer alias for a member array in one place, or drop it.
+Results:
+- Winding_BaseForPlane 0x447c60 MATCH: `normal = p->normal` alias for fabs/VectorMA/scale/cross, but
+  `DotProduct(vup, p->normal)` for the dot.
+- Winding_Clip 0x448280 MATCH (the integer `add ecx,eax` swap had the same cause):
+  `const float *normal = split->normal;` before the j loop.
+- Winding_PlanesConcave 0x4481e0 still 95%: aliasing did not fix it (defer row). Retail reloads normal2
+  inside loop 2.
+- Not tried yet, same lever: brush 0x45f860 `[ecx+esi]`.
+- Round 5 (all MATCH, same lever, first try each):
+  - Base/index swap: Patch_GetAxisFace 0x427290 `[eax+ebx]` needs `face_t *faces = b->faces;` in the
+    loop, then `faces[i].w`. `(b->faces + i)->w` does not change it.
+  - fmul operand order in an inlined cross: Patch_MeshNormals 0x425910 needs the index named once,
+    `int k1 = (k + 1) & 7; Vec3Cross(around[k1], around[k], normal);`. Pointer aliases for the rows
+    made it worse (96-97%).
+  - Load order of integer leaves: ConsumeQuat 0x4aae50 copies to locals first, `iQ[0..2] = out[0..2];`
+    then `temp = 1073676289 - iQ[2]*iQ[2] - iQ[1]*iQ[1] - iQ[0]*iQ[0];` (the unused-looking iQ[4]
+    is the hint). Stepwise `temp -=` on iQ gives 99%.
+  - Register choice: DObjSetLocalTagInternal 0x4a6ff0 builds the child pointer in the same variable,
+    `rotTrans += boneIndex;`, not a second `childRotTrans = &rotTrans[boneIndex]`.
+  - Rule of thumb: when retail reuses one register for a value, use one variable; when it loads a
+    leaf through a different base, give that base its own local.
+- Still open: Winding_PlanesConcave 0x4481e0 (loop 2 x,z,y, 8 forms, 92-95%), Dvar_StringToValue
+  0x48ca50 (epilogue order, `return value;` in the BOOL case no change).
 
 ## Order of work
 1. **NameDlg + DlgEvent via dlgcamera:** **DONE** (`CDlgCamera` in `workspace/src/radiant/dlgcamera.{h,cpp}`,

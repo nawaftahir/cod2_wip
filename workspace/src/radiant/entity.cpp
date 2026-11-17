@@ -77,6 +77,7 @@ struct entity_t
 
 extern entity_t entities;
 extern int DAT_011298b0;
+extern int DAT_00591cd8;
 extern char *FUN_0046cb10(const char *str);
 extern eclass_t *FUN_00464770(int a, const char *name);
 extern void Brush_InitSolid(brushdef_t *b, const vec3_t mins, const vec3_t maxs, eclass_t *eclass);
@@ -91,6 +92,9 @@ void FUN_00467510(entity_t *e);
 void FUN_00465bf0(entity_t *e, const char *key, const char *value);
 extern void FUN_0047a760(const char *fmt, ...);
 extern char *va(const char *format, ...);
+extern void FUN_00458af0(brushdef_t *def);
+void FUN_00467240(brushdef_t *b);
+#define assert1(expr) do { static bool s_assertDisable; if (!(expr) && !s_assertDisable) { switch (FUN_0047d980(#expr, __FILE__, __LINE__, 1, 1)) { case 0: DebugBreak(); break; case 2: s_assertDisable = true; break; } } } while (0)
 extern void (__cdecl *dword_0059c490)(void *);
 
 // 0x00464bb0 (88 B)
@@ -469,6 +473,28 @@ void Entity_RemoveFromList(entity_t *e)
 	e->next = NULL;
 }
 
+// 0x004661f0 (446 B)
+void FUN_004661f0(entity_t *e)
+{
+#line 645
+	assert(e);
+	assertMsg((e->refCount == 0), "(e->refCount) = %i", e->refCount);
+	if (e->next)
+		Entity_RemoveFromList(e);
+	for (brushdef_t *b = e->brushes.onext; b != &e->brushes; b = e->brushes.onext)
+	{
+#line 654
+		assert1(b->owner == e);
+		assert1(b->oprev == &e->brushes);
+		FUN_00467240(b);
+#line 657
+		vassert((b->refCount == 0), "(b->refCount) = %i", b->refCount);
+		FUN_00458af0(b);
+	}
+	Entity_FreeEpairs(e);
+	delete e;
+}
+
 // 0x004663b0 (66 B)
 int Entity_MemorySize(entity_t *e)
 {
@@ -526,6 +552,28 @@ void FUN_00467240(brushdef_t *b)
 	b->oprev = NULL;
 	b->onext = NULL;
 	b->owner = NULL;
+}
+
+// 0x004672e0 (135 B)
+entity_t *FUN_004672e0(entity_t *e)
+{
+	entity_t *n = new entity_t;
+	memset(n, 0, sizeof(entity_t));
+	n->entityId = DAT_00591cd8++;
+	n->brushes.onext = n->brushes.oprev = &n->brushes;
+	n->eclass = e->eclass;
+	n->origin[0] = e->origin[0];
+	n->origin[1] = e->origin[1];
+	n->origin[2] = e->origin[2];
+	for (epair_t *ep = e->epairs; ep; ep = ep->next)
+	{
+		epair_t *np = new epair_t;
+		np->key = FUN_0046cb10(ep->key);
+		np->value = FUN_0046cb10(ep->value);
+		np->next = n->epairs;
+		n->epairs = np;
+	}
+	return n;
 }
 
 // 0x00467370 (114 B)

@@ -2,10 +2,11 @@
 
 extern "C" {
 __declspec(dllimport) void __stdcall DebugBreak(void);
-int AssertFailed(const char *expr, const char *file, int line, int a4, int a5);
+
 void *SL_GetString(unsigned int stringValue);
 }
 char *va(const char *format, ...);
+int FUN_0047d980(const char *expr, const char *file, int line, int type, int skip);
 
 const char *SL_ConvertToString(unsigned int stringValue);
 
@@ -13,7 +14,7 @@ const char *SL_ConvertToString(unsigned int stringValue);
     do { \
         static char s_assertDisable; \
         if (!(expr) && !s_assertDisable) { \
-            switch (AssertFailed(#expr, "\\trees\\cod2src\\src\\xanim\\xmodel_utils.cpp", __LINE__, 0, 1)) { \
+            switch (FUN_0047d980(#expr, "\\trees\\cod2src\\src\\xanim\\xmodel_utils.cpp", __LINE__, 0, 1)) { \
             case 0: \
                 DebugBreak(); \
                 break; \
@@ -28,7 +29,7 @@ const char *SL_ConvertToString(unsigned int stringValue);
     do { \
         static char s_assertDisable; \
         if (!(expr) && !s_assertDisable) { \
-            switch (AssertFailed(#expr, "\\trees\\cod2src\\src\\xanim\\xmodel_utils.cpp", line, 0, 1)) { \
+            switch (FUN_0047d980(#expr, "\\trees\\cod2src\\src\\xanim\\xmodel_utils.cpp", line, 0, 1)) { \
             case 0: \
                 DebugBreak(); \
                 break; \
@@ -43,7 +44,7 @@ const char *SL_ConvertToString(unsigned int stringValue);
     do { \
         static char s_assertDisable; \
         if (!(expr) && !s_assertDisable) { \
-            switch (AssertFailed(va("%s\n\t%s", #expr, va(fmt, a1, a2)), "\\trees\\cod2src\\src\\xanim\\xmodel_utils.cpp", line, 0, 1)) { \
+            switch (FUN_0047d980(va("%s\n\t%s", #expr, va(fmt, a1, a2)), "\\trees\\cod2src\\src\\xanim\\xmodel_utils.cpp", line, 0, 1)) { \
             case 0: \
                 DebugBreak(); \
                 break; \
