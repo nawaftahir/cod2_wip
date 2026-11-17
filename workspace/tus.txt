@@ -314,7 +314,7 @@ libwww/Library/src/HTWWWStr.c
 libwww/Library/src/HTDigest.c
 libwww/Library/src/HTMethod.c
 libwww/Library/src/HTRules.c
-libwww/Library/src/HTCache.c
+libwww/Library/src/HTCache.c /Op
 libwww/Library/src/HTGuess.c
 libwww/Library/src/HTNewsLs.c
 libwww/Library/src/HTTP.c
