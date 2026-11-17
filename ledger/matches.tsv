@@ -567,7 +567,6 @@ addr	size	source	symbol	name	tag
 0x004250f0	11	src/radiant/UNKNOWN_00425080.cpp	?Test@Error@@QBEHXZ	Error::Test	SUPPORTED
 0x00425110	14	src/radiant/UNKNOWN_00425080.cpp	??0ClientUser@@QAE@XZ	ClientUser::ClientUser	SUPPORTED
 0x00425120	1	src/radiant/UNKNOWN_00425080.cpp	?Finished@ClientUser@@UAEXXZ	ClientUser::Finished	SUPPORTED
-0x00425130	30	src/radiant/UNKNOWN_00425080.cpp	??_GClientUser@@UAEPAXI@Z	ClientUser::scalar deleting destructor	SUPPORTED
 0x00425150	38	src/radiant/UNKNOWN_00425080.cpp	?OutputError@StdClientUser@@UAEXPBD@Z	StdClientUser::OutputError	SUPPORTED
 0x00425180	28	src/radiant/UNKNOWN_00425080.cpp	?OutputInfo@StdClientUser@@UAEXDPBD@Z	StdClientUser::OutputInfo	SUPPORTED
 0x004251a0	28	src/radiant/UNKNOWN_00425080.cpp	?OutputText@StdClientUser@@UAEXPBDH@Z	StdClientUser::OutputText	SUPPORTED
