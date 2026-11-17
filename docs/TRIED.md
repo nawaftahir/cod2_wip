@@ -462,3 +462,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | HTCache_isFresh heap probe (w29, 11-17, clean gate) | 3 unused extern decls before the includes (heap-state probe for the non-LTCG compile) | isFresh residue identical (slot swap stays); other HTCache fns lose only through the __LINE__ shift. Not front-end heap state |
 | /Op per TU (w29, 11-17, opscan.sh, clean ratchets) | /Op on FxUtil, cg_newDraw_mp, xanim, cg_weapons, ui_shared_mp, scr_vm, cg_draw_mp, common, nb_celp | every TU far worse (same-offset 0.26-1.03 M): /Op is HTCache-only |
 | FX_CalcOriginAndAxis (w29, 11-17, gate) | `#pragma optimize("p", on)` around the fn | same-offset unchanged 1974041, fn diff same: no effect |
+| per-TU flags (w29, 11-17, flscan.sh, 24 gate builds) | /Ob2, /G6, /GB, /Oy- on FxUtil, cg_newDraw_mp, xanim, cg_weapons, scr_vm, ui_shared_mp | /Ob2 /G6 /GB: no change (1974041); /Oy-: 0.89-1.21 M (far worse). Flags are not the lever for these TUs |
