@@ -453,6 +453,7 @@ addr	size	source	symbol	name	tag
 0x004546a0	254	src/radiant/brush.cpp	?Face_FreeArray@@YAXPAUface_t@@H@Z	Face_FreeArray	PINNED
 0x004547a0	109	src/radiant/brush.cpp	?FaceRender_AllocArray@@YAPAUfaceRender_t@@H@Z	FaceRender_AllocArray	PINNED
 0x00454810	330	src/radiant/brush.cpp	?FaceRender_FreeArray@@YAXPAUbrush_t@@PAUfaceRender_t@@H@Z	FaceRender_FreeArray	PINNED
+0x00454960	66	src/radiant/brush.cpp	?FUN_00454960@@YAXPBUface_t@@PAU1@@Z	FUN_00454960	SUPPORTED
 0x00454a30	122	src/radiant/brush.cpp	?Face_GetTextureVecs@@YAXPBUface_t@@QAY03M@Z	Face_GetTextureVecs	PINNED
 0x00454d70	23	src/radiant/brush.cpp	?FacePlane_ToVec4@@YAXPBUfacePlane_t@@QAM@Z	FacePlane_ToVec4	SUPPORTED
 0x00454d90	346	src/radiant/brush.cpp	?Brush_ForEachVertex@@YAHPAUbrushdef_t@@P6AH0PBHQBMHPAX3@Z33@Z	Brush_ForEachVertex	SUPPORTED
@@ -469,6 +470,11 @@ addr	size	source	symbol	name	tag
 0x00458640	35	src/radiant/brush.cpp	?BrushDef_Create@@YAPAUbrushdef_t@@QBM0PAUeclass_t@@PBUtexdef_t@@@Z	BrushDef_Create	SUPPORTED
 0x00458d20	30	src/radiant/brush.cpp	?Face_MemorySize@@YAHPBUface_t@@@Z	Face_MemorySize	SUPPORTED
 0x00458d40	113	src/radiant/brush.cpp	?BrushDef_MemorySize@@YAHPBUbrushdef_t@@@Z	BrushDef_MemorySize	SUPPORTED
+0x004592c0	36	src/radiant/brush.cpp	?FUN_004592c0@@YA_NPAUbrush_t@@@Z	FUN_004592c0	SUPPORTED
+0x0045b630	36	src/radiant/brush.cpp	?FUN_0045b630@@YA_NPAUbrush_t@@@Z	FUN_0045b630	SUPPORTED
+0x0045efb0	92	src/radiant/brush.cpp	?FUN_0045efb0@@YAXPAUface_t@@@Z	FUN_0045efb0	SUPPORTED
+0x0045f010	96	src/radiant/brush.cpp	?FUN_0045f010@@YAXPAUface_t@@PAUbrushdef_t@@@Z	FUN_0045f010	SUPPORTED
+0x0045f830	46	src/radiant/brush.cpp	?FUN_0045f830@@YAXQBM0QAMM@Z	FUN_0045f830	HYPOTHESIS
 0x00460160	373	src/radiant/csg.cpp	?Brush_GetFaceFlags@@YAXPAUbrush_t@@PAH111@Z	Brush_GetFaceFlags	SUPPORTED
 0x004602e0	225	src/radiant/csg.cpp	?Brush_IsFixedOrPatch@@YA_NPAUbrush_t@@@Z	Brush_IsFixedOrPatch	SUPPORTED
 0x004603d0	37	src/radiant/csg.cpp	?Brush_FaceFlags_Check80@@YADPAUbrush_t@@@Z	Brush_FaceFlags_Check80	SUPPORTED
