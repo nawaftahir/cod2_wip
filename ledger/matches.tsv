@@ -1337,6 +1337,8 @@ addr	size	source	symbol	name	tag
 0x004a6b90	356	src/xanim/dobj.cpp	?DObjGetMaxLodOutDist@@YAMPBUDObj_s@@@Z	DObjGetMaxLodOutDist	SUPPORTED
 0x004a6d00	613	src/xanim/dobj.cpp	?DObjCalcAnim@@YAXPBUDObj_s@@PAH@Z	DObjCalcAnim	PINNED
 0x004a6ff0	320	src/xanim/dobj.cpp	?DObjSetLocalTagInternal@@YAXPBUDObj_s@@PBM1H@Z	DObjSetLocalTagInternal	SUPPORTED
+0x004a7130	80	src/xanim/dobj.cpp	?DObjSetControlTagAngles@@YAHPBUDObj_s@@PAHIPAM@Z	DObjSetControlTagAngles	SUPPORTED
+0x004a7180	71	src/xanim/dobj.cpp	?DObjSetLocalTag@@YAHPBUDObj_s@@PAHIPBM2@Z	DObjSetLocalTag	SUPPORTED
 0x004a71d0	52	src/xanim/dobj.cpp	?DObjSetLocalBoneIndex@@YAHPBUDObj_s@@PAHHPBM2@Z	DObjSetLocalBoneIndex	SUPPORTED
 0x004a7210	29	src/xanim/dobj.cpp	?DObjSetModel@@YAXPAUDObj_s@@PAUXModel@@@Z	DObjSetModel	SUPPORTED
 0x004a7230	58	src/script/scr_memorytree.cpp	?MT_GetSubTreeSize@@YAHH@Z	MT_GetSubTreeSize	SUPPORTED
