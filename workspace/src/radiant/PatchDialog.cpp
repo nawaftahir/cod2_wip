@@ -5,6 +5,7 @@
 
 extern float dword_1128DC4;
 extern int g_nUpdateBits;
+extern int DAT_01128d94;
 
 void Patch_NaturalizeSelected(bool bDetails, bool bCycleCap, float fScaleS, float fScaleT);
 void Brush_FitTexture(float fS, float fT, int nZero);
@@ -124,6 +125,30 @@ BOOL CPatchDialog::OnInitDialog()
 	return TRUE;
 }
 
+void CPatchDialog::GetPatchInfo()
+{
+	m_Patch = SinglePatchSelected();
+	if (m_Patch != NULL)
+	{
+		CString strTemp;
+		m_wndRows.ResetContent();
+		for (int i = 0; i < m_Patch->height; i++)
+		{
+			strTemp.Format("%i", i);
+			m_wndRows.AddString(strTemp);
+		}
+		m_wndRows.SetCurSel(0);
+		m_wndCols.ResetContent();
+		for (int j = 0; j < m_Patch->width; j++)
+		{
+			strTemp.Format("%i", j);
+			m_wndCols.AddString(strTemp);
+		}
+		m_wndCols.SetCurSel(0);
+	}
+	UpdateRowColInfo();
+}
+
 void CPatchDialog::SetPatchInfo()
 {
 }
@@ -161,6 +186,26 @@ void CPatchDialog::OnDestroy()
 		SaveRegistryInfo("Radiant::PatchWindow", &rct, sizeof(rct));
 	}
 	CDialog::OnDestroy();
+}
+
+void CPatchDialog::UpdateRowColInfo()
+{
+	m_fS = m_fT = 0.0f;
+	m_fX = m_fY = m_fZ = 0.0f;
+	if (m_Patch != NULL)
+	{
+		int row = m_wndRows.GetCurSel();
+		int col = m_wndCols.GetCurSel();
+		if (row >= 0 && row < m_Patch->height && col >= 0 && col < m_Patch->width)
+		{
+			m_fX = m_Patch->ctrl[col][row].xyz[0];
+			m_fY = m_Patch->ctrl[col][row].xyz[1];
+			m_fZ = m_Patch->ctrl[col][row].xyz[2];
+			m_fS = m_Patch->ctrl[col][row].st[DAT_01128d94][0];
+			m_fT = m_Patch->ctrl[col][row].st[DAT_01128d94][1];
+		}
+	}
+	UpdateData(FALSE);
 }
 
 void CPatchDialog::UpdateInfo()
