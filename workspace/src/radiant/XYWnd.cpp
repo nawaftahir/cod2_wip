@@ -45,11 +45,14 @@ void FUN_0047a760(const char *format, ...);
 void Drag_MouseUp(int buttons);
 
 // The three CMainFrame methods called through g_pParentWnd (same projection as TexWnd.cpp).
-class CMainFrame;
+class CMainFrame
+{
+public:
+    void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
+};
+void __stdcall FUN_004137d0(CMainFrame *self, UINT nChar);
 struct CXYWndMainProjection
 {
-    void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
-    void __stdcall OnKeyUp(UINT nChar);
     BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
 };
 extern CMainFrame *g_pParentWnd;
@@ -291,7 +294,7 @@ void CXYWnd::SetPointMode(bool b)
 
 void CXYWnd::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-    reinterpret_cast<CXYWndMainProjection *>(g_pParentWnd)->OnKeyDown(nChar, nRepCnt, nFlags);
+    g_pParentWnd->OnKeyDown(nChar, nRepCnt, nFlags);
 }
 
 void CXYWnd::FUN_0044bc50(const char *name, int id)
@@ -600,7 +603,7 @@ float (&CXYWnd::Rotation())[3]
 
 void CXYWnd::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-    reinterpret_cast<CXYWndMainProjection *>(g_pParentWnd)->OnKeyUp(nChar);
+    FUN_004137d0(g_pParentWnd, nChar);
 }
 
 void CXYWnd::OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS *lpncsp)
@@ -639,7 +642,7 @@ BOOL CXYWnd::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 
 void CXYWnd::OnSysKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-    reinterpret_cast<CXYWndMainProjection *>(g_pParentWnd)->OnKeyDown(nChar, nRepCnt, nFlags);
+    g_pParentWnd->OnKeyDown(nChar, nRepCnt, nFlags);
 }
 
 extern "C" float FUN_004533d0(const float *a, const float *b)

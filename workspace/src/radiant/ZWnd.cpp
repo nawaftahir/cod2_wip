@@ -45,11 +45,14 @@ struct ZWndRefExport_t
 	void (*ResizeWindow)(HWND hwnd, int width, int height);
 };
 
-class CMainFrame;
+class CMainFrame
+{
+public:
+    void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
+};
+void __stdcall FUN_004137d0(CMainFrame *self, UINT nChar);
 struct CZWndMainProjection
 {
-	void __stdcall OnKeyUp(UINT nChar);
-	void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 	BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
 	void UpdateStatusBar();
 
@@ -165,7 +168,7 @@ int CZWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 void CZWnd::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	reinterpret_cast<CZWndMainProjection *>(g_pParentWnd)->OnKeyDown(nChar, nRepCnt, nFlags);
+	g_pParentWnd->OnKeyDown(nChar, nRepCnt, nFlags);
 }
 
 void CZWnd::OnPaint()
@@ -279,7 +282,7 @@ BOOL CZWnd::PreCreateWindow(CREATESTRUCT& cs)
 
 void CZWnd::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	reinterpret_cast<CZWndMainProjection *>(g_pParentWnd)->OnKeyUp(nChar);
+	FUN_004137d0(g_pParentWnd, nChar);
 }
 
 BOOL CZWnd::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
@@ -289,5 +292,5 @@ BOOL CZWnd::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 
 void CZWnd::OnSysKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	reinterpret_cast<CZWndMainProjection *>(g_pParentWnd)->OnKeyDown(nChar, nRepCnt, nFlags);
+	g_pParentWnd->OnKeyDown(nChar, nRepCnt, nFlags);
 }

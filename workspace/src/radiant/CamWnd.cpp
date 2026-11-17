@@ -20,7 +20,12 @@ struct CameraState
 };
 
 class CXYWnd;
-class CMainFrame;
+class CMainFrame
+{
+public:
+    void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
+};
+void __stdcall FUN_004137d0(CMainFrame *self, UINT nChar);
 struct orientation_t { float origin[3]; float axis[3][3]; };
 extern orientation_t g_editorOrientation;
 void OrientationPosToLocal(const orientation_t *orient, const float *pos, float *out);
@@ -30,8 +35,6 @@ extern HWND dword_010bcd58;
 
 struct CCamWndMainProjection
 {
-    void __stdcall OnKeyUp(UINT key);
-    void OnKeyDown(UINT key, UINT repeat, UINT flags);
     BOOL OnMouseWheel(UINT flags, short delta, CPoint point);
 };
 
@@ -186,7 +189,7 @@ BOOL CCamWnd::PreCreateWindow(CREATESTRUCT &create)
 
 void CCamWnd::OnKeyDown(UINT key, UINT repeat, UINT flags)
 {
-    reinterpret_cast<CCamWndMainProjection *>(g_pParentWnd)->OnKeyDown(key, repeat, flags);
+    g_pParentWnd->OnKeyDown(key, repeat, flags);
 }
 
 void CCamWnd::SetXYFriend(CXYWnd *window)
@@ -360,7 +363,7 @@ extern "C" void FUN_00407550() {}
 
 void CCamWnd::OnKeyUp(UINT key, UINT repeat, UINT flags)
 {
-    reinterpret_cast<CCamWndMainProjection *>(g_pParentWnd)->OnKeyUp(key);
+    FUN_004137d0(g_pParentWnd, key);
 }
 
 BOOL CCamWnd::OnMouseWheel(UINT flags, short delta, CPoint point)
@@ -370,7 +373,7 @@ BOOL CCamWnd::OnMouseWheel(UINT flags, short delta, CPoint point)
 
 void CCamWnd::OnSysKeyDown(UINT key, UINT repeat, UINT flags)
 {
-    reinterpret_cast<CCamWndMainProjection *>(g_pParentWnd)->OnKeyDown(key, repeat, flags);
+    g_pParentWnd->OnKeyDown(key, repeat, flags);
 }
 
 extern "C" void FUN_004077c0() {}

@@ -135,3 +135,24 @@ void FUN_0047a250(HWND hWnd, const char *pszName)
     }
     SaveRegistryInfo(pszName, &rc, sizeof(rc));
 }
+
+// Q3 LoadWindowState: restores the window rect saved by SaveWindowState
+BOOL FUN_0047a2b0(const char *pszName, HWND hWnd)
+{
+    RECT rc;
+    long lSize = sizeof(rc);
+    if (LoadRegistryInfo(pszName, &rc, &lSize))
+    {
+        if (rc.left < 0)
+            rc.left = 0;
+        if (rc.top < 0)
+            rc.top = 0;
+        if (rc.right < rc.left + 16)
+            rc.right = rc.left + 16;
+        if (rc.bottom < rc.top + 16)
+            rc.bottom = rc.top + 16;
+        MoveWindow(hWnd, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, FALSE);
+        return TRUE;
+    }
+    return FALSE;
+}
