@@ -1421,7 +1421,8 @@ addr	size	tu	evidence
 0x0042f1b0	259	radiant/Pmesh.cpp	PINNED
 0x0042f2c0	550	radiant/Pmesh.cpp	SUPPORTED
 0x0042f4f0	214	radiant/Pmesh.cpp	SUPPORTED
-0x0042f5d0	117	radiant/Pmesh.cpp	SUPPORTED
+0x0042f5d0	112	radiant/Pmesh.cpp	PINNED
+0x0042f640	5	radiant/Pmesh.cpp	PINNED
 0x0042f650	5	radiant/Pmesh.cpp	SUPPORTED
 0x0042f660	290	radiant/Pmesh.cpp	PINNED
 0x0042f790	169	radiant/Pmesh.cpp	PINNED

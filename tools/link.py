@@ -27,6 +27,9 @@ LIBS = ("nafxcw.lib libcmt.lib libcpmt.lib kernel32.lib user32.lib gdi32.lib com
 FLAGS = ["/NOLOGO", "/SUBSYSTEM:WINDOWS,4.0", "/FIXED", "/BASE:0x400000", "/DEBUG",
          "/PDB:e:\\trees\\cod2\\bin\\CoD2Radiant.pdb", "/PDBPATH:none",
          "/DELAYLOAD:OLEACC.dll", "/FORCE:UNRESOLVED", "/LTCG"]
+# Perforce API (untracked, see data/lib_funcs.tsv): linked first like the retail P4 objects, only if present
+P4LIBS = [str(pathlib.Path("toolchain/p4api") / n) for n in ("libclient.lib", "librpc.lib", "libsupp.lib")
+          if (BASE / "toolchain" / "p4api" / n).exists()]
 # no /OPT: retail keeps 238 groups of identical functions apart (no ICF); /DEBUG defaults to NOREF+NOICF
 
 
@@ -225,7 +228,7 @@ def build(includes=(), quiet=False):
     EXE.unlink(missing_ok=True)
     inc = ["/INCLUDE:%s" % s for s in sorted(set(ledger_includes()) | set(includes))]
     (BASE / "build" / "link.rsp").write_text("\n".join(FLAGS + [function_order()] + inc + ["/OUT:build/CoD2Radiant.exe",
-                                             "/MAP:build/CoD2Radiant.map"] + objs + res + LIBS) + "\n")
+                                             "/MAP:build/CoD2Radiant.map"] + objs + res + P4LIBS + LIBS) + "\n")
     out = run("wine /opt/msvc710/Vc7/bin/link.exe @build/link.rsp").stdout.splitlines()
     unresolved = sum(1 for l in out if "LNK2001" in l or "LNK2019" in l)
     errors = [l for l in out if "error" in l and not any(c in l for c in ("LNK2001", "LNK2019", "LNK1120"))]
