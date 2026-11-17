@@ -13,6 +13,18 @@ char *FUN_0046cb10(const char *str)
 	return copy;
 }
 
+extern int DAT_010bcd28;
+extern int DAT_010bcd2c;
+void Z_Init(void);
+
+// 0x0046e120 (61 B)
+void FUN_0046e120(void)
+{
+	DAT_010bcd2c = 8;
+	DAT_010bcd28 = 1;
+	Z_Init();
+}
+
 extern char com_token[];
 extern int com_eof;
 

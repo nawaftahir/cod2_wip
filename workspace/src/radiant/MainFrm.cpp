@@ -1,11 +1,16 @@
 #include "stdafx.h"
 #include "FindTextureDlg.h"
 #include "PrefsDlg.h"
+#include <math.h>
 
 // Bodies sit in retail address order; FUN_ names and signatures are provisional.
 
 void Pointfile_Next(void);
 void Pointfile_Prev(void);
+void Pointfile_Check(void);
+void FUN_00441460(void);
+void Dvar_SetStringByName(const char *dvarName, const char *value);
+void FUN_0042beb0(void);
 void DoPatchInspector();
 void __fastcall Texture_SetMode(int iTexMenu);
 void FUN_00441100(int index);
@@ -52,7 +57,6 @@ void FUN_00432bb0();
 void FUN_00437e50();
 void FUN_00438120();
 void FUN_00438ff0();
-void FUN_00441460();
 void FUN_004745d0();
 }
 
@@ -114,7 +118,42 @@ public:
   CWnd *field_0798;
   CWnd *field_079c;
   int field_07a0;
+  char pad_07a4[0x7e0 - 0x7a4];
+  CWnd *field_07e0;
+  bool field_07e4;
+  // update handlers: the CCmdUI argument is enabled from view state
+  void FUN_00417150(CCmdUI *pCmdUI);
+  void FUN_004190e0(CCmdUI *pCmdUI);
+  void FUN_00419ba0(CCmdUI *pCmdUI);
 };
+
+// partial view of the camera window object (CCamWnd 0x54 = camera state)
+struct CamView
+{
+  char pad[0x60];
+  float origin[3];
+  float angles[3];
+  int drawMode;
+  float color[3];
+  float forward[3];
+  float right[3];
+};
+
+extern CMainFrame *g_pParentWnd;
+
+// partial view of the XY window object
+struct XYView
+{
+  char pad[0x60];
+  float scale;
+};
+struct PatchView { char pad[0x70]; int org[3]; };
+#define CAM ((CamView *)self->field_078c)
+
+// CPrefsDlg field at a byte offset (header names for these slots are unconfirmed)
+#define PFP(p, off) (*(int *)((char *)(p) + (off)))
+#define PF(off) PFP(dword_01233b64, off)
+#define PFB(off) (*(bool *)((char *)dword_01233b64 + (off)))
 
 extern "C" int __stdcall FUN_00411230(int a0, int a1) { return 0; }
 extern "C" void FUN_00411240() {}
@@ -249,23 +288,71 @@ void CMainFrame::OnDestroy()
   CFrameWnd::OnDestroy();
 }
 
+extern "C" void __fastcall FUN_00414c50(CMainFrame *self) { self->field_07e4 = !self->field_07e4; }
 extern "C" void FUN_00414c70() {}
 void CMainFrame::OnFileExit()
 {
   PostMessage(WM_CLOSE, 0, 0L);
 }
 
+extern int DAT_010a4910;
+extern "C" void FUN_00414d60()
+{
+  if (DAT_010a4910)
+    DAT_010a4910 = 0;
+  else
+    Pointfile_Check();
+}
 extern "C" void FUN_00414d80() {}
 extern "C" void FUN_00414d90() {}
 extern "C" void FUN_00414df0() { FUN_00425260(&dword_010a4508); }
 extern "C" void FUN_00414e00() { FUN_00425500(&dword_010a4508); }
 extern "C" void FUN_00414e10() { FUN_004253d0(&dword_010a4508); }
 extern "C" void FUN_00414e20() { FUN_00425630(&dword_010a4508); }
+extern "C" void __fastcall FUN_00414e30(CMainFrame *self)
+{
+  if (self->field_0788)
+    ((XYView *)self->field_0788)->scale = 1.0f;
+  dword_0123348c |= 6;
+}
+extern "C" void __fastcall FUN_00414e50(CMainFrame *self)
+{
+  CAM->angles[0] = 0;
+  CAM->angles[2] = 0;
+  CamView *cam = CAM;
+  cam->angles[1] = floor((cam->angles[1] + 11.0f) / 22.5) * 22.5;
+  dword_0123348c |= 5;
+}
+extern "C" void FUN_00415110()
+{
+  PF(0x22c) = !PF(0x22c);
+  dword_01233b64->SavePrefs();
+}
+extern "C" void FUN_00415280() { Dvar_SetStringByName("r_textureMode", "nearest"); dword_0123348c |= 1; }
+extern "C" void FUN_004152a0() { Dvar_SetStringByName("r_textureMode", "linear"); dword_0123348c |= 1; }
+extern "C" void FUN_004152c0() { Dvar_SetStringByName("r_textureMode", "bilinear"); dword_0123348c |= 1; }
+extern "C" void FUN_004152e0() { Dvar_SetStringByName("r_textureMode", "trilinear"); dword_0123348c |= 1; }
+extern "C" void FUN_00415300() { Dvar_SetStringByName("r_textureMode", "anisotropic"); dword_0123348c |= 1; }
 extern "C" void __stdcall FUN_00415320(int nID) { Texture_SetMode(nID); }
 extern "C" void __stdcall FUN_00415330(int nID) { FUN_00441100(nID - 60000); }
 extern "C" void __stdcall FUN_00415350(int nID) { FUN_00441200(nID - 60256); }
 extern "C" void __stdcall FUN_00415370(int nID) { FUN_00441300(nID - 60512); }
 extern "C" void FUN_00415690() {}
+extern float DAT_01139e60;
+extern "C" void FUN_00415960()
+{
+  DAT_01139e60 *= 1.25f;
+  if (DAT_01139e60 > 160.0f)
+    DAT_01139e60 = 160.0f;
+  dword_0123348c |= 0x28;
+}
+extern "C" void FUN_004159a0()
+{
+  DAT_01139e60 *= 0.8f;
+  if (DAT_01139e60 < 0.003125f)
+    DAT_01139e60 = 0.003125f;
+  dword_0123348c |= 0x28;
+}
 extern "C" void FUN_00415b90() { FUN_0043e440(); }
 extern "C" void FUN_00415ba0() {}
 extern "C" void FUN_00415bf0() { Pointfile_Next(); }
@@ -281,6 +368,17 @@ extern "C" void FUN_00416480() { FUN_004364b0(); }
 extern "C" void FUN_00416490() { FUN_0046dfc0(); }
 extern "C" void FUN_004164c0() { FUN_0046dc40(); }
 extern "C" void FUN_004164d0() { FUN_00471dd0(); }
+extern int DAT_01129934;
+extern int DAT_01129938;
+extern "C" void FUN_004165a0() { DAT_01129934 ^= 1; dword_0123348c |= 0xffffffff; }
+extern "C" void FUN_004165c0() { DAT_01129938 ^= 1; dword_0123348c |= 0xffffffff; }
+extern "C" void __fastcall FUN_00416870(CMainFrame *self)
+{
+  PF(0x250) ^= 1;
+  ::SendMessage(self->field_0180, 0x402, 0x81ab, MAKELONG(PF(0x250) != 0, 0));
+  dword_01233b64->SavePrefs();
+  dword_0123348c |= 0xffffffff;
+}
 extern "C" void FUN_00417010() { FUN_00470ff0(); }
 extern "C" void FUN_00417020() { FUN_00471530(); }
 extern "C" void FUN_00417030() { FUN_00471270(); }
@@ -288,14 +386,132 @@ extern "C" void FUN_00417040() { FUN_004713e0(); }
 extern "C" void FUN_00417050() { FUN_00471670(); }
 extern "C" void FUN_00417080() { FUN_00471a90(); }
 extern "C" void FUN_00417140() { dword_0123348c |= 1; }
+void CMainFrame::FUN_00417150(CCmdUI *pCmdUI)
+{
+  pCmdUI->Enable(!field_07e4);
+}
+extern "C" void __fastcall FUN_00417220(CMainFrame *self)
+{
+  CAM->angles[0] -= 22.5;
+  if (CAM->angles[0] < -85.0f)
+    CAM->angles[0] = -85.0f;
+  dword_0123348c |= 1;
+}
+extern "C" void __fastcall FUN_00417270(CMainFrame *self)
+{
+  CAM->angles[0] += 22.5;
+  if (CAM->angles[0] > 85.0f)
+    CAM->angles[0] = 85.0f;
+  dword_0123348c |= 1;
+}
+extern "C" void __fastcall FUN_00417340(CMainFrame *self)
+{
+  CamView *cam = CAM;
+  cam->origin[2] -= 32.0f;
+  dword_0123348c |= dword_01233b64->m_bCamXYUpdate ? 3 : 1;
+}
+extern "C" void __fastcall FUN_004174a0(CMainFrame *self)
+{
+  CamView *cam = CAM;
+  cam->origin[0] -= cam->right[0] * 32.0f;
+  cam->origin[1] -= cam->right[1] * 32.0f;
+  cam->origin[2] -= cam->right[2] * 32.0f;
+  dword_0123348c |= dword_01233b64->m_bCamXYUpdate ? 3 : 1;
+}
+extern "C" void __fastcall FUN_00417510(CMainFrame *self)
+{
+  CamView *cam = CAM;
+  cam->origin[0] += cam->right[0] * 32.0f;
+  cam->origin[1] += cam->right[1] * 32.0f;
+  cam->origin[2] += cam->right[2] * 32.0f;
+  dword_0123348c |= dword_01233b64->m_bCamXYUpdate ? 3 : 1;
+}
+extern "C" void __fastcall FUN_00417600(CMainFrame *self)
+{
+  CamView *cam = CAM;
+  cam->origin[2] += 32.0f;
+  dword_0123348c |= dword_01233b64->m_bCamXYUpdate ? 3 : 1;
+}
+extern int DAT_010bcd28;
+extern "C" void FUN_00417640() { DAT_010bcd28 = !DAT_010bcd28; dword_0123348c |= 0xa; }
+// show or hide one child window
+extern "C" void __fastcall FUN_00417750(CMainFrame *self)
+{
+  if (self->field_07a0 > 0 && self->field_07a0 < 3 && self->field_078c && self->field_078c->GetSafeHwnd())
+  {
+    if (::IsWindowVisible(self->field_078c->GetSafeHwnd()))
+      self->field_078c->ShowWindow(SW_HIDE);
+    else
+      self->field_078c->ShowWindow(SW_SHOW);
+  }
+}
+extern "C" void __fastcall FUN_004177a0(CMainFrame *self)
+{
+  if (self->field_07a0 > 0 && self->field_07a0 < 3 && self->field_079c && self->field_079c->GetSafeHwnd())
+  {
+    if (::IsWindowVisible(self->field_079c->GetSafeHwnd()))
+      self->field_079c->ShowWindow(SW_HIDE);
+    else
+      self->field_079c->ShowWindow(SW_SHOW);
+  }
+}
+extern "C" void __fastcall FUN_004177f0(CMainFrame *self)
+{
+  if (self->field_07a0 == 1 && self->field_0788 && self->field_0788->GetSafeHwnd())
+  {
+    if (::IsWindowVisible(self->field_0788->GetSafeHwnd()))
+      self->field_0788->ShowWindow(SW_HIDE);
+    else
+      self->field_0788->ShowWindow(SW_SHOW);
+  }
+}
 extern "C" void FUN_00417e00(unsigned v) { dword_0123348c |= v; }
+extern bool DAT_0109fe5c;
+extern "C" void __fastcall FUN_00417e10(CMainFrame *self)
+{
+  if (self->field_07e0)
+  {
+    DAT_0109fe5c = !DAT_0109fe5c;
+    dword_0123348c |= 0x102;
+  }
+}
 extern "C" void FUN_00417f00() {}
 extern "C" void FUN_00417f10() {}
+extern bool DAT_0109fe5f;
+extern "C" void FUN_00418fd0()
+{
+  CWnd *window = g_pParentWnd->field_07e0;
+  if (window)
+  {
+    DAT_0109fe5f = false;
+    ::RedrawWindow(window->m_hWnd, NULL, NULL, 0x105);
+  }
+}
+extern "C" void __fastcall FUN_00418cf0(CMainFrame *self)
+{
+  CPrefsDlg *prefs = dword_01233b64;
+  PFP(prefs, 0x248) ^= 1;
+  prefs->SavePrefs();
+  ::SendMessage(self->field_0180, 0x402, 0x8019, MAKELONG(PF(0x248) == 0, 0));
+}
 extern "C" void FUN_00419080() { FUN_004441b0(); }
 extern "C" void FUN_00419090() { FUN_00444a00(); }
+extern int DAT_0109fdc4;
+void CMainFrame::FUN_004190e0(CCmdUI *pCmdUI)
+{
+  bool enable = DAT_0109fdc4 != 0;
+  pCmdUI->Enable(enable);
+}
 extern "C" void FUN_00419670() { CFindTextureDlg::show(); }
+extern void (*dword_0059c474)(void);
+extern "C" void FUN_00419680() { dword_0059c474(); dword_0123348c |= 0xffffffff; }
 extern "C" void FUN_00419970() { FUN_0045c890(); }
 extern "C" void FUN_00419980() { FUN_0045ca10(); }
+extern int DAT_0109fecc;
+void CMainFrame::FUN_00419ba0(CCmdUI *pCmdUI)
+{
+  pCmdUI->Enable(DAT_0109fecc);
+}
 extern "C" void FUN_00419c70() {}
 extern "C" void FUN_00419c80() {}
 extern "C" void FUN_00419f80() { FUN_0045c950(); }
@@ -305,9 +521,124 @@ BOOL CMainFrame::PreTranslateMessage(MSG *pMsg)
   return CFrameWnd::PreTranslateMessage(pMsg);
 }
 
+extern "C" void __fastcall FUN_0041a2f0(CMainFrame *self)
+{
+  PF(0x2c8) ^= 1;
+  ::SendMessage(self->field_0180, 0x402, 0x8054, MAKELONG(PF(0x2c8) == 0, 0));
+  dword_01233b64->SavePrefs();
+}
+extern "C" void __fastcall FUN_0041a5c0(CMainFrame *self)
+{
+  if (++PF(0x1c8) > 2)
+    PF(0x1c8) = 0;
+  ::SendMessage(self->field_0180, 0x402, 0x80a8, MAKELONG(PF(0x1c8) != 0, 0));
+  dword_01233b64->SavePrefs();
+}
+extern "C" void __fastcall FUN_0041a620(CMainFrame *self)
+{
+  PF(0x1cc) ^= 1;
+  ::SendMessage(self->field_0180, 0x402, 0x8172, MAKELONG(PF(0x1cc) != 0, 0));
+  dword_01233b64->SavePrefs();
+  dword_0123348c |= 1;
+}
+extern "C" void __fastcall FUN_0041a670(CMainFrame *self)
+{
+  PF(0x1d0) ^= 1;
+  ::SendMessage(self->field_0180, 0x402, 0x8176, MAKELONG(PF(0x1d0) != 0, 0));
+  dword_01233b64->SavePrefs();
+  dword_0123348c |= 1;
+}
+extern "C" void __fastcall FUN_0041a6c0(CMainFrame *self)
+{
+  PF(0x1d4) ^= 1;
+  ::SendMessage(self->field_0180, 0x402, 0x8191, MAKELONG(PF(0x1d4) != 0, 0));
+  dword_01233b64->SavePrefs();
+  dword_0123348c |= 1;
+}
+extern "C" void __fastcall FUN_0041a710(CMainFrame *self)
+{
+  PF(0x2a8) ^= 1;
+  ::SendMessage(self->field_0180, 0x402, 0x81b6, MAKELONG(PF(0x2a8) != 0, 0));
+  dword_01233b64->SavePrefs();
+}
+extern "C" void __fastcall FUN_0041a7f0(CMainFrame *self)
+{
+  PF(0x24c) ^= 1;
+  ::SendMessage(self->field_0180, 0x402, 0x8187, MAKELONG(PF(0x24c) != 0, 0));
+  dword_01233b64->SavePrefs();
+  dword_0123348c |= 0xffffffff;
+}
+extern "C" void __fastcall FUN_0041a840(CMainFrame *self)
+{
+  PF(0x26c) ^= 1;
+  ::SendMessage(self->field_0180, 0x402, 0x8183, MAKELONG(PF(0x26c) != 0, 0));
+  dword_01233b64->SavePrefs();
+  dword_0123348c |= 0xffffffff;
+}
+extern "C" void __fastcall FUN_0041a890(CMainFrame *self)
+{
+  PF(0x270) ^= 1;
+  ::SendMessage(self->field_0180, 0x402, 0x81b7, MAKELONG(PF(0x270) != 0, 0));
+  dword_01233b64->SavePrefs();
+  dword_0123348c |= 0xffffffff;
+}
+extern "C" void __fastcall FUN_0041a8e0(CMainFrame *self)
+{
+  PF(0x274) ^= 1;
+  ::SendMessage(self->field_0180, 0x402, 0x81b8, MAKELONG(PF(0x274) != 0, 0));
+  dword_01233b64->SavePrefs();
+  dword_0123348c |= 0xffffffff;
+}
+extern "C" void __fastcall FUN_0041a930(CMainFrame *self)
+{
+  PF(0x278) ^= 1;
+  ::SendMessage(self->field_0180, 0x402, 0x81b9, MAKELONG(PF(0x278) != 0, 0));
+  dword_01233b64->SavePrefs();
+  dword_0123348c |= 0xffffffff;
+}
+
 extern "C" void FUN_0041a980() { FUN_00435d20(); }
+extern "C" void __fastcall FUN_0041a990(CMainFrame *self)
+{
+  PF(0x27c) ^= 1;
+  ::SendMessage(self->field_0180, 0x402, 0x8184, MAKELONG(PF(0x27c) != 0, 0));
+  dword_01233b64->SavePrefs();
+  dword_0123348c |= 0xffffffff;
+}
+extern "C" void FUN_0041a9e0()
+{
+  CMainFrame *frame = g_pParentWnd;
+  PatchView *dialog = (PatchView *)frame->field_07e0;
+  int *src = (int *)((CamView *)frame->field_078c)->origin;
+  dialog->org[0] = src[0];
+  dialog->org[1] = src[1];
+  dialog->org[2] = src[2];
+  dword_0123348c |= 2;
+}
+extern "C" void __fastcall FUN_0041aa10(CMainFrame *self)
+{
+  if (++PF(0x2e0) > 2)
+    PF(0x2e0) = 0;
+  ::SendMessage(self->field_0180, 0x402, 0x8059, MAKELONG(PF(0x2e0) != 0, 0));
+  dword_01233b64->SavePrefs();
+  dword_0123348c |= 0xffffffff;
+}
+extern "C" void __fastcall FUN_0041ab20(CMainFrame *self)
+{
+  PFB(0x2e4) ^= 1;
+  ::SendMessage(self->field_0180, 0x402, 0x805a, MAKELONG(PFB(0x2e4) != 0, 0));
+  dword_01233b64->SavePrefs();
+  dword_0123348c |= 0xffffffff;
+}
 extern "C" void FUN_0041ac10() {}
 extern "C" void FUN_0041ac20() {}
+extern "C" void __fastcall FUN_0041ac30(CMainFrame *self)
+{
+  PFB(0x2e5) ^= 1;
+  ::SendMessage(self->field_0180, 0x402, 0x8061, MAKELONG(PFB(0x2e5) != 0, 0));
+  dword_01233b64->SavePrefs();
+  dword_0123348c |= 0xffffffff;
+}
 extern "C" void FUN_0041af00() { FUN_00432bb0(); }
 extern "C" void FUN_0041af10() { FUN_00432ca0(0); }
 extern "C" void FUN_0041af20() { FUN_00432ca0(1); }
@@ -336,6 +667,39 @@ extern "C" void FUN_0041b700() { FUN_00438120(); }
 extern "C" void FUN_0041b710() { FUN_00438ff0(); }
 extern "C" void FUN_0041ba70() { FUN_00441460(); }
 extern "C" void FUN_0041ba80() { DoPatchInspector(); }
+extern "C" void __fastcall FUN_0041bb10(CMainFrame *self)
+{
+  DAT_0112993e = !DAT_0112993e;
+  DAT_0112993f = false;
+  FUN_0041b190(self);
+}
+extern "C" void __fastcall FUN_0041bb30(CMainFrame *self)
+{
+  DAT_0112993e = false;
+  DAT_0112993f = !DAT_0112993f;
+  FUN_0041b190(self);
+}
+extern "C" void __fastcall FUN_0041bb50(CMainFrame *self)
+{
+  DAT_0112993e = false;
+  DAT_0112993f = false;
+  if (DAT_011298b0 != 11)
+  {
+    int previous = DAT_011298b0;
+    DAT_011298b0 = 11;
+    FUN_0041b190(g_pParentWnd);
+    if (previous == 10)
+      FUN_0042beb0();
+  }
+  else
+  {
+    DAT_011298b0 = 0;
+    FUN_0041b190(g_pParentWnd);
+  }
+  FUN_0041b190(self);
+}
+extern bool DAT_012334d8;
+extern "C" void FUN_0041bcb0() { DAT_012334d8 ^= 1; dword_0123348c |= 2; }
 extern "C" void FUN_0041bd20() { FUN_004745d0(); }
 extern "C" void FUN_0041c0b0() {}
 extern "C" void FUN_0041c0c0() {}
@@ -409,6 +773,34 @@ FILTER_TOGGLE(FUN_0041d2e0, d_exclude, 0x4000, 0x8096, 3)
 FILTER_TOGGLE(FUN_0041d340, d_exclude2, 0x40, 0x8115, 2)
 FILTER_TOGGLE(FUN_0041d3a0, d_exclude2, 0x80, 0x80e5, 2)
 FILTER_TOGGLE(FUN_0041d400, d_exclude2, 0x100, 0x81ae, 0xb)
+
+extern CWnd DAT_01233b68;
+extern CWnd DAT_01234040;
+extern CWnd DAT_01234550;
+extern "C" void FUN_0041d460()
+{
+  if (::IsWindowVisible(DAT_01233b68.m_hWnd))
+    DAT_01233b68.ShowWindow(SW_HIDE);
+  else
+    DAT_01233b68.ShowWindow(SW_SHOW);
+  dword_0123348c |= 1;
+}
+extern "C" void FUN_0041d4a0()
+{
+  if (::IsWindowVisible(DAT_01234040.m_hWnd))
+    DAT_01234040.ShowWindow(SW_HIDE);
+  else
+    DAT_01234040.ShowWindow(SW_SHOW);
+  dword_0123348c |= 1;
+}
+extern "C" void FUN_0041d520()
+{
+  if (::IsWindowVisible(DAT_01234550.m_hWnd))
+    DAT_01234550.ShowWindow(SW_HIDE);
+  else
+    DAT_01234550.ShowWindow(SW_SHOW);
+  dword_0123348c |= 1;
+}
 
 extern "C" void FUN_0041d560() { FUN_00472bd0(0); }
 extern "C" void FUN_0041d570() { FUN_00472bd0(1); }
