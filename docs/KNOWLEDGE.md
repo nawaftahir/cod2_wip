@@ -972,3 +972,4 @@ set by a later lowering stage, not by the list scheduler.
   nothing else). That cut needs SetLS first reached inside Com_Error's DFS subtree; ours reaches it from root CL_WWWDownload
   (CL_NextDownload > CL_DownloadsComplete > FS_Restart > SEH_UpdateLanguageInfo), and Com_Error from root UI_LoadArenas
   (String_Alloc > Hunk_AllocAlignInternal). Single TU decl moves give at most 2 of 3 targets at >= 39 pass changes (gate -1.38 M).
+- PINNED (w29, 11-17, clean ratchet 1974032 -> 1974033): assertive.cpp g_hwndGame is 8-aligned (retail 0x5df288 after g_hiddenCount at 0x5df280); HideWindowCallback now matches.
