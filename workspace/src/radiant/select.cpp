@@ -1,3 +1,5 @@
+#include "stdafx.h"
+#include <afxtempl.h>
 #include "../universal/assertive.h"
 
 struct patch_def_t
@@ -147,3 +149,13 @@ extern "C" void FUN_004745d0()
         b->hiddenBrush = false;
     g_nUpdateBits = -1;
 }
+
+// 12-byte element, contents unknown (only the size is pinned by the retail copies)
+struct SelFace
+{
+    int field00;
+    int field04;
+    int field08;
+};
+
+template class CArray<SelFace, const SelFace &>;

@@ -771,6 +771,16 @@ addr	size	source	symbol	name	tag
 0x00474570	40	src/radiant/select.cpp	?Select_Hide@@YAXXZ	Select_Hide	SUPPORTED
 0x004745a0	40	src/radiant/select.cpp	?FUN_004745a0@@YAXXZ	FUN_004745a0	UNNAMED
 0x004745d0	72	src/radiant/select.cpp	_FUN_004745d0	FUN_004745d0	UNNAMED
+0x00474d40	21	src/radiant/select.cpp	??0?$CArray@USelFace@@ABU1@@@QAE@XZ	CArray<SelFace,const SelFace &>::ctor	SUPPORTED
+0x00474d60	395	src/radiant/select.cpp	?SetSize@?$CArray@USelFace@@ABU1@@@QAEXHH@Z	CArray<SelFace,const SelFace &>::SetSize	SUPPORTED
+0x00474ef0	30	src/radiant/select.cpp	?RemoveAll@?$CArray@USelFace@@ABU1@@@QAEXXZ	CArray<SelFace,const SelFace &>::RemoveAll	SUPPORTED
+0x00474f10	58	src/radiant/select.cpp	?Add@?$CArray@USelFace@@ABU1@@@QAEHABUSelFace@@@Z	CArray<SelFace,const SelFace &>::Add	SUPPORTED
+0x00474f50	67	src/radiant/select.cpp	?RemoveAt@?$CArray@USelFace@@ABU1@@@QAEXHH@Z	CArray<SelFace,const SelFace &>::RemoveAt	SUPPORTED
+0x00474fa0	153	src/radiant/select.cpp	??$SerializeElements@USelFace@@@@YGXAAVCArchive@@PAUSelFace@@H@Z	SerializeElements<SelFace>	SUPPORTED
+0x00475040	56	src/radiant/select.cpp	?SetAtGrow@?$CArray@USelFace@@ABU1@@@QAEXHABUSelFace@@@Z	CArray<SelFace,const SelFace &>::SetAtGrow	SUPPORTED
+0x00475090	35	src/radiant/select.cpp	??_G?$CArray@USelFace@@ABU1@@@UAEPAXI@Z	CArray<SelFace,const SelFace &>::scalar deleting dtor	SUPPORTED
+0x004750c0	82	src/radiant/select.cpp	?Serialize@?$CArray@USelFace@@ABU1@@@UAEXAAVCArchive@@@Z	CArray<SelFace,const SelFace &>::Serialize	SUPPORTED
+0x00475170	21	src/radiant/select.cpp	??1?$CArray@USelFace@@ABU1@@@UAE@XZ	CArray<SelFace,const SelFace &>::dtor	SUPPORTED
 0x00475190	180	src/radiant/vertsel.cpp	?FindPoint@@YAHQAM@Z	FindPoint	SUPPORTED
 0x00475250	104	src/radiant/vertsel.cpp	?FindEdge@@YAHHHPAUface_t@@@Z	FindEdge	SUPPORTED
 0x00475ca0	32	src/radiant/win_dlg.cpp	?DoProjectSettings@@YAXXZ	DoProjectSettings	SUPPORTED
