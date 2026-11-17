@@ -67,6 +67,10 @@ def lib_functions(paths):
 
 
 GAME_END = 0x4d0c40  # first MFC function; game code and the VC6 P4 API sit before it
+# Perforce C++ API 2005.1 static /MT libs (untracked, toolchain/p4api); retail is a close, slightly older build
+P4_LIBS = ["toolchain/p4api/libclient.lib", "toolchain/p4api/librpc.lib", "toolchain/p4api/libsupp.lib"]
+P4_RANGE = (0x4b3d00, 0x4d0b00)
+P4_MIN = 16  # shorter code (getters) matches by chance
 
 
 def same(a, amask, b, bmask):
@@ -77,6 +81,8 @@ def same(a, amask, b, bmask):
 def main():
     libs = sys.argv[1:] or DEFAULT_LIBS
     by_size = lib_functions(libs)
+    p4_libs = [os.path.join(m.BASE_DIR, p) for p in P4_LIBS]
+    p4_size = lib_functions(p4_libs) if all(os.path.exists(p) for p in p4_libs) else {}
     print("library functions: %d" % sum(map(len, by_size.values())), file=sys.stderr)
     found, targets = [], {}
     for addr, meta in sorted(m.FUNCTIONS.items()):
@@ -87,9 +93,10 @@ def main():
         tmask = m.absolute_masks(target, m.pe_relocations(va, len(target), target))
         targets[addr] = (target, tmask)
         # MFC/CRT link after the game and P4 objects; a hit before them is header code or chance
-        if va < GAME_END:
+        in_p4 = P4_RANGE[0] <= va < P4_RANGE[1] and len(target) >= P4_MIN
+        if va < GAME_END and not in_p4:
             continue
-        for payload, omask, name, lib, member in by_size.get(len(target), ()):
+        for payload, omask, name, lib, member in (p4_size if in_p4 else by_size).get(len(target), ()):
             if same(target, tmask, payload, omask):
                 found.append((addr, len(target), lib, member, name))
                 break

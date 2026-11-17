@@ -60,7 +60,10 @@ emit-order warnings 18. FILE LEDGER 7 VERIFIED / 102 (audited set; other src/ fi
   0x45ebc0, 0x4532a0, others. Radiant has no tie list (tools change = owner review). Opus lane on root cause.
 - Proposals for owner: tu_map moves for com_files tail 0x482440..0x482970 and CamWnd tail 0x4075c0..0x407f60
   (helpers, not that file's code); 0x4a1170 -> dobj; 0x449760 size 159 -> 160; DVAR_CHANGEABLE_RESET value.
-- p4api (110 KB, VC6 prebuilt lib) is missing: Perforce FTP has r14+ only; need an old p4api.zip from the owner.
+- p4api (110 KB, VC6 code at 0x4b3d00..0x4d0b00): Perforce 2005.1 static /MT libs (Wayback, libclient/librpc/libsupp) match 903 of
+  1170 retail functions exactly (63,790 B; 688 fns / 62,078 B >= 16 B are in data/lib_funcs.tsv). 2005.1 /MD 800, 2003.2 25, 2003.1 4.
+  Misses are the same functions with other struct offsets (Client 0x16c vs 0x178) = retail is an older patchlevel (2004.2 likely);
+  2004.x/2005.2 p4api not on Wayback. Libs live untracked in toolchain/p4api/ (gitignored); link.py adds them when present.
 
 ## 2026-11-17 round 2 (clean gate cbafb09d)
 1315/3582 = 36.71% game functions, 21.23% game bytes (148,586 B), same-offset 1.745%, emit-order 12, 0 failing.
