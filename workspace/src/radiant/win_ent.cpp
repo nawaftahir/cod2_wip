@@ -75,6 +75,13 @@ extern eclass_t *dword_012334dc;
 extern int inspector_mode;
 extern int col;
 extern HWND dword_010bcd54;
+extern char *dword_01233488;
+extern HWND dword_012485e4;
+LRESULT CALLBACK FUN_00478b40(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+void FUN_0047a760(const char *fmt, ...);
+void FUN_00476f10(HWND hwnd);
+void FUN_00478220(int w, int h);
+bool FUN_004131d0(const char *pszName, HWND hwnd);
 eclass_t *FUN_00464770(int a, const char *name);
 entity_t *FUN_00466d80(eclass_t *ec);
 void FUN_0046fbe0(int a);
@@ -153,6 +160,63 @@ void FUN_00477270()
         int iIndex = SendMessage(hwndEnt[EntList], LB_ADDSTRING, 0, (LPARAM)pec->name);
         SendMessage(hwndEnt[EntList], LB_SETITEMDATA, iIndex, (LPARAM)pec);
     }
+}
+
+// Q3Radiant Win_ent.cpp WEnt_Create shape
+void FUN_004772c0(HINSTANCE hInstance)
+{
+    WNDCLASS wc;
+    memset(&wc, 0, sizeof(wc));
+    wc.style = CS_NOCLOSE;
+    wc.lpfnWndProc = FUN_00478b40;
+    wc.cbClsExtra = 0;
+    wc.cbWndExtra = 0;
+    wc.hInstance = hInstance;
+    wc.hIcon = 0;
+    wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+    wc.hbrBackground = (HBRUSH)GetStockObject(LTGRAY_BRUSH);
+    wc.lpszMenuName = 0;
+    wc.lpszClassName = "QENT";
+    RegisterClass(&wc);
+    DWORD style = *(int *)(dword_01233488 + 0x7a0) == 1 ? 0x6cf0000 : 0x6ce0000;
+    dword_010bcd60 = CreateWindow("QENT", "Entity", style, 20, 20, 100, 480, dword_010bcd54, NULL, hInstance, NULL);
+    if (!dword_010bcd60)
+        FUN_0047a760("Couldn't create Entity window");
+}
+
+// Q3Radiant Win_ent.cpp CreateEntityWindow shape
+BOOL FUN_00477390(HINSTANCE hInstance)
+{
+    inspector_mode = 0x80;
+    FUN_004772c0(hInstance);
+    HWND hwndEntityPalette = CreateDialog(hInstance, MAKEINTRESOURCE(106), dword_010bcd54, NULL);
+    if (!hwndEntityPalette)
+        FUN_0047a760("CreateDialog failed");
+    FUN_00476f10(hwndEntityPalette);
+    DestroyWindow(hwndEntityPalette);
+    dword_01129994 = (WNDPROC)GetWindowLong(hwndEnt[EntKeyField], GWL_WNDPROC);
+    SetWindowLong(hwndEnt[EntKeyField], GWL_WNDPROC, (LONG)FUN_00476dd0);
+    SetWindowLong(hwndEnt[EntValueField], GWL_WNDPROC, (LONG)FUN_00476dd0);
+    dword_01129990 = (WNDPROC)GetWindowLong(hwndEnt[EntList], GWL_WNDPROC);
+    SetWindowLong(hwndEnt[EntList], GWL_WNDPROC, (LONG)FUN_00476ec0);
+    FUN_00477270();
+    FUN_004131d0("EntityWindowPlace", dword_010bcd60);
+    ShowWindow(dword_010bcd60, SW_HIDE);
+    HMENU hMenu = GetMenu(dword_010bcd54);
+    int mode = *(int *)(dword_01233488 + 0x7a0);
+    if (mode != 0 && mode != 3)
+    {
+        inspector_mode = 0x40;
+        SetWindowText(dword_010bcd60, "Console");
+        EnableMenuItem(hMenu, 0x810c, MF_DISABLED | MF_GRAYED);
+        SendMessage(dword_012485e4, 0x130c, 3, 0);
+        RECT rc;
+        GetWindowRect(dword_010bcd60, &rc);
+        FUN_00478220(rc.right - rc.left - 8, rc.bottom - rc.top - 20);
+        SetWindowPos(dword_010bcd60, *(int *)(dword_01233488 + 0x7a0) == 1 ? HWND_TOP : HWND_TOPMOST, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, SWP_NOMOVE | SWP_NOSIZE);
+        RedrawWindow(dword_010bcd60, NULL, NULL, RDW_INVALIDATE | RDW_ERASE | RDW_ALLCHILDREN | RDW_UPDATENOW | RDW_ERASENOW);
+    }
+    return TRUE;
 }
 
 // Q3Radiant Win_ent.cpp SetKeyValuePairs shape

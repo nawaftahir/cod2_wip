@@ -222,6 +222,7 @@ addr	size	source	symbol	name	tag
 0x0040cdd0	30	src/radiant/EntityListDlg.cpp	??_GCTreeCtrl@@UAEPAXI@Z	CTreeCtrl::scalar_deleting_dtor	SUPPORTED
 0x0040cdf0	16	src/radiant/EntityListDlg.cpp	??0CListCtrl@@QAE@XZ	CListCtrl::CListCtrl	SUPPORTED
 0x0040ce00	30	src/radiant/EntityListDlg.cpp	??_GCListCtrl@@UAEPAXI@Z	CListCtrl::scalar_deleting_dtor	SUPPORTED
+0x0040ce20	116	src/radiant/filtersettings.cpp	??0CFilterSettings@@QAE@PAVCWnd@@@Z	CFilterSettings::CFilterSettings	SUPPORTED
 0x0040cf00	25	src/radiant/filtersettings.cpp	?DoDataExchange@CFilterSettings@@UAEXPAVCDataExchange@@@Z	CFilterSettings::DoDataExchange	SUPPORTED
 0x0040cf30	1765	src/radiant/filtersettings.cpp	_FUN_0040cf30	FUN_0040cf30	UNNAMED
 0x0040d620	241	src/radiant/filtersettings.cpp	?OnShowWindow@CFilterSettings@@QAEXHI@Z	CFilterSettings::OnShowWindow	SUPPORTED
@@ -766,6 +767,7 @@ addr	size	source	symbol	name	tag
 0x00441440	27	src/radiant/TexWnd.cpp	?Texture_ShowAll@@YAXXZ	Texture_ShowAll	SUPPORTED
 0x00442290	1	src/radiant/TexWnd.cpp	_FUN_00442290	FUN_00442290	UNNAMED
 0x004428c0	6	src/radiant/TexWnd.cpp	?GetRuntimeClass@CTexWnd@@UBEPAUCRuntimeClass@@XZ	CTexWnd::GetRuntimeClass	SUPPORTED
+0x004428d0	128	src/radiant/TexWnd.cpp	??0CTexWnd@@QAE@XZ	CTexWnd::CTexWnd	SUPPORTED
 0x004429e0	6	src/radiant/TexWnd.cpp	?GetMessageMap@CTexWnd@@MBEPBUAFX_MSGMAP@@XZ	CTexWnd::GetMessageMap	SUPPORTED
 0x00442d50	9	src/radiant/TexWnd.cpp	?OnParentNotify@CTexWnd@@IAEXIJ@Z	CTexWnd::OnParentNotify	SUPPORTED
 0x00442ef0	75	src/radiant/TexWnd.cpp	?OnTimer@CTexWnd@@IAEXI@Z	CTexWnd::OnTimer	SUPPORTED
@@ -1057,6 +1059,8 @@ addr	size	source	symbol	name	tag
 0x00476dd0	226	src/radiant/win_ent.cpp	?FUN_00476dd0@@YGJPAUHWND__@@IIJ@Z	FUN_00476dd0	UNNAMED
 0x00476ec0	79	src/radiant/win_ent.cpp	?FUN_00476ec0@@YGJPAUHWND__@@IIJ@Z	FUN_00476ec0	UNNAMED
 0x00477270	79	src/radiant/win_ent.cpp	?FUN_00477270@@YAXXZ	FUN_00477270	UNNAMED
+0x004772c0	206	src/radiant/win_ent.cpp	?FUN_004772c0@@YAXPAUHINSTANCE__@@@Z	FUN_004772c0	UNNAMED
+0x00477390	481	src/radiant/win_ent.cpp	?FUN_00477390@@YAHPAUHINSTANCE__@@@Z	FUN_00477390	UNNAMED
 0x004777c0	409	src/radiant/win_ent.cpp	?FUN_004777c0@@YAXXZ	FUN_004777c0	UNNAMED
 0x00477960	93	src/radiant/win_ent.cpp	?FUN_00477960@@YAXXZ	FUN_00477960	UNNAMED
 0x00477ba0	335	src/radiant/win_ent.cpp	?FUN_00477ba0@@YAHHPAUeclass_t@@@Z	FUN_00477ba0	UNNAMED
