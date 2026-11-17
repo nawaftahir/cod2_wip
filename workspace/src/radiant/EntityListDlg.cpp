@@ -13,6 +13,7 @@ public:
     CTreeCtrl m_treeEntity;
 protected:
     virtual void DoDataExchange(CDataExchange *pDX);
+    virtual BOOL OnInitDialog();
     afx_msg void OnSelchangedTreeEntity(NMHDR *pNMHDR, LRESULT *pResult);
     DECLARE_MESSAGE_MAP()
 };
@@ -61,6 +62,36 @@ void CEntityListDlg::DoDataExchange(CDataExchange *pDX)
     CDialog::DoDataExchange(pDX);
     DDX_Control(pDX, 1025, m_lstEntity);
     DDX_Control(pDX, 1022, m_treeEntity);
+}
+
+BOOL CEntityListDlg::OnInitDialog()
+{
+    CDialog::OnInitDialog();
+
+    CMapStringToPtr mapEntity;
+    HTREEITEM hParent;
+    HTREEITEM hChild;
+
+    for (entlist_entity_s *pEntity = entities.next; pEntity != &entities; pEntity = pEntity->next)
+    {
+        hParent = NULL;
+        if (mapEntity.Lookup(pEntity->def->eclass->name, reinterpret_cast<void *&>(hParent)) == FALSE)
+        {
+            hParent = m_treeEntity.InsertItem(pEntity->def->eclass->name);
+            mapEntity.SetAt(pEntity->def->eclass->name, reinterpret_cast<void *>(hParent));
+        }
+        hChild = m_treeEntity.InsertItem(pEntity->def->eclass->name, hParent);
+        m_treeEntity.SetItemData(hChild, reinterpret_cast<DWORD>(pEntity));
+    }
+
+    CRect rct;
+    m_lstEntity.GetClientRect(rct);
+    m_lstEntity.InsertColumn(0, "Key", LVCFMT_LEFT, rct.Width() / 2);
+    m_lstEntity.InsertColumn(1, "Value", LVCFMT_LEFT, rct.Width() / 2);
+    m_lstEntity.DeleteColumn(2);
+    UpdateData(FALSE);
+
+    return TRUE;
 }
 
 void CEntityListDlg::OnSelchangedTreeEntity(NMHDR *pNMHDR, LRESULT *pResult)

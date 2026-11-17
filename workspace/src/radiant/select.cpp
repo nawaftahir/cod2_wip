@@ -46,7 +46,7 @@ extern brush_t active_brushes;
 extern int g_nUpdateBits;
 
 struct MainFrameToolbarView;
-void FUN_0041b190(MainFrameToolbarView *self);
+extern "C" void FUN_0041b190(MainFrameToolbarView *self);
 void FUN_0042beb0();
 extern MainFrameToolbarView *dword_01233488;
 extern int DAT_011298b0;
