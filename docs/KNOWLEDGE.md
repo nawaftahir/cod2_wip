@@ -982,3 +982,10 @@ set by a later lowering stage, not by the list scheduler.
   order alone cannot give. So retail's edge or cut set differs near this chain. A fully inlined wrapper node never adds a pass
   (it emits in-pass before its caller). CG_FxTest (other 1000.0 user) is pass 26 (waits on FX_PlaySimpleEffect 25); pool order
   is first-user order, so FxTest cannot carry the constant.
+- PINNED (w29, 11-17, 1.0 dfs oracle in .worktrees/w10o + value-mapped pools of both builds): CORRECTION of the 1000.0 target.
+  Retail 1.0 and 1.3 have the same pool run (... 82, 21, -0.01 Pickup_Health, -0.0 Die@Particle, 1000.0, 1.4142 G_RadiusDamage ...).
+  Our 1.0 build matches it: 1000.0's first user there is CG_FxTest (F 5541, after Die 5510); CL_DemoCompleted calls
+  CL_Disconnect_f and compiles late (F 5763). So in retail 1.3 the first user is CG_FxTest too, and the real requirement is only
+  "CL_DemoCompleted compiles after CG_FxTest" (pass >= 26), not "between Pickup_Health and Die". The earlier depth-bound argument
+  (pass <= 24) used the wrong window. peel13 model: one extra edge from CL_DemoCompleted to ANY pass >= 25 fn fixes it with 1 pass
+  change (2390 candidates). 1.3 retail code still calls CL_Disconnect + jmp CL_NextDemo.
