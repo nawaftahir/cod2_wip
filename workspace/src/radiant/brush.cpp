@@ -39,7 +39,7 @@ extern brush_t selected_brushes;
 struct eclass_t { int pad_00[2]; int nShowFlags; int pad_0c[6]; float color[4]; unsigned char pad_34[0x160 - 0x34]; int flags_160; };
 struct entity_t { unsigned char pad_00[8]; void *def; brush_t brushes; unsigned char pad_34[0x50 - 0x34]; eclass_t *eclass; };
 struct patchMesh_t { void *def; };
-struct patch_t { patchMesh_t *def; };
+struct patch_t { patchMesh_t *def; short pad_04; unsigned char selected; };
 #define brush_assert1(expr) do { static bool s_assertDisable; if (!(expr) && !s_assertDisable) { switch (FUN_0047d980(#expr, __FILE__, __LINE__, 1, 1)) { case 0: DebugBreak(); break; case 2: s_assertDisable = true; break; } } } while (0)
 static const float brush_colorWhite[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 extern void * __fastcall FUN_00440840(const char *name);
@@ -51,6 +51,16 @@ extern void FUN_0042f660(patchMesh_t *p);
 extern void FUN_004393c0(patchMesh_t *p);
 extern void FUN_0042f790(patch_t *p);
 extern void FUN_004592f0(brush_t *b);
+extern int FUN_00477ba0(int iItem, eclass_t *pec);
+extern void FUN_0043dff0();
+extern void __stdcall FUN_0043cf80(void *dlg);
+extern HWND dword_0109fdb4;
+extern char dword_01234a38[];
+class CTextureBar : public CDialogBar { public: void FUN_0043f460(); };
+class CMainFrame { public: unsigned char pad_00[0x2b8]; CTextureBar m_wndTextureBar; };
+extern CMainFrame *g_pParentWnd;
+class CPatchDialog : public CDialog { public: void GetPatchInfo(); };
+extern CPatchDialog g_PatchDialog;
 extern int FUN_00434880(patchMesh_t *p);
 extern void FUN_00467240(brushdef_t *b);
 extern void FUN_004671b0(void *owner, brushdef_t *def);
@@ -752,6 +762,42 @@ int BrushDef_MemorySize(const brushdef_t *b)
     return size;
 }
 
+// retail takes b in eax and list in edi
+void FUN_00459210(brush_t *b, brush_t *list)
+{
+    if (b->next || b->prev)
+        FUN_0047a760("Brush_AddToList: allready linked");
+    if (list == &selected_brushes)
+    {
+        b->prev = list->prev;
+        list->prev->next = b;
+        list->prev = b;
+        b->next = list;
+    }
+    else
+    {
+        b->next = list->next;
+        list->next->prev = b;
+        list->next = b;
+        b->prev = list;
+    }
+    if (list != &selected_brushes)
+        return;
+    if (b->patch)
+        b->patch->selected = 1;
+    FUN_00477ba0(-1, NULL);
+    if (dword_0109fdb4)
+    {
+        FUN_0043dff0();
+        FUN_0043cf80(dword_01234a38);
+    }
+    CTextureBar *textureBar = &g_pParentWnd->m_wndTextureBar;
+    if (textureBar->GetSafeHwnd())
+        textureBar->FUN_0043f460();
+    if (g_PatchDialog.GetSafeHwnd())
+        g_PatchDialog.GetPatchInfo();
+}
+
 bool FUN_004592c0(brush_t *b)
 {
     for (brush_t *p = selected_brushes.next; p != &selected_brushes; p = p->next)
@@ -760,6 +806,32 @@ bool FUN_004592c0(brush_t *b)
             return true;
     }
     return false;
+}
+
+void FUN_004592f0(brush_t *b)
+{
+    if (!b->next || !b->prev)
+        FUN_0047a760("Brush_RemoveFromList: not linked");
+    bool selected = FUN_004592c0(b);
+    b->next->prev = b->prev;
+    b->prev->next = b->next;
+    b->prev = NULL;
+    b->next = NULL;
+    if (!selected)
+        return;
+    if (b->patch)
+        b->patch->selected = 0;
+    FUN_00477ba0(-1, NULL);
+    if (dword_0109fdb4)
+    {
+        FUN_0043dff0();
+        FUN_0043cf80(dword_01234a38);
+    }
+    CTextureBar *textureBar = &g_pParentWnd->m_wndTextureBar;
+    if (textureBar->GetSafeHwnd())
+        textureBar->FUN_0043f460();
+    if (g_PatchDialog.GetSafeHwnd())
+        g_PatchDialog.GetPatchInfo();
 }
 
 int FUN_0045a150(brushdef_t *b, const int *indices, const vec3_t xyz, int count, void *maxPtr, void *out)

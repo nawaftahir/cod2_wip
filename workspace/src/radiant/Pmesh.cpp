@@ -922,6 +922,32 @@ int __fastcall FUN_00429df0(void *, int value)
     return -1;
 }
 
+void FUN_0042a0a0(patchMesh_t *p, PatchControl *c, int weld);
+
+// Retail 0x0042a3a0: select one row (every column's control) of a patch.
+void FUN_0042a3a0(patchMesh_t *p, int row, bool bMulti)
+{
+    if (!bMulti)
+        DAT_010c4d84 = 0;
+    for (int i = 0; i < p->width; i++)
+    {
+        if (!(p->ctrl[i][row].flags_34 & 2))
+            FUN_0042a0a0(p, &p->ctrl[i][row], 0);
+    }
+}
+
+// Retail 0x0042a3f0: select one column of a patch.
+void FUN_0042a3f0(patchMesh_t *p, int col, bool bMulti)
+{
+    if (!bMulti)
+        DAT_010c4d84 = 0;
+    for (int i = 0; i < p->height; i++)
+    {
+        if (!(p->ctrl[col][i].flags_34 & 2))
+            FUN_0042a0a0(p, &p->ctrl[col][i], 0);
+    }
+}
+
 // Retail 0x0042ab00: 2D cross-product term of three points (eax, ecx, edx).
 float FUN_0042ab00(const vec2_t p0, const vec2_t p1, const vec2_t p2)
 {
@@ -1069,6 +1095,11 @@ void FUN_0042f5d0()
 void FUN_0042f640(patch_t *p)
 {
     p->field_06 = 1;
+}
+
+void FUN_0042f650(patch_t *p)
+{
+    p->field_06 = 0;
 }
 
 struct CPatchBendXYProjection
@@ -1333,6 +1364,85 @@ patchMesh_t *SinglePatchSelected()
 
 extern patchMesh_t DAT_0109c538;
 extern int DAT_0123348c;
+extern CWnd DAT_012335a0;
+extern int DAT_005909fc;
+extern bool DAT_00590a04;
+extern bool DAT_00590a05;
+extern const char *DAT_00590a08[];
+extern int DAT_012334bc;
+extern int DAT_012334c0;
+extern "C" void FUN_00409690(const char *text);
+
+void FUN_00433b90()
+{
+    if (!DAT_012334ba)
+        return;
+    patchMesh_t *p = SinglePatchSelected();
+    if (!p)
+    {
+        FUN_00433ad0();
+        Sys_Printf("No patch to bend!");
+        return;
+    }
+    if (p->type_10 & 0x40)
+    {
+        Sys_Printf("Patch_BendHandleTAB: Bending of terrain curves not implemented\n");
+        return;
+    }
+    bool bShift = ((unsigned)GetKeyState(VK_SHIFT) >> 15) & 1;
+    if (DAT_005909fc == 0)
+    {
+        DAT_012334c0 += bShift ? -2 : 2;
+        if (DAT_00590a04)
+        {
+            if (bShift ? DAT_012334c0 <= 0 : DAT_012334c0 >= p->height)
+            {
+                DAT_00590a04 = false;
+                DAT_012334c0 = bShift ? p->width - 1 : 1;
+            }
+        }
+        else if (bShift ? DAT_012334c0 <= 0 : DAT_012334c0 >= p->width)
+        {
+            DAT_00590a04 = true;
+            DAT_012334c0 = bShift ? p->height - 1 : 1;
+        }
+    }
+    else if (DAT_005909fc == 1)
+    {
+        DAT_012334bc += bShift ? -1 : 1;
+        if (DAT_00590a04)
+        {
+            if (bShift)
+            {
+                if (DAT_012334bc < 0)
+                    DAT_012334bc = p->width - 1;
+            }
+            else if (DAT_012334bc > p->width - 1)
+                DAT_012334bc = 0;
+            const float *xyz = p->ctrl[DAT_012334bc][DAT_012334c0].xyz;
+            g_vBendOrigin[0] = xyz[0];
+            g_vBendOrigin[1] = xyz[1];
+            g_vBendOrigin[2] = xyz[2];
+        }
+        else
+        {
+            if (bShift)
+            {
+                if (DAT_012334bc < 0)
+                    DAT_012334bc = p->height - 1;
+            }
+            else if (DAT_012334bc > p->height - 1)
+                DAT_012334bc = 0;
+            const float *xyz = p->ctrl[DAT_012334c0][DAT_012334bc].xyz;
+            g_vBendOrigin[0] = xyz[0];
+            g_vBendOrigin[1] = xyz[1];
+            g_vBendOrigin[2] = xyz[2];
+        }
+    }
+    else if (DAT_005909fc == 2)
+        DAT_00590a05 ^= 1;
+    DAT_0123348c = -1;
+}
 
 void FUN_00433e30()
 {
@@ -1361,8 +1471,42 @@ void Patch_SetBendRotateOrigin()
     g_vRotateOrigin[2] = g_vBendOrigin[2];
 }
 
+extern const char *DAT_00590a1c[];
+extern int DAT_00590a00;
+
 // Retail one-byte RET bodies verified with MSVC 7.1. Original entry-point ownership/signatures remain provisional.
 extern "C" void FUN_00434100() {}
+
+void FUN_00434110()
+{
+    if (!DAT_012334b9)
+    {
+        FUN_00434040();
+        return;
+    }
+    patchMesh_t *p = SinglePatchSelected();
+    if (!p)
+    {
+        FUN_00433ad0();
+        Sys_Printf("No patch to bend!");
+        return;
+    }
+    DAT_012334c0 += 2;
+    if (DAT_00590a04)
+    {
+        if (DAT_012334c0 >= p->height - 1)
+        {
+            DAT_00590a04 = false;
+            DAT_012334c0 = 0;
+        }
+    }
+    else if (DAT_012334c0 >= p->width - 1)
+    {
+        DAT_00590a04 = true;
+        DAT_012334c0 = 0;
+    }
+    DAT_0123348c = -1;
+}
 
 void FUN_00435840()
 {
