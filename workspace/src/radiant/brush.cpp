@@ -13,9 +13,9 @@ struct texdef_t { radmat_t *radMat; float scale[2]; float shift[2]; float rotate
 struct facePlane_t { vec3_t normal; int type; double dist; };
 struct winding_t { int pointCount; vec3_t points[4]; }; struct brushVertex_t { vec3_t xyz; int faceIndex[3]; };
 struct face_t { vec3_t planepts[3]; texdef_t texdef[2]; texdef_t lmTexdef; int contents; int toolFlags; facePlane_t plane; int field_98; int field_9c; winding_t *w; unsigned int color; };
-struct entity_t; struct patch_t; struct faceRender_t { void *matHandle; int vertCount; void *vertHandle; };
-struct brushdef_t { brushdef_t *oprev; brushdef_t *onext; entity_t *owner; int pad_0c[4]; int refCount; vec3_t mins; vec3_t maxs; int faceCount; face_t *faces; short pad_40; short version; patch_t *patch; };
-struct brush_t { brush_t *prev; brush_t *next; entity_t *owner; brush_t *ownerNext; brush_t *ownerPrev; brushdef_t *def; int faceCount; faceRender_t *faces; patch_t *patch; short version; short pad_26; };
+struct entity_t; struct patchMesh_t; struct faceRender_t { void *matHandle; int vertCount; void *vertHandle; };
+struct brushdef_t { brushdef_t *oprev; brushdef_t *onext; entity_t *owner; int pad_0c[4]; int refCount; vec3_t mins; vec3_t maxs; int faceCount; face_t *faces; short pad_40; short version; patchMesh_t *patch; };
+struct brush_t { brush_t *prev; brush_t *next; entity_t *owner; brush_t *ownerNext; brush_t *ownerPrev; brushdef_t *def; int faceCount; faceRender_t *faces; patchMesh_t *patch; short version; short pad_26; };
 struct qeglobals_t { unsigned char pad0[0x18]; int d_gridsize; unsigned char pad1[0x6c060]; int activeMaterial; unsigned char pad2[0xaf4]; int d_exclude; unsigned char pad3[0x24]; int d_select_mode; };
 struct orientation_t { vec3_t origin; vec3_t axis[3]; };
 #define CrossProduct(a,b,c) ((c)[0]=(a)[1]*(b)[2]-(a)[2]*(b)[1],(c)[1]=(a)[2]*(b)[0]-(a)[0]*(b)[2],(c)[2]=(a)[0]*(b)[1]-(a)[1]*(b)[0])
@@ -38,18 +38,18 @@ extern brush_t selected_brushes;
 #include <malloc.h>
 struct eclass_t { int pad_00[2]; int nShowFlags; int pad_0c[6]; float color[4]; unsigned char pad_34[0x160 - 0x34]; int flags_160; };
 struct entity_t { unsigned char pad_00[8]; void *def; brush_t brushes; unsigned char pad_34[0x50 - 0x34]; eclass_t *eclass; };
-struct patch_t { void *def; };
+struct patchMesh_t { void *def; };
 #define brush_assert1(expr) do { static bool s_assertDisable; if (!(expr) && !s_assertDisable) { switch (FUN_0047d980(#expr, __FILE__, __LINE__, 1, 1)) { case 0: DebugBreak(); break; case 2: s_assertDisable = true; break; } } } while (0)
 static const float brush_colorWhite[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 extern void * __fastcall FUN_00440840(const char *name);
 extern bool FUN_00465d80(entity_t *e, const char *key);
 extern void FUN_00465d50(entity_t *e, const char *key, vec3_t out);
 extern void FUN_0047a760(const char *fmt, ...);
-extern patch_t *FUN_004392a0(patch_t *defPatch);
-extern void FUN_0042f660(patch_t *p);
-extern void FUN_0042f790(patch_t *p);
+extern patchMesh_t *FUN_004392a0(patchMesh_t *defPatch);
+extern void FUN_0042f660(patchMesh_t *p);
+extern void FUN_0042f790(patchMesh_t *p);
 extern void FUN_004592f0(brush_t *b);
-extern int FUN_00434880(patch_t *p);
+extern int FUN_00434880(patchMesh_t *p);
 extern void FUN_00467240(brushdef_t *b);
 extern void FUN_004671b0(void *owner, brushdef_t *def);
 extern void FUN_0045a220(brushdef_t *b, bool snap);
@@ -596,6 +596,22 @@ brushdef_t *BrushDef_Create(const vec3_t mins, const vec3_t maxs, eclass_t *ecla
     brushdef_t *def = Brush_CreateFromTexdef(eclass, td);
     Brush_InitSolid(def, mins, maxs, eclass);
     return def;
+}
+
+void FUN_00458af0(brushdef_t *def)
+{
+#line 1780
+    assert(def);
+    assertMsg((def->refCount == 0), "(def->refCount) = %i", def->refCount);
+    patchMesh_t *patch = def->patch;
+    if (patch)
+        FUN_0042f660(patch);
+    face_t *faces = def->faces;
+    if (faces)
+        Face_FreeArray(faces, def->faceCount);
+#line 1789
+    assert(def->onext == NULL);
+    delete def;
 }
 
 int Face_MemorySize(const face_t *f)
