@@ -687,6 +687,9 @@ addr	size	source	symbol	name	tag
 0x004603d0	37	src/radiant/csg.cpp	?Brush_FaceFlags_Check80@@YADPAUbrush_t@@@Z	Brush_FaceFlags_Check80	SUPPORTED
 0x00460400	53	src/radiant/csg.cpp	?Brush_IsFiltered@@YA_NPAUbrush_t@@@Z	Brush_IsFiltered	SUPPORTED
 0x004608a0	309	src/radiant/drag.cpp	?AxializeVector@@YAXPAM@Z	AxializeVector	SUPPORTED
+0x00463560	429	src/radiant/eclass.cpp	?FUN_00463560@@YAXPAUeclass_t@@@Z	FUN_00463560	PINNED
+0x00463e40	75	src/radiant/eclass.cpp	?FUN_00463e40@@YAXPAUeclass_t@@PAPAU1@@Z	FUN_00463e40	SUPPORTED
+0x00463e90	13	src/radiant/eclass.cpp	?FUN_00463e90@@YAXPAUeclass_t@@@Z	FUN_00463e90	SUPPORTED
 0x00464bb0	88	src/radiant/entity.cpp	?ValueForKey@@YAPADAAPAUepair_t@@PBD@Z	ValueForKey	SUPPORTED
 0x00464c10	8	src/radiant/entity.cpp	?ValueForKey@@YAPADPAUentity_t@@PBD@Z	ValueForKey	SUPPORTED
 0x00464c60	25	src/radiant/entity.cpp	?FUN_00464c60@@YAXPAUentityInst_t@@@Z	FUN_00464c60	UNNAMED
