@@ -577,6 +577,8 @@ addr	size	source	symbol	name	tag
 0x004274b0	131	src/radiant/Pmesh.cpp	?Patch_CapTexture@@YAXPAUpatchMesh_t@@_NMM@Z	Patch_CapTexture	SUPPORTED
 0x00427540	83	src/radiant/Pmesh.cpp	?FillPatch@@YAXPAUpatchMesh_t@@QAM@Z	FillPatch	SUPPORTED
 0x00429df0	34	src/radiant/Pmesh.cpp	?FUN_00429df0@@YIHPAXH@Z	FUN_00429df0	UNNAMED
+0x0042a3a0	67	src/radiant/Pmesh.cpp	?FUN_0042a3a0@@YAXPAUpatchMesh_t@@H_N@Z	FUN_0042a3a0	SUPPORTED
+0x0042a3f0	69	src/radiant/Pmesh.cpp	?FUN_0042a3f0@@YAXPAUpatchMesh_t@@H_N@Z	FUN_0042a3f0	SUPPORTED
 0x0042ab00	29	src/radiant/Pmesh.cpp	?FUN_0042ab00@@YAMQBM00@Z	FUN_0042ab00	UNNAMED
 0x0042aed0	125	src/radiant/Pmesh.cpp	?FUN_0042aed0@@YAXPAUselbrush_t@@M@Z	FUN_0042aed0	PINNED
 0x0042af50	63	src/radiant/Pmesh.cpp	?FUN_0042af50@@YAXM@Z	FUN_0042af50	SUPPORTED
@@ -594,9 +596,11 @@ addr	size	source	symbol	name	tag
 0x00433a20	44	src/radiant/Pmesh.cpp	?OnlyPatchesSelected@@YA_NXZ	OnlyPatchesSelected	SUPPORTED
 0x00433a50	39	src/radiant/Pmesh.cpp	?AnyPatchesSelected@@YA_NXZ	AnyPatchesSelected	SUPPORTED
 0x00433a80	79	src/radiant/Pmesh.cpp	?SinglePatchSelected@@YAPAUpatchMesh_t@@XZ	SinglePatchSelected	SUPPORTED
+0x00433b90	515	src/radiant/Pmesh.cpp	?FUN_00433b90@@YAXXZ	FUN_00433b90	SUPPORTED
 0x00433e30	79	src/radiant/Pmesh.cpp	?FUN_00433e30@@YAXXZ	FUN_00433e30	SUPPORTED
 0x00433e80	79	src/radiant/Pmesh.cpp	?Patch_SetBendRotateOrigin@@YAXXZ	Patch_SetBendRotateOrigin	SUPPORTED
 0x00434100	1	src/radiant/Pmesh.cpp	_FUN_00434100	FUN_00434100	UNNAMED
+0x00434110	119	src/radiant/Pmesh.cpp	?FUN_00434110@@YAXXZ	FUN_00434110	SUPPORTED
 0x00435840	182	src/radiant/Pmesh.cpp	?FUN_00435840@@YAXXZ	FUN_00435840	UNNAMED
 0x004392a0	275	src/radiant/Pmesh.cpp	?FUN_004392a0@@YAPAUpatch_t@@PAUpatchMesh_t@@@Z	FUN_004392a0	UNNAMED
 0x004393c0	142	src/radiant/Pmesh.cpp	?FUN_004393c0@@YAXPAUpatchMesh_t@@@Z	FUN_004393c0	SUPPORTED
@@ -634,6 +638,12 @@ addr	size	source	symbol	name	tag
 0x0043c770	61	src/radiant/ScaleDialog.cpp	?DoDataExchange@CScaleDialog@@MAEXPAVCDataExchange@@@Z	CScaleDialog::DoDataExchange	SUPPORTED
 0x0043c7b0	6	src/radiant/ScaleDialog.cpp	?GetMessageMap@CScaleDialog@@MBEPBUAFX_MSGMAP@@XZ	CScaleDialog::GetMessageMap	SUPPORTED
 0x0043caf0	6	src/radiant/SurfaceDlg.cpp	?GetMessageMap@CSurfaceDlg@@MBEPBUAFX_MSGMAP@@XZ	CSurfaceDlg::GetMessageMap	SUPPORTED
+0x0043cb00	114	src/radiant/SurfaceDlg.cpp	?FUN_0043cb00@@YAXPAUHWND__@@PBD@Z	FUN_0043cb00	SUPPORTED
+0x0043cb80	225	src/radiant/SurfaceDlg.cpp	?FUN_0043cb80@@YAMPAUface_t@@@Z	FUN_0043cb80	PINNED
+0x0043cc70	228	src/radiant/SurfaceDlg.cpp	?FUN_0043cc70@@YAMPAUbrushdef_t@@@Z	FUN_0043cc70	PINNED
+0x0043cd60	136	src/radiant/SurfaceDlg.cpp	?FUN_0043cd60@@YAMXZ	FUN_0043cd60	SUPPORTED
+0x0043cdf0	45	src/radiant/SurfaceDlg.cpp	?FUN_0043cdf0@@YAMPAUselFace_t@@@Z	FUN_0043cdf0	SUPPORTED
+0x0043ce20	254	src/radiant/SurfaceDlg.cpp	?FUN_0043ce20@@YAMXZ	FUN_0043ce20	SUPPORTED
 0x0043dff0	509	src/radiant/SurfaceDlg.cpp	?FUN_0043dff0@@YAXXZ	FUN_0043dff0	SUPPORTED
 0x0043e910	1	src/radiant/SurfaceDlg.cpp	_FUN_0043e910	FUN_0043e910	UNNAMED
 0x0043e930	19	src/radiant/SurfaceDlg.cpp	?OnCreate@CSurfaceDlg@@IAEHPAUtagCREATESTRUCTA@@@Z	CSurfaceDlg::OnCreate	SUPPORTED
@@ -827,7 +837,9 @@ addr	size	source	symbol	name	tag
 0x00458af0	260	src/radiant/brush.cpp	?FUN_00458af0@@YAXPAUbrushdef_t@@@Z	FUN_00458af0	PINNED
 0x00458d20	30	src/radiant/brush.cpp	?Face_MemorySize@@YAHPBUface_t@@@Z	Face_MemorySize	SUPPORTED
 0x00458d40	113	src/radiant/brush.cpp	?BrushDef_MemorySize@@YAHPBUbrushdef_t@@@Z	BrushDef_MemorySize	SUPPORTED
+0x00459210	171	src/radiant/brush.cpp	?FUN_00459210@@YAXPAUbrush_t@@0@Z	FUN_00459210	SUPPORTED
 0x004592c0	36	src/radiant/brush.cpp	?FUN_004592c0@@YA_NPAUbrush_t@@@Z	FUN_004592c0	SUPPORTED
+0x004592f0	194	src/radiant/brush.cpp	?FUN_004592f0@@YAXPAUbrush_t@@@Z	FUN_004592f0	SUPPORTED
 0x0045a150	201	src/radiant/brush.cpp	?FUN_0045a150@@YAHPAUbrushdef_t@@PBHQBMHPAX3@Z	FUN_0045a150	SUPPORTED
 0x0045b630	36	src/radiant/brush.cpp	?FUN_0045b630@@YA_NPAUbrush_t@@@Z	FUN_0045b630	SUPPORTED
 0x0045ebc0	40	src/radiant/brush.cpp	?FUN_0045ebc0@@YAMMM@Z	FUN_0045ebc0	SUPPORTED
