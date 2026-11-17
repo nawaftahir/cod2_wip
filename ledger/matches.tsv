@@ -556,6 +556,7 @@ addr	size	source	symbol	name	tag
 0x004668b0	51	src/radiant/entity.cpp	?FUN_004668b0@@YAXPBM0PAM@Z	FUN_004668b0	UNNAMED
 0x004668f0	73	src/radiant/entity.cpp	?FUN_004668f0@@YAXPBDPAU_iobuf@@@Z	FUN_004668f0	UNNAMED
 0x00466940	41	src/radiant/entity.cpp	?FUN_00466940@@YAXPBDPAU_iobuf@@0@Z	FUN_00466940	UNNAMED
+0x00467240	152	src/radiant/entity.cpp	?FUN_00467240@@YAXPAUbrushdef_t@@@Z	FUN_00467240	PINNED
 0x00467370	114	src/radiant/entity.cpp	?GetUniqueTargetId@@YAHH@Z	GetUniqueTargetId	SUPPORTED
 0x004673f0	52	src/radiant/entity.cpp	?FUN_004673f0@@YAPAUentity_t@@PBD0@Z	FUN_004673f0	UNNAMED
 0x00467430	58	src/radiant/entity.cpp	?FindEntityInt@@YAPAUentity_t@@PBDH@Z	FindEntityInt	SUPPORTED

@@ -14,10 +14,10 @@ struct epair_t
 struct eclass_t;
 struct entity_t;
 
-struct brushDef_t
+struct brushdef_t
 {
-	brushDef_t *oprev;
-	brushDef_t *onext;
+	brushdef_t *oprev;
+	brushdef_t *onext;
 	entity_t *owner;
 	unsigned char pad0c[4];
 	int undoId;
@@ -49,7 +49,7 @@ struct entity_t
 {
 	entity_t *prev;
 	entity_t *next;
-	brushDef_t brushes;
+	brushdef_t brushes;
 	eclass_t *eclass;
 	eclass_t *modelClass;
 	float origin[3];
@@ -63,6 +63,8 @@ struct entity_t
 };
 
 extern entity_t entities;
+extern void FUN_0047a760(const char *fmt, ...);
+extern char *va(const char *format, ...);
 extern void (__cdecl *dword_0059c490)(void *);
 
 // 0x00464bb0 (88 B)
@@ -318,6 +320,21 @@ void FUN_00466940(const char *key, FILE *f, const char *value)
 	fputc('\n', f);
 }
 
+// 0x00467240 (152 B)
+void FUN_00467240(brushdef_t *b)
+{
+	if (!b->onext || !b->oprev)
+		FUN_0047a760("Entity_UnlinkBrush: Not currently linked");
+#line 1115
+	assertMsg((b->refCount > 0), "(b->refCount) = %i", b->refCount);
+	b->refCount--;
+	b->onext->oprev = b->oprev;
+	b->oprev->onext = b->onext;
+	b->oprev = NULL;
+	b->onext = NULL;
+	b->owner = NULL;
+}
+
 // 0x00467370 (114 B)
 int GetUniqueTargetId(int iHint)
 {
@@ -389,7 +406,7 @@ void FUN_00467680(entity_t *entity, int delta)
 #line 1292
 	assert(entity->refCount > 0);
 
-	for (brushDef_t *b = entity->brushes.onext; b != &entity->brushes; b = b->onext)
+	for (brushdef_t *b = entity->brushes.onext; b != &entity->brushes; b = b->onext)
 	{
 		b->refCount += delta;
 #line 1296
