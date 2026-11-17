@@ -39,6 +39,17 @@ extern brush_s g_brClipboard;
 extern brush_s g_brUndo;
 
 void FUN_0047a760(const char *format, ...);
+void Drag_MouseUp(int buttons);
+
+// The three CMainFrame methods called through g_pParentWnd (same projection as TexWnd.cpp).
+class CMainFrame;
+struct CXYWndMainProjection
+{
+    void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
+    void __stdcall OnKeyUp(UINT nChar);
+    BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
+};
+extern CMainFrame *g_pParentWnd;
 
 // Retail list node hanging off the window (owner and name still unknown).
 struct XYWndNode
@@ -71,6 +82,7 @@ public:
     float (&RotateOrigin())[3];
     float (&Rotation())[3];
     BOOL AreaSelectOK();
+    void XY_MouseUp(int x, int y, int buttons);
 
     bool m_bActive;
     unsigned char pad_51[3];
@@ -107,6 +119,10 @@ protected:
     afx_msg void OnKillFocus(CWnd *pNewWnd);
     afx_msg void OnSetFocus(CWnd *pOldWnd);
     afx_msg void OnClose();
+    afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
+    afx_msg void OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags);
+    afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
+    afx_msg void OnSysKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 
     DECLARE_MESSAGE_MAP()
 };
@@ -153,13 +169,18 @@ CXYWnd::~CXYWnd()
     m_mnuDrop.DestroyMenu();
 }
 
+// Retail order; entries for the other handlers are added as their bodies land.
 BEGIN_MESSAGE_MAP(CXYWnd, CWnd)
     ON_WM_CREATE()
+    ON_WM_KEYDOWN()
     ON_WM_DESTROY()
+    ON_WM_KEYUP()
     ON_WM_NCCALCSIZE()
     ON_WM_KILLFOCUS()
     ON_WM_SETFOCUS()
     ON_WM_CLOSE()
+    ON_WM_MOUSEWHEEL()
+    ON_WM_SYSKEYDOWN()
 END_MESSAGE_MAP()
 
 BOOL CXYWnd::PreCreateWindow(CREATESTRUCT &cs)
@@ -244,6 +265,11 @@ void CXYWnd::SetPointMode(bool b)
         g_nPointCount = 0;
 }
 
+void CXYWnd::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+    reinterpret_cast<CXYWndMainProjection *>(g_pParentWnd)->OnKeyDown(nChar, nRepCnt, nFlags);
+}
+
 void CXYWnd::XY_Init()
 {
     m_vOrigin[0] = 0;
@@ -271,6 +297,16 @@ void CXYWnd::XY_ToPoint(int x, int y, float point[3])
             point[0] = m_vOrigin[0] + (fx - fw / 2) / m_fScale;
         point[2] = m_vOrigin[2] + (fy - fh / 2) / m_fScale;
     }
+}
+
+void CXYWnd::XY_MouseUp(int x, int y, int buttons)
+{
+    Drag_MouseUp(buttons);
+    if (!m_bPress_selection)
+        g_nUpdateBits = -1;
+    m_nButtonstate = 0;
+    while (ShowCursor(TRUE) < 0)
+        ;
 }
 
 float (&CXYWnd::GetOrigin())[3]
@@ -347,6 +383,11 @@ float (&CXYWnd::Rotation())[3]
     return g_vRotation;
 }
 
+void CXYWnd::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+    reinterpret_cast<CXYWndMainProjection *>(g_pParentWnd)->OnKeyUp(nChar);
+}
+
 void CXYWnd::OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS *lpncsp)
 {
     Default();
@@ -374,6 +415,16 @@ BOOL CXYWnd::AreaSelectOK()
     if (g_bRotateMode)
         return false;
     return !g_bScaleMode;
+}
+
+BOOL CXYWnd::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
+{
+    return reinterpret_cast<CXYWndMainProjection *>(g_pParentWnd)->OnMouseWheel(nFlags, zDelta, pt);
+}
+
+void CXYWnd::OnSysKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+    reinterpret_cast<CXYWndMainProjection *>(g_pParentWnd)->OnKeyDown(nChar, nRepCnt, nFlags);
 }
 
 extern "C" void FUN_004535f0() {}
