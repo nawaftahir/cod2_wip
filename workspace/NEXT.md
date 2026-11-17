@@ -28,6 +28,18 @@ emit-order warnings 18. FILE LEDGER 7 VERIFIED / 102 (audited set; other src/ fi
   in NameDlg) because those users do not exist yet. Fix: class in a header, write the user function in
   the earlier file. Not linker ICF: 46 duplicate groups in retail are raw-byte identical and kept apart.
 
+## 2026-11-17 round 3 (clean gate, 68936968)
+1374/3582 = 38.36% game functions, 22.08% game bytes (154,516 B), same-offset 1.751%, emit-order 12, 0 failing.
+- Merged: dobj +6, Winding +5 / brush +2, dvar +2, CamWnd +10, entity +29 (new file), map +5 (new file).
+  SL_IsLowercaseString named from the retail dobj assert text.
+- Lesson (lane C): self-contained bodies get retail register conventions without callers; the real blocker
+  is an UNWRITTEN CALLEE with a register/stdcall convention. Land callee clusters first.
+- GraphGetValueFromFraction 0x4832c0 flips (79%) when some bodies are added; blocks InitCull 0x405220,
+  0x45ebc0, 0x4532a0, others. Radiant has no tie list (tools change = owner review). Opus lane on root cause.
+- Proposals for owner: tu_map moves for com_files tail 0x482440..0x482970 and CamWnd tail 0x4075c0..0x407f60
+  (helpers, not that file's code); 0x4a1170 -> dobj; 0x449760 size 159 -> 160; DVAR_CHANGEABLE_RESET value.
+- p4api (110 KB, VC6 prebuilt lib) is missing: Perforce FTP has r14+ only; need an old p4api.zip from the owner.
+
 ## 2026-11-17 round 2 (clean gate cbafb09d)
 1315/3582 = 36.71% game functions, 21.23% game bytes (148,586 B), same-offset 1.745%, emit-order 12, 0 failing.
 - Lanes: Pmesh +5, brush +6, XYWnd +27 (CXYWnd layout 0x120), select +12 / drag +1, g_vehicle_path +8.
