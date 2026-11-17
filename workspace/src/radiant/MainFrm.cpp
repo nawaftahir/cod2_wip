@@ -103,7 +103,9 @@ public:
   afx_msg void OnDestroy();
   afx_msg void OnFileExit();
   // three CSplitterWnd at 0x500, 0x5d8, 0x6b0
-  char pad[0x500 - sizeof(CFrameWnd)];
+  char pad[0x180 - sizeof(CFrameWnd)];
+  HWND field_0180;
+  char pad2[0x500 - 0x184];
   char wndSplit[0x788 - 0x500];
   CWnd *field_0788;
   CWnd *field_078c;
@@ -310,6 +312,25 @@ extern "C" void FUN_0041af00() { FUN_00432bb0(); }
 extern "C" void FUN_0041af10() { FUN_00432ca0(0); }
 extern "C" void FUN_0041af20() { FUN_00432ca0(1); }
 extern "C" void FUN_0041b0f0() {}
+
+extern bool DAT_012334ba;
+extern bool DAT_012334b9;
+extern bool DAT_0112993e;
+extern bool DAT_0112993f;
+extern int DAT_011298b0;
+
+// Sync four toolbar buttons and their menu checks with the mode flags.
+extern "C" void FUN_0041b190(CMainFrame *self)
+{
+  ::SendMessage(self->field_0180, 0x402, 0x8072, MAKELONG(DAT_012334ba != 0, 0));
+  ::SendMessage(self->field_0180, 0x402, 0x8068, MAKELONG(DAT_012334b9 != 0, 0));
+  ::SendMessage(self->field_0180, 0x402, 0x8174, MAKELONG(DAT_0112993e != 0, 0));
+  ::SendMessage(self->field_0180, 0x402, 0x8173, MAKELONG(DAT_0112993f != 0, 0));
+  ::SendMessage(self->field_0180, 0x402, 0x8175, MAKELONG(DAT_011298b0 == 11, 0));
+  ::CheckMenuItem(::GetMenu(g_qeglobals.d_hwndMain), 0x8174, DAT_0112993e ? MF_CHECKED : MF_UNCHECKED);
+  ::CheckMenuItem(::GetMenu(g_qeglobals.d_hwndMain), 0x8173, DAT_0112993f ? MF_CHECKED : MF_UNCHECKED);
+  ::CheckMenuItem(::GetMenu(g_qeglobals.d_hwndMain), 0x8175, DAT_011298b0 == 11 ? MF_CHECKED : MF_UNCHECKED);
+}
 extern "C" void FUN_0041b6e0() { FUN_00437e50(); }
 extern "C" void FUN_0041b700() { FUN_00438120(); }
 extern "C" void FUN_0041b710() { FUN_00438ff0(); }

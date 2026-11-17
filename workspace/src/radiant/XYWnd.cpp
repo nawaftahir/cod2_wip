@@ -98,6 +98,7 @@ public:
     float (&Rotation())[3];
     BOOL AreaSelectOK();
     void XY_MouseUp(int x, int y, int buttons);
+    BOOL DragDelta(int x, int y, float move[3]);
     void FUN_0044bc50(const char *name, int id);
     void FUN_0044be20();
     void HandleDrop();
@@ -491,6 +492,36 @@ void CXYWnd::XY_MouseUp(int x, int y, int buttons)
     m_nButtonstate = 0;
     while (ShowCursor(TRUE) < 0)
         ;
+}
+
+BOOL CXYWnd::DragDelta(int x, int y, float move[3])
+{
+    float xvec[3];
+    float yvec[3];
+    float delta[3];
+    int i;
+
+    xvec[0] = 1.0f / m_fScale;
+    xvec[1] = xvec[2] = 0;
+    yvec[1] = 1.0f / m_fScale;
+    yvec[0] = yvec[2] = 0;
+
+    for (i = 0; i < 3; i++)
+    {
+        delta[i] = (x - m_nPressx) * xvec[i] + (y - m_nPressy) * yvec[i];
+        if (!dword_01233b64->m_bNoClamp)
+            delta[i] = (float)(floor(delta[i] / g_qeglobals.d_gridsize + 0.5) * g_qeglobals.d_gridsize);
+    }
+    move[0] = delta[0] - m_vPressdelta[0];
+    move[1] = delta[1] - m_vPressdelta[1];
+    move[2] = delta[2] - m_vPressdelta[2];
+    m_vPressdelta[0] = delta[0];
+    m_vPressdelta[1] = delta[1];
+    m_vPressdelta[2] = delta[2];
+
+    if (move[0] || move[1] || move[2])
+        return TRUE;
+    return FALSE;
 }
 
 float (&CXYWnd::GetOrigin())[3]
