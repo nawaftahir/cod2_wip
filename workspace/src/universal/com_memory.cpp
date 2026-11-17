@@ -965,7 +965,7 @@ const char *Hunk_SetDataForFile( int type, const char *name, void *data, void *(
 	int hash;
 	hash = FS_HashFileName( name, FILEDATA_HASH_SIZE );
 	assert( !Hunk_FindDataForFileInternal( type, name, hash ) );
-	size = I_strlen( name ) + sizeof( fileData_t );
+	size = strlen( name ) + sizeof( fileData_t );
 	fileData = (fileData_s *)alloc( size );
 	fileData->data = data;
 	fileData->type = type;
