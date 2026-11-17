@@ -276,7 +276,8 @@ void Patch_MeshNormals(patchMesh_t *in)
             {
                 if (!good[k] || !good[(k + 1) & 7])
                     continue;
-                Vec3Cross(around[(k + 1) & 7], around[k], normal);
+                int k1 = (k + 1) & 7;
+                Vec3Cross(around[k1], around[k], normal);
                 if (Vec3Normalize(normal) == 0.0f)
                     continue;
                 VectorAdd(normal, sum, sum);
@@ -807,7 +808,8 @@ face_t *Patch_GetAxisFace(patchMesh_t *p)
     assert(b);
     for (int i = 0; i < b->faceCount; i++)
     {
-        winding_t *w = b->faces[i].w;
+        face_t *faces = b->faces;
+        winding_t *w = faces[i].w;
 #line 1015
         assert(w);
         vec3_t vTemp;

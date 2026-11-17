@@ -134,7 +134,22 @@ Results:
   `const float *normal = split->normal;` before the j loop.
 - Winding_PlanesConcave 0x4481e0 still 95%: aliasing did not fix it (defer row). Retail reloads normal2
   inside loop 2.
-- Not tried yet, same lever: brush 0x45f860 `[ecx+esi]`, Patch_GetAxisFace 0x427290, Patch_MeshNormals 0x425910.
+- Not tried yet, same lever: brush 0x45f860 `[ecx+esi]`.
+- Round 5 (all MATCH, same lever, first try each):
+  - Base/index swap: Patch_GetAxisFace 0x427290 `[eax+ebx]` needs `face_t *faces = b->faces;` in the
+    loop, then `faces[i].w`. `(b->faces + i)->w` does not change it.
+  - fmul operand order in an inlined cross: Patch_MeshNormals 0x425910 needs the index named once,
+    `int k1 = (k + 1) & 7; Vec3Cross(around[k1], around[k], normal);`. Pointer aliases for the rows
+    made it worse (96-97%).
+  - Load order of integer leaves: ConsumeQuat 0x4aae50 copies to locals first, `iQ[0..2] = out[0..2];`
+    then `temp = 1073676289 - iQ[2]*iQ[2] - iQ[1]*iQ[1] - iQ[0]*iQ[0];` (the unused-looking iQ[4]
+    is the hint). Stepwise `temp -=` on iQ gives 99%.
+  - Register choice: DObjSetLocalTagInternal 0x4a6ff0 builds the child pointer in the same variable,
+    `rotTrans += boneIndex;`, not a second `childRotTrans = &rotTrans[boneIndex]`.
+  - Rule of thumb: when retail reuses one register for a value, use one variable; when it loads a
+    leaf through a different base, give that base its own local.
+- Still open: Winding_PlanesConcave 0x4481e0 (loop 2 x,z,y, 8 forms, 92-95%), Dvar_StringToValue
+  0x48ca50 (epilogue order, `return value;` in the BOOL case no change).
 
 ## Order of work
 1. **NameDlg + DlgEvent via dlgcamera:** **DONE** (`CDlgCamera` in `workspace/src/radiant/dlgcamera.{h,cpp}`,
