@@ -1,3 +1,4 @@
+#include <new>
 #include <malloc.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -106,6 +107,7 @@ extern void FUN_0047a760(const char *fmt, ...);
 extern char *va(const char *format, ...);
 extern void FUN_00458af0(brushdef_t *def);
 void FUN_00467240(brushdef_t *b);
+extern void FUN_00457bd0(brushdef_t *b);
 #define assert1(expr) do { static bool s_assertDisable; if (!(expr) && !s_assertDisable) { switch (FUN_0047d980(#expr, __FILE__, __LINE__, 1, 1)) { case 0: DebugBreak(); break; case 2: s_assertDisable = true; break; } } } while (0)
 extern void (__cdecl *dword_0059c490)(void *);
 extern void FUN_00458c00(brush_t *b);
@@ -564,6 +566,22 @@ void FUN_00466940(const char *key, FILE *f, const char *value)
 	fputc(' ', f);
 	FUN_004668f0(value, f);
 	fputc('\n', f);
+}
+
+// 0x004671b0 (142 B)
+void FUN_004671b0(brushdef_t *b, entity_t *owner)
+{
+	if (b->oprev || b->onext)
+		FUN_0047a760("Entity_LinkBrush: Allready linked");
+	b->owner = owner;
+#line 1097
+	assertMsg((b->refCount >= 0), "(b->refCount) = %i", b->refCount);
+	b->refCount++;
+	b->onext = &owner->brushes;
+	b->oprev = owner->brushes.oprev;
+	owner->brushes.oprev->onext = b;
+	owner->brushes.oprev = b;
+	FUN_00457bd0(b);
 }
 
 // 0x00467240 (152 B)

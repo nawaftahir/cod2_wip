@@ -434,6 +434,8 @@ addr	size	source	symbol	name	tag
 0x0041d570	9	src/radiant/MainFrm.cpp	_FUN_0041d570	FUN_0041d570	UNNAMED
 0x0041d580	9	src/radiant/MainFrm.cpp	_FUN_0041d580	FUN_0041d580	UNNAMED
 0x0041d590	9	src/radiant/MainFrm.cpp	_FUN_0041d590	FUN_0041d590	UNNAMED
+0x0041d5e0	843	src/radiant/MainFrm.cpp	?FUN_0041d5e0@@YAXPAUbrush_t@@PBD@Z	FUN_0041d5e0	UNNAMED
+0x0041e160	63	src/radiant/MainFrm.cpp	?FUN_0041e160@@YAXPBD@Z	FUN_0041e160	UNNAMED
 0x0041e730	4	src/radiant/MainFrm.cpp	@FUN_0041e730@4	FUN_0041e730	UNNAMED
 0x0041e740	4	src/radiant/MainFrm.cpp	@FUN_0041e740@4	FUN_0041e740	UNNAMED
 0x0041e750	3	src/radiant/MainFrm.cpp	@FUN_0041e750@4	FUN_0041e750	UNNAMED
@@ -497,9 +499,12 @@ addr	size	source	symbol	name	tag
 0x00426280	410	src/radiant/Pmesh.cpp	?Patch_CalcBounds@@YAXPAUpatchMesh_t@@AAY02M1_N@Z	Patch_CalcBounds	SUPPORTED
 0x00426420	87	src/radiant/Pmesh.cpp	?FUN_00426420@@YAXPAUface_t@@PBUtexdef_t@@HHQBM22@Z	FUN_00426420	UNNAMED
 0x00426780	65	src/radiant/Pmesh.cpp	?FUN_00426780@@YAXPAUdrawVert_t@@PBUPatchControl@@H@Z	FUN_00426780	UNNAMED
+0x004269a0	46	src/radiant/Pmesh.cpp	?FUN_004269a0@@YAXPAUpatchMesh_t@@@Z	FUN_004269a0	UNNAMED
 0x00426b80	139	src/radiant/Pmesh.cpp	?Patch_WidthDistanceTo@@YAMPAUpatchMesh_t@@H@Z	Patch_WidthDistanceTo	SUPPORTED
 0x00426c10	127	src/radiant/Pmesh.cpp	?Patch_HeightDistanceTo@@YAMPAUpatchMesh_t@@H@Z	Patch_HeightDistanceTo	SUPPORTED
+0x00426dc0	94	src/radiant/Pmesh.cpp	?FUN_00426dc0@@YAXPAUpatchMesh_t@@QBMPBUtexdef_t@@@Z	FUN_00426dc0	UNNAMED
 0x00427160	211	src/radiant/Pmesh.cpp	?FUN_00427160@@YAXPAUpatchMesh_t@@H@Z	FUN_00427160	UNNAMED
+0x00427240	72	src/radiant/Pmesh.cpp	?Patch_Naturalize@@YAXPAUpatchMesh_t@@@Z	Patch_Naturalize	SUPPORTED
 0x00427290	373	src/radiant/Pmesh.cpp	?Patch_GetAxisFace@@YAPAUface_t@@PAUpatchMesh_t@@@Z	Patch_GetAxisFace	SUPPORTED
 0x00427410	152	src/radiant/Pmesh.cpp	?nextFace@@YAPAUface_t@@PAUpatchMesh_t@@@Z	nextFace	SUPPORTED
 0x004274b0	131	src/radiant/Pmesh.cpp	?Patch_CapTexture@@YAXPAUpatchMesh_t@@_NMM@Z	Patch_CapTexture	SUPPORTED
@@ -514,6 +519,7 @@ addr	size	source	symbol	name	tag
 0x0042beb0	88	src/radiant/Pmesh.cpp	?FUN_0042beb0@@YAXXZ	FUN_0042beb0	UNNAMED
 0x0042f5d0	112	src/radiant/Pmesh.cpp	?FUN_0042f5d0@@YAXXZ	FUN_0042f5d0	UNNAMED
 0x0042f640	5	src/radiant/Pmesh.cpp	?FUN_0042f640@@YAXPAUpatch_t@@@Z	FUN_0042f640	UNNAMED
+0x0042ea50	154	src/radiant/Pmesh.cpp	?FUN_0042ea50@@YAXPAUpatchMesh_t@@QBM@Z	FUN_0042ea50	UNNAMED
 0x0042f660	290	src/radiant/Pmesh.cpp	?FUN_0042f660@@YAXPAUpatchMesh_t@@@Z	FUN_0042f660	PINNED
 0x0042f950	21	src/radiant/Pmesh.cpp	?FUN_0042f950@@YAXH@Z	FUN_0042f950	UNNAMED
 0x00433a20	44	src/radiant/Pmesh.cpp	?OnlyPatchesSelected@@YA_NXZ	OnlyPatchesSelected	SUPPORTED
@@ -522,6 +528,8 @@ addr	size	source	symbol	name	tag
 0x00433e30	79	src/radiant/Pmesh.cpp	?FUN_00433e30@@YAXXZ	FUN_00433e30	SUPPORTED
 0x00433e80	79	src/radiant/Pmesh.cpp	?Patch_SetBendRotateOrigin@@YAXXZ	Patch_SetBendRotateOrigin	SUPPORTED
 0x00434100	1	src/radiant/Pmesh.cpp	_FUN_00434100	FUN_00434100	UNNAMED
+0x00435840	182	src/radiant/Pmesh.cpp	?FUN_00435840@@YAXXZ	FUN_00435840	UNNAMED
+0x004392a0	275	src/radiant/Pmesh.cpp	?FUN_004392a0@@YAPAUpatch_t@@PAUpatchMesh_t@@@Z	FUN_004392a0	UNNAMED
 0x004394f0	16	src/radiant/Pmesh.cpp	?FUN_004394f0@@YAXQBM0QAM@Z	FUN_004394f0	UNNAMED
 0x00439500	28	src/radiant/Pmesh.cpp	?FUN_00439500@@YAXQBM0QAM@Z	FUN_00439500	UNNAMED
 0x00439670	14	src/radiant/Pmesh.cpp	?FUN_00439670@@YAXQAM@Z	FUN_00439670	UNNAMED
@@ -610,6 +618,7 @@ addr	size	source	symbol	name	tag
 0x00443800	27	src/radiant/Undo.cpp	?Undo_SetMaxSize@@YAXH@Z	Undo_SetMaxSize	SUPPORTED
 0x00443820	6	src/radiant/Undo.cpp	?Undo_GetMaxSize@@YAHXZ	Undo_GetMaxSize	SUPPORTED
 0x00443850	6	src/radiant/Undo.cpp	?Undo_GetMaxMemorySize@@YAHXZ	Undo_GetMaxMemorySize	SUPPORTED
+0x00443a90	411	src/radiant/Undo.cpp	?Undo_GeneralStart@@YAXPAD@Z	Undo_GeneralStart	SUPPORTED
 0x00443c30	159	src/radiant/Undo.cpp	?FUN_00443c30@@YA_NPAUundo_s@@PAUbrushdef_t@@@Z	FUN_00443c30	UNNAMED
 0x00443cd0	150	src/radiant/Undo.cpp	?FUN_00443cd0@@YA_NPAUundo_s@@PAUentity_t@@@Z	FUN_00443cd0	UNNAMED
 0x00443d90	223	src/radiant/Undo.cpp	?FUN_00443d90@@YAXPAUbrushdef_t@@@Z	FUN_00443d90	UNNAMED
@@ -621,6 +630,7 @@ addr	size	source	symbol	name	tag
 0x00443fd0	229	src/radiant/Undo.cpp	?FUN_00443fd0@@YAXPAUentity_t@@@Z	FUN_00443fd0	UNNAMED
 0x004440c0	70	src/radiant/Undo.cpp	?Undo_AddEntity@@YAXPAUentity_t@@@Z	Undo_AddEntity	SUPPORTED
 0x00444110	63	src/radiant/Undo.cpp	?FUN_00444110@@YAXPAUentity_t@@@Z	FUN_00444110	UNNAMED
+0x00444150	96	src/radiant/Undo.cpp	?Undo_End@@YAXXZ	Undo_End	SUPPORTED
 0x00445020	14	src/radiant/Undo.cpp	?FUN_00445020@@YA_NXZ	FUN_00445020	UNNAMED
 0x00445030	25	src/radiant/Undo.cpp	?Undo_UndoAvailable@@YAHXZ	Undo_UndoAvailable	SUPPORTED
 0x004460e0	6	src/radiant/VertEditDlg.cpp	?GetRuntimeClass@CVertEditDlg@@UBEPAUCRuntimeClass@@XZ	CVertEditDlg::GetRuntimeClass	SUPPORTED
@@ -793,6 +803,7 @@ addr	size	source	symbol	name	tag
 0x004668b0	51	src/radiant/entity.cpp	?FUN_004668b0@@YAXPBM0PAM@Z	FUN_004668b0	UNNAMED
 0x004668f0	73	src/radiant/entity.cpp	?FUN_004668f0@@YAXPBDPAU_iobuf@@@Z	FUN_004668f0	UNNAMED
 0x00466940	41	src/radiant/entity.cpp	?FUN_00466940@@YAXPBDPAU_iobuf@@0@Z	FUN_00466940	UNNAMED
+0x004671b0	142	src/radiant/entity.cpp	?FUN_004671b0@@YAXPAUbrushdef_t@@PAUentity_t@@@Z	FUN_004671b0	UNNAMED
 0x00467240	152	src/radiant/entity.cpp	?FUN_00467240@@YAXPAUbrushdef_t@@@Z	FUN_00467240	PINNED
 0x004672e0	135	src/radiant/entity.cpp	?FUN_004672e0@@YAPAUentity_t@@PAU1@@Z	FUN_004672e0	UNNAMED
 0x00467370	114	src/radiant/entity.cpp	?GetUniqueTargetId@@YAHH@Z	GetUniqueTargetId	SUPPORTED
