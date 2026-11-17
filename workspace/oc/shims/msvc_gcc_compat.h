@@ -124,7 +124,9 @@ long _InterlockedCompareExchange(long volatile *, long, long);
  * no-ops). COD2_CONSTRUCTOR(fn){..} registers fn in the CRT's .CRT$XCU init
  * array so it runs before main, as the GCC constructor would.
  *   usage: COD2_CONSTRUCTOR(init_rune_locale) { ... }   (replaces the attribute) */
+#ifndef COD2_NO_XCU_DECL   /* a TU whose own dynamic init must stay compiler-placed */
 #pragma section(".CRT$XCU", read)   /* declare the CRT init array section once */
+#endif
 #define COD2_CONSTRUCTOR(fn)                                                 \
     static void fn(void);                                                   \
     __declspec(allocate(".CRT$XCU")) static void (*fn##__crtreg)(void) = fn;\

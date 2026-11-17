@@ -190,7 +190,7 @@ cgame_mp/cg_info_mp.cpp #oc
 cgame_mp/cg_weapons.cpp #oc
 cgame_mp/offhandweapons_mp.cpp #oc
 cgame/cg_effects_load_obj.cpp
-cgame_mp/cg_localents_mp.cpp #oc
+cgame_mp/cg_localents_mp.cpp /DCOD2_NO_XCU_DECL #oc
 cgame_mp/cg_scoreboard_mp.cpp #oc
 cgame_mp/cg_compassfriendlies_mp.cpp #oc
 cgame_mp/cg_players_mp.cpp #oc
