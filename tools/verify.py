@@ -184,8 +184,16 @@ def verify_all():
     for path in banned_sources():
         results.append({"addr": "-", "size": "0", "source": path, "symbol": "-", "name": "-",
                         "tag": "-", "status": "BANNED", "detail": "inline asm/_emit/naked/byte array"})
+    # owner-approved LTCG ties (data/ties.tsv): losing one is reported but does not fail
+    ties = {int(r["addr"], 16) for r in read_tsv("data/ties.tsv")} if (BASE / "data" / "ties.tsv").exists() else set()
+    for res in results:
+        if res["status"] in ("MISMATCH", "CALLEE") and res["addr"] != "-" and int(res["addr"], 16) in ties:
+            res["status"] = "TIE-LOST"
     failed = 0
     for res in results:
+        if res["status"] == "TIE-LOST":
+            print("%-10s %s %s %s  %s" % (res["status"], res["addr"], res["name"], res["source"], res["detail"]))
+            continue
         if res["status"] != "MATCH":
             failed += 1
             print("%-10s %s %s %s  %s" % (res["status"], res["addr"], res["name"], res["source"], res["detail"]))

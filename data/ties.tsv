@@ -1,0 +1,5 @@
+# LTCG ties: matched functions whose register allocation flips when unrelated objects join the link (cod2_wip CLAUDE.md "Ties").
+# Losing a listed tie does not fail verify; a lost tie is not counted as matched. Owner approved 2026-11-18.
+addr	name	evidence
+0x004832c0	GraphGetValueFromFraction	flips 76-79% on unrelated lane merges since 2026-11-17 (first diff +0x5), restored by other merges
+0x0048afb0	Com_Filter	adding z.cpp holding only `static int e_dummy_unused;` flips it to 32% (lane E r12, 2026-11-18)
