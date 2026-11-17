@@ -17,6 +17,13 @@ State: 1,974,041 / 1,974,272 same-offset (231 B). Gate: `tools/ratchet13.sh` wit
 Single decl moves, DFS root moves, one-edge hidden-call searches (only fabricated calls fit), source shapes for
 every fn in 3 (25+ rows each), per-TU flags /Op /Ob2 /G6 /GB /Oy- on the residue TUs, speex as C.
 
+## 11-17 night (all dead, see TRIED/KNOWLEDGE)
+Inlined-wrapper model, hidden edge from the whole DemoCompleted subtree, every node as first DFS root, flags /Oa /Ow /GX /Gs.
+Key constraint: under any list order DemoCompleted's pass is <= 24 (depth bound), and the matched fns pin today's order
+everywhere else (the 53-change root/decl moves lose 1.38 M), so retail must have ONE extra edge from CL_DemoCompleted to a
+pass-24 fn whose inlined body folds away, or the IL graph has an input we do not model. Next real step: read c2 0x1070cfdf
+edge collection for non-call IL references (address-of, vtable, data with initializers) instead of more model searches.
+
 ## Next attacks (in order)
 1. c2 compile-order trace: find why CL_DemoCompleted / fire_grenade compile when they do (c2 0x1070cfdf walk,
    tools/dfs13.sh, peel13.py). Look for any input besides call edges: address-taken refs, static initializers,
