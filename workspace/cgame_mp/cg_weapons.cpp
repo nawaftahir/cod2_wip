@@ -226,14 +226,15 @@ static void StartWeaponAnim(int weaponNum, struct XAnimTree_s *tree, int activeA
 static void StartWeaponAnim(int weaponNum, struct XAnimTree_s *tree, int activeAnim)
 {
     int i;
+    int anim;
     weaponInfo_t *weapInfo;
 
     weapInfo = &cg_weaponsArray[weaponNum];
-    for (i = 0; i < 20; i++) {
-        if (activeAnim == i + 1)
-            XAnimSetGoalWeight(tree, i + 1, 1.0f, 0.0f, weapInfo->viewModelAnimRates[i + 1], 0, 1, 1);
+    for (i = 0, anim = 1; i < 20; i++, anim++) {
+        if (activeAnim == anim)
+            XAnimSetGoalWeight(tree, anim, 1.0f, 0.0f, weapInfo->viewModelAnimRates[anim], 0, 1, 1);
         else
-            XAnimSetGoalWeight(tree, i + 1, 0.0f, 0.0f, weapInfo->viewModelAnimRates[i + 1], 0, 0, 0);
+            XAnimSetGoalWeight(tree, anim, 0.0f, 0.0f, weapInfo->viewModelAnimRates[anim], 0, 0, 0);
     }
 }
 static void CG_PlayADSAnim(int animIndex, XAnimTree *pAnimTree)
