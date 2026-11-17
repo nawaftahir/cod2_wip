@@ -1762,8 +1762,7 @@ addr	size	tu	evidence
 0x00444110	63	radiant/Undo.cpp	SUPPORTED
 0x00444150	96	radiant/Undo.cpp	SUPPORTED
 0x004441b0	2119	radiant/Undo.cpp	PINNED
-0x00444a00	445	radiant/Undo.cpp	PINNED
-0x00444bc0	1116	radiant/Undo.cpp	PINNED
+0x00444a00	1561	radiant/Undo.cpp	PINNED
 0x00445020	14	radiant/Undo.cpp	SUPPORTED
 0x00445030	25	radiant/Undo.cpp	SUPPORTED
 0x00445050	6	radiant/VehicleDlg.cpp	SUPPORTED
