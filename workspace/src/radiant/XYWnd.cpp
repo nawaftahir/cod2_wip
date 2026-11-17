@@ -2,6 +2,8 @@
 #include "stdafx.h"
 #include <stddef.h>
 #include <string.h>
+#include "PrefsDlg.h"
+#include "../universal/assertive.h"
 
 #define W_XY 2
 
@@ -51,10 +53,19 @@ struct CXYWndMainProjection
 };
 extern CMainFrame *g_pParentWnd;
 
+extern CPrefsDlg *dword_01233b64;
+struct eclass_t
+{
+    eclass_t *next;
+    char *name;
+};
+extern eclass_t *dword_012334dc;
+
 // Retail list node hanging off the window (owner and name still unknown).
 struct XYWndNode
 {
     XYWndNode();
+    XYWndNode(int id, const char *name);
     int field_00;
     CString field_04;
     XYWndNode *next;
@@ -83,6 +94,9 @@ public:
     float (&Rotation())[3];
     BOOL AreaSelectOK();
     void XY_MouseUp(int x, int y, int buttons);
+    void FUN_0044bc50(const char *name, int id);
+    void FUN_0044be20();
+    void HandleDrop();
 
     bool m_bActive;
     unsigned char pad_51[3];
@@ -270,6 +284,110 @@ void CXYWnd::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
     reinterpret_cast<CXYWndMainProjection *>(g_pParentWnd)->OnKeyDown(nChar, nRepCnt, nFlags);
 }
 
+void CXYWnd::FUN_0044bc50(const char *name, int id)
+{
+    for (XYWndNode *node = field_e8.next; node; node = node->next)
+    {
+        if (node->field_00 == id)
+        {
+            node->field_04 = name;
+            return;
+        }
+    }
+    XYWndNode *tail = &field_e8;
+    while (tail->next)
+        tail = tail->next;
+    tail->next = new XYWndNode(id, name);
+}
+
+void CXYWnd::FUN_0044be20()
+{
+    CString strActive;
+    CString strName;
+    if (m_mnuDrop.GetSafeHmenu())
+        return;
+    {
+        m_mnuDrop.CreatePopupMenu();
+        int nID = 0x5910;
+
+        HMENU hSelect = ::CreateMenu();
+        ::AppendMenu(hSelect, MF_STRING, 0x80d8, "Select Complete Tall");
+        ::AppendMenu(hSelect, MF_STRING, 0x80d7, "Select Partial Tall");
+        ::AppendMenu(hSelect, MF_STRING, 0x80da, "Select Touching");
+        ::AppendMenu(hSelect, MF_STRING, 0x80f0, "Select Inside");
+        ::AppendMenu(hSelect, MF_STRING, 0x816c, "Select Targetname");
+        m_mnuDrop.AppendMenu(MF_POPUP, (UINT)hSelect, "Select");
+
+        HMENU hPrefab = ::CreateMenu();
+        ::AppendMenu(hPrefab, MF_STRING, 0x8195, "Enter Prefab");
+        ::AppendMenu(hPrefab, MF_STRING, 0x8196, "Leave Prefab");
+        m_mnuDrop.AppendMenu(MF_POPUP, (UINT)hPrefab, "Prefab");
+        m_mnuDrop.AppendMenu(MF_SEPARATOR, nID++, "");
+
+        m_mnuDrop.AppendMenu(MF_STRING, 0x810b, "Ungroup Entity");
+        m_mnuDrop.AppendMenu(MF_STRING, 0x8113, "Make Structural");
+        m_mnuDrop.AppendMenu(MF_STRING, 0x8112, "Make Detail");
+        m_mnuDrop.AppendMenu(MF_STRING, 196, "Make Weapon Clip");
+        m_mnuDrop.AppendMenu(MF_STRING, 197, "Make Non-Colliding");
+        m_mnuDrop.AppendMenu(MF_SEPARATOR, nID++, "");
+
+        m_mnuDrop.AppendMenu(MF_STRING, 0x81c7, "Make Split Coplanar Geo");
+        m_mnuDrop.AppendMenu(MF_STRING, 0x81c8, "Make Don't Split Coplanar Geo");
+        m_mnuDrop.AppendMenu(MF_SEPARATOR, nID++, "");
+
+        HMENU menu = NULL;
+        for (eclass_t *e = dword_012334dc; e; e = e->next)
+        {
+            strName = e->name;
+            int n_ = strName.Find("_");
+            if (n_ > 0)
+            {
+                CString strLeft = strName.Left(n_);
+                CString strRight = strName.Right(strName.GetLength() - n_ - 1);
+                if (strLeft == strActive)
+                {
+#line 1264
+                    assert(menu);
+                    FUN_0044bc50(strName, nID);
+                    ::AppendMenu(menu, MF_STRING, nID++, strRight);
+                }
+                else
+                {
+                    if (menu)
+                        m_mnuDrop.AppendMenu(MF_POPUP, (UINT)menu, strActive);
+                    strActive = strLeft;
+                    FUN_0044bc50(strName, nID);
+                    menu = ::CreateMenu();
+                    ::AppendMenu(menu, MF_STRING, nID++, strRight);
+                }
+            }
+            else
+            {
+                if (menu)
+                {
+                    m_mnuDrop.AppendMenu(MF_POPUP, (UINT)menu, strActive);
+                    menu = NULL;
+                }
+                strActive = "";
+                m_mnuDrop.AppendMenu(MF_STRING, nID++, strName);
+            }
+        }
+    }
+}
+
+void CXYWnd::HandleDrop()
+{
+    if (dword_01233b64->m_bRightClick)
+    {
+        if (!m_mnuDrop.GetSafeHmenu())
+            FUN_0044be20();
+        CPoint ptMouse;
+        GetCursorPos(&ptMouse);
+        m_mnuDrop.TrackPopupMenu(TPM_RIGHTBUTTON, ptMouse.x, ptMouse.y, this);
+    }
+}
+
+
 void CXYWnd::XY_Init()
 {
     m_vOrigin[0] = 0;
@@ -425,6 +543,13 @@ BOOL CXYWnd::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 void CXYWnd::OnSysKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
     reinterpret_cast<CXYWndMainProjection *>(g_pParentWnd)->OnKeyDown(nChar, nRepCnt, nFlags);
+}
+
+XYWndNode::XYWndNode(int id, const char *name)
+{
+    next = NULL;
+    field_00 = id;
+    field_04 = name;
 }
 
 extern "C" void FUN_004535f0() {}
