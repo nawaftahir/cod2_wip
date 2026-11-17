@@ -901,6 +901,12 @@ int __fastcall FUN_00429df0(void *, int value)
     return -1;
 }
 
+// Retail 0x0042ab00: 2D cross-product term of three points (eax, ecx, edx).
+float FUN_0042ab00(const vec2_t p0, const vec2_t p1, const vec2_t p2)
+{
+    return (p1[1] - p0[1]) * p2[0] + (p2[1] - p1[1]) * p0[0] + (p0[1] - p2[1]) * p1[0];
+}
+
 extern HWND g_hwndCheck_01234004;
 extern selbrush_t DAT_010a44b4;
 extern selbrush_t DAT_010a44dc;
@@ -976,6 +982,15 @@ extern CPtrArray g_ptrSelectedFaces;
 extern void Sys_Printf(const char *fmt, ...);
 extern vec3_t g_vRotateOrigin;
 static vec3_t g_vBendOrigin;
+
+extern int dword_5909F8;
+extern bool byte_12334B8;
+
+void FUN_0042f950(int value)
+{
+    byte_12334B8 = (value == dword_5909F8);
+    dword_5909F8 = value;
+}
 
 bool OnlyPatchesSelected()
 {
@@ -1061,3 +1076,35 @@ void Patch_SetBendRotateOrigin()
 
 // Retail one-byte RET bodies verified with MSVC 7.1. Original entry-point ownership/signatures remain provisional.
 extern "C" void FUN_00434100() {}
+
+void FUN_004394f0(const vec2_t a, const vec2_t b, vec2_t out)
+{
+    out[0] = a[0] - b[0];
+    out[1] = a[1] - b[1];
+}
+
+void FUN_00439500(const vec2_t a, const vec2_t b, vec2_t out)
+{
+    out[0] = (a[0] + b[0]) * 0.5f;
+    out[1] = (a[1] + b[1]) * 0.5f;
+}
+
+void FUN_00439670(vec2_t v)
+{
+    v[0] = 0.0f;
+    v[1] = 0.0f;
+}
+
+void FUN_00439680(const vec2_t src, vec2_t dst)
+{
+    dst[0] = src[0];
+    dst[1] = src[1];
+}
+
+void FUN_00439720(unsigned char *p, unsigned char a, unsigned char b, unsigned char c, unsigned char d)
+{
+    p[2] = b;
+    p[1] = a;
+    p[0] = c;
+    p[3] = d;
+}
