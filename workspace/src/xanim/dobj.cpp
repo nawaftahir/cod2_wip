@@ -949,7 +949,7 @@ void DObjSetLocalTagInternal(const DObj_s *obj, const float *trans, const float 
 	}
 }
 
-bool DObjSetControlTagAngles(const DObj_s *obj, int *partBits, unsigned int boneIndex, float *angles)
+int DObjSetControlTagAngles(const DObj_s *obj, int *partBits, unsigned int boneIndex, float *angles)
 {
 	int index;
 
@@ -965,7 +965,7 @@ bool DObjSetControlTagAngles(const DObj_s *obj, int *partBits, unsigned int bone
 	return true;
 }
 
-bool DObjSetLocalTag(const DObj_s *obj, int *partBits, unsigned int boneIndex, const float *trans, const float *angles)
+int DObjSetLocalTag(const DObj_s *obj, int *partBits, unsigned int boneIndex, const float *trans, const float *angles)
 {
 	int index;
 
