@@ -507,39 +507,47 @@ void FUN_00426780(drawVert_t *out, const PatchControl *in, int layer)
 
 mesh_t *FUN_004267d0(patchMesh_t *p, int layer, int *x, int *y)
 {
-    drawVert_t *verts = new drawVert_t[p->width * p->height];
+    mesh_t inMesh;
+    inMesh.verts = new drawVert_t[p->width * p->height];
+    inMesh.width = p->width;
+    inMesh.height = p->height;
     for (int j = 0; j < p->height; j++)
     {
         for (int i = 0; i < p->width; i++)
         {
-            FUN_00426780(&verts[j * p->width + i], &p->ctrl[i][j], layer);
+            drawVert_t *v = &inMesh.verts[j * p->width + i];
+            const PatchControl *in = &p->ctrl[i][j];
+            VectorCopy(in->xyz, v->xyz);
+            v->st[0] = in->st[layer][0];
+            v->st[1] = p->ctrl[i][j].st[layer][1];
+            v->lightmap[0] = 0.0f;
+            v->lightmap[1] = 0.0f;
+            VectorCopy(in->normal, v->normal);
+            *(unsigned int *)v->color = *(const unsigned int *)in->color_28;
         }
     }
 
+    mesh_t *result;
     if (p->type_10 & 0x40)
     {
-        int size = p->width * p->height * sizeof(drawVert_t);
-        mesh_t *m = (mesh_t *)malloc(sizeof(mesh_t) + size);
-        m->width = p->width;
-        m->height = p->height;
-        m->verts = (drawVert_t *)(m + 1);
-        memcpy(m->verts, verts, size);
-        FUN_00421150(m);
-        delete[] verts;
-        return m;
+        int size = inMesh.width * inMesh.height * sizeof(drawVert_t);
+        result = (mesh_t *)malloc(sizeof(mesh_t) + size);
+        result->width = inMesh.width;
+        result->height = inMesh.height;
+        result->verts = (drawVert_t *)(result + 1);
+        memcpy(result->verts, inMesh.verts, size);
+        FUN_00421150(result);
     }
-
-    mesh_t inMesh;
-    inMesh.width = p->width;
-    inMesh.height = p->height;
-    inMesh.verts = verts;
-    mesh_t *sub = FUN_00421980(inMesh, (float)p->style_14, 999.0f, x, y);
-    FUN_00421830(*sub);
-    FUN_00421150(sub);
-    mesh_t *finalMesh = FUN_00422370(sub, x, y);
-    free(sub);
-    delete[] verts;
-    return finalMesh;
+    else
+    {
+        mesh_t *sub = FUN_00421980(inMesh, (float)p->style_14, 999.0f, x, y);
+        FUN_00421830(*sub);
+        FUN_00421150(sub);
+        result = FUN_00422370(sub, x, y);
+        free(sub);
+    }
+    delete[] inMesh.verts;
+    return result;
 }
 
 void FUN_004269a0(patchMesh_t *p)
@@ -1002,6 +1010,23 @@ class CMainFrame;
 extern CMainFrame *g_pParentWnd;
 extern selbrush_t selected_brushes;
 extern CPtrArray g_ptrSelectedFaces;
+void UpdatePatchInspector();
+
+void FUN_0042ea50(patchMesh_t *p, const vec3_t v)
+{
+    for (int i = 0; i < p->width; i++)
+    {
+        for (int j = 0; j < p->height; j++)
+            VectorAdd(p->ctrl[i][j].xyz, v, p->ctrl[i][j].xyz);
+    }
+    if (p->cache_3824)
+        free(p->cache_3824);
+    p->cache_3824 = FUN_004267d0(p, DAT_01128d94, NULL, NULL);
+    p->version++;
+    UpdatePatchInspector();
+}
+
+
 extern void Sys_Printf(const char *fmt, ...);
 extern vec3_t g_vRotateOrigin;
 static vec3_t g_vBendOrigin;
@@ -1070,6 +1095,96 @@ void FUN_0042f660(patchMesh_t *p)
         g_PatchDialog.GetPatchInfo();
 #undef SYMBIOT
 }
+
+void FUN_0042fad0(patchMesh_t *p, int amount)
+{
+    float scale = (float)amount;
+    if (p->type_10 & 0x40)
+        FUN_00426e80(p, 1, scale);
+    else
+        FUN_00426f20(p, 1, scale);
+    p->value_3834 = scale;
+    p->flag_382f = 1;
+    if (DAT_01128d90 == 1)
+    {
+        if (p->cache_3824)
+            free(p->cache_3824);
+        p->cache_3824 = FUN_004267d0(p, DAT_01128d94, NULL, NULL);
+        p->version++;
+    }
+}
+
+void FUN_004325d0(patchMesh_t *p, int c)
+{
+    for (int i = 0; i < p->width; i++)
+    {
+        for (int j = 0; j < p->height; j++)
+        {
+            if (DAT_011298b0 == 4 && FUN_00429df0(NULL, (int)&p->ctrl[i][j]) == -1)
+                continue;
+            float *st = &p->ctrl[i][j].st[DAT_01128d94][c];
+            *st = 1.0f - *st;
+        }
+    }
+    if (DAT_01128d94 == 1)
+        p->flag_382f = 0;
+    if (p->cache_3824)
+        free(p->cache_3824);
+    p->cache_3824 = FUN_004267d0(p, DAT_01128d94, NULL, NULL);
+    p->version++;
+}
+
+void FUN_004326b0(patchMesh_t *p, float scaleS, float scaleT)
+{
+    if (scaleS == 0.0f)
+        scaleS = 1.0f;
+    if (scaleT == 0.0f)
+        scaleT = 1.0f;
+    for (int i = 0; i < p->width; i++)
+    {
+        for (int j = 0; j < p->height; j++)
+        {
+            if (DAT_011298b0 == 4 && FUN_00429df0(NULL, (int)&p->ctrl[i][j]) == -1)
+                continue;
+            p->ctrl[i][j].st[DAT_01128d94][0] *= scaleS;
+            p->ctrl[i][j].st[DAT_01128d94][1] *= scaleT;
+        }
+    }
+    if (scaleS == scaleT)
+    {
+        scaleS *= p->value_3834;
+        if (DAT_01128d94 == 1)
+        {
+            p->flag_382f = 1;
+            p->value_3834 = scaleS;
+        }
+    }
+    else if (DAT_01128d94 == 1)
+        p->flag_382f = 0;
+    if (p->cache_3824)
+        free(p->cache_3824);
+    p->cache_3824 = FUN_004267d0(p, DAT_01128d94, NULL, NULL);
+    p->version++;
+}
+
+void FUN_00433830(patchMesh_t *p)
+{
+    for (int i = 0; i < p->width; i++)
+    {
+        for (int j = 0; j < p->height; j++)
+        {
+            p->ctrl[i][j].st[DAT_01128d94][0] = (float)i / (float)(p->width - 1);
+            p->ctrl[i][j].st[DAT_01128d94][1] = (float)j / (float)(p->height - 1);
+        }
+    }
+    if (DAT_01128d94 == 1)
+        p->flag_382f = 0;
+    if (p->cache_3824)
+        free(p->cache_3824);
+    p->cache_3824 = FUN_004267d0(p, DAT_01128d94, NULL, NULL);
+    p->version++;
+}
+
 
 bool OnlyPatchesSelected()
 {
@@ -1155,6 +1270,66 @@ void Patch_SetBendRotateOrigin()
 
 // Retail one-byte RET bodies verified with MSVC 7.1. Original entry-point ownership/signatures remain provisional.
 extern "C" void FUN_00434100() {}
+
+void FUN_00435840()
+{
+    for (selbrush_t *b = DAT_010a44dc.next; b && b != &DAT_010a44dc; b = b->next)
+    {
+        if (b->patch)
+        {
+#line 6282
+            assert( b->patch->def == b->def->patch );
+            patchMesh_t *p = b->patch->def;
+            if (p->cache_3824)
+                free(p->cache_3824);
+            p->cache_3824 = FUN_004267d0(p, DAT_01128d94, NULL, NULL);
+            p->version++;
+        }
+    }
+}
+
+void FUN_00439160(int amount)
+{
+    for (selbrush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+    {
+        if (!b->patch)
+            continue;
+        patchMesh_t *p = b->patch->def;
+        if (p->type_10 & 0x40)
+            continue;
+#line 8062
+        assert( p == b->def->patch );
+        if (amount < 0 && p->style_14 == 1)
+            continue;
+        if (amount > 0)
+        {
+            mesh_t *m = (mesh_t *)p->cache_3824;
+            if (m->width <= p->width && m->height <= p->height)
+                continue;
+        }
+        mesh_t *m = (mesh_t *)p->cache_3824;
+        int oldCount = m->height * m->width;
+        p->style_14 += amount;
+        for (;;)
+        {
+            if (p->style_14 < 1)
+            {
+                p->style_14 = 1;
+                break;
+            }
+            if (p->cache_3824)
+                free(p->cache_3824);
+            p->cache_3824 = FUN_004267d0(p, DAT_01128d94, NULL, NULL);
+            p->version++;
+            m = (mesh_t *)p->cache_3824;
+            if (m->height * m->width != oldCount)
+                break;
+            p->style_14 += amount;
+        }
+    }
+    DAT_0123348c = -1;
+}
+
 
 void FUN_004394f0(const vec2_t a, const vec2_t b, vec2_t out)
 {
