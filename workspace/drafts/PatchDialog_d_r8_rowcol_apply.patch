@@ -1,0 +1,76 @@
+diff --git a/workspace/src/radiant/PatchDialog.cpp b/workspace/src/radiant/PatchDialog.cpp
+index 89c803f7..de89dff4 100644
+--- a/workspace/src/radiant/PatchDialog.cpp
++++ b/workspace/src/radiant/PatchDialog.cpp
+@@ -5,6 +5,7 @@
+ 
+ extern float dword_1128DC4;
+ extern int g_nUpdateBits;
++extern int DAT_01128d94;
+ 
+ void Patch_NaturalizeSelected(bool bDetails, bool bCycleCap, float fScaleS, float fScaleT);
+ void Brush_FitTexture(float fS, float fT, int nZero);
+@@ -99,6 +100,16 @@ void CPatchDialog::OnBtnPatchreset()
+ }
+ 
+ 
++void CPatchDialog::OnSelchangeComboCol()
++{
++	UpdateRowColInfo();
++}
++
++void CPatchDialog::OnSelchangeComboRow()
++{
++	UpdateRowColInfo();
++}
++
+ void CPatchDialog::OnSelchangeComboType()
+ {
+ }
+@@ -163,8 +174,46 @@ void CPatchDialog::OnDestroy()
+ 	CDialog::OnDestroy();
+ }
+ 
++void CPatchDialog::UpdateRowColInfo()
++{
++	m_fX = m_fY = m_fZ = m_fS = m_fT = 0.0f;
++	if (m_Patch)
++	{
++		int r = m_wndRows.GetCurSel();
++		int c = m_wndCols.GetCurSel();
++		if (r >= 0 && r < m_Patch->height && c >= 0 && c < m_Patch->width)
++		{
++			m_fX = m_Patch->ctrl[c][r].xyz[0];
++			m_fY = m_Patch->ctrl[c][r].xyz[1];
++			m_fZ = m_Patch->ctrl[c][r].xyz[2];
++			m_fS = m_Patch->ctrl[c][r].st[DAT_01128d94][0];
++			m_fT = m_Patch->ctrl[c][r].st[DAT_01128d94][1];
++		}
++	}
++	UpdateData(FALSE);
++}
++
+ void CPatchDialog::UpdateInfo()
+ {
+ 	GetPatchInfo();
+ }
+ 
++void CPatchDialog::OnApply()
++{
++	UpdateData(TRUE);
++	if (m_Patch)
++	{
++		int r = m_wndRows.GetCurSel();
++		int c = m_wndCols.GetCurSel();
++		if (r >= 0 && r < m_Patch->height && c >= 0 && c < m_Patch->width)
++		{
++			m_Patch->ctrl[c][r].xyz[0] = m_fX;
++			m_Patch->ctrl[c][r].xyz[1] = m_fY;
++			m_Patch->ctrl[c][r].xyz[2] = m_fZ;
++			m_Patch->ctrl[c][r].st[DAT_01128d94][0] = m_fS;
++			m_Patch->ctrl[c][r].st[DAT_01128d94][1] = m_fT;
++			m_Patch->version++;
++			g_nUpdateBits = -1;
++		}
++	}
++}
