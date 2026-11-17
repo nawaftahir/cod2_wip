@@ -16,10 +16,12 @@ enum
 	MT_NODE_SIZE = 0x8
 };
 
-struct __declspec(align(8)) MemoryNode
+// 8-byte nodes, copied as two dwords, no 8-byte stack alignment in retail
+struct MemoryNode
 {
 	unsigned short prev;
 	unsigned short next;
+	unsigned int unused;
 };
 
 struct scrMemTreePub_t
