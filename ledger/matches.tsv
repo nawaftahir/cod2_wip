@@ -633,6 +633,7 @@ addr	size	source	symbol	name	tag
 0x004496a0	6	src/radiant/XYWnd.cpp	?GetMessageMap@CXYWnd@@MBEPBUAFX_MSGMAP@@XZ	CXYWnd::GetMessageMap	SUPPORTED
 0x004496b0	168	src/radiant/XYWnd.cpp	?PreCreateWindow@CXYWnd@@MAEHAAUtagCREATESTRUCTA@@@Z	CXYWnd::PreCreateWindow	SUPPORTED
 0x004499e0	49	src/radiant/XYWnd.cpp	?OnCreate@CXYWnd@@IAEHPAUtagCREATESTRUCTA@@@Z	CXYWnd::OnCreate	SUPPORTED
+0x00449a20	9	src/radiant/XYWnd.cpp	_FUN_00449a20	FUN_00449a20	UNNAMED
 0x0044a2d0	32	src/radiant/XYWnd.cpp	?fDiff@@YAMMM@Z	fDiff	SUPPORTED
 0x0044ad30	6	src/radiant/XYWnd.cpp	?ClipMode@CXYWnd@@QAE_NXZ	CXYWnd::ClipMode	SUPPORTED
 0x0044ad40	6	src/radiant/XYWnd.cpp	?RogueClipMode@CXYWnd@@QAE_NXZ	CXYWnd::RogueClipMode	SUPPORTED
@@ -643,7 +644,10 @@ addr	size	source	symbol	name	tag
 0x0044be20	1107	src/radiant/XYWnd.cpp	?FUN_0044be20@CXYWnd@@QAEXXZ	CXYWnd::FUN_0044be20	UNNAMED
 0x0044c280	83	src/radiant/XYWnd.cpp	?HandleDrop@CXYWnd@@QAEXXZ	CXYWnd::HandleDrop	SUPPORTED
 0x0044c2e0	29	src/radiant/XYWnd.cpp	?XY_Init@CXYWnd@@QAEXXZ	CXYWnd::XY_Init	SUPPORTED
+0x0044c300	42	src/radiant/XYWnd.cpp	?SnapToPoint@CXYWnd@@QAEXHHQAM@Z	CXYWnd::SnapToPoint	SUPPORTED
 0x0044c330	132	src/radiant/XYWnd.cpp	?XY_ToPoint@CXYWnd@@QAEXHHQAM@Z	CXYWnd::XY_ToPoint	SUPPORTED
+0x0044c3c0	511	src/radiant/XYWnd.cpp	?XY_ToGridPoint@CXYWnd@@QAEXHHQAM@Z	CXYWnd::XY_ToGridPoint	SUPPORTED
+0x0044c5c0	90	src/radiant/XYWnd.cpp	?FUN_0044c5c0@CXYWnd@@QAEXHHQAM0@Z	CXYWnd::FUN_0044c5c0	UNNAMED
 0x0044cf30	58	src/radiant/XYWnd.cpp	?XY_MouseUp@CXYWnd@@QAEXHHH@Z	CXYWnd::XY_MouseUp	SUPPORTED
 0x00452900	4	src/radiant/XYWnd.cpp	?GetOrigin@CXYWnd@@QAEAAY02MXZ	CXYWnd::GetOrigin	SUPPORTED
 0x00452910	18	src/radiant/XYWnd.cpp	?SetOrigin@CXYWnd@@QAEXQAM@Z	CXYWnd::SetOrigin	SUPPORTED
@@ -664,6 +668,8 @@ addr	size	source	symbol	name	tag
 0x004532a0	26	src/radiant/XYWnd.cpp	?AreaSelectOK@CXYWnd@@QAEHXZ	CXYWnd::AreaSelectOK	SUPPORTED
 0x004532c0	34	src/radiant/XYWnd.cpp	?OnMouseWheel@CXYWnd@@IAEHIFVCPoint@@@Z	CXYWnd::OnMouseWheel	SUPPORTED
 0x004532f0	15	src/radiant/XYWnd.cpp	?OnSysKeyDown@CXYWnd@@IAEXIII@Z	CXYWnd::OnSysKeyDown	SUPPORTED
+0x004533d0	13	src/radiant/XYWnd.cpp	_FUN_004533d0	FUN_004533d0	UNNAMED
+0x004533e0	14	src/radiant/XYWnd.cpp	_FUN_004533e0	FUN_004533e0	UNNAMED
 0x004534b0	119	src/radiant/XYWnd.cpp	??0XYWndNode@@QAE@HPBD@Z	XYWndNode::XYWndNode	UNNAMED
 0x004535f0	1	src/radiant/XYWnd.cpp	_FUN_004535f0	FUN_004535f0	UNNAMED
 0x00453600	1	src/radiant/XYWnd.cpp	_FUN_00453600	FUN_00453600	UNNAMED

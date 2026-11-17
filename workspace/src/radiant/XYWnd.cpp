@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include <stddef.h>
 #include <string.h>
+#include <math.h>
 #include "PrefsDlg.h"
 #include "../universal/assertive.h"
 
@@ -78,7 +79,10 @@ public:
     CXYWnd();
     virtual ~CXYWnd();
     void XY_Init();
+    void SnapToPoint(int x, int y, float point[3]);
     void XY_ToPoint(int x, int y, float point[3]);
+    void XY_ToGridPoint(int x, int y, float point[3]);
+    void FUN_0044c5c0(int x, int y, float origin[3], float dir[3]);
     void FUN_00452c30();
     void VectorCopyXY(float in[3], float out[3]);
     bool ClipMode();
@@ -249,6 +253,11 @@ int CXYWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
     return 0;
 }
 
+extern "C" float FUN_00449a20(const float *v)
+{
+    return v[2] + v[1] + v[0];
+}
+
 float fDiff(float f1, float f2)
 {
   if (f1 > f2)
@@ -396,6 +405,14 @@ void CXYWnd::XY_Init()
     m_fScale = 1;
 }
 
+void CXYWnd::SnapToPoint(int x, int y, float point[3])
+{
+    if (dword_01233b64->m_bNoClamp)
+        XY_ToPoint(x, y, point);
+    else
+        XY_ToGridPoint(x, y, point);
+}
+
 void CXYWnd::XY_ToPoint(int x, int y, float point[3])
 {
     float fx = x;
@@ -414,6 +431,55 @@ void CXYWnd::XY_ToPoint(int x, int y, float point[3])
         else
             point[0] = m_vOrigin[0] + (fx - fw / 2) / m_fScale;
         point[2] = m_vOrigin[2] + (fy - fh / 2) / m_fScale;
+    }
+}
+
+void CXYWnd::XY_ToGridPoint(int x, int y, float point[3])
+{
+    if (m_nViewType == XY)
+    {
+        point[0] = m_vOrigin[0] + (x - m_nWidth / 2) / m_fScale;
+        point[1] = m_vOrigin[1] + (y - m_nHeight / 2) / m_fScale;
+        point[0] = floor(point[0] / g_qeglobals.d_gridsize + 0.5) * g_qeglobals.d_gridsize;
+        point[1] = floor(point[1] / g_qeglobals.d_gridsize + 0.5) * g_qeglobals.d_gridsize;
+    }
+    else if (m_nViewType == YZ)
+    {
+        point[1] = m_vOrigin[1] + (x - m_nWidth / 2) / m_fScale;
+        point[2] = m_vOrigin[2] + (y - m_nHeight / 2) / m_fScale;
+        point[1] = floor(point[1] / g_qeglobals.d_gridsize + 0.5) * g_qeglobals.d_gridsize;
+        point[2] = floor(point[2] / g_qeglobals.d_gridsize + 0.5) * g_qeglobals.d_gridsize;
+    }
+    else
+    {
+        point[0] = m_vOrigin[0] + (x - m_nWidth / 2) / m_fScale;
+        point[2] = m_vOrigin[2] + (y - m_nHeight / 2) / m_fScale;
+        point[0] = floor(point[0] / g_qeglobals.d_gridsize + 0.5) * g_qeglobals.d_gridsize;
+        point[2] = floor(point[2] / g_qeglobals.d_gridsize + 0.5) * g_qeglobals.d_gridsize;
+    }
+}
+
+// Pick-ray start and direction for a view point (the head of Q3 XY_MouseDown).
+void CXYWnd::FUN_0044c5c0(int x, int y, float origin[3], float dir[3])
+{
+    XY_ToPoint(x, y, origin);
+    dir[0] = 0;
+    dir[1] = 0;
+    dir[2] = 0;
+    if (m_nViewType == XY)
+    {
+        origin[2] = 131072;
+        dir[2] = -1;
+    }
+    else if (m_nViewType == YZ)
+    {
+        origin[0] = 131072;
+        dir[0] = -1;
+    }
+    else
+    {
+        origin[1] = 131072;
+        dir[1] = -1;
     }
 }
 
@@ -543,6 +609,19 @@ BOOL CXYWnd::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 void CXYWnd::OnSysKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
     reinterpret_cast<CXYWndMainProjection *>(g_pParentWnd)->OnKeyDown(nChar, nRepCnt, nFlags);
+}
+
+extern "C" float FUN_004533d0(const float *a, const float *b)
+{
+    return a[1] * b[1] + a[0] * b[0];
+}
+
+extern "C" void FUN_004533e0(int *p)
+{
+    p[0] = 0;
+    p[1] = 0;
+    p[2] = 0;
+    p[3] = 0;
 }
 
 XYWndNode::XYWndNode(int id, const char *name)
