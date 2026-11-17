@@ -28,6 +28,25 @@ emit-order warnings 18. FILE LEDGER 7 VERIFIED / 102 (audited set; other src/ fi
   in NameDlg) because those users do not exist yet. Fix: class in a header, write the user function in
   the earlier file. Not linker ICF: 46 duplicate groups in retail are raw-byte identical and kept apart.
 
+## 2026-11-17 late state (clean gate after lanes A-D, radiant/main)
+1256/3582 = 35.06% game functions, 20.74% game bytes (145,141 B), same-offset 1.722% (down from 1.776%:
+new bodies shift later code; report-only), emit-order 13, 0 failing.
+- Lanes merged: A scr_memorytree +14 (3,627 B), B assertive +16 (702 B), C q_parse +3 (486 B, uses the real
+  I_strncat), D com_shared/q_shared +4 (1,070 B).
+- Review debt: assertive.cpp has invented names (SymNode, HashNode, StrTable, HashString, MapParseError,
+  ReadMapLine, SkipMapLines; rows tagged UNNAMED) -> rename to FUN_/UNKNOWN_ before src/. Lane B added
+  `/GX` for assertive.cpp in data/flags.tsv (evidence: retail Intern has an SEH frame) -> owner review.
+  MemoryNode tail field is HYPOTHESIS. scr_memorytree uses 30 `#line` directives for retail assert lines.
+- Blockers, root cause = missing callers (both PINNED by retail call counts):
+  1. Hunk_SetDataForFile 0x48a170: LTCG inlines Hunk_FindDataForFileInternal into its assert. With the 4 xmodel
+     callers enabled it still inlines, and 5 xmodel rows flip -> reverted. Next: com_memory TU flags/order.
+  2. AngleNormalize180 0x487300: 6 retail call sites, 3 in g_vehicle_path VP_UpdatePathFollower 0x4939a0;
+     g_vehicle_path.cpp is a stub. Next lane: g_vehicle_path (generated_src has the whole file).
+- D's asm defers: Com_Memcpy/Com_Memset/Com_Prefetch/fill helper are Q3 inline asm; outside the x87
+  exception -> needs an owner ruling.
+- Next lanes: g_vehicle_path, assertive rest (ParseMapFile 0x47ca40), Com_ParseExt 0x495060, MT_NodeInfoString
+  inlining (blocks 4 scr_memorytree rows).
+
 ## 2026-11-17 state (clean gate after lane rounds 1+2)
 1219/3582 = 34.03% game functions, 19.90% game bytes (139,256 B), same-offset 1.776%, emit-order 14, 0 failing.
 - Round 1 merged: MainFrm +52 (bodies now in retail order), scr_stringlist +26, com_files +2.
