@@ -69,7 +69,21 @@ struct UNKNOWN_0046bcc0
 	int field788;
 };
 
+struct brush_t
+{
+	brush_t *prev;
+	brush_t *next;
+	unsigned char pad08[0xc];
+	brushDef_t *def; // 0x14
+};
+
 extern entity_t entities;
+extern brush_t filtered_brushes;
+extern brush_t active_brushes;
+extern int DAT_0109fecc;
+extern int g_nUpdateBits;
+void FUN_004592f0(brush_t *b);
+void FUN_00459210(brush_t *b, brush_t *list);
 extern float dword_00591cdc[3];
 extern float dword_00591ce8[3];
 
@@ -129,6 +143,32 @@ bool Map_IsBrushFiltered(brushDef_t *b)
 			return true;
 	}
 	return false;
+}
+
+// 0x00469140 (206 B)
+void Map_RemoveRegion()
+{
+	DAT_0109fecc = 0;
+	for (int i = 0; i < 3; i++)
+	{
+		dword_00591ce8[i] = 131072.0f;
+		dword_00591cdc[i] = -131072.0f;
+	}
+	brush_t *next;
+	for (brush_t *b = filtered_brushes.next; b != &filtered_brushes; b = next)
+	{
+		next = b->next;
+		if (Map_IsBrushFiltered(b->def))
+			continue;
+		FUN_004592f0(b);
+		if (!active_brushes.next || !active_brushes.prev)
+		{
+			active_brushes.next = &active_brushes;
+			active_brushes.prev = &active_brushes;
+		}
+		FUN_00459210(b, &active_brushes);
+	}
+	g_nUpdateBits = -1;
 }
 
 // 0x00469570 (284 B)
