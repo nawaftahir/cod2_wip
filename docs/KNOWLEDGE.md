@@ -1001,3 +1001,7 @@ set by a later lowering stage, not by the list scheduler.
   bytes match retail) at the head of pass 57, ChopWindingInPlace same pass 5 slots later. Any dead edge puts subtitle in pass 57 at
   its symbol-list slot, which is after Chop (measured twice, -29). In-pass slot = symbol list (link order), so no callee choice
   lands it between. Open: a cause that changes list order inside pass 57 without moving link order.
+- PINNED (w29, 11-18, clean gate 1974140 -> 1974147, 1.0 1699689 -> 1699696): the Com_ErrorCleanup swap IS compile order. Local
+  statics land in F order of their fn. Fix = two stand-ins: subtitle fn -> FS_InitFilesystem (pass 57 -> subtitle pass 58) and
+  ChopWindingInPlace -> Com_GetSubtitleStringEdReference (Chop after it). Earlier "dot is not F order" was wrong: the Chop edge to
+  CM_LoadStaticModels never moved Chop (callee compiles earlier in the same pass = live in-pass emission). Check moves with dfs13.

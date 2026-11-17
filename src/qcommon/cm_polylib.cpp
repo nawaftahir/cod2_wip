@@ -171,6 +171,9 @@ void ChopWindingInPlace( winding_t **inout, vec3_t normal, float dist, float eps
 	int maxpts;
 
 	in = *inout;
+	// stand-in: dead call only sets the LTCG compile slot (static order after the subtitle buffer)
+	const char *Com_GetSubtitleStringEdReference( const char *text );
+	if (0) Com_GetSubtitleStringEdReference(0);
 	counts[0] = counts[1] = counts[2] = 0;
 
 	for ( i = 0; i < in->numpoints; i++ )
