@@ -60,11 +60,9 @@ extern "C" {
 #endif
 void *_ReturnAddress(void);
 void  __debugbreak(void);
-unsigned char _BitScanReverse(unsigned long *, unsigned long);
 #ifdef __cplusplus
 }
 #endif
-#pragma intrinsic(_ReturnAddress, _BitScanReverse)
 
 #ifndef __builtin_expect
 #define __builtin_expect(expr, c)  (expr)
