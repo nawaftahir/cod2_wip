@@ -1673,7 +1673,7 @@ addr	size	tu	evidence
 0x004405d0	31	radiant/TexWnd.cpp	SUPPORTED
 0x004405f0	27	radiant/TexWnd.cpp	SUPPORTED
 0x00440610	6	radiant/TexWnd.cpp	SUPPORTED
-0x00440620	159	radiant/TexWnd.cpp	PINNED
+0x00440620	160	radiant/TexWnd.cpp	PINNED
 0x004406c0	297	radiant/TexWnd.cpp	PINNED
 0x004407f0	77	radiant/TexWnd.cpp	PINNED
 0x00440840	320	radiant/TexWnd.cpp	PINNED
@@ -1751,8 +1751,7 @@ addr	size	tu	evidence
 0x00443c30	159	radiant/Undo.cpp	PINNED
 0x00443cd0	150	radiant/Undo.cpp	PINNED
 0x00443d70	17	radiant/Undo.cpp	SUPPORTED
-0x00443d90	157	radiant/Undo.cpp	PINNED
-0x00443e30	63	radiant/Undo.cpp	SUPPORTED
+0x00443d90	223	radiant/Undo.cpp	PINNED
 0x00443e70	75	radiant/Undo.cpp	SUPPORTED
 0x00443ec0	92	radiant/Undo.cpp	SUPPORTED
 0x00443f20	34	radiant/Undo.cpp	SUPPORTED
@@ -1898,7 +1897,7 @@ addr	size	tu	evidence
 0x00449680	31	radiant/XYWnd.cpp	SUPPORTED
 0x004496a0	6	radiant/XYWnd.cpp	SUPPORTED
 0x004496b0	168	radiant/XYWnd.cpp	SUPPORTED
-0x00449760	159	radiant/XYWnd.cpp	SUPPORTED
+0x00449760	160	radiant/XYWnd.cpp	SUPPORTED
 0x00449800	475	radiant/XYWnd.cpp	SUPPORTED
 0x004499e0	49	radiant/XYWnd.cpp	SUPPORTED
 0x00449a20	9	radiant/XYWnd.cpp	SUPPORTED
