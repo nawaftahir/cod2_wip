@@ -880,7 +880,12 @@ void FillPatch(patchMesh_t *p, vec3_t v)
 struct patch_eclass_t { unsigned char pad[8]; int fixedsize; };
 struct patch_entity_def_t { unsigned char pad[0x50]; patch_eclass_t *eclass; };
 struct entity_s { unsigned char pad[8]; patch_entity_def_t *def; };
-struct patch_t { patchMesh_t *def; };
+struct patch_t
+{
+    patchMesh_t *def;
+    unsigned char pad4[2];
+    unsigned char field_06;
+};
 struct selbrush_t
 {
     selbrush_t *prev;
@@ -992,6 +997,40 @@ void FUN_0042beb0()
         FUN_0042bde0(&DAT_010a44dc);
     FUN_0042bde0(&DAT_010a44b4);
     Undo_End();
+}
+
+class CMainFrame;
+extern "C" void FUN_0041b190(CMainFrame *self);
+extern CMainFrame *dword_01233488;
+extern int DAT_011298b4;
+extern bool DAT_012334b9;
+extern bool DAT_012334ba;
+void FUN_00433ad0();
+void FUN_00434040();
+
+void FUN_0042f5d0()
+{
+    int mode = DAT_011298b0;
+    DAT_011298b0 = 0;
+    if (mode == 0xb)
+        FUN_0041b190(dword_01233488);
+    else if (mode == 0xa)
+        FUN_0042beb0();
+    DAT_011298b4 = 0;
+    for (selbrush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (b->patch)
+            b->patch->field_06 = 0;
+    }
+    if (DAT_012334ba)
+        FUN_00433ad0();
+    if (DAT_012334b9)
+        FUN_00434040();
+}
+
+void FUN_0042f640(patch_t *p)
+{
+    p->field_06 = 1;
 }
 
 struct CPatchBendXYProjection
@@ -1236,10 +1275,8 @@ patchMesh_t *SinglePatchSelected()
     return NULL;
 }
 
-extern bool DAT_012334ba;
 extern patchMesh_t DAT_0109c538;
 extern int DAT_0123348c;
-void FUN_00433ad0();
 
 void FUN_00433e30()
 {

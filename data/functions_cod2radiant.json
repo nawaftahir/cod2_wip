@@ -8535,7 +8535,13 @@
   {
    "name": "FUN_0042f5d0",
    "addr": "0x0042f5d0",
-   "size": 117,
+   "size": 112,
+   "thunk": false
+  },
+  {
+   "name": "FUN_0042f640",
+   "addr": "0x0042f640",
+   "size": 5,
    "thunk": false
   },
   {
