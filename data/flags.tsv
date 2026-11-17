@@ -21,4 +21,5 @@ src/zlib/unzip.c	/O2 /Oy- /Op /GS /GL
 src/zlib/zutil.c	/O2 /Oy- /Op /GS /GL
 src/zlib/deflate.c	/O2 /GS /GL /Ob1
 src/zlib/*	/O2 /GS /GL
+src/universal/assertive.cpp	/O2 /Oy- /Op /GS /GL /GX
 *	/O2 /Oy- /Op /GS /GL
