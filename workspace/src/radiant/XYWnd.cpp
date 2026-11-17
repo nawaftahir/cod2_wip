@@ -55,6 +55,7 @@ extern CMainFrame *g_pParentWnd;
 struct XYWndNode
 {
     XYWndNode();
+    XYWndNode(int id, const char *name);
     int field_00;
     CString field_04;
     XYWndNode *next;
@@ -83,6 +84,7 @@ public:
     float (&Rotation())[3];
     BOOL AreaSelectOK();
     void XY_MouseUp(int x, int y, int buttons);
+    void FUN_0044bc50(const char *name, int id);
 
     bool m_bActive;
     unsigned char pad_51[3];
@@ -270,6 +272,22 @@ void CXYWnd::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
     reinterpret_cast<CXYWndMainProjection *>(g_pParentWnd)->OnKeyDown(nChar, nRepCnt, nFlags);
 }
 
+void CXYWnd::FUN_0044bc50(const char *name, int id)
+{
+    for (XYWndNode *node = field_e8.next; node; node = node->next)
+    {
+        if (node->field_00 == id)
+        {
+            node->field_04 = name;
+            return;
+        }
+    }
+    XYWndNode *tail = &field_e8;
+    while (tail->next)
+        tail = tail->next;
+    tail->next = new XYWndNode(id, name);
+}
+
 void CXYWnd::XY_Init()
 {
     m_vOrigin[0] = 0;
@@ -425,6 +443,13 @@ BOOL CXYWnd::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 void CXYWnd::OnSysKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
     reinterpret_cast<CXYWndMainProjection *>(g_pParentWnd)->OnKeyDown(nChar, nRepCnt, nFlags);
+}
+
+XYWndNode::XYWndNode(int id, const char *name)
+{
+    next = NULL;
+    field_00 = id;
+    field_04 = name;
 }
 
 extern "C" void FUN_004535f0() {}

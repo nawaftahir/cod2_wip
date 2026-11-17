@@ -581,6 +581,7 @@ addr	size	source	symbol	name	tag
 0x0044ad50	6	src/radiant/XYWnd.cpp	?PointMode@CXYWnd@@QAE_NXZ	CXYWnd::PointMode	SUPPORTED
 0x0044ad60	20	src/radiant/XYWnd.cpp	?SetPointMode@CXYWnd@@QAEX_N@Z	CXYWnd::SetPointMode	SUPPORTED
 0x0044b370	15	src/radiant/XYWnd.cpp	?OnKeyDown@CXYWnd@@IAEXIII@Z	CXYWnd::OnKeyDown	SUPPORTED
+0x0044bc50	216	src/radiant/XYWnd.cpp	?FUN_0044bc50@CXYWnd@@QAEXPBDH@Z	CXYWnd::FUN_0044bc50	UNNAMED
 0x0044c2e0	29	src/radiant/XYWnd.cpp	?XY_Init@CXYWnd@@QAEXXZ	CXYWnd::XY_Init	SUPPORTED
 0x0044c330	132	src/radiant/XYWnd.cpp	?XY_ToPoint@CXYWnd@@QAEXHHQAM@Z	CXYWnd::XY_ToPoint	SUPPORTED
 0x0044cf30	58	src/radiant/XYWnd.cpp	?XY_MouseUp@CXYWnd@@QAEXHHH@Z	CXYWnd::XY_MouseUp	SUPPORTED
@@ -603,6 +604,7 @@ addr	size	source	symbol	name	tag
 0x004532a0	26	src/radiant/XYWnd.cpp	?AreaSelectOK@CXYWnd@@QAEHXZ	CXYWnd::AreaSelectOK	SUPPORTED
 0x004532c0	34	src/radiant/XYWnd.cpp	?OnMouseWheel@CXYWnd@@IAEHIFVCPoint@@@Z	CXYWnd::OnMouseWheel	SUPPORTED
 0x004532f0	15	src/radiant/XYWnd.cpp	?OnSysKeyDown@CXYWnd@@IAEXIII@Z	CXYWnd::OnSysKeyDown	SUPPORTED
+0x004534b0	119	src/radiant/XYWnd.cpp	??0XYWndNode@@QAE@HPBD@Z	XYWndNode::XYWndNode	UNNAMED
 0x004535f0	1	src/radiant/XYWnd.cpp	_FUN_004535f0	FUN_004535f0	UNNAMED
 0x00453600	1	src/radiant/XYWnd.cpp	_FUN_00453600	FUN_00453600	UNNAMED
 0x00453610	34	src/radiant/XYWnd.cpp	??0XYWndNode@@QAE@XZ	XYWndNode::XYWndNode	UNNAMED
