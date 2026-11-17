@@ -87,8 +87,6 @@ unsigned char _BitScanReverse(unsigned long *, unsigned long);
 #define __builtin_return_address(lvl)  _ReturnAddress()   /* lvl>0 unsupported */
 #define __builtin_debugtrap()     __debugbreak()
 #define __builtin_prefetch(a,b,c) ((void)0)
-static __inline int __cod2_clz(unsigned x) { unsigned long i; return _BitScanReverse(&i, x) ? (int)(31 - i) : 32; }
-#define __builtin_clz(x)          __cod2_clz(x)
 
 /* va_list builtins -> <stdarg.h> spellings. */
 #include <stdarg.h>
