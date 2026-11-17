@@ -1218,8 +1218,146 @@ bool FS_FilesAreLoadedGlobally(const char *filename)
 	return false;
 }
 
-#line 1106
-int FS_FOpenFileRead_Internal(const char *filename, int *file, qboolean uniqueFILE, FsThread thread);
+int FS_FOpenFileRead_Internal(const char *filename, int *file, qboolean uniqueFILE, FsThread thread)
+{
+	char sanitizedName[MAX_OSPATH];
+	char netpath[MAX_OSPATH];
+	char copypath[MAX_OSPATH];
+	searchpath_t *search;
+	iwd_t *iwd;
+	fileInIwd_t *iwdFile;
+	directory_t *dir;
+	unz_s *zfi;
+	FILE *filetemp;
+	int hash;
+
+#line 1358
+	assert(filename);
+
+	FS_CheckFileSystemStarted();
+
+	if ( !FS_SanitizeFilename(filename, sanitizedName, sizeof(sanitizedName)) )
+	{
+		if ( file )
+			*file = 0;
+		return -1;
+	}
+
+	if ( file == NULL )
+	{
+		for ( search = fs_searchpaths; search; search = search->next )
+		{
+			if ( !FS_UseSearchPath(search) )
+				continue;
+
+			if ( search->iwd )
+			{
+				hash = FS_HashFileName(sanitizedName, search->iwd->hashSize);
+				for ( iwdFile = search->iwd->hashTable[hash]; iwdFile; iwdFile = iwdFile->next )
+				{
+					if ( !FS_FilenameCompare(iwdFile->name, sanitizedName) )
+						return 1;
+				}
+			}
+			else if ( search->dir )
+			{
+				dir = search->dir;
+				FS_BuildOSPath_Internal(dir->path, dir->gamedir, sanitizedName, netpath, thread);
+				filetemp = fopen(netpath, "rb");
+				if ( !filetemp )
+					continue;
+				fclose(filetemp);
+				return 1;
+			}
+		}
+		return -1;
+	}
+
+	*file = FS_HandleForFile(thread);
+	fsh[*file].handleFiles.unique = uniqueFILE;
+
+	for ( search = fs_searchpaths; search; search = search->next )
+	{
+		if ( !FS_UseSearchPath(search) )
+			continue;
+
+		iwd = search->iwd;
+		if ( iwd )
+		{
+			hash = FS_HashFileName(sanitizedName, iwd->hashSize);
+			for ( iwdFile = iwd->hashTable[hash]; iwdFile; iwdFile = iwdFile->next )
+			{
+				if ( !FS_FilenameCompare(iwdFile->name, sanitizedName) )
+				{
+					if ( !iwd->referenced && !FS_FilesAreLoadedGlobally(sanitizedName) )
+						iwd->referenced = true;
+
+					if ( uniqueFILE )
+					{
+						fsh[*file].handleFiles.file.z = unzReOpen(iwd->iwdFilename, iwd->handle);
+						if ( fsh[*file].handleFiles.file.z == NULL )
+						{
+							if ( thread )
+							{
+								FS_FCloseFile(*file);
+								*file = 0;
+								return -1;
+							}
+							Com_Error(ERR_FATAL, "Couldn't reopen %s", iwd->iwdFilename);
+						}
+					}
+					else
+					{
+						fsh[*file].handleFiles.file.z = iwd->handle;
+					}
+
+					I_strncpyz(fsh[*file].name, sanitizedName, sizeof(fsh[*file].name));
+					fsh[*file].zipFile = qtrue;
+					zfi = (unz_s *)fsh[*file].handleFiles.file.z;
+					filetemp = zfi->file;
+					unzSetCurrentFileInfoPosition(iwd->handle, iwdFile->pos);
+					Com_Memcpy(zfi, iwd->handle, sizeof(unz_s));
+					zfi->file = filetemp;
+					unzOpenCurrentFile(fsh[*file].handleFiles.file.z);
+					fsh[*file].zipFilePos = iwdFile->pos;
+
+					if ( fs_debug->current.integer && !thread )
+						Com_Printf("FS_FOpenFileRead: %s (found in '%s')\n", sanitizedName, iwd->iwdFilename);
+
+					return zfi->cur_file_info.uncompressed_size;
+				}
+			}
+		}
+		else if ( search->dir )
+		{
+			dir = search->dir;
+			FS_BuildOSPath_Internal(dir->path, dir->gamedir, sanitizedName, netpath, thread);
+			fsh[*file].handleFiles.file.o = fopen(netpath, "rb");
+			if ( !fsh[*file].handleFiles.file.o )
+				continue;
+
+			I_strncpyz(fsh[*file].name, sanitizedName, sizeof(fsh[*file].name));
+			fsh[*file].zipFile = qfalse;
+
+			if ( fs_debug->current.integer && !thread )
+				Com_Printf("FS_FOpenFileRead: %s (found in '%s/%s')\n", sanitizedName, dir->path, dir->gamedir);
+
+			if ( fs_copyfiles->current.boolean && !Q_stricmp(dir->path, fs_cdpath->current.string) )
+			{
+				FS_BuildOSPath_Internal(fs_basepath->current.string, dir->gamedir, sanitizedName, copypath, thread);
+				FS_CopyFile(netpath, copypath);
+			}
+
+			return FS_filelength(*file);
+		}
+	}
+
+	if ( fs_debug->current.integer && !thread )
+		Com_Printf("Can't find %s\n", filename);
+
+	*file = 0;
+	return -1;
+}
 
 int FS_FOpenFileReadStream(const char *filename, fileHandle_t *file, qboolean uniqueFILE)
 {
@@ -1575,16 +1713,15 @@ int FS_SeekInternal( int f, int offset, int origin )
 
 int FS_ReadFile(const char* qpath, void** buffer)
 {
-	fileHandle_t h;
 	char* buf;
 	int len;
+	fileHandle_t h;
 
 	FS_CheckFileSystemStarted();
 
 	if ( !qpath || !qpath[0] )
 		Com_Error(ERR_FATAL, "FS_ReadFile with empty name\n");
 
-	buf = NULL;
 	len = FS_FOpenFileRead(qpath, &h, 0);
 
 	if ( h == 0 )
