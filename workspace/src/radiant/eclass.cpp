@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include <string.h>
+#include <stdio.h>
 #include "../universal/assertive.h"
 
 #define eclass_assert1(expr) do { static bool s_assertDisable; if (!(expr) && !s_assertDisable) { switch (FUN_0047d980(#expr, __FILE__, __LINE__, 1, 1)) { case 0: DebugBreak(); break; case 2: s_assertDisable = true; break; } } } while (0)
@@ -35,13 +36,28 @@ struct entitymodel_t
 	unsigned char pad10[0x74];
 };
 
+struct qtexture_s
+{
+	unsigned char pad00[0x14];
+	int width;
+	int height;
+};
+
 struct eclass_t
 {
 	eclass_t *next;
 	char *name;
-	unsigned char pad08[0x48];
+	int fixedsize;
+	float mins[3];
+	float maxs[3];
+	float color[3];
+	float f30;
+	qtexture_s *mtl;
+	float f38;
+	float f3c;
+	unsigned char pad40[0x10];
 	char *comments;
-	unsigned char pad54[0x100];
+	char flagnames[8][32];
 	entitymodel_t *model;
 	char *defaultmdl;
 	char *modelpath;
@@ -95,6 +111,30 @@ void FUN_00463560(eclass_t *ec)
 	delete[] ec->name;
 	delete[] ec->comments;
 	delete ec;
+}
+
+char *FUN_0046cb10(const char *str);
+
+// 0x00463710
+void setSpecialLoad(eclass_t *e, const char *pWhat, char *&p)
+{
+	CString str = e->comments;
+	int n = str.Find(pWhat);
+	if (n >= 0)
+	{
+		char *pText = e->comments + n + strlen(pWhat);
+		if (*pText == '\"')
+			pText++;
+
+		str = "";
+		while (*pText != '\"' && *pText != '\0')
+		{
+			str += *pText;
+			pText++;
+		}
+		if (str.GetLength() > 0)
+			p = FUN_0046cb10(str);
+	}
 }
 
 // 0x00463e40

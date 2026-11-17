@@ -419,6 +419,8 @@ addr	size	source	symbol	name	tag
 0x004405d0	31	src/radiant/TexWnd.cpp	_FUN_004405d0	FUN_004405d0	SUPPORTED
 0x004405f0	27	src/radiant/TexWnd.cpp	?SortTextures@@YAXXZ	SortTextures	SUPPORTED
 0x00440610	6	src/radiant/TexWnd.cpp	?TexWnd_GetDecalLocaleBit@@YAHXZ	TexWnd_GetDecalLocaleBit	SUPPORTED
+0x004406c0	297	src/radiant/TexWnd.cpp	?FUN_004406c0@@YAPAUqtexture_s@@PBUMaterialInfo@@PBDPAX@Z	FUN_004406c0	PINNED
+0x00440840	320	src/radiant/TexWnd.cpp	?FUN_00440840@@YAPAUqtexture_s@@PBD@Z	FUN_00440840	PINNED
 0x00440be0	48	src/radiant/TexWnd.cpp	?RemapMaterialName@@YAPBDPBD@Z	RemapMaterialName	SUPPORTED
 0x00440c70	48	src/radiant/TexWnd.cpp	?Editor_DoesMaterialExist@@YAPAUqtexture_s@@PBD@Z	Editor_DoesMaterialExist	SUPPORTED
 0x00440d90	90	src/radiant/TexWnd.cpp	?AppendTextureFilterMenu@@YAHPAUHMENU__@@PBDPBURadiantFilterEntry@@HH@Z	AppendTextureFilterMenu	SUPPORTED
@@ -537,6 +539,7 @@ addr	size	source	symbol	name	tag
 0x00460400	53	src/radiant/csg.cpp	?Brush_IsFiltered@@YA_NPAUbrush_t@@@Z	Brush_IsFiltered	SUPPORTED
 0x004608a0	309	src/radiant/drag.cpp	?AxializeVector@@YAXPAM@Z	AxializeVector	SUPPORTED
 0x00463560	429	src/radiant/eclass.cpp	?FUN_00463560@@YAXPAUeclass_t@@@Z	FUN_00463560	PINNED
+0x00463710	326	src/radiant/eclass.cpp	?setSpecialLoad@@YAXPAUeclass_t@@PBDAAPAD@Z	setSpecialLoad	SUPPORTED
 0x00463e40	75	src/radiant/eclass.cpp	?FUN_00463e40@@YAXPAUeclass_t@@PAPAU1@@Z	FUN_00463e40	SUPPORTED
 0x00463e90	13	src/radiant/eclass.cpp	?FUN_00463e90@@YAXPAUeclass_t@@@Z	FUN_00463e90	SUPPORTED
 0x00464bb0	88	src/radiant/entity.cpp	?ValueForKey@@YAPADAAPAUepair_t@@PBD@Z	ValueForKey	SUPPORTED
@@ -609,6 +612,7 @@ addr	size	source	symbol	name	tag
 0x0046caf0	11	src/radiant/points.cpp	?Pointfile_Clear@@YAXXZ	Pointfile_Clear	SUPPORTED
 0x0046cb00	14	src/radiant/points.cpp	?Pointfile_HasPoints@@YAHXZ	Pointfile_HasPoints	SUPPORTED
 0x0046cb10	111	src/radiant/qe3.cpp	?FUN_0046cb10@@YAPADPBD@Z	FUN_0046cb10	PINNED
+0x0046e280	229	src/radiant/qe3.cpp	?COM_Parse@@YAPADPAD@Z	COM_Parse	SUPPORTED
 0x004721a0	224	src/radiant/select.cpp	?FUN_004721a0@@YAXHH@Z	FUN_004721a0	UNNAMED
 0x00472280	224	src/radiant/select.cpp	?FUN_00472280@@YAXHH@Z	FUN_00472280	UNNAMED
 0x004727a0	18	src/radiant/select.cpp	?FUN_004727a0@@YAXXZ	FUN_004727a0	UNNAMED
@@ -644,7 +648,9 @@ addr	size	source	symbol	name	tag
 0x0047a480	27	src/radiant/win_qe3.cpp	?Sys_EndWait@@YAXXZ	Sys_EndWait	SUPPORTED
 0x0047a4a0	36	src/radiant/win_qe3.cpp	?Sys_GetCursorPos@@YAXPAH0@Z	Sys_GetCursorPos	SUPPORTED
 0x0047a4e0	9	src/radiant/win_qe3.cpp	?Sys_Beep@@YAXXZ	Sys_Beep	SUPPORTED
+0x0047a4f0	144	src/radiant/win_qe3.cpp	?TranslateString@@YAPADPBD@Z	TranslateString	PINNED
 0x0047a580	33	src/radiant/win_qe3.cpp	?Sys_ClearPrintf@@YAXXZ	Sys_ClearPrintf	SUPPORTED
+0x0047a5b0	254	src/radiant/win_qe3.cpp	?Sys_Printf@@YAXPBDZZ	Sys_Printf	SUPPORTED
 0x0047a6b0	33	src/radiant/win_qe3.cpp	?Sys_DoubleTime@@YANXZ	Sys_DoubleTime	SUPPORTED
 0x0047a6e0	123	src/radiant/win_qe3.cpp	?PrintPixels@@YAXPAUHDC__@@@Z	PrintPixels	SUPPORTED
 0x0047a7f0	70	src/radiant/win_qe3.cpp	?Warning@@YAXPBDZZ	Warning	SUPPORTED
@@ -674,6 +680,8 @@ addr	size	source	symbol	name	tag
 0x0047d790	1	src/universal/assertive.cpp	_FUN_0047d790	FUN_0047d790	UNNAMED
 0x0047d7a0	6	src/universal/assertive.cpp	_FUN_0047d7a0	FUN_0047d7a0	UNNAMED
 0x0047d7b0	114	src/universal/assertive.cpp	_CopyMessageToClipboard	CopyMessageToClipboard	SUPPORTED
+0x0047d8b0	208	src/universal/assertive.cpp	?FUN_0047d8b0@@YAXPBD0PADHH@Z	FUN_0047d8b0	SUPPORTED
+0x0047d980	192	src/universal/assertive.cpp	?FUN_0047d980@@YAHPBD0HHH@Z	FUN_0047d980	SUPPORTED
 0x0047da40	8	src/universal/assertive.cpp	_FUN_0047da40	FUN_0047da40	UNNAMED
 0x0047da50	10	src/universal/assertive.cpp	_FUN_0047da50	FUN_0047da50	UNNAMED
 0x0047da60	22	src/universal/assertive.cpp	_FUN_0047da60	FUN_0047da60	UNNAMED
