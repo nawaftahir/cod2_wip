@@ -69705,8 +69705,9 @@
 "name": "_HTCache_isFresh",
 "obj": "libwww:HTCache.obj",
 "size": 402,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x561900"
+]
 },
 {
 "name": "_free_stream",
