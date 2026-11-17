@@ -156,6 +156,7 @@ addr	size	source	symbol	name	tag
 0x00409830	5	src/radiant/DialogThick.cpp	??1CDialogThick@@UAE@XZ	CDialogThick::~CDialogThick	SUPPORTED
 0x00409840	46	src/radiant/DialogThick.cpp	?DoDataExchange@CDialogThick@@MAEXPAVCDataExchange@@@Z	CDialogThick::DoDataExchange	SUPPORTED
 0x00409870	6	src/radiant/DialogThick.cpp	?GetMessageMap@CDialogThick@@MBEPBUAFX_MSGMAP@@XZ	CDialogThick::GetMessageMap	SUPPORTED
+0x00409880	168	src/radiant/dlgcamera.cpp	??1CDlgCamera@@UAE@XZ	CDlgCamera::~CDlgCamera	SUPPORTED
 0x004099c0	263	src/radiant/dlgcamera.cpp	??0CDlgCamera@@QAE@PAVCWnd@@@Z	CDlgCamera::CDlgCamera	SUPPORTED
 0x00409ad0	34	src/radiant/dlgcamera.cpp	??_GCDlgCamera@@UAEPAXI@Z	CDlgCamera::scalar_deleting_dtor	SUPPORTED
 0x00409b00	193	src/radiant/dlgcamera.cpp	?DoDataExchange@CDlgCamera@@MAEXPAVCDataExchange@@@Z	CDlgCamera::DoDataExchange	SUPPORTED
@@ -191,6 +192,7 @@ addr	size	source	symbol	name	tag
 0x0040bc90	16	src/radiant/dlgcamera.cpp	??0CComboBox@@QAE@XZ	CComboBox::CComboBox	SUPPORTED
 0x0040bca0	30	src/radiant/dlgcamera.cpp	??_GCComboBox@@UAEPAXI@Z	CComboBox::scalar_deleting_dtor	SUPPORTED
 0x0040bcc0	16	src/radiant/dlgcamera.cpp	??0CScrollBar@@QAE@XZ	CScrollBar::CScrollBar	SUPPORTED
+0x0040bcd0	30	src/radiant/dlgcamera.cpp	??_GCScrollBar@@UAEPAXI@Z	CScrollBar::scalar_deleting_dtor	SUPPORTED
 0x0040bcf0	123	src/radiant/DlgEvent.cpp	??0CDlgEvent@@QAE@PAVCWnd@@@Z	CDlgEvent::CDlgEvent	SUPPORTED
 0x0040bda0	46	src/radiant/DlgEvent.cpp	?DoDataExchange@CDlgEvent@@MAEXPAVCDataExchange@@@Z	CDlgEvent::DoDataExchange	SUPPORTED
 0x0040bdd0	6	src/radiant/DlgEvent.cpp	?GetMessageMap@CDlgEvent@@MBEPBUAFX_MSGMAP@@XZ	CDlgEvent::GetMessageMap	SUPPORTED
@@ -206,15 +208,19 @@ addr	size	source	symbol	name	tag
 0x0040c770	30	src/radiant/EditWnd.cpp	?PreCreateWindow@CEditWnd@@MAEHAAUtagCREATESTRUCTA@@@Z	CEditWnd::PreCreateWindow	SUPPORTED
 0x0040c790	117	src/radiant/EntityListDlg.cpp	??0CEntityListDlg@@QAE@PAVCWnd@@@Z	CEntityListDlg::CEntityListDlg	SUPPORTED
 0x0040c810	34	src/radiant/EntityListDlg.cpp	??_GCEntityListDlg@@UAEPAXI@Z	CEntityListDlg::scalar_deleting_dtor	SUPPORTED
+0x0040c840	89	src/radiant/EntityListDlg.cpp	??1CEntityListDlg@@UAE@XZ	CEntityListDlg::~CEntityListDlg	SUPPORTED
 0x0040c8a0	49	src/radiant/EntityListDlg.cpp	?DoDataExchange@CEntityListDlg@@MAEXPAVCDataExchange@@@Z	CEntityListDlg::DoDataExchange	SUPPORTED
 0x0040c8e0	6	src/radiant/EntityListDlg.cpp	?GetMessageMap@CEntityListDlg@@MBEPBUAFX_MSGMAP@@XZ	CEntityListDlg::GetMessageMap	SUPPORTED
+0x0040c970	407	src/radiant/EntityListDlg.cpp	?OnInitDialog@CEntityListDlg@@MAEHXZ	CEntityListDlg::OnInitDialog	SUPPORTED
 0x0040cb10	387	src/radiant/EntityListDlg.cpp	?OnSelchangedTreeEntity@CEntityListDlg@@IAEXPAUtagNMHDR@@PAJ@Z	CEntityListDlg::OnSelchangedTreeEntity	SUPPORTED
 0x0040cca0	1	src/radiant/EntityListDlg.cpp	_FUN_0040cca0	FUN_0040cca0	UNNAMED
 0x0040ccd0	24	src/radiant/EntityListDlg.cpp	?InsertItem@CListCtrl@@QAEHHPBD@Z	CListCtrl::InsertItem	SUPPORTED
 0x0040ccf0	20	src/radiant/EntityListDlg.cpp	?DeleteAllItems@CListCtrl@@QAEHXZ	CListCtrl::DeleteAllItems	SUPPORTED
 0x0040cda0	20	src/radiant/EntityListDlg.cpp	?GetSelectedItem@CTreeCtrl@@QBEPAU_TREEITEM@@XZ	CTreeCtrl::GetSelectedItem	SUPPORTED
 0x0040cdc0	16	src/radiant/EntityListDlg.cpp	??0CTreeCtrl@@QAE@XZ	CTreeCtrl::CTreeCtrl	SUPPORTED
+0x0040cdd0	30	src/radiant/EntityListDlg.cpp	??_GCTreeCtrl@@UAEPAXI@Z	CTreeCtrl::scalar_deleting_dtor	SUPPORTED
 0x0040cdf0	16	src/radiant/EntityListDlg.cpp	??0CListCtrl@@QAE@XZ	CListCtrl::CListCtrl	SUPPORTED
+0x0040ce00	30	src/radiant/EntityListDlg.cpp	??_GCListCtrl@@UAEPAXI@Z	CListCtrl::scalar_deleting_dtor	SUPPORTED
 0x0040cf30	1765	src/radiant/filtersettings.cpp	_FUN_0040cf30	FUN_0040cf30	UNNAMED
 0x0040e4e0	1	src/radiant/filtersettings.cpp	_FUN_0040e4e0	FUN_0040e4e0	UNNAMED
 0x0040e760	1	src/radiant/filtersettings.cpp	_FUN_0040e760	FUN_0040e760	UNNAMED

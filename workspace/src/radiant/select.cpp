@@ -45,8 +45,13 @@ extern brush_t selected_brushes;
 extern brush_t active_brushes;
 extern int g_nUpdateBits;
 
+<<<<<<< HEAD
 class CMainFrame;
 extern "C" void FUN_0041b190(CMainFrame *self);
+=======
+struct MainFrameToolbarView;
+extern "C" void FUN_0041b190(MainFrameToolbarView *self);
+>>>>>>> radiant/lane-d-r12
 void FUN_0042beb0();
 extern CMainFrame *dword_01233488;
 extern int DAT_011298b0;
