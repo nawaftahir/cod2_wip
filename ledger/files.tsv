@@ -64,16 +64,16 @@ src/radiant/win_main.cpp	PARTIAL	5	699	PENDING	PENDING		2 game / 260 B: real Sav
 src/radiant/win_qe3.cpp	PARTIAL	14	678	PENDING	PENDING		Q3Radiant WIN_QE3.CPP (8/10 string funcs); iw3xo (7/10)
 src/radiant/z.cpp	PARTIAL	0	0	PENDING	PENDING		Owner takeover: Codex repairs reviewed ZWnd dependencies; all original Gemini candidates preserved; no accepted source
 src/universal/assertive.cpp	PARTIAL	9	387	PENDING	PENDING		server source (copy-ready)
-src/universal/com_files.cpp	PARTIAL	61	8336	PENDING	PENDING		server source (copy-ready)
-src/universal/com_math.cpp	PARTIAL	119	20411	PENDING	PENDING		server source (copy-ready)
+src/universal/com_files.cpp	PARTIAL	66	9398	PENDING	PENDING		server source (copy-ready)
+src/universal/com_math.cpp	PARTIAL	132	21832	PENDING	PENDING		server source (copy-ready)
 src/universal/com_memory.cpp	PARTIAL	46	4167	PENDING	PENDING		46 matched; three routines left; allocator source uses verified global update flow
-src/universal/com_shared.cpp	PARTIAL	9	1214	PENDING	PENDING		server source (copy-ready)
+src/universal/com_shared.cpp	PARTIAL	10	1258	PENDING	PENDING		server source (copy-ready)
 src/universal/dvar.cpp	PARTIAL	63	10787	PENDING	PENDING		server source (copy-ready)
 src/universal/g_vehicle_path.cpp	PARTIAL	1	1	PENDING	PENDING		Q3Radiant DRAG.CPP (1/3 string funcs); iw3xo (1/3)
 src/universal/linearmapping.cpp	UNSTARTED	0	0	PENDING	PENDING		none: from make show
 src/universal/UNKNOWN_00494480.cpp	PARTIAL	1	89	PENDING	PENDING		none: from make show
 src/universal/q_parse.cpp	PARTIAL	31	3179	PENDING	PENDING		server source (copy-ready)
-src/universal/q_shared.cpp	PARTIAL	62	6828	PENDING	PENDING		server source (copy-ready)
+src/universal/q_shared.cpp	PARTIAL	66	8099	PENDING	PENDING		server source (copy-ready)
 src/universal/win_common.cpp	PARTIAL	11	1951	PENDING	PENDING		6 matched; five enumeration/path dependency drafts held
 src/universal/UNKNOWN_004985d0.cpp	PARTIAL	15	179	PENDING	PENDING		none: from make show
 src/universal/splines/math_angles.cpp	PARTIAL	5	571	PENDING	PENDING		none: from make show

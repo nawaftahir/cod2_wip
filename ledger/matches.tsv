@@ -785,6 +785,7 @@ addr	size	source	symbol	name	tag
 0x0048b2a0	67	src/universal/com_shared.cpp	?Com_HashKey@@YAHPBDH@Z	Com_HashKey	SUPPORTED
 0x0048b2f0	96	src/universal/com_shared.cpp	?Com_RealTime@@YAHPAUqtime_s@@@Z	Com_RealTime	SUPPORTED
 0x0048b650	153	src/universal/com_shared.cpp	?Com_Memcmp@@YAHPBX0I@Z	Com_Memcmp	SUPPORTED
+0x0048b730	44	src/universal/com_shared.cpp	?FUN_0048b730@@YAMMM@Z	FUN_0048b730	UNNAMED
 0x0048b760	37	src/universal/com_shared.cpp	?FUN_0048b760@@YAHPBM0@Z	FUN_0048b760	UNNAMED
 0x0048b790	23	src/universal/com_shared.cpp	?FUN_0048b790@@YAXPBMPAM@Z	FUN_0048b790	UNNAMED
 0x0048b7b0	10	src/universal/com_shared.cpp	?FUN_0048b7b0@@YAHPBH0@Z	FUN_0048b7b0	UNNAMED
@@ -890,6 +891,7 @@ addr	size	source	symbol	name	tag
 0x00495d90	117	src/universal/q_shared.cpp	?Com_GetExtensionSubString@@YAPBDPBD@Z	Com_GetExtensionSubString	PINNED
 0x00495e10	33	src/universal/q_shared.cpp	?Com_StripExtension@@YAXPBDPAD@Z	Com_StripExtension	SUPPORTED
 0x00495e40	59	src/universal/q_shared.cpp	?Com_StripFilename@@YAXPBDPAD@Z	Com_StripFilename	SUPPORTED
+0x00495e80	119	src/universal/q_shared.cpp	?Com_DefaultExtension@@YAXPADHPBD@Z	Com_DefaultExtension	SUPPORTED
 0x00495f00	11	src/universal/q_shared.cpp	?BigShort@@YAFF@Z	BigShort	SUPPORTED
 0x00495f10	11	src/universal/q_shared.cpp	?BigLong@@YAHH@Z	BigLong	SUPPORTED
 0x00495f20	22	src/universal/q_shared.cpp	?LittleLong64@@YA_J_J@Z	LittleLong64	SUPPORTED
@@ -925,6 +927,7 @@ addr	size	source	symbol	name	tag
 0x00496750	256	src/universal/q_shared.cpp	?I_stricmpwild@@YAHPBD0@Z	I_stricmpwild	PINNED
 0x00496850	38	src/universal/q_shared.cpp	?I_strlwr@@YAPADPAD@Z	I_strlwr	SUPPORTED
 0x00496880	38	src/universal/q_shared.cpp	?I_strupr@@YAPADPAD@Z	I_strupr	SUPPORTED
+0x004968b0	147	src/universal/q_shared.cpp	?I_strncat@@YAXPADHPBD@Z	I_strncat	PINNED
 0x00496950	48	src/universal/q_shared.cpp	?I_DrawStrlen@@YAHPBD@Z	I_DrawStrlen	SUPPORTED
 0x00496980	28	src/universal/q_shared.cpp	?Com_sprintf@@YAHPADIPBDZZ	Com_sprintf	SUPPORTED
 0x004969a0	50	src/universal/q_shared.cpp	?CanKeepStringPointer@@YAHPBD@Z	CanKeepStringPointer	SUPPORTED
@@ -937,6 +940,7 @@ addr	size	source	symbol	name	tag
 0x00496e30	35	src/universal/q_shared.cpp	?Info_Validate@@YAHPBD@Z	Info_Validate	SUPPORTED
 0x00496e60	711	src/universal/q_shared.cpp	?Info_SetValueForKey@@YAXPADPBD1@Z	Info_SetValueForKey	PINNED
 0x00497130	711	src/universal/q_shared.cpp	?Info_SetValueForKey_Big@@YAXPADPBD1@Z	Info_SetValueForKey_Big	PINNED
+0x00497400	760	src/universal/q_shared.cpp	?ParseConfigStringToStruct@@YAHPAEPBUcspField_t@@HPBDHP6AH02H@ZP6AX02@Z@Z	ParseConfigStringToStruct	PINNED
 0x00497700	145	src/universal/q_shared.cpp	?OrientationPosToWorld@@YAXPBUorientation_t@@PBMPAM@Z	OrientationPosToWorld	SUPPORTED
 0x004977a0	137	src/universal/q_shared.cpp	?OrientationDirToWorld@@YAXPBUorientation_t@@PBMPAM@Z	OrientationDirToWorld	SUPPORTED
 0x00497830	109	src/universal/q_shared.cpp	?OrientationPlaneToWorld@@YAXPBUorientation_t@@PBMPAM@Z	OrientationPlaneToWorld	SUPPORTED

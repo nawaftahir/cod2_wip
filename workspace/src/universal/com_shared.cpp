@@ -235,6 +235,11 @@ qboolean Com_Memcmp(const void *src0, const void *src1, const unsigned int count
 	return qtrue;
 }
 
+float FUN_0048b730( float x, float y )
+{
+	return y - x >= 0.0f ? x : y;
+}
+
 int FUN_0048b760(const float *v1, const float *v2)
 {
 	if (v1[0] == v2[0] && v1[1] == v2[1])
