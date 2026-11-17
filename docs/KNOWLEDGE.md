@@ -989,3 +989,6 @@ set by a later lowering stage, not by the list scheduler.
   "CL_DemoCompleted compiles after CG_FxTest" (pass >= 26), not "between Pickup_Health and Die". The earlier depth-bound argument
   (pass <= 24) used the wrong window. peel13 model: one extra edge from CL_DemoCompleted to ANY pass >= 25 fn fixes it with 1 pass
   change (2390 candidates). 1.3 retail code still calls CL_Disconnect + jmp CL_NextDemo.
+- PINNED (w29, 11-17, lab probe, dfs13): a call in source-dead code (`if (0) Com_Error(...)`) still becomes a c2 call-graph edge
+  (T line) and moves the caller's compile slot (CL_DemoCompleted to the end of F order). So IL edges come from the front-end
+  call list before c2 dead-code removal. Probe only; a fabricated dead call is not source.
