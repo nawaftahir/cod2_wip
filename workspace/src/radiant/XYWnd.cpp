@@ -70,7 +70,7 @@ public:
     void SetScaleMode(bool bMode);
     float (&RotateOrigin())[3];
     float (&Rotation())[3];
-    bool AreaSelectOK();
+    BOOL AreaSelectOK();
 
     bool m_bActive;
     unsigned char pad_51[3];
@@ -367,6 +367,13 @@ void CXYWnd::OnSetFocus(CWnd *pOldWnd)
 void CXYWnd::OnClose()
 {
     Default();
+}
+
+BOOL CXYWnd::AreaSelectOK()
+{
+    if (g_bRotateMode)
+        return false;
+    return !g_bScaleMode;
 }
 
 extern "C" void FUN_004535f0() {}

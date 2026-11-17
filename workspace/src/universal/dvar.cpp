@@ -833,6 +833,8 @@ void Dvar_PrintDomain(unsigned char type, DvarLimits domain)
 	Com_Printf("  %s\n", Dvar_DomainToString(type, domain, domainBuffer, sizeof(domainBuffer)));
 }
 
+int FUN_0048b760(const float *v1, const float *v2);
+
 static bool Dvar_ValuesEqual(unsigned char type, DvarValue val0, DvarValue val1)
 {
 	switch ( type )
@@ -844,7 +846,7 @@ static bool Dvar_ValuesEqual(unsigned char type, DvarValue val0, DvarValue val1)
 	case DVAR_TYPE_FLOAT:
 		return val0.decimal == val1.decimal;
 	case DVAR_TYPE_VEC2:
-		return Vector2Compare(val0.vector, val1.vector);
+		return FUN_0048b760(val0.vector, val1.vector);
 	case DVAR_TYPE_VEC3:
 		return VectorCompare(val0.vector, val1.vector);
 	case DVAR_TYPE_VEC4:
@@ -853,8 +855,6 @@ static bool Dvar_ValuesEqual(unsigned char type, DvarValue val0, DvarValue val1)
 		return Byte4Compare(val0.color, val1.color);
 	case DVAR_TYPE_ENUM:
 		return val0.integer == val1.integer;
-
-
 
 
 
@@ -922,7 +922,7 @@ bool Dvar_IsAtDefaultValue(const dvar_t *dvar)
 
 static void Dvar_SetVariant(dvar_t *dvar, DvarValue value, DvarSetSource source)
 {
-
+restart:
 	assert( dvar );
 	assert( dvar->name );
 	if ( !Dvar_ValueInDomain(dvar->type, value, dvar->domain) )
@@ -951,7 +951,7 @@ static void Dvar_SetVariant(dvar_t *dvar, DvarValue value, DvarSetSource source)
 
 
 			assertMsg(Dvar_ValueInDomain( dvar->type, dvar->reset, dvar->domain ), "%s", dvar->name);
-			Dvar_SetVariant(dvar, dvar->reset, source);
+			value = dvar->reset; goto restart;
 		}
 		return;
 	}
