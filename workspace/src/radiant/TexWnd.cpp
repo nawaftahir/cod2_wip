@@ -164,18 +164,7 @@ qtexture_s *FUN_004406c0(char *name, void *handle, RadMtlInfo *mtlInfo)
     qtexture_s *newRadMat = new qtexture_s;
 #line 154
     assert(newRadMat);
-    newRadMat->mtl = 0;
-    newRadMat->name = 0;
-    newRadMat->inuse = 0;
-    newRadMat->field_09 = 0;
-    newRadMat->field_0a = 0;
-    newRadMat->field_0c = 0;
-    newRadMat->field_10 = 0;
-    newRadMat->width = 0;
-    newRadMat->height = 0;
-    newRadMat->field_1c = 0;
-    newRadMat->field_20 = 0;
-    newRadMat->next = 0;
+    memset(newRadMat, 0, sizeof(*newRadMat));
     newRadMat->mtl = handle;
     newRadMat->name = FUN_0046cb10(name);
     newRadMat->inuse = 1;
@@ -189,7 +178,8 @@ qtexture_s *FUN_004406c0(char *name, void *handle, RadMtlInfo *mtlInfo)
     newRadMat->field_20 = mtlInfo->field_28;
     newRadMat->next = texWndGlobals.qtextures;
     texWndGlobals.qtextures = newRadMat;
-    texWndGlobals.sorted[texWndGlobals.sortedCount++] = newRadMat;
+    texWndGlobals.sorted[texWndGlobals.sortedCount] = newRadMat;
+    texWndGlobals.sortedCount++;
     return newRadMat;
 }
 

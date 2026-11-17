@@ -424,12 +424,7 @@ addr	size	source	symbol	name	tag
 0x004405d0	31	src/radiant/TexWnd.cpp	_FUN_004405d0	FUN_004405d0	SUPPORTED
 0x004405f0	27	src/radiant/TexWnd.cpp	?SortTextures@@YAXXZ	SortTextures	SUPPORTED
 0x00440610	6	src/radiant/TexWnd.cpp	?TexWnd_GetDecalLocaleBit@@YAHXZ	TexWnd_GetDecalLocaleBit	SUPPORTED
-0x004406c0	297	src/radiant/TexWnd.cpp	?FUN_004406c0@@YAPAUqtexture_s@@PADPAXPAURadMtlInfo@@@Z	FUN_004406c0	UNNAMED
-0x00440840	320	src/radiant/TexWnd.cpp	?FUN_00440840@@YIPAUqtexture_s@@PAD@Z	FUN_00440840	UNNAMED
-0x00440980	31	src/radiant/TexWnd.cpp	?FUN_00440980@@YAXPADPAURadMtlInfo@@@Z	FUN_00440980	UNNAMED
-0x004409a0	563	src/radiant/TexWnd.cpp	?FUN_004409a0@@YAXXZ	FUN_004409a0	UNNAMED
 0x00440be0	48	src/radiant/TexWnd.cpp	?RemapMaterialName@@YAPBDPBD@Z	RemapMaterialName	SUPPORTED
-0x00440c10	92	src/radiant/TexWnd.cpp	?FUN_00440c10@@YAPAUqtexture_s@@PADH@Z	FUN_00440c10	UNNAMED
 0x00440c70	48	src/radiant/TexWnd.cpp	?Editor_DoesMaterialExist@@YAPAUqtexture_s@@PBD@Z	Editor_DoesMaterialExist	SUPPORTED
 0x00440d90	90	src/radiant/TexWnd.cpp	?AppendTextureFilterMenu@@YAHPAUHMENU__@@PBDPBURadiantFilterEntry@@HH@Z	AppendTextureFilterMenu	SUPPORTED
 0x00440df0	420	src/radiant/TexWnd.cpp	?FUN_00440df0@@YAHPADPAURadiantFilterEntry@@HHH@Z	FUN_00440df0	UNNAMED
