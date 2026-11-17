@@ -189,6 +189,7 @@ addr	size	source	symbol	name	tag
 0x0040c8e0	6	src/radiant/EntityListDlg.cpp	?GetMessageMap@CEntityListDlg@@MBEPBUAFX_MSGMAP@@XZ	CEntityListDlg::GetMessageMap	SUPPORTED
 0x0040cb10	387	src/radiant/EntityListDlg.cpp	?OnSelchangedTreeEntity@CEntityListDlg@@IAEXPAUtagNMHDR@@PAJ@Z	CEntityListDlg::OnSelchangedTreeEntity	SUPPORTED
 0x0040cca0	1	src/radiant/EntityListDlg.cpp	_FUN_0040cca0	FUN_0040cca0	UNNAMED
+0x0040cf30	1765	src/radiant/filtersettings.cpp	_FUN_0040cf30	FUN_0040cf30	UNNAMED
 0x0040e4e0	1	src/radiant/filtersettings.cpp	_FUN_0040e4e0	FUN_0040e4e0	UNNAMED
 0x0040e760	1	src/radiant/filtersettings.cpp	_FUN_0040e760	FUN_0040e760	UNNAMED
 0x0040e770	1	src/radiant/filtersettings.cpp	_FUN_0040e770	FUN_0040e770	UNNAMED
@@ -272,6 +273,7 @@ addr	size	source	symbol	name	tag
 0x00411080	11	src/radiant/LstToolBar.cpp	??1CLstToolBar@@UAE@XZ	CLstToolBar::~CLstToolBar	SUPPORTED
 0x00411090	6	src/radiant/LstToolBar.cpp	?GetMessageMap@CLstToolBar@@MBEPBUAFX_MSGMAP@@XZ	CLstToolBar::GetMessageMap	SUPPORTED
 0x004110a0	9	src/radiant/LstToolBar.cpp	?OnParentNotify@CLstToolBar@@IAEXIJ@Z	CLstToolBar::OnParentNotify	SUPPORTED
+0x004110b0	343	src/radiant/PrefsDlg.cpp	??1CPrefsDlg@@UAE@XZ	CPrefsDlg::~CPrefsDlg	SUPPORTED
 0x00411230	5	src/radiant/MainFrm.cpp	_FUN_00411230@8	FUN_00411230	UNNAMED
 0x00411240	1	src/radiant/MainFrm.cpp	_FUN_00411240	FUN_00411240	UNNAMED
 0x004115a0	3	src/radiant/MainFrm.cpp	_FUN_004115a0@8	FUN_004115a0	UNNAMED
@@ -462,6 +464,16 @@ addr	size	source	symbol	name	tag
 0x00433e30	79	src/radiant/Pmesh.cpp	?FUN_00433e30@@YAXXZ	FUN_00433e30	SUPPORTED
 0x00433e80	79	src/radiant/Pmesh.cpp	?Patch_SetBendRotateOrigin@@YAXXZ	Patch_SetBendRotateOrigin	SUPPORTED
 0x00434100	1	src/radiant/Pmesh.cpp	_FUN_00434100	FUN_00434100	UNNAMED
+0x00439740	762	src/radiant/PrefsDlg.cpp	??0CPrefsDlg@@QAE@PAVCWnd@@@Z	CPrefsDlg::CPrefsDlg	SUPPORTED
+0x00439a40	34	src/radiant/PrefsDlg.cpp	??_GCPrefsDlg@@UAEPAXI@Z	CPrefsDlg::scalar_deleting_dtor	SUPPORTED
+0x00439a70	813	src/radiant/PrefsDlg.cpp	?DoDataExchange@CPrefsDlg@@MAEXPAVCDataExchange@@@Z	CPrefsDlg::DoDataExchange	SUPPORTED
+0x00439da0	6	src/radiant/PrefsDlg.cpp	?GetMessageMap@CPrefsDlg@@MBEPBUAFX_MSGMAP@@XZ	CPrefsDlg::GetMessageMap	SUPPORTED
+0x00439db0	150	src/radiant/PrefsDlg.cpp	?OnInitDialog@CPrefsDlg@@MAEHXZ	CPrefsDlg::OnInitDialog	SUPPORTED
+0x00439e50	140	src/radiant/PrefsDlg.cpp	?OnOK@CPrefsDlg@@MAEXXZ	CPrefsDlg::OnOK	SUPPORTED
+0x00439ee0	2959	src/radiant/PrefsDlg.cpp	?LoadPrefs@CPrefsDlg@@QAEXXZ	CPrefsDlg::LoadPrefs	SUPPORTED
+0x0043aa70	2456	src/radiant/PrefsDlg.cpp	?SavePrefs@CPrefsDlg@@QAEXXZ	CPrefsDlg::SavePrefs	SUPPORTED
+0x0043b410	218	src/radiant/PrefsDlg.cpp	?OnBtnBrowseuserini@CPrefsDlg@@IAEXXZ	CPrefsDlg::OnBtnBrowseuserini	SUPPORTED
+0x0043b4f0	5	src/radiant/PrefsDlg.cpp	?FUN_0043b4f0@@YIXPAVCPrefsDlg@@@Z	FUN_0043b4f0	UNNAMED
 0x0043b500	85	src/radiant/RADEditWnd.cpp	??0CRADEditWnd@@QAE@XZ	CRADEditWnd::CRADEditWnd	SUPPORTED
 0x0043b590	87	src/radiant/RADEditWnd.cpp	??1CRADEditWnd@@UAE@XZ	CRADEditWnd::~CRADEditWnd	SUPPORTED
 0x0043b5f0	6	src/radiant/RADEditWnd.cpp	?GetMessageMap@CRADEditWnd@@MBEPBUAFX_MSGMAP@@XZ	CRADEditWnd::GetMessageMap	SUPPORTED
@@ -514,6 +526,7 @@ addr	size	source	symbol	name	tag
 0x004431f0	166	src/radiant/Undo.cpp	?FUN_004431f0@@YAXPAUbrush_t@@0@Z	FUN_004431f0	PINNED
 0x004432a0	242	src/radiant/Undo.cpp	?FUN_004432a0@@YAXPAUbrush_t@@@Z	FUN_004432a0	PINNED
 0x004433a0	6	src/radiant/Undo.cpp	?Undo_RedoAvailable@@YAPAUundo_s@@XZ	Undo_RedoAvailable	SUPPORTED
+0x00443800	27	src/radiant/Undo.cpp	?Undo_SetMaxSize@@YAXH@Z	Undo_SetMaxSize	SUPPORTED
 0x00443820	6	src/radiant/Undo.cpp	?Undo_GetMaxSize@@YAHXZ	Undo_GetMaxSize	SUPPORTED
 0x00443850	6	src/radiant/Undo.cpp	?Undo_GetMaxMemorySize@@YAHXZ	Undo_GetMaxMemorySize	SUPPORTED
 0x00445020	14	src/radiant/Undo.cpp	?FUN_00445020@@YA_NXZ	FUN_00445020	UNNAMED
