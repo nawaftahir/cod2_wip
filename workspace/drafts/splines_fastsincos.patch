@@ -1,0 +1,82 @@
+diff --git a/workspace/src/universal/splines/math_angles.cpp b/workspace/src/universal/splines/math_angles.cpp
+index d83abbcc..701e6a52 100644
+--- a/workspace/src/universal/splines/math_angles.cpp
++++ b/workspace/src/universal/splines/math_angles.cpp
+@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ */
+ #include "q_shared.h"
+ #include <float.h>
++#include "../com_math.h"
+ 
+ angles_t ang_zero( 0.0f, 0.0f, 0.0f );
+ 
+@@ -70,16 +71,13 @@ void angles_t::toVectors( idVec3_t *forward, idVec3_t *right, idVec3_t *up ) {
+ 	static float	sr, sp, sy, cr, cp, cy; // static to help MS compiler fp bugs
+ 	
+ 	angle = yaw * ( M_PI * 2 / 360 );
+-	sy = sin( angle );
+-	cy = cos( angle );
++	FastSinCos( angle, &sy, &cy );
+ 
+ 	angle = pitch * ( M_PI * 2 / 360 );
+-	sp = sin( angle );
+-	cp = cos( angle );
++	FastSinCos( angle, &sp, &cp );
+ 
+ 	angle = roll * ( M_PI * 2 / 360 );
+-	sr = sin( angle );
+-	cr = cos( angle );
++	FastSinCos( angle, &sr, &cr );
+ 
+ 	if ( forward ) {
+ 		forward->set( cp * cy, cp * sy, -sp );
+@@ -99,12 +97,10 @@ idVec3_t angles_t::toForward( void ) {
+ 	static float	sp, sy, cp, cy; // static to help MS compiler fp bugs
+ 	
+ 	angle = yaw * ( M_PI * 2 / 360 );
+-	sy = sin( angle );
+-	cy = cos( angle );
++	FastSinCos( angle, &sy, &cy );
+ 
+ 	angle = pitch * ( M_PI * 2 / 360 );
+-	sp = sin( angle );
+-	cp = cos( angle );
++	FastSinCos( angle, &sp, &cp );
+ 
+ 	return idVec3_t( cp * cy, cp * sy, -sp );
+ }
+diff --git a/workspace/src/universal/splines/math_matrix.cpp b/workspace/src/universal/splines/math_matrix.cpp
+index 5f8181a0..661d534a 100644
+--- a/workspace/src/universal/splines/math_matrix.cpp
++++ b/workspace/src/universal/splines/math_matrix.cpp
+@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ ===========================================================================
+ */
+ #include "q_shared.h"
++#include "../com_math.h"
+ 
+ mat3_t mat3_default( idVec3_t( 1, 0, 0 ), idVec3_t( 0, 1, 0 ), idVec3_t( 0, 0, 1 ) );
+ 
+@@ -61,18 +62,15 @@ void toMatrix( quat_t const &src, mat3_t &dst ) {
+ void toMatrix( angles_t const &src, mat3_t &dst ) {
+ 	float			angle;
+ 	static float	sr, sp, sy, cr, cp, cy; // static to help MS compiler fp bugs
+-		
++
+ 	angle = src.yaw * ( M_PI * 2.0f / 360.0f );
+-	sy = sin( angle );
+-	cy = cos( angle );
++	FastSinCos( angle, &sy, &cy );
+ 
+ 	angle = src.pitch * ( M_PI * 2.0f / 360.0f );
+-	sp = sin( angle );
+-	cp = cos( angle );
++	FastSinCos( angle, &sp, &cp );
+ 
+ 	angle = src.roll * ( M_PI * 2.0f / 360.0f );
+-	sr = sin( angle );
+-	cr = cos( angle );
++	FastSinCos( angle, &sr, &cr );
+ 
+ 	dst[ 0 ].set( cp * cy, cp * sy, -sp );
+ 	dst[ 1 ].set( sr * sp * cy + cr * -sy, sr * sp * sy + cr * cy, sr * cp );
