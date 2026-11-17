@@ -529,11 +529,15 @@ addr	size	source	symbol	name	tag
 0x00442f40	15	src/radiant/TexWnd.cpp	?OnKeyDown@CTexWnd@@IAEXIII@Z	CTexWnd::OnKeyDown	SUPPORTED
 0x00442f50	23	src/radiant/TexWnd.cpp	?OnKeyUp@CTexWnd@@IAEXIII@Z	CTexWnd::OnKeyUp	SUPPORTED
 0x00443140	34	src/radiant/TexWnd.cpp	?OnMouseWheel@CTexWnd@@IAEHIFVCPoint@@@Z	CTexWnd::OnMouseWheel	SUPPORTED
-0x004431f0	166	src/radiant/Undo.cpp	?FUN_004431f0@@YAXPAUbrush_t@@0@Z	FUN_004431f0	PINNED
-0x004432a0	242	src/radiant/Undo.cpp	?FUN_004432a0@@YAXPAUbrush_t@@@Z	FUN_004432a0	PINNED
+0x004431f0	166	src/radiant/Undo.cpp	?FUN_004431f0@@YAXPAUbrushdef_t@@0@Z	FUN_004431f0	PINNED
+0x004432a0	242	src/radiant/Undo.cpp	?FUN_004432a0@@YAXPAUbrushdef_t@@@Z	FUN_004432a0	PINNED
 0x004433a0	6	src/radiant/Undo.cpp	?Undo_RedoAvailable@@YAPAUundo_s@@XZ	Undo_RedoAvailable	SUPPORTED
 0x00443820	6	src/radiant/Undo.cpp	?Undo_GetMaxSize@@YAHXZ	Undo_GetMaxSize	SUPPORTED
 0x00443850	6	src/radiant/Undo.cpp	?Undo_GetMaxMemorySize@@YAHXZ	Undo_GetMaxMemorySize	SUPPORTED
+0x00443c30	159	src/radiant/Undo.cpp	?FUN_00443c30@@YA_NPAUundo_s@@PAUbrushdef_t@@@Z	FUN_00443c30	UNNAMED
+0x00443cd0	150	src/radiant/Undo.cpp	?FUN_00443cd0@@YA_NPAUundo_s@@PAUentity_t@@@Z	FUN_00443cd0	UNNAMED
+0x00443d90	157	src/radiant/Undo.cpp	?FUN_00443d90@@YAXPAUbrushdef_t@@@Z	FUN_00443d90	UNNAMED
+0x00443fd0	229	src/radiant/Undo.cpp	?FUN_00443fd0@@YAXPAUentity_t@@@Z	FUN_00443fd0	UNNAMED
 0x00445020	14	src/radiant/Undo.cpp	?FUN_00445020@@YA_NXZ	FUN_00445020	UNNAMED
 0x00445030	25	src/radiant/Undo.cpp	?Undo_UndoAvailable@@YAHXZ	Undo_UndoAvailable	SUPPORTED
 0x004460e0	6	src/radiant/VertEditDlg.cpp	?GetRuntimeClass@CVertEditDlg@@UBEPAUCRuntimeClass@@XZ	CVertEditDlg::GetRuntimeClass	SUPPORTED

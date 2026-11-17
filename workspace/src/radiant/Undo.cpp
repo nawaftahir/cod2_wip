@@ -1,14 +1,42 @@
 #include "stdafx.h"
 #include "../universal/assertive.h"
 
-struct brush_t
+struct entity_t;
+struct eclass_t;
+struct epair_t;
+
+struct brushdef_t
 {
-	brush_t *oprev;       // 0x00
-	brush_t *onext;       // 0x04
-	void *owner;          // 0x08
-	unsigned char pad_0c[0x10]; // 0x0c
-	int refCount;         // 0x1c
-	unsigned char pad_20[0x28]; // 0x20
+	brushdef_t *oprev;
+	brushdef_t *onext;
+	entity_t *owner;
+	unsigned char pad0c[4];
+	int undoId;
+	int redoId;
+	int ownerId;
+	int refCount;
+	unsigned char pad20[0x28];
+};
+
+// retail offsets: brushes 0x08, eclass 0x50, undoId 0x6c, entityId 0x74, refCount 0x78
+struct entity_t
+{
+	entity_t *prev;
+	entity_t *next;
+	brushdef_t brushes;
+	eclass_t *eclass;
+	unsigned char pad54[0x6c - 0x54];
+	int undoId;
+	int redoId;
+	int entityId;
+	int refCount;
+};
+
+struct entityInst_t
+{
+	entityInst_t *prev;
+	entityInst_t *next;
+	entity_t *def;
 };
 
 typedef struct undo_s
@@ -16,72 +44,31 @@ typedef struct undo_s
 	double time;
 	int id;
 	int done;
+	char *operation;
+	brushdef_t brushlist;
+	entity_t entitylist;
+	undo_s *prev;
+	undo_s *next;
 } undo_t;
 
 extern undo_t *g_lastredo;
 extern undo_t *g_lastundo;
 extern int g_undoMaxSize;
 extern int g_undoMaxMemorySize;
+extern int g_undoMemorySize;
+extern entityInst_t *world_entity;
 
 char *va(const char *format, ...);
-
-#define iassert(expr) \
-	do { \
-		static bool s_assertDisable; \
-		if ( !(expr) && !s_assertDisable ) \
-		{ \
-			switch ( FUN_0047d980( #expr, __FILE__, __LINE__, 1, 1 ) ) \
-			{ \
-			case 0: DebugBreak(); break; \
-			case 2: s_assertDisable = true; break; \
-			} \
-		} \
-	} while ( 0 )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+extern brushdef_t *FUN_00458eb0(brushdef_t *brush);
+extern entity_t *FUN_004672e0(entity_t *entity);
+int BrushDef_MemorySize(const brushdef_t *b);
+void Entity_AddToList(entity_t *e, entity_t *list);
+int Entity_MemorySize(entity_t *e);
 
 // 0x004431f0 (166 B)
-void FUN_004431f0(brush_t *list, brush_t *brush)
+void FUN_004431f0(brushdef_t *list, brushdef_t *brush)
 {
+#line 85
 	assertMsg((brush->refCount >= 0), "(brush->refCount) = %i", brush->refCount);
 	assert(brush->owner == NULL);
 
@@ -94,7 +81,7 @@ void FUN_004431f0(brush_t *list, brush_t *brush)
 
 
 // 0x004432a0 (242 B)
-void FUN_004432a0(brush_t *brush) {
+void FUN_004432a0(brushdef_t *brush) {
 	assertMsg((brush->refCount >= 1), "(brush->refCount) = %i", brush->refCount);
 	--brush->refCount;
 
@@ -123,6 +110,62 @@ int Undo_GetMaxSize(void)
 int Undo_GetMaxMemorySize(void)
 {
 	return g_undoMaxMemorySize;
+}
+
+// 0x00443c30 (159 B)
+bool FUN_00443c30(undo_t *undo, brushdef_t *brush)
+{
+#line 335
+	assert(undo);
+	assert(brush);
+	return brush->undoId == g_lastundo->id;
+}
+
+// 0x00443cd0 (150 B)
+bool FUN_00443cd0(undo_t *undo, entity_t *ent)
+{
+#line 351
+	assert(undo);
+	assert(ent);
+	return ent->undoId == undo->id || ent == world_entity->def;
+}
+
+// 0x00443d90 (157 B)
+void FUN_00443d90(brushdef_t *brush)
+{
+#line 380
+	assert(brush);
+	assert(g_lastundo);
+
+	if (!FUN_00443c30(g_lastundo, brush))
+	{
+		brushdef_t *clone = FUN_00458eb0(brush);
+		clone->ownerId = brush->owner->entityId;
+		clone->undoId = brush->undoId;
+		clone->owner = NULL;
+		FUN_004431f0(&g_lastundo->brushlist, clone);
+		brush->undoId = g_lastundo->id;
+		g_undoMemorySize += BrushDef_MemorySize(clone);
+	}
+}
+
+// 0x00443fd0 (229 B)
+void FUN_00443fd0(entity_t *entity)
+{
+#line 498
+	assert(entity);
+
+	if (!FUN_00443cd0(g_lastundo, entity))
+	{
+		entity_t *clone = FUN_004672e0(entity);
+		vassert((clone->refCount == 0), "(clone->refCount) = %i", clone->refCount);
+		++clone->refCount;
+		clone->undoId = entity->undoId;
+		clone->entityId = entity->entityId;
+		entity->undoId = g_lastundo->id;
+		Entity_AddToList(clone, &g_lastundo->entitylist);
+		g_undoMemorySize += Entity_MemorySize(clone);
+	}
 }
 
 // 0x00445020 (14 B)
