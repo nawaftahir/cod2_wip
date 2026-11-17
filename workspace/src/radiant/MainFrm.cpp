@@ -20,10 +20,10 @@ void FUN_00441300(int index);
 extern "C" {
 extern unsigned dword_0123348c;
 extern int dword_010a4508;
-void FUN_00425260(int *);
-void FUN_00425500(int *);
-void FUN_004253d0(int *);
-void FUN_00425630(int *);
+bool FUN_00425260(int *);
+bool FUN_00425500(int *);
+bool FUN_004253d0(int *);
+bool FUN_00425630(int *);
 void FUN_00432ca0(int);
 void FUN_004733f0(int);
 void FUN_0046b070(int);

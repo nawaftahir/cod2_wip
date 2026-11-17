@@ -559,7 +559,25 @@ addr	size	source	symbol	name	tag
 0x00425030	30	src/radiant/PatchDialog.cpp	?SetRange@CSpinButtonCtrl@@QAEXFF@Z	CSpinButtonCtrl::SetRange	SUPPORTED
 0x00425050	16	src/radiant/PatchDialog.cpp	??0CSpinButtonCtrl@@QAE@XZ	CSpinButtonCtrl::CSpinButtonCtrl	SUPPORTED
 0x00425060	30	src/radiant/PatchDialog.cpp	??_GCSpinButtonCtrl@@UAEPAXI@Z	CSpinButtonCtrl::scalar_deleting_dtor	SUPPORTED
-0x00425120	1	src/radiant/UNKNOWN_00425080.cpp	_FUN_00425120	FUN_00425120	UNNAMED
+0x00425080	3	src/radiant/UNKNOWN_00425080.cpp	?Text@StrPtr@@QBEPADXZ	StrPtr::Text	SUPPORTED
+0x00425090	17	src/radiant/UNKNOWN_00425080.cpp	??0StrBuf@@QAE@XZ	StrBuf::StrBuf	SUPPORTED
+0x004250b0	15	src/radiant/UNKNOWN_00425080.cpp	?StringInit@StrBuf@@QAEXXZ	StrBuf::StringInit	SUPPORTED
+0x004250c0	17	src/radiant/UNKNOWN_00425080.cpp	??1StrBuf@@QAE@XZ	StrBuf::~StrBuf	SUPPORTED
+0x004250e0	16	src/radiant/UNKNOWN_00425080.cpp	??0Error@@QAE@XZ	Error::Error	SUPPORTED
+0x004250f0	11	src/radiant/UNKNOWN_00425080.cpp	?Test@Error@@QBEHXZ	Error::Test	SUPPORTED
+0x00425110	14	src/radiant/UNKNOWN_00425080.cpp	??0ClientUser@@QAE@XZ	ClientUser::ClientUser	SUPPORTED
+0x00425120	1	src/radiant/UNKNOWN_00425080.cpp	?Finished@ClientUser@@UAEXXZ	ClientUser::Finished	SUPPORTED
+0x00425130	30	src/radiant/UNKNOWN_00425080.cpp	??_GClientUser@@UAEPAXI@Z	ClientUser::scalar deleting destructor	SUPPORTED
+0x00425150	38	src/radiant/UNKNOWN_00425080.cpp	?OutputError@StdClientUser@@UAEXPBD@Z	StdClientUser::OutputError	SUPPORTED
+0x00425180	28	src/radiant/UNKNOWN_00425080.cpp	?OutputInfo@StdClientUser@@UAEXDPBD@Z	StdClientUser::OutputInfo	SUPPORTED
+0x004251a0	28	src/radiant/UNKNOWN_00425080.cpp	?OutputText@StdClientUser@@UAEXPBDH@Z	StdClientUser::OutputText	SUPPORTED
+0x004251c0	158	src/radiant/UNKNOWN_00425080.cpp	?FUN_004251c0@@YA_NPAVError@@@Z	FUN_004251c0	UNNAMED
+0x00425260	303	src/radiant/UNKNOWN_00425080.cpp	?FUN_00425260@@YA_NPAH@Z	FUN_00425260	UNNAMED
+0x00425390	14	src/radiant/UNKNOWN_00425080.cpp	??0StdClientUser@@QAE@XZ	StdClientUser::StdClientUser	SUPPORTED
+0x004253a0	5	src/radiant/UNKNOWN_00425080.cpp	??1StdClientUser@@UAE@XZ	StdClientUser::~StdClientUser	SUPPORTED
+0x004253b0	30	src/radiant/UNKNOWN_00425080.cpp	??_GStdClientUser@@UAEPAXI@Z	StdClientUser::scalar deleting destructor	SUPPORTED
+0x004253d0	303	src/radiant/UNKNOWN_00425080.cpp	?FUN_004253d0@@YA_NPAH@Z	FUN_004253d0	UNNAMED
+0x00425500	303	src/radiant/UNKNOWN_00425080.cpp	?FUN_00425500@@YA_NPAH@Z	FUN_00425500	UNNAMED
 0x00425770	152	src/radiant/Pmesh.cpp	?MakeNewPatch@@YAPAUpatchMesh_t@@XZ	MakeNewPatch	SUPPORTED
 0x00425810	10	src/radiant/Pmesh.cpp	?Patch_MemorySize@@YAHPAUpatchMesh_t@@@Z	Patch_MemorySize	SUPPORTED
 0x00425820	29	src/radiant/Pmesh.cpp	?FUN_00425820@@YAXPAUpatchMesh_t@@H_NM@Z	FUN_00425820	UNNAMED
