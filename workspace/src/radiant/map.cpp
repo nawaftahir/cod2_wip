@@ -1,11 +1,33 @@
 #include "stdafx.h"
 #include <stdarg.h>
 #include <stdio.h>
+#include <stdlib.h>
+
+struct epair_t;
+struct eclass_t
+{
+	unsigned char pad00[0x160];
+	int nShowFlags;
+};
 
 struct entity_t
 {
 	entity_t *prev;
 	entity_t *next;
+	unsigned char pad08[0x48];
+	eclass_t *eclass; // 0x50
+	eclass_t *modelClass; // 0x54
+	unsigned char pad58[0x0c];
+	epair_t *epairs; // 0x64
+};
+
+struct entityInst_t
+{
+	entityInst_t *prev;
+	entityInst_t *next;
+	entity_t *def;
+	unsigned char pad0c[0x2c];
+	entityInst_t *children; // 0x38
 };
 
 struct FileWrapper
@@ -22,6 +44,9 @@ struct brushDef_t
 };
 
 // from entity.cpp
+char *ValueForKey(epair_t *&e, const char *key);
+int FUN_0047d980(const char *expr, const char *file, int line, int type, int skip);
+#define map_assert1(expr) do { static bool s_assertDisable; if (!(expr) && !s_assertDisable) { switch (FUN_0047d980(#expr, __FILE__, __LINE__, 0, 1)) { case 0: DebugBreak(); break; case 2: s_assertDisable = true; break; } } } while (0)
 bool FUN_00465e10(entity_t *ent, const char *key, const char *value);
 void Sys_Printf(const char *fmt, ...);
 
@@ -104,6 +129,80 @@ bool Map_IsBrushFiltered(brushDef_t *b)
 			return true;
 	}
 	return false;
+}
+
+// 0x00469570 (284 B)
+void UniqueTargetName(CString &name)
+{
+	int maxtarg = 0;
+
+	for (entity_t *e = entities.next; e != &entities; e = e->next)
+	{
+		char *tn = ValueForKey(e->epairs, "targetname");
+#line 763
+		map_assert1(tn);
+		if (tn[0])
+		{
+			int targetnum = atoi(tn + 4);
+			if (targetnum > maxtarg)
+				maxtarg = targetnum;
+		}
+		tn = ValueForKey(e->epairs, "target");
+#line 772
+		map_assert1(tn);
+		if (tn[0])
+		{
+			int targetnum = atoi(tn + 4);
+			if (targetnum > maxtarg)
+				maxtarg = targetnum;
+		}
+	}
+	name.Format("auto%i", maxtarg + 1);
+}
+
+// 0x00469690 (165 B)
+void FUN_00469690(CString &name)
+{
+	int maxtarg = 0;
+
+	for (entity_t *e = entities.next; e != &entities; e = e->next)
+	{
+		char *tn = ValueForKey(e->epairs, "export");
+#line 794
+		map_assert1(tn);
+		if (tn[0])
+		{
+			int targetnum = atoi(tn);
+			if (targetnum > maxtarg)
+				maxtarg = targetnum;
+		}
+	}
+	name.Format("%i", maxtarg + 1);
+}
+
+// 0x0046ae70 (106 B)
+void FUN_0046ae70(entityInst_t *begin, entityInst_t *end, entityInst_t *skip, eclass_t *model)
+{
+	for (entityInst_t *e = begin; e != end; e = e->next)
+	{
+		entity_t *def = e->def;
+		if ((def->eclass->nShowFlags & 0x10) && def->modelClass && e != skip)
+		{
+			if (def->modelClass == model)
+				def->modelClass = NULL;
+			else if (e->children)
+				FUN_0046ae70(e->children->next, e->children, skip, model);
+		}
+	}
+}
+
+// 0x0046b550 (96 B)
+extern int prefabStackLevel;
+bool FUN_0046b550(void)
+{
+#line 1491
+	map_assert1(prefabStackLevel >= 0);
+	return prefabStackLevel > 0;
 }
 
 // 0x0046bba0 (18 B)

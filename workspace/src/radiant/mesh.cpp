@@ -183,7 +183,7 @@ void FUN_00421150(mesh_t *in)
             VectorCopy(dv->xyz, base);
             for (k = 0; k < 8; k++)
             {
-                VectorClear(around[k]);
+                around[k][0] = 0; around[k][1] = 0; around[k][2] = 0;
                 good[k] = 0;
 
                 for (dist = 1; dist <= 3; dist++)
@@ -225,7 +225,8 @@ void FUN_00421150(mesh_t *in)
             {
                 if (!good[k] || !good[(k + 1) & 7])
                     continue;
-                CrossProduct(around[(k + 1) & 7], around[k], normal);
+                const float *a = around[(k + 1) & 7];
+                CrossProduct(a, around[k], normal);
                 if (Vec3Normalize(normal) == 0.0f)
                     continue;
                 VectorAdd(normal, sum, sum);

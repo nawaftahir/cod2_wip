@@ -41,9 +41,12 @@ BOOL LoadRegistryInfo(const char *pszName, void *pvBuf, long *plSize)
 // Q3Radiant win_main.cpp: colour dialog that keeps custom colours in the registry
 class CMyColorDialog : public CColorDialog
 {
+	DECLARE_DYNCREATE(CMyColorDialog)
 public:
+	CMyColorDialog(COLORREF clrInit = 0, DWORD dwFlags = 0, CWnd *pParentWnd = NULL);
 	virtual int DoModal();
 protected:
+	DECLARE_MESSAGE_MAP()
 	static void InitCustColors();
 	static void SaveCustColors();
 	static bool c_NeedToInitCustColors;
@@ -56,6 +59,8 @@ COLORREF CMyColorDialog::c_CustColors[];
 COLORREF CMyColorDialog::c_LastCustColors[];
 
 #define SECTION _T("Custom Colors")
+
+IMPLEMENT_DYNCREATE(CMyColorDialog, CColorDialog)
 
 void CMyColorDialog::InitCustColors() {
      for (int i = 0; i < 16; i++) {
@@ -80,8 +85,17 @@ void CMyColorDialog::SaveCustColors() {
      }
 }
 
+CMyColorDialog::CMyColorDialog(COLORREF clrInit, DWORD dwFlags, CWnd *pParentWnd)
+	: CColorDialog(clrInit, dwFlags, pParentWnd) {
+     if (c_NeedToInitCustColors) InitCustColors();
+     m_cc.lpCustColors = c_CustColors;
+}
+
 int CMyColorDialog::DoModal() {
      int code = CColorDialog::DoModal();
      SaveCustColors();
      return code;
 }
+
+BEGIN_MESSAGE_MAP(CMyColorDialog, CColorDialog)
+END_MESSAGE_MAP()
