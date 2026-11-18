@@ -1067,17 +1067,14 @@ set by a later lowering stage, not by the list scheduler.
   <- 0x10777206 <- 0x107733a2 <- 0x10773242 <- 0x1077312e <- 0x10770983 <- 0x10770627 <- 0x107b0015 <- 0x1070b99b <- the
   per-fn driver 0x107b99ad (the local picks run later via 0x107b003e). Retail fits a test copied AFTER allocation (it would
   inherit the bottom test's eax and spend no pick). Next: the decision in 0x10777206's caller chain that copies the test.
-- PINNED (w29b 11-18, c2 disasm): the copier call 0x10777201 (-> 0x10776b7c, eax = reg descriptor 0x108a97a4+0x60*n) is
-  reached only from 0x10773df5 `test bl,4` in a per-web action dispatcher (0x10773ddf: bits 1/4/8/0x10) run after global
-  colouring. So Menu's entry test is a reload/rematerialized load the global allocator inserts for a web (likely the
-  cursorItem[0] CSE value shared by the loop condition and the body increment; Menu cpick: kind03 val=424 -> eax, 8 refs),
-  and the inserted load then takes local pick 1. In retail that reload is not inserted (or not picked). Lever = the
-  web's action flags (bit 4), i.e. how that CSE value is split; not the loop shape.
-- PINNED (w29a 11-18, breaks 0x107771ed + 0x10775b43): Menu gets two dispatcher reload inserts (bit 4) before its picks,
-  at the uses whose tuples are the first fields of pick 1 (entry test, 0x061d8bcc) and pick 4 (bottom test, 0x061f9968).
-  Both loop-test loads are inserted reloads of global web val 0x1a8 (cpick id 13 -> eax, 8 refs). Retail = only the
-  bottom-test reload inserted; the entry test would be the web's own coloured load.
+- PINNED (w29ab 11-18, c2 disasm + breaks 0x107771ed/0x10775b43): the copier call 0x10777201 (-> 0x10776b7c, eax = reg
+  descriptor 0x108a97a4+0x60*n, n = [esp+0x24] = word 3 of the 6-dword result of 0x107700db) is reached only from
+  0x10773df5 `test bl,4` in the action dispatcher 0x1076fe13/0x10773ddf (bits 1/4/8/0x10). Menu hits it twice before its
+  picks, with n = 0 both times, on tuples 0x061d8bcc (entry test, first field of pick 1) and 0x061f9968 (bottom test,
+  first field of pick 4). HYPOTHESIS for why: `cmp mem,mem` legalisation copies one side into a register-less load that
+  then takes a local pick; both tests take the same path, so this path does not tell the entry test from the bottom test.
+  Tuple +0x28 is a shared link field (5+ writers per pass), not a reload record.
 - PINNED (w29abc 11-18, /tmp/pmg.sh eax-first force K=27..45): VM_Notify's `lea edx,[eax+eax*4]` is local pick 37 (t525,
   pointer at edx, all regs free). Forcing eax first before it gives retail's lea eax + store (3 lines left: the
   `sub ebx,8` / `inc ebp` order, a scheduling pair; the trailing hunk is a decode artifact past the fn end). So retail
-  is one pointer step ahead at pick 37, the same class as XAnimCalc route A.
+  is one pointer step ahead at pick 37, the same class as XAnimCalc route A (re-derives TRIED 314 / KNOWLEDGE 755).
