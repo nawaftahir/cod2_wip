@@ -651,17 +651,20 @@ void __stdcall FUN_00406610(CCamWnd *camera)
 
     width = (float)camera->m_Camera.width;
     height = (float)camera->m_Camera.height;
+    float fov;
     if (width > height)
     {
-        fovY = atan2(height, width);
-        fovY = fovY * 360.0f / 3.1415927f;
         fovX = 90.0f;
+        fov = atan2(height, width);
+        fov = fov * 360.0f / 3.1415927f;
+        fovY = fov;
     }
     else
     {
-        fovX = atan2(width, height);
-        fovX = fovX * 360.0f / 3.1415927f;
+        fov = atan2(width, height);
         fovY = 90.0f;
+        fov = fov * 360.0f / 3.1415927f;
+        fovX = fov;
     }
     float *origin = camera->m_Camera.origin;
     re.SetupCamera(origin, axis, fovX, fovY);
