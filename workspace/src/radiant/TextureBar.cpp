@@ -23,30 +23,7 @@ extern int DAT_01128d94;
 extern texdef_t DAT_01128da8;
 extern CArray<selFace_t, selFace_t &> DAT_012485b4;
 
-class CTextureBar : public CDialogBar
-{
-public:
-    CTextureBar();
-
-    CSpinButtonCtrl m_spinRotate;
-    CSpinButtonCtrl m_spinVScale;
-    CSpinButtonCtrl m_spinVShift;
-    CSpinButtonCtrl m_spinHScale;
-    CSpinButtonCtrl m_spinHShift;
-    int m_nHShift;
-    int m_nHScale;
-    int m_nRotate;
-    int m_nVShift;
-    int m_nVScale;
-    int m_nRotateAmt;
-
-protected:
-    virtual void DoDataExchange(CDataExchange *pDX);
-    afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-
-public:
-    void FUN_0043f460();
-};
+#include "TextureBar.h"
 
 CTextureBar::CTextureBar()
     : CDialogBar()

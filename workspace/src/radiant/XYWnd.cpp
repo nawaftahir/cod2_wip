@@ -646,6 +646,21 @@ void CXYWnd::VectorCopyXY(float in[3], float out[3])
     }
 }
 
+// Q3Radiant CXYWnd::SetViewType; CMainFrame+0x7a0 = current layout style (1 = QE4)
+void CXYWnd::SetViewType(int n)
+{
+    m_nViewType = n;
+    if (*(int *)((char *)g_pParentWnd + 0x7a0) == 1)
+    {
+        CString str = "YZ Side";
+        if (m_nViewType == XY)
+            str = "XY Top";
+        else if (m_nViewType == XZ)
+            str = "XZ Front";
+        SetWindowText(str);
+    }
+}
+
 // Q3Radiant CXYWnd::Redraw.
 void CXYWnd::Redraw(unsigned int nBits)
 {
