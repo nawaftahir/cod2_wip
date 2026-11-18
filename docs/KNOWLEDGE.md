@@ -1137,3 +1137,7 @@ set by a later lowering stage, not by the list scheduler.
 - PINNED (w29 11-18, gate +56): FX_CalcOriginAndAxis matched. b1 = shape A (VectorSet with radius*sinPitch inline, no scale)
   with a block-local `float bh` height; b4 height/width as one `float hw[2]` array (hw[0] height, hw[1] width). The array
   is the "missing overlap": its two elements are one 8-byte-aligned item pair, giving width its own entry at 0x30.
+- PINNED (w29 11-18, gate +17): CG_DrawCursorhint matched via doubled parens. Text arm:
+  `x = (((widthScale * rect->w)) + textWidth + scale) * -0.5f;` and pic height `(float)(((((double)rect->h)) + ((double)scale)))`.
+  `((cast-or-product))` makes a zero-code op 0x269 node on unit 0 that takes a list-scheduler slot; parens on a bare leaf
+  or a single redundant paren do nothing. KNOWLEDGE 27 correction: op 0x63 = fstp, 0x0d = push.
