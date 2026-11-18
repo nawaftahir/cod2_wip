@@ -34051,7 +34051,7 @@
 ]
 },
 {
-"name": "$L117571",
+"name": "$L117575",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -34059,7 +34059,7 @@
 ]
 },
 {
-"name": "$L117573",
+"name": "$L117577",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -34092,7 +34092,7 @@
 ]
 },
 {
-"name": "$L131184",
+"name": "$L131188",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -34100,7 +34100,7 @@
 ]
 },
 {
-"name": "$L131186",
+"name": "$L131190",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -34169,7 +34169,7 @@
 ]
 },
 {
-"name": "$L103795",
+"name": "$L103799",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -34185,7 +34185,7 @@
 ]
 },
 {
-"name": "$L146444",
+"name": "$L146448",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -52524,8 +52524,9 @@
 "name": "?Menu_SetNextCursorItem@@YAPAUitemDef_s@@PAUdisplayContextDef_s@@PAUmenuDef_t@@@Z",
 "obj": "ui_shared_mp.obj",
 "size": 244,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x538150"
+]
 },
 {
 "name": "?Window_CloseCinematic@@YAXPAUWindow@@@Z",
