@@ -2839,6 +2839,8 @@ int BoundsOverlapEpsilon2D( const vec2_t mins1, const vec2_t maxs1, const vec2_t
 ExpandBounds
 ==============
 */
+// retail calls it out of line at 0x452534, 0x470a99, 0x487ef0
+#pragma auto_inline(off)
 void ExpandBounds( const vec3_t addedmins, const vec3_t addedmaxs, vec3_t mins, vec3_t maxs )
 {
 	if ( mins[0] > addedmins[0] )
@@ -2871,6 +2873,7 @@ void ExpandBounds( const vec3_t addedmins, const vec3_t addedmaxs, vec3_t mins, 
 		maxs[2] = addedmaxs[2];
 	}
 }
+#pragma auto_inline(on)
 
 /*
 ==============
