@@ -1732,6 +1732,7 @@ addr	size	source	symbol	name	tag
 0x00499860	1	src/universal/splines/math_vector.cpp	??0Bounds@@QAE@XZ	Bounds::Bounds	SUPPORTED
 0x00499b80	1	src/universal/splines/math_vector.cpp	_FUN_00499b80	FUN_00499b80	UNNAMED
 0x0049a0b0	39	src/universal/splines/splines.cpp	?loadCamera@@YA?AW4qboolean@@HPBD@Z	loadCamera	SUPPORTED
+0x0049a0e0	185	src/universal/splines/splines.cpp	?getCameraInfo@@YA?AW4qboolean@@HHPAM00@Z	getCameraInfo	SUPPORTED
 0x0049a1c0	1	src/universal/splines/splines.cpp	_FUN_0049a1c0	FUN_0049a1c0	SUPPORTED
 0x0049a1d0	1	src/universal/splines/splines.cpp	_FUN_0049a1d0	FUN_0049a1d0	SUPPORTED
 0x0049a1e0	1	src/universal/splines/splines.cpp	_FUN_0049a1e0	FUN_0049a1e0	SUPPORTED

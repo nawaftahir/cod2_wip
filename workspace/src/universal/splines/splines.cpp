@@ -1243,8 +1243,8 @@ qboolean getCameraInfo(int camNum, int time, float *origin, float *angles, float
 		origin[0] = org[0];
 		origin[1] = org[1];
 		origin[2] = org[2];
-		angles[1] = (float)atan2(dir[1], dir[0]) * 180.0f / 3.1415927f;
-		angles[0] = (float)asin(dir[2]) * 180.0f / 3.1415927f;
+		angles[1] = RAD2DEG((float)atan2(dir[1], dir[0]));
+		angles[0] = RAD2DEG((float)asin(dir[2]));
 		return qtrue;
 	}
 	return qfalse;
