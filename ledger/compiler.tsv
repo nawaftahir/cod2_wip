@@ -22,3 +22,33 @@ addr	size	source	symbol	name	tag
 0x00479990	33	src/radiant/win_main.cpp	??_GCMyColorDialog@@UAEPAXI@Z	CMyColorDialog::scalar deleting destructor	AUTO
 0x004799c0	5	src/radiant/win_main.cpp	??1CMyColorDialog@@UAE@XZ	CMyColorDialog::implicit destructor	AUTO
 0x00449550	33	src/radiant/XYWnd.cpp	??_GCXYWnd@@UAEPAXI@Z	CXYWnd::scalar_deleting_dtor	AUTO
+0x004024b0	17	src/radiant/AdvCurveDlg.cpp	?Create@CDialog@@UAEHIPAVCWnd@@@Z	CDialog::Create (header inline)	AUTO
+0x00402510	18	src/radiant/AdvCurveDlg.cpp	?GetWindowRect@CWnd@@QBEXPAUtagRECT@@@Z	CWnd::GetWindowRect (header inline)	AUTO
+0x00402530	28	src/radiant/AdvCurveDlg.cpp	?AppendMenuA@CMenu@@QAEHIIPBD@Z	CMenu::AppendMenuA (header inline)	AUTO
+0x00402570	11	src/radiant/AdvCurveDlg.cpp	??1CMenu@@UAE@XZ	CMenu::~CMenu (header inline)	AUTO
+0x00402580	30	src/radiant/AdvCurveDlg.cpp	??_GCMenu@@UAEPAXI@Z	CMenu::scalar_deleting_dtor (header inline)	AUTO
+0x004025c0	3	src/radiant/AdvCurveDlg.cpp	??0CObject@@IAE@XZ	CObject::CObject (header inline)	AUTO
+0x00402600	20	src/radiant/AdvCurveDlg.cpp	?GetCheck@CButton@@QBEHXZ	CButton::GetCheck (header inline)	AUTO
+0x004026e0	19	src/radiant/AdvCurveDlg.cpp	?SetCheck@CButton@@QAEXH@Z	CButton::SetCheck (header inline)	AUTO
+0x00402700	19	src/radiant/AdvCurveDlg.cpp	?SetPos@CSliderCtrl@@QAEXH@Z	CSliderCtrl::SetPos (header inline)	AUTO
+0x00402720	8	src/radiant/AdvCurveDlg.cpp	?OnCreate@CWnd@@IAEHPAUtagCREATESTRUCTA@@@Z	CWnd::OnCreate (header inline)	AUTO
+0x00402730	11	src/radiant/AdvCurveDlg.cpp	?GetSafeHwnd@CWnd@@QBEPAUHWND__@@XZ	CWnd::GetSafeHwnd (header inline)	AUTO
+0x00402830	28	src/radiant/AdvCurveDlg.cpp	?SendMessageA@CWnd@@QAEJIIJ@Z	CWnd::SendMessageA (header inline)	AUTO
+0x00402860	14	src/radiant/AdvCurveDlg.cpp	??3CObject@@SGXPAX@Z	CObject::operator delete (header inline)	AUTO
+0x0040bc30	20	src/radiant/dlgcamera.cpp	?GetCurSel@CComboBox@@QBEHXZ	CComboBox::GetCurSel (header inline)	AUTO
+0x0040cd10	19	src/radiant/EntityListDlg.cpp	?DeleteColumn@CListCtrl@@QAEHH@Z	CListCtrl::DeleteColumn (header inline)	AUTO
+0x0040cd30	6	src/radiant/EntityListDlg.cpp	?Width@CRect@@QBEHXZ	CRect::Width (header inline)	AUTO
+0x0040cd40	26	src/radiant/EntityListDlg.cpp	?SetItemData@CTreeCtrl@@QAEHPAU_TREEITEM@@K@Z	CTreeCtrl::SetItemData (header inline)	AUTO
+0x0040cd60	19	src/radiant/EntityListDlg.cpp	?SetAt@CMapStringToPtr@@QAEXPBDPAX@Z	CMapStringToPtr::SetAt (header inline)	AUTO
+0x0040cd80	27	src/radiant/EntityListDlg.cpp	?InsertItem@CTreeCtrl@@QAEPAU_TREEITEM@@PBDPAU2@1@Z	CTreeCtrl::InsertItem (header inline)	AUTO
+0x0041f1c0	35	src/radiant/MainFrm.cpp	?RedrawWindow@CWnd@@QAEHPBUtagRECT@@PAVCRgn@@I@Z	CWnd::RedrawWindow (header inline)	AUTO
+0x0041f1f0	11	src/radiant/MainFrm.cpp	?GetSafeHandle@CGdiObject@@QBEPAXXZ	CGdiObject::GetSafeHandle (header inline)	AUTO
+0x0041f250	18	src/radiant/MainFrm.cpp	??0CSize@@QAE@HH@Z	CSize::CSize (header inline)	AUTO
+0x0041f270	18	src/radiant/MainFrm.cpp	?KillTimer@CWnd@@QAEHI@Z	CWnd::KillTimer (header inline)	AUTO
+0x0041f4a0	32	src/radiant/MainFrm.cpp	??0CRect@@QAE@HHHH@Z	CRect::CRect (header inline)	AUTO
+0x0041ff00	8	src/radiant/MapInfo.cpp	?GetStartPosition@CMapStringToPtr@@QBEPAU__POSITION@@XZ	CMapStringToPtr::GetStartPosition (header inline)	AUTO
+0x004431b0	30	src/radiant/TexWnd.cpp	?SetRect@CRect@@QAEXHHHH@Z	CRect::SetRect (header inline)	AUTO
+0x004431d0	18	src/radiant/TexWnd.cpp	??0CPoint@@QAE@HH@Z	CPoint::CPoint (header inline)	AUTO
+0x00453300	90	src/radiant/XYWnd.cpp	?Left@?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QBE?AV12@H@Z	CStringT::Left (header inline)	AUTO
+0x004534a0	11	src/radiant/XYWnd.cpp	?GetSafeHmenu@CMenu@@QBEPAUHMENU__@@XZ	CMenu::GetSafeHmenu (header inline)	AUTO
+0x00464b50	88	src/radiant/eclass.cpp	?AppendChar@?$CSimpleStringT@D$0A@@ATL@@QAEXD@Z	CSimpleStringT::AppendChar (header inline)	AUTO
