@@ -1131,3 +1131,6 @@ set by a later lowering stage, not by the list scheduler.
   not a local pick, so the `&ent` lea takes the next round-robin reg (edx). Two identical arm defs are hoisted above the
   test; `XModel *model = NULL; ... if (!model) model = effect->mModel;` keeps the load in the join block as a web. Lever
   for any "one pick step off" residue: turn the last temp into a two-def web whose second def stays in place.
+- PINNED (w29 11-18, gate +15): XAnimCalc matched = route B. x1 order (`unsigned int modelName = obj->animToModel[entry];`
+  before SL_RemoveRefToStringOfLen) plus the if-arm counter as a web (`byte counter = 0; if (!counter) counter =
+  *modelCounters;`), which drops byte pick 12 = the one fewer advance route B needed. Same web lever as FX_AddFxToScene.
