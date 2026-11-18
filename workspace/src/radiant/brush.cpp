@@ -744,6 +744,27 @@ void FUN_00458af0(brushdef_t *def)
     delete def;
 }
 
+void Brush_Free(brush_t *b)
+{
+    if (b->next)
+        FUN_004592f0(b);
+    if (b->patch)
+        FUN_0042f790(b->patch);
+    if (b->faces)
+        FaceRender_FreeArray(b, b->faces, b->faceCount);
+    Brush_RemoveFromEntity(b, NULL);
+#line 1808
+    assert(b->def);
+    if (b->def->owner && b->def->onext && b->def->refCount == 2)
+        FUN_00467240(b->def);
+#line 1812
+    assertMsg((b->def->refCount > 0), "(b->def->refCount) = %i", b->def->refCount);
+    b->def->refCount--;
+    if (b->def->refCount == 0)
+        FUN_00458af0(b->def);
+    delete b;
+}
+
 int Face_MemorySize(const face_t *f)
 {
     int size = sizeof(face_t);

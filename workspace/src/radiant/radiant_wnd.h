@@ -116,6 +116,8 @@ public:
     bool RogueClipMode();
     bool PointMode();
     void SetPointMode(bool b);
+    void SetClipMode(bool bMode);
+    void RetainClipMode(bool bMode);
     float (&GetOrigin())[3];
     void SetOrigin(float org[3]);
     bool RotateMode();
