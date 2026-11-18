@@ -414,11 +414,17 @@ void Window_Paint(displayContextDef_t *dc, float (*w_param)[4][32], float fadeAm
     if (!w->style && !w->border)
         return;
 
-    if (w->border) {
+    int border = 0;
+    // stand-in: always true; keeps border a cross-block value like retail
+    if (!border)
+        border = w->border;
+    if (border) {
+        float bs1;
         fillRect.x += w->borderSize;
         fillRect.y += w->borderSize;
-        fillRect.w -= w->borderSize + 1.0f;
-        fillRect.h -= w->borderSize + 1.0f;
+        bs1 = w->borderSize + 1.0f;
+        fillRect.w -= bs1;
+        fillRect.h -= bs1;
     }
 
     switch (w->style) {

@@ -1149,3 +1149,6 @@ set by a later lowering stage, not by the list scheduler.
   round-robin by one pick; no loop shape could (every single-test loop gives the same 10 picks; picks follow block order).
 - LEAD (w29c 11-18, lab 3 lines): VM_Notify t1 loop with `while ( type - VAR_PRECODEPOS );` fixes the size/type colour tie;
   only `add ecx,-8` vs retail `cmp ecx,8` left.
+- PINNED (w29 11-18, gate +4 on 1.3 and 1.0): Window_Paint matched = border web (`int border = 0; if (!border) border =
+  w->border; if (border) {`) on the fillRect adjust block PLUS a shared `float bs1 = w->borderSize + 1.0f;` for the w/h
+  subtracts. Either alone fails (6 / 4). The shared temp flips the w/h reload creation order after the debug UI_DrawRect.

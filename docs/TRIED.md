@@ -566,3 +566,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | speex misc.c as C too (w29, 11-18, gate on spx-c) | drop `extern "C"` + /TP on misc.c | same as spx-c: nb_decode gain, same two ties lost, net -5 |
 | Menu_SetNextCursorItem (agent w29b, 11-18, 12 labs) | goto/for/while(1)/bottom-test loop shapes (28), do/while + entry test (39), getter in while (28) | getter as SetFocus index MATCHED, gate +5 |
 | VM_Notify (agent w29c, 11-18, 14 labs on t1) | `(currentValue - 1)->type`, `-= 1`, `+= 1`, pre-inc, `!=` swapped, xor test, break loop, newSize from 0, role swap | all 13-17; `type - VAR_PRECODEPOS` test = 3 (lead) |
+| Window_Paint (agent w29a, 11-18, ~45 labs on p6) | block orders, copy forms (memcpy, struct assign, init), debug-arg sources, border web types/placements, chained webs, extra webs | p6 + bs1 MATCHED, gate +4 |
