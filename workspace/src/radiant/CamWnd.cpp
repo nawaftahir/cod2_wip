@@ -609,6 +609,94 @@ bool FUN_00405450(CCamWnd *camera, brush_t *brush)
     return false;
 }
 
+// Solid cylinder: bottom cap, top cap and side quads
+void __stdcall FUN_00405bb0(const float *origin, float radius, float top, float bottom, const unsigned int *color, int sideCount)
+{
+    float xyzw[1024][4];
+    float normal[1024][3];
+    float st[1024][2];
+    int indexCount;
+    int i;
+    float c, s;
+    unsigned int colors[1024];
+    unsigned short indices[3060];
+
+    if (sideCount > 256)
+        sideCount = 256;
+    else if (sideCount < 3)
+        sideCount = 3;
+    for (i = 0; i < sideCount; i++)
+    {
+        FastSinCos((float)i * (6.2831855f / (float)sideCount), &s, &c);
+        xyzw[i][0] = c * radius + origin[0];
+        xyzw[i][1] = s * radius + origin[1];
+        xyzw[i][2] = top + origin[2];
+        xyzw[i][3] = 1.0f;
+        xyzw[sideCount * 2 + i][0] = xyzw[i][0];
+        xyzw[sideCount * 2 + i][1] = xyzw[i][1];
+        xyzw[sideCount * 2 + i][2] = xyzw[i][2];
+        xyzw[sideCount * 2 + i][3] = xyzw[i][3];
+        xyzw[sideCount + i][0] = xyzw[i][0];
+        xyzw[sideCount + i][1] = xyzw[i][1];
+        xyzw[sideCount + i][2] = xyzw[i][2];
+        xyzw[sideCount + i][3] = xyzw[i][3];
+        xyzw[sideCount + i][2] = bottom + origin[2];
+        xyzw[sideCount * 3 + i][0] = xyzw[sideCount + i][0];
+        xyzw[sideCount * 3 + i][1] = xyzw[sideCount + i][1];
+        xyzw[sideCount * 3 + i][2] = xyzw[sideCount + i][2];
+        xyzw[sideCount * 3 + i][3] = xyzw[sideCount + i][3];
+        normal[i][0] = 0;
+        normal[i][1] = 0;
+        normal[i][2] = -1.0f;
+        normal[sideCount + i][0] = 0;
+        normal[sideCount + i][1] = 0;
+        normal[sideCount + i][2] = 1.0f;
+        normal[sideCount * 2 + i][0] = c;
+        normal[sideCount * 2 + i][1] = s;
+        normal[sideCount * 2 + i][2] = 0;
+        normal[sideCount * 3 + i][0] = c;
+        normal[sideCount * 3 + i][1] = s;
+        normal[sideCount * 3 + i][2] = 0;
+        colors[i] = *color;
+        colors[sideCount + i] = *color;
+        colors[sideCount * 2 + i] = *color;
+        colors[sideCount * 3 + i] = *color;
+        st[i][0] = 0;
+        st[i][1] = 0;
+        st[sideCount + i][0] = 0;
+        st[sideCount + i][1] = 0;
+        st[sideCount * 2 + i][0] = 0;
+        st[sideCount * 2 + i][1] = 0;
+        st[sideCount * 3 + i][0] = 0;
+        st[sideCount * 3 + i][1] = 0;
+    }
+    indexCount = 0;
+    for (i = 2; i < sideCount; i++)
+    {
+        indices[indexCount + 0] = 0;
+        indices[indexCount + 1] = i - 1;
+        indices[indexCount + 2] = i;
+        indices[indexCount + 3] = sideCount;
+        indices[indexCount + 4] = sideCount + i;
+        indices[indexCount + 5] = sideCount + i - 1;
+        indexCount += 6;
+    }
+    for (i = 0; i < sideCount; i++)
+    {
+        int next = (i + 1) % sideCount;
+        indices[indexCount + 0] = sideCount * 2 + i;
+        indices[indexCount + 1] = sideCount * 3 + i;
+        indices[indexCount + 2] = sideCount * 3 + next;
+        indices[indexCount + 3] = sideCount * 3 + next;
+        indices[indexCount + 4] = sideCount * 2 + next;
+        indices[indexCount + 5] = sideCount * 2 + i;
+        indexCount += 6;
+    }
+#line 1371
+    assert( indexCount == (sideCount * 2 + (sideCount - 2) * 2) * 3 );
+    re.DrawTris(dword_011298c8, 3, indexCount, indices, sideCount * 4, xyzw, normal, colors, st);
+}
+
 void __stdcall FUN_004061f0(brush_t *brush, CCamWnd *camera);
 void __stdcall FUN_004063b0(brush_t *brush, CCamWnd *camera);
 

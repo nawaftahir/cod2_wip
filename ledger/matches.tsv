@@ -921,6 +921,7 @@ addr	size	source	symbol	name	tag
 0x0044cf30	58	src/radiant/XYWnd.cpp	?XY_MouseUp@CXYWnd@@QAEXHHH@Z	CXYWnd::XY_MouseUp	SUPPORTED
 0x0044cf70	330	src/radiant/XYWnd.cpp	?DragDelta@CXYWnd@@QAEHHHQAM@Z	CXYWnd::DragDelta	SUPPORTED
 0x0044f5d0	86	src/radiant/XYWnd.cpp	?FUN_0044f5d0@@YA_NPAUbrush_t@@@Z	FUN_0044f5d0	UNNAMED
+0x00451c00	509	src/radiant/XYWnd.cpp	?FUN_00451c00@@YAXPAUbrush_t@@PAI@Z	FUN_00451c00	UNNAMED
 0x00452900	4	src/radiant/XYWnd.cpp	?GetOrigin@CXYWnd@@QAEAAY02MXZ	CXYWnd::GetOrigin	SUPPORTED
 0x00452910	18	src/radiant/XYWnd.cpp	?SetOrigin@CXYWnd@@QAEXQAM@Z	CXYWnd::SetOrigin	SUPPORTED
 0x00452ae0	26	src/radiant/XYWnd.cpp	?FUN_00452ae0@@YAXXZ	FUN_00452ae0	UNNAMED
@@ -984,8 +985,8 @@ addr	size	source	symbol	name	tag
 0x00454810	330	src/radiant/brush.cpp	?FaceRender_FreeArray@@YAXPAUbrush_t@@PAUfaceRender_t@@H@Z	FaceRender_FreeArray	PINNED
 0x00454960	66	src/radiant/brush.cpp	?FUN_00454960@@YAXPBUface_t@@PAU1@@Z	FUN_00454960	SUPPORTED
 0x004549b0	117	src/radiant/brush.cpp	?FUN_004549b0@@YAXPBUface_t@@PAU1@@Z	FUN_004549b0	SUPPORTED
-0x00454ab0	184	src/radiant/brush.cpp	?Face_MakePlane@@YAXPAUface_t@@@Z	Face_MakePlane	PINNED
 0x00454a30	122	src/radiant/brush.cpp	?Face_GetTextureVecs@@YAXPBUface_t@@QAY03M@Z	Face_GetTextureVecs	PINNED
+0x00454ab0	184	src/radiant/brush.cpp	?Face_MakePlane@@YAXPAUface_t@@@Z	Face_MakePlane	PINNED
 0x00454d70	23	src/radiant/brush.cpp	?FacePlane_ToVec4@@YAXPBUfacePlane_t@@QAM@Z	FacePlane_ToVec4	SUPPORTED
 0x00454d90	346	src/radiant/brush.cpp	?Brush_ForEachVertex@@YAHPAUbrushdef_t@@P6AH0PBHQBMHPAX3@Z33@Z	Brush_ForEachVertex	SUPPORTED
 0x00454ef0	55	src/radiant/brush.cpp	?Brush_MakeFacePlanes@@YAXPAUbrushdef_t@@@Z	Brush_MakeFacePlanes	SUPPORTED
