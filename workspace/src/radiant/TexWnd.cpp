@@ -532,6 +532,27 @@ void FUN_004414a0(InuseBrush *head)
     }
 }
 
+extern HWND dword_010bcd64;
+extern int dword_01128d9c;
+extern int dword_01128da0;
+extern int dword_01128da4;
+
+// 0x00442140 (94 B), position in eax
+void FUN_00442140(int pos)
+{
+    if (pos > dword_01128da4 - dword_01128d9c + 16)
+        pos = dword_01128da4 - dword_01128d9c + 16;
+    if (pos < 0)
+        pos = 0;
+    if (pos != dword_01128da0)
+    {
+        SetScrollPos(dword_010bcd64, SB_VERT, pos, TRUE);
+        dword_01128da0 = pos;
+        InvalidateRect(dword_010bcd64, NULL, FALSE);
+        UpdateWindow(dword_010bcd64);
+    }
+}
+
 // Retail one-byte RET, existing accepted source.
 extern "C" void FUN_00442290() {}
 
@@ -558,9 +579,7 @@ struct CTexWndPrefsProjection {
 extern CMainFrame *g_pParentWnd;
 extern CTexWndPrefsProjection *dword_01233b64;
 extern HWND dword_010bcd60;
-extern HWND dword_010bcd64;
 extern int dword_01128d98;
-extern int dword_01128d9c;
 
 // Names follow Q3Radiant TexWnd.cpp (same shape, same globals).
 extern int g_nTimerHandle;
@@ -583,6 +602,7 @@ BEGIN_MESSAGE_MAP(CTexWnd, CWnd)
     ON_WM_TIMER()
     ON_WM_KEYDOWN()
     ON_WM_KEYUP()
+    ON_WM_VSCROLL()
     ON_WM_MOUSEWHEEL()
 END_MESSAGE_MAP()
 
@@ -649,6 +669,45 @@ void CTexWnd::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 void CTexWnd::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
     FUN_004137d0(g_pParentWnd, nChar);
+}
+
+// 0x00443050 (229 B)
+void CTexWnd::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar *pScrollBar)
+{
+    CWnd::OnVScroll(nSBCode, nPos, pScrollBar);
+    SCROLLINFO si;
+    memset(&si, 0, sizeof(si));
+    si.cbSize = sizeof(si);
+    si.fMask = SIF_ALL;
+    GetScrollInfo(SB_VERT, &si, SIF_ALL);
+    int n = si.nPos;
+    int next;
+    switch (nSBCode)
+    {
+    case SB_LINEUP:
+        n -= 15;
+        n = n > 0 ? n : 0;
+        break;
+    case SB_LINEDOWN:
+        next = n + 15;
+        if (next < dword_01128da4)
+            n = next;
+        break;
+    case SB_PAGEUP:
+        n -= dword_01128d9c;
+        n = n > 0 ? n : 0;
+        break;
+    case SB_PAGEDOWN:
+        next = n + dword_01128d9c;
+        if (next < dword_01128da4)
+            n = next;
+        break;
+    case SB_THUMBPOSITION:
+    case SB_THUMBTRACK:
+        n = si.nTrackPos;
+        break;
+    }
+    FUN_00442140(n);
 }
 
 // 0x00443140 (34 B)

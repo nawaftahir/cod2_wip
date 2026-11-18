@@ -27,7 +27,11 @@ struct epair_t
 	char *value;
 };
 
-struct eclass_t;
+struct eclass_t
+{
+	unsigned char pad00[8];
+	int fixedsize;
+};
 struct entity_t;
 struct entityInst_t;
 
@@ -75,6 +79,10 @@ struct brush_t
 	brush_t *prev;
 	brush_t *next;
 	entityInst_t *owner;
+	unsigned char pad0c[8];
+	brushdef_t *def; // 0x14
+	unsigned char pad18[4];
+	void *faces; // 0x1c
 };
 
 // camera window: origin at 0x60, angles at 0x6c; held by the main frame at 0x78c
@@ -155,6 +163,46 @@ void FUN_0046e120(void)
 
 extern char com_token[];
 extern int com_eof;
+
+extern brush_t active_brushes;
+extern int DAT_010bcd20;
+extern int DAT_010bcd24;
+void FUN_0047a330(void);
+
+// 0x0046e180 (250 B)
+void FUN_0046e180(void)
+{
+	static int s_didonce;
+	static int s_lastentitycount;
+	static int s_lastbrushcount;
+
+	DAT_010bcd24 = 0;
+	DAT_010bcd20 = 0;
+	if (active_brushes.next)
+	{
+		brush_t *next;
+		for (brush_t *b = active_brushes.next; b && b != &active_brushes; b = next)
+		{
+			next = b->next;
+			if (b->faces)
+			{
+#line 859
+				assert(b->owner->def == b->def->owner);
+				if (!b->owner->def->eclass->fixedsize)
+					DAT_010bcd24++;
+				else
+					DAT_010bcd20++;
+			}
+		}
+	}
+	if (DAT_010bcd24 != s_lastbrushcount || DAT_010bcd20 != s_lastentitycount || !s_didonce)
+	{
+		FUN_0047a330();
+		s_lastbrushcount = DAT_010bcd24;
+		s_lastentitycount = DAT_010bcd20;
+		s_didonce = 1;
+	}
+}
 
 // 0x0046e280 (229 B)
 char *COM_Parse(char *data)
