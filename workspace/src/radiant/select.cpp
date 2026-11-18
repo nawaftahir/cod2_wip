@@ -26,7 +26,10 @@ struct face_t
 
 struct brush_def_t
 {
-    unsigned char pad0[0x3c];
+    unsigned char pad0[0x20];
+    float mins[3];
+    float maxs[3];
+    unsigned char pad2[4];
     face_t *faces;
     unsigned char pad1[4];
     patch_def_t *patch;
@@ -65,6 +68,24 @@ void FUN_0046e4a0()
     else if (mode == 0xa)
         FUN_0042beb0();
     DAT_011298b4 = 0;
+}
+
+void ClearBounds(float mins[3], float maxs[3]);
+void ExpandBounds(const float addedmins[3], const float addedmaxs[3], float mins[3], float maxs[3]);
+
+void FUN_00470a50(float mins[3], float maxs[3])
+{
+    ClearBounds(mins, maxs);
+    for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+        ExpandBounds(b->def->mins, b->def->maxs, mins, maxs);
+}
+
+void FUN_00470c00(float mid[3])
+{
+    float bounds[2][3];
+    FUN_00470a50(bounds[0], bounds[1]);
+    for (int i = 0; i < 3; i++)
+        mid[i] = (bounds[1][i] + bounds[0][i]) * 0.5f;
 }
 
 static void FUN_004721a0(int clear, int set)
