@@ -2113,5 +2113,3 @@ addr	size	source	symbol	name	tag
 0x0043e950	38	src/radiant/SurfaceDlg.cpp	?FUN_0043e950@CSurfaceDlg@@IAEXPAUtagNMHDR@@PAJ@Z	CSurfaceDlg::FUN_0043e950	UNNAMED
 0x0045f150	229	src/radiant/brush.cpp	?FUN_0045f150@@YAXPAUbrushdef_t@@@Z	FUN_0045f150	UNNAMED
 0x00439450	147	src/radiant/Pmesh.cpp	?FUN_00439450@@YAXPAUpatchMesh_t@@@Z	FUN_00439450	UNNAMED
-0x00442860	88	src/radiant/TexWnd.cpp	?CreateObject@CTexWnd@@SGPAVCObject@@XZ	CTexWnd::CreateObject	SUPPORTED
-0x00442980	96	src/radiant/TexWnd.cpp	??1CTexWnd@@UAE@XZ	CTexWnd::~CTexWnd	SUPPORTED
