@@ -1116,3 +1116,10 @@ set by a later lowering stage, not by the list scheduler.
   [eax+ecx-4] (= retail) but layout and x87 order change (45 lines). Rule (SUPPORTED): the first loop c2 processes for a
   pointer pair gets [diff+walker], later loops for the same pair get [walker+diff]. Retail has BOTH innov loops as
   [walker+diff], so retail's IL meets the innov/exc pair once before the vocoder loop.
+- PINNED (w29a 11-18, conflict dump of shape A + b1 block-local height, /tmp/fxreplay.py): the newest-first packer replay of
+  that graph gives our map; with `width` conflicting with every item it gives retail's full map (TRIED 499: 8 entries,
+  frame 0x54, width alone at 0x30). c2 does exactly that for an item with [sym+6]&4 (0x10790ce0 -> 0x1075e771 sets all
+  conflict bits). No FX item has the flag in our build. Setters: 0x10788731 (all items without [sym+0x40]&1 when global
+  0x108a7880 != 0; FX items all have +0x40 = 0, so that path would isolate every item, not retail), 0x10807bf2 (kind 5
+  only), 0x107018a1 (a symbol c2 creates when [fn+0x8c]&0x20000; ours 0x02000432). Open: which of these flags retail's
+  width (HYPOTHESIS: width is a c2-created symbol via 0x107018a1).
