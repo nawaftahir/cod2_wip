@@ -62,13 +62,33 @@ extern bool DAT_0109fd70;
 extern radMat_t * __fastcall FUN_00440840(const char *name);
 extern void Sys_Printf(const char *fmt, ...);
 void FUN_0045efb0(face_t *f);
+extern void __stdcall FUN_0043cf80(void *dlg);
 void FUN_0045f070(brushdef_t *b);
 
+// Layout from the retail ctor/dtor 0x43c880 / 0x43c7c0: eight spin controls at 0x8c + n * 0x50, then four floats.
+// The five named spins reuse the CTextureBar control ids; the other three are named by their dialog id.
 class CSurfaceDlg : public CDialog
 {
 public:
-	bool m_bPatchMode;
+	unsigned char pad70;
+	bool field_71;
+	bool field_72;
+	unsigned char pad73[0x8c - 0x73];
+	CSpinButtonCtrl m_spinVShift;     // 0x8c, id 1251
+	CSpinButtonCtrl m_spinVScale;     // 0xdc, id 1254
+	CSpinButtonCtrl m_spinRotate;     // 0x12c, id 1259
+	CSpinButtonCtrl m_spinHShift;     // 0x17c, id 1248
+	CSpinButtonCtrl m_spinHScale;     // 0x1cc, id 1257
+	CSpinButtonCtrl m_spinId1260;     // 0x21c
+	CSpinButtonCtrl m_spinId1453;     // 0x26c
+	CSpinButtonCtrl m_spinId1455;     // 0x2bc
+	float m_f30c;
+	float m_f310;
+	float m_f314;
+	float m_f318;
 protected:
+	virtual void DoDataExchange(CDataExchange *pDX);
+	virtual BOOL OnInitDialog();
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	DECLARE_MESSAGE_MAP()
 };
@@ -76,6 +96,25 @@ protected:
 // Message map entries are not reconstructed yet; the retail map is at 0x548690.
 BEGIN_MESSAGE_MAP(CSurfaceDlg, CDialog)
 END_MESSAGE_MAP()
+
+// Retail 0x0043c9d0
+void CSurfaceDlg::DoDataExchange(CDataExchange *pDX)
+{
+	DDX_Control(pDX, 1251, m_spinVShift);
+	DDX_Control(pDX, 1254, m_spinVScale);
+	DDX_Control(pDX, 1259, m_spinRotate);
+	DDX_Control(pDX, 1248, m_spinHShift);
+	DDX_Control(pDX, 1257, m_spinHScale);
+	DDX_Control(pDX, 1453, m_spinId1453);
+	DDX_Control(pDX, 1455, m_spinId1455);
+	DDX_Control(pDX, 1260, m_spinId1260);
+	DDX_Text(pDX, 1089, m_f30c);
+	DDX_Text(pDX, 1142, m_f310);
+	DDV_MinMaxFloat(pDX, m_f318, 1.0f, 32.0f);
+	DDV_MinMaxFloat(pDX, m_f314, 1.0f, 32.0f);
+	DDV_MinMaxFloat(pDX, m_f30c, -1000.0f, 1000.0f);
+	DDV_MinMaxFloat(pDX, m_f310, -1000.0f, 1000.0f);
+}
 
 // Retail 0x0043cb00: set a control's text only when it changed.
 void FUN_0043cb00(HWND hwnd, const char *text)
@@ -182,6 +221,91 @@ void FUN_0043dff0()
         assert( selFace.brush->version == selFace.brush->def->version );
         FUN_0045efb0(&selFace.brush->def->faces[selFace.index]);
     }
+}
+
+extern int g_nUpdateBits;
+extern CSurfaceDlg DAT_01234a38;
+struct surfPrefs_t
+{
+    unsigned char pad[0x1e4];
+    int field_1e4;
+    unsigned char pad_1e8[8];
+    int field_1f0;
+    unsigned char pad_1f4[0x258 - 0x1f4];
+    int field_258;
+};
+extern surfPrefs_t *dword_01233b64;
+BOOL LoadRegistryInfo(const char *pszName, void *pvBuf, long *plSize);
+
+// Retail 0x0043e440 (247 B): open the surface inspector, creating it on first use.
+void FUN_0043e440()
+{
+    surfDlgGlob.field_00 = dword_01233b64->field_1e4 != 0;
+    surfDlgGlob.field_01 = dword_01233b64->field_1f0 != 0;
+    if (surfDlgGlob.hwnd == NULL && DAT_01234a38.GetSafeHwnd() == NULL)
+    {
+        surfDlgGlob.patchTexdef.scale[0] = 0.05f;
+        surfDlgGlob.patchTexdef.scale[1] = 0.05f;
+        surfDlgGlob.patchTexdef.shift[0] = 0.05f;
+        surfDlgGlob.patchTexdef.shift[1] = 0.05f;
+        surfDlgGlob.patchTexdef.rotate = (float)dword_01233b64->field_258;
+        DAT_01234a38.Create(0x74, NULL);
+        CRect rct;
+        long lSize = sizeof(rct);
+        if (LoadRegistryInfo("Radiant::SurfaceWindow", &rct, &lSize))
+            DAT_01234a38.SetWindowPos(NULL, rct.left, rct.top, 0, 0, SWP_NOSIZE | SWP_SHOWWINDOW);
+        g_nUpdateBits = -1;
+    }
+    else
+    {
+        surfDlgGlob.hwnd = DAT_01234a38.GetSafeHwnd();
+        FUN_0043cf80(&DAT_01234a38);
+        DAT_01234a38.ShowWindow(SW_SHOW);
+    }
+    FUN_0043dff0();
+}
+
+extern int DAT_011298b8;
+extern int DAT_011298bc;
+extern int DAT_011298c0;
+
+// Retail 0x0043e560 (473 B)
+BOOL CSurfaceDlg::OnInitDialog()
+{
+    CDialog::OnInitDialog();
+    surfDlgGlob.hwnd = GetSafeHwnd();
+    FUN_0043cf80(this);
+    m_spinHScale.SetRange(0, 1000);
+    m_spinVScale.SetRange(0, 1000);
+    m_spinHShift.SetRange(0, 1000);
+    m_spinVShift.SetRange(0, 1000);
+    m_spinRotate.SetRange(0, 1000);
+    m_spinId1453.SetRange(-1000, 1000);
+    m_spinId1455.SetRange(-1000, 1000);
+    m_spinId1260.SetRange(0, 1024);
+    CheckDlgButton(0x5c5, 0);
+    CheckDlgButton(0x5c6, 0);
+    CheckDlgButton(0x5c7, 0);
+    if (!DAT_011298bc)
+        DAT_011298bc = 1;
+    if (!DAT_011298c0)
+        DAT_011298c0 = 1;
+    char sz[32];
+    itoa(DAT_011298bc, sz, 32);
+    GetDlgItem(0x441)->SetWindowText(sz);
+    itoa(DAT_011298c0, sz, 32);
+    GetDlgItem(0x476)->SetWindowText(sz);
+    int selected = DAT_011298b8;
+    if (!selected)
+    {
+        selected = 0x5c5;
+        DAT_011298b8 = selected;
+    }
+    if (selected == 0x5c5 || selected == 0x5c6 || selected == 0x5c7)
+        CheckDlgButton(selected, 1);
+    field_71 = false;
+    field_72 = false;
+    return TRUE;
 }
 
 // Retail one-byte RET bodies verified with MSVC 7.1. Original entry-point ownership/signatures remain provisional.
