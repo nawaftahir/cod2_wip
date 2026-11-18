@@ -5132,7 +5132,7 @@ const char *GetBspExtension()
 
 	return va("d3dbsp");
 }
-
+#pragma auto_inline(off)
 int FUN_00482600(const vec3_t v)
 {
 	if ( I_fabs(VectorLengthSquared(v) - 1.0f) < 0.0020000001f )
@@ -5140,3 +5140,4 @@ int FUN_00482600(const vec3_t v)
 
 	return 0;
 }
+#pragma auto_inline(on)

@@ -253,7 +253,7 @@ void Com_ParseReturnToMark( const char **text, com_parse_mark_t *mark )
 	pi->backup_text = mark->backup_text;
 }
 #line 420
-
+#pragma auto_inline(off)
 static const char *SkipWhitespace( const char *data, qboolean *hasNewLines )
 {
 	int c;
@@ -281,7 +281,7 @@ static const char *SkipWhitespace( const char *data, qboolean *hasNewLines )
 
 	return data;
 }
-
+#pragma auto_inline(on)
 int Com_Compress( char *data_p )
 {
 	char *datai, *datao;
@@ -696,7 +696,7 @@ static char *Com_ParseCSV( const char **data_p, qboolean allowLineBreaks )
 
 
 
-
+#line 614
 /*
 Parse a token out of a string
 Will never return NULL, just empty strings.
@@ -989,7 +989,7 @@ static char *Com_ParseExt( const char **data_p, qboolean allowLineBreaks )
 	*data_p = data;
 	return pi->token;
 }
-
+#line 1157
 char *Com_Parse( const char **data_p )
 {
 	ParseThreadInfo *parse;

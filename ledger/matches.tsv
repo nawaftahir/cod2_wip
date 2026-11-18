@@ -2077,3 +2077,11 @@ addr	size	source	symbol	name	tag
 0x004199f0	24	src/radiant/MainFrm.cpp	_FUN_004199f0	FUN_004199f0	UNNAMED
 0x0041bcf0	40	src/radiant/MainFrm.cpp	_FUN_0041bcf0	FUN_0041bcf0	UNNAMED
 0x0041bd30	13	src/radiant/MainFrm.cpp	_FUN_0041bd30	FUN_0041bd30	UNNAMED
+0x004803e0	81	src/universal/com_files.cpp	?FS_AddFileToList@@YAHPADQAPADHH@Z	FS_AddFileToList	SUPPORTED
+0x00487430	23	src/universal/com_math.cpp	?AngleDelta@@YAMMM@Z	AngleDelta	SUPPORTED
+0x00483220	151	src/universal/com_math.cpp	?DiffTrackAngle@@YAMMMMM@Z	DiffTrackAngle	SUPPORTED
+0x004830f0	151	src/universal/com_math.cpp	?LinearTrackAngle@@YAMMMMM@Z	LinearTrackAngle	SUPPORTED
+0x00484c00	270	src/universal/com_math.cpp	?PerpendicularVector@@YAXQAMQBM@Z	PerpendicularVector	SUPPORTED
+0x00488b70	185	src/universal/com_math.cpp	?ProjectPointOnPlane@@YAXQBM0QAM@Z	ProjectPointOnPlane	SUPPORTED
+0x0048a170	245	src/universal/com_memory.cpp	?Hunk_SetDataForFile@@YAPBDHPBDPAXP6APAXH@Z@Z	Hunk_SetDataForFile	SUPPORTED
+0x00495060	990	src/universal/q_parse.cpp	?Com_ParseExt@@YAPADPAPBDH@Z	Com_ParseExt	SUPPORTED

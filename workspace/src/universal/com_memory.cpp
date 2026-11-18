@@ -556,7 +556,7 @@ void Z_VirtualCommitInternal(void *ptr, int size)
 
 // unreferenced; its name is not known
 
-
+#pragma auto_inline(off)
 char *CopyStringInternal( const char *in )
 {
     int len = strlen( in ) + 1;
@@ -564,7 +564,7 @@ char *CopyStringInternal( const char *in )
     strcpy( buf, in );
     return buf;
 }
-
+#pragma auto_inline(on)
 
 
 void ReplaceStringInternal( const char **str, const char *in )
@@ -886,7 +886,7 @@ void Hunk_Shutdown( void )
 	memset( &hunk_low, 0, sizeof( hunk_low ) );
 	memset( &hunk_high, 0, sizeof( hunk_high ) );
 }
-
+#pragma auto_inline(off)
 void *Hunk_FindDataForFileInternal( int type, const char *name, int hash )
 {
 	fileData_t *searchFileData;
@@ -902,7 +902,7 @@ void *Hunk_FindDataForFileInternal( int type, const char *name, int hash )
 
 	return NULL;
 }
-
+#pragma auto_inline(on)
 void *Hunk_FindDataForFile( int type, const char *name )
 {
 	int hash;

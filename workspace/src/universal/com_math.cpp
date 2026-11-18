@@ -2402,7 +2402,7 @@ float AngleNormalize360( float angle )
 {
 	return ( 360.0f / 65536 ) * ( (int)( angle * ( 65536 / 360.0f ) ) & 65535 );
 }
-
+#pragma auto_inline(off)
 /*
 ==============
 AngleNormalize180
@@ -2419,7 +2419,7 @@ float AngleNormalize180( float angle )
 
 	return normalized;
 }
-
+#pragma auto_inline(on)
 /*
 ==============
 AngleNormalize360Accurate
