@@ -1067,3 +1067,9 @@ set by a later lowering stage, not by the list scheduler.
   <- 0x10777206 <- 0x107733a2 <- 0x10773242 <- 0x1077312e <- 0x10770983 <- 0x10770627 <- 0x107b0015 <- 0x1070b99b <- the
   per-fn driver 0x107b99ad (the local picks run later via 0x107b003e). Retail fits a test copied AFTER allocation (it would
   inherit the bottom test's eax and spend no pick). Next: the decision in 0x10777206's caller chain that copies the test.
+- PINNED (w29b 11-18, c2 disasm): the copier call 0x10777201 (-> 0x10776b7c, eax = reg descriptor 0x108a97a4+0x60*n) is
+  reached only from 0x10773df5 `test bl,4` in a per-web action dispatcher (0x10773ddf: bits 1/4/8/0x10) run after global
+  colouring. So Menu's entry test is a reload/rematerialized load the global allocator inserts for a web (likely the
+  cursorItem[0] CSE value shared by the loop condition and the body increment; Menu cpick: kind03 val=424 -> eax, 8 refs),
+  and the inserted load then takes local pick 1. In retail that reload is not inserted (or not picked). Lever = the
+  web's action flags (bit 4), i.e. how that CSE value is split; not the loop shape.
