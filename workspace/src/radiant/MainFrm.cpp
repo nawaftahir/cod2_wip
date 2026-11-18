@@ -224,6 +224,25 @@ CMainFrame::~CMainFrame()
 }
 
 extern "C" void __stdcall FUN_004115a0(int a0, int a1) {  }
+
+// 0x00412060: runs a "+Command" argument; returns how many arguments it used
+int FUN_00412060(char **arg)
+{
+  if (**arg == '+')
+  {
+    const char *name = *arg + 1;
+    for (int i = 0; i < g_nCommandCount; i++)
+    {
+      if (!_stricmp(g_Commands[i].m_strCommand, name))
+      {
+        AfxGetMainWnd()->PostMessage(WM_COMMAND, g_Commands[i].m_nCommand, 0);
+        return 1;
+      }
+    }
+  }
+  return 0;
+}
+
 BOOL CMainFrame::PreCreateWindow(CREATESTRUCT &cs)
 {
   return CFrameWnd::PreCreateWindow(cs);

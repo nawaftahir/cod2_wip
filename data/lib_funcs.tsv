@@ -2994,7 +2994,7 @@ addr	size	lib	member	symbol
 0x00501b20	165	nafxcw.lib	INTEL\$NW\filecore.obj	?GetClassObject@AFX_COM@@QAEJABU_GUID@@0PAPAX@Z
 0x00501bc5	92	nafxcw.lib	INTEL\$NW\filecore.obj	?CreateInstance@AFX_COM@@QAEJABU_GUID@@PAUIUnknown@@0PAPAX@Z
 0x00501c21	364	nafxcw.lib	INTEL\$NW\filecore.obj	?AfxResolveShortcut@@YGHPAVCWnd@@PBDPADH@Z
-0x00501d8d	9	nafxcw.lib	INTEL\$NW\wincore.obj	?AfxGetApp@@YGPAVCWinApp@@XZ
+0x00501d8d	9	nafxcw.lib	INTEL\$NW\thrdcore.obj	?AfxGetThread@@YGPAVCWinThread@@XZ
 0x00501d96	9	nafxcw.lib	INTEL\$NW\thrdcore.obj	?AfxGetCurrentMessage@@YGPAUtagMSG@@XZ
 0x00501d9f	37	nafxcw.lib	INTEL\$NW\thrdcore.obj	?AfxInternalProcessWndProcException@@YGJPAVCException@@PBUtagMSG@@@Z
 0x00501dc4	22	nafxcw.lib	INTEL\$NW\thrdcore.obj	?AfxProcessWndProcException@@YGJPAVCException@@PBUtagMSG@@@Z
