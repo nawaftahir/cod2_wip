@@ -1085,3 +1085,9 @@ set by a later lowering stage, not by the list scheduler.
   `mov ecx,[count]` / `mov eax,edx` come from lowering those memory operands AFTER the local picks, so they never move the
   pick pointer. The entry and bottom tests at pick time are a load into a fresh temp (sym 062288dc / 0622875c, no
   register) + `cmp temp,mem`; both are local picks (1 and 4).
+- PINNED (w29a 11-18, heap dumps at both 0x107771ed hits): before the insert, both Menu loop tests are `cmp mem(cursor),t`
+  with t a kind-3 CSE temp (sym flags 0x8000, never coloured: +0x1c = itself) of the other operand (entry sym 061f738c
+  id 0x4a, bottom sym 0620a1ac id 0xa3). The bit-4 action turns t back into memory and loads the cursor side into a fresh
+  register-less temp, which becomes the local pick. The increment block avoids this because its cursor value is the
+  coloured web 424. HYPOTHESIS: retail's entry test has no uncoloured CSE temp there (or its cursor value is coloured).
+  Box spent (2 traces); next attack is a source spelling that drops that CSE temp at the entry only.
