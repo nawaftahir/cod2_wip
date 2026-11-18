@@ -5132,3 +5132,11 @@ const char *GetBspExtension()
 
 	return va("d3dbsp");
 }
+
+int FUN_00482600(const vec3_t v)
+{
+	if ( I_fabs(VectorLengthSquared(v) - 1.0f) < 0.0020000001f )
+		return 1;
+
+	return 0;
+}
