@@ -342,7 +342,6 @@ addr	size	source	symbol	name	tag
 0x00411420	206	src/radiant/MainFrm.cpp	??1CMainFrame@@UAE@XZ	CMainFrame::~CMainFrame	SUPPORTED
 0x004115a0	3	src/radiant/MainFrm.cpp	_FUN_004115a0@8	FUN_004115a0	UNNAMED
 0x00412df0	9	src/radiant/MainFrm.cpp	?PreCreateWindow@CMainFrame@@UAEHAAUtagCREATESTRUCTA@@@Z	CMainFrame::PreCreateWindow	SUPPORTED
-0x00412e00	544	src/radiant/MainFrm.cpp	?CreateQEChildren@@YGXPAVCMainFrame@@@Z	CreateQEChildren	SUPPORTED
 0x00413020	9	src/radiant/MainFrm.cpp	?OnCommand@CMainFrame@@UAEHIJ@Z	CMainFrame::OnCommand	SUPPORTED
 0x00413030	37	src/radiant/MainFrm.cpp	?DefWindowProcA@CMainFrame@@UAEJIIJ@Z	CMainFrame::DefWindowProc	SUPPORTED
 0x00413060	256	src/radiant/MainFrm.cpp	?RoutineProcessing@CMainFrame@@QAEXXZ	CMainFrame::RoutineProcessing	SUPPORTED
