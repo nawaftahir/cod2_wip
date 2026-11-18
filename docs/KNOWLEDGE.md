@@ -1134,3 +1134,6 @@ set by a later lowering stage, not by the list scheduler.
 - PINNED (w29 11-18, gate +15): XAnimCalc matched = route B. x1 order (`unsigned int modelName = obj->animToModel[entry];`
   before SL_RemoveRefToStringOfLen) plus the if-arm counter as a web (`byte counter = 0; if (!counter) counter =
   *modelCounters;`), which drops byte pick 12 = the one fewer advance route B needed. Same web lever as FX_AddFxToScene.
+- PINNED (w29 11-18, gate +56): FX_CalcOriginAndAxis matched. b1 = shape A (VectorSet with radius*sinPitch inline, no scale)
+  with a block-local `float bh` height; b4 height/width as one `float hw[2]` array (hw[0] height, hw[1] width). The array
+  is the "missing overlap": its two elements are one 8-byte-aligned item pair, giving width its own entry at 0x30.
