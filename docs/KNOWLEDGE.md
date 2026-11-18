@@ -1109,3 +1109,10 @@ set by a later lowering stage, not by the list scheduler.
   walker is the param itself) gives [walker+diff]; nb_decode lsp_dist (st->old_qlsp/st->qlsp field loads, walker is a new
   temp) gives [diff+walker]. Retail's nb_decode vocoder is [walker+diff] where ours is [diff+walker] (walker = copy of exc).
   HYPOTHESIS: the order follows temp/symbol numbers of the walker vs the diff (user var walker = lower number = base).
+- PINNED (w29a 11-18, lab N1 /tmp/nb_N1.py + /tmp/nbv.sh): nb_decode's two loops over the same innov/exc pair get
+  opposite SR base/index orders, and swapping their source order swaps them. Base: vocoder loop (first) [diff+walker],
+  else-arm ADD32 loop (second, laid out at the fn end) [walker+diff]; the innov2 ADD32 loop (only loop of its pair)
+  [diff+walker]. N1 (`if (st->submodeID!=1) {ADD32} else {vocoder}`): ADD32 [esi+eax] (diff first), vocoder
+  [eax+ecx-4] (= retail) but layout and x87 order change (45 lines). Rule (SUPPORTED): the first loop c2 processes for a
+  pointer pair gets [diff+walker], later loops for the same pair get [walker+diff]. Retail has BOTH innov loops as
+  [walker+diff], so retail's IL meets the innov/exc pair once before the vocoder loop.
