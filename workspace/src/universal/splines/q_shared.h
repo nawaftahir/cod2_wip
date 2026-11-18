@@ -559,14 +559,14 @@ int Com_GetCurrentParseLine( void );
 // ParseOnLine will return empty if there isn't another token on this line
 
 // this funny typedef just means a moving pointer into a const char * buffer
-const char *Com_Parse( const char *(*data_p) );
-const char *Com_ParseOnLine( const char *(*data_p) );
+char *Com_Parse( const char *(*data_p) );
+char *Com_ParseOnLine( const char *(*data_p) );
 const char *Com_ParseRestOfLine( const char *(*data_p) );
 
 void Com_UngetToken( void );
 
 #ifdef __cplusplus
-void Com_MatchToken( const char *(*buf_p), const char *match, qboolean warning = qfalse );
+int Com_MatchToken( const char *(*buf_p), const char *match, int warning = 0 );
 #else
 void Com_MatchToken( const char *(*buf_p), const char *match, qboolean warning );
 #endif
@@ -644,11 +644,11 @@ float	BigFloat (float l);
 float	LittleFloat (float l);
 
 void	Swap_Init (void);
-char	* QDECL va(char *format, ...);
 
 #ifdef __cplusplus
     }
 #endif
+char	* QDECL va(const char *format, ...);
 
 
 //=============================================

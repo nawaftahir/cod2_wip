@@ -36,8 +36,10 @@ extern void Sys_Printf(const char *fmt, ...); extern void Error(const char *erro
 extern int FUN_0045f860(const brushdef_t *b, const vec3_t point, float epsilon);
 extern brush_t selected_brushes;
 #include <malloc.h>
-struct eclass_t { int pad_00[2]; int nShowFlags; int pad_0c[6]; float color[4]; unsigned char pad_34[0x160 - 0x34]; int flags_160; };
-struct entity_t { unsigned char pad_00[8]; void *def; brush_t brushes; unsigned char pad_34[0x50 - 0x34]; eclass_t *eclass; };
+struct eclass_t { eclass_t *next; char *name; int fixedsize; int pad_0c[6]; float color[4]; unsigned char pad_34[0x160 - 0x34]; int flags_160; };
+struct entity_t { unsigned char pad_00[8]; void *def; brush_t brushes; unsigned char pad_34[0x50 - 0x34]; eclass_t *eclass; unsigned char pad_54[0x64 - 0x54]; struct epair_t *epairs; };
+extern char *ValueForKey(epair_t *&e, const char *key);
+extern void FUN_00465bf0(entity_t *e, const char *key, const char *value);
 struct patchMesh_t { void *def; };
 struct patch_t { patchMesh_t *def; short pad_04; unsigned char selected; };
 #define brush_assert1(expr) do { static bool s_assertDisable; if (!(expr) && !s_assertDisable) { switch (FUN_0047d980(#expr, __FILE__, __LINE__, 1, 1)) { case 0: DebugBreak(); break; case 2: s_assertDisable = true; break; } } } while (0)
@@ -538,7 +540,7 @@ void FUN_00457bd0(brushdef_t *b)
 #line 1422
     assert(b);
     entity_t *owner = b->owner;
-    if (owner && owner->eclass && owner->eclass->nShowFlags)
+    if (owner && owner->eclass && owner->eclass->fixedsize)
     {
         if (FUN_00465d80(owner, "_color"))
         {
@@ -887,6 +889,118 @@ bool FUN_0045b630(brush_t *b)
             return true;
     }
     return false;
+}
+
+void FUN_0045cc90(float delta)
+{
+    char buf[32];
+    for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+    {
+#line 3294
+        assert(b->owner->def == b->def->owner);
+        entity_t *e = (entity_t *)b->owner->def;
+        if (e->eclass->fixedsize && !_stricmp(e->eclass->name, "light"))
+        {
+            float v = atof(ValueForKey(e->epairs, "overbrightShift"));
+            v += delta;
+            if (v > 1.0f)
+                v = 1.0f;
+            else if (v < 0.0f)
+                v = 0.0f;
+            sprintf(buf, "%f", v);
+            FUN_00465bf0(e, "overbrightShift", buf);
+        }
+    }
+}
+
+void FUN_0045cdc0(float scale)
+{
+    char buf[32];
+    for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+    {
+#line 3323
+        assert(b->owner->def == b->def->owner);
+        entity_t *e = (entity_t *)b->owner->def;
+        if (e->eclass->fixedsize)
+        {
+            if (!_stricmp(e->eclass->name, "light"))
+            {
+                float v = atof(ValueForKey(e->epairs, "light"));
+                if (v == 0.0f)
+                    v = 300.0f;
+                v *= scale;
+                if (v < 0.0f)
+                    v = 0.0f;
+                sprintf(buf, "%f", v);
+                FUN_00465bf0(e, "light", buf);
+            }
+            else
+            {
+                float v = atof(ValueForKey(e->epairs, "radius"));
+                if (v == 0.0f)
+                    v = 256.0f;
+                v *= scale;
+                if (v < 0.0f)
+                    v = 0.0f;
+                sprintf(buf, "%f", v);
+                FUN_00465bf0(e, "radius", buf);
+            }
+        }
+    }
+}
+
+void FUN_0045cf60(float scale)
+{
+    char buf[32];
+    for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+    {
+#line 3362
+        assert(b->owner->def == b->def->owner);
+        entity_t *e = (entity_t *)b->owner->def;
+        if (e->eclass->fixedsize && (e->eclass->flags_160 & 0x40))
+        {
+            float v = atof(ValueForKey(e->epairs, "height"));
+            if (v == 0.0f)
+                v = 128.0f;
+            v *= scale;
+            if (v < 0.0f)
+                v = 0.0f;
+            sprintf(buf, "%f", v);
+            FUN_00465bf0(e, "height", buf);
+        }
+    }
+}
+
+void FUN_0045d240(const brushdef_t *b, const orientation_t *or, vec3_t mins, vec3_t maxs)
+{
+    vec3_t xyz;
+#line 3457
+    assert(b);
+    assert(or);
+    assert(mins);
+    assert(maxs);
+    for (int i = 0; i < b->faceCount; i++)
+    {
+        winding_t *w = b->faces[i].w;
+        if (!w)
+            continue;
+        for (int j = 0; j < w->pointCount; j++)
+        {
+            OrientationPosToWorld(or, w->points[j], xyz);
+            if (xyz[0] < mins[0])
+                mins[0] = xyz[0];
+            if (xyz[0] > maxs[0])
+                maxs[0] = xyz[0];
+            if (xyz[1] < mins[1])
+                mins[1] = xyz[1];
+            if (xyz[1] > maxs[1])
+                maxs[1] = xyz[1];
+            if (xyz[2] < mins[2])
+                mins[2] = xyz[2];
+            if (xyz[2] > maxs[2])
+                maxs[2] = xyz[2];
+        }
+    }
 }
 
 float FUN_0045ebc0(float a, float b)

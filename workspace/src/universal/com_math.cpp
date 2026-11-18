@@ -1,7 +1,7 @@
 #include "q_shared.h"
 #include "assertive.h"
 
-void PerpendicularVector( const vec3_t src, vec3_t dst );
+void PerpendicularVector( vec3_t dst, const vec3_t src );
 
 const vec2_t vec2_origin = { 0, 0 };
 const vec3_t vec3_origin = { 0, 0, 0 };
@@ -1005,6 +1005,101 @@ void MatrixTransformVectorCols( const vec3_t in, const vec3_t mat[3], vec3_t out
 	out[2] = in[0] * mat[0][2] + in[1] * mat[1][2] + in[2] * mat[2][2];
 }
 
+int FUN_00482600( const vec3_t v );
+
+#undef IS_NAN
+#define IS_NAN( x ) ( ( ( *(int *)&x ) & ( 255 << 23 ) ) == ( 255 << 23 ) )
+
+/*
+==============
+RotatePointAroundVector
+==============
+*/
+void RotatePointAroundVector( vec3_t dst, const vec3_t dir, const vec3_t point, float degrees )
+{
+	float m[3][3];
+	float im[3][3];
+	float zrot[3][3];
+	float tmpmat[3][3];
+	float rot[3][3];
+	int i;
+	vec3_t vr, vup, vf;
+	float rad;
+
+#line 991
+	assert(dir[0] || dir[1] || dir[2]);
+
+	vf[0] = dir[0];
+	vf[1] = dir[1];
+	vf[2] = dir[2];
+
+	PerpendicularVector( vr, dir );
+	Vec3Cross( vr, vf, vup );
+
+	m[0][0] = vr[0];
+	m[1][0] = vr[1];
+	m[2][0] = vr[2];
+
+	m[0][1] = vup[0];
+	m[1][1] = vup[1];
+	m[2][1] = vup[2];
+
+	m[0][2] = vf[0];
+	m[1][2] = vf[1];
+	m[2][2] = vf[2];
+
+	memcpy( im, m, sizeof( im ) );
+
+	im[0][1] = m[1][0];
+	im[0][2] = m[2][0];
+	im[1][0] = m[0][1];
+	im[1][2] = m[2][1];
+	im[2][0] = m[0][2];
+	im[2][1] = m[1][2];
+
+	memset( zrot, 0, sizeof( zrot ) );
+	zrot[0][0] = zrot[1][1] = zrot[2][2] = 1.0F;
+
+	rad = degrees * 0.017453292519943295f;
+#line 1026
+	assert(!IS_NAN(rad));
+	FastSinCos( rad, &zrot[0][1], &zrot[0][0] );
+#line 1030
+	assert(!IS_NAN(zrot[0][1]));
+#line 1031
+	assert(!IS_NAN(zrot[0][0]));
+	zrot[1][0] = -zrot[0][1];
+	zrot[1][1] = zrot[0][0];
+
+	MatrixMultiply( m, zrot, tmpmat );
+	MatrixMultiply( tmpmat, im, rot );
+
+	for ( i = 0; i < 3; i++ )
+	{
+		dst[i] = rot[i][0] * point[0] + rot[i][1] * point[1] + rot[i][2] * point[2];
+	}
+}
+
+/*
+==============
+FUN_00484360
+==============
+*/
+void FUN_00484360( vec3_t axis[3], float yaw )
+{
+	PerpendicularVector( axis[1], axis[0] );
+
+	if ( yaw )
+	{
+		vec3_t temp;
+
+		VectorCopy( axis[1], temp );
+		RotatePointAroundVector( axis[1], axis[0], temp, yaw );
+	}
+
+	Vec3Cross( axis[0], axis[1], axis[2] );
+}
+
 /*
 ==============
 MakeNormalVectors
@@ -1160,12 +1255,69 @@ void AngleVectors( const vec3_t angles, vec3_t forward, vec3_t right, vec3_t up 
 
 
 
-void YawVectors( const float yaw, vec3_t forward, vec3_t right );
+/*
+==============
+YawVectors
+==============
+*/
+void YawVectors( const float yaw, vec3_t forward, vec3_t right )
+{
+	float cy;
+	float angle;
+	float sy;
+
+	angle = yaw * 0.017453292f;
+	FastSinCos( angle, &sy, &cy );
+
+	if ( forward )
+	{
+		forward[0] = cy;
+		forward[1] = sy;
+		forward[2] = 0.0f;
+	}
+
+	if ( right )
+	{
+		right[0] = sy;
+		right[1] = -cy;
+		right[2] = 0.0f;
+	}
+}
 
 
 
-void PerpendicularVector( const vec3_t src, vec3_t dst );
+void PerpendicularVector( vec3_t dst, const vec3_t src );
 
+/*
+==============
+PerpendicularVector
+==============
+*/
+void PerpendicularVector( vec3_t dst, const vec3_t src )
+{
+	int best;
+	vec3_t sq;
+	float scale;
+
+#line 1354
+	assertMsg(FUN_00482600( src ), "%s", va("%g %g %g", src[0], src[1], src[2]));
+
+	sq[0] = src[0] * src[0];
+	sq[1] = src[1] * src[1];
+	sq[2] = src[2] * src[2];
+
+	best = sq[1] < sq[0];
+
+	if ( sq[2] < sq[best] )
+	{
+		best = 2;
+	}
+
+	scale = -src[best];
+	VectorScale(src, scale, dst);
+	dst[best] += 1.0f;
+	Vec3Normalize(dst);
+}
 
 /*
 ==============
@@ -2929,8 +3081,21 @@ int PlaneFromPoints( vec4_t plane, const vec3_t a, const vec3_t b, const vec3_t 
 }
 
 
-void ProjectPointOnPlane( const vec3_t p, const vec3_t normal, vec3_t dst );
+/*
+==============
+ProjectPointOnPlane
+==============
+*/
+void ProjectPointOnPlane( const vec3_t p, const vec3_t normal, vec3_t dst )
+{
+	float scale;
 
+#line 3235
+	assertMsg(FUN_00482600( normal ), "%s", va("%g %g %g", normal[0], normal[1], normal[2]));
+
+	scale = -DotProduct(p, normal);
+	VectorMA(p, scale, normal, dst);
+}
 
 /*
 ==============
@@ -3091,12 +3256,24 @@ float Vec3ScaleToUnitMax( const vec3_t v, vec3_t out )
 
 void VectorRotate( const vec3_t vIn, const vec3_t vRotation, vec3_t out );
 
+/*
+==============
+PitchForYawOnNormal
+==============
+*/
+float PitchForYawOnNormal( const float fYaw, const vec3_t normal )
+{
+	vec3_t dst;
+	vec3_t forward;
 
+#line 3846
+	assert(normal[0] || normal[1] || normal[2]);
 
+	YawVectors( fYaw, forward, 0 );
+	ProjectPointOnPlane( forward, normal, dst );
 
-
-
-
+	return vectopitch( dst );
+}
 
 /*
 ==============

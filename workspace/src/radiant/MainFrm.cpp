@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "FindTextureDlg.h"
+#include "radiant_wnd.h"
 #include "PrefsDlg.h"
 #include "../universal/assertive.h"
 #include <math.h>
@@ -30,7 +31,6 @@ void FUN_004733f0(int);
 void FUN_0046b070(int);
 void FUN_00472bd0(int);
 void FUN_0043e440();
-void FUN_00449800();
 void FUN_00469950();
 void FUN_004694d0();
 void FUN_004692a0();
@@ -57,6 +57,7 @@ void FUN_00438120();
 void FUN_00438ff0();
 void FUN_004745d0();
 }
+void WXY_Print();
 void Map_RemoveRegion();
 
 void Undo_Undo();
@@ -124,6 +125,8 @@ extern int DAT_012334ec;
 extern CWnd *DAT_01233484;
 extern CPrefsDlg *dword_01233b64;
 
+typedef char MainFrameSplitSize[(sizeof(CSplitterWnd) == 0xd8) ? 1 : -1];
+
 class CMainFrame : public CFrameWnd
 {
 public:
@@ -137,17 +140,18 @@ public:
   afx_msg void OnSysKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
   afx_msg void OnDestroy();
   afx_msg void OnFileExit();
-  // three CSplitterWnd at 0x500, 0x5d8, 0x6b0
   char pad[0x180 - sizeof(CFrameWnd)];
   HWND field_0180;
   char pad2[0x500 - 0x184];
-  char wndSplit[0x788 - 0x500];
-  CWnd *field_0788;
-  CWnd *field_078c;
-  CWnd *field_0790;
-  CWnd *field_0794;
+  CSplitterWnd m_wndSplit1;
+  CSplitterWnd m_wndSplit2;
+  CSplitterWnd m_wndSplit3;
+  CXYWnd *field_0788;
+  CCamWnd *field_078c;
+  CTexWnd *field_0790;
+  CZWnd *field_0794;
   CWnd *field_0798;
-  CWnd *field_079c;
+  CEditWnd *field_079c;
   int field_07a0;
   char pad_07a4[0x7e0 - 0x7a4];
   CWnd *field_07e0;
@@ -157,6 +161,10 @@ public:
   void FUN_004190e0(CCmdUI *pCmdUI);
   void FUN_00419ba0(CCmdUI *pCmdUI);
 };
+
+typedef char MainFrameSplit1Offset[(offsetof(CMainFrame, m_wndSplit1) == 0x500) ? 1 : -1];
+typedef char MainFrameSplit3Offset[(offsetof(CMainFrame, m_wndSplit3) == 0x6b0) ? 1 : -1];
+typedef char MainFrameXYOffset[(offsetof(CMainFrame, field_0788) == 0x788) ? 1 : -1];
 
 // partial view of the camera window object (CCamWnd 0x54 = camera state)
 struct CamView
@@ -252,9 +260,9 @@ void CMainFrame::OnDestroy()
 {
   WINDOWPLACEMENT wp;
   int info[2];
-  CSplitterWnd *split1 = (CSplitterWnd *)(wndSplit);
-  CSplitterWnd *split2 = (CSplitterWnd *)(wndSplit + 0xd8);
-  CSplitterWnd *split3 = (CSplitterWnd *)(wndSplit + 0x1b0);
+  CSplitterWnd *split1 = &m_wndSplit1;
+  CSplitterWnd *split2 = &m_wndSplit2;
+  CSplitterWnd *split3 = &m_wndSplit3;
 
   KillTimer(1);
   FUN_0046fbe0(1);
@@ -515,7 +523,7 @@ void FUN_004763c0(void);
 extern "C" void FUN_00415bd0() { FUN_004763c0(); }
 extern "C" void FUN_00415bf0() { Pointfile_Next(); }
 extern "C" void FUN_00415c00() { Pointfile_Prev(); }
-extern "C" void FUN_00415c10() { FUN_00449800(); }
+extern "C" void FUN_00415c10() { WXY_Print(); }
 BOOL CALLBACK FUN_00476840(HWND, UINT, WPARAM, LPARAM);
 extern "C" void FUN_00415dd0() { DialogBox(g_qeglobals.d_hInstance, (LPCSTR)217, g_qeglobals.d_hwndMain, FUN_00476840); }
 extern "C" void FUN_00415df0() { FUN_00469950(); }

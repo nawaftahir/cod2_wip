@@ -88,17 +88,8 @@ static inline float Dvar_fmin(const float x, const float y)
 {
 	return Dvar_fsel(y - x, x, y);
 }
-static inline int Dvar_fround(const float x)
-{
-	return (int)(x + 0.5f);
 
-
-
-
-
-}
-
-
+#line 102
 // temporary vectors for string conversions; the ring wraps when full
 static float *Dvar_AllocVector(int components)
 {
@@ -431,10 +422,10 @@ static void Dvar_StringToColor(const char *string, unsigned char *color)
 	Vector4Clear(colorVec);
 	sscanf(string, "%g %g %g %g", &colorVec[0], &colorVec[1], &colorVec[2], &colorVec[3]);
 
-	color[0] = Dvar_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, colorVec[0])) * 255.0f);
-	color[1] = Dvar_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, colorVec[1])) * 255.0f);
-	color[2] = Dvar_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, colorVec[2])) * 255.0f);
-	color[3] = Dvar_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, colorVec[3])) * 255.0f);
+	color[0] = I_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, colorVec[0])) * 255.0f);
+	color[1] = I_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, colorVec[1])) * 255.0f);
+	color[2] = I_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, colorVec[2])) * 255.0f);
+	color[3] = I_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, colorVec[3])) * 255.0f);
 }
 
 
@@ -1825,10 +1816,10 @@ dvar_t *Dvar_RegisterColor(const char *dvarName, float r, float g, float b, floa
 	DvarValue dvarValue;
 	DvarLimits dvarDomain;
 
-	dvarValue.color[0] = Dvar_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, r)) * 255.0f);
-	dvarValue.color[1] = Dvar_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, g)) * 255.0f);
-	dvarValue.color[2] = Dvar_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, b)) * 255.0f);
-	dvarValue.color[3] = Dvar_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, a)) * 255.0f);
+	dvarValue.color[0] = I_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, r)) * 255.0f);
+	dvarValue.color[1] = I_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, g)) * 255.0f);
+	dvarValue.color[2] = I_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, b)) * 255.0f);
+	dvarValue.color[3] = I_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, a)) * 255.0f);
 	memset(&dvarDomain, 0, sizeof(dvarDomain));
 	return Dvar_RegisterVariant(dvarName, DVAR_TYPE_COLOR, flags, dvarValue, dvarDomain);
 }
@@ -2065,10 +2056,10 @@ void Dvar_SetColorFromSource(dvar_t *dvar, float r, float g, float b, float a, D
 	assertMsg( dvar->type == DVAR_TYPE_COLOR || (dvar->type == DVAR_TYPE_STRING && (dvar->flags & DVAR_SYS_EXTERNAL)), "%s", dvar->name );
 	if ( dvar->type == DVAR_TYPE_COLOR )
 	{
-		newValue.color[0] = Dvar_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, r)) * 255.0f);
-		newValue.color[1] = Dvar_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, g)) * 255.0f);
-		newValue.color[2] = Dvar_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, b)) * 255.0f);
-		newValue.color[3] = Dvar_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, a)) * 255.0f);
+		newValue.color[0] = I_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, r)) * 255.0f);
+		newValue.color[1] = I_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, g)) * 255.0f);
+		newValue.color[2] = I_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, b)) * 255.0f);
+		newValue.color[3] = I_fround(Dvar_fmax(0.0f, Dvar_fmin(1.0f, a)) * 255.0f);
 	}
 	else
 	{

@@ -61,9 +61,11 @@ struct face_t
     int field_a4;
 };
 
-struct brush_t
+struct brushdef_t
 {
-    unsigned char field_00[0x38];
+    unsigned char field_00[0x20];
+    vec3_t mins;
+    vec3_t maxs;
     int faceCount;
     face_t *faces;
     short field_40;
@@ -103,12 +105,17 @@ mesh_t *FUN_00421980(mesh_t m, float style, float maxError, int *x, int *y);
 mesh_t *FUN_00422370(mesh_t *m, int *x, int *y);
 mesh_t *FUN_00422900(mesh_t *m, float scale, int maxSize, int *x2, int *y2, int *x1, int *y1);
 void FUN_004546a0(int faceCount, face_t *faces);
-brush_t *FUN_00457ce0(void *unused, const texdef_t *td);
-void FUN_00457dd0(const vec3_t mins, const vec3_t maxs, brush_t *b, int flags);
-void FUN_0045a220(brush_t *b, bool bFlag);
-void FUN_004671b0(brush_t *b);
+struct eclass_t;
+struct brush_t;
+struct entity_t;
+brushdef_t *Brush_CreateFromTexdef(eclass_t *eclass, const texdef_t *td);
+void Brush_InitSolid(brushdef_t *b, const vec3_t mins, const vec3_t maxs, eclass_t *eclass);
+void FUN_0045a220(brushdef_t *b, bool snap);
+void FUN_004671b0(brushdef_t *b, entity_t *owner);
+brush_t *FUN_00458440(brushdef_t *def, entity_t *owner);
+void FUN_00459210(brush_t *b, brush_t *list);
 void FUN_00475350();
-void FUN_0047a3c0();
+void Sys_MarkMapModified();
 void FUN_0047a760(const char *fmt, ...);
 void FUN_00426e80(patchMesh_t *p, int layer, float scale);
 void FUN_00426f20(patchMesh_t *p, int layer, float scale);
@@ -418,7 +425,7 @@ void FUN_00426420(face_t *f, const texdef_t *td, int field78, int field7c,
     VectorCopy(p2, f->planepts[2]);
 }
 
-void Brush_RebuildBrush(brush_t *b, vec3_t vMins, vec3_t vMaxs)
+void Brush_RebuildBrush(brushdef_t *b, vec3_t vMins, vec3_t vMaxs)
 {
     int i, j;
     for (i = 0; i < 3; i++)
@@ -490,7 +497,7 @@ void Brush_RebuildBrush(brush_t *b, vec3_t vMins, vec3_t vMaxs)
     FUN_0045a220(b, true);
     if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
         FUN_00475350();
-    FUN_0047a3c0();
+    Sys_MarkMapModified();
     b->version++;
 }
 
@@ -573,7 +580,7 @@ void FUN_004269d0(patchMesh_t *p, bool bRebuildBrush)
         }
         vec3_t mins, maxs;
         Patch_CalcBounds(p, mins, maxs, true);
-        Brush_RebuildBrush((brush_t *)p->cache_3828, mins, maxs);
+        Brush_RebuildBrush((brushdef_t *)p->cache_3828, mins, maxs);
     }
     if (p->cache_3824)
         free(p->cache_3824);
@@ -581,7 +588,7 @@ void FUN_004269d0(patchMesh_t *p, bool bRebuildBrush)
     p->version++;
 }
 
-brush_t *AddBrushForPatch(patchMesh_t *pm, bool bLinkToWorld)
+brushdef_t *AddBrushForPatch(patchMesh_t *pm, entity_t *owner)
 {
     vec3_t vMin, vMax;
     Patch_CalcBounds(pm, vMin, vMax, true);
@@ -593,25 +600,27 @@ brush_t *AddBrushForPatch(patchMesh_t *pm, bool bLinkToWorld)
     td.scale[0] = (float)mat->width * 0.25f;
     td.scale[1] = (float)mat->height * 0.25f;
 
-    brush_t *b = FUN_00457ce0(NULL, &td);
-    FUN_00457dd0(vMin, vMax, b, 0);
+    brushdef_t *b = Brush_CreateFromTexdef(NULL, &td);
+    Brush_InitSolid(b, vMin, vMax, NULL);
     for (int i = 0; i < b->faceCount; i++)
     {
-        b->faces[i].field_78 = pm->field_08;
-        b->faces[i].field_7c = pm->field_0c;
+        face_t *faces = b->faces;
+        faces[i].field_78 = pm->field_08;
+        faces = b->faces;
+        faces[i].field_7c = pm->field_0c;
     }
 
     b->patch = pm;
     pm->version++;
     pm->cache_3828 = b;
 
-    if (bLinkToWorld)
+    if (owner)
     {
-        FUN_004671b0(b);
+        FUN_004671b0(b, owner);
         FUN_0045a220(b, true);
         if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
             FUN_00475350();
-        FUN_0047a3c0();
+        Sys_MarkMapModified();
         b->version++;
     }
     return b;
@@ -813,7 +822,7 @@ face_t *Patch_GetAxisFace(patchMesh_t *p)
 {
 #line 1009
     assert(p);
-    brush_t *b = (brush_t *)p->cache_3828;
+    brushdef_t *b = (brushdef_t *)p->cache_3828;
 #line 1011
     assert(b);
     for (int i = 0; i < b->faceCount; i++)
@@ -839,7 +848,7 @@ face_t *Patch_GetAxisFace(patchMesh_t *p)
 
 face_t *nextFace(patchMesh_t *p)
 {
-    brush_t *b = (brush_t *)p->cache_3828;
+    brushdef_t *b = (brushdef_t *)p->cache_3828;
     g_nFaceCycle++;
     if (g_nFaceCycle >= (b->faceCount > 6 ? 6 : b->faceCount))
         g_nFaceCycle = 0;
@@ -878,8 +887,7 @@ void FillPatch(patchMesh_t *p, vec3_t v)
 }
 
 struct patch_eclass_t { unsigned char pad[8]; int fixedsize; };
-struct patch_entity_def_t { unsigned char pad[0x50]; patch_eclass_t *eclass; };
-struct entity_s { unsigned char pad[8]; patch_entity_def_t *def; };
+struct entity_t { unsigned char pad[8]; entity_t *def; unsigned char pad0[0x44]; patch_eclass_t *eclass; };
 struct patch_t
 {
     patchMesh_t *def;
@@ -892,19 +900,21 @@ struct patch_t
     int indexCount;
     unsigned short *indices[2];
 };
-struct selbrush_t
+struct brush_t
 {
-    selbrush_t *prev;
-    selbrush_t *next;
-    entity_s *owner;
+    brush_t *prev;
+    brush_t *next;
+    entity_t *owner;
     unsigned char pad0[8];
-    brush_t *def;
+    brushdef_t *def;
     int faceCount;
     unsigned char pad1[4];
     patch_t *patch;
     unsigned char pad2[2];
     unsigned char hiddenBrush;
 };
+
+extern brush_t DAT_010a44dc;
 
 // Retail 0x00429df0 / 34 B; MSVC 7.1 isolated referee MATCH
 // in run 42071492272. The decompiler names identify two existing
@@ -955,13 +965,12 @@ float FUN_0042ab00(const vec2_t p0, const vec2_t p1, const vec2_t p2)
 }
 
 extern HWND g_hwndCheck_01234004;
-extern selbrush_t DAT_010a44b4;
-extern selbrush_t DAT_010a44dc;
+extern brush_t DAT_010a44b4;
 void FUN_0042ae30(patchMesh_t *patch, float offset);
 
-void FUN_0042aed0(selbrush_t *list, float offset)
+void FUN_0042aed0(brush_t *list, float offset)
 {
-    for (selbrush_t *b = list->next; b != list; b = b->next)
+    for (brush_t *b = list->next; b != list; b = b->next)
     {
         if (b->patch)
         {
@@ -997,9 +1006,9 @@ float FUN_0042b760(int unused1, int index, float value, int unused2, float weigh
     return value;
 }
 
-void FUN_0042bd10(selbrush_t *list)
+void FUN_0042bd10(brush_t *list)
 {
-    for (selbrush_t *b = list->next; b != list; b = b->next)
+    for (brush_t *b = list->next; b != list; b = b->next)
     {
         if (b->patch)
         {
@@ -1018,7 +1027,7 @@ public:
     void FUN_00401df0(int selected);
 };
 extern CAdvCurveEditDlg DAT_01233b68;
-void FUN_0042bde0(selbrush_t *list);
+void FUN_0042bde0(brush_t *list);
 void Undo_End();
 
 void FUN_0042beb0()
@@ -1081,7 +1090,7 @@ void FUN_0042f5d0()
     else if (mode == 0xa)
         FUN_0042beb0();
     DAT_011298b4 = 0;
-    for (selbrush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
     {
         if (b->patch)
             b->patch->field_06 = 0;
@@ -1116,7 +1125,7 @@ struct CPatchBendMainProjection
 
 class CMainFrame;
 extern CMainFrame *g_pParentWnd;
-extern selbrush_t selected_brushes;
+extern brush_t selected_brushes;
 extern CPtrArray g_ptrSelectedFaces;
 void UpdatePatchInspector();
 
@@ -1135,7 +1144,6 @@ void FUN_0042ea50(patchMesh_t *p, const vec3_t v)
 }
 
 
-extern void Sys_Printf(const char *fmt, ...);
 extern vec3_t g_vRotateOrigin;
 static vec3_t g_vBendOrigin;
 
@@ -1316,7 +1324,7 @@ bool OnlyPatchesSelected()
 {
     if (g_ptrSelectedFaces.GetSize() > 0 || selected_brushes.next == &selected_brushes)
         return false;
-    for (selbrush_t *pb = selected_brushes.next; pb != &selected_brushes; pb = pb->next)
+    for (brush_t *pb = selected_brushes.next; pb != &selected_brushes; pb = pb->next)
     {
         if (!pb->patch)
             return false;
@@ -1326,13 +1334,15 @@ bool OnlyPatchesSelected()
 
 bool AnyPatchesSelected()
 {
-    for (selbrush_t *pb = selected_brushes.next; pb != &selected_brushes; pb = pb->next)
+    for (brush_t *pb = selected_brushes.next; pb != &selected_brushes; pb = pb->next)
     {
         if (pb->patch)
             return true;
     }
     return false;
 }
+
+extern void Sys_Printf(const char *fmt, ...);
 
 static bool QE_SingleBrush_Pmesh(bool bQuiet = false)
 {
@@ -1355,7 +1365,7 @@ patchMesh_t *SinglePatchSelected()
 {
     if (QE_SingleBrush_Pmesh(false))
     {
-        selbrush_t *b = selected_brushes.next;
+        brush_t *b = selected_brushes.next;
         if (b->patch)
             return b->patch->def;
     }
@@ -1510,7 +1520,7 @@ void FUN_00434110()
 
 void FUN_00435840()
 {
-    for (selbrush_t *b = DAT_010a44dc.next; b && b != &DAT_010a44dc; b = b->next)
+    for (brush_t *b = DAT_010a44dc.next; b && b != &DAT_010a44dc; b = b->next)
     {
         if (b->patch)
         {
@@ -1527,7 +1537,7 @@ void FUN_00435840()
 
 void FUN_00439160(int amount)
 {
-    for (selbrush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+    for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
     {
         if (!b->patch)
             continue;

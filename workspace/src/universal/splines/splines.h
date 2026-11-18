@@ -26,27 +26,28 @@ extern "C" {
 #ifdef Q3RADIANT
 #include "../qgl.h"
 #else
-#include "../renderer/qgl.h"
+//#include "../renderer/qgl.h"
 #endif
 }
 #include "util_list.h"
 #include "util_str.h"
 #include "math_vector.h"
+#include "../assertive.h"
 
 typedef int fileHandle_t;
 
-extern void glBox(idVec3_t &color, idVec3_t &point, float size);
-extern void glLabeledPoint(idVec3_t &color, idVec3_t &point, float size, const char *label);
+//extern void glBox(idVec3_t &color, idVec3_t &point, float size);
+//extern void glLabeledPoint(idVec3_t &color, idVec3_t &point, float size, const char *label);
 
-static vec4_t blue(0, 0, 1, 1);
-static vec4_t red(1, 0, 0, 1);
+//static vec4_t blue(0, 0, 1, 1);
+//static vec4_t red(1, 0, 0, 1);
 
 class idPointListInterface {
 public:
 	idPointListInterface() {
 		selectedPoints.Clear();
-	};
-	~idPointListInterface() {};
+	}
+	virtual ~idPointListInterface() {}
 	
 	virtual int numPoints() {
 		return 0;
@@ -129,13 +130,6 @@ public:
 		selectedPoints.Clear();
 	}
 
-	int numSelectedPoints();
-    
-	idVec3_t *getSelectedPoint(int index) {
-		assert(index >= 0 && index < numSelectedPoints());
-		return getPoint(selectedPoints[index]);
-	}
-	
 	virtual void updateSelection(float x, float y, float z) {
 		idVec3_t move(x, y, z);
 		updateSelection(move);
@@ -147,14 +141,14 @@ public:
 			*getPoint(selectedPoints[i]) += move;
 		}
 	}
-
+/*
 	void drawSelection() {
 		int count = selectedPoints.Num();
 		for (int i = 0; i < count; i++) {
 			glBox(red, *getPoint(selectedPoints[i]), 4);
 		}
 	}
-
+*/
 protected:
 	idList<int> selectedPoints;
 
@@ -213,7 +207,7 @@ public:
 	const idVec3_t *getPosition(long time);
 
 
-	void draw(bool editMode);
+//	void draw(bool editMode);
 	void addToRenderer();
 
 	void setSelectedPoint(idVec3_t *p);
@@ -271,7 +265,7 @@ public:
 		splineTime[index] = time;
 	}
 
-	int getSegmentTime(int index) {
+	double getSegmentTime(int index) {
 		assert(index >= 0 && index < splinePoints.Num());
 		return splineTime[index];
 	}
@@ -334,7 +328,7 @@ protected:
 	float calcSpline(int step, float tension);
 	idList<idVec3_t*> controlPoints;
 	idList<idVec3_t*> splinePoints;
-	idList<float> splineTime;
+	idList<double> splineTime;
 	idVec3_t *selected;
 	idVec3_t pathColor, segmentColor, controlColor, activeColor;
 	float granularity;
@@ -433,7 +427,7 @@ public:
 		return NULL;
 	}
 
-	virtual void draw(bool editMode) {};
+//	virtual void draw(bool editMode) {};
 
 	virtual void parse(const char *(*text)) {};
 	virtual void write(fileHandle_t file, const char *name);
@@ -447,15 +441,15 @@ public:
 		name = p;
 	}
 
-	virtual startEdit() {
+	virtual void startEdit() {
 		editMode = true;
 	}
 
-	virtual stopEdit() {
+	virtual void stopEdit() {
 		editMode = false;
 	}
 
-	virtual void draw() {};
+//	virtual void draw() {};
 
 	const char *typeStr() {
 		return positionStr[static_cast<int>(type)];
@@ -523,11 +517,11 @@ public:
 		};
 		return &pos;
 	}
-
+/*
 	virtual void draw(bool editMode) {
 		glLabeledPoint(blue, pos, (editMode) ? 5 : 3, "Fixed point");
 	}
-
+*/
 protected:
 	idVec3_t pos;
 };
@@ -591,7 +585,7 @@ public:
 			first = true;
 		}
 	}
-
+/*
 	virtual void draw(bool editMode) {
 		glLabeledPoint(blue, startPos, (editMode) ? 5 : 3, "Start interpolated");
 		glLabeledPoint(blue, endPos, (editMode) ? 5 : 3, "End interpolated");
@@ -600,7 +594,7 @@ public:
 		qglVertex3fv(endPos);
 		qglEnd();
 	}
-
+*/
 	virtual void start(long t) {
 		idCameraPosition::start(t);
 		lastTime = startTime;
@@ -671,10 +665,10 @@ public:
 		target.addPoint(x, y, z);
 	}
 
-	virtual void draw(bool editMode) {
+/*	virtual void draw(bool editMode) {
 		target.draw(editMode);
 	}
-
+*/
 	virtual void updateSelection(const idVec3_t &move) {
 		idCameraPosition::updateSelection(move);
 		target.buildSpline();
@@ -721,7 +715,7 @@ public:
 		return fov;
 	}
 
-	int start(long t) {
+	void start(long t) {
 		startTime = t;
 	}
 
@@ -883,7 +877,9 @@ public:
 		switch (t) {
 			case idCameraPosition::FIXED : return new idFixedPosition();
 			case idCameraPosition::INTERPOLATED : return new idInterpolatedPosition();
-			case idCameraPosition::SPLINE : return new idSplinePosition();
+    case idCameraPosition::SPLINE : return new idSplinePosition();
+    default:
+        break;
 		};
 		return NULL;
 	}
@@ -912,7 +908,7 @@ public:
 
 	void setActiveTargetByName(const char *name) {
 		for (int i = 0; i < targetPositions.Num(); i++) {
-			if (stricmp(name, targetPositions[i]->getName()) == 0) {
+			if (Q_stricmp(name, targetPositions[i]->getName()) == 0) {
 				setActiveTarget(i);
 				return;
 			}
@@ -964,7 +960,7 @@ public:
 		direction[2] = dir[2];
 		return b;
 	}
-
+/*
 	void draw(bool editMode) {
                 // gcc doesn't allow casting away from bools
                 // why?  I've no idea...
@@ -976,7 +972,7 @@ public:
 			}
 		}
 	}
-
+*/
 /*
 	int numSegments() {
 		if (cameraEdit) {
@@ -1063,6 +1059,7 @@ protected:
 	idList<idCameraPosition*> targetPositions;
 	idList<idCameraEvent*> events;
 	idCameraFOV fov;
+	float field_50; // set in startCamera
 	int activeTarget;
 	float totalTime;
 	float baseTime;
