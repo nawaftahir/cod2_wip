@@ -153,6 +153,13 @@ void FUN_00464c60(entityInst_t *inst)
 	}
 }
 
+// 0x00465550 (34 B)
+void FUN_00465550(entityInst_t *inst)
+{
+	FUN_00464c20(inst);
+	FUN_00464c60(inst);
+}
+
 // 0x004655f0 (175 B)
 void FUN_004655f0(entity_t *e, const char *key)
 {
@@ -227,6 +234,13 @@ void FUN_004657a0(entity_t *e, const char *key)
 				&& strncmp(ValueForKey(e->epairs, "targetname"), "auto", 4)))
 			FUN_00457bd0(e->brushes.onext);
 	}
+}
+
+// 0x00465780 (29 B)
+void FUN_00465780(entity_t *e, const char *key)
+{
+	if (!_stricmp(key, "model"))
+		FUN_00467510(e);
 }
 
 // 0x00465920 (328 B)

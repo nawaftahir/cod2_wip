@@ -643,3 +643,4 @@ addr	agent	date	reason
 0x00453640	lane-c	2026-11-18	CClipPoint::CClipPoint() { Reset(); }: body bytes equal but ours takes this in eax (no callers) vs retail mov eax,ecx; needs the g_PointPoints/g_Clip array ctor callers (globals are extern data here). Not kept in src.
 0x00429f00	claude-b-r30	2026-11-18	FUN_00429f00 (find selected ctrl index via 0x439620): 21%, 95/50 B; ours inlines FUN_00439620 (lane A fn, v1 eax/v2 ecx in retail). Body in workspace/src/radiant/Pmesh.cpp; re-test once 0x439620 matches.
 0x00432b70	claude-b-r30	2026-11-18	FUN_00432b70 (0x432a60 then cache rebuild): 40%, 62/62 B; retail passes p to unwritten 0x432a60 in eax. Body in workspace/src/radiant/Pmesh.cpp; needs 0x432a60 written.
+0x00465ce0	lane-g	2026-11-18	DeleteKey(entity_t*,key) wrapper (DeleteKey epairs, 4655f0, 4657a0): 50%, sizes 32/34, first diff +0x0. Retail takes key in eax, ent in ecx (LTCG); no caller written yet so ours stays stack args. Write its callers first.
