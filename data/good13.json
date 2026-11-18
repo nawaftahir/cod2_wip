@@ -28855,8 +28855,9 @@
 "name": "?FX_AddFxToScene@@YAXPAVEffect@@H@Z",
 "obj": "FxPrimitives.obj",
 "size": 297,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x494360"
+]
 },
 {
 "name": "??0Particle@@QAE@XZ",
