@@ -1057,3 +1057,7 @@ set by a later lowering stage, not by the list scheduler.
   2 t56 idx, 3 t1d4 items, 4 t1cf bottom test, 5 t1d5 return-block items, 6 t1db / 7 t1d6 MouseMove idx/items, 8 t1d9 /
   9 t1d7 tail idx/items. The item loads `menu->items[cursor]` are not picks: the `item` user var is globally coloured (eax),
   the tail one is the return value. Retail fits exactly if the SetFocus item load IS a pick (edx) and pick 1 is not.
+- PINNED (w29b 11-18, /tmp/pmg.sh): Menu_SetNextCursorItem = retail (fdiff 0) with Item_SetFocus on the direct expression
+  `menu->items[menu->cursorItem[0]]` (the load becomes pick 4, t1d1) AND the pointer not advanced by pick 1 (the loop entry
+  test t1d3). The direct expression alone is 28 lines (TRIED 155/444). Retail's entry test is not a round-robin pick, or
+  is allocated after all others (it would then get eax, as in retail). Lever: a loop shape whose entry test is not pick 1.
