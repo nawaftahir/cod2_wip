@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "FindTextureDlg.h"
+#include "radiant_wnd.h"
 #include "PrefsDlg.h"
 #include "../universal/assertive.h"
 #include <math.h>
@@ -124,6 +125,8 @@ extern int DAT_012334ec;
 extern CWnd *DAT_01233484;
 extern CPrefsDlg *dword_01233b64;
 
+typedef char MainFrameSplitSize[(sizeof(CSplitterWnd) == 0xd8) ? 1 : -1];
+
 class CMainFrame : public CFrameWnd
 {
 public:
@@ -137,17 +140,18 @@ public:
   afx_msg void OnSysKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
   afx_msg void OnDestroy();
   afx_msg void OnFileExit();
-  // three CSplitterWnd at 0x500, 0x5d8, 0x6b0
   char pad[0x180 - sizeof(CFrameWnd)];
   HWND field_0180;
   char pad2[0x500 - 0x184];
-  char wndSplit[0x788 - 0x500];
-  CWnd *field_0788;
-  CWnd *field_078c;
-  CWnd *field_0790;
-  CWnd *field_0794;
+  CSplitterWnd m_wndSplit1;
+  CSplitterWnd m_wndSplit2;
+  CSplitterWnd m_wndSplit3;
+  CXYWnd *field_0788;
+  CCamWnd *field_078c;
+  CTexWnd *field_0790;
+  CZWnd *field_0794;
   CWnd *field_0798;
-  CWnd *field_079c;
+  CEditWnd *field_079c;
   int field_07a0;
   char pad_07a4[0x7e0 - 0x7a4];
   CWnd *field_07e0;
@@ -157,6 +161,10 @@ public:
   void FUN_004190e0(CCmdUI *pCmdUI);
   void FUN_00419ba0(CCmdUI *pCmdUI);
 };
+
+typedef char MainFrameSplit1Offset[(offsetof(CMainFrame, m_wndSplit1) == 0x500) ? 1 : -1];
+typedef char MainFrameSplit3Offset[(offsetof(CMainFrame, m_wndSplit3) == 0x6b0) ? 1 : -1];
+typedef char MainFrameXYOffset[(offsetof(CMainFrame, field_0788) == 0x788) ? 1 : -1];
 
 // partial view of the camera window object (CCamWnd 0x54 = camera state)
 struct CamView
@@ -252,9 +260,9 @@ void CMainFrame::OnDestroy()
 {
   WINDOWPLACEMENT wp;
   int info[2];
-  CSplitterWnd *split1 = (CSplitterWnd *)(wndSplit);
-  CSplitterWnd *split2 = (CSplitterWnd *)(wndSplit + 0xd8);
-  CSplitterWnd *split3 = (CSplitterWnd *)(wndSplit + 0x1b0);
+  CSplitterWnd *split1 = &m_wndSplit1;
+  CSplitterWnd *split2 = &m_wndSplit2;
+  CSplitterWnd *split3 = &m_wndSplit3;
 
   KillTimer(1);
   FUN_0046fbe0(1);

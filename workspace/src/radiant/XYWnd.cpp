@@ -5,6 +5,7 @@
 #include <math.h>
 #include "PrefsDlg.h"
 #include "../universal/assertive.h"
+#include "radiant_wnd.h"
 
 #define W_XY 2
 
@@ -86,102 +87,7 @@ struct eclass_t
 };
 extern eclass_t *dword_012334dc;
 
-// Retail list node hanging off the window (owner and name still unknown).
-struct XYWndNode
-{
-    XYWndNode();
-    XYWndNode(int id, const char *name);
-    int field_00;
-    CString field_04;
-    XYWndNode *next;
-};
 
-class CXYWnd : public CWnd
-{
-    DECLARE_DYNCREATE(CXYWnd)
-public:
-    CXYWnd();
-    virtual ~CXYWnd();
-    XYWndNode *FUN_0044bc30(int id);
-    void Redraw(unsigned int nBits);
-    void XY_Init();
-    void SnapToPoint(int x, int y, float point[3]);
-    void XY_ToPoint(int x, int y, float point[3]);
-    void XY_ToGridPoint(int x, int y, float point[3]);
-    void FUN_0044c5c0(int x, int y, float origin[3], float dir[3]);
-    void FUN_00452c30();
-    void VectorCopyXY(float in[3], float out[3]);
-    bool ClipMode();
-    bool RogueClipMode();
-    bool PointMode();
-    void SetPointMode(bool b);
-    float (&GetOrigin())[3];
-    void SetOrigin(float org[3]);
-    bool RotateMode();
-    bool ScaleMode();
-    void SetScaleMode(bool bMode);
-    float (&RotateOrigin())[3];
-    float (&Rotation())[3];
-    BOOL AreaSelectOK();
-    void XY_MouseUp(int x, int y, int buttons);
-    BOOL DragDelta(int x, int y, float move[3]);
-    void FUN_0044bc50(const char *name, int id);
-    void FUN_0044be20();
-    void HandleDrop();
-
-    bool m_bActive;
-    unsigned char pad_51[3];
-    int m_nUpdateBits;
-    int m_nWidth;
-    int m_nHeight;
-    float m_fScale;
-    float m_TopClip;
-    float m_BottomClip;
-    bool m_bDirty;
-    float m_vOrigin[3];
-    CPoint m_ptCursor;
-    bool m_bRButtonDown;
-    int m_nButtonstate;
-    int m_nPressx;
-    int m_nPressy;
-    float m_vPressdelta[3];
-    bool m_bPress_selection;
-    // Retail-only storage between the press state and the drop menu.
-    unsigned char field_a1[0x3f];
-    CMenu m_mnuDrop;
-    XYWndNode field_e8;
-    int m_nViewType;
-    int m_nTimerID;
-    int m_nScrollFlags;
-    CPoint m_ptDrag;
-    CPoint m_ptDragAdj;
-    CPoint m_ptDragTotal;
-    CPoint m_ptDown;
-protected:
-    virtual BOOL PreCreateWindow(CREATESTRUCT &cs);
-    afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-    afx_msg void OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS *lpncsp);
-    afx_msg void OnKillFocus(CWnd *pNewWnd);
-    afx_msg void OnSetFocus(CWnd *pOldWnd);
-    afx_msg void OnClose();
-    afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
-    afx_msg void OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags);
-    afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
-    afx_msg void OnSysKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
-
-    DECLARE_MESSAGE_MAP()
-};
-
-typedef char XYWndSize[(sizeof(CXYWnd) == 0x120) ? 1 : -1];
-typedef char XYWndUpdateOffset[(offsetof(CXYWnd, m_nUpdateBits) == 0x54) ? 1 : -1];
-typedef char XYWndScaleOffset[(offsetof(CXYWnd, m_fScale) == 0x60) ? 1 : -1];
-typedef char XYWndOriginOffset[(offsetof(CXYWnd, m_vOrigin) == 0x70) ? 1 : -1];
-typedef char XYWndButtonOffset[(offsetof(CXYWnd, m_nButtonstate) == 0x88) ? 1 : -1];
-typedef char XYWndPressOffset[(offsetof(CXYWnd, m_bPress_selection) == 0xa0) ? 1 : -1];
-typedef char XYWndMenuOffset[(offsetof(CXYWnd, m_mnuDrop) == 0xe0) ? 1 : -1];
-typedef char XYWndStringOffset[(offsetof(CXYWnd, field_e8) == 0xe8) ? 1 : -1];
-typedef char XYWndViewOffset[(offsetof(CXYWnd, m_nViewType) == 0xf4) ? 1 : -1];
-typedef char XYWndTimerOffset[(offsetof(CXYWnd, m_nTimerID) == 0xf8) ? 1 : -1];
 
 IMPLEMENT_DYNCREATE(CXYWnd, CWnd)
 
