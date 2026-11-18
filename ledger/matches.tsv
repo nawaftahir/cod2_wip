@@ -71,6 +71,7 @@ addr	size	source	symbol	name	tag
 0x00403010	124	src/radiant/CamWnd.cpp	?CamWndProc@@YGJPAUHWND__@@IIJ@Z	CamWndProc	SUPPORTED
 0x00403090	179	src/radiant/CamWnd.cpp	?PreCreateWindow@CCamWnd@@MAEHAAUtagCREATESTRUCTA@@@Z	CCamWnd::PreCreateWindow	SUPPORTED
 0x00403150	15	src/radiant/CamWnd.cpp	?OnKeyDown@CCamWnd@@IAEXIII@Z	CCamWnd::OnKeyDown	SUPPORTED
+0x00403160	278	src/radiant/CamWnd.cpp	?OnPaint@CCamWnd@@IAEXXZ	CCamWnd::OnPaint	SUPPORTED
 0x00403280	4	src/radiant/CamWnd.cpp	?SetXYFriend@CCamWnd@@QAEXPAVCXYWnd@@@Z	CCamWnd::SetXYFriend	SUPPORTED
 0x00403290	5	src/radiant/CamWnd.cpp	?OnClose@CCamWnd@@IAEXXZ	CCamWnd::OnClose	SUPPORTED
 0x004032f0	94	src/radiant/CamWnd.cpp	?OnLButtonDown@CCamWnd@@IAEXIVCPoint@@@Z	CCamWnd::OnLButtonDown	SUPPORTED
@@ -87,8 +88,9 @@ addr	size	source	symbol	name	tag
 0x00403ce0	222	src/radiant/CamWnd.cpp	?FUN_00403ce0@CCamWnd@@QAEXHHPAM@Z	FUN_00403ce0	UNNAMED
 0x00403dc0	475	src/radiant/CamWnd.cpp	?FUN_00403dc0@@YAXHHHHPAUplane_t@@@Z	FUN_00403dc0	UNNAMED
 0x00404d70	65	src/radiant/CamWnd.cpp	?Cam_MouseUp@CCamWnd@@IAEXHHH@Z	CCamWnd::Cam_MouseUp	SUPPORTED
-0x00405220	348	src/radiant/CamWnd.cpp	?InitCull@CCamWnd@@IAEXXZ	InitCull	SUPPORTED
+0x00405220	348	src/radiant/CamWnd.cpp	?InitCull@CCamWnd@@QAEXXZ	InitCull	SUPPORTED
 0x00405380	207	src/radiant/CamWnd.cpp	?FUN_00405380@@YGXPAVCCamWnd@@@Z	FUN_00405380	UNNAMED
+0x00405450	483	src/radiant/CamWnd.cpp	?FUN_00405450@@YA_NPAVCCamWnd@@PAUbrush_t@@@Z	FUN_00405450	UNNAMED
 0x00407550	1	src/radiant/CamWnd.cpp	_FUN_00407550	FUN_00407550	UNNAMED
 0x00407560	23	src/radiant/CamWnd.cpp	?OnKeyUp@CCamWnd@@IAEXIII@Z	CCamWnd::OnKeyUp	SUPPORTED
 0x00407580	34	src/radiant/CamWnd.cpp	?OnMouseWheel@CCamWnd@@IAEHIFVCPoint@@@Z	CCamWnd::OnMouseWheel	SUPPORTED

@@ -35,6 +35,7 @@ public:
     void SetXYFriend(CXYWnd *window);
     void Cam_Init();
     void FUN_00403ce0(int x, int y, float *dir);
+    void InitCull();
     CXYWnd *m_pXYFriend;
     CameraState m_Camera;
     int m_nCambuttonstate;
@@ -60,7 +61,6 @@ protected:
     void OriginalMouseUp(UINT flags, CPoint point);
     void Cam_MouseDown(int x, int y, int buttons);
     void Cam_MouseUp(int x, int y, int buttons);
-    void InitCull();
     void Cam_MouseMoved(int x, int y, int buttons);
     afx_msg void OnKeyDown(UINT key, UINT repeat, UINT flags);
     afx_msg void OnPaint();
