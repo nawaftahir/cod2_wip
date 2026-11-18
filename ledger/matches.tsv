@@ -1998,3 +1998,9 @@ addr	size	source	symbol	name	tag
 0x004b3ca0	56	src/zlib/zutil.c	_zcalloc	zcalloc	SUPPORTED
 0x004b3ce0	17	src/zlib/zutil.c	_zcfree	zcfree	PINNED
 0x00449c40	29	src/radiant/XYWnd.cpp	?OnMButtonDown@CXYWnd@@IAEXIVCPoint@@@Z	CXYWnd::OnMButtonDown	SUPPORTED
+0x0042bd90	69	src/radiant/Pmesh.cpp	?FUN_0042bd90@@YA_NXZ	FUN_0042bd90	UNNAMED
+0x00432f00	46	src/radiant/Pmesh.cpp	?FUN_00432f00@@YAXPAUpatchMesh_t@@@Z	FUN_00432f00	UNNAMED
+0x00432f30	46	src/radiant/Pmesh.cpp	?FUN_00432f30@@YAXPAUpatchMesh_t@@@Z	FUN_00432f30	UNNAMED
+0x004340e0	25	src/radiant/Pmesh.cpp	?FUN_004340e0@@YAXXZ	FUN_004340e0	UNNAMED
+0x00434850	34	src/radiant/Pmesh.cpp	?FUN_00434850@@YAPBDXZ	FUN_00434850	UNNAMED
+0x00439690	49	src/radiant/Pmesh.cpp	?FUN_00439690@@YAMQBM@Z	FUN_00439690	UNNAMED
