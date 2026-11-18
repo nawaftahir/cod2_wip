@@ -97,7 +97,7 @@ void CleanUpEntities(void);
 struct entity_t;
 struct entityInst_t { entityInst_t *prev; entityInst_t *next; entity_t *def; };
 struct brushdef_t { brushdef_t *oprev; brushdef_t *onext; entity_t *owner; unsigned char pad0c[0x10]; int refCount; };
-struct brush_t { brush_t *prev; brush_t *next; entityInst_t *owner; unsigned char pad0c[8]; brushdef_t *def; };
+struct brush_t { brush_t *prev; brush_t *next; entityInst_t *owner; unsigned char pad0c[8]; brushdef_t *def; unsigned char pad18[14]; bool field_26; };
 struct entity_t { entity_t *prev; entity_t *next; };
 void FUN_0041d930(entityInst_t *list, const char *msg);
 void FUN_004678c0(entityInst_t *e);
@@ -1084,6 +1084,12 @@ extern "C" void FUN_00419930() { DoProjectSettings(); }
 extern "C" void FUN_00419950() { DialogBox(g_qeglobals.d_hInstance, (LPCSTR)217, g_qeglobals.d_hwndMain, FUN_00476840); }
 extern "C" void FUN_00419970() { FUN_0045c890(); }
 extern "C" void FUN_00419980() { FUN_0045ca10(); }
+void FUN_0045cdc0(float scale);
+void FUN_0045cf60(float scale);
+extern "C" void FUN_00419990() { FUN_0045cdc0(1.1f); dword_0123348c = -1; }
+extern "C" void FUN_004199b0() { FUN_0045cdc0(0.9f); dword_0123348c = -1; }
+extern "C" void FUN_004199d0() { FUN_0045cf60(1.1f); dword_0123348c = -1; }
+extern "C" void FUN_004199f0() { FUN_0045cf60(0.9f); dword_0123348c = -1; }
 extern int DAT_0109fecc;
 void CMainFrame::FUN_00419ba0(CCmdUI *pCmdUI)
 {
@@ -1277,7 +1283,15 @@ extern "C" void __fastcall FUN_0041bb50(CMainFrame *self)
 }
 extern bool DAT_012334d8;
 extern "C" void FUN_0041bcb0() { DAT_012334d8 ^= 1; dword_0123348c |= 2; }
+extern "C" void FUN_0041bcf0()
+{
+  for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+    b->field_26 = 1;
+  dword_0123348c = -1;
+}
 extern "C" void FUN_0041bd20() { FUN_004745d0(); }
+void Select_Invert();
+extern "C" void FUN_0041bd30() { Select_Invert(); dword_0123348c |= 0xb; }
 extern "C" void FUN_0041c0b0() {}
 extern "C" void FUN_0041c0c0() {}
 extern "C" void FUN_0041c0d0() {}
