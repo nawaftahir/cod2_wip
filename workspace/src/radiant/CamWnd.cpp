@@ -230,6 +230,15 @@ void CCamWnd::Cam_Init()
     m_Camera.color[2] = 0.3f;
 }
 
+void __stdcall FUN_004035a0(CCamWnd *camera)
+{
+    vec3_t angles;
+    VectorCopy(camera->m_Camera.angles, angles);
+    angles[0] = -angles[0];
+    AngleVectors(angles, camera->m_Camera.vpn, camera->m_Camera.vright, camera->m_Camera.vup);
+    YawVectors(camera->m_Camera.angles[1], camera->m_Camera.forward, camera->m_Camera.right);
+}
+
 void CCamWnd::FUN_00403ce0(int x, int y, float *dir)
 {
     float scale;

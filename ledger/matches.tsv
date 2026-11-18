@@ -83,6 +83,7 @@ addr	size	source	symbol	name	tag
 0x004034f0	46	src/radiant/CamWnd.cpp	?OriginalMouseUp@CCamWnd@@IAEXIVCPoint@@@Z	CCamWnd::OriginalMouseUp	SUPPORTED
 0x00403520	74	src/radiant/CamWnd.cpp	?OriginalMouseDown@CCamWnd@@IAEXIVCPoint@@@Z	CCamWnd::OriginalMouseDown	SUPPORTED
 0x00403570	43	src/radiant/CamWnd.cpp	?Cam_Init@CCamWnd@@QAEXXZ	CCamWnd::Cam_Init	SUPPORTED
+0x004035a0	100	src/radiant/CamWnd.cpp	?FUN_004035a0@@YGXPAVCCamWnd@@@Z	FUN_004035a0	UNNAMED
 0x00403ce0	222	src/radiant/CamWnd.cpp	?FUN_00403ce0@CCamWnd@@QAEXHHPAM@Z	FUN_00403ce0	UNNAMED
 0x00403dc0	475	src/radiant/CamWnd.cpp	?FUN_00403dc0@@YAXHHHHPAUplane_t@@@Z	FUN_00403dc0	UNNAMED
 0x00404d70	65	src/radiant/CamWnd.cpp	?Cam_MouseUp@CCamWnd@@IAEXHHH@Z	CCamWnd::Cam_MouseUp	SUPPORTED
@@ -1290,6 +1291,7 @@ addr	size	source	symbol	name	tag
 0x00484720	194	src/universal/com_math.cpp	?vectosignedpitch@@YAMQBM@Z	vectosignedpitch	SUPPORTED
 0x004847f0	348	src/universal/com_math.cpp	?vectoangles@@YAXQBMQAM@Z	vectoangles	PINNED
 0x00484950	274	src/universal/com_math.cpp	?vectoanglessigned@@YAXQBMQAM@Z	vectoanglessigned	SUPPORTED
+0x00484a70	301	src/universal/com_math.cpp	?AngleVectors@@YAXQBMQAM11@Z	AngleVectors	SUPPORTED
 0x00484ba0	92	src/universal/com_math.cpp	?YawVectors@@YAXMQAM0@Z	YawVectors	PINNED
 0x00484d10	144	src/universal/com_math.cpp	?PlaneNormalFromPoints@@YAXQBM00QAM@Z	PlaneNormalFromPoints	SUPPORTED
 0x00484da0	191	src/universal/com_math.cpp	?ProjectPointOntoLine@@YAXQBM00QAM@Z	ProjectPointOntoLine	SUPPORTED
