@@ -14,8 +14,8 @@ struct facePlane_t { vec3_t normal; int type; double dist; };
 struct winding_t { int pointCount; vec3_t points[4]; }; struct brushVertex_t { vec3_t xyz; int faceIndex[3]; };
 struct face_t { vec3_t planepts[3]; texdef_t texdef[2]; texdef_t lmTexdef; int contents; int toolFlags; facePlane_t plane; int field_98; int field_9c; winding_t *w; unsigned int color; };
 struct entity_t; struct patchMesh_t; struct patch_t; struct faceRender_t { void *matHandle; int vertCount; void *vertHandle; };
-struct brushdef_t { brushdef_t *oprev; brushdef_t *onext; entity_t *owner; int pad_0c[4]; int refCount; vec3_t mins; vec3_t maxs; int faceCount; face_t *faces; short pad_40; short version; patchMesh_t *patch; };
-struct brush_t { brush_t *prev; brush_t *next; entity_t *owner; brush_t *ownerNext; brush_t *ownerPrev; brushdef_t *def; int faceCount; faceRender_t *faces; patch_t *patch; short version; short pad_26; };
+struct brushdef_t { brushdef_t *oprev; brushdef_t *onext; entity_t *owner; int pad_0c[4]; int refCount; vec3_t mins; vec3_t maxs; int faceCount; face_t *faces; bool modelFailed; char pad_41; short version; patchMesh_t *patch; };
+struct brush_t { brush_t *prev; brush_t *next; entity_t *owner; brush_t *ownerNext; brush_t *ownerPrev; brushdef_t *def; int faceCount; faceRender_t *faces; patch_t *patch; short version; unsigned char field_26; unsigned char pad_27; };
 struct qeglobals_t { unsigned char pad0[0x18]; int d_gridsize; unsigned char pad1[0x6c060]; int activeMaterial; unsigned char pad2[0xaf4]; int d_exclude; unsigned char pad3[0x24]; int d_select_mode; };
 struct orientation_t { vec3_t origin; vec3_t axis[3]; };
 #define CrossProduct(a,b,c) ((c)[0]=(a)[1]*(b)[2]-(a)[2]*(b)[1],(c)[1]=(a)[2]*(b)[0]-(a)[0]*(b)[2],(c)[2]=(a)[0]*(b)[1]-(a)[1]*(b)[0])
@@ -36,8 +36,8 @@ extern void Sys_Printf(const char *fmt, ...); extern void Error(const char *erro
 extern int FUN_0045f860(const brushdef_t *b, const vec3_t point, float epsilon);
 extern brush_t selected_brushes;
 #include <malloc.h>
-struct eclass_t { eclass_t *next; char *name; int fixedsize; int pad_0c[6]; float color[4]; unsigned char pad_34[0x160 - 0x34]; int flags_160; };
-struct entity_t { unsigned char pad_00[8]; void *def; brush_t brushes; unsigned char pad_34[0x50 - 0x34]; eclass_t *eclass; unsigned char pad_54[0x64 - 0x54]; struct epair_t *epairs; };
+struct eclass_t { eclass_t *next; char *name; int fixedsize; vec3_t mins; vec3_t maxs; float color[4]; unsigned char pad_34[0x160 - 0x34]; int flags_160; };
+struct entity_t { unsigned char pad_00[8]; void *def; brush_t brushes; void *model; char *field_38; unsigned char pad_3c[0x50 - 0x3c]; eclass_t *eclass; int pad_54; vec3_t origin; struct epair_t *epairs; };
 extern char *ValueForKey(epair_t *&e, const char *key);
 extern void FUN_00465bf0(entity_t *e, const char *key, const char *value);
 struct patchMesh_t { void *def; };
@@ -969,6 +969,57 @@ void FUN_0045cf60(float scale)
             FUN_00465bf0(e, "height", buf);
         }
     }
+}
+
+bool FUN_0045d090(const brushdef_t *b, float *color, const float *defaultColor)
+{
+    if (!_stricmp(b->owner->eclass->name, "worldspawn"))
+        return false;
+    char *colorString = ValueForKey(b->owner->epairs, "_color");
+#line 3399
+    assert(colorString);
+    vec3_t c;
+    if (sscanf(colorString, "%f %f %f", &c[0], &c[1], &c[2]) == 3)
+    {
+        color[0] = c[0];
+        color[1] = c[1];
+        color[2] = c[2];
+        color[3] = defaultColor[3];
+        return true;
+    }
+    if (!strncmp(b->owner->eclass->name, "actor", 5))
+    {
+        if (atoi(ValueForKey(b->owner->epairs, "spawnflags")))
+        {
+            color[0] = b->owner->eclass->color[0];
+            color[1] = 0.8f;
+        }
+        else
+        {
+            color[0] = b->owner->eclass->color[0];
+            color[1] = b->owner->eclass->color[1];
+        }
+        color[2] = b->owner->eclass->color[2];
+        color[3] = b->owner->eclass->color[3];
+        return true;
+    }
+    if ((b->owner->eclass->flags_160 & 0x20) && !strncmp(b->owner->eclass->name, "node_path", 9))
+    {
+        entity_t *e = b->owner;
+        if (FUN_00465d80(e, "targetname"))
+        {
+            const char *targetname = ValueForKey(e->epairs, "targetname");
+            if (strncmp(targetname, "auto", 4))
+            {
+                color[1] = 1.0f;
+                color[3] = 1.0f;
+                color[0] = 0.0f;
+                color[2] = 0.0f;
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 void FUN_0045d240(const brushdef_t *b, const orientation_t *or, vec3_t mins, vec3_t maxs)
