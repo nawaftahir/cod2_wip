@@ -1533,6 +1533,24 @@ void FUN_004393c0(patchMesh_t *p)
     }
 }
 
+// 0x00439450 (147 B), p in ecx: undo of 0x4393c0
+void FUN_00439450(patchMesh_t *p)
+{
+    ((int *)&p->image_18)[DAT_01128d90] = p->field_20;
+    p->flag_382f = p->field_3830[0];
+    for (int j = 0; j < p->height; j++)
+    {
+        for (int i = 0; i < p->width; i++)
+        {
+            int *dst = (int *)p->ctrl[i][j].st[DAT_01128d94];
+            const int *src = (const int *)p->ctrl[i][j].field_2c;
+            dst[0] = src[0];
+            dst[1] = src[1];
+        }
+    }
+    FUN_004269d0(p, true);
+}
+
 void FUN_0042fad0(patchMesh_t *p, int amount)
 {
     float scale = (float)amount;

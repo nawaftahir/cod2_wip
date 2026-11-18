@@ -1453,6 +1453,19 @@ void FUN_0045f070(brushdef_t *b)
         FUN_004393c0(b->patch);
 }
 
+extern void FUN_00439450(patchMesh_t *p);
+
+// 0x0045f150 (229 B), b in eax: undo of 0x45f070
+void FUN_0045f150(brushdef_t *b)
+{
+#line 4194
+    assert(b);
+    for (int i = 0; i < b->faceCount; i++)
+        FUN_0045f010(&b->faces[i], b);
+    if (b->patch)
+        FUN_00439450(b->patch);
+}
+
 void FUN_0045f830(const vec3_t a, const vec3_t b, vec3_t out, float t)
 {
     out[0] = (b[0] - a[0]) * t + a[0];
