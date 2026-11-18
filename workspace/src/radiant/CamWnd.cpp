@@ -67,15 +67,16 @@ bool FUN_00465d80(entity_t *e, const char *key);
 bool FUN_0044f5d0(brush_t *b);
 void FUN_0045d7f0(brush_t *b, int a, int c, int d, int e, int f, const unsigned int *color, int g, int h);
 int FUN_0045d9a0(face_t *face, int a, const unsigned int *color, int width, int count, int max, GfxPointVertex *verts);
-void FUN_0045def0(face_t *face, const unsigned int *color, int *indexCount, int maxIndices, unsigned short *indices,
-                  int maxVerts, float (*xyzw)[4], float (*tex)[2], unsigned int *colors, float (*normals)[2], int *vertCount);
+void FUN_0045def0(int *vertCount, face_t *face, const unsigned int *color, int *indexCount, int maxIndices, unsigned short *indices,
+                  int maxVerts, float (*xyzw)[4], float (*normal)[3], unsigned int *colors, float (*st)[2]);
 void FUN_0040bff0();
 void FUN_0040c210();
 void FUN_0040c4a0(float (*quad)[4]);
-bool FUN_0042af90(const float *origin, const float *dir, float *hit, int flags);
-void FUN_0042e290(float *hit);
+bool FUN_0042af90(const float *origin, unsigned char *hitInfo, const float *dir, float *hit);
+void FUN_0042e290(const float *center);
 void FUN_0045f7e0();
-void FUN_00451c00(brush_t *b, unsigned char *color);
+void FUN_00451c00(brush_t *b, unsigned int *outColor);
+void __stdcall FUN_00405bb0(const float *origin, float radius, float top, float bottom, const unsigned int *color, int segments);
 
 struct CAdvCurveEditDlg { int FUN_00401d90(); };
 // view of splines.h idPointListInterface (splines.h does not build next to com_math.h)
@@ -163,7 +164,7 @@ struct CamWndRefExport
     unsigned char pad15c[4];
     void (*AddLines)(int count, int width, const GfxPointVertex *verts);
     void (*DrawTris)(void *material, int a, int indexCount, const unsigned short *indices, int vertCount,
-                     float (*xyzw)[4], float (*tex)[2], const unsigned int *colors, float (*normals)[2]);
+                     float (*xyzw)[4], float (*normal)[3], const unsigned int *colors, float (*st)[2]);
     void (*ColorToBytes)(const float *color, unsigned int *out);
     unsigned char pad16c[0xc];
     void (*BeginBrushes)();
@@ -579,6 +580,36 @@ void __stdcall FUN_00406050(const float *origin, float radius, float height, int
         re.AddLines(count / 2, 1, verts);
 }
 
+#line 1461
+void __stdcall FUN_004063b0(brush_t *brush, CCamWnd *camera)
+{
+    assert(brush->owner->def == brush->def->owner);
+    float radius = (float)atof(ValueForKey(brush->owner->def->epairs, "radius"));
+    if (!(radius <= 0))
+    {
+        float height;
+        if (!(brush->owner->def->eclass->flags & 0x80))
+        {
+            height = (float)atof(ValueForKey(brush->owner->def->epairs, "height"));
+            if (height <= 0)
+                height = 80.0f;
+        }
+        else
+            height = 32.0f;
+        unsigned int color;
+        FUN_00451c00(brush, &color);
+        ((unsigned char *)&color)[3] = 0x40;
+        entity_t *e = brush->owner->def;
+        vec3_t origin;
+        origin[0] = e->origin[0];
+        origin[1] = e->origin[1];
+        origin[2] = e->origin[2];
+        origin[2] += e->eclass->mins[2];
+        FUN_00405bb0(origin, radius, height, 0, &color, 32);
+        FUN_00405bb0(origin, radius, 0, height, &color, 32);
+    }
+}
+
 #line 1501
 void __stdcall FUN_004064f0(brush_t *brush, CCamWnd *camera)
 {
@@ -622,9 +653,9 @@ void __stdcall FUN_00406610(CCamWnd *camera)
     unsigned short indices[2043];
     GfxPointVertex lineVerts[1362];
     unsigned int vertColors[1362];
-    float vertNormals[1362][2];
+    float vertSt[1362][2];
     float vertXyzw[1362][4];
-    float vertTex[2043][2];
+    float vertNormal[1362][3];
     int indexCount;
     int vertCount;
     float dirs[4][3];
@@ -761,11 +792,11 @@ void __stdcall FUN_00406610(CCamWnd *camera)
                 selFace_t selFace = DAT_012485b4[i];
 #line 1685
                 assert(selFace.face == &selFace.brush->faces[selFace.index]);
-                FUN_0045def0(&selFace.brush->def->faces[selFace.index], &color, &indexCount, 2043, indices, 1362,
-                             vertXyzw, vertTex, vertColors, vertNormals, &vertCount);
+                FUN_0045def0(&vertCount, &selFace.brush->def->faces[selFace.index], &color, &indexCount, 2043, indices, 1362,
+                             vertXyzw, vertNormal, vertColors, vertSt);
             }
             if (indexCount && vertCount)
-                re.DrawTris(dword_011298c8, 3, indexCount, indices, vertCount, vertXyzw, vertTex, vertColors, vertNormals);
+                re.DrawTris(dword_011298c8, 3, indexCount, indices, vertCount, vertXyzw, vertNormal, vertColors, vertSt);
         }
     }
 
@@ -899,7 +930,7 @@ void __stdcall FUN_00406610(CCamWnd *camera)
                     if (pt.x >= rect.left && pt.x < rect.right && pt.y >= rect.top && pt.y < rect.bottom)
                     {
                         camera->FUN_00403ce0(pt.x, rect.bottom - pt.y, dir);
-                        if (FUN_0042af90(origin, dir, hit, 0))
+                        if (FUN_0042af90(origin, NULL, dir, hit))
                             FUN_0042e290(hit);
                     }
                 }

@@ -95,6 +95,7 @@ addr	size	source	symbol	name	tag
 0x00407560	23	src/radiant/CamWnd.cpp	?OnKeyUp@CCamWnd@@IAEXIII@Z	CCamWnd::OnKeyUp	SUPPORTED
 0x00407580	34	src/radiant/CamWnd.cpp	?OnMouseWheel@CCamWnd@@IAEHIFVCPoint@@@Z	CCamWnd::OnMouseWheel	SUPPORTED
 0x004075b0	15	src/radiant/CamWnd.cpp	?OnSysKeyDown@CCamWnd@@IAEXIII@Z	CCamWnd::OnSysKeyDown	SUPPORTED
+0x00407730	142	src/radiant/CamWnd.cpp	??A?$idList@H@@QAEAAHH@Z	idList<int>::operator[]	SUPPORTED
 0x004077c0	1	src/radiant/CamWnd.cpp	_FUN_004077c0	FUN_004077c0	UNNAMED
 0x00407f80	29	src/radiant/CapDialog.cpp	??0CCapDialog@@QAE@PAVCWnd@@@Z	CCapDialog::CCapDialog	SUPPORTED
 0x00407fd0	5	src/radiant/CapDialog.cpp	??1CCapDialog@@UAE@XZ	CCapDialog::~CCapDialog	SUPPORTED
@@ -715,6 +716,7 @@ addr	size	source	symbol	name	tag
 0x0042bd10	121	src/radiant/Pmesh.cpp	?FUN_0042bd10@@YAXPAUbrush_t@@@Z	FUN_0042bd10	PINNED
 0x0042beb0	88	src/radiant/Pmesh.cpp	?FUN_0042beb0@@YAXXZ	FUN_0042beb0	UNNAMED
 0x0042ca80	452	src/radiant/Pmesh.cpp	?FUN_0042ca80@@YAXPAUpatch_t@@@Z	FUN_0042ca80	SUPPORTED
+0x0042e290	695	src/radiant/Pmesh.cpp	?FUN_0042e290@@YAXPBM@Z	FUN_0042e290	UNNAMED
 0x0042ea50	154	src/radiant/Pmesh.cpp	?FUN_0042ea50@@YAXPAUpatchMesh_t@@QBM@Z	FUN_0042ea50	UNNAMED
 0x0042f5d0	112	src/radiant/Pmesh.cpp	?FUN_0042f5d0@@YAXXZ	FUN_0042f5d0	UNNAMED
 0x0042f640	5	src/radiant/Pmesh.cpp	?FUN_0042f640@@YAXPAUpatch_t@@@Z	FUN_0042f640	UNNAMED
@@ -1004,6 +1006,7 @@ addr	size	source	symbol	name	tag
 0x0045cf60	290	src/radiant/brush.cpp	?FUN_0045cf60@@YAXM@Z	FUN_0045cf60	UNNAMED
 0x0045d090	431	src/radiant/brush.cpp	?FUN_0045d090@@YA_NPBUbrushdef_t@@PAMPBM@Z	FUN_0045d090	UNNAMED
 0x0045d240	517	src/radiant/brush.cpp	?FUN_0045d240@@YAXPBUbrushdef_t@@PBUorientation_t@@QAM2@Z	FUN_0045d240	UNNAMED
+0x0045def0	372	src/radiant/brush.cpp	?FUN_0045def0@@YAXPAHPAUface_t@@PBI0HPAGHPAY03MPAY02MPAIPAY01M@Z	FUN_0045def0	UNNAMED
 0x0045ebc0	40	src/radiant/brush.cpp	?FUN_0045ebc0@@YAMMM@Z	FUN_0045ebc0	SUPPORTED
 0x0045efb0	92	src/radiant/brush.cpp	?FUN_0045efb0@@YAXPAUface_t@@@Z	FUN_0045efb0	SUPPORTED
 0x0045f010	96	src/radiant/brush.cpp	?FUN_0045f010@@YAXPAUface_t@@PAUbrushdef_t@@@Z	FUN_0045f010	SUPPORTED

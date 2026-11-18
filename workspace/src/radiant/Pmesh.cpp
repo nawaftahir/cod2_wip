@@ -988,6 +988,53 @@ void FUN_0042af50(float offset)
     FUN_0042aed0(&DAT_010a44b4, offset);
 }
 
+extern bool FUN_0044f630(brushdef_t *b);
+extern bool FUN_00436dc0(const float *origin, const float *dir, patch_t *patch, float *frac, int a5, int a6,
+                         unsigned char *hitInfo, int a8);
+
+bool FUN_0042af90(const float *origin, unsigned char *hitInfo, const float *dir, float *hit)
+{
+    float frac;
+    unsigned char info[4];
+    float best = 3.4028235e38f;
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (b->patch && !b->hiddenBrush && !FUN_0044f630(b->def)
+            && FUN_00436dc0(origin, dir, b->patch, &frac, 0, 0, info, 0) && best > frac)
+        {
+            best = frac;
+            if (hitInfo)
+            {
+                hitInfo[0] = info[0];
+                hitInfo[1] = info[1];
+                hitInfo[2] = info[2];
+                hitInfo[3] = info[3];
+            }
+        }
+    }
+    for (brush_t *b = DAT_010a44dc.next; b && b != &DAT_010a44dc; b = b->next)
+    {
+        {
+            if (b->patch && !b->hiddenBrush && !FUN_0044f630(b->def)
+                && FUN_00436dc0(origin, dir, b->patch, &frac, 0, 0, info, 0) && best > frac)
+            {
+                best = frac;
+                if (hitInfo)
+                {
+                    hitInfo[0] = info[0];
+                    hitInfo[1] = info[1];
+                    hitInfo[2] = info[2];
+                    hitInfo[3] = info[3];
+                }
+            }
+        }
+    }
+    if (best == 3.4028235e38f)
+        return false;
+    VectorMA(origin, best, dir, hit);
+    return true;
+}
+
 // Retail 0x0042b6d0, 14 B. Isolated exact MATCH in run 42070669799.
 float FUN_0042b6d0(int unused1, int unused2,
                     float offset, float factor, float scale)
@@ -1038,6 +1085,174 @@ void FUN_0042beb0()
         FUN_0042bde0(&DAT_010a44dc);
     FUN_0042bde0(&DAT_010a44b4);
     Undo_End();
+}
+
+struct GfxPointVertex { float xyz[3]; unsigned char color[4]; };
+float FUN_00401b80();
+float FUN_00401bd0();
+int FUN_0042c3f0(patchMesh_t *p, const float *center, float radius1, float radius2, vec3_t *inner, int innerCount,
+                 vec3_t *outer, int outerCount, const unsigned int *color, int vertCount, int maxVerts, GfxPointVertex *verts);
+int FUN_0042c790(patchMesh_t *p, const float *center, float radius1, float radius2, int vertCount, int maxVerts, GfxPointVertex *verts);
+extern void (*FUN_0059c45c)(int count, int width, const GfxPointVertex *verts);
+extern void (*FUN_0059c460)(int count, int width, const GfxPointVertex *verts);
+extern void (*FUN_0059c468)(const float *inColor, unsigned int *outColor);
+struct orientation_t { vec3_t origin; vec3_t axis[3]; };
+extern orientation_t g_editorOrientation;
+void OrientationPosToWorld(const orientation_t *orient, const float *pos, float *out);
+static const vec4_t flt_005471d0[2] = { { 1.0f, 1.0f, 0.0f, 1.0f }, { 1.0f, 0.25f, 0.25f, 1.0f } };
+
+
+struct patchCacheVert_t { vec3_t xyz; unsigned char pad0c[0x2c - 0x0c]; };
+struct patchCache_t { int width; int height; int pad08; patchCacheVert_t *verts; };
+int FUN_0042bf50(const float *a, const float *b, const float *c, vec3_t *ring, int ringCount, const unsigned int *color,
+                 int vertCount, int maxVerts, GfxPointVertex *verts);
+
+int FUN_0042c3f0(patchMesh_t *p, const float *center, float radius1, float radius2, vec3_t *inner, int innerCount,
+                 vec3_t *outer, int outerCount, const unsigned int *color, int vertCount, int maxVerts, GfxPointVertex *verts)
+{
+    patchCache_t *cache = (patchCache_t *)p->cache_3824;
+    float radius1Sq = radius1 * radius1;
+    float radius2Sq = radius2 * radius2;
+#line 2877
+    assert( radius1 < radius2 );
+    float dist = 0;
+    float delta;
+    if (((float *)p->cache_3828)[8] > center[0])
+    {
+        delta = ((float *)p->cache_3828)[8] - center[0];
+        dist += delta * delta;
+    }
+    else if (((float *)p->cache_3828)[11] < center[0])
+    {
+        delta = ((float *)p->cache_3828)[11] - center[0];
+        dist += delta * delta;
+    }
+    if (((float *)p->cache_3828)[9] > center[1])
+    {
+        delta = ((float *)p->cache_3828)[9] - center[1];
+        dist += delta * delta;
+    }
+    else if (((float *)p->cache_3828)[12] < center[1])
+    {
+        delta = ((float *)p->cache_3828)[12] - center[1];
+        dist += delta * delta;
+    }
+    if (dist > radius1Sq && dist > radius2Sq)
+        return vertCount;
+    for (int i = 0; i < cache->height - 1; i++)
+    {
+        for (int j = 0; j < cache->width - 1; j++)
+        {
+            int idx = cache->width * i + j;
+            int idx2 = idx + cache->width;
+            const float *q[4];
+            if (p->ctrl[j][i].flags_34 & 1)
+            {
+                q[0] = cache->verts[idx + 1].xyz;
+                q[1] = cache->verts[idx2 + 1].xyz;
+                q[2] = cache->verts[idx2].xyz;
+                q[3] = cache->verts[idx].xyz;
+            }
+            else
+            {
+                q[0] = cache->verts[idx].xyz;
+                q[1] = cache->verts[idx + 1].xyz;
+                q[2] = cache->verts[idx2 + 1].xyz;
+                q[3] = cache->verts[idx2].xyz;
+            }
+            float maxDist = 0;
+            for (int k = 0; k < 4; k++)
+            {
+                float dx = q[k][0] - center[0];
+                float dy = q[k][1] - center[1];
+                float d = dy * dy + dx * dx;
+                if (maxDist <= d)
+                    maxDist = d;
+            }
+            if (maxDist > radius1Sq)
+            {
+                vertCount = FUN_0042bf50(q[3], q[1], q[0], inner, innerCount, color, vertCount, maxVerts, verts);
+                vertCount = FUN_0042bf50(q[3], q[2], q[1], inner, innerCount, color, vertCount, maxVerts, verts);
+            }
+            if (maxDist > radius2Sq)
+            {
+                vertCount = FUN_0042bf50(q[3], q[1], q[0], outer, outerCount, color, vertCount, maxVerts, verts);
+                vertCount = FUN_0042bf50(q[3], q[2], q[1], outer, outerCount, color, vertCount, maxVerts, verts);
+            }
+        }
+    }
+    return vertCount;
+}
+
+int FUN_0042c790(patchMesh_t *p, const float *center, float radius1, float radius2, int vertCount, int maxVerts, GfxPointVertex *verts)
+{
+    float radius1Sq = radius1 * radius1;
+    float radius2Sq = radius2 * radius2;
+#line 2963
+    assert( radius1 < radius2 );
+    float dist = 0;
+    float delta;
+    if (((float *)p->cache_3828)[8] > center[0])
+    {
+        delta = ((float *)p->cache_3828)[8] - center[0];
+        dist += delta * delta;
+    }
+    else if (((float *)p->cache_3828)[11] < center[0])
+    {
+        delta = ((float *)p->cache_3828)[11] - center[0];
+        dist += delta * delta;
+    }
+    if (((float *)p->cache_3828)[9] > center[1])
+    {
+        delta = ((float *)p->cache_3828)[9] - center[1];
+        dist += delta * delta;
+    }
+    else if (((float *)p->cache_3828)[12] < center[1])
+    {
+        delta = ((float *)p->cache_3828)[12] - center[1];
+        dist += delta * delta;
+    }
+    if (dist > radius1Sq && dist > radius2Sq)
+        return vertCount;
+    for (int i = 0; i < p->width; i++)
+    {
+        for (int j = 0; j < p->height; j++)
+        {
+            PatchControl *ctrl = &p->ctrl[i][j];
+            float dx = ctrl->xyz[0] - center[0];
+            float dy = ctrl->xyz[1] - center[1];
+            float d = dy * dy + dx * dx;
+            if (d < radius2Sq)
+            {
+                float f;
+                if (d > radius1Sq)
+                {
+                    float t = (I_sqrt(d) - radius1) / (radius2 - radius1);
+                    f = 1.0f - (3.0f - 2.0f * t) * t * t;
+                }
+                else
+                    f = 1.0f;
+                int n = (int)f;
+                float frac = f - (float)n;
+                vec4_t color;
+                color[0] = (flt_005471d0[n + 1][0] - flt_005471d0[n][0]) * frac + flt_005471d0[n][0];
+                color[1] = (flt_005471d0[n + 1][1] - flt_005471d0[n][1]) * frac + flt_005471d0[n][1];
+                color[2] = (flt_005471d0[n + 1][2] - flt_005471d0[n][2]) * frac + flt_005471d0[n][2];
+                color[3] = (flt_005471d0[n + 1][3] - flt_005471d0[n][3]) * frac + flt_005471d0[n][3];
+                unsigned int packed;
+                (*FUN_0059c468)(color, &packed);
+                OrientationPosToWorld(&g_editorOrientation, ctrl->xyz, verts[vertCount].xyz);
+                *(unsigned int *)verts[vertCount].color = packed;
+                vertCount++;
+                if (vertCount == maxVerts)
+                {
+                    (*FUN_0059c45c)(vertCount, 6, verts);
+                    vertCount = 0;
+                }
+            }
+        }
+    }
+    return vertCount;
 }
 
 #define PM_FRONT_FACE 0
@@ -1122,6 +1337,54 @@ struct CPatchBendMainProjection
     unsigned char pad[0x7e0];
     CPatchBendXYProjection *m_pActiveXY;
 };
+
+
+void FUN_0042e290(const float *center)
+{
+    vec3_t outer[16];
+    vec3_t inner[16];
+    float radius1 = FUN_00401b80();
+    float radius2 = FUN_00401bd0();
+    for (int i = 0; i < sizeof(inner) / sizeof(inner[0]); i++)
+    {
+        float angle = (float)i * 0.3926991f;
+        float s = (float)sin(angle);
+        float c = (float)cos(angle);
+        inner[i][0] = c * radius1 + center[0];
+        inner[i][1] = s * radius1 + center[1];
+        outer[i][2] = inner[i][2] = center[2] + 1.0f;
+        outer[i][0] = c * radius2 + center[0];
+        outer[i][1] = s * radius2 + center[1];
+    }
+    unsigned int color;
+    (*FUN_0059c468)(colorCyan, &color);
+    GfxPointVertex verts[1362];
+    int count = 0;
+    brush_t *b;
+    if (SendMessageA(g_hwndCheck_01234004, 0xf0, 0, 0))
+    {
+        for (b = DAT_010a44dc.next; b && b != &DAT_010a44dc; b = b->next)
+        {
+            if (b->patch)
+                count = FUN_0042c3f0(b->patch->def, center, radius1, radius2, inner, 16, outer, 16, &color, count, 1362, verts);
+        }
+    }
+    for (b = DAT_010a44b4.next; b && b != &DAT_010a44b4; b = b->next)
+    {
+        if (b->patch)
+            count = FUN_0042c3f0(b->patch->def, center, radius1, radius2, inner, 16, outer, 16, &color, count, 1362, verts);
+    }
+    if (count)
+        (*FUN_0059c460)(count / 2, 1, verts);
+    count = 0;
+    for (b = DAT_010a44b4.next; b && b != &DAT_010a44b4; b = b->next)
+    {
+        if (b->patch)
+            count = FUN_0042c790(b->patch->def, center, radius1, radius2, count, 1362, verts);
+    }
+    if (count)
+        (*FUN_0059c45c)(count, 6, verts);
+}
 
 class CMainFrame;
 extern CMainFrame *g_pParentWnd;

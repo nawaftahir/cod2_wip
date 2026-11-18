@@ -16,7 +16,8 @@ struct brush_t
 {
     brush_t *prev;
     brush_t *next;
-    unsigned char pad08[0xc];
+    struct entityInst_t *owner;
+    unsigned char pad0c[8];
     brushdef_t *def;
     unsigned char pad18[0xe];
     unsigned char hiddenBrush;
@@ -615,6 +616,61 @@ bool FUN_0044f5d0(brush_t *b)
     if (b->hiddenBrush)
         return true;
     return FUN_0044f630(b->def);
+}
+
+// views of the editor structs this routine reads (offsets from retail accesses)
+struct xyEclass_t { unsigned char pad00[4]; char *name; unsigned char pad08[0x1c]; float color[4]; };
+struct xyEntity_t { unsigned char pad00[0x50]; xyEclass_t *eclass; };
+struct entityInst_t { unsigned char pad00[8]; xyEntity_t *def; };
+struct xyFace_t { unsigned char pad00[0x78]; int contents; };
+struct xyBrushdef_t { unsigned char pad00[0x3c]; xyFace_t *faces; unsigned char pad40; unsigned char field_41; };
+extern float color_01129798[4];
+extern float color_011297e8[4];
+extern float color_011297f8[4];
+extern float color_01129818[4];
+extern float color_01129828[4];
+extern float color_01129838[4];
+extern float color_01129858[4];
+extern float color_01129868[4];
+extern void (*FUN_0059c468)(const float *inColor, unsigned int *outColor);
+bool FUN_0045d090(brushdef_t *b, float *color, const float *defColor);
+
+#define Vector4Copy(a, b) ((b)[0] = (a)[0], (b)[1] = (a)[1], (b)[2] = (a)[2], (b)[3] = (a)[3])
+
+void FUN_00451c00(brush_t *b, unsigned int *outColor)
+{
+    float color[4];
+    xyEclass_t *eclass = b->owner->def->eclass;
+    if (_stricmp(eclass->name, "worldspawn"))
+    {
+        if (!_stricmp(eclass->name, "func_group"))
+            Vector4Copy(color_01129818, color);
+        else if (!_stricmp(eclass->name, "func_cullgroup"))
+            Vector4Copy(color_01129828, color);
+        else if (!_stricmp(eclass->name, "misc_model"))
+            Vector4Copy(color_01129858, color);
+        else
+        {
+            Vector4Copy(eclass->color, color);
+            FUN_0045d090(b->def, color, eclass->color);
+        }
+    }
+    else
+    {
+        xyBrushdef_t *def = (xyBrushdef_t *)b->def;
+        int contents = def->faces->contents;
+        if ((contents & 0x2080) == 0x2080)
+            Vector4Copy(color_01129838, color);
+        else if ((contents & 0x8000004) == 0x8000004)
+            Vector4Copy(color_01129868, color);
+        else if (contents & 0x8000000)
+            Vector4Copy(color_011297e8, color);
+        else if (!def->field_41)
+            Vector4Copy(color_01129798, color);
+        else
+            Vector4Copy(color_011297f8, color);
+    }
+    (*FUN_0059c468)(color, outColor);
 }
 
 float (&CXYWnd::GetOrigin())[3]
