@@ -1091,10 +1091,16 @@ set by a later lowering stage, not by the list scheduler.
   register-less temp, which becomes the local pick. The increment block avoids this because its cursor value is the
   coloured web 424. HYPOTHESIS: retail's entry test has no uncoloured CSE temp there (or its cursor value is coloured).
   Box spent (2 traces); next attack is a source spelling that drops that CSE temp at the entry only.
-- PINNED (w29b 11-18, c2 disasm 0x10790cba..0x10790d8b, 0x107349c0, 0x10790df9..0x10790f0b): slot packer phase 1 walks
-  the item list (+0x30 chain, kind 5 skipped, items with [+6]&4 take another path) and tries entries in INDEX order from
-  0 = oldest first (first fit). Join test: item size <= entry size, item bit not in the entry's set, and
-  members(entry) & conflicts(item) empty (0x1077b3c9 on [0x108a7894 + idx*4]). Join ORs the item's conflicts into the
-  entry and adds the item weight [+0x38] to entry [+0xc]; no fit -> new entry appended (0x10791426). Phase 2 gives offsets
-  from the newest entry down to entry 0. TRIED 520's "newest entry first" reading is not what the code does; its two
-  observations also fit oldest-first.
+- PINNED (w29b 11-18, c2 disasm 0x10790cba..0x10790d8b + 0x107349c0, checked on the FX conflict dump below): slot packer
+  phase 1 walks the item list (+0x30 chain, kind 5 skipped, items with [+6]&4 take another path). Join test per entry:
+  item size <= entry size, item not in the entry's conflict union [entry+4], and members [entry+0] & conflicts(item) empty
+  (0x1077b3c9; item conflicts = sparse bitset at [[0x108a7894] + idx*4], nodes [base, next, bits]). Join sets the member
+  bit, ORs the item's conflicts into [entry+4], adds the item weight [+0x38] to [entry+0xc]. Entries are tried NEWEST
+  first (the decoded FX conflicts only fit that order; TRIED 520 stands), no fit -> new entry (0x10791426).
+- PINNED (w29b 11-18, FX base conflict dump at 0x10790cd6, /tmp/fx_conf.out decoded): list order sin/cos x4, height,
+  len, t265, t264 (dir1/dir2 scalars: conflict with len, scale, each other, b1 len temps t267/t269), t258/t257/t256 (three
+  mutually conflicting top temps), res259/res263 (inline flrand results), t267, width, t275, scale, t28/t27, ... radius.
+  width conflicts ONLY with height; height conflicts with radius, scale, width; len with t265/t264. Newest-first replay of
+  these sets reproduces our map exactly. Model result: with this graph no item order leaves width alone in a 4th entry
+  (once height sits in R3, width joins R2 or R1), so retail's graph gives width more conflicts, or an item with no
+  visible slot refs creates R4 before width. Retail b1 order (dir2 before scale) also removes the height-scale edge.
