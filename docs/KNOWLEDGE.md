@@ -1077,3 +1077,7 @@ set by a later lowering stage, not by the list scheduler.
   at the uses whose tuples are the first fields of pick 1 (entry test, 0x061d8bcc) and pick 4 (bottom test, 0x061f9968).
   Both loop-test loads are inserted reloads of global web val 0x1a8 (cpick id 13 -> eax, 8 refs). Retail = only the
   bottom-test reload inserted; the entry test would be the web's own coloured load.
+- PINNED (w29abc 11-18, /tmp/pmg.sh eax-first force K=27..45): VM_Notify's `lea edx,[eax+eax*4]` is local pick 37 (t525,
+  pointer at edx, all regs free). Forcing eax first before it gives retail's lea eax + store (3 lines left: the
+  `sub ebx,8` / `inc ebp` order, a scheduling pair; the trailing hunk is a decode artifact past the fn end). So retail
+  is one pointer step ahead at pick 37, the same class as XAnimCalc route A.
