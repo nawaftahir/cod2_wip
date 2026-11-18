@@ -30,7 +30,6 @@ void FUN_004733f0(int);
 void FUN_0046b070(int);
 void FUN_00472bd0(int);
 void FUN_0043e440();
-void FUN_00449800();
 void FUN_00469950();
 void FUN_004694d0();
 void FUN_004692a0();
@@ -57,6 +56,7 @@ void FUN_00438120();
 void FUN_00438ff0();
 void FUN_004745d0();
 }
+void WXY_Print();
 void Map_RemoveRegion();
 
 void Undo_Undo();
@@ -515,7 +515,7 @@ void FUN_004763c0(void);
 extern "C" void FUN_00415bd0() { FUN_004763c0(); }
 extern "C" void FUN_00415bf0() { Pointfile_Next(); }
 extern "C" void FUN_00415c00() { Pointfile_Prev(); }
-extern "C" void FUN_00415c10() { FUN_00449800(); }
+extern "C" void FUN_00415c10() { WXY_Print(); }
 BOOL CALLBACK FUN_00476840(HWND, UINT, WPARAM, LPARAM);
 extern "C" void FUN_00415dd0() { DialogBox(g_qeglobals.d_hInstance, (LPCSTR)217, g_qeglobals.d_hwndMain, FUN_00476840); }
 extern "C" void FUN_00415df0() { FUN_00469950(); }

@@ -10,10 +10,10 @@
 
 enum { YZ, XZ, XY };
 
-struct brush_s
+struct brush_t
 {
-    brush_s *prev;
-    brush_s *next;
+    brush_t *prev;
+    brush_t *next;
 };
 
 // Q3Radiant qeglobals_t view: the fields this file reads (base 0x10bcd28).
@@ -21,7 +21,9 @@ struct XYQEGlobals
 {
     int d_showgrid;
     int d_gridsize;
-    unsigned char pad0[0x38];
+    unsigned char pad0[0x24];
+    HWND d_hwndMain;
+    unsigned char pad1[0x10];
     HWND d_hwndXY;
 };
 extern XYQEGlobals g_qeglobals;
@@ -38,10 +40,12 @@ extern int g_nPointCount;
 extern float g_vRotateOrigin[3];
 extern float g_vRotation[3];
 extern void *g_pMovingClip;
-extern brush_s g_brClipboard;
-extern brush_s g_brUndo;
+extern brush_t g_brClipboard;
+extern brush_t g_brUndo;
 
 void FUN_0047a760(const char *format, ...);
+void FUN_004592f0(brush_t *b);
+void FUN_00459210(brush_t *b, brush_t *list);
 void Drag_MouseUp(int buttons);
 
 // The three CMainFrame methods called through g_pParentWnd (same projection as TexWnd.cpp).
@@ -56,6 +60,23 @@ struct CXYWndMainProjection
     BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
 };
 extern CMainFrame *g_pParentWnd;
+
+// Q3Radiant CClipPoint: one placed point of the clip, point or path tools.
+class CClipPoint
+{
+public:
+    void Reset();
+    void UpdatePointPtr();
+    void SetPointPtr(float *p);
+    void Set(bool b);
+
+    float m_ptClip[3];
+    float *m_pVec3;
+    CPoint m_ptScreen;
+    bool m_bSet;
+};
+typedef char ClipPointSize[(sizeof(CClipPoint) == 0x1c) ? 1 : -1];
+extern CClipPoint g_PointPoints[512];
 
 extern CPrefsDlg *dword_01233b64;
 struct eclass_t
@@ -81,6 +102,8 @@ class CXYWnd : public CWnd
 public:
     CXYWnd();
     virtual ~CXYWnd();
+    XYWndNode *FUN_0044bc30(int id);
+    void Redraw(unsigned int nBits);
     void XY_Init();
     void SnapToPoint(int x, int y, float point[3]);
     void XY_ToPoint(int x, int y, float point[3]);
@@ -249,6 +272,63 @@ int FUN_00449760()
     }
 }
 
+// 0x00449800: Q3Radiant WXY_Print.
+void WXY_Print()
+{
+    PRINTDLG pd;
+    DOCINFO di;
+
+    memset(&pd, 0, sizeof(pd));
+    pd.lStructSize = sizeof(pd);
+    pd.hwndOwner = g_qeglobals.d_hwndXY;
+    pd.Flags = PD_RETURNDC;
+    pd.hInstance = 0;
+    if (!PrintDlg(&pd) || !pd.hDC)
+    {
+        MessageBox(g_qeglobals.d_hwndMain, "Could not PrintDlg()", "QE4 Print Error", MB_ICONERROR);
+        return;
+    }
+
+    memset(&di, 0, sizeof(di));
+    di.cbSize = sizeof(di);
+    di.lpszDocName = "QE4";
+    if (StartDoc(pd.hDC, &di) <= 0)
+    {
+        MessageBox(g_qeglobals.d_hwndMain, "Could not StartDoc()", "QE4 Print Error", MB_ICONERROR);
+        return;
+    }
+
+    if (StartPage(pd.hDC) <= 0)
+    {
+        MessageBox(g_qeglobals.d_hwndMain, "Could not StartPage()", "QE4 Print Error", MB_ICONERROR);
+        return;
+    }
+
+    {
+        RECT r;
+        GetWindowRect(g_qeglobals.d_hwndXY, &r);
+        int bmwidth = r.right - r.left;
+        int bmheight = r.bottom - r.top;
+        int pwidth = GetDeviceCaps(pd.hDC, PHYSICALWIDTH) - GetDeviceCaps(pd.hDC, PHYSICALOFFSETX);
+        int pheight = GetDeviceCaps(pd.hDC, PHYSICALHEIGHT) - GetDeviceCaps(pd.hDC, PHYSICALOFFSETY);
+        HDC hdcXY = GetDC(g_qeglobals.d_hwndXY);
+        StretchBlt(pd.hDC, 0, 0, pwidth, pheight, hdcXY, 0, 0, bmwidth, bmheight, SRCCOPY);
+        ReleaseDC(g_qeglobals.d_hwndXY, hdcXY);
+    }
+
+    if (EndPage(pd.hDC) <= 0)
+    {
+        MessageBox(g_qeglobals.d_hwndMain, "QE4 Print Error", "Could not EndPage()", MB_ICONERROR);
+        return;
+    }
+
+    if (EndDoc(pd.hDC) <= 0)
+    {
+        MessageBox(g_qeglobals.d_hwndMain, "QE4 Print Error", "Could not EndDoc()", MB_ICONERROR);
+        return;
+    }
+}
+
 int CXYWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
     if (Default() == -1)
@@ -260,6 +340,31 @@ int CXYWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 extern "C" float FUN_00449a20(const float *v)
 {
     return v[2] + v[1] + v[0];
+}
+
+// 0x00449b80: Q3Radiant CXYWnd::AddPointPoint.
+void FUN_00449b80(float *pVec)
+{
+    g_PointPoints[g_nPointCount].Set(true);
+    g_PointPoints[g_nPointCount].m_ptClip[0] = pVec[0];
+    g_PointPoints[g_nPointCount].m_ptClip[1] = pVec[1];
+    g_PointPoints[g_nPointCount].m_ptClip[2] = pVec[2];
+    g_PointPoints[g_nPointCount].SetPointPtr(pVec);
+    g_nPointCount++;
+    g_nUpdateBits |= 0x102;
+}
+
+// 0x00449ff0: moves every brush of a list into another list.
+void FUN_00449ff0(brush_t *to, brush_t *from)
+{
+    brush_t *b = from->next;
+    while (b != NULL && b != from)
+    {
+        brush_t *next = b->next;
+        FUN_004592f0(b);
+        FUN_00459210(b, to);
+        b = next;
+    }
 }
 
 float fDiff(float f1, float f2)
@@ -295,6 +400,16 @@ void CXYWnd::SetPointMode(bool b)
 void CXYWnd::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
     g_pParentWnd->OnKeyDown(nChar, nRepCnt, nFlags);
+}
+
+XYWndNode *CXYWnd::FUN_0044bc30(int id)
+{
+    for (XYWndNode *node = field_e8.next; node; node = node->next)
+    {
+        if (node->field_00 == id)
+            return node;
+    }
+    return NULL;
 }
 
 void CXYWnd::FUN_0044bc50(const char *name, int id)
@@ -572,6 +687,14 @@ void CXYWnd::VectorCopyXY(float in[3], float out[3])
     }
 }
 
+// Q3Radiant CXYWnd::Redraw.
+void CXYWnd::Redraw(unsigned int nBits)
+{
+    m_nUpdateBits = nBits;
+    RedrawWindow(NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW);
+    m_nUpdateBits = W_XY;
+}
+
 bool CXYWnd::RotateMode()
 {
     return g_bRotateMode;
@@ -663,6 +786,34 @@ XYWndNode::XYWndNode(int id, const char *name)
     next = NULL;
     field_00 = id;
     field_04 = name;
+}
+
+void CClipPoint::Reset()
+{
+    m_ptClip[0] = m_ptClip[1] = m_ptClip[2] = 0;
+    m_bSet = false;
+    m_pVec3 = NULL;
+}
+
+void CClipPoint::UpdatePointPtr()
+{
+    float *p = m_pVec3;
+    if (p)
+    {
+        p[0] = m_ptClip[0];
+        p[1] = m_ptClip[1];
+        p[2] = m_ptClip[2];
+    }
+}
+
+void CClipPoint::SetPointPtr(float *p)
+{
+    m_pVec3 = p;
+}
+
+void CClipPoint::Set(bool b)
+{
+    m_bSet = b;
 }
 
 extern "C" void FUN_004535f0() {}
