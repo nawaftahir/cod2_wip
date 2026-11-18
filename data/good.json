@@ -37887,8 +37887,9 @@
 "name": "?CG_DrawGrenadePointer@@YAXMMPBM0@Z",
 "obj": "cg_draw_mp.obj",
 "size": 367,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4c3a00"
+]
 },
 {
 "name": "?CG_DrawGrenadeIcon@@YAXMMPBM0@Z",
