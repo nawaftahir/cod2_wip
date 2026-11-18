@@ -127,6 +127,44 @@ extern CPrefsDlg *dword_01233b64;
 
 typedef char MainFrameSplitSize[(sizeof(CSplitterWnd) == 0xd8) ? 1 : -1];
 
+// Same class views as LstToolBar.cpp and TextureBar.cpp (the members are real, not padding).
+class CLstToolBar : public CToolBar
+{
+public:
+  CLstToolBar();
+  virtual ~CLstToolBar();
+
+protected:
+  afx_msg void OnParentNotify(UINT message, LPARAM lParam);
+
+  DECLARE_MESSAGE_MAP()
+};
+
+class CTextureBar : public CDialogBar
+{
+public:
+  CTextureBar();
+
+  CSpinButtonCtrl m_spinRotate;
+  CSpinButtonCtrl m_spinVScale;
+  CSpinButtonCtrl m_spinVShift;
+  CSpinButtonCtrl m_spinHScale;
+  CSpinButtonCtrl m_spinHShift;
+  int m_nHShift;
+  int m_nHScale;
+  int m_nRotate;
+  int m_nVShift;
+  int m_nVScale;
+  int m_nRotateAmt;
+
+protected:
+  virtual void DoDataExchange(CDataExchange *pDX);
+  afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+
+public:
+  void FUN_0043f460();
+};
+
 class CMainFrame : public CFrameWnd
 {
 public:
@@ -134,15 +172,17 @@ public:
   virtual BOOL PreTranslateMessage(MSG *pMsg);
   virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
   virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
+  virtual ~CMainFrame();
   afx_msg void OnClose();
   afx_msg void OnTimer(UINT nIDEvent);
   afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
   afx_msg void OnSysKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
   afx_msg void OnDestroy();
   afx_msg void OnFileExit();
-  char pad[0x180 - sizeof(CFrameWnd)];
-  HWND field_0180;
-  char pad2[0x500 - 0x184];
+  CStatusBar m_wndStatusBar;
+  CLstToolBar m_wndToolBar;
+  CDialogBar m_wndDialogBar;
+  CTextureBar m_wndTextureBar;
   CSplitterWnd m_wndSplit1;
   CSplitterWnd m_wndSplit2;
   CSplitterWnd m_wndSplit3;
@@ -153,7 +193,7 @@ public:
   CWnd *field_0798;
   CEditWnd *field_079c;
   int field_07a0;
-  char pad_07a4[0x7e0 - 0x7a4];
+  CString field_07a4[15];
   CWnd *field_07e0;
   bool field_07e4;
   // update handlers: the CCmdUI argument is enabled from view state
@@ -162,6 +202,12 @@ public:
   void FUN_00419ba0(CCmdUI *pCmdUI);
 };
 
+typedef char MainFrameBaseSize[(sizeof(CFrameWnd) == 0xd0) ? 1 : -1];
+typedef char MainFrameStatusOffset[(offsetof(CMainFrame, m_wndStatusBar) == 0xd0) ? 1 : -1];
+typedef char MainFrameToolOffset[(offsetof(CMainFrame, m_wndToolBar) == 0x164) ? 1 : -1];
+typedef char MainFrameDialogOffset[(offsetof(CMainFrame, m_wndDialogBar) == 0x218) ? 1 : -1];
+typedef char MainFrameTextureOffset[(offsetof(CMainFrame, m_wndTextureBar) == 0x2b8) ? 1 : -1];
+typedef char MainFrameStringsOffset[(offsetof(CMainFrame, field_07a4) == 0x7a4) ? 1 : -1];
 typedef char MainFrameSplit1Offset[(offsetof(CMainFrame, m_wndSplit1) == 0x500) ? 1 : -1];
 typedef char MainFrameSplit3Offset[(offsetof(CMainFrame, m_wndSplit3) == 0x6b0) ? 1 : -1];
 typedef char MainFrameXYOffset[(offsetof(CMainFrame, field_0788) == 0x788) ? 1 : -1];
@@ -196,6 +242,11 @@ struct PatchView { char pad[0x70]; int org[3]; };
 
 extern "C" int __stdcall FUN_00411230(int a0, int a1) { return 0; }
 extern "C" void FUN_00411240() {}
+
+CMainFrame::~CMainFrame()
+{
+}
+
 extern "C" void __stdcall FUN_004115a0(int a0, int a1) {  }
 BOOL CMainFrame::PreCreateWindow(CREATESTRUCT &cs)
 {
@@ -548,7 +599,7 @@ extern "C" void FUN_004165c0() { DAT_01129938 ^= 1; dword_0123348c |= 0xffffffff
 extern "C" void __fastcall FUN_00416870(CMainFrame *self)
 {
   PF(0x250) ^= 1;
-  ::SendMessage(self->field_0180, 0x402, 0x81ab, MAKELONG(PF(0x250) != 0, 0));
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x81ab, MAKELONG(PF(0x250) != 0, 0));
   dword_01233b64->SavePrefs();
   dword_0123348c |= 0xffffffff;
 }
@@ -686,7 +737,7 @@ extern "C" void __fastcall FUN_00418cf0(CMainFrame *self)
   CPrefsDlg *prefs = dword_01233b64;
   PFP(prefs, 0x248) ^= 1;
   prefs->SavePrefs();
-  ::SendMessage(self->field_0180, 0x402, 0x8019, MAKELONG(PF(0x248) == 0, 0));
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x8019, MAKELONG(PF(0x248) == 0, 0));
 }
 extern "C" void FUN_00419080() { Undo_Undo(); }
 extern "C" void FUN_00419090() { Undo_Redo(); }
@@ -721,75 +772,75 @@ BOOL CMainFrame::PreTranslateMessage(MSG *pMsg)
 extern "C" void __fastcall FUN_0041a2f0(CMainFrame *self)
 {
   PF(0x2c8) ^= 1;
-  ::SendMessage(self->field_0180, 0x402, 0x8054, MAKELONG(PF(0x2c8) == 0, 0));
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x8054, MAKELONG(PF(0x2c8) == 0, 0));
   dword_01233b64->SavePrefs();
 }
 extern "C" void __fastcall FUN_0041a5c0(CMainFrame *self)
 {
   if (++PF(0x1c8) > 2)
     PF(0x1c8) = 0;
-  ::SendMessage(self->field_0180, 0x402, 0x80a8, MAKELONG(PF(0x1c8) != 0, 0));
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x80a8, MAKELONG(PF(0x1c8) != 0, 0));
   dword_01233b64->SavePrefs();
 }
 extern "C" void __fastcall FUN_0041a620(CMainFrame *self)
 {
   PF(0x1cc) ^= 1;
-  ::SendMessage(self->field_0180, 0x402, 0x8172, MAKELONG(PF(0x1cc) != 0, 0));
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x8172, MAKELONG(PF(0x1cc) != 0, 0));
   dword_01233b64->SavePrefs();
   dword_0123348c |= 1;
 }
 extern "C" void __fastcall FUN_0041a670(CMainFrame *self)
 {
   PF(0x1d0) ^= 1;
-  ::SendMessage(self->field_0180, 0x402, 0x8176, MAKELONG(PF(0x1d0) != 0, 0));
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x8176, MAKELONG(PF(0x1d0) != 0, 0));
   dword_01233b64->SavePrefs();
   dword_0123348c |= 1;
 }
 extern "C" void __fastcall FUN_0041a6c0(CMainFrame *self)
 {
   PF(0x1d4) ^= 1;
-  ::SendMessage(self->field_0180, 0x402, 0x8191, MAKELONG(PF(0x1d4) != 0, 0));
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x8191, MAKELONG(PF(0x1d4) != 0, 0));
   dword_01233b64->SavePrefs();
   dword_0123348c |= 1;
 }
 extern "C" void __fastcall FUN_0041a710(CMainFrame *self)
 {
   PF(0x2a8) ^= 1;
-  ::SendMessage(self->field_0180, 0x402, 0x81b6, MAKELONG(PF(0x2a8) != 0, 0));
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x81b6, MAKELONG(PF(0x2a8) != 0, 0));
   dword_01233b64->SavePrefs();
 }
 extern "C" void __fastcall FUN_0041a7f0(CMainFrame *self)
 {
   PF(0x24c) ^= 1;
-  ::SendMessage(self->field_0180, 0x402, 0x8187, MAKELONG(PF(0x24c) != 0, 0));
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x8187, MAKELONG(PF(0x24c) != 0, 0));
   dword_01233b64->SavePrefs();
   dword_0123348c |= 0xffffffff;
 }
 extern "C" void __fastcall FUN_0041a840(CMainFrame *self)
 {
   PF(0x26c) ^= 1;
-  ::SendMessage(self->field_0180, 0x402, 0x8183, MAKELONG(PF(0x26c) != 0, 0));
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x8183, MAKELONG(PF(0x26c) != 0, 0));
   dword_01233b64->SavePrefs();
   dword_0123348c |= 0xffffffff;
 }
 extern "C" void __fastcall FUN_0041a890(CMainFrame *self)
 {
   PF(0x270) ^= 1;
-  ::SendMessage(self->field_0180, 0x402, 0x81b7, MAKELONG(PF(0x270) != 0, 0));
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x81b7, MAKELONG(PF(0x270) != 0, 0));
   dword_01233b64->SavePrefs();
   dword_0123348c |= 0xffffffff;
 }
 extern "C" void __fastcall FUN_0041a8e0(CMainFrame *self)
 {
   PF(0x274) ^= 1;
-  ::SendMessage(self->field_0180, 0x402, 0x81b8, MAKELONG(PF(0x274) != 0, 0));
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x81b8, MAKELONG(PF(0x274) != 0, 0));
   dword_01233b64->SavePrefs();
   dword_0123348c |= 0xffffffff;
 }
 extern "C" void __fastcall FUN_0041a930(CMainFrame *self)
 {
   PF(0x278) ^= 1;
-  ::SendMessage(self->field_0180, 0x402, 0x81b9, MAKELONG(PF(0x278) != 0, 0));
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x81b9, MAKELONG(PF(0x278) != 0, 0));
   dword_01233b64->SavePrefs();
   dword_0123348c |= 0xffffffff;
 }
@@ -798,7 +849,7 @@ extern "C" void FUN_0041a980() { FUN_00435d20(); }
 extern "C" void __fastcall FUN_0041a990(CMainFrame *self)
 {
   PF(0x27c) ^= 1;
-  ::SendMessage(self->field_0180, 0x402, 0x8184, MAKELONG(PF(0x27c) != 0, 0));
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x8184, MAKELONG(PF(0x27c) != 0, 0));
   dword_01233b64->SavePrefs();
   dword_0123348c |= 0xffffffff;
 }
@@ -816,14 +867,14 @@ extern "C" void __fastcall FUN_0041aa10(CMainFrame *self)
 {
   if (++PF(0x2e0) > 2)
     PF(0x2e0) = 0;
-  ::SendMessage(self->field_0180, 0x402, 0x8059, MAKELONG(PF(0x2e0) != 0, 0));
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x8059, MAKELONG(PF(0x2e0) != 0, 0));
   dword_01233b64->SavePrefs();
   dword_0123348c |= 0xffffffff;
 }
 extern "C" void __fastcall FUN_0041ab20(CMainFrame *self)
 {
   PFB(0x2e4) ^= 1;
-  ::SendMessage(self->field_0180, 0x402, 0x805a, MAKELONG(PFB(0x2e4) != 0, 0));
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x805a, MAKELONG(PFB(0x2e4) != 0, 0));
   dword_01233b64->SavePrefs();
   dword_0123348c |= 0xffffffff;
 }
@@ -832,7 +883,7 @@ extern "C" void FUN_0041ac20() {}
 extern "C" void __fastcall FUN_0041ac30(CMainFrame *self)
 {
   PFB(0x2e5) ^= 1;
-  ::SendMessage(self->field_0180, 0x402, 0x8061, MAKELONG(PFB(0x2e5) != 0, 0));
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x8061, MAKELONG(PFB(0x2e5) != 0, 0));
   dword_01233b64->SavePrefs();
   dword_0123348c |= 0xffffffff;
 }
@@ -850,11 +901,11 @@ extern int DAT_011298b0;
 // Sync four toolbar buttons and their menu checks with the mode flags.
 extern "C" void FUN_0041b190(CMainFrame *self)
 {
-  ::SendMessage(self->field_0180, 0x402, 0x8072, MAKELONG(DAT_012334ba != 0, 0));
-  ::SendMessage(self->field_0180, 0x402, 0x8068, MAKELONG(DAT_012334b9 != 0, 0));
-  ::SendMessage(self->field_0180, 0x402, 0x8174, MAKELONG(DAT_0112993e != 0, 0));
-  ::SendMessage(self->field_0180, 0x402, 0x8173, MAKELONG(DAT_0112993f != 0, 0));
-  ::SendMessage(self->field_0180, 0x402, 0x8175, MAKELONG(DAT_011298b0 == 11, 0));
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x8072, MAKELONG(DAT_012334ba != 0, 0));
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x8068, MAKELONG(DAT_012334b9 != 0, 0));
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x8174, MAKELONG(DAT_0112993e != 0, 0));
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x8173, MAKELONG(DAT_0112993f != 0, 0));
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x8175, MAKELONG(DAT_011298b0 == 11, 0));
   ::CheckMenuItem(::GetMenu(g_qeglobals.d_hwndMain), 0x8174, DAT_0112993e ? MF_CHECKED : MF_UNCHECKED);
   ::CheckMenuItem(::GetMenu(g_qeglobals.d_hwndMain), 0x8173, DAT_0112993f ? MF_CHECKED : MF_UNCHECKED);
   ::CheckMenuItem(::GetMenu(g_qeglobals.d_hwndMain), 0x8175, DAT_011298b0 == 11 ? MF_CHECKED : MF_UNCHECKED);

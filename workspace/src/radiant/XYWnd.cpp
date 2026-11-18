@@ -46,6 +46,9 @@ extern brush_t g_brUndo;
 
 void FUN_0047a760(const char *format, ...);
 void FUN_004592f0(brush_t *b);
+void Brush_Free(brush_t *b);
+extern brush_t g_brFrontSplits;
+extern brush_t g_brBackSplits;
 void FUN_00459210(brush_t *b, brush_t *list);
 void Drag_MouseUp(int buttons);
 
@@ -78,6 +81,9 @@ public:
 };
 typedef char ClipPointSize[(sizeof(CClipPoint) == 0x1c) ? 1 : -1];
 extern CClipPoint g_PointPoints[512];
+extern CClipPoint g_Clip1;
+extern CClipPoint g_Clip2;
+extern CClipPoint g_Clip3;
 
 extern CPrefsDlg *dword_01233b64;
 struct eclass_t
@@ -260,6 +266,18 @@ void FUN_00449b80(float *pVec)
     g_nUpdateBits |= 0x102;
 }
 
+// 0x00449c60: Q3Radiant CleanList.
+void CleanList(brush_t *list)
+{
+    brush_t *b = list->next;
+    while (b != NULL && b != list)
+    {
+        brush_t *next = b->next;
+        Brush_Free(b);
+        b = next;
+    }
+}
+
 // 0x00449ff0: moves every brush of a list into another list.
 void FUN_00449ff0(brush_t *to, brush_t *from)
 {
@@ -279,6 +297,41 @@ float fDiff(float f1, float f2)
     return f1 - f2;
   else
     return f2 - f1;
+}
+
+// 0x0044abc0 / 0x0044abf0: Q3Radiant CXYWnd::RetainClipMode / SetClipMode.
+void CXYWnd::RetainClipMode(bool bMode)
+{
+    bool bSave = g_bRogueClipMode;
+    SetClipMode(bMode);
+    g_bRogueClipMode = (bMode == true) ? bSave : false;
+}
+
+void CXYWnd::SetClipMode(bool bMode)
+{
+    g_bClipMode = bMode;
+    g_bRogueClipMode = false;
+    if (bMode)
+    {
+        g_Clip1.Reset();
+        g_Clip2.Reset();
+        g_Clip3.Reset();
+        CleanList(&g_brFrontSplits);
+        CleanList(&g_brBackSplits);
+    }
+    else
+    {
+        if (g_pMovingClip)
+        {
+            ReleaseCapture();
+            g_pMovingClip = NULL;
+        }
+        CleanList(&g_brFrontSplits);
+        CleanList(&g_brBackSplits);
+        g_nUpdateBits |= 0x102;
+    }
+    g_brFrontSplits.next = &g_brFrontSplits;
+    g_brBackSplits.next = &g_brBackSplits;
 }
 
 bool CXYWnd::ClipMode()

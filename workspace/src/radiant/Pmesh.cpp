@@ -1212,6 +1212,18 @@ void FUN_0042f660(patchMesh_t *p)
 #undef SYMBIOT
 }
 
+// 0x0042f790 (169 B), patch in eax
+void FUN_0042f790(patch_t *p)
+{
+#line 3872
+    assert( p );
+    assert( p->def );
+    FUN_0042ca80(p);
+    delete p;
+    if (g_PatchDialog.GetSafeHwnd())
+        g_PatchDialog.GetPatchInfo();
+}
+
 // 0x004393c0 (142 B), p in edx
 void FUN_004393c0(patchMesh_t *p)
 {

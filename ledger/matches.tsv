@@ -377,6 +377,8 @@ addr	size	source	symbol	name	tag
 0x004110b0	343	src/radiant/PrefsDlg.cpp	??1CPrefsDlg@@UAE@XZ	CPrefsDlg::~CPrefsDlg	SUPPORTED
 0x00411230	5	src/radiant/MainFrm.cpp	_FUN_00411230@8	FUN_00411230	UNNAMED
 0x00411240	1	src/radiant/MainFrm.cpp	_FUN_00411240	FUN_00411240	UNNAMED
+0x00411390	137	src/radiant/MainFrm.cpp	??1CTextureBar@@UAE@XZ	CTextureBar::~CTextureBar	SUPPORTED
+0x00411420	206	src/radiant/MainFrm.cpp	??1CMainFrame@@UAE@XZ	CMainFrame::~CMainFrame	SUPPORTED
 0x004115a0	3	src/radiant/MainFrm.cpp	_FUN_004115a0@8	FUN_004115a0	UNNAMED
 0x00412df0	9	src/radiant/MainFrm.cpp	?PreCreateWindow@CMainFrame@@UAEHAAUtagCREATESTRUCTA@@@Z	CMainFrame::PreCreateWindow	SUPPORTED
 0x00413020	9	src/radiant/MainFrm.cpp	?OnCommand@CMainFrame@@UAEHIJ@Z	CMainFrame::OnCommand	SUPPORTED
@@ -713,6 +715,7 @@ addr	size	source	symbol	name	tag
 0x0042f640	5	src/radiant/Pmesh.cpp	?FUN_0042f640@@YAXPAUpatch_t@@@Z	FUN_0042f640	UNNAMED
 0x0042f650	5	src/radiant/Pmesh.cpp	?FUN_0042f650@@YAXPAUpatch_t@@@Z	FUN_0042f650	UNNAMED
 0x0042f660	290	src/radiant/Pmesh.cpp	?FUN_0042f660@@YAXPAUpatchMesh_t@@@Z	FUN_0042f660	PINNED
+0x0042f790	169	src/radiant/Pmesh.cpp	?FUN_0042f790@@YAXPAUpatch_t@@@Z	FUN_0042f790	UNNAMED
 0x0042f950	21	src/radiant/Pmesh.cpp	?FUN_0042f950@@YAXH@Z	FUN_0042f950	UNNAMED
 0x00433a20	44	src/radiant/Pmesh.cpp	?OnlyPatchesSelected@@YA_NXZ	OnlyPatchesSelected	SUPPORTED
 0x00433a50	39	src/radiant/Pmesh.cpp	?AnyPatchesSelected@@YA_NXZ	AnyPatchesSelected	SUPPORTED
@@ -870,8 +873,11 @@ addr	size	source	symbol	name	tag
 0x004499e0	49	src/radiant/XYWnd.cpp	?OnCreate@CXYWnd@@IAEHPAUtagCREATESTRUCTA@@@Z	CXYWnd::OnCreate	SUPPORTED
 0x00449a20	9	src/radiant/XYWnd.cpp	_FUN_00449a20	FUN_00449a20	UNNAMED
 0x00449b80	75	src/radiant/XYWnd.cpp	?FUN_00449b80@@YAXPAM@Z	FUN_00449b80	UNNAMED
+0x00449c60	37	src/radiant/XYWnd.cpp	?CleanList@@YAXPAUbrush_t@@@Z	CleanList	SUPPORTED
 0x00449ff0	51	src/radiant/XYWnd.cpp	?FUN_00449ff0@@YAXPAUbrush_t@@0@Z	FUN_00449ff0	UNNAMED
 0x0044a2d0	32	src/radiant/XYWnd.cpp	?fDiff@@YAMMM@Z	fDiff	SUPPORTED
+0x0044abc0	44	src/radiant/XYWnd.cpp	?RetainClipMode@CXYWnd@@QAEX_N@Z	CXYWnd::RetainClipMode	SUPPORTED
+0x0044abf0	312	src/radiant/XYWnd.cpp	?SetClipMode@CXYWnd@@QAEX_N@Z	CXYWnd::SetClipMode	SUPPORTED
 0x0044ad30	6	src/radiant/XYWnd.cpp	?ClipMode@CXYWnd@@QAE_NXZ	CXYWnd::ClipMode	SUPPORTED
 0x0044ad40	6	src/radiant/XYWnd.cpp	?RogueClipMode@CXYWnd@@QAE_NXZ	CXYWnd::RogueClipMode	SUPPORTED
 0x0044ad50	6	src/radiant/XYWnd.cpp	?PointMode@CXYWnd@@QAE_NXZ	CXYWnd::PointMode	SUPPORTED
@@ -969,6 +975,7 @@ addr	size	source	symbol	name	tag
 0x004581e0	602	src/radiant/brush.cpp	?Brush_RemoveFromEntity@@YAXPAUbrush_t@@PAUentity_t@@@Z	Brush_RemoveFromEntity	PINNED
 0x00458640	35	src/radiant/brush.cpp	?BrushDef_Create@@YAPAUbrushdef_t@@QBM0PAUeclass_t@@PBUtexdef_t@@@Z	BrushDef_Create	SUPPORTED
 0x00458af0	260	src/radiant/brush.cpp	?FUN_00458af0@@YAXPAUbrushdef_t@@@Z	FUN_00458af0	PINNED
+0x00458c00	276	src/radiant/brush.cpp	?Brush_Free@@YAXPAUbrush_t@@@Z	Brush_Free	PINNED
 0x00458d20	30	src/radiant/brush.cpp	?Face_MemorySize@@YAHPBUface_t@@@Z	Face_MemorySize	SUPPORTED
 0x00458d40	113	src/radiant/brush.cpp	?BrushDef_MemorySize@@YAHPBUbrushdef_t@@@Z	BrushDef_MemorySize	SUPPORTED
 0x00459210	171	src/radiant/brush.cpp	?FUN_00459210@@YAXPAUbrush_t@@0@Z	FUN_00459210	SUPPORTED
