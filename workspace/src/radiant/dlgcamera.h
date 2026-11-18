@@ -25,6 +25,10 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 
 	afx_msg void OnBtnAddevent();
+	afx_msg void OnBtnAddtarget();
+	afx_msg void OnSelchangeComboSplines();
+	afx_msg void OnDestroy();
+	afx_msg void OnApply();
 	afx_msg void OnFileOpen();
 	afx_msg void OnFileSave();
 

@@ -1105,9 +1105,7 @@ void FUN_0041e160(const char *msg)
 extern "C" int __fastcall FUN_0041e730(const int *value) { return value[16]; }
 extern "C" int __fastcall FUN_0041e740(const int *value) { return value[1]; }
 extern "C" int __fastcall FUN_0041e750(const int *value) { return *value; }
-extern "C" void __stdcall FUN_0041eaa0(int a0) {  }
 extern "C" int FUN_0041eee0() { return 2; }
-extern "C" void __stdcall FUN_0041f150(int a0) {  }
 extern "C" float __fastcall FUN_0041f200(const float *value) { return value[24]; }
 extern "C" unsigned char __fastcall FUN_0041f210(const unsigned char *value) { return value[80]; }
 extern "C" int __fastcall FUN_0041f240(const int *value) { return value[3] - value[1]; }

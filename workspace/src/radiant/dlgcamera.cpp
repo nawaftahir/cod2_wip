@@ -3,6 +3,7 @@
 #include "dlgcamera.h"
 #include "DlgEvent.h"
 #include "NameDlg.h"
+#include "CameraTargetDlg.h"
 
 #include "../universal/splines/q_shared.h"
 #include "../universal/splines/splines.h"
@@ -15,6 +16,14 @@ struct QEGlobals_t
 extern QEGlobals_t g_qeglobals;
 extern idCameraDef *g_splineList;
 extern int g_nUpdateBits;
+extern int DAT_011298b0;
+extern int DAT_010c2d7c;
+extern int DAT_010c4d84;
+class CMainFrame;
+extern CMainFrame *dword_01233488;
+extern "C" void FUN_0041b190(CMainFrame *self);
+void FUN_0042beb0();
+int SaveRegistryInfo(const char *name, void *data, long size);
 
 CDlgCamera g_dlgCamera;
 
@@ -46,6 +55,10 @@ void CDlgCamera::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CDlgCamera, CDialog)
 	ON_BN_CLICKED(1356, OnBtnAddevent)
+	ON_BN_CLICKED(1076, OnBtnAddtarget)
+	ON_CBN_SELCHANGE(1352, OnSelchangeComboSplines)
+	ON_WM_DESTROY()
+	ON_BN_CLICKED(119, OnApply)
 	ON_COMMAND(ID_FILE_OPEN, OnFileOpen)
 	ON_COMMAND(ID_FILE_SAVE, OnFileSave)
 END_MESSAGE_MAP()
@@ -59,6 +72,53 @@ void CDlgCamera::OnBtnAddevent()
 		g_splineList->addEvent((idCameraEvent::eventType)(dlg.m_event + 1), dlg.m_strParm, n);
 		setupFromCamera();
 	}
+}
+
+void CDlgCamera::OnBtnAddtarget()
+{
+	CCameraTargetDlg dlg;
+	if (dlg.DoModal() == IDOK)
+	{
+		g_splineList->addTarget(dlg.m_strName, (idCameraPosition::positionType)dlg.m_nType);
+		setupFromCamera();
+		m_wndSplines.SetCurSel(g_splineList->numTargets());
+		OnSelchangeComboSplines();
+		UpdateData(TRUE);
+		int old = DAT_011298b0;
+		DAT_011298b0 = 8;
+		if (old == 0xb)
+			FUN_0041b190(dword_01233488);
+		else if (old == 0xa)
+			FUN_0042beb0();
+	}
+}
+
+void CDlgCamera::OnSelchangeComboSplines()
+{
+	UpdateData(TRUE);
+	int old = DAT_011298b0;
+	int mode = (m_editPoints == 0) ? 9 : 8;
+	DAT_011298b0 = mode;
+	if (mode == 0xb || old == 0xb)
+		FUN_0041b190(dword_01233488);
+	if (mode != 0xa && old == 0xa)
+		FUN_0042beb0();
+	DAT_010c2d7c = 0;
+	DAT_010c4d84 = 0;
+	int i = m_wndSplines.GetCurSel();
+	if (i > 0)
+	{
+		g_splineList->setActiveTarget(i - 1);
+		g_qeglobals.selectObject = g_splineList->getActiveTarget(i - 1);
+		g_splineList->startEdit(false);
+	}
+	else
+	{
+		g_splineList->startEdit(true);
+		g_qeglobals.selectObject = g_splineList->getPositionObj();
+	}
+	m_wndSegments.SetScrollRange(0, g_splineList->getTotalTime() * 4.0);
+	g_nUpdateBits = -1;
 }
 
 void CDlgCamera::setupFromCamera()
@@ -87,6 +147,27 @@ void CDlgCamera::setupFromCamera()
 	}
 	g_splineList->startEdit(true);
 	UpdateData(FALSE);
+}
+
+void CDlgCamera::OnDestroy()
+{
+	if (GetSafeHwnd())
+	{
+		CRect rct;
+		GetWindowRect(rct);
+		SaveRegistryInfo("Radiant::CameraInspector", &rct, sizeof(rct));
+	}
+	CDialog::OnDestroy();
+	g_nUpdateBits = -1;
+}
+
+void CDlgCamera::OnApply()
+{
+	UpdateData(TRUE);
+	g_splineList->setBaseTime(m_fSeconds);
+	g_splineList->setName(m_strName);
+	g_splineList->buildCamera();
+	m_wndSegments.SetScrollRange(0, g_splineList->getTotalTime() * 4.0);
 }
 
 void CDlgCamera::OnFileOpen()
@@ -120,7 +201,6 @@ extern "C" void FUN_00409f80() {}
 extern "C" void FUN_0040a9b0() {}
 extern "C" void FUN_0040a9c0() {}
 extern "C" void FUN_0040a9d0() {}
-extern "C" void FUN_0040b850() {}
 
 // Additional retail-matched short accessors and returns. Signatures are provisional.
 extern "C" int __fastcall FUN_0040abb0(const int *value) { return *value; }
@@ -135,7 +215,5 @@ extern "C" void __stdcall FUN_0040b530(int a0) {  }
 extern "C" int __stdcall FUN_0040b540(int a0) { return 0; }
 extern "C" int __fastcall FUN_0040b770(const int *value) { return *value; }
 extern "C" int __stdcall FUN_0040b840(int a0) { return 0; }
-extern "C" void __stdcall FUN_0040b860(int a0) {  }
 extern "C" void __stdcall FUN_0040b870(int a0) {  }
-extern "C" void __stdcall FUN_0040bae0(int a0) {  }
 extern "C" int __fastcall FUN_0040bc50(const int *value) { return value[7]; }
