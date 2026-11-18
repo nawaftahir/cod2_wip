@@ -21,3 +21,4 @@ addr	size	source	symbol	name	tag
 0x00407f30	16	src/radiant/CamWnd.cpp	??2CObject@@SGPAXI@Z	CObject::operator new (header inline)	AUTO
 0x00479990	33	src/radiant/win_main.cpp	??_GCMyColorDialog@@UAEPAXI@Z	CMyColorDialog::scalar deleting destructor	AUTO
 0x004799c0	5	src/radiant/win_main.cpp	??1CMyColorDialog@@UAE@XZ	CMyColorDialog::implicit destructor	AUTO
+0x00449550	33	src/radiant/XYWnd.cpp	??_GCXYWnd@@UAEPAXI@Z	CXYWnd::scalar_deleting_dtor	AUTO
