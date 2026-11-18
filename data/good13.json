@@ -26459,8 +26459,9 @@
 "name": "?XAnimCalc@@YAXPBUDObj_s@@IMPAUDObjAnimMat@@_N2PAUXAnimCalcAnimInfo@@H@Z",
 "obj": "xanim.obj",
 "size": 1715,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x48b980"
+]
 },
 {
 "name": "?XAnimDisplay@@YAXPBUXAnimTree_s@@IH@Z",
