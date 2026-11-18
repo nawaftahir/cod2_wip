@@ -2097,3 +2097,11 @@ addr	size	source	symbol	name	tag
 0x00449580	8	src/radiant/XYWnd.cpp	??1XYWndNode@@QAE@XZ	XYWndNode::~XYWndNode	SUPPORTED
 0x00449680	31	src/radiant/XYWnd.cpp	??_GXYWndNode@@QAEPAXI@Z	XYWndNode::scalar_deleting_dtor	SUPPORTED
 0x00454250	955	src/radiant/brush.cpp	?Face_WriteMaya@@YA_NPBUfaceRender_t@@PBUface_t@@PBUorientation_t@@PAU_iobuf@@_NM@Z	Face_WriteMaya	SUPPORTED
+0x004803e0	81	src/universal/com_files.cpp	?FS_AddFileToList@@YAHPADQAPADHH@Z	FS_AddFileToList	SUPPORTED
+0x00487430	23	src/universal/com_math.cpp	?AngleDelta@@YAMMM@Z	AngleDelta	SUPPORTED
+0x00483220	151	src/universal/com_math.cpp	?DiffTrackAngle@@YAMMMMM@Z	DiffTrackAngle	SUPPORTED
+0x004830f0	151	src/universal/com_math.cpp	?LinearTrackAngle@@YAMMMMM@Z	LinearTrackAngle	SUPPORTED
+0x00484c00	270	src/universal/com_math.cpp	?PerpendicularVector@@YAXQAMQBM@Z	PerpendicularVector	SUPPORTED
+0x00488b70	185	src/universal/com_math.cpp	?ProjectPointOnPlane@@YAXQBM0QAM@Z	ProjectPointOnPlane	SUPPORTED
+0x0048a170	245	src/universal/com_memory.cpp	?Hunk_SetDataForFile@@YAPBDHPBDPAXP6APAXH@Z@Z	Hunk_SetDataForFile	SUPPORTED
+0x00495060	990	src/universal/q_parse.cpp	?Com_ParseExt@@YAPADPAPBDH@Z	Com_ParseExt	SUPPORTED
