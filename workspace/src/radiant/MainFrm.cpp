@@ -5,6 +5,7 @@
 #include "FilterSettings.h"
 #include "../universal/assertive.h"
 #include <math.h>
+#include <time.h>
 
 // Bodies sit in retail address order; FUN_ names and signatures are provisional.
 
@@ -140,8 +141,11 @@ public:
   virtual BOOL PreCreateWindow(CREATESTRUCT &cs);
   virtual BOOL PreTranslateMessage(MSG *pMsg);
   virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
+  virtual LRESULT DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam);
   virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
   virtual ~CMainFrame();
+  void RoutineProcessing();
+  void UpdateWindows(int nBits);
   afx_msg void OnClose();
   afx_msg void OnTimer(UINT nIDEvent);
   afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
@@ -225,9 +229,97 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT &cs)
   return CFrameWnd::PreCreateWindow(cs);
 }
 
+int ParseCommandLine(char *cmdLine, char **argv, int maxArgs);
+int QE_LoadProject(const char *projectfile);
+const char *Com_GetExtensionSubString(const char *filename);
+void Sys_Printf(const char *text, ...);
+void FUN_0047a760(const char *fmt, ...);
+extern int DAT_010bcd28;
+extern int DAT_010bcd2c;
+extern int DAT_01139e54;
+extern float DAT_01139e58;
+extern float DAT_01139e5c;
+extern float DAT_01139e60;
+
+void __stdcall CreateQEChildren(CMainFrame *self)
+{
+  bool bProjectLoaded = false;
+  char *argv[32];
+  char cmdLine[0x10000];
+
+  strncpy(cmdLine, AfxGetApp()->m_lpCmdLine, sizeof(cmdLine));
+  cmdLine[sizeof(cmdLine) - 1] = bProjectLoaded;
+  if (ParseCommandLine(cmdLine, argv, 32) > 1)
+  {
+    const char *ext = Com_GetExtensionSubString(argv[1]);
+    if (!_stricmp(ext, ".prj"))
+      bProjectLoaded = QE_LoadProject(argv[1]);
+  }
+
+  if (!bProjectLoaded)
+  {
+    if (dword_01233b64->m_bLoadLast && dword_01233b64->m_strLastProject.GetLength() > 0)
+      bProjectLoaded = QE_LoadProject(dword_01233b64->m_strLastProject.GetBuffer(0));
+  }
+  if (!bProjectLoaded)
+  {
+    CFileDialog dlgFile(TRUE, NULL, NULL, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, "CoD2Radiant Project files( *.prj )|*.prj||", self);
+    if (dlgFile.DoModal() == IDOK)
+      bProjectLoaded = QE_LoadProject(dlgFile.GetPathName().GetBuffer(0));
+  }
+  if (!bProjectLoaded)
+    FUN_0047a760("Unable to load project file. It was unavailable in the scripts path and the default could not be found");
+
+  DAT_010bcd2c = 8;
+  DAT_010bcd28 = 1;
+  DAT_01139e54 = 0;
+  DAT_01139e58 = 20.0f;
+  DAT_01139e5c = 46.0f;
+  DAT_01139e60 = 1.0f;
+  Sys_Printf("Entering message loop\n");
+  self->field_07e5 = true;
+  ::SetTimer(self->m_hWnd, 1, 1000, NULL);
+}
+
 BOOL CMainFrame::OnCommand(WPARAM wParam, LPARAM lParam)
 {
   return CFrameWnd::OnCommand(wParam, lParam);
+}
+
+LRESULT CMainFrame::DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam)
+{
+  RoutineProcessing();
+  return CFrameWnd::DefWindowProc(message, wParam, lParam);
+}
+
+extern double DAT_01129940;
+extern double DAT_01129948;
+
+void CMainFrame::RoutineProcessing()
+{
+  if (field_07e5)
+  {
+    if (DAT_01129948 == 0.0)
+      DAT_01129948 = 0.0;
+    if (DAT_01129940 == 0.0)
+      DAT_01129940 = 0.0;
+    double time = clock() / 1000.0;
+    double delta = time - DAT_01129948;
+    DAT_01129948 = time;
+    if (delta > 2.0)
+      delta = 0.1;
+    DAT_01129940 = delta;
+    if (delta > 0.2)
+      delta = 0.2;
+    if (field_078c)
+      field_078c->Cam_MouseControl(delta);
+    if (dword_0123348c)
+    {
+      int nBits = dword_0123348c;
+      dword_0123348c = 0;
+      UpdateWindows(nBits);
+    }
+  }
 }
 
 LRESULT CMainFrame::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
@@ -871,6 +963,26 @@ extern "C" void __fastcall FUN_004177f0(CMainFrame *self)
       self->field_0788->ShowWindow(SW_SHOW);
   }
 }
+extern bool DAT_0058fbed;
+
+void CMainFrame::UpdateWindows(int nBits)
+{
+  if (!DAT_0058fbed)
+    return;
+  if (nBits & 6)
+    if (field_0788)
+      field_0788->RedrawWindow(NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW);
+  if ((nBits & 1) || ((nBits & 0x100) && field_07e4))
+    if (field_078c)
+      field_078c->RedrawWindow(NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW);
+  if (nBits & 0x28)
+    if (field_0794)
+      field_0794->RedrawWindow(NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW);
+  if (nBits & 0x10)
+    if (field_0790)
+      field_0790->RedrawWindow(NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW);
+}
+
 extern "C" void FUN_00417e00(unsigned v) { dword_0123348c |= v; }
 extern bool DAT_0109fe5c;
 extern "C" void __fastcall FUN_00417e10(CMainFrame *self)

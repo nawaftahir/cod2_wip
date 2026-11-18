@@ -413,6 +413,65 @@ void __stdcall FUN_004035a0(CCamWnd *camera)
     YawVectors(camera->m_Camera.angles[1], camera->m_Camera.forward, camera->m_Camera.right);
 }
 
+class CPrefsDlg;
+#include "PrefsDlg.h"
+#include <math.h>
+extern CPrefsDlg *dword_01233b64;
+extern unsigned dword_0123348c;
+extern int dword_0058fbe0;
+
+void CCamWnd::Cam_MouseControl(float dtime)
+{
+    float xf, yf;
+
+    if (dword_01233b64->m_nMouseButtons == 2)
+    {
+        if (m_nCambuttonstate != (MK_RBUTTON | MK_SHIFT))
+            return;
+    }
+    else
+    {
+        if (m_nCambuttonstate != MK_RBUTTON)
+            return;
+        bool bAlt = ((unsigned)GetKeyState(VK_MENU) >> 15) & 1;
+        if (bAlt)
+            return;
+    }
+
+    int nUpdate = dword_01233b64->m_bCamXYUpdate ? 5 : 1;
+    if (dword_01233b64->m_bCameraMode)
+        return;
+
+    xf = (float)(m_ptButton.x - m_Camera.width / 2) / (m_Camera.width / 2);
+    yf = (float)(m_ptButton.y - m_Camera.height / 2) / (m_Camera.height / 2);
+
+    xf *= 1.0 - fabs(yf);
+    if (xf < 0)
+    {
+        xf += 0.1;
+        if (xf > 0)
+            xf = 0;
+        else if (xf < -0.33f)
+            xf = -0.33f;
+    }
+    else
+    {
+        xf -= 0.1;
+        if (xf < 0)
+            xf = 0;
+        else if (xf > 0.33f)
+            xf = 0.33f;
+    }
+
+    dword_0123348c |= nUpdate;
+    float scale = (float)(dword_01233b64->m_nMoveSpeed * 6.0f) * yf * dtime;
+    m_Camera.origin[0] += scale * m_Camera.forward[0];
+    m_Camera.origin[1] += scale * m_Camera.forward[1];
+    m_Camera.origin[2] += scale * m_Camera.forward[2];
+    m_Camera.angles[1] -= (float)(dword_0058fbe0 * 10.0f) * xf * dtime;
+    ::PostMessage(((CWnd *)g_pParentWnd)->m_hWnd, WM_TIMER, 0, 0);
+}
+
 void CCamWnd::FUN_00403ce0(int x, int y, float *dir)
 {
     float scale;

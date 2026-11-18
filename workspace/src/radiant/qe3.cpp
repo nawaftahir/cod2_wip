@@ -269,3 +269,42 @@ skipwhite:
 	com_token[len] = 0;
 	return data;
 }
+
+// 0x0046e370 (124 B)
+int ParseCommandLine(char *cmdLine, char **argv, int maxArgs)
+{
+	int argc = 1;
+	argv[0] = "CoD2Radiant";
+	if (!cmdLine)
+		return argc;
+	while (argc < maxArgs)
+	{
+		while (*cmdLine <= ' ' || *cmdLine > '~')
+		{
+			if (!*cmdLine)
+				return argc;
+			cmdLine++;
+		}
+		if (*cmdLine == '"')
+		{
+			cmdLine++;
+			argv[argc++] = cmdLine;
+			while (*cmdLine != '"')
+			{
+				if (!*cmdLine)
+					return argc;
+				cmdLine++;
+			}
+		}
+		else
+		{
+			argv[argc++] = cmdLine;
+			while (*cmdLine > ' ' && *cmdLine <= '~')
+				cmdLine++;
+			if (!*cmdLine)
+				return argc;
+		}
+		*cmdLine++ = 0;
+	}
+	return argc;
+}
