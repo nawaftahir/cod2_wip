@@ -262,6 +262,52 @@ extern "C" float FUN_00449a20(const float *v)
     return v[2] + v[1] + v[0];
 }
 
+// retail calls it from OnLButtonDown 0x449c12
+#pragma auto_inline(off)
+// 0x00449a30: Q3Radiant CXYWnd::DropClipPoint.
+void CXYWnd::DropClipPoint(UINT nFlags, CPoint point)
+{
+    CRect rctZ;
+    GetClientRect(rctZ);
+    if (g_pMovingClip)
+    {
+        SetCapture();
+        SnapToPoint(point.x, rctZ.Height() - 1 - point.y, (float *)g_pMovingClip);
+    }
+    else
+    {
+        float *pPt = NULL;
+        if (g_Clip1.m_bSet == false)
+        {
+            pPt = g_Clip1.m_ptClip;
+            g_Clip1.Set(true);
+            g_Clip1.m_ptScreen = point;
+        }
+        else if (g_Clip2.m_bSet == false)
+        {
+            pPt = g_Clip2.m_ptClip;
+            g_Clip2.Set(true);
+            g_Clip2.m_ptScreen = point;
+        }
+        else if (g_Clip3.m_bSet == false)
+        {
+            pPt = g_Clip3.m_ptClip;
+            g_Clip3.Set(true);
+            g_Clip3.m_ptScreen = point;
+        }
+        else
+        {
+            RetainClipMode(true);
+            pPt = g_Clip1.m_ptClip;
+            g_Clip1.Set(true);
+            g_Clip1.m_ptScreen = point;
+        }
+        SnapToPoint(point.x, rctZ.Height() - 1 - point.y, pPt);
+    }
+    g_nUpdateBits |= 0x102;
+}
+#pragma auto_inline(on)
+
 // 0x00449b80: Q3Radiant CXYWnd::AddPointPoint.
 void FUN_00449b80(float *pVec)
 {
@@ -274,8 +320,6 @@ void FUN_00449b80(float *pVec)
     g_nUpdateBits |= 0x102;
 }
 
-extern bool byte_0109fe5e;
-extern bool byte_0109fe5d;
 extern HWND dword_010bcd54;
 // Only the active XY window slot of CMainFrame is used here.
 struct CMainFrameXYView
@@ -293,8 +337,8 @@ void CXYWnd::OnLButtonDown(UINT nFlags, CPoint point)
     frame->m_pActiveXY = this;
     if (this)
         m_bActive = true;
-    if (byte_0109fe5e && !byte_0109fe5d)
-        FUN_00449a30(nFlags, point);
+    if (ClipMode() && !RogueClipMode())
+        DropClipPoint(nFlags, point);
     else
         OriginalButtonDown(nFlags, point);
 }
