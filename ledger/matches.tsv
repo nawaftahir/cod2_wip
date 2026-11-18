@@ -2113,3 +2113,4 @@ addr	size	source	symbol	name	tag
 0x0045f150	229	src/radiant/brush.cpp	?FUN_0045f150@@YAXPAUbrushdef_t@@@Z	FUN_0045f150	UNNAMED
 0x00439450	147	src/radiant/Pmesh.cpp	?FUN_00439450@@YAXPAUpatchMesh_t@@@Z	FUN_00439450	UNNAMED
 0x00449a30	321	src/radiant/XYWnd.cpp	?DropClipPoint@CXYWnd@@IAEXIVCPoint@@@Z	CXYWnd::DropClipPoint	SUPPORTED
+0x00443180	23	src/radiant/TexWnd.cpp	?ShowScrollBar@CWnd@@QAEXIH@Z	CWnd::ShowScrollBar	PINNED
