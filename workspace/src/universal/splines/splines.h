@@ -358,13 +358,18 @@ struct idVelocity {
 class idCameraPosition : public idPointListInterface {
 public:
 	
-	virtual void clear() {
-		editMode = false;
+	// retail vtable 0x53fa4c: slot 8, called by clear and startCamera
+	virtual void FUN_0040b710() {
 		for (int i = 0; i < velocities.Num(); i++) {
 			delete velocities[i];
 			velocities[i] = NULL;
 		}
 		velocities.Clear();
+	}
+
+	virtual void clear() {
+		editMode = false;
+		FUN_0040b710();
 	}
 
 	idCameraPosition(const char *p) {
@@ -427,7 +432,8 @@ public:
 		return NULL;
 	}
 
-//	virtual void draw(bool editMode) {};
+	virtual void FUN_0040b850() {}
+	virtual void draw(bool editMode) {}
 
 	virtual void parse(const char *(*text)) {};
 	virtual void write(fileHandle_t file, const char *name);
@@ -517,6 +523,7 @@ public:
 		};
 		return &pos;
 	}
+	virtual void draw(bool editMode) {}
 /*
 	virtual void draw(bool editMode) {
 		glLabeledPoint(blue, pos, (editMode) ? 5 : 3, "Fixed point");
@@ -585,6 +592,7 @@ public:
 			first = true;
 		}
 	}
+	virtual void draw(bool editMode) {}
 /*
 	virtual void draw(bool editMode) {
 		glLabeledPoint(blue, startPos, (editMode) ? 5 : 3, "Start interpolated");
@@ -665,6 +673,7 @@ public:
 		target.addPoint(x, y, z);
 	}
 
+	virtual void draw(bool editMode) {}
 /*	virtual void draw(bool editMode) {
 		target.draw(editMode);
 	}

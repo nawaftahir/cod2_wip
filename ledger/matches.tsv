@@ -169,6 +169,7 @@ addr	size	source	symbol	name	tag
 0x00409e00	1	src/radiant/dlgcamera.cpp	_FUN_00409e00	FUN_00409e00	UNNAMED
 0x00409f70	1	src/radiant/dlgcamera.cpp	_FUN_00409f70	FUN_00409f70	UNNAMED
 0x00409f80	1	src/radiant/dlgcamera.cpp	_FUN_00409f80	FUN_00409f80	UNNAMED
+0x0040a470	72	src/radiant/dlgcamera.cpp	?OnDestroy@CDlgCamera@@IAEXXZ	CDlgCamera::OnDestroy	SUPPORTED
 0x0040a790	250	src/radiant/dlgcamera.cpp	?OnFileOpen@CDlgCamera@@IAEXXZ	CDlgCamera::OnFileOpen	SUPPORTED
 0x0040a890	65	src/radiant/dlgcamera.cpp	??1CNameDlg@@UAE@XZ	CNameDlg::~CNameDlg	SUPPORTED
 0x0040a8e0	201	src/radiant/dlgcamera.cpp	?OnFileSave@CDlgCamera@@IAEXXZ	CDlgCamera::OnFileSave	SUPPORTED
@@ -215,8 +216,8 @@ addr	size	source	symbol	name	tag
 0x0040b820	13	src/radiant/dlgcamera.cpp	?start@idCameraPosition@@UAEXJ@Z	idCameraPosition::start	SUPPORTED
 0x0040b830	13	src/radiant/dlgcamera.cpp	?setTime@idCameraPosition@@UAEXJ@Z	idCameraPosition::setTime	SUPPORTED
 0x0040b840	5	src/radiant/dlgcamera.cpp	_FUN_0040b840@4	FUN_0040b840	UNNAMED
-0x0040b850	1	src/radiant/dlgcamera.cpp	_FUN_0040b850	FUN_0040b850	UNNAMED
-0x0040b860	3	src/radiant/dlgcamera.cpp	_FUN_0040b860@4	FUN_0040b860	UNNAMED
+0x0040b850	1	src/radiant/dlgcamera.cpp	?FUN_0040b850@idCameraPosition@@UAEXXZ	FUN_0040b850	UNNAMED
+0x0040b860	3	src/radiant/dlgcamera.cpp	?draw@idCameraPosition@@UAEX_N@Z	idCameraPosition::draw	SUPPORTED
 0x0040b870	3	src/radiant/dlgcamera.cpp	_FUN_0040b870@4	FUN_0040b870	UNNAMED
 0x0040b880	5	src/radiant/dlgcamera.cpp	?startEdit@idCameraPosition@@UAEXXZ	idCameraPosition::startEdit	SUPPORTED
 0x0040b890	5	src/radiant/dlgcamera.cpp	?stopEdit@idCameraPosition@@UAEXXZ	idCameraPosition::stopEdit	SUPPORTED
@@ -225,7 +226,7 @@ addr	size	source	symbol	name	tag
 0x0040ba40	27	src/radiant/dlgcamera.cpp	?addPoint@idFixedPosition@@UAEXABVidVec3_t@@@Z	idFixedPosition::addPoint	SUPPORTED
 0x0040ba60	17	src/radiant/dlgcamera.cpp	??4idVec3_t@@QAEAAV0@ABV0@@Z	idVec3_t::operator=	SUPPORTED
 0x0040ba80	25	src/radiant/dlgcamera.cpp	?addPoint@idFixedPosition@@UAEXMMM@Z	idFixedPosition::addPoint	SUPPORTED
-0x0040bae0	3	src/radiant/dlgcamera.cpp	_FUN_0040bae0@4	FUN_0040bae0	UNNAMED
+0x0040bae0	3	src/radiant/dlgcamera.cpp	?draw@idFixedPosition@@UAEX_N@Z	idFixedPosition::draw	SUPPORTED
 0x0040baf0	15	src/radiant/dlgcamera.cpp	?init@idFixedPosition@@QAEXXZ	idFixedPosition::init	SUPPORTED
 0x0040bc50	4	src/radiant/dlgcamera.cpp	@FUN_0040bc50@4	FUN_0040bc50	UNNAMED
 0x0040bc60	19	src/radiant/dlgcamera.cpp	?SetCurSel@CComboBox@@QAEHH@Z	CComboBox::SetCurSel	SUPPORTED
@@ -590,9 +591,9 @@ addr	size	source	symbol	name	tag
 0x0041e730	4	src/radiant/MainFrm.cpp	@FUN_0041e730@4	FUN_0041e730	UNNAMED
 0x0041e740	4	src/radiant/MainFrm.cpp	@FUN_0041e740@4	FUN_0041e740	UNNAMED
 0x0041e750	3	src/radiant/MainFrm.cpp	@FUN_0041e750@4	FUN_0041e750	UNNAMED
-0x0041eaa0	3	src/radiant/MainFrm.cpp	_FUN_0041eaa0@4	FUN_0041eaa0	UNNAMED
+0x0041eaa0	3	src/radiant/MainFrm.cpp	?draw@idSplinePosition@@UAEX_N@Z	idSplinePosition::draw	SUPPORTED
 0x0041eee0	6	src/radiant/MainFrm.cpp	_FUN_0041eee0	FUN_0041eee0	UNNAMED
-0x0041f150	3	src/radiant/MainFrm.cpp	_FUN_0041f150@4	FUN_0041f150	UNNAMED
+0x0041f150	3	src/radiant/MainFrm.cpp	?draw@idInterpolatedPosition@@UAEX_N@Z	idInterpolatedPosition::draw	SUPPORTED
 0x0041f200	4	src/radiant/MainFrm.cpp	@FUN_0041f200@4	FUN_0041f200	UNNAMED
 0x0041f210	4	src/radiant/MainFrm.cpp	@FUN_0041f210@4	FUN_0041f210	UNNAMED
 0x0041f240	7	src/radiant/MainFrm.cpp	@FUN_0041f240@4	FUN_0041f240	UNNAMED
