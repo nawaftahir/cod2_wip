@@ -5,15 +5,16 @@
 #include <math.h>
 #include "PrefsDlg.h"
 #include "../universal/assertive.h"
+#include "radiant_wnd.h"
 
 #define W_XY 2
 
 enum { YZ, XZ, XY };
 
-struct brush_s
+struct brush_t
 {
-    brush_s *prev;
-    brush_s *next;
+    brush_t *prev;
+    brush_t *next;
 };
 
 // Q3Radiant qeglobals_t view: the fields this file reads (base 0x10bcd28).
@@ -21,7 +22,9 @@ struct XYQEGlobals
 {
     int d_showgrid;
     int d_gridsize;
-    unsigned char pad0[0x38];
+    unsigned char pad0[0x24];
+    HWND d_hwndMain;
+    unsigned char pad1[0x10];
     HWND d_hwndXY;
 };
 extern XYQEGlobals g_qeglobals;
@@ -38,10 +41,12 @@ extern int g_nPointCount;
 extern float g_vRotateOrigin[3];
 extern float g_vRotation[3];
 extern void *g_pMovingClip;
-extern brush_s g_brClipboard;
-extern brush_s g_brUndo;
+extern brush_t g_brClipboard;
+extern brush_t g_brUndo;
 
 void FUN_0047a760(const char *format, ...);
+void FUN_004592f0(brush_t *b);
+void FUN_00459210(brush_t *b, brush_t *list);
 void Drag_MouseUp(int buttons);
 
 // The three CMainFrame methods called through g_pParentWnd (same projection as TexWnd.cpp).
@@ -57,6 +62,23 @@ struct CXYWndMainProjection
 };
 extern CMainFrame *g_pParentWnd;
 
+// Q3Radiant CClipPoint: one placed point of the clip, point or path tools.
+class CClipPoint
+{
+public:
+    void Reset();
+    void UpdatePointPtr();
+    void SetPointPtr(float *p);
+    void Set(bool b);
+
+    float m_ptClip[3];
+    float *m_pVec3;
+    CPoint m_ptScreen;
+    bool m_bSet;
+};
+typedef char ClipPointSize[(sizeof(CClipPoint) == 0x1c) ? 1 : -1];
+extern CClipPoint g_PointPoints[512];
+
 extern CPrefsDlg *dword_01233b64;
 struct eclass_t
 {
@@ -65,100 +87,7 @@ struct eclass_t
 };
 extern eclass_t *dword_012334dc;
 
-// Retail list node hanging off the window (owner and name still unknown).
-struct XYWndNode
-{
-    XYWndNode();
-    XYWndNode(int id, const char *name);
-    int field_00;
-    CString field_04;
-    XYWndNode *next;
-};
 
-class CXYWnd : public CWnd
-{
-    DECLARE_DYNCREATE(CXYWnd)
-public:
-    CXYWnd();
-    virtual ~CXYWnd();
-    void XY_Init();
-    void SnapToPoint(int x, int y, float point[3]);
-    void XY_ToPoint(int x, int y, float point[3]);
-    void XY_ToGridPoint(int x, int y, float point[3]);
-    void FUN_0044c5c0(int x, int y, float origin[3], float dir[3]);
-    void FUN_00452c30();
-    void VectorCopyXY(float in[3], float out[3]);
-    bool ClipMode();
-    bool RogueClipMode();
-    bool PointMode();
-    void SetPointMode(bool b);
-    float (&GetOrigin())[3];
-    void SetOrigin(float org[3]);
-    bool RotateMode();
-    bool ScaleMode();
-    void SetScaleMode(bool bMode);
-    float (&RotateOrigin())[3];
-    float (&Rotation())[3];
-    BOOL AreaSelectOK();
-    void XY_MouseUp(int x, int y, int buttons);
-    BOOL DragDelta(int x, int y, float move[3]);
-    void FUN_0044bc50(const char *name, int id);
-    void FUN_0044be20();
-    void HandleDrop();
-
-    bool m_bActive;
-    unsigned char pad_51[3];
-    int m_nUpdateBits;
-    int m_nWidth;
-    int m_nHeight;
-    float m_fScale;
-    float m_TopClip;
-    float m_BottomClip;
-    bool m_bDirty;
-    float m_vOrigin[3];
-    CPoint m_ptCursor;
-    bool m_bRButtonDown;
-    int m_nButtonstate;
-    int m_nPressx;
-    int m_nPressy;
-    float m_vPressdelta[3];
-    bool m_bPress_selection;
-    // Retail-only storage between the press state and the drop menu.
-    unsigned char field_a1[0x3f];
-    CMenu m_mnuDrop;
-    XYWndNode field_e8;
-    int m_nViewType;
-    int m_nTimerID;
-    int m_nScrollFlags;
-    CPoint m_ptDrag;
-    CPoint m_ptDragAdj;
-    CPoint m_ptDragTotal;
-    CPoint m_ptDown;
-protected:
-    virtual BOOL PreCreateWindow(CREATESTRUCT &cs);
-    afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-    afx_msg void OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS *lpncsp);
-    afx_msg void OnKillFocus(CWnd *pNewWnd);
-    afx_msg void OnSetFocus(CWnd *pOldWnd);
-    afx_msg void OnClose();
-    afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
-    afx_msg void OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags);
-    afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
-    afx_msg void OnSysKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
-
-    DECLARE_MESSAGE_MAP()
-};
-
-typedef char XYWndSize[(sizeof(CXYWnd) == 0x120) ? 1 : -1];
-typedef char XYWndUpdateOffset[(offsetof(CXYWnd, m_nUpdateBits) == 0x54) ? 1 : -1];
-typedef char XYWndScaleOffset[(offsetof(CXYWnd, m_fScale) == 0x60) ? 1 : -1];
-typedef char XYWndOriginOffset[(offsetof(CXYWnd, m_vOrigin) == 0x70) ? 1 : -1];
-typedef char XYWndButtonOffset[(offsetof(CXYWnd, m_nButtonstate) == 0x88) ? 1 : -1];
-typedef char XYWndPressOffset[(offsetof(CXYWnd, m_bPress_selection) == 0xa0) ? 1 : -1];
-typedef char XYWndMenuOffset[(offsetof(CXYWnd, m_mnuDrop) == 0xe0) ? 1 : -1];
-typedef char XYWndStringOffset[(offsetof(CXYWnd, field_e8) == 0xe8) ? 1 : -1];
-typedef char XYWndViewOffset[(offsetof(CXYWnd, m_nViewType) == 0xf4) ? 1 : -1];
-typedef char XYWndTimerOffset[(offsetof(CXYWnd, m_nTimerID) == 0xf8) ? 1 : -1];
 
 IMPLEMENT_DYNCREATE(CXYWnd, CWnd)
 
@@ -249,6 +178,63 @@ int FUN_00449760()
     }
 }
 
+// 0x00449800: Q3Radiant WXY_Print.
+void WXY_Print()
+{
+    PRINTDLG pd;
+    DOCINFO di;
+
+    memset(&pd, 0, sizeof(pd));
+    pd.lStructSize = sizeof(pd);
+    pd.hwndOwner = g_qeglobals.d_hwndXY;
+    pd.Flags = PD_RETURNDC;
+    pd.hInstance = 0;
+    if (!PrintDlg(&pd) || !pd.hDC)
+    {
+        MessageBox(g_qeglobals.d_hwndMain, "Could not PrintDlg()", "QE4 Print Error", MB_ICONERROR);
+        return;
+    }
+
+    memset(&di, 0, sizeof(di));
+    di.cbSize = sizeof(di);
+    di.lpszDocName = "QE4";
+    if (StartDoc(pd.hDC, &di) <= 0)
+    {
+        MessageBox(g_qeglobals.d_hwndMain, "Could not StartDoc()", "QE4 Print Error", MB_ICONERROR);
+        return;
+    }
+
+    if (StartPage(pd.hDC) <= 0)
+    {
+        MessageBox(g_qeglobals.d_hwndMain, "Could not StartPage()", "QE4 Print Error", MB_ICONERROR);
+        return;
+    }
+
+    {
+        RECT r;
+        GetWindowRect(g_qeglobals.d_hwndXY, &r);
+        int bmwidth = r.right - r.left;
+        int bmheight = r.bottom - r.top;
+        int pwidth = GetDeviceCaps(pd.hDC, PHYSICALWIDTH) - GetDeviceCaps(pd.hDC, PHYSICALOFFSETX);
+        int pheight = GetDeviceCaps(pd.hDC, PHYSICALHEIGHT) - GetDeviceCaps(pd.hDC, PHYSICALOFFSETY);
+        HDC hdcXY = GetDC(g_qeglobals.d_hwndXY);
+        StretchBlt(pd.hDC, 0, 0, pwidth, pheight, hdcXY, 0, 0, bmwidth, bmheight, SRCCOPY);
+        ReleaseDC(g_qeglobals.d_hwndXY, hdcXY);
+    }
+
+    if (EndPage(pd.hDC) <= 0)
+    {
+        MessageBox(g_qeglobals.d_hwndMain, "QE4 Print Error", "Could not EndPage()", MB_ICONERROR);
+        return;
+    }
+
+    if (EndDoc(pd.hDC) <= 0)
+    {
+        MessageBox(g_qeglobals.d_hwndMain, "QE4 Print Error", "Could not EndDoc()", MB_ICONERROR);
+        return;
+    }
+}
+
 int CXYWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
     if (Default() == -1)
@@ -260,6 +246,31 @@ int CXYWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 extern "C" float FUN_00449a20(const float *v)
 {
     return v[2] + v[1] + v[0];
+}
+
+// 0x00449b80: Q3Radiant CXYWnd::AddPointPoint.
+void FUN_00449b80(float *pVec)
+{
+    g_PointPoints[g_nPointCount].Set(true);
+    g_PointPoints[g_nPointCount].m_ptClip[0] = pVec[0];
+    g_PointPoints[g_nPointCount].m_ptClip[1] = pVec[1];
+    g_PointPoints[g_nPointCount].m_ptClip[2] = pVec[2];
+    g_PointPoints[g_nPointCount].SetPointPtr(pVec);
+    g_nPointCount++;
+    g_nUpdateBits |= 0x102;
+}
+
+// 0x00449ff0: moves every brush of a list into another list.
+void FUN_00449ff0(brush_t *to, brush_t *from)
+{
+    brush_t *b = from->next;
+    while (b != NULL && b != from)
+    {
+        brush_t *next = b->next;
+        FUN_004592f0(b);
+        FUN_00459210(b, to);
+        b = next;
+    }
 }
 
 float fDiff(float f1, float f2)
@@ -295,6 +306,16 @@ void CXYWnd::SetPointMode(bool b)
 void CXYWnd::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
     g_pParentWnd->OnKeyDown(nChar, nRepCnt, nFlags);
+}
+
+XYWndNode *CXYWnd::FUN_0044bc30(int id)
+{
+    for (XYWndNode *node = field_e8.next; node; node = node->next)
+    {
+        if (node->field_00 == id)
+            return node;
+    }
+    return NULL;
 }
 
 void CXYWnd::FUN_0044bc50(const char *name, int id)
@@ -572,6 +593,14 @@ void CXYWnd::VectorCopyXY(float in[3], float out[3])
     }
 }
 
+// Q3Radiant CXYWnd::Redraw.
+void CXYWnd::Redraw(unsigned int nBits)
+{
+    m_nUpdateBits = nBits;
+    RedrawWindow(NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW);
+    m_nUpdateBits = W_XY;
+}
+
 bool CXYWnd::RotateMode()
 {
     return g_bRotateMode;
@@ -663,6 +692,34 @@ XYWndNode::XYWndNode(int id, const char *name)
     next = NULL;
     field_00 = id;
     field_04 = name;
+}
+
+void CClipPoint::Reset()
+{
+    m_ptClip[0] = m_ptClip[1] = m_ptClip[2] = 0;
+    m_bSet = false;
+    m_pVec3 = NULL;
+}
+
+void CClipPoint::UpdatePointPtr()
+{
+    float *p = m_pVec3;
+    if (p)
+    {
+        p[0] = m_ptClip[0];
+        p[1] = m_ptClip[1];
+        p[2] = m_ptClip[2];
+    }
+}
+
+void CClipPoint::SetPointPtr(float *p)
+{
+    m_pVec3 = p;
+}
+
+void CClipPoint::Set(bool b)
+{
+    m_bSet = b;
 }
 
 extern "C" void FUN_004535f0() {}

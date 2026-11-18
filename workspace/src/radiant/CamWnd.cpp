@@ -1,23 +1,8 @@
 #include "stdafx.h"
 #include <stddef.h>
 #include <string.h>
+#include "radiant_wnd.h"
 
-struct CameraState
-{
-    int width;
-    int height;
-    int timing;
-    float origin[3];
-    float angles[3];
-    int drawMode;
-    float color[3];
-    float forward[3];
-    float right[3];
-    float up[3];
-    float vup[3];
-    float vpn[3];
-    float vright[3];
-};
 
 class CXYWnd;
 class CMainFrame
@@ -62,66 +47,6 @@ struct CMainFrameCamView
     CCamWnd *m_pCamWnd;
 };
 
-class CCamWnd : public CWnd
-{
-    DECLARE_DYNCREATE(CCamWnd)
-public:
-    CCamWnd();
-    virtual ~CCamWnd();
-    void SetXYFriend(CXYWnd *window);
-    void Cam_Init();
-    void FUN_00403ce0(int x, int y, float *dir);
-    CXYWnd *m_pXYFriend;
-    CameraState m_Camera;
-    int m_nCambuttonstate;
-    CPoint m_ptButton;
-    CPoint m_ptCursor;
-    CPoint m_ptLastCursor;
-    // Retail storage between cursor state and the clip flag; fields remain undecoded.
-    float m_vCull1[3];
-    float m_vCull2[3];
-    int m_nCullv1[3];
-    int m_nCullv2[3];
-    bool m_bClipMode;
-    int field_120;
-    int field_124;
-    bool field_128;
-    // Retail storage before the culling vectors; fields remain undecoded.
-    float field_12c[3];
-    float cullNormals[2][3];
-    int cullIndices[2][3];
-protected:
-    virtual BOOL PreCreateWindow(CREATESTRUCT &create);
-    void OriginalMouseDown(UINT flags, CPoint point);
-    void OriginalMouseUp(UINT flags, CPoint point);
-    void Cam_MouseDown(int x, int y, int buttons);
-    void Cam_MouseUp(int x, int y, int buttons);
-    void InitCull();
-    void Cam_MouseMoved(int x, int y, int buttons);
-    afx_msg void OnKeyDown(UINT key, UINT repeat, UINT flags);
-    afx_msg void OnPaint();
-    afx_msg void OnClose();
-    afx_msg void OnMouseMove(UINT flags, CPoint point);
-    afx_msg void OnLButtonDown(UINT flags, CPoint point);
-    afx_msg void OnLButtonUp(UINT flags, CPoint point);
-    afx_msg void OnMButtonDown(UINT flags, CPoint point);
-    afx_msg void OnMButtonUp(UINT flags, CPoint point);
-    afx_msg void OnRButtonDown(UINT flags, CPoint point);
-    afx_msg void OnRButtonUp(UINT flags, CPoint point);
-    afx_msg int OnCreate(LPCREATESTRUCT create);
-    afx_msg void OnSize(UINT type, int width, int height);
-    afx_msg void OnKeyUp(UINT key, UINT repeat, UINT flags);
-    afx_msg BOOL OnMouseWheel(UINT flags, short delta, CPoint point);
-    afx_msg void OnSysKeyDown(UINT key, UINT repeat, UINT flags);
-    DECLARE_MESSAGE_MAP()
-};
-
-typedef char CameraStateSize[(sizeof(CameraState) == 0x7c) ? 1 : -1];
-typedef char CamWindowSize[(sizeof(CCamWnd) == 0x168) ? 1 : -1];
-typedef char CamStateOffset[(offsetof(CCamWnd, m_Camera) == 0x54) ? 1 : -1];
-typedef char CamLastCursorOffset[(offsetof(CCamWnd, m_ptLastCursor) == 0xe4) ? 1 : -1];
-typedef char CamClipOffset[(offsetof(CCamWnd, m_bClipMode) == 0x11c) ? 1 : -1];
-typedef char CamCullOffset[(offsetof(CCamWnd, cullNormals) == 0x138) ? 1 : -1];
 
 IMPLEMENT_DYNCREATE(CCamWnd, CWnd)
 
