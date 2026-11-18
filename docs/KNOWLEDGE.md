@@ -1141,3 +1141,6 @@ set by a later lowering stage, not by the list scheduler.
   `x = (((widthScale * rect->w)) + textWidth + scale) * -0.5f;` and pic height `(float)(((((double)rect->h)) + ((double)scale)))`.
   `((cast-or-product))` makes a zero-code op 0x269 node on unit 0 that takes a list-scheduler slot; parens on a bare leaf
   or a single redundant paren do nothing. KNOWLEDGE 27 correction: op 0x63 = fstp, 0x0d = push.
+- PINNED (w29 11-18, gate +6 on 1.3 and 1.0): CG_DrawGrenadePointer matched by paren depth: width `(((Get..Width(..))))`, height plain
+  (mirror also matches in lab). Sched trace: block 0 sits at the 81-tuple cap, so `fchs` fell into block 1 behind `mov edx`
+  (prio 0xa400); the tuple count pulls it back. `(((x)))` on one call result is a different step than `((x))` on one or both.
