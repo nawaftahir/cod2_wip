@@ -96,6 +96,10 @@ tested flag set (with /Op it calls `_sin`/`_cos`; without /Op it emits a separat
 same engine family. Nothing else may use asm. Numeric constants are allowed when
 proved by the target (for example window-style flags and allocator magic);
 absolute retail addresses must not substitute for proper source symbols.
+Second exception (owner, 2026-11-18): `#pragma auto_inline(off)`/`(on)` around a
+function is allowed only when retail provably keeps that function out of line
+(retail calls it at the site our build inlines). Cite the call site in the defer
+or match row. No other inline pragmas or noinline.
 
 Use make try with the exact known symbol when best-match guessing chooses the
 wrong routine. LTCG register conventions require real source/caller context,
