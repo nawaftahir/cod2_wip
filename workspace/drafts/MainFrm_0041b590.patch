@@ -1,0 +1,29 @@
+diff --git a/workspace/src/radiant/MainFrm.cpp b/workspace/src/radiant/MainFrm.cpp
+index 61cc9700..f9d43362 100644
+--- a/workspace/src/radiant/MainFrm.cpp
++++ b/workspace/src/radiant/MainFrm.cpp
+@@ -871,6 +871,24 @@ extern "C" void FUN_0041b190(CMainFrame *self)
+   ::CheckMenuItem(::GetMenu(g_qeglobals.d_hwndMain), 0x8173, DAT_0112993f ? MF_CHECKED : MF_UNCHECKED);
+   ::CheckMenuItem(::GetMenu(g_qeglobals.d_hwndMain), 0x8175, DAT_011298b0 == 11 ? MF_CHECKED : MF_UNCHECKED);
+ }
++void FUN_00441420();
++// Check one of the texture-size menu items, save prefs, then reselect the texture.
++extern "C" void FUN_0041b590(CMainFrame *self, UINT id)
++{
++  CMenu *menu = self->GetMenu();
++  if (menu)
++  {
++    menu->CheckMenuItem(0x8082, MF_UNCHECKED);
++    menu->CheckMenuItem(0x8081, MF_UNCHECKED);
++    menu->CheckMenuItem(0x8080, MF_UNCHECKED);
++    menu->CheckMenuItem(0x807f, MF_UNCHECKED);
++    menu->CheckMenuItem(0x807e, MF_UNCHECKED);
++    menu->CheckMenuItem(id, MF_CHECKED);
++  }
++  dword_01233b64->SavePrefs();
++  FUN_00441420();
++  dword_0123348c |= 0x10;
++}
+ extern "C" void FUN_0041b6e0() { FUN_00437e50(); }
+ extern "C" void FUN_0041b700() { FUN_00438120(); }
+ extern "C" void FUN_0041b710() { FUN_00438ff0(); }

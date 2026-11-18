@@ -1,0 +1,444 @@
+diff --git a/workspace/src/radiant/XYWnd.cpp b/workspace/src/radiant/XYWnd.cpp
+index 670dc15b..aaeefe58 100644
+--- a/workspace/src/radiant/XYWnd.cpp
++++ b/workspace/src/radiant/XYWnd.cpp
+@@ -5,6 +5,7 @@
+ #include <math.h>
+ #include "PrefsDlg.h"
+ #include "../universal/assertive.h"
++#include "../universal/q_shared.h"
+ 
+ #define W_XY 2
+ 
+@@ -62,7 +63,68 @@ struct eclass_t
+ {
+     eclass_t *next;
+     char *name;
++    int unk08;
++    unsigned char pad0c[0x158 - 0x0c];
++    char *modelName;
++    unsigned char pad15c[4];
++    unsigned int flags;
+ };
++struct epair_t;
++struct entity_t
++{
++    unsigned char pad00[0x50];
++    eclass_t *eclass;
++    eclass_t *modelClass;
++};
++struct entityInst_t
++{
++    unsigned char pad00[8];
++    entity_t *def;
++};
++extern entityInst_t *DAT_012334ec;
++struct xymat_t
++{
++    unsigned char pad00[4];
++    const char *name;
++    unsigned char flags08;
++    unsigned char flags09;
++    unsigned char pad0a[6];
++    int flags10;
++    unsigned char pad14[8];
++    int surface;
++    int flags20;
++};
++struct xyface_t
++{
++    unsigned char pad00[0x24];
++    xymat_t *mat;
++    unsigned char pad28[0x78 - 0x28];
++    int contents;
++    unsigned char pad7c[0xa8 - 0x7c];
++};
++struct xypatch_t
++{
++    unsigned char pad00[0x10];
++    int type;
++};
++struct brushdef_t
++{
++    unsigned char pad00[8];
++    entity_t *owner;
++    unsigned char pad0c[0x38 - 0x0c];
++    int faceCount;
++    xyface_t *faces;
++    unsigned char pad40[4];
++    xypatch_t *patch;
++    bool FUN_0044f560(int mask);
++};
++bool FUN_00465d80(entity_t *ent, const char *key);
++bool FUN_00465e10(entity_t *ent, const char *key, const char *value);
++extern int DAT_01128d90;
++extern int DAT_01129888;
++extern int DAT_01129890;
++extern int DAT_01244d74;
++extern CString DAT_012345c4;
+ extern eclass_t *dword_012334dc;
+ 
+ // Retail list node hanging off the window (owner and name still unknown).
+@@ -527,6 +589,362 @@ BOOL CXYWnd::DragDelta(int x, int y, float move[3])
+     return FALSE;
+ }
+ 
++bool brushdef_t::FUN_0044f560(int mask)
++{
++    for (int i = 0; i < faceCount; i++)
++    {
++        if (faces[i].mat->surface & mask)
++            return true;
++    }
++    return false;
++}
++
++bool FUN_0044f590(brushdef_t *b, int flag)
++{
++    for (int i = 0; i < b->faceCount; i++)
++    {
++        if (b->faces[i].mat->flags09 & flag)
++            return true;
++    }
++    return false;
++}
++
++bool FUN_0044f630(brushdef_t *b)
++{
++    char buf[1024];
++    char token[1024];
++#line 2589
++    assert(b);
++    if (!b->owner)
++        return true;
++    if (DAT_01128d90 == 1 && !b->owner->eclass->unk08 && !FUN_0044f590(b, 2))
++        return true;
++    const char *name = b->faces[0].mat->name;
++    int i;
++    if (DAT_01129888 & 0x2000)
++    {
++        for (i = 0; i < b->faceCount; i++)
++        {
++            if (!strstr(b->faces[i].mat->name, "caulk") && !strstr(b->faces[i].mat->name, "nodraw_decal"))
++                break;
++        }
++        if (i == b->faceCount)
++            return true;
++    }
++    if (DAT_01129888 & 0x8000000)
++    {
++        bool all = true;
++        for (i = 0; i < b->faceCount; i++)
++        {
++            if (!(b->faces[i].mat->flags20 & 0x800))
++            {
++                all = false;
++                break;
++            }
++        }
++        if (all)
++            return true;
++    }
++    if (DAT_01129888 < 0)
++    {
++        bool all = true;
++        for (i = 0; i < b->faceCount; i++)
++        {
++            if (!(b->faces[i].mat->flags20 & 0x1000000))
++            {
++                all = false;
++                break;
++            }
++        }
++        if (all)
++            return true;
++    }
++    if (DAT_01129890 & 0x200)
++    {
++        for (i = 0; i < b->faceCount; i++)
++        {
++            if (!strstr(b->faces[i].mat->name, "bcs"))
++                break;
++        }
++        if (i == b->faceCount)
++            return true;
++        if (FUN_00465e10(b->owner, "targetname", "trigger_location"))
++            return true;
++        if (FUN_00465e10(b->owner, "targetname", "trigger_landmark"))
++            return true;
++    }
++    if (DAT_01129890 & 0x800)
++    {
++        for (i = 0; i < b->faceCount; i++)
++        {
++            if (!strstr(b->faces[i].mat->name, "escort"))
++                break;
++        }
++        if (i == b->faceCount)
++            return true;
++        if (FUN_00465e10(b->owner, "targetname", "escortchain"))
++            return true;
++    }
++    if (DAT_01129890 & 0x1000)
++    {
++        for (i = 0; i < b->faceCount; i++)
++        {
++            if (!strstr(b->faces[i].mat->name, "kill"))
++                break;
++        }
++        if (i == b->faceCount)
++            return true;
++    }
++    if (DAT_01129890 & 0x2000)
++    {
++        for (i = 0; i < b->faceCount; i++)
++        {
++            if (!strstr(b->faces[i].mat->name, "spawner_trigger"))
++                break;
++        }
++        if (i == b->faceCount)
++            return true;
++        if (FUN_00465e10(b->owner, "targetname", "flood_and_secure"))
++            return true;
++        if (FUN_00465e10(b->owner, "targetname", "flood_spawner"))
++            return true;
++    }
++    if (DAT_01129890 & 0x4000)
++    {
++        for (i = 0; i < b->faceCount; i++)
++        {
++            if (!strstr(b->faces[i].mat->name, "stopspawn"))
++                break;
++        }
++        if (i == b->faceCount)
++            return true;
++        if (FUN_00465e10(b->owner, "targetname", "friendly_spawn"))
++            return true;
++    }
++    if (DAT_01129890 & 0x8000)
++    {
++        for (i = 0; i < b->faceCount; i++)
++        {
++            if (!strstr(b->faces[i].mat->name, "aitrig"))
++                break;
++        }
++        if (i == b->faceCount)
++            return true;
++        if (FUN_00465e10(b->owner, "classname", "trigger_friendlychain"))
++            return true;
++    }
++    if (DAT_01129890 & 0x10000)
++    {
++        for (i = 0; i < b->faceCount; i++)
++        {
++            if (!strstr(b->faces[i].mat->name, "ambient"))
++                break;
++        }
++        if (i == b->faceCount)
++            return true;
++        if (FUN_00465e10(b->owner, "targetname", "ambient"))
++            return true;
++        if (FUN_00465e10(b->owner, "targetname", "ambient_volume"))
++            return true;
++    }
++    if (DAT_01129888 & 0x1000)
++    {
++        if (strstr(name, "hint") || strstr(name, "skip"))
++            return true;
++    }
++    if (DAT_01129890 & 0x100)
++    {
++        if (strstr(name, "goal_volume"))
++            return true;
++    }
++    if (DAT_01129890 & 8)
++    {
++        for (i = 0; i < b->faceCount; i++)
++        {
++            if (b->faces[i].mat->flags10 & DAT_01244d74)
++                return true;
++        }
++        if (strstr(name, "decal"))
++            return true;
++    }
++    if (DAT_01129890 & 0x400)
++    {
++        for (i = 0; i < b->faceCount; i++)
++        {
++            if (b->faces[i].mat->flags10 & DAT_01244d74)
++                return false;
++            if (strstr(b->faces[i].mat->name, "decal"))
++                return false;
++        }
++        return true;
++    }
++    if (DAT_01129888 & 0x20)
++    {
++        if (strstr(name, "clip"))
++            return true;
++    }
++    if (DAT_01129888 & 8)
++    {
++        for (i = 0; i < b->faceCount; i++)
++        {
++            if (b->faces[i].mat->flags20 & 0x20)
++                return true;
++            if ((b->faces[i].mat->surface & 0x1f00000) == 0x1400000)
++                return true;
++        }
++    }
++    if (DAT_01129888 & 0x40)
++    {
++        if ((b->faces[0].contents & 0x8002084) == 0x8000000)
++            return true;
++    }
++    if (DAT_01129888 & 0x2000000)
++    {
++        if (b->faces[0].contents & 0x2080)
++            return true;
++    }
++    if (DAT_01129890 & 0x10)
++    {
++        if ((b->faces[0].contents & 0x8000004) == 0x8000004)
++            return true;
++    }
++    if (DAT_01129888 & 0x20000000)
++    {
++        if (b->owner == DAT_012334ec->def || !strncmp(b->owner->eclass->name, "func_group", 10))
++        {
++            if (b->faces[0].contents & 0x28000000)
++                return true;
++        }
++    }
++    if (DAT_01129888 & 0x80)
++    {
++        if (b->patch && b->patch->type != 0x40)
++            return true;
++    }
++    if (DAT_01129888 & 0x8000)
++    {
++        if (b->patch && b->patch->type == 0x40)
++            return true;
++    }
++    if (DAT_01129888 & 0x10000000)
++    {
++        if (b->faces[0].mat->flags20 & 0x20000000)
++            return true;
++    }
++    if (DAT_01129890 & 2)
++    {
++        if (b->FUN_0044f560(0x80000000))
++            return true;
++    }
++    if (b->owner == DAT_012334ec->def || !strcmp(b->owner->eclass->name, "func_group"))
++    {
++        if ((DAT_01129888 & 0x10) && !(b->faces[0].contents & 0x8000000) && !b->patch && !strstr(name, "portal"))
++            return true;
++        return false;
++    }
++    if (DAT_01129888 & 2)
++    {
++        if (strcmp(b->owner->eclass->name, "func_group") && strcmp(b->owner->eclass->name, "light"))
++            return true;
++    }
++    if (DAT_01129888 & 0x40000000)
++    {
++        if (strcmp(b->owner->eclass->name, "func_group") && strcmp(b->owner->eclass->name, "misc_model") && strcmp(b->owner->eclass->name, "misc_prefab"))
++        {
++            if (b->owner->modelClass || b->owner->eclass->modelName || FUN_00465d80(b->owner, "model"))
++                return true;
++        }
++    }
++    if (DAT_01129888 & 0x10000)
++    {
++        if (!strncmp(b->owner->eclass->name, "ammo", 4) || !strncmp(b->owner->eclass->name, "item", 4))
++            return true;
++    }
++    if (DAT_01129888 & 0x40000)
++    {
++        if (!strncmp(b->owner->eclass->name, "info", 4))
++            return true;
++    }
++    if (DAT_01129888 & 0x80000)
++    {
++        if (!strcmp(b->owner->eclass->name, "misc_model"))
++            return true;
++    }
++    if (DAT_01129888 & 0x100000)
++    {
++        if (!strncmp(b->owner->eclass->name, "weapon", 6))
++            return true;
++    }
++    if (DAT_01129888 & 0x200000)
++    {
++        if (!strncmp(b->owner->eclass->name, "func", 4))
++            return true;
++    }
++    if (DAT_01129888 & 0x800000)
++    {
++        if (!strncmp(b->owner->eclass->name, "trigger", 7))
++            return true;
++    }
++    if (DAT_01129888 & 0x20000)
++    {
++        if (!strncmp(b->owner->eclass->name, "ai", 2) || !strncmp(b->owner->eclass->name, "actor", 5))
++            return true;
++    }
++    if (DAT_01129888 & 0x1000000)
++    {
++        if (!strncmp(b->owner->eclass->name, "misc", 4))
++            return true;
++    }
++    if (DAT_01129890 & 4)
++    {
++        if ((b->owner->eclass->flags & 0x20) && strcmp(b->owner->eclass->name, "node_pathnode"))
++            return true;
++    }
++    if (DAT_01129890 & 1)
++    {
++        if (!strcmp(b->owner->eclass->name, "node_pathnode"))
++            return true;
++    }
++    const char *src = DAT_012345c4;
++    char *dst = buf;
++    while ((*dst++ = *src++))
++        ;
++    if (DAT_012345c4.GetLength() > 0)
++    {
++        char *tok = strtok(buf, ",;");
++        while (tok)
++        {
++            while (*tok == ' ')
++                tok++;
++            if (!strstr(tok, ":"))
++            {
++                if (strstr(b->owner->eclass->name, tok))
++                    return true;
++            }
++            else
++            {
++                I_strncpyz(token, tok, sizeof(token));
++                char *colon = strstr(token, ":");
++                if (colon)
++                {
++                    *colon++ = 0;
++                    if (FUN_00465e10(b->owner, token, colon))
++                        return true;
++                }
++            }
++            tok = strtok(NULL, ",;");
++        }
++    }
++    if (DAT_01129888 & 1)
++    {
++        if (!strncmp(b->owner->eclass->name, "light", 5))
++            return b->owner->eclass->flags & 1;
++    }
++    if (DAT_01129888 & 4)
++        return (b->owner->eclass->flags >> 2) & 1;
++    return false;
++}
++
+ float (&CXYWnd::GetOrigin())[3]
+ {
+     return m_vOrigin;

@@ -473,6 +473,7 @@ addr	size	source	symbol	name	tag
 0x004177a0	72	src/radiant/MainFrm.cpp	@FUN_004177a0@4	FUN_004177a0	UNNAMED
 0x004177f0	66	src/radiant/MainFrm.cpp	@FUN_004177f0@4	FUN_004177f0	UNNAMED
 0x00417d60	157	src/radiant/MainFrm.cpp	?UpdateWindows@CMainFrame@@QAEXH@Z	CMainFrame::UpdateWindows	SUPPORTED
+0x00417cf0	63	src/radiant/MainFrm.cpp	?FUN_00417cf0@CMainFrame@@QAEXXZ	CMainFrame::FUN_00417cf0	UNNAMED
 0x00417e00	7	src/radiant/MainFrm.cpp	_FUN_00417e00	FUN_00417e00	UNNAMED
 0x00417e10	37	src/radiant/MainFrm.cpp	@FUN_00417e10@4	FUN_00417e10	UNNAMED
 0x00417f00	1	src/radiant/MainFrm.cpp	_FUN_00417f00	FUN_00417f00	UNNAMED
@@ -824,6 +825,10 @@ addr	size	source	symbol	name	tag
 0x00441300	249	src/radiant/TexWnd.cpp	?FUN_00441300@@YAXH@Z	FUN_00441300	UNNAMED
 0x00441400	27	src/radiant/TexWnd.cpp	?Texture_ClearInUse@@YAXXZ	Texture_ClearInUse	SUPPORTED
 0x00441440	27	src/radiant/TexWnd.cpp	?Texture_ShowAll@@YAXXZ	Texture_ShowAll	SUPPORTED
+0x00441750	145	src/radiant/TexWnd.cpp	?FUN_00441750@@YAXPAUTexIter@@H@Z	FUN_00441750	UNNAMED
+0x00441c50	66	src/radiant/TexWnd.cpp	?FUN_00441c50@@YAXPAD@Z	FUN_00441c50	UNNAMED
+0x00441ca0	63	src/radiant/TexWnd.cpp	?FUN_00441ca0@@YAPAUHWND__@@XZ	FUN_00441ca0	UNNAMED
+0x00441ce0	118	src/radiant/TexWnd.cpp	?FUN_00441ce0@@YAXM@Z	FUN_00441ce0	UNNAMED
 0x00442140	94	src/radiant/TexWnd.cpp	?FUN_00442140@@YAXH@Z	FUN_00442140	UNNAMED
 0x004421a0	94	src/radiant/TexWnd.cpp	?FUN_004421a0@@YAXXZ	FUN_004421a0	UNNAMED
 0x00442290	1	src/radiant/TexWnd.cpp	_FUN_00442290	FUN_00442290	UNNAMED

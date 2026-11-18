@@ -1,11 +1,13 @@
 #include "stdafx.h"
 #include "TexWnd.h"
+#include "FindTextureDlg.h"
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 #include <stdio.h>
 #include <malloc.h>
 #include "../universal/assertive.h"
+#include "../universal/com_math.h"
 
 // retail level-1 assert without a message (same shape as brush.cpp)
 #define assert1(expr) do { static bool s_assertDisable; if (!(expr) && !s_assertDisable) { switch (FUN_0047d980(#expr, __FILE__, __LINE__, 1, 1)) { case 0: DebugBreak(); break; case 2: s_assertDisable = true; break; } } } while (0)
@@ -64,9 +66,9 @@ struct RadMtlInfo {
 struct qtexture_s {
     void *mtl;                  // +0x00
     const char *name;           // +0x04
-    char inuse;                 // +0x08
+    unsigned char inuse;        // +0x08
     char field_09;
-    char field_0a;
+    unsigned char field_0a;
     char pad0b;
     short field_0c;
     short pad0e;
@@ -89,7 +91,9 @@ struct TexWndRefExport {
     void (*EndScene)();                                         // 0x59c3b0
     void *pad2b[4];
     void (*ClearScreen)(int mask, const float *color, float depth, int stencil); // 0x59c3c4
-    void *pad2c[(0x138 - 0xc8) / 4];
+    void *pad2c[(0x114 - 0xc8) / 4];
+    int (*field_114)(int arg);                                  // 0x59c414
+    void *pad2d[(0x138 - 0x118) / 4];
     void (*field_138)(void *handle, RadMtlInfo *info);          // 0x59c438
     void *pad3[1];
     char (*BeginWindow)(HWND hwnd);                             // 0x59c440
@@ -113,7 +117,7 @@ struct TexWndGlobals_stub {
     unsigned char surfaceTypeFilter; // +0x0e
     bool filterEnabled;         // +0x0f
     CString filter;             // +0x10
-    int sortedCount;            // +0x14
+    int materialCount;            // +0x14
     qtexture_s *sorted[0x4000]; // +0x18
     qtexture_s *qtextures;
     int decalLocaleBit;
@@ -186,7 +190,7 @@ qtexture_s *FUN_004406c0(char *name, void *handle, RadMtlInfo *mtlInfo)
     qtexture_s **head = &texWndGlobals.qtextures;
     newRadMat->next = *head;
     *head = newRadMat;
-    texWndGlobals.sorted[texWndGlobals.sortedCount++] = newRadMat;
+    texWndGlobals.sorted[texWndGlobals.materialCount++] = newRadMat;
     return newRadMat;
 }
 
@@ -470,6 +474,16 @@ void Texture_ClearInUse(void)
     }
 }
 
+void FUN_00441f80(int y, int x);
+extern int dword_01128da0;
+
+// 0x00441420 (23 B)
+void FUN_00441420(void)
+{
+    FUN_00441f80(16, 16);
+    dword_01128da0 = 0;
+}
+
 // 0x00441440 (27 B)
 void Texture_ShowAll(void)
 {
@@ -539,6 +553,250 @@ void FUN_004414a0(InuseBrush *head)
     }
 }
 
+// Texture window walk state: retail passes a pointer in esi to the two functions below.
+// Offsets +0x08..+0x28 are pinned by the retail loads and stores, the names are not known.
+struct TexIter
+{
+    qtexture_s *radMat;     // +0x00, "iter.radMat"
+    int sortedIndex;        // +0x04, "iter->sortedIndex"
+    int field_08;           // output x
+    int field_0c;           // output y
+    int field_10;           // next x
+    int field_14;           // next y
+    int field_18;           // scaled width
+    int field_1c;           // scaled height
+    int field_20;           // tallest entry of the current row
+    int field_24;           // value returned by the renderer call in StartPos
+    float field_28;         // texture scale / 100
+};
+
+extern int dword_011298c4;
+extern int dword_01128d98;
+extern int dword_01128d9c;
+extern int dword_01128da0;
+extern RadiantFilterEntry DAT_00590a68[256];
+extern RadiantFilterEntry DAT_00591268[256];
+extern RadiantFilterEntry surfaceTypes[23];
+extern struct TexWndPrefsScale { unsigned char pad[0x2d0]; int field_2d0; } *dword_01233b64_scale;
+
+// 0x00441750 (145 B), iter in esi and one stack argument
+void FUN_00441750(TexIter *iter, int arg)
+{
+#line 678
+    assert(iter);
+    iter->field_10 = 8;
+    iter->field_14 = 8;
+    iter->sortedIndex = -1;
+    iter->field_28 = (float)dword_01233b64_scale->field_2d0 / 100.0f;
+    iter->field_0c = 0;
+    iter->field_20 = 0;
+    iter->field_24 = ((int (*)(int))re.field_114)(arg);
+}
+
+// 0x004417f0 (590 B), iter in esi
+bool FUN_004417f0(TexIter *iter)
+{
+#line 694
+    assert(iter);
+    for (iter->sortedIndex++; iter->sortedIndex != texWndGlobals.materialCount; iter->sortedIndex++)
+    {
+#line 702
+        assert(iter->sortedIndex >= 0 && iter->sortedIndex < texWndGlobals.materialCount);
+        qtexture_s *q = texWndGlobals.sorted[iter->sortedIndex];
+        iter->radMat = q;
+        if (!q->field_0a)
+            continue;
+        if (texWndGlobals.usageFilter && q->field_0a != DAT_00590a68[texWndGlobals.usageFilter].id)
+            continue;
+        if (texWndGlobals.localeFilter && !(q->field_10 & (1 << DAT_00591268[texWndGlobals.localeFilter].id)))
+            continue;
+        if (texWndGlobals.surfaceTypeFilter && surfaceTypes[texWndGlobals.surfaceTypeFilter].id != (q->field_1c & 0x1f00000))
+            continue;
+        if (texWndGlobals.filterEnabled)
+        {
+            if (_strnicmp(texWndGlobals.filter.GetBuffer(0), q->name, texWndGlobals.filter.GetLength()))
+                continue;
+        }
+        else if (!q->inuse)
+            continue;
+        iter->field_18 = I_fround((float)q->width * iter->field_28);
+        iter->field_1c = I_fround((float)q->height * iter->field_28);
+        if (iter->field_10 + iter->field_18 > dword_01128d98 - 8 && iter->field_20 > 0)
+        {
+            iter->field_10 = 8;
+            iter->field_14 += iter->field_20 + iter->field_24 + 4;
+            iter->field_20 = 0;
+        }
+        iter->field_08 = iter->field_10;
+        iter->field_0c = iter->field_14;
+        if (iter->field_20 < iter->field_1c)
+            iter->field_20 = iter->field_1c;
+        iter->field_10 = iter->field_08 + (iter->field_18 < 64 ? 64 : iter->field_18) + 8;
+        return true;
+    }
+    return false;
+}
+
+// Texture selection record kept at 0x01128da8 (28 B): material pointer first, then six floats.
+struct TexDef
+{
+    qtexture_s *radMat;
+    float field_04;
+    float field_08;
+    float field_0c;
+    float field_10;
+    float field_14;
+    float field_18;
+};
+struct TexCell { int a; int b; };
+// Optional extra record: counts at +0 and +4, 8-byte cells from +0x30.
+struct TexExtra
+{
+    int count;
+    int rowCount;
+    int pad08[10];
+    TexCell cell[1];
+};
+extern TexDef dword_01128da8;
+extern int dword_01128dc8;
+extern int dword_01128dcc;
+extern int dword_01128dd0;
+extern TexCell dword_01128dd4[][16];
+extern unsigned dword_0123348c;
+void FUN_0046ff10(TexDef *tex, int flag);
+void FUN_00442140(int pos);
+
+// 0x00441a40 (517 B), extra in eax, tex on the stack
+void FUN_00441a40(TexExtra *extra, TexDef *tex)
+{
+    if (!tex->radMat->mtl)
+        tex->radMat->mtl = re.field_10(tex->radMat->name, 3, 0);
+    dword_01128da8 = *tex;
+    if (extra)
+    {
+        dword_01128dc8 = 1;
+        dword_01128dcc = extra->count;
+        dword_01128dd0 = extra->rowCount;
+        for (int i = 0; i < extra->count; i++)
+        {
+            for (int j = 0; j < extra->rowCount; j++)
+                dword_01128dd4[i][j] = extra->cell[g_qeglobals.activeMaterial + i * 0x70 + j * 7];
+        }
+    }
+    else
+        dword_01128dc8 = 0;
+    dword_0123348c |= 0x10;
+    CFindTextureDlg::updateTextures(tex->radMat->name);
+    if (!CFindTextureDlg::isOpen())
+        FUN_0046ff10(tex, 1);
+    TexIter iter;
+    FUN_00441750(&iter, dword_011298c4);
+    while (FUN_004417f0(&iter))
+    {
+#line 808
+        assert(iter.radMat);
+        if (!_stricmp(tex->radMat->name, iter.radMat->name))
+        {
+            int pos = dword_01128da0;
+            if (iter.field_0c + iter.field_1c + iter.field_24 + 8 > dword_01128d9c + pos)
+                pos = iter.field_24 - dword_01128d9c + iter.field_1c + iter.field_0c + 8;
+            if (iter.field_0c < pos)
+                pos = iter.field_0c;
+            FUN_00442140(pos);
+            return;
+        }
+    }
+}
+
+// 0x00441c50 (66 B), material name in ecx
+void FUN_00441c50(char *name)
+{
+    TexDef tex;
+    memset(&tex, 0, sizeof(tex));
+    tex.field_04 = 64.0f;
+    tex.field_08 = 64.0f;
+    tex.radMat = FUN_00440840(name);
+    FUN_00441a40(0, &tex);
+}
+
+// 0x00441ca0 (63 B)
+HWND FUN_00441ca0(void)
+{
+    HWND editPad = FindWindowA("TEditPadForm", NULL);
+    HWND result = NULL;
+    if (editPad)
+    {
+        HWND tabs = FindWindowExA(editPad, NULL, "TTabControl", NULL);
+        if (tabs)
+            result = FindWindowExA(tabs, NULL, "TRicherEdit", NULL);
+    }
+    return result;
+}
+
+// 0x00441ce0 (118 B)
+void FUN_00441ce0(float seconds)
+{
+    MSG msg;
+    DWORD end = (DWORD)(seconds * 1000.0f + (float)GetTickCount());
+    while (GetTickCount() < end)
+    {
+        if (PeekMessageA(&msg, NULL, 0, 0, PM_REMOVE))
+        {
+            TranslateMessage(&msg);
+            DispatchMessageA(&msg);
+        }
+    }
+}
+
+// Main frame as seen from here: the six status pane texts sit at +0x7a4 (retail load at 0x441fe0..).
+class CMainFrame
+{
+public:
+    void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
+    void FUN_00417cf0();
+    void SetStatusText(int nPane, const char *pText)
+    {
+        if (pText && nPane <= 5 && nPane >= 0)
+        {
+            m_strStatus[nPane] = pText;
+            FUN_00417cf0();
+        }
+    }
+    unsigned char pad[0x7a4];
+    CString m_strStatus[6];
+};
+extern CMainFrame *g_pParentWnd;
+extern HWND dword_010bcd70;
+extern float dword_01128dc4;
+
+// 0x00441f80 (438 B), x and y come in registers
+void FUN_00441f80(int y, int x)
+{
+    TexIter iter;
+    int my = y + dword_01128da0;
+    FUN_00441750(&iter, dword_011298c4);
+    while (FUN_004417f0(&iter))
+    {
+#line 920
+        assert(iter.radMat);
+        if (x >= iter.field_08 && x < iter.field_08 + iter.field_18
+            && my >= iter.field_0c && my <= iter.field_0c + iter.field_1c + iter.field_24)
+        {
+            TexDef tex;
+            memset(&tex, 0, sizeof(tex));
+            tex.radMat = iter.radMat;
+            tex.field_04 = (float)iter.radMat->width * dword_01128dc4;
+            tex.field_08 = (float)iter.radMat->height * dword_01128dc4;
+            FUN_00441a40(0, &tex);
+            CString strTex;
+            strTex.Format("%s W: %i H: %i", iter.radMat->name, iter.radMat->width, iter.radMat->height);
+            g_pParentWnd->SetStatusText(3, strTex);
+            return;
+        }
+    }
+    SendMessage(dword_010bcd70, 0x401, 0, (LPARAM)"Did not select a texture\n");
+}
+
 extern HWND dword_010bcd64;
 extern int dword_01128d9c;
 extern int dword_01128da0;
@@ -574,8 +832,6 @@ void FUN_004421a0(void)
         FUN_00442140(si.nMax - si.nPage);
 }
 
-// Retail 0x00441f80: texture pick, register args (ecx = y, edx = x at the caller).
-void __fastcall FUN_00441f80(int y, int x);
 void FUN_0043dff0();
 void __stdcall FUN_0043cf80(void *dlg);
 extern int dword_0109fdb4;
@@ -583,7 +839,6 @@ extern char dword_01234a38[];
 extern int dword_0109fdbc;
 extern int dword_0109fdc0;
 class CTextureBar : public CDialogBar { public: void FUN_0043f460(); };
-class CMainFrame;
 struct CTexWndFrameProjection { unsigned char pad_00[0x2b8]; CTextureBar m_wndTextureBar; };
 class CPatchDialog : public CDialog { public: void GetPatchInfo(); };
 extern CPatchDialog g_PatchDialog;
@@ -638,11 +893,6 @@ void FUN_00442300();
 
 // Layout projection of the main frame: +0x7a0 is the window layout style (retail load at 0x442dbf);
 // the three methods are CMainFrame functions called through g_pParentWnd.
-class CMainFrame
-{
-public:
-    void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
-};
 void __stdcall FUN_004137d0(CMainFrame *self, UINT nChar);
 struct CTexWndMainProjection {
     BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
