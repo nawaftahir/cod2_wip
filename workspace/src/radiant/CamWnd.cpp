@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include <stddef.h>
 #include <string.h>
+#include "../universal/com_math.h"
 
 struct CameraState
 {
@@ -47,7 +48,6 @@ extern CamWndRefExport re;
 
 class CCamWnd;
 void __stdcall FUN_00405380(CCamWnd *camera);
-float Vec3Normalize(float v[3]);
 
 struct plane_t
 {
@@ -322,56 +322,30 @@ void CCamWnd::FUN_00403ce0(int x, int y, float *dir)
     Vec3Normalize(dir);
 }
 
-#define CrossProduct(v1, v2, cross) \
-    { \
-        (cross)[0] = (v1)[1] * (v2)[2] - (v1)[2] * (v2)[1]; \
-        (cross)[1] = (v1)[2] * (v2)[0] - (v1)[0] * (v2)[2]; \
-        (cross)[2] = (v1)[0] * (v2)[1] - (v1)[1] * (v2)[0]; \
-    }
-#define DotProduct(x, y) ((x)[0] * (y)[0] + (x)[1] * (y)[1] + (x)[2] * (y)[2])
 
 void FUN_00403dc0(int x1, int y1, int x2, int y2, plane_t *planes)
 {
-    int t = x1;
-    if (t < x2)
-        x1 = t;
-    else
-        x1 = x2;
-    x2 = t - x1 + x2;
-    t = y1;
-    if (t < y2)
-        y1 = t;
-    else
-        y1 = y2;
-    y2 = t - y1 + y2;
+    int xmin = x1 < x2 ? x1 : x2;
+    int xmax = x1 - xmin + x2;
+    int ymin = y1 < y2 ? y1 : y2;
+    int ymax = y1 - ymin + y2;
 
     CCamWnd *cam = reinterpret_cast<CMainFrameCamView *>(g_pParentWnd)->m_pCamWnd;
-    float origin[3], d[3], c[3], b[3], a[3];
-    cam->FUN_00403ce0(x1, y1, a);
-    cam->FUN_00403ce0(x1, y2, b);
-    cam->FUN_00403ce0(x2, y2, c);
-    cam->FUN_00403ce0(x2, y1, d);
+    float origin[3];
+    float pts[4][3];
+    cam->FUN_00403ce0(xmin, ymin, pts[0]);
+    cam->FUN_00403ce0(xmin, ymax, pts[1]);
+    cam->FUN_00403ce0(xmax, ymax, pts[2]);
+    cam->FUN_00403ce0(xmax, ymin, pts[3]);
 
-    origin[0] = cam->m_Camera.origin[0];
-    origin[1] = cam->m_Camera.origin[1];
-    origin[2] = cam->m_Camera.origin[2];
+    VectorCopy(cam->m_Camera.origin, origin);
 
-    plane_t *p = planes;
-    CrossProduct(a, d, p->normal);
-    p->dist = DotProduct(origin, p->normal);
-    p->type = -1;
-    p++;
-    CrossProduct(b, a, p->normal);
-    p->dist = DotProduct(origin, p->normal);
-    p->type = -1;
-    p++;
-    CrossProduct(c, b, p->normal);
-    p->dist = DotProduct(origin, p->normal);
-    p->type = -1;
-    p++;
-    CrossProduct(d, c, p->normal);
-    p->dist = DotProduct(origin, p->normal);
-    p->type = -1;
+    for (int i = 0; i < 4; i++)
+    {
+        Vec3Cross(pts[i], pts[(i + 3) % 4], planes[i].normal);
+        planes[i].dist = DotProduct(planes[i].normal, origin);
+        planes[i].type = -1;
+    }
 }
 
 void FUN_00462760(int buttons);

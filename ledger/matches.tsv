@@ -84,6 +84,7 @@ addr	size	source	symbol	name	tag
 0x00403520	74	src/radiant/CamWnd.cpp	?OriginalMouseDown@CCamWnd@@IAEXIVCPoint@@@Z	CCamWnd::OriginalMouseDown	SUPPORTED
 0x00403570	43	src/radiant/CamWnd.cpp	?Cam_Init@CCamWnd@@QAEXXZ	CCamWnd::Cam_Init	SUPPORTED
 0x00403ce0	222	src/radiant/CamWnd.cpp	?FUN_00403ce0@CCamWnd@@QAEXHHPAM@Z	FUN_00403ce0	UNNAMED
+0x00403dc0	475	src/radiant/CamWnd.cpp	?FUN_00403dc0@@YAXHHHHPAUplane_t@@@Z	FUN_00403dc0	UNNAMED
 0x00404d70	65	src/radiant/CamWnd.cpp	?Cam_MouseUp@CCamWnd@@IAEXHHH@Z	CCamWnd::Cam_MouseUp	SUPPORTED
 0x00405220	348	src/radiant/CamWnd.cpp	?InitCull@CCamWnd@@IAEXXZ	InitCull	SUPPORTED
 0x00405380	207	src/radiant/CamWnd.cpp	?FUN_00405380@@YGXPAVCCamWnd@@@Z	FUN_00405380	UNNAMED
