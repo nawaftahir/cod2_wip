@@ -1045,3 +1045,7 @@ set by a later lowering stage, not by the list scheduler.
   advance (c2occ13 on x1: eax is free at the obj pick, so a reset to the table start would give eax, not ecx). A pointer
   reset (tuple op 0x2d3, 0x107dff94) before the parts pick would give A, but no fn of the 600 compiled after XAnimCalc
   hits that reset (winedbg survey), so it is not a practical lever.
+- PINNED (w29b 11-18, c2.dll SET/GET jump tables 0x1077686f / 0x1077541f): classes 0x1xxx and 0x2xxx (dword and byte) both map
+  to the dword pointer 0x108a7d0c; 0x108a7d08 / 0x108a7d04 (tables 0x108a9758 / 0x108a977c) serve other classes. A byte
+  local pick advances the dword round robin. A param web's fixed occupancy (FX_AddFxToScene effect in edx) is clear at
+  its last-use tuple, so the model load there is a normal pick (c2occ13, pick 27 edx, pick 28 lea eax).
