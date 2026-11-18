@@ -1152,3 +1152,15 @@ set by a later lowering stage, not by the list scheduler.
 - PINNED (w29 11-18, gate +4 on 1.3 and 1.0): Window_Paint matched = border web (`int border = 0; if (!border) border =
   w->border; if (border) {`) on the fillRect adjust block PLUS a shared `float bs1 = w->borderSize + 1.0f;` for the w/h
   subtracts. Either alone fails (6 / 4). The shared temp flips the w/h reload creation order after the debug UI_DrawRect.
+- PINNED (agent w29a/b + gate, 11-18, +3): speex is C in retail (all speex/*.c without /TP; misc.c too may be C, it does not
+  move the count). nb_decode matches with the 5 upstream 1.1.9 lines. CORRECTION of 1.0 KNOWLEDGE 33: the kind-3 bucket key is
+  NOT a heap pointer but the global symbol's negative ordinal (`[[[[op+0x18]+8]]+0x28] & 0x3f`, via 0x1078a328; hook
+  tools/c2hash13.sh). So LTCG reload-order ties are decided by the global SYMBOL COUNT mod 64. speex as C = 600 fewer
+  symbols (+24 mod 64), which flipped Pickup_Weapon + Scr_ParseGameTypeList. Counted: defined data symbols (static int,
+  static const arrays); NOT counted: unused prototypes/externs, static functions, name length. `static const` pads emit
+  .rdata (layout break); `static int` pads emit nothing. LANDED: 24 labelled `static int spx_pad_N;` in nb_celp.c.
+  Replace with retail's real 24 (mod 64) missing symbols when found.
+- PINNED (agent w29c, 11-18): VM_Notify colour mechanism. Every 8 in the fn shares one constant symbol (VAR_PRECODEPOS
+  compares + every currentValue +-8 step). The relational loop test makes a second loop reference to that web; it gets
+  split with a `mov r,8` def in a side block (1 node, later dropped), which costs `_size` (merged with len) B 2 + 0x10 -> 62
+  < `_type` 64. The minus test has no loop piece of the web (size 68) but emits `add ecx,-8` instead of `cmp ecx,8`.
