@@ -1073,3 +1073,7 @@ set by a later lowering stage, not by the list scheduler.
   cursorItem[0] CSE value shared by the loop condition and the body increment; Menu cpick: kind03 val=424 -> eax, 8 refs),
   and the inserted load then takes local pick 1. In retail that reload is not inserted (or not picked). Lever = the
   web's action flags (bit 4), i.e. how that CSE value is split; not the loop shape.
+- PINNED (w29a 11-18, breaks 0x107771ed + 0x10775b43): Menu gets two dispatcher reload inserts (bit 4) before its picks,
+  at the uses whose tuples are the first fields of pick 1 (entry test, 0x061d8bcc) and pick 4 (bottom test, 0x061f9968).
+  Both loop-test loads are inserted reloads of global web val 0x1a8 (cpick id 13 -> eax, 8 refs). Retail = only the
+  bottom-test reload inserted; the entry test would be the web's own coloured load.
