@@ -225,6 +225,58 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT &cs)
   return CFrameWnd::PreCreateWindow(cs);
 }
 
+int ParseCommandLine(char *cmdLine, char **argv, int maxArgs);
+int QE_LoadProject(const char *projectfile);
+const char *Com_GetExtensionSubString(const char *filename);
+void Sys_Printf(const char *text, ...);
+void FUN_0047a760(const char *fmt, ...);
+extern int DAT_010bcd28;
+extern int DAT_010bcd2c;
+extern int DAT_01139e54;
+extern float DAT_01139e58;
+extern float DAT_01139e5c;
+extern float DAT_01139e60;
+
+void __stdcall CreateQEChildren(CMainFrame *self)
+{
+  bool bProjectLoaded = false;
+  char *argv[32];
+  char cmdLine[0x10000];
+
+  strncpy(cmdLine, AfxGetApp()->m_lpCmdLine, sizeof(cmdLine));
+  cmdLine[sizeof(cmdLine) - 1] = bProjectLoaded;
+  if (ParseCommandLine(cmdLine, argv, 32) > 1)
+  {
+    const char *ext = Com_GetExtensionSubString(argv[1]);
+    if (!_stricmp(ext, ".prj"))
+      bProjectLoaded = QE_LoadProject(argv[1]);
+  }
+
+  if (!bProjectLoaded)
+  {
+    if (dword_01233b64->m_bLoadLast && dword_01233b64->m_strLastProject.GetLength() > 0)
+      bProjectLoaded = QE_LoadProject(dword_01233b64->m_strLastProject.GetBuffer(0));
+  }
+  if (!bProjectLoaded)
+  {
+    CFileDialog dlgFile(TRUE, NULL, NULL, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, "CoD2Radiant Project files( *.prj )|*.prj||", self);
+    if (dlgFile.DoModal() == IDOK)
+      bProjectLoaded = QE_LoadProject(dlgFile.GetPathName().GetBuffer(0));
+  }
+  if (!bProjectLoaded)
+    FUN_0047a760("Unable to load project file. It was unavailable in the scripts path and the default could not be found");
+
+  DAT_010bcd2c = 8;
+  DAT_010bcd28 = 1;
+  DAT_01139e54 = 0;
+  DAT_01139e58 = 20.0f;
+  DAT_01139e5c = 46.0f;
+  DAT_01139e60 = 1.0f;
+  Sys_Printf("Entering message loop\n");
+  self->field_07e5 = true;
+  ::SetTimer(self->m_hWnd, 1, 1000, NULL);
+}
+
 BOOL CMainFrame::OnCommand(WPARAM wParam, LPARAM lParam)
 {
   return CFrameWnd::OnCommand(wParam, lParam);

@@ -430,3 +430,16 @@ extern "C" void FUN_004105f0()
 	}
 	re = *ret;
 }
+
+void Hunk_Shutdown();
+
+extern "C" void FUN_00410e00()
+{
+	if (re.fn[0])
+	{
+		((void (*)(int))re.fn[0])(1);
+		FreeLibrary(dword_0059c4fc);
+		memset(&re, 0, sizeof(re));
+		Hunk_Shutdown();
+	}
+}
