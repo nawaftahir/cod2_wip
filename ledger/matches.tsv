@@ -2114,3 +2114,8 @@ addr	size	source	symbol	name	tag
 0x00439450	147	src/radiant/Pmesh.cpp	?FUN_00439450@@YAXPAUpatchMesh_t@@@Z	FUN_00439450	UNNAMED
 0x00449a30	321	src/radiant/XYWnd.cpp	?DropClipPoint@CXYWnd@@IAEXIVCPoint@@@Z	CXYWnd::DropClipPoint	SUPPORTED
 0x00443180	23	src/radiant/TexWnd.cpp	?ShowScrollBar@CWnd@@QAEXIH@Z	CWnd::ShowScrollBar	PINNED
+0x00432950	259	src/radiant/Pmesh.cpp	?FUN_00432950@@YAXPAUpatchMesh_t@@@Z	FUN_00432950	UNNAMED
+0x00432a60	257	src/radiant/Pmesh.cpp	?FUN_00432a60@@YAXPAUpatchMesh_t@@@Z	FUN_00432a60	UNNAMED
+0x00432b70	62	src/radiant/Pmesh.cpp	?FUN_00432b70@@YAXPAUpatchMesh_t@@@Z	FUN_00432b70	UNNAMED
+0x00435230	406	src/radiant/Pmesh.cpp	?FUN_00435230@@YAXPAUpatchMesh_t@@@Z	FUN_00435230	UNNAMED
+0x004384c0	75	src/radiant/Pmesh.cpp	?FUN_004384c0@@YAXPAUpatchMesh_t@@PA_N1HHH@Z	FUN_004384c0	UNNAMED
