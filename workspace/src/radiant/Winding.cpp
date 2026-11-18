@@ -93,6 +93,23 @@ winding_t *Winding_Reverse(winding_t *w)
     return c;
 }
 
+bool FUN_004481e0(const winding_t *w1, const winding_t *w2, const vec3_t normal1, const vec3_t normal2, float dist1, float dist2)
+{
+    int i;
+
+    if (!w1 || !w2)
+        return false;
+    for (i = 0; i < w1->pointCount; i++) {
+        if (DotProduct(normal2, w1->points[i]) - dist2 > 0.2)
+            return true;
+    }
+    for (i = 0; i < w2->pointCount; i++) {
+        if (DotProduct(normal1, w2->points[i]) - dist1 > 0.2)
+            return true;
+    }
+    return false;
+}
+
 winding_t *FUN_00448280(winding_t *in, const facePlane_t *split, int keepon)
 {
     float dists[65];

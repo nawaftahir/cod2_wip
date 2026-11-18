@@ -479,6 +479,26 @@ void FUN_004559f0(brushdef_t *b, bool snap, bool markMap)
     b->version++;
 }
 
+#line 701
+face_t *Face_Alloc(brushdef_t *b, const face_t *f)
+{
+    assert(b);
+    assert(f);
+    // pad
+    face_t *faceList = Face_AllocArray(b->faceCount + 1);
+    brush_assert1(faceList);
+    memcpy(faceList, b->faces, b->faceCount * sizeof(face_t));
+    faceList[b->faceCount] = *f;
+    FUN_00454610(&faceList[b->faceCount], f->w);
+    for (int i = 0; i < b->faceCount; ++i)
+        b->faces[i].w = NULL;
+    if (b->faces)
+        Face_FreeArray(b->faces, b->faceCount);
+    b->faceCount++;
+    b->faces = faceList;
+    return &faceList[b->faceCount - 1];
+}
+
 #line 724
 void Brush_RemoveFace(brushdef_t *b, int faceIndex)
 {
@@ -499,6 +519,23 @@ void Brush_RemoveEmptyFaces(brushdef_t *b)
         else
             ++i;
     }
+}
+
+bool FUN_00455e20(const brushdef_t *b)
+{
+    for (int i = 0; i < b->faceCount; ++i)
+    {
+        if (!b->faces[i].w)
+            continue;
+        for (int j = 0; j < b->faceCount; ++j)
+        {
+            if (i == j || !b->faces[j].w)
+                continue;
+            if (FUN_004481e0(b->faces[i].w, b->faces[j].w, b->faces[i].plane.normal, b->faces[j].plane.normal, (float)b->faces[i].plane.dist, (float)b->faces[j].plane.dist))
+                return false;
+        }
+    }
+    return true;
 }
 
 #line 1110
