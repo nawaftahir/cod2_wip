@@ -75,7 +75,8 @@ void FUN_0040c4a0(float (*quad)[4]);
 bool FUN_0042af90(const float *origin, unsigned char *hitInfo, const float *dir, float *hit);
 void FUN_0042e290(float *hit);
 void FUN_0045f7e0();
-void FUN_00451c00(brush_t *b, unsigned char *color);
+void FUN_00451c00(brush_t *b, unsigned int *outColor);
+void __stdcall FUN_00405bb0(const float *origin, float radius, float top, float bottom, const unsigned int *color, int segments);
 
 struct CAdvCurveEditDlg { int FUN_00401d90(); };
 // view of splines.h idPointListInterface (splines.h does not build next to com_math.h)
@@ -577,6 +578,36 @@ void __stdcall FUN_00406050(const float *origin, float radius, float height, int
     count = R_Add3DLine(verts, ring[segments - 1], ring[0], &color, 1, count, 0x2000);
     if (count)
         re.AddLines(count / 2, 1, verts);
+}
+
+#line 1461
+void __stdcall FUN_004063b0(brush_t *brush, CCamWnd *camera)
+{
+    assert(brush->owner->def == brush->def->owner);
+    float radius = (float)atof(ValueForKey(brush->owner->def->epairs, "radius"));
+    if (!(radius <= 0))
+    {
+        float height;
+        if (!(brush->owner->def->eclass->flags & 0x80))
+        {
+            height = (float)atof(ValueForKey(brush->owner->def->epairs, "height"));
+            if (height <= 0)
+                height = 80.0f;
+        }
+        else
+            height = 32.0f;
+        unsigned int color;
+        FUN_00451c00(brush, &color);
+        ((unsigned char *)&color)[3] = 0x40;
+        entity_t *e = brush->owner->def;
+        vec3_t origin;
+        origin[0] = e->origin[0];
+        origin[1] = e->origin[1];
+        origin[2] = e->origin[2];
+        origin[2] += e->eclass->mins[2];
+        FUN_00405bb0(origin, radius, height, 0, &color, 32);
+        FUN_00405bb0(origin, radius, 0, height, &color, 32);
+    }
 }
 
 #line 1501
