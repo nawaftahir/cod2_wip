@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #ifndef __UTIL_STR_H__
 #define __UTIL_STR_H__
 
-#include <assert.h>
 #include "../assertive.h"
+#line 29
 #include <string.h>
 #include <stdio.h>
 
@@ -427,6 +427,7 @@ inline void idStr::operator=
 	{
    int len;
 
+#line 380
 	assert( text );
 
 	if ( !text )

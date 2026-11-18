@@ -4,40 +4,8 @@
 #include "DlgEvent.h"
 #include "NameDlg.h"
 
-class idPointListInterface;
-
-class idCameraEvent
-{
-public:
-	enum eventType
-	{
-		EVENT_NA = 0x00,
-		EVENT_WAIT,
-		EVENT_TARGETWAIT,
-		EVENT_SPEED,
-		EVENT_TARGET,
-		EVENT_SNAPTARGET,
-		EVENT_FOV,
-		EVENT_CMD,
-		EVENT_TRIGGER,
-		EVENT_STOP,
-		EVENT_CAMERA,
-		EVENT_FADEOUT,
-		EVENT_FADEIN,
-		EVENT_FEATHER,
-		EVENT_COUNT
-	};
-};
-
-class idCameraDef
-{
-public:
-	void clear();
-	idPointListInterface *getPositionObj();
-	bool load(const char *filename);
-	bool save(const char *filename);
-	void addEvent(idCameraEvent::eventType t, const char *param, long time);
-};
+#include "../universal/splines/q_shared.h"
+#include "../universal/splines/splines.h"
 
 struct QEGlobals_t
 {
@@ -47,7 +15,6 @@ struct QEGlobals_t
 extern QEGlobals_t g_qeglobals;
 extern idCameraDef *g_splineList;
 extern int g_nUpdateBits;
-extern char *va(const char *format, ...);
 
 CDlgCamera g_dlgCamera;
 
@@ -92,6 +59,34 @@ void CDlgCamera::OnBtnAddevent()
 		g_splineList->addEvent((idCameraEvent::eventType)(dlg.m_event + 1), dlg.m_strParm, n);
 		setupFromCamera();
 	}
+}
+
+void CDlgCamera::setupFromCamera()
+{
+	if (m_wndSplines.GetSafeHwnd())
+	{
+		int i;
+		idStr str;
+		m_strName = g_splineList->getName();
+		m_strType = g_splineList->getPositionObj()->typeStr();
+		m_wndSplines.ResetContent();
+		m_wndSplines.AddString("Path");
+		for (i = 0; i < g_splineList->numTargets(); i++)
+		{
+			m_wndSplines.AddString(g_splineList->getActiveTarget(i)->getName());
+		}
+		m_wndSplines.SetCurSel(0);
+		m_fSeconds = g_splineList->getBaseTime();
+		m_wndSegments.SetScrollRange(0, g_splineList->getTotalTime() * 4.0);
+		m_wndEvents.ResetContent();
+		for (i = 0; i < g_splineList->numEvents(); i++)
+		{
+			str = va("%s\t%s", idCameraEvent::eventStr[g_splineList->getEvent(i)->getType()], g_splineList->getEvent(i)->getParam());
+			m_wndEvents.AddString(str);
+		}
+	}
+	g_splineList->startEdit(true);
+	UpdateData(FALSE);
 }
 
 void CDlgCamera::OnFileOpen()
