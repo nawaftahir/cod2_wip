@@ -1730,7 +1730,7 @@ addr	size	tu	evidence
 0x00442f40	15	radiant/TexWnd.cpp	SUPPORTED
 0x00442f50	23	radiant/TexWnd.cpp	SUPPORTED
 0x00442f70	224	radiant/TexWnd.cpp	SUPPORTED
-0x00443050	229	radiant/TexWnd.cpp	SUPPORTED
+0x00443050	228	radiant/TexWnd.cpp	SUPPORTED
 0x00443140	34	radiant/TexWnd.cpp	SUPPORTED
 0x00443170	7	radiant/TexWnd.cpp	SUPPORTED
 0x00443180	23	radiant/TexWnd.cpp	SUPPORTED
@@ -3291,7 +3291,7 @@ addr	size	tu	evidence
 0x0049a410	1	src/universal/splines/splines.cpp	SUPPORTED
 0x0049a420	201	src/universal/splines/splines.cpp	SUPPORTED
 0x0049a4f0	509	src/universal/splines/splines.cpp	PINNED
-0x0049a6f0	461	src/universal/splines/splines.cpp	SUPPORTED
+0x0049a6f0	460	src/universal/splines/splines.cpp	SUPPORTED
 0x0049a8c0	69	src/universal/splines/splines.cpp	SUPPORTED
 0x0049a910	170	src/universal/splines/splines.cpp	SUPPORTED
 0x0049a9c0	452	src/universal/splines/splines.cpp	PINNED

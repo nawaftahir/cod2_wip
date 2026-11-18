@@ -817,6 +817,7 @@ addr	size	source	symbol	name	tag
 0x00442ef0	75	src/radiant/TexWnd.cpp	?OnTimer@CTexWnd@@IAEXI@Z	CTexWnd::OnTimer	SUPPORTED
 0x00442f40	15	src/radiant/TexWnd.cpp	?OnKeyDown@CTexWnd@@IAEXIII@Z	CTexWnd::OnKeyDown	SUPPORTED
 0x00442f50	23	src/radiant/TexWnd.cpp	?OnKeyUp@CTexWnd@@IAEXIII@Z	CTexWnd::OnKeyUp	SUPPORTED
+0x00443050	228	src/radiant/TexWnd.cpp	?OnVScroll@CTexWnd@@IAEXIIPAVCScrollBar@@@Z	CTexWnd::OnVScroll	SUPPORTED
 0x00443140	34	src/radiant/TexWnd.cpp	?OnMouseWheel@CTexWnd@@IAEHIFVCPoint@@@Z	CTexWnd::OnMouseWheel	SUPPORTED
 0x004431f0	166	src/radiant/Undo.cpp	?FUN_004431f0@@YAXPAUbrushdef_t@@0@Z	FUN_004431f0	PINNED
 0x004432a0	242	src/radiant/Undo.cpp	?FUN_004432a0@@YAXPAUbrushdef_t@@@Z	FUN_004432a0	PINNED
@@ -1699,6 +1700,7 @@ addr	size	source	symbol	name	tag
 0x0049a2c0	334	src/universal/splines/splines.cpp	?buildSpline@idSplineList@@QAEXXZ	idSplineList::buildSpline	SUPPORTED
 0x0049a410	1	src/universal/splines/splines.cpp	_FUN_0049a410	FUN_0049a410	SUPPORTED
 0x0049a420	201	src/universal/splines/splines.cpp	?totalDistance@idSplineList@@QAEMXZ	idSplineList::totalDistance	SUPPORTED
+0x0049a6f0	460	src/universal/splines/splines.cpp	?calcSpline@idSplineList@@IAEMHM@Z	idSplineList::calcSpline	SUPPORTED
 0x0049b210	1	src/universal/splines/splines.cpp	_FUN_0049b210	FUN_0049b210	SUPPORTED
 0x0049b790	3	src/universal/splines/splines.cpp	_FUN_0049b790	FUN_0049b790	SUPPORTED
 0x0049c580	59	src/universal/splines/splines.cpp	?addEvent@idCameraDef@@QAEXPAVidCameraEvent@@@Z	idCameraDef::addEvent	SUPPORTED
