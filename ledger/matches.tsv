@@ -1631,6 +1631,8 @@ addr	size	source	symbol	name	tag
 0x0049a410	1	src/universal/splines/splines.cpp	_FUN_0049a410	FUN_0049a410	SUPPORTED
 0x0049b210	1	src/universal/splines/splines.cpp	_FUN_0049b210	FUN_0049b210	SUPPORTED
 0x0049b790	3	src/universal/splines/splines.cpp	_FUN_0049b790	FUN_0049b790	SUPPORTED
+0x0049c580	59	src/universal/splines/splines.cpp	?addEvent@idCameraDef@@QAEXPAVidCameraEvent@@@Z	idCameraDef::addEvent	SUPPORTED
+0x0049d260	378	src/universal/splines/splines.cpp	?parseToken@idCameraPosition@@UAE_NPBDPAPBD@Z	idCameraPosition::parseToken	SUPPORTED
 0x0049f740	181	src/universal/splines/splines.cpp	?append@idStr@@QAEXPBD@Z	idStr::append	SUPPORTED
 0x0049fd40	42	src/universal/splines/util_str.cpp	?tolower@idStr@@SAPADPAD@Z	idStr::tolower	SUPPORTED
 0x0049fd70	42	src/universal/splines/util_str.cpp	?toupper@idStr@@SAPADPAD@Z	idStr::toupper	SUPPORTED
