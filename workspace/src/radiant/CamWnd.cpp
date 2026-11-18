@@ -67,8 +67,8 @@ bool FUN_00465d80(entity_t *e, const char *key);
 bool FUN_0044f5d0(brush_t *b);
 void FUN_0045d7f0(brush_t *b, int a, int c, int d, int e, int f, const unsigned int *color, int g, int h);
 int FUN_0045d9a0(face_t *face, int a, const unsigned int *color, int width, int count, int max, GfxPointVertex *verts);
-void FUN_0045def0(face_t *face, const unsigned int *color, int *indexCount, int maxIndices, unsigned short *indices,
-                  int maxVerts, float (*xyzw)[4], float (*tex)[2], unsigned int *colors, float (*normals)[2], int *vertCount);
+void FUN_0045def0(int *vertCount, face_t *face, const unsigned int *color, int *indexCount, int maxIndices, unsigned short *indices,
+                  int maxVerts, float (*xyzw)[4], float (*normal)[3], unsigned int *colors, float (*st)[2]);
 void FUN_0040bff0();
 void FUN_0040c210();
 void FUN_0040c4a0(float (*quad)[4]);
@@ -163,7 +163,7 @@ struct CamWndRefExport
     unsigned char pad15c[4];
     void (*AddLines)(int count, int width, const GfxPointVertex *verts);
     void (*DrawTris)(void *material, int a, int indexCount, const unsigned short *indices, int vertCount,
-                     float (*xyzw)[4], float (*tex)[2], const unsigned int *colors, float (*normals)[2]);
+                     float (*xyzw)[4], float (*normal)[3], const unsigned int *colors, float (*st)[2]);
     void (*ColorToBytes)(const float *color, unsigned int *out);
     unsigned char pad16c[0xc];
     void (*BeginBrushes)();
@@ -622,9 +622,9 @@ void __stdcall FUN_00406610(CCamWnd *camera)
     unsigned short indices[2043];
     GfxPointVertex lineVerts[1362];
     unsigned int vertColors[1362];
-    float vertNormals[1362][2];
+    float vertSt[1362][2];
     float vertXyzw[1362][4];
-    float vertTex[2043][2];
+    float vertNormal[1362][3];
     int indexCount;
     int vertCount;
     float dirs[4][3];
@@ -761,11 +761,11 @@ void __stdcall FUN_00406610(CCamWnd *camera)
                 selFace_t selFace = DAT_012485b4[i];
 #line 1685
                 assert(selFace.face == &selFace.brush->faces[selFace.index]);
-                FUN_0045def0(&selFace.brush->def->faces[selFace.index], &color, &indexCount, 2043, indices, 1362,
-                             vertXyzw, vertTex, vertColors, vertNormals, &vertCount);
+                FUN_0045def0(&vertCount, &selFace.brush->def->faces[selFace.index], &color, &indexCount, 2043, indices, 1362,
+                             vertXyzw, vertNormal, vertColors, vertSt);
             }
             if (indexCount && vertCount)
-                re.DrawTris(dword_011298c8, 3, indexCount, indices, vertCount, vertXyzw, vertTex, vertColors, vertNormals);
+                re.DrawTris(dword_011298c8, 3, indexCount, indices, vertCount, vertXyzw, vertNormal, vertColors, vertSt);
         }
     }
 

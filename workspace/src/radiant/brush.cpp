@@ -1003,6 +1003,43 @@ void FUN_0045d240(const brushdef_t *b, const orientation_t *or, vec3_t mins, vec
     }
 }
 
+extern void *dword_011298c8;
+extern void (*FUN_0059c464)(void *material, int a, unsigned short indexCount, const unsigned short *indices, unsigned short vertCount,
+                            float (*xyzw)[4], float (*normal)[3], const unsigned int *colors, float (*st)[2]);
+
+void FUN_0045def0(int *vertCount, face_t *face, const unsigned int *color, int *indexCount, int maxIndices, unsigned short *indices,
+                  int maxVerts, float (*xyzw)[4], float (*normal)[3], unsigned int *colors, float (*st)[2])
+{
+    winding_t *w = face->w;
+    if (!w)
+        return;
+    if (*vertCount + w->pointCount > maxVerts || w->pointCount * 3 - 6 + *indexCount > maxIndices)
+    {
+        (*FUN_0059c464)(dword_011298c8, 3, *indexCount, indices, *vertCount, xyzw, normal, colors, st);
+        *indexCount = 0;
+        *vertCount = 0;
+    }
+    int i;
+    for (i = 0; i < w->pointCount; i++)
+    {
+        VectorCopy(w->points[i], xyzw[*vertCount + i]);
+        xyzw[*vertCount + i][3] = 1.0f;
+        VectorCopy(face->plane.normal, normal[*vertCount + i]);
+        colors[*vertCount + i] = *color;
+        float *uv = st[*vertCount + i];
+        uv[0] = 0.0f;
+        uv[1] = 0.0f;
+    }
+    for (i = 2; i < w->pointCount; i++)
+    {
+        indices[*indexCount] = (unsigned short)*vertCount;
+        indices[*indexCount + 1] = (unsigned short)(*vertCount + i - 1);
+        indices[*indexCount + 2] = (unsigned short)(*vertCount + i);
+        *indexCount += 3;
+    }
+    *vertCount += w->pointCount;
+}
+
 float FUN_0045ebc0(float a, float b)
 {
     return a - (float)floor(a / b) * b;
