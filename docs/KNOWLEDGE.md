@@ -1039,3 +1039,8 @@ set by a later lowering stage, not by the list scheduler.
   (sparse list `[reg*4+0x108a73c8]`, key id&~31, bit id&31). Live local temps block a reg only through that conflict set.
   The pointer is stored past the picked reg (SET 0x1077687e); byte picks share the dword pointer. XAnimCalc base: at the parts
   pick (t8e0) all three regs are free and the pointer is at edx, so retail's eax needs a different pointer, not a busier edx.
+- PINNED (w29b 11-18, /tmp/pmx.sh = winedbg pointer force): XAnimCalc has two exact retail routes. (A) base order, pointer
+  +1 (eax) after byte pick 12 (TRIED 506). (B) x1 order (`unsigned int modelName = obj->animToModel[entry];` before the call)
+  with the pointer forced to 0x108a973c (ecx first) after pick 12: fdiff 0. So retail = A or B; B needs one fewer advance
+  (the byte pick not advancing, or a reset to the table start: eax is occupied at the obj pick, so ecx is taken). A
+  pointer reset (tuple op 0x2d3, 0x107dff94, sets 0x108a9738) right before the parts pick also gives A's eax.
