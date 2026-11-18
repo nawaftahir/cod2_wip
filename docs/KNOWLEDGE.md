@@ -1049,3 +1049,7 @@ set by a later lowering stage, not by the list scheduler.
   to the dword pointer 0x108a7d0c; 0x108a7d08 / 0x108a7d04 (tables 0x108a9758 / 0x108a977c) serve other classes. A byte
   local pick advances the dword round robin. A param web's fixed occupancy (FX_AddFxToScene effect in edx) is clear at
   its last-use tuple, so the model load there is a normal pick (c2occ13, pick 27 edx, pick 28 lea eax).
+- PINNED (w29b 11-18, ctrx1 lab + c2occ13): a user variable defined before a branch and used in both arms is a global web
+  (no local pick); a block-local temp used in both arms of one extended block (the hoisted `*modelCounters`) is a local
+  pick. A user-var load in the same block as the pointer var's def gets the def's address expression substituted
+  (`mov cl,[edx+eax*2]` instead of `[eax]`). XAnimCalc retail = route B pick state with the load through modelCounters.
