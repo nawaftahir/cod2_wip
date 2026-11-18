@@ -73,7 +73,7 @@ void FUN_0040bff0();
 void FUN_0040c210();
 void FUN_0040c4a0(float (*quad)[4]);
 bool FUN_0042af90(const float *origin, unsigned char *hitInfo, const float *dir, float *hit);
-void FUN_0042e290(float *hit);
+void FUN_0042e290(const float *center);
 void FUN_0045f7e0();
 void FUN_00451c00(brush_t *b, unsigned int *outColor);
 void __stdcall FUN_00405bb0(const float *origin, float radius, float top, float bottom, const unsigned int *color, int segments);
