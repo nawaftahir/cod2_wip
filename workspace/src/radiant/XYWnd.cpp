@@ -11,10 +11,15 @@
 
 enum { YZ, XZ, XY };
 
+struct brushdef_t;
 struct brush_t
 {
     brush_t *prev;
     brush_t *next;
+    unsigned char pad08[0xc];
+    brushdef_t *def;
+    unsigned char pad18[0xe];
+    unsigned char hiddenBrush;
 };
 
 // Q3Radiant qeglobals_t view: the fields this file reads (base 0x10bcd28).
@@ -599,6 +604,17 @@ BOOL CXYWnd::DragDelta(int x, int y, float move[3])
     if (move[0] || move[1] || move[2])
         return TRUE;
     return FALSE;
+}
+
+bool FUN_0044f630(brushdef_t *b);
+
+#line 2572
+bool FUN_0044f5d0(brush_t *b)
+{
+    assert(b);
+    if (b->hiddenBrush)
+        return true;
+    return FUN_0044f630(b->def);
 }
 
 float (&CXYWnd::GetOrigin())[3]
