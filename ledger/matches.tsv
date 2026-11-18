@@ -820,6 +820,7 @@ addr	size	source	symbol	name	tag
 0x004428c0	6	src/radiant/TexWnd.cpp	?GetRuntimeClass@CTexWnd@@UBEPAUCRuntimeClass@@XZ	CTexWnd::GetRuntimeClass	SUPPORTED
 0x004428d0	128	src/radiant/TexWnd.cpp	??0CTexWnd@@QAE@XZ	CTexWnd::CTexWnd	SUPPORTED
 0x004429e0	6	src/radiant/TexWnd.cpp	?GetMessageMap@CTexWnd@@MBEPBUAFX_MSGMAP@@XZ	CTexWnd::GetMessageMap	SUPPORTED
+0x004429f0	292	src/radiant/TexWnd.cpp	?FUN_004429f0@@YGJPAUHWND__@@IIJ@Z	FUN_004429f0	UNNAMED
 0x00442d50	9	src/radiant/TexWnd.cpp	?OnParentNotify@CTexWnd@@IAEXIJ@Z	CTexWnd::OnParentNotify	SUPPORTED
 0x00442ef0	75	src/radiant/TexWnd.cpp	?OnTimer@CTexWnd@@IAEXI@Z	CTexWnd::OnTimer	SUPPORTED
 0x00442f40	15	src/radiant/TexWnd.cpp	?OnKeyDown@CTexWnd@@IAEXIII@Z	CTexWnd::OnKeyDown	SUPPORTED

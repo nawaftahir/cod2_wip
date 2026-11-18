@@ -1718,7 +1718,7 @@ addr	size	tu	evidence
 0x00442950	33	radiant/TexWnd.cpp	AUTO
 0x00442980	96	radiant/TexWnd.cpp	SUPPORTED
 0x004429e0	6	radiant/TexWnd.cpp	SUPPORTED
-0x004429f0	293	radiant/TexWnd.cpp	SUPPORTED
+0x004429f0	292	radiant/TexWnd.cpp	SUPPORTED
 0x00442b20	189	radiant/TexWnd.cpp	SUPPORTED
 0x00442be0	212	radiant/TexWnd.cpp	SUPPORTED
 0x00442cc0	131	radiant/TexWnd.cpp	SUPPORTED
