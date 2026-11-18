@@ -112,6 +112,7 @@ public:
     void FUN_0044c5c0(int x, int y, float origin[3], float dir[3]);
     void FUN_00452c30();
     void VectorCopyXY(float in[3], float out[3]);
+    void SetViewType(int n);
     bool ClipMode();
     bool RogueClipMode();
     bool PointMode();

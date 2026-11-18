@@ -58,7 +58,7 @@ extern void FUN_0043dff0();
 extern void __stdcall FUN_0043cf80(void *dlg);
 extern HWND dword_0109fdb4;
 extern char dword_01234a38[];
-class CTextureBar : public CDialogBar { public: void FUN_0043f460(); };
+#include "TextureBar.h"
 class CMainFrame { public: unsigned char pad_00[0x2b8]; CTextureBar m_wndTextureBar; };
 extern CMainFrame *g_pParentWnd;
 class CPatchDialog : public CDialog { public: void GetPatchInfo(); };

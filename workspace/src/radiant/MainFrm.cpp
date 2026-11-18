@@ -2,6 +2,7 @@
 #include "FindTextureDlg.h"
 #include "radiant_wnd.h"
 #include "PrefsDlg.h"
+#include "FilterSettings.h"
 #include "../universal/assertive.h"
 #include <math.h>
 
@@ -109,9 +110,13 @@ struct qeglobals_t
   unsigned char pad24[0x3c - 0x24];
   HINSTANCE d_hInstance;
   HWND d_hwndMain;
-  unsigned char pad44[0x4c - 0x44];
+  unsigned char pad44[0x48 - 0x44];
+  HWND d_hwndEdit;
   HWND field_4c;
-  unsigned char pad50[0x6c8e8 - 0x50];
+  unsigned char pad50[0x5c - 0x50];
+  HWND d_hwndStatus;
+  HWND field_60;
+  unsigned char pad64[0x6c8e8 - 0x64];
   MRUMENU *d_lpMruMenu;
   unsigned char d_savedinfo[0x6cb74 - 0x6c8ec]; // 0x294 B in total, the exclude flags sit inside it
   unsigned d_exclude;
@@ -127,43 +132,7 @@ extern CPrefsDlg *dword_01233b64;
 
 typedef char MainFrameSplitSize[(sizeof(CSplitterWnd) == 0xd8) ? 1 : -1];
 
-// Same class views as LstToolBar.cpp and TextureBar.cpp (the members are real, not padding).
-class CLstToolBar : public CToolBar
-{
-public:
-  CLstToolBar();
-  virtual ~CLstToolBar();
-
-protected:
-  afx_msg void OnParentNotify(UINT message, LPARAM lParam);
-
-  DECLARE_MESSAGE_MAP()
-};
-
-class CTextureBar : public CDialogBar
-{
-public:
-  CTextureBar();
-
-  CSpinButtonCtrl m_spinRotate;
-  CSpinButtonCtrl m_spinVScale;
-  CSpinButtonCtrl m_spinVShift;
-  CSpinButtonCtrl m_spinHScale;
-  CSpinButtonCtrl m_spinHShift;
-  int m_nHShift;
-  int m_nHScale;
-  int m_nRotate;
-  int m_nVShift;
-  int m_nVScale;
-  int m_nRotateAmt;
-
-protected:
-  virtual void DoDataExchange(CDataExchange *pDX);
-  afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-
-public:
-  void FUN_0043f460();
-};
+#include "TextureBar.h"
 
 class CMainFrame : public CFrameWnd
 {
@@ -196,6 +165,9 @@ public:
   CString field_07a4[15];
   CWnd *field_07e0;
   bool field_07e4;
+  bool field_07e5;
+  bool field_07e6;
+  virtual BOOL OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext *pContext);
   // update handlers: the CCmdUI argument is enabled from view state
   void FUN_00417150(CCmdUI *pCmdUI);
   void FUN_004190e0(CCmdUI *pCmdUI);
@@ -499,6 +471,212 @@ void CMainFrame::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
     }
   }
   Default();
+}
+
+extern "C" void FUN_0040cf30(CWnd *filterSettings);
+BOOL FUN_00477390(HINSTANCE hInstance);
+BOOL FUN_0047a2b0(const char *pszName, HWND hWnd);
+void __stdcall CreateQEChildren(CMainFrame *self);
+extern CWnd DAT_01233b68;
+extern CWnd DAT_01234040;
+extern CWnd DAT_01234300;
+extern CWnd DAT_01234550;
+struct SplitInfo { int m_nMin; int m_nCur; };
+
+// Q3Radiant CMainFrame::OnCreateClient: three layouts (3 splitters, QE4 floating, 4 pane)
+BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext *pContext)
+{
+  g_qeglobals.d_hwndMain = GetSafeHwnd();
+  g_qeglobals.d_hwndStatus = GetMessageBar()->GetSafeHwnd();
+
+  field_07a0 = PF(0x1b4);
+
+  FUN_00477390(AfxGetInstanceHandle());
+
+  field_0798 = new CFilterSettings(NULL);
+  ((CFilterSettings *)field_0798)->Create(0xb4, this);
+  g_qeglobals.field_60 = field_0798->GetSafeHwnd();
+  ::SetParent(g_qeglobals.field_60, g_qeglobals.field_4c);
+  field_0798->ShowWindow(SW_SHOW);
+  FUN_0040cf30(field_0798);
+
+  if (!FUN_004131d0("Radiant::MainWindowPlace", GetSafeHwnd()))
+    FUN_0047a2b0("Radiant::MainWindow", GetSafeHwnd());
+
+  ((CDialog *)&DAT_01233b68)->Create(MAKEINTRESOURCE(0xbb));
+  DAT_01233b68.ShowWindow(SW_HIDE);
+  ((CDialog *)&DAT_01234040)->Create(MAKEINTRESOURCE(0xe2));
+  DAT_01234040.ShowWindow(SW_HIDE);
+  ((CDialog *)&DAT_01234300)->Create(MAKEINTRESOURCE(0xe4));
+  DAT_01234300.ShowWindow(SW_HIDE);
+  ((CDialog *)&DAT_01234550)->Create(MAKEINTRESOURCE(0xe5));
+  DAT_01234550.ShowWindow(SW_HIDE);
+
+  CRect rect(5, 25, 100, 100);
+  CRect rctParent;
+  GetClientRect(rctParent);
+
+  if (PF(0x1b4) == 0 || PF(0x1b4) == 3)
+  {
+    m_wndSplit1.CreateStatic(this, 2, 1);
+    m_wndSplit2.CreateStatic(&m_wndSplit1, 1, 3);
+    m_wndSplit3.CreateStatic(&m_wndSplit2, 2, 1);
+
+    m_wndSplit1.CreateView(1, 0, RUNTIME_CLASS(CEditWnd), CSize(25, 100), pContext);
+    DAT_01233484 = dynamic_cast<CEdit *>(m_wndSplit1.GetPane(1, 0));
+    if (DAT_01233484)
+      g_qeglobals.d_hwndEdit = DAT_01233484->GetSafeHwnd();
+
+    m_wndSplit3.CreateView(0, 0, RUNTIME_CLASS(CCamWnd), CSize(25, 100), pContext);
+    field_078c = dynamic_cast<CCamWnd *>(m_wndSplit3.GetPane(0, 0));
+
+    m_wndSplit2.CreateView(0, 1, RUNTIME_CLASS(CXYWnd), CSize(25, 100), pContext);
+    field_0788 = dynamic_cast<CXYWnd *>(m_wndSplit2.GetPane(0, 1));
+    field_0788->SetViewType(2);
+
+    field_078c->SetXYFriend(field_0788);
+
+    m_wndSplit2.CreateView(0, 2, RUNTIME_CLASS(CZWnd), CSize(25, 100), pContext);
+    field_0794 = dynamic_cast<CZWnd *>(m_wndSplit2.GetPane(0, 2));
+
+    m_wndSplit3.CreateView(1, 0, RUNTIME_CLASS(CTexWnd), CSize(25, 100), pContext);
+    field_0790 = dynamic_cast<CTexWnd *>(m_wndSplit3.GetPane(1, 0));
+
+    CreateQEChildren(this);
+
+    if (PF(0x1b4) == 0)
+    {
+      // swap the left and right views
+      CWnd *pRight = m_wndSplit2.GetPane(0, 2);
+      long lRightID = ::GetWindowLong(pRight->GetSafeHwnd(), GWL_ID);
+      long lLeftID = ::GetWindowLong(m_wndSplit3.GetSafeHwnd(), GWL_ID);
+      ::SetWindowLong(pRight->GetSafeHwnd(), GWL_ID, lLeftID);
+      ::SetWindowLong(m_wndSplit3.GetSafeHwnd(), GWL_ID, lRightID);
+    }
+
+    m_wndSplit1.SetRowInfo(0, rctParent.Height() * .85, 50);
+    m_wndSplit1.SetRowInfo(1, rctParent.Height() * .15, 5);
+
+    float fLeft = (PF(0x1b4) == 0) ? .05 : .25;
+    float fRight = (PF(0x1b4) == 0) ? .25 : .05;
+    int nMin1 = (PF(0x1b4) == 0) ? 10 : 25;
+    int nMin2 = (nMin1 == 10) ? 25 : 10;
+
+    m_wndSplit2.SetColumnInfo(0, rctParent.Width() * fLeft, nMin1);
+    m_wndSplit2.SetColumnInfo(1, rctParent.Width() * .70, 100);
+    m_wndSplit2.SetColumnInfo(2, rctParent.Width() * fRight, nMin2);
+
+    m_wndSplit3.SetRowInfo(1, (rctParent.Height() * .85) * .40, 15);
+    m_wndSplit3.SetRowInfo(0, (rctParent.Height() * .85) * .60, 15);
+
+    FUN_0047a2b0("Radiant::Split", m_wndSplit1.GetSafeHwnd());
+    FUN_0047a2b0("Radiant::Split2", m_wndSplit2.GetSafeHwnd());
+    FUN_0047a2b0("Radiant::Split3", m_wndSplit3.GetSafeHwnd());
+    ::ShowWindow(g_qeglobals.field_4c, SW_HIDE);
+
+    SplitInfo spinfo;
+    long lSize = sizeof(spinfo);
+    if (LoadRegistryInfo("Radiant::Split::Row_0", &spinfo, &lSize))
+      m_wndSplit1.SetRowInfo(0, spinfo.m_nCur, spinfo.m_nMin);
+    if (LoadRegistryInfo("Radiant::Split::Row_1", &spinfo, &lSize))
+      m_wndSplit1.SetRowInfo(1, spinfo.m_nCur, spinfo.m_nMin);
+
+    if (LoadRegistryInfo("Radiant::Split2::Col_0", &spinfo, &lSize))
+      m_wndSplit2.SetColumnInfo(0, spinfo.m_nCur, spinfo.m_nMin);
+    if (LoadRegistryInfo("Radiant::Split2::Col_1", &spinfo, &lSize))
+      m_wndSplit2.SetColumnInfo(1, spinfo.m_nCur, spinfo.m_nMin);
+    if (LoadRegistryInfo("Radiant::Split2::Col_2", &spinfo, &lSize))
+      m_wndSplit2.SetColumnInfo(2, spinfo.m_nCur, spinfo.m_nMin);
+
+    if (LoadRegistryInfo("Radiant::Split3::Row_0", &spinfo, &lSize))
+      m_wndSplit3.SetRowInfo(0, spinfo.m_nCur, spinfo.m_nMin);
+    if (LoadRegistryInfo("Radiant::Split3::Row_1", &spinfo, &lSize))
+      m_wndSplit3.SetRowInfo(1, spinfo.m_nCur, spinfo.m_nMin);
+
+    m_wndSplit1.RecalcLayout();
+    m_wndSplit2.RecalcLayout();
+    m_wndSplit3.RecalcLayout();
+  }
+  else if (PF(0x1b4) == 1)
+  {
+    field_078c = new CCamWnd();
+    field_078c->Create("QCamera", "", 0x56c70000, rect, this, 1234);
+
+    field_0794 = new CZWnd();
+    field_0794->Create("QZ", "", 0x56c70000, rect, this, 1238);
+
+    field_0788 = new CXYWnd();
+    field_0788->Create("QXY", "", 0x56c70000, rect, this, 1235);
+    field_0788->SetViewType(2);
+
+    field_078c->SetXYFriend(field_0788);
+
+    field_0790 = new CTexWnd();
+    field_0790->Create("QTEX", "", 0x56000000, rect, this, 1239);
+    ::SetParent(field_0790->GetSafeHwnd(), g_qeglobals.field_4c);
+
+    FUN_004131d0("xywindow", field_0788->GetSafeHwnd());
+    FUN_004131d0("camerawindow", field_078c->GetSafeHwnd());
+    FUN_004131d0("zwindow", field_0794->GetSafeHwnd());
+
+    if (!PF(0x238))
+      field_0794->ShowWindow(SW_HIDE);
+
+    CreateQEChildren(this);
+  }
+  else
+  {
+    m_wndSplit1.CreateStatic(this, 2, 2);
+
+    m_wndSplit1.CreateView(0, 0, RUNTIME_CLASS(CCamWnd), CSize(25, 100), pContext);
+    field_078c = dynamic_cast<CCamWnd *>(m_wndSplit1.GetPane(0, 0));
+
+    m_wndSplit1.CreateView(0, 1, RUNTIME_CLASS(CXYWnd), CSize(25, 100), pContext);
+    field_0788 = dynamic_cast<CXYWnd *>(m_wndSplit1.GetPane(0, 1));
+    field_0788->SetViewType(2);
+
+    m_wndSplit1.CreateView(1, 0, RUNTIME_CLASS(CXYWnd), CSize(25, 100), pContext);
+    m_wndSplit1.CreateView(1, 1, RUNTIME_CLASS(CXYWnd), CSize(25, 100), pContext);
+
+    field_078c->SetXYFriend(field_0788);
+
+    field_0790 = new CTexWnd();
+    field_0790->Create("QTEX", "", 0x56000000, rect, this, 1237);
+    ::SetParent(field_0790->GetSafeHwnd(), g_qeglobals.field_4c);
+
+    field_0794 = new CZWnd();
+    field_0794->Create("QZ", "", 0x56c70000, rect, this, 1236);
+    field_0794->ShowWindow(SW_HIDE);
+
+    FUN_0047a2b0("texwindow", field_0790->GetSafeHwnd());
+    FUN_0047a2b0("editwindow", field_079c->GetSafeHwnd());
+    ::ShowWindow(g_qeglobals.field_4c, SW_HIDE);
+
+    CreateQEChildren(this);
+
+    CRect rctParent;
+    GetClientRect(rctParent);
+
+    m_wndSplit1.SetRowInfo(0, rctParent.Height() * .5, 50);
+    m_wndSplit1.SetRowInfo(1, rctParent.Height() * .5, 50);
+
+    m_wndSplit1.SetColumnInfo(0, rctParent.Width() * .5, 50);
+    m_wndSplit1.SetColumnInfo(1, rctParent.Width() * .5, 50);
+
+    FUN_0047a2b0("Radiant::SplitSPLIT", m_wndSplit1.GetSafeHwnd());
+
+    m_wndSplit1.RecalcLayout();
+  }
+
+  if (DAT_01233484)
+    DAT_01233484->SendMessage(WM_SETFONT, (WPARAM)::GetStockObject(DEFAULT_GUI_FONT), TRUE);
+
+  if (field_0788)
+    field_0788->m_bActive = true;
+  field_07e6 = true;
+  Texture_SetMode(*(int *)(g_qeglobals.d_savedinfo + 4));
+
+  return TRUE;
 }
 
 extern "C" void __fastcall FUN_00414c50(CMainFrame *self) { self->field_07e4 = !self->field_07e4; }

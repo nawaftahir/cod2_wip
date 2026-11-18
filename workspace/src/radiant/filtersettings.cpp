@@ -54,20 +54,7 @@ void __fastcall FUN_0041cec0(CWnd *mainWnd);
 void __fastcall FUN_0041cf20(CWnd *mainWnd);
 }
 
-/* CFilterSettings is the retail class name (RTTI); only the members written here are declared. */
-class CFilterSettings : public CDialog
-{
-public:
-  CString m_text470; // offset 0x70, bound to edit 0x470
-  CFilterSettings(CWnd *pParent);
-  virtual void DoDataExchange(CDataExchange *pDX);
-  virtual BOOL OnInitDialog();
-  void OnShowWindow(BOOL bShow, UINT nStatus);
-  virtual void OnOK();
-  void FUN_0040e4f0();
-  void FUN_0040e660();
-  virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
-};
+#include "FilterSettings.h"
 
 CFilterSettings::CFilterSettings(CWnd *pParent) : CDialog(0xb4, pParent)
 {

@@ -392,6 +392,7 @@ addr	size	source	symbol	name	tag
 0x004137d0	228	src/radiant/MainFrm.cpp	?FUN_004137d0@@YGXPAVCMainFrame@@I@Z	FUN_004137d0	UNNAMED
 0x004138f0	9	src/radiant/MainFrm.cpp	?OnSysKeyDown@CMainFrame@@QAEXIII@Z	CMainFrame::OnSysKeyDown	SUPPORTED
 0x00413900	221	src/radiant/MainFrm.cpp	?OnKeyDown@CMainFrame@@QAEXIII@Z	CMainFrame::OnKeyDown	SUPPORTED
+0x004139e0	3395	src/radiant/MainFrm.cpp	?OnCreateClient@CMainFrame@@UAEHPAUtagCREATESTRUCTA@@PAUCCreateContext@@@Z	CMainFrame::OnCreateClient	SUPPORTED
 0x00414c50	18	src/radiant/MainFrm.cpp	@FUN_00414c50@4	FUN_00414c50	UNNAMED
 0x00414c70	1	src/radiant/MainFrm.cpp	_FUN_00414c70	FUN_00414c70	UNNAMED
 0x00414c80	17	src/radiant/MainFrm.cpp	?OnFileExit@CMainFrame@@QAEXXZ	CMainFrame::OnFileExit	SUPPORTED
