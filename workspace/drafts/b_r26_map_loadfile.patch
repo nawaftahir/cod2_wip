@@ -1,0 +1,288 @@
+diff --git a/workspace/src/radiant/map.cpp b/workspace/src/radiant/map.cpp
+index 8c9d229c..f6bd58f6 100644
+--- a/workspace/src/radiant/map.cpp
++++ b/workspace/src/radiant/map.cpp
+@@ -20,6 +20,7 @@ struct entity_t
+ 	unsigned char pad58[0x0c];
+ 	epair_t *epairs; // 0x64
+ 	short field68;
++	unsigned char pad6a[0x12];
+ };
+ 
+ struct inst14_t
+@@ -107,6 +108,73 @@ void FUN_00459210(brush_t *b, brush_t *list);
+ extern float dword_00591cdc[3];
+ extern float dword_00591ce8[3];
+ 
++// Map_LoadFile cluster
++struct UNKNOWN_01244d70
++{
++	unsigned char pad00[8];
++	unsigned char field08;
++	unsigned char pad09[0x1b];
++	UNKNOWN_01244d70 *next; // 0x24
++};
++struct UNKNOWN_camwnd
++{
++	unsigned char pad00[0x60];
++	float origin[3];
++	float angles[3];
++};
++struct UNKNOWN_xywnd
++{
++	unsigned char pad00[0x70];
++	float origin[3];
++};
++struct UNKNOWN_mainframe
++{
++	unsigned char pad00[0x788];
++	UNKNOWN_xywnd *xyWnd;
++	UNKNOWN_camwnd *camWnd;
++	unsigned char pad790[0x50];
++	void *field7e0;
++};
++#define map_assert1_txt(expr, text) do { static bool s_assertDisable; if (!(expr) && !s_assertDisable) { switch (FUN_0047d980(text, __FILE__, __LINE__, 0, 1)) { case 0: DebugBreak(); break; case 2: s_assertDisable = true; break; } } } while (0)
++extern HCURSOR dword_01129e28;
++extern UNKNOWN_01244d70 *dword_01244d70;
++extern int dword_011298d4;
++extern int dword_010bcd30;
++extern int dword_010a4908;
++extern HWND dword_010bcd54;
++extern bool byte_012334f4;
++extern char currentmap[];
++extern entityInst_t *world_entity;
++extern entityInst_t entityInsts;
++extern brush_t selected_brushes;
++extern UNKNOWN_mainframe *g_pParentWnd;
++int LoadFile(const char *filename, void **bufferptr);
++void Com_BeginParseSession(const char *filename);
++void Com_EndParseSession(void);
++void Com_SetSpaceDelimited(int spaceDelimited);
++void Com_SetParseNegativeNumbers(int negativeNumbers);
++char *Com_Parse(const char **data_p);
++char *Com_ParseOnLine(const char **data_p);
++void Com_UngetToken();
++entity_t *FUN_00466440(const char **data, int version, int a);
++void Entity_AddToList(entity_t *e, entity_t *list);
++void FUN_00467e60(void);
++void FUN_0046fbe0(int a);
++bool FUN_0046b550(void);
++void FUN_00468100(void);
++entityInst_t *FUN_00467770(entity_t *e, entityInst_t *list, brush_t *brushes);
++void FUN_004678c0(entityInst_t *e);
++void FUN_0045b420(brush_t *b);
++void Map_New(void);
++void FUN_00467f00(void);
++void FUN_00441600(void);
++void FUN_00452f50(void *xy);
++void FUN_0045e0b0(brushDef_t *b);
++void FUN_0041e160(const char *msg);
++void Map_RemoveRegion();
++void FUN_00465bf0(entity_t *e, const char *key, const char *value);
++eclass_t *FUN_00464770(int a, const char *name);
++
+ // 0x00467df0 (28 B)
+ void FUN_00467df0(FileWrapper *file, const char *fmt, ...)
+ {
+@@ -152,6 +220,201 @@ entity_t *FUN_004681b0(void)
+ 	return ent;
+ }
+ 
++// 0x004681d0 (134 B)
++int FUN_004681d0(const char **data)
++{
++	const char *token = Com_Parse(data);
++
++	if (!*token)
++	{
++		Sys_Printf("WARNING: empty map\n");
++		return -1;
++	}
++	if (strcmp(token, "iwmap"))
++	{
++		Com_UngetToken();
++		return 0;
++	}
++	return atoi(Com_ParseOnLine(data));
++}
++
++// 0x00468260 (373 B)
++int FUN_00468260(entity_t *entList, const char *filename)
++{
++	void *buf;
++	int count = 0;
++
++#line 231
++	map_assert1(entList->next == entList);
++	map_assert1(entList->prev == entList);
++	if (LoadFile(filename, &buf) != -1)
++	{
++		Com_BeginParseSession(filename);
++		Com_SetSpaceDelimited(0);
++		Com_SetParseNegativeNumbers(1);
++		const char *data = (const char *)buf;
++		int version = FUN_004681d0(&data);
++		if (version >= 0)
++		{
++			if (version < 4)
++				Com_SetSpaceDelimited(1);
++			entity_t *e;
++			while ((e = FUN_00466440(&data, version, 0)) != NULL)
++			{
++				count++;
++				Entity_AddToList(e, entList);
++			}
++		}
++		Com_EndParseSession();
++	}
++	free(buf);
++	return count;
++}
++
++// 0x004683e0 (1320 B)
++void Map_LoadFile(const char *filename)
++{
++	char temp[1024];
++	float origin[3];
++
++	dword_01129e28 = SetCursor(LoadCursor(NULL, IDC_WAIT));
++	FUN_00467e60();
++	FUN_0046fbe0(1);
++	char *out = temp;
++	for (const char *in = filename; *in; in++, out++)
++	{
++		if (*in == '\\')
++			*out = '/';
++		else
++			*out = *in;
++	}
++	*out = 0;
++	Sys_Printf("Map_LoadFile: %s\n", temp);
++#line 278
++	map_assert1_txt(!FUN_0046b550(), "!Map_EditingPrefab()");
++	FUN_00468100();
++	for (UNKNOWN_01244d70 *p = dword_01244d70; p; p = p->next)
++		p->field08 = 0;
++	dword_011298d4 = 0;
++	strcpy(currentmap, filename);
++	dword_010bcd30 = FUN_00468260(&entities, filename);
++#line 287
++	map_assert2(world_entity == NULL);
++	entity_t *next;
++	for (entity_t *e = entities.next; e != &entities; e = next)
++	{
++		next = e->next;
++		entityInst_t *inst = FUN_00467770(e, &entityInsts, &active_brushes);
++		if (!strcmp(ValueForKey(e->epairs, "classname"), "worldspawn"))
++		{
++			if (world_entity)
++			{
++				Sys_Printf("WARNING: multiple worldspawn\n");
++				FUN_004678c0(inst);
++			}
++			else
++			{
++				world_entity = inst;
++			}
++		}
++		else if (e->eclass->nShowFlags & ECLASS_PREFAB)
++		{
++			brush_t *first = (brush_t *)inst->field18;
++			if (first != (brush_t *)inst->pad0c)
++				FUN_0045b420(first);
++		}
++	}
++	if (!world_entity)
++	{
++		Sys_Printf("No worldspawn in map.\n");
++		Map_New();
++		return;
++	}
++#line 319
++	map_assert2(entityInsts.next == world_entity);
++	Sys_Printf("--- LoadMapFile ---\n");
++	Sys_Printf("%s\n", temp);
++	Sys_Printf("%5i brushes\n", dword_011298d4);
++	Sys_Printf("%5i entities\n", dword_010bcd30);
++	Sys_Printf("Map_BuildAllDisplayLists\n");
++	FUN_00467f00();
++	entity_t *ent = FUN_004681b0();
++	g_pParentWnd->camWnd->angles[0] = 0;
++	if (ent)
++	{
++		sscanf(ValueForKey(ent->epairs, "origin"), "%f %f %f", &origin[0], &origin[1], &origin[2]);
++		origin[2] += 60.0f;
++		g_pParentWnd->camWnd->origin[0] = origin[0];
++		g_pParentWnd->camWnd->origin[1] = origin[1];
++		g_pParentWnd->camWnd->origin[2] = origin[2];
++		g_pParentWnd->xyWnd->origin[0] = origin[0];
++		g_pParentWnd->xyWnd->origin[1] = origin[1];
++		g_pParentWnd->xyWnd->origin[2] = origin[2];
++		float *angles = g_pParentWnd->camWnd->angles;
++		sscanf(ValueForKey(ent->epairs, "angles"), "%f %f %f", &angles[0], &angles[1], &angles[2]);
++	}
++	else
++	{
++		g_pParentWnd->camWnd->angles[1] = 0;
++		g_pParentWnd->camWnd->origin[0] = 0;
++		g_pParentWnd->camWnd->origin[1] = 0;
++		g_pParentWnd->camWnd->origin[2] = 0;
++		g_pParentWnd->xyWnd->origin[0] = 0;
++		g_pParentWnd->xyWnd->origin[1] = 0;
++		g_pParentWnd->xyWnd->origin[2] = 0;
++	}
++	Map_RemoveRegion();
++	FUN_00441600();
++	dword_010a4908 = 0;
++	SetWindowText(dword_010bcd54, temp);
++	if (g_pParentWnd->field7e0 && byte_012334f4)
++		FUN_00452f50(g_pParentWnd->field7e0);
++	byte_012334f4 = 0;
++	if (dword_01129e28)
++	{
++		SetCursor(dword_01129e28);
++		dword_01129e28 = NULL;
++	}
++	brush_t *b;
++	for (b = selected_brushes.next; b != &selected_brushes; b = b->next)
++		FUN_0045e0b0(b->def);
++	for (b = active_brushes.next; b != &active_brushes; b = b->next)
++		FUN_0045e0b0(b->def);
++	FUN_0041e160("loaded map");
++	g_nUpdateBits = -1;
++}
++
++// 0x00468d10 (238 B)
++void Map_New(void)
++{
++	Sys_Printf("Map_New\n");
++	FUN_00467e60();
++	FUN_00468100();
++	entity_t *world = new entity_t;
++	memset(world, 0, sizeof(*world));
++	entity_t **ring = (entity_t **)world->pad08;
++	ring[1] = (entity_t *)ring;
++	ring[0] = (entity_t *)ring;
++	FUN_00465bf0(world, "classname", "worldspawn");
++	world->eclass = FUN_00464770(1, "worldspawn");
++	Entity_AddToList(world, &entities);
++	world_entity = FUN_00467770(world, &entityInsts, &active_brushes);
++	g_pParentWnd->camWnd->angles[1] = 0;
++	g_pParentWnd->camWnd->angles[0] = 0;
++	g_pParentWnd->camWnd->origin[0] = 0;
++	g_pParentWnd->camWnd->origin[1] = 0;
++	g_pParentWnd->camWnd->origin[2] = 0;
++	g_pParentWnd->camWnd->origin[2] = 48.0f;
++	g_pParentWnd->xyWnd->origin[0] = 0;
++	g_pParentWnd->xyWnd->origin[1] = 0;
++	g_pParentWnd->xyWnd->origin[2] = 0;
++	if (g_pParentWnd->field7e0 && byte_012334f4)
++		FUN_00452f50(g_pParentWnd->field7e0);
++	byte_012334f4 = 0;
++	dword_010a4908 = 0;
++	g_nUpdateBits = -1;
++}
++
+ // 0x00469100 (53 B)
+ bool Map_IsBrushFiltered(brushDef_t *b)
+ {

@@ -387,6 +387,7 @@ addr	size	source	symbol	name	tag
 0x00411390	137	src/radiant/MainFrm.cpp	??1CTextureBar@@UAE@XZ	CTextureBar::~CTextureBar	SUPPORTED
 0x00411420	206	src/radiant/MainFrm.cpp	??1CMainFrame@@UAE@XZ	CMainFrame::~CMainFrame	SUPPORTED
 0x004115a0	3	src/radiant/MainFrm.cpp	_FUN_004115a0@8	FUN_004115a0	UNNAMED
+0x00412060	123	src/radiant/MainFrm.cpp	?FUN_00412060@@YAHPAPAD@Z	FUN_00412060	UNNAMED
 0x00412df0	9	src/radiant/MainFrm.cpp	?PreCreateWindow@CMainFrame@@UAEHAAUtagCREATESTRUCTA@@@Z	CMainFrame::PreCreateWindow	SUPPORTED
 0x00413020	9	src/radiant/MainFrm.cpp	?OnCommand@CMainFrame@@UAEHIJ@Z	CMainFrame::OnCommand	SUPPORTED
 0x00413030	37	src/radiant/MainFrm.cpp	?DefWindowProcA@CMainFrame@@UAEJIIJ@Z	CMainFrame::DefWindowProc	SUPPORTED
