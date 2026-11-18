@@ -68,3 +68,4 @@ Each row was measured. Tags/spec names point into `archive/LESSONS.md` and the o
 | Pickup_Weapon 1.0 tie (w10o, 11-18, gate) | compile-slot stand-in `if (0) G_TempEntity(...)` | 1699696, no change: the 4 B reload swap does not follow its compile slot |
 | DSound_UpdateSample 1.0 (w10o, 11-18, 2 labs) | heap-pointer steer via local NAME length (KNOWLEDGE 33): bytesToUpload -> 27 chars; hr/pLock1/dataOffset renamed to 21/22/1 chars | both = base 18 lines: local names do not move the hashed kind-3 pointers |
 | DSound_UpdateSample 1.0 (w10o, 11-18, 1 lab) | `DWORD dwLockLen[2]` array (FX hw[2] lever) | 44 lines, 498 B: worse |
+| DSound_UpdateSample 1.0 (w10o, 11-18, 7 labs) | len1 copy local (D2/D7 9 lines but 497 B: slots fixed, len1 kept in reg), dataOffset/off0 (18), l2 web on Unlock (18), l1 web (11, 499 B), len2 copy (22), len1 copy for memcpy only (18) | no match; the len1 copy is the only lever that moves the slot swap |
