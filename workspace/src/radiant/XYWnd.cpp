@@ -135,6 +135,8 @@ CXYWnd::~CXYWnd()
 // Retail order; entries for the other handlers are added as their bodies land.
 BEGIN_MESSAGE_MAP(CXYWnd, CWnd)
     ON_WM_CREATE()
+    ON_WM_LBUTTONDOWN()
+    ON_WM_MBUTTONDOWN()
     ON_WM_KEYDOWN()
     ON_WM_DESTROY()
     ON_WM_KEYUP()
@@ -272,6 +274,37 @@ void FUN_00449b80(float *pVec)
     g_nUpdateBits |= 0x102;
 }
 
+extern bool byte_0109fe5e;
+extern bool byte_0109fe5d;
+extern HWND dword_010bcd54;
+// Only the active XY window slot of CMainFrame is used here.
+struct CMainFrameXYView
+{
+    unsigned char pad[0x7e0];
+    CXYWnd *m_pActiveXY;
+};
+
+// 0x00449bd0: Q3Radiant CXYWnd::OnLButtonDown.
+void CXYWnd::OnLButtonDown(UINT nFlags, CPoint point)
+{
+    CMainFrameXYView *frame = reinterpret_cast<CMainFrameXYView *>(g_pParentWnd);
+    if (frame->m_pActiveXY)
+        frame->m_pActiveXY->m_bActive = false;
+    frame->m_pActiveXY = this;
+    if (this)
+        m_bActive = true;
+    if (byte_0109fe5e && !byte_0109fe5d)
+        FUN_00449a30(nFlags, point);
+    else
+        OriginalButtonDown(nFlags, point);
+}
+
+// 0x00449c40
+void CXYWnd::OnMButtonDown(UINT nFlags, CPoint point)
+{
+    OriginalButtonDown(nFlags, point);
+}
+
 // 0x00449c60: Q3Radiant CleanList.
 void CleanList(brush_t *list)
 {
@@ -295,6 +328,20 @@ void FUN_00449ff0(brush_t *to, brush_t *from)
         FUN_00459210(b, to);
         b = next;
     }
+}
+
+// 0x0044a210: Q3Radiant CXYWnd::OriginalButtonDown.
+void CXYWnd::OriginalButtonDown(UINT nFlags, CPoint point)
+{
+    CRect rctZ;
+    GetClientRect(rctZ);
+    SetWindowPos(&wndTop, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+    if (::GetTopWindow(dword_010bcd54) != GetSafeHwnd())
+        ::BringWindowToTop(GetSafeHwnd());
+    SetFocus();
+    SetCapture();
+    XY_MouseDown(point.x, rctZ.Height() - 1 - point.y, nFlags);
+    m_nScrollFlags = nFlags;
 }
 
 float fDiff(float f1, float f2)

@@ -173,6 +173,11 @@ protected:
     afx_msg void OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags);
     afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
     afx_msg void OnSysKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
+    afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+    afx_msg void OnMButtonDown(UINT nFlags, CPoint point);
+    void OriginalButtonDown(UINT nFlags, CPoint point);
+    void FUN_00449a30(UINT nFlags, CPoint point);
+    void XY_MouseDown(int x, int y, int buttons);
 
     DECLARE_MESSAGE_MAP()
 };
