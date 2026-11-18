@@ -633,7 +633,7 @@ extern float color_01129838[4];
 extern float color_01129858[4];
 extern float color_01129868[4];
 extern void (*FUN_0059c468)(const float *inColor, unsigned int *outColor);
-bool FUN_0045d090(brushdef_t *b, float *color, const float *defColor);
+bool FUN_0045d090(const brushdef_t *b, float *color, const float *defaultColor);
 
 #define Vector4Copy(a, b) ((b)[0] = (a)[0], (b)[1] = (a)[1], (b)[2] = (a)[2], (b)[3] = (a)[3])
 
