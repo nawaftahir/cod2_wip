@@ -1597,6 +1597,21 @@ void FUN_00439500(const vec2_t a, const vec2_t b, vec2_t out)
     out[1] = (a[1] + b[1]) * 0.5f;
 }
 
+// 0x00439620 (69 B), v1 in eax, v2 in ecx
+int FUN_00439620(const vec3_t v1, const vec3_t v2)
+{
+    int i;
+    float d;
+
+    for (i = 0; i < 3; i++)
+    {
+        d = v1[i] - v2[i];
+        if (d * d > 0.001f * 0.001f)
+            return 0;
+    }
+    return 1;
+}
+
 void FUN_00439670(vec2_t v)
 {
     v[0] = 0.0f;

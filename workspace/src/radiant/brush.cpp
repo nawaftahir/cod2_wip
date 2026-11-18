@@ -22,7 +22,7 @@ struct orientation_t { vec3_t origin; vec3_t axis[3]; };
 extern qeglobals_t g_qeglobals;
 extern void * (*R_AllocStaticSurface)(void *matHandle, int vertCount, const vec3_t *xyz, const vec3_t *sTangent, const vec3_t *tTangent, const vec3_t *normals, const vec2_t *st, const unsigned int *colors);
 extern void (*R_FreeStaticSurface)(void *matHandle, int vertCount, void *vertHandle);
-extern bool FUN_00439620(const vec3_t v1, const vec3_t v2);
+extern int FUN_00439620(const vec3_t v1, const vec3_t v2);
 extern void FUN_0043fbc0(vec2_t outSize, vec4_t texMat[2], const vec3_t normal, float planeDist, vec2_t outShift, float *outRotate, float *outCrossterm);
 extern winding_t *Winding_BaseForPlane(const facePlane_t *p);
 extern winding_t * Winding_Clone(const winding_t *w);
@@ -266,13 +266,11 @@ void Face_MakePlane(face_t *f)
     vec3_t d1, d2;
     VectorSubtract(f->planepts[0], f->planepts[1], d1);
     VectorSubtract(f->planepts[2], f->planepts[1], d2);
-    f->plane.normal[0] = d2[2] * d1[1] - d2[1] * d1[2];
-    f->plane.normal[1] = d1[2] * d2[0] - d2[2] * d1[0];
-    f->plane.normal[2] = d2[1] * d1[0] - d1[1] * d2[0];
+    Vec3Cross(d1, d2, f->plane.normal);
     if (FUN_00439620(f->plane.normal, vec3_origin))
         printf("WARNING: brush plane with no normal\n");
     Vec3Normalize(f->plane.normal);
-    f->plane.dist = f->plane.normal[2] * f->planepts[1][2] + f->plane.normal[1] * f->planepts[1][1] + f->plane.normal[0] * f->planepts[1][0];
+    f->plane.dist = DotProduct(f->planepts[1], f->plane.normal);
 }
 #line 320
 void FacePlane_ToVec4(const facePlane_t *p, float out[4])
