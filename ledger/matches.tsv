@@ -1189,6 +1189,7 @@ addr	size	source	symbol	name	tag
 0x00482270	38	src/universal/com_files.cpp	?FS_ConditionalRestart@@YAHH@Z	FS_ConditionalRestart	SUPPORTED
 0x004823b0	13	src/universal/com_files.cpp	?FS_Flush@@YAXH@Z	FS_Flush	SUPPORTED
 0x004823c0	115	src/universal/com_files.cpp	?GetBspExtension@@YAPBDXZ	GetBspExtension	SUPPORTED
+0x00482600	105	src/universal/com_files.cpp	?FUN_00482600@@YAHQBM@Z	FUN_00482600	UNNAMED
 0x00482980	31	src/universal/com_math.cpp	?randomf@@YAMXZ	randomf	SUPPORTED
 0x004829a0	39	src/universal/com_math.cpp	?crandom@@YAMXZ	crandom	SUPPORTED
 0x004829d0	308	src/universal/com_math.cpp	?GaussianRandom@@YAXPAM0@Z	GaussianRandom	PINNED
@@ -1226,12 +1227,14 @@ addr	size	source	symbol	name	tag
 0x00483f00	62	src/universal/com_math.cpp	?Vec3MaxComponent@@YAMQBM@Z	Vec3MaxComponent	SUPPORTED
 0x00483f40	136	src/universal/com_math.cpp	?Vec3Rotate@@YAXQBMQAY02$$CBMQAM@Z	Vec3Rotate	PINNED
 0x00483fd0	136	src/universal/com_math.cpp	?MatrixTransformVectorCols@@YAXQBMQAY02$$CBMQAM@Z	MatrixTransformVectorCols	PINNED
+0x00484360	127	src/universal/com_math.cpp	?FUN_00484360@@YAXQAY02MM@Z	FUN_00484360	UNNAMED
 0x004843e0	147	src/universal/com_math.cpp	?MakeNormalVectors@@YAXQBMQAM1@Z	MakeNormalVectors	SUPPORTED
 0x00484480	146	src/universal/com_math.cpp	?vectoyaw@@YAMQBM@Z	vectoyaw	SUPPORTED
 0x00484640	222	src/universal/com_math.cpp	?vectopitch@@YAMQBM@Z	vectopitch	SUPPORTED
 0x00484720	194	src/universal/com_math.cpp	?vectosignedpitch@@YAMQBM@Z	vectosignedpitch	SUPPORTED
 0x004847f0	348	src/universal/com_math.cpp	?vectoangles@@YAXQBMQAM@Z	vectoangles	PINNED
 0x00484950	274	src/universal/com_math.cpp	?vectoanglessigned@@YAXQBMQAM@Z	vectoanglessigned	SUPPORTED
+0x00484ba0	92	src/universal/com_math.cpp	?YawVectors@@YAXMQAM0@Z	YawVectors	PINNED
 0x00484d10	144	src/universal/com_math.cpp	?PlaneNormalFromPoints@@YAXQBM00QAM@Z	PlaneNormalFromPoints	SUPPORTED
 0x00484da0	191	src/universal/com_math.cpp	?ProjectPointOntoLine@@YAXQBM00QAM@Z	ProjectPointOntoLine	SUPPORTED
 0x00484e60	258	src/universal/com_math.cpp	?PointToLineDistSq@@YAMQBM00@Z	PointToLineDistSq	PINNED
@@ -1315,6 +1318,7 @@ addr	size	source	symbol	name	tag
 0x00489060	313	src/universal/com_math.cpp	?BoxDistSqrdExceeds@@YAHQBM00M@Z	BoxDistSqrdExceeds	SUPPORTED
 0x004891a0	34	src/universal/com_math.cpp	?Q_round@@YAMM@Z	Q_round	SUPPORTED
 0x004891d0	134	src/universal/com_math.cpp	?Vec3ScaleToUnitMax@@YAMQBMQAM@Z	Vec3ScaleToUnitMax	SUPPORTED
+0x00489410	212	src/universal/com_math.cpp	?PitchForYawOnNormal@@YAMMQBM@Z	PitchForYawOnNormal	PINNED
 0x004894f0	6	src/universal/com_math.cpp	?Rand_Init@@YAXH@Z	Rand_Init	SUPPORTED
 0x00489500	75	src/universal/com_math.cpp	?flrand@@YAMMM@Z	flrand	SUPPORTED
 0x00489550	35	src/universal/com_math.cpp	?irand@@YAHHH@Z	irand	SUPPORTED
@@ -1404,6 +1408,8 @@ addr	size	source	symbol	name	tag
 0x0048c630	139	src/universal/dvar.cpp	?Dvar_StringToVec3@@YAPAMPBD@Z	Dvar_StringToVec3	PINNED
 0x0048c6c0	149	src/universal/dvar.cpp	?Dvar_StringToVec4@@YAPAMPBD@Z	Dvar_StringToVec4	PINNED
 0x0048c760	289	src/universal/dvar.cpp	?Dvar_StringToEnum@@YAHPBTDvarLimits@@PBD@Z	Dvar_StringToEnum	PINNED
+0x0048c890	446	src/universal/dvar.cpp	?Dvar_StringToColor@@YAXPBDPAE@Z	Dvar_StringToColor	SUPPORTED
+0x0048ca50	344	src/universal/dvar.cpp	?Dvar_StringToValue@@YA?AUDvarValue@@ETDvarLimits@@PBD@Z	Dvar_StringToValue	PINNED
 0x0048cbb0	92	src/universal/dvar.cpp	?Dvar_DisplayableValue@@YAPBDPBUdvar_s@@@Z	Dvar_DisplayableValue	PINNED
 0x0048cc10	92	src/universal/dvar.cpp	?Dvar_DisplayableResetValue@@YAPBDPBUdvar_s@@@Z	Dvar_DisplayableResetValue	PINNED
 0x0048cc70	92	src/universal/dvar.cpp	?Dvar_DisplayableLatchedValue@@YAPBDPBUdvar_s@@@Z	Dvar_DisplayableLatchedValue	PINNED
