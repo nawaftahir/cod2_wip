@@ -1053,3 +1053,7 @@ set by a later lowering stage, not by the list scheduler.
   (no local pick); a block-local temp used in both arms of one extended block (the hoisted `*modelCounters`) is a local
   pick. A user-var load in the same block as the pointer var's def gets the def's address expression substituted
   (`mov cl,[edx+eax*2]` instead of `[eax]`). XAnimCalc retail = route B pick state with the load through modelCounters.
+- PINNED (w29a 11-18, c2occ13 + forced K=1 back-step): Menu_SetNextCursorItem local picks = 1 t1d3 eax (loop entry test),
+  2 t56 idx, 3 t1d4 items, 4 t1cf bottom test, 5 t1d5 return-block items, 6 t1db / 7 t1d6 MouseMove idx/items, 8 t1d9 /
+  9 t1d7 tail idx/items. The item loads `menu->items[cursor]` are not picks: the `item` user var is globally coloured (eax),
+  the tail one is the return value. Retail fits exactly if the SetFocus item load IS a pick (edx) and pick 1 is not.
