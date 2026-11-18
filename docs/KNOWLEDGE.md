@@ -1091,3 +1091,10 @@ set by a later lowering stage, not by the list scheduler.
   register-less temp, which becomes the local pick. The increment block avoids this because its cursor value is the
   coloured web 424. HYPOTHESIS: retail's entry test has no uncoloured CSE temp there (or its cursor value is coloured).
   Box spent (2 traces); next attack is a source spelling that drops that CSE temp at the entry only.
+- PINNED (w29b 11-18, c2 disasm 0x10790cba..0x10790d8b, 0x107349c0, 0x10790df9..0x10790f0b): slot packer phase 1 walks
+  the item list (+0x30 chain, kind 5 skipped, items with [+6]&4 take another path) and tries entries in INDEX order from
+  0 = oldest first (first fit). Join test: item size <= entry size, item bit not in the entry's set, and
+  members(entry) & conflicts(item) empty (0x1077b3c9 on [0x108a7894 + idx*4]). Join ORs the item's conflicts into the
+  entry and adds the item weight [+0x38] to entry [+0xc]; no fit -> new entry appended (0x10791426). Phase 2 gives offsets
+  from the newest entry down to entry 0. TRIED 520's "newest entry first" reading is not what the code does; its two
+  observations also fit oldest-first.
