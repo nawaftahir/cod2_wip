@@ -1623,7 +1623,45 @@ void FUN_00433830(patchMesh_t *p)
 }
 
 
-void FUN_00432a60(patchMesh_t *p);
+// same flip across the rows
+void FUN_00432950(patchMesh_t *p)
+{
+    PatchControl tmp;
+    for (int j = 0; j < p->height; j++)
+    {
+        for (int i = 0; i < p->width / 2; i++)
+        {
+            tmp = p->ctrl[p->width - 1 - i][j];
+            p->ctrl[p->width - 1 - i][j] = p->ctrl[i][j];
+            p->ctrl[i][j] = tmp;
+        }
+        if (p->type_10 & 0x40)
+        {
+            for (int i = 1; i < p->width; i++)
+                p->ctrl[i - 1][j].flags_34 = (p->ctrl[i - 1][j].flags_34 & ~1) | (p->ctrl[i][j].flags_34 & 1);
+        }
+    }
+}
+
+// Q3 Patch_InvertTexture shape: flip each column, keep the seam bit with it
+void FUN_00432a60(patchMesh_t *p)
+{
+    PatchControl tmp;
+    for (int i = 0; i < p->width; i++)
+    {
+        for (int j = 0; j < p->height / 2; j++)
+        {
+            tmp = p->ctrl[i][p->height - 1 - j];
+            p->ctrl[i][p->height - 1 - j] = p->ctrl[i][j];
+            p->ctrl[i][j] = tmp;
+        }
+        if (p->type_10 & 0x40)
+        {
+            for (int j = 1; j < p->height; j++)
+                p->ctrl[i][j - 1].flags_34 = (p->ctrl[i][j - 1].flags_34 & ~1) | (p->ctrl[i][j].flags_34 & 1);
+        }
+    }
+}
 
 void FUN_00432b70(patchMesh_t *p)
 {
@@ -1868,6 +1906,65 @@ const char *FUN_00434850()
     return "";
 }
 
+// Q3 Patch_Transpose
+void FUN_00435230(patchMesh_t *p)
+{
+    int i, j, w;
+    PatchControl tmp;
+
+    if (p->type_10 & 0x40)
+    {
+        for (i = 0; i < p->width; i++)
+        {
+            for (j = 0; j < p->height; j++)
+                p->ctrl[i][j].flags_34 ^= 1;
+        }
+    }
+
+    if (p->width > p->height)
+    {
+        for (i = 0; i < p->height; i++)
+        {
+            for (j = i + 1; j < p->width; j++)
+            {
+                if (j < p->height)
+                {
+                    tmp = p->ctrl[j][i];
+                    p->ctrl[j][i] = p->ctrl[i][j];
+                    p->ctrl[i][j] = tmp;
+                }
+                else
+                {
+                    p->ctrl[i][j] = p->ctrl[j][i];
+                }
+            }
+        }
+    }
+    else
+    {
+        for (i = 0; i < p->width; i++)
+        {
+            for (j = i + 1; j < p->height; j++)
+            {
+                if (j < p->width)
+                {
+                    tmp = p->ctrl[i][j];
+                    p->ctrl[i][j] = p->ctrl[j][i];
+                    p->ctrl[j][i] = tmp;
+                }
+                else
+                {
+                    p->ctrl[j][i] = p->ctrl[i][j];
+                }
+            }
+        }
+    }
+
+    w = p->width;
+    p->width = p->height;
+    p->height = w;
+}
+
 void FUN_00435840()
 {
     for (brush_t *b = DAT_010a44dc.next; b && b != &DAT_010a44dc; b = b->next)
@@ -1929,6 +2026,27 @@ void FUN_00439160(int amount)
 
 
 // 0x004392a0 (275 B), def in esi
+void FUN_004384c0(patchMesh_t *p, bool *transposed, bool *inverted, int a, int b, int c)
+{
+    *transposed = false;
+    *inverted = false;
+    if (a != 1)
+    {
+        *transposed = true;
+        FUN_00435230(p);
+    }
+    if (b != 1)
+    {
+        *inverted = !*inverted;
+        FUN_00432950(p);
+    }
+    if (c)
+    {
+        *inverted = !*inverted;
+        FUN_00432a60(p);
+    }
+}
+
 patch_t *FUN_004392a0(patchMesh_t *def)
 {
 #define SYMBIOT ((symbiot_t *)def->cache_3828)
