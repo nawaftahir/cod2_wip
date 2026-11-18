@@ -1061,3 +1061,9 @@ set by a later lowering stage, not by the list scheduler.
   `menu->items[menu->cursorItem[0]]` (the load becomes pick 4, t1d1) AND the pointer not advanced by pick 1 (the loop entry
   test t1d3). The direct expression alone is 28 lines (TRIED 155/444). Retail's entry test is not a round-robin pick, or
   is allocated after all others (it would then get eax, as in retail). Lever: a loop shape whose entry test is not pick 1.
+- PINNED (w29a 11-18, winedbg watch on the pick-1 tuple 0x06202bdc + stack scan): Menu_SetNextCursorItem's loop entry test
+  is a pre-RA copy of the while condition (tuple +0x14 line field 0xc = the bottom test's). It is zeroed at 0x107afa65 and
+  made a load (op 1) at 0x1075a611, called from the recursive tree copier 0x1075f045/0x1075f093 <- 0x10776ae5 <- 0x10776bd7
+  <- 0x10777206 <- 0x107733a2 <- 0x10773242 <- 0x1077312e <- 0x10770983 <- 0x10770627 <- 0x107b0015 <- 0x1070b99b <- the
+  per-fn driver 0x107b99ad (the local picks run later via 0x107b003e). Retail fits a test copied AFTER allocation (it would
+  inherit the bottom test's eax and spend no pick). Next: the decision in 0x10777206's caller chain that copies the test.

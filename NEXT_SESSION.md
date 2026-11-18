@@ -20,6 +20,14 @@ CL_SetCGameTime 6, Pickup_Weapon 4 (heap-pointer ties, KNOWLEDGE 33).
   give the 8th entry (one more retail item overlaps width).
 - Load CSE is per definition of the pointer var: a same-value re-def ends the family (CG_FireWeapon win).
 
+## Exact pointer routes (KNOWLEDGE 11-18, winedbg force = fdiff 0)
+- XAnimCalc: (A) base order + pointer +1 after byte pick 12, or (B) `unsigned int modelName = obj->animToModel[entry];`
+  in the else arm + pointer at ecx after pick 12. x1 + a cross-arm byte `counter` gives the whole else arm (route B) but
+  the counter load folds into `[edx+eax*2]` and a loop entry loses its jmp (15 lines).
+- Menu_SetNextCursorItem: Item_SetFocus on the direct expression + loop entry test not a pick. Every loop shape tried
+  (while, for(;;)+break, goto into the test, guarded do/while, CoD4 do/while) still makes the entry test pick 1.
+- FX_AddFxToScene: the model load must not be a pick (TRIED 511).
+
 ## Do not repeat
 Everything in docs/TRIED.md. Spelling sweeps, declared-type changes, agent waves (11-18: 7 B per ~1.5M tokens).
 Next real attack: IL-level differences in the functions compiled before the residues (heap and busy-set state).
