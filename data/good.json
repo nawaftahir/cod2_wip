@@ -39504,8 +39504,9 @@
 "name": "?CG_FireWeapon@@YAXPAUcentity_s@@HH@Z",
 "obj": "cg_weapons.obj",
 "size": 550,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4d0eb0"
+]
 },
 {
 "name": "?CG_WhizbySound@@YAXPAM0@Z",
