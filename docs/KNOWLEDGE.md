@@ -1041,6 +1041,7 @@ set by a later lowering stage, not by the list scheduler.
   pick (t8e0) all three regs are free and the pointer is at edx, so retail's eax needs a different pointer, not a busier edx.
 - PINNED (w29b 11-18, /tmp/pmx.sh = winedbg pointer force): XAnimCalc has two exact retail routes. (A) base order, pointer
   +1 (eax) after byte pick 12 (TRIED 506). (B) x1 order (`unsigned int modelName = obj->animToModel[entry];` before the call)
-  with the pointer forced to 0x108a973c (ecx first) after pick 12: fdiff 0. So retail = A or B; B needs one fewer advance
-  (the byte pick not advancing, or a reset to the table start: eax is occupied at the obj pick, so ecx is taken). A
-  pointer reset (tuple op 0x2d3, 0x107dff94, sets 0x108a9738) right before the parts pick also gives A's eax.
+  with the pointer forced to 0x108a973c (ecx first) after pick 12: fdiff 0. So retail = A or B; B needs exactly one fewer
+  advance (c2occ13 on x1: eax is free at the obj pick, so a reset to the table start would give eax, not ecx). A pointer
+  reset (tuple op 0x2d3, 0x107dff94) before the parts pick would give A, but no fn of the 600 compiled after XAnimCalc
+  hits that reset (winedbg survey), so it is not a practical lever.
