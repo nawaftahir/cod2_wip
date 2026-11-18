@@ -2105,3 +2105,13 @@ addr	size	source	symbol	name	tag
 0x00488b70	185	src/universal/com_math.cpp	?ProjectPointOnPlane@@YAXQBM0QAM@Z	ProjectPointOnPlane	SUPPORTED
 0x0048a170	245	src/universal/com_memory.cpp	?Hunk_SetDataForFile@@YAPBDHPBDPAXP6APAXH@Z@Z	Hunk_SetDataForFile	SUPPORTED
 0x00495060	990	src/universal/q_parse.cpp	?Com_ParseExt@@YAPADPAPBDH@Z	Com_ParseExt	SUPPORTED
+0x0043ddf0	501	src/radiant/SurfaceDlg.cpp	?FUN_0043ddf0@CSurfaceDlg@@IAEXIPAVCScrollBar@@@Z	CSurfaceDlg::FUN_0043ddf0	UNNAMED
+0x0043e1f0	514	src/radiant/SurfaceDlg.cpp	?FUN_0043e1f0@@YAXXZ	FUN_0043e1f0	UNNAMED
+0x0043e740	51	src/radiant/SurfaceDlg.cpp	?OnHScroll@CSurfaceDlg@@IAEXIIPAVCScrollBar@@@Z	CSurfaceDlg::OnHScroll	SUPPORTED
+0x0043e790	51	src/radiant/SurfaceDlg.cpp	?OnVScroll@CSurfaceDlg@@IAEXIIPAVCScrollBar@@@Z	CSurfaceDlg::OnVScroll	SUPPORTED
+0x0043e8f0	26	src/radiant/SurfaceDlg.cpp	?FUN_0043e8f0@CSurfaceDlg@@IAEXXZ	CSurfaceDlg::FUN_0043e8f0	UNNAMED
+0x0043e950	38	src/radiant/SurfaceDlg.cpp	?FUN_0043e950@CSurfaceDlg@@IAEXPAUtagNMHDR@@PAJ@Z	CSurfaceDlg::FUN_0043e950	UNNAMED
+0x0045f150	229	src/radiant/brush.cpp	?FUN_0045f150@@YAXPAUbrushdef_t@@@Z	FUN_0045f150	UNNAMED
+0x00439450	147	src/radiant/Pmesh.cpp	?FUN_00439450@@YAXPAUpatchMesh_t@@@Z	FUN_00439450	UNNAMED
+0x00442860	88	src/radiant/TexWnd.cpp	?CreateObject@CTexWnd@@SGPAVCObject@@XZ	CTexWnd::CreateObject	SUPPORTED
+0x00442980	96	src/radiant/TexWnd.cpp	??1CTexWnd@@UAE@XZ	CTexWnd::~CTexWnd	SUPPORTED

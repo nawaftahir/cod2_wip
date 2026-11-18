@@ -98,6 +98,12 @@ protected:
 	afx_msg void OnDestroy();
 	afx_msg HBRUSH OnCtlColor(CDC *pDC, CWnd *pWnd, UINT nCtlColor);
 	afx_msg void FUN_0043e840();
+	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar *pScrollBar);
+	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar *pScrollBar);
+	afx_msg void FUN_0043e8f0();
+	afx_msg void FUN_0043e950(NMHDR *pNMHDR, LRESULT *pResult);
+	void FUN_0043ddf0(UINT nSBCode, CScrollBar *pScrollBar);
+	void FUN_0043da00(int nID, bool bUp);
 	afx_msg void FUN_0043ea90();
 	afx_msg void FUN_0043eab0();
 	afx_msg void FUN_0043ec10();
@@ -109,14 +115,23 @@ protected:
 // Message map entries are not reconstructed yet; the retail map is at 0x548690.
 // Partial: handlers whose callees are unwritten are left out; retail order otherwise.
 BEGIN_MESSAGE_MAP(CSurfaceDlg, CDialog)
+	ON_WM_HSCROLL()
 	ON_WM_KEYDOWN()
+	ON_WM_VSCROLL()
 	ON_WM_CLOSE()
 	ON_WM_DESTROY()
+	ON_BN_CLICKED(1198, FUN_0043e8f0)
 	ON_WM_CTLCOLOR()
 	ON_WM_CREATE()
+	ON_NOTIFY(UDN_DELTAPOS, 1248, FUN_0043e950)
 	ON_BN_CLICKED(1284, FUN_0043ea90)
 	ON_BN_CLICKED(1286, FUN_0043ec10)
 	ON_BN_CLICKED(1287, FUN_0043eab0)
+	ON_NOTIFY(UDN_DELTAPOS, 1257, FUN_0043e950)
+	ON_NOTIFY(UDN_DELTAPOS, 1259, FUN_0043e950)
+	ON_NOTIFY(UDN_DELTAPOS, 1254, FUN_0043e950)
+	ON_NOTIFY(UDN_DELTAPOS, 1251, FUN_0043e950)
+	ON_NOTIFY(UDN_DELTAPOS, 1260, FUN_0043e950)
 	ON_EN_CHANGE(1211, FUN_0043ec30)
 	ON_EN_CHANGE(1035, FUN_0043ec40)
 	ON_BN_CLICKED(1489, FUN_0043e840)
@@ -236,6 +251,140 @@ float FUN_0043ce20()
     return v;
 }
 
+void * __stdcall FUN_0043d630(CSurfaceDlg *dlg);
+void FUN_0046ff10(void *texdef, int flag);
+extern int g_nUpdateBits;
+
+void __stdcall FUN_0043d400(CSurfaceDlg *dlg);
+void FUN_00470690(int value);
+void * __stdcall FUN_0043d630(CSurfaceDlg *dlg);
+void FUN_00433910(texdef_t *td, texdef_t *def);
+
+// Retail 0x0043da00: spin control arrows (Q3Radiant UpdateSpinners(bUp, nID) shape).
+void CSurfaceDlg::FUN_0043da00(int nID, bool bUp)
+{
+	texdef_t *pdef;
+	if (pad70)
+	{
+		texdef_t td;
+		td.rotate = 0;
+		td.scale[1] = 0;
+		td.scale[0] = 0;
+		td.shift[1] = 0;
+		td.shift[0] = 0;
+		FUN_0043d400(this);
+		pdef = &DAT_01128da8;
+		if (nID == 1259)
+			td.rotate = bUp ? surfDlgGlob.patchTexdef.rotate : -surfDlgGlob.patchTexdef.rotate;
+		else if (nID == 1257)
+			td.scale[0] = bUp ? 1.0f - surfDlgGlob.patchTexdef.scale[0] : surfDlgGlob.patchTexdef.scale[0] + 1.0f;
+		else if (nID == 1254)
+			td.scale[1] = bUp ? 1.0f - surfDlgGlob.patchTexdef.scale[1] : surfDlgGlob.patchTexdef.scale[1] + 1.0f;
+		else if (nID == 1248)
+			td.shift[0] = bUp ? surfDlgGlob.patchTexdef.shift[0] : -surfDlgGlob.patchTexdef.shift[0];
+		else if (nID == 1251)
+			td.shift[1] = bUp ? surfDlgGlob.patchTexdef.shift[1] : -surfDlgGlob.patchTexdef.shift[1];
+		else if (nID == 1260 && surfDlgGlob.field_40 != 0.0f)
+		{
+			float f = bUp ? surfDlgGlob.field_40 + 4.0f : surfDlgGlob.field_40 - 4.0f;
+			surfDlgGlob.field_40 = f <= 4.0f ? 4.0f : f;
+			FUN_00470690((int)surfDlgGlob.field_40);
+			FUN_0043cf80(this);
+			field_72 = false;
+			return;
+		}
+		FUN_00433910(&td, pdef);
+	}
+	else
+	{
+		pdef = (texdef_t *)FUN_0043d630(this);
+		if (nID == 1259)
+		{
+			if (bUp)
+				pdef->rotate += 45.0f;
+			else
+				pdef->rotate -= 45.0f;
+			if (pdef->rotate < 0.0f)
+				pdef->rotate += 360.0f;
+			if (pdef->rotate >= 360.0f)
+				pdef->rotate -= 360.0f;
+		}
+		else if (nID == 1257)
+			pdef->scale[0] += bUp ? 8.0f : -8.0f;
+		else if (nID == 1254)
+			pdef->scale[1] += bUp ? 8.0f : -8.0f;
+		else if (nID == 1248)
+			pdef->shift[0] += bUp ? 1.0f : -1.0f;
+		else if (nID == 1251)
+			pdef->shift[1] += bUp ? 1.0f : -1.0f;
+		else if (nID == 1260 && surfDlgGlob.field_40 != 0.0f)
+		{
+			float f = bUp ? surfDlgGlob.field_40 + 4.0f : surfDlgGlob.field_40 - 4.0f;
+			surfDlgGlob.field_40 = f <= 4.0f ? 4.0f : f;
+			FUN_00470690((int)surfDlgGlob.field_40);
+			FUN_0043cf80(this);
+			field_72 = false;
+			surfDlgGlob.pending = true;
+			return;
+		}
+	}
+	FUN_0043cf80(this);
+	surfDlgGlob.pending = true;
+	FUN_0046ff10(pdef, 0);
+	field_71 = false;
+}
+
+// Retail 0x0043ddf0: spin arrows of the scroll-bar controls (Q3Radiant UpdateSpinners shape).
+void CSurfaceDlg::FUN_0043ddf0(UINT nSBCode, CScrollBar *pScrollBar)
+{
+	texdef_t *td = (texdef_t *)FUN_0043d630(this);
+	if (nSBCode != SB_LINEUP && nSBCode != SB_LINEDOWN)
+		return;
+	if (pScrollBar->GetSafeHwnd() == ::GetDlgItem(GetSafeHwnd(), 1221))
+	{
+		if (nSBCode == SB_LINEUP)
+			td->rotate += 45.0f;
+		else
+			td->rotate -= 45.0f;
+		if (td->rotate < 0.0f)
+			td->rotate += 360.0f;
+		if (td->rotate >= 360.0f)
+			td->rotate -= 360.0f;
+	}
+	else if (pScrollBar->GetSafeHwnd() == ::GetDlgItem(GetSafeHwnd(), 1212))
+	{
+		if (nSBCode == SB_LINEDOWN)
+			td->scale[0] -= 0.1;
+		else
+			td->scale[0] += 0.1;
+	}
+	else if (pScrollBar->GetSafeHwnd() == ::GetDlgItem(GetSafeHwnd(), 1215))
+	{
+		if (nSBCode == SB_LINEUP)
+			td->scale[1] += 0.1;
+		else
+			td->scale[1] -= 0.1;
+	}
+	else if (pScrollBar->GetSafeHwnd() == ::GetDlgItem(GetSafeHwnd(), 1206))
+	{
+		if (nSBCode == SB_LINEDOWN)
+			td->shift[0] -= 8.0f;
+		else
+			td->shift[0] += 8.0f;
+	}
+	else if (pScrollBar->GetSafeHwnd() == ::GetDlgItem(GetSafeHwnd(), 1210))
+	{
+		if (nSBCode == SB_LINEUP)
+			td->shift[1] += 8.0f;
+		else
+			td->shift[1] -= 8.0f;
+	}
+	FUN_0043cf80(this);
+	surfDlgGlob.pending = true;
+	FUN_0046ff10(td, 0);
+	field_71 = false;
+}
+
 // 0x0043dff0 (509 B)
 void FUN_0043dff0()
 {
@@ -257,7 +406,32 @@ void FUN_0043dff0()
     }
 }
 
-extern int g_nUpdateBits;
+void FUN_0045f150(brushdef_t *b);
+void FUN_0045f010(face_t *f, brushdef_t *b);
+
+// Retail 0x0043e1f0: undo, restore the texdefs saved by 0x43dff0.
+void FUN_0043e1f0()
+{
+#line 645
+    assert( surfDlgGlob.hwnd );
+    DAT_01128da8 = surfDlgGlob.texdef;
+    if (!surfDlgGlob.pending)
+        return;
+    surfDlgGlob.pending = false;
+    for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+        FUN_0045f150(b->def);
+    int count = DAT_012485b4.GetSize();
+    for (int i = 0; i < count; i++)
+    {
+        selFace_t selFace = DAT_012485b4[i];
+#line 659
+        assert( selFace.face == &selFace.brush->faces[selFace.index] );
+#line 660
+        assert( selFace.brush->version == selFace.brush->def->version );
+        FUN_0045f010(&selFace.brush->def->faces[selFace.index], selFace.brush->def);
+    }
+}
+
 extern CSurfaceDlg DAT_01234a38;
 struct surfPrefs_t
 {
@@ -378,7 +552,6 @@ void CSurfaceDlg::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void * __stdcall FUN_0043d630(CSurfaceDlg *dlg);
 void FUN_004702d0(void *texdef);
-void FUN_00470690(int value);
 
 // Retail 0x0043e7d0: apply pending edits.
 void CSurfaceDlg::FUN_0043e7d0()
@@ -421,6 +594,20 @@ void CSurfaceDlg::OnOK()
 	surfDlgGlob.hwnd = NULL;
 }
 
+void CSurfaceDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar *pScrollBar)
+{
+	CDialog::OnHScroll(nSBCode, nPos, pScrollBar);
+	FUN_0043ddf0(nSBCode, pScrollBar);
+	g_nUpdateBits |= 1;
+}
+
+void CSurfaceDlg::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar *pScrollBar)
+{
+	CDialog::OnVScroll(nSBCode, nPos, pScrollBar);
+	FUN_0043ddf0(nSBCode, pScrollBar);
+	g_nUpdateBits |= 1;
+}
+
 BOOL SaveRegistryInfo(const char *pszName, void *pvBuf, long lSize);
 
 void CSurfaceDlg::OnDestroy()
@@ -434,6 +621,20 @@ void CSurfaceDlg::OnDestroy()
 	CDialog::OnDestroy();
 	surfDlgGlob.hwnd = NULL;
 	g_nUpdateBits = -1;
+}
+
+void CSurfaceDlg::FUN_0043e950(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	NM_UPDOWN *pUD = (NM_UPDOWN *)pNMHDR;
+	FUN_0043da00(pUD->hdr.idFrom, pUD->iDelta > 0);
+	*pResult = 0;
+}
+
+void CSurfaceDlg::FUN_0043e8f0()
+{
+	FUN_0043e1f0();
+	surfDlgGlob.hwnd = NULL;
+	DestroyWindow();
 }
 
 // Retail one-byte RET bodies verified with MSVC 7.1. Original entry-point ownership/signatures remain provisional.

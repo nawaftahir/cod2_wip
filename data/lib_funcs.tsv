@@ -2787,7 +2787,7 @@ addr	size	lib	member	symbol
 0x004fcdeb	106	nafxcw.lib	INTEL\$NW\wincore.obj	?OnHelpInfo@CWnd@@IAEHPAUtagHELPINFO@@@Z
 0x004fce55	58	nafxcw.lib	INTEL\$NW\wincore.obj	?OnGetObject@CWnd@@IAEJIJ@Z
 0x004fce8f	33	nafxcw.lib	INTEL\$NW\wincore.obj	?OnHScroll@CWnd@@IAEXIIPAVCScrollBar@@@Z
-0x004fceb0	33	nafxcw.lib	INTEL\$NW\wincore.obj	?OnHScroll@CWnd@@IAEXIIPAVCScrollBar@@@Z
+0x004fceb0	33	nafxcw.lib	INTEL\$NW\wincore.obj	?OnVScroll@CWnd@@IAEXIIPAVCScrollBar@@@Z
 0x004fced1	98	nafxcw.lib	INTEL\$NW\wincore.obj	?OnPaint@CWnd@@IAEXXZ
 0x004fcf33	64	nafxcw.lib	INTEL\$NW\wincore.obj	?OnEnterIdle@CWnd@@IAEXIPAV1@@Z
 0x004fcf73	39	nafxcw.lib	INTEL\$NW\wincore.obj	?OnCtlColor@CWnd@@IAEPAUHBRUSH__@@PAVCDC@@PAV1@I@Z
