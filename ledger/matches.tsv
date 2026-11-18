@@ -83,6 +83,7 @@ addr	size	source	symbol	name	tag
 0x004034f0	46	src/radiant/CamWnd.cpp	?OriginalMouseUp@CCamWnd@@IAEXIVCPoint@@@Z	CCamWnd::OriginalMouseUp	SUPPORTED
 0x00403520	74	src/radiant/CamWnd.cpp	?OriginalMouseDown@CCamWnd@@IAEXIVCPoint@@@Z	CCamWnd::OriginalMouseDown	SUPPORTED
 0x00403570	43	src/radiant/CamWnd.cpp	?Cam_Init@CCamWnd@@QAEXXZ	CCamWnd::Cam_Init	SUPPORTED
+0x00403ae0	512	src/radiant/CamWnd.cpp	?Cam_MouseControl@CCamWnd@@QAEXM@Z	CCamWnd::Cam_MouseControl	SUPPORTED
 0x00403ce0	222	src/radiant/CamWnd.cpp	?FUN_00403ce0@CCamWnd@@QAEXHHPAM@Z	FUN_00403ce0	UNNAMED
 0x00404d70	65	src/radiant/CamWnd.cpp	?Cam_MouseUp@CCamWnd@@IAEXHHH@Z	CCamWnd::Cam_MouseUp	SUPPORTED
 0x00405220	348	src/radiant/CamWnd.cpp	?InitCull@CCamWnd@@IAEXXZ	InitCull	SUPPORTED
@@ -343,6 +344,8 @@ addr	size	source	symbol	name	tag
 0x00412df0	9	src/radiant/MainFrm.cpp	?PreCreateWindow@CMainFrame@@UAEHAAUtagCREATESTRUCTA@@@Z	CMainFrame::PreCreateWindow	SUPPORTED
 0x00412e00	544	src/radiant/MainFrm.cpp	?CreateQEChildren@@YGXPAVCMainFrame@@@Z	CreateQEChildren	SUPPORTED
 0x00413020	9	src/radiant/MainFrm.cpp	?OnCommand@CMainFrame@@UAEHIJ@Z	CMainFrame::OnCommand	SUPPORTED
+0x00413030	37	src/radiant/MainFrm.cpp	?DefWindowProcA@CMainFrame@@UAEJIIJ@Z	CMainFrame::DefWindowProc	SUPPORTED
+0x00413060	256	src/radiant/MainFrm.cpp	?RoutineProcessing@CMainFrame@@QAEXXZ	CMainFrame::RoutineProcessing	SUPPORTED
 0x00413160	9	src/radiant/MainFrm.cpp	?WindowProc@CMainFrame@@UAEJIIJ@Z	CMainFrame::WindowProc	SUPPORTED
 0x00413170	41	src/radiant/MainFrm.cpp	?MouseDown@@YA_NXZ	MouseDown	SUPPORTED
 0x004131a0	48	src/radiant/MainFrm.cpp	?OnTimer@CMainFrame@@QAEXI@Z	CMainFrame::OnTimer	SUPPORTED
@@ -424,6 +427,7 @@ addr	size	source	symbol	name	tag
 0x00417750	72	src/radiant/MainFrm.cpp	@FUN_00417750@4	FUN_00417750	UNNAMED
 0x004177a0	72	src/radiant/MainFrm.cpp	@FUN_004177a0@4	FUN_004177a0	UNNAMED
 0x004177f0	66	src/radiant/MainFrm.cpp	@FUN_004177f0@4	FUN_004177f0	UNNAMED
+0x00417d60	157	src/radiant/MainFrm.cpp	?UpdateWindows@CMainFrame@@QAEXH@Z	CMainFrame::UpdateWindows	SUPPORTED
 0x00417e00	7	src/radiant/MainFrm.cpp	_FUN_00417e00	FUN_00417e00	UNNAMED
 0x00417e10	37	src/radiant/MainFrm.cpp	@FUN_00417e10@4	FUN_00417e10	UNNAMED
 0x00417f00	1	src/radiant/MainFrm.cpp	_FUN_00417f00	FUN_00417f00	UNNAMED

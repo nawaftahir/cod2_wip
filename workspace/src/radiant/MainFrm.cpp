@@ -5,6 +5,7 @@
 #include "FilterSettings.h"
 #include "../universal/assertive.h"
 #include <math.h>
+#include <time.h>
 
 // Bodies sit in retail address order; FUN_ names and signatures are provisional.
 
@@ -140,8 +141,11 @@ public:
   virtual BOOL PreCreateWindow(CREATESTRUCT &cs);
   virtual BOOL PreTranslateMessage(MSG *pMsg);
   virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
+  virtual LRESULT DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam);
   virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
   virtual ~CMainFrame();
+  void RoutineProcessing();
+  void UpdateWindows(int nBits);
   afx_msg void OnClose();
   afx_msg void OnTimer(UINT nIDEvent);
   afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
@@ -280,6 +284,42 @@ void __stdcall CreateQEChildren(CMainFrame *self)
 BOOL CMainFrame::OnCommand(WPARAM wParam, LPARAM lParam)
 {
   return CFrameWnd::OnCommand(wParam, lParam);
+}
+
+LRESULT CMainFrame::DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam)
+{
+  RoutineProcessing();
+  return CFrameWnd::DefWindowProc(message, wParam, lParam);
+}
+
+extern double DAT_01129940;
+extern double DAT_01129948;
+
+void CMainFrame::RoutineProcessing()
+{
+  if (field_07e5)
+  {
+    if (DAT_01129948 == 0.0)
+      DAT_01129948 = 0.0;
+    if (DAT_01129940 == 0.0)
+      DAT_01129940 = 0.0;
+    double time = clock() / 1000.0;
+    double delta = time - DAT_01129948;
+    DAT_01129948 = time;
+    if (delta > 2.0)
+      delta = 0.1;
+    DAT_01129940 = delta;
+    if (delta > 0.2)
+      delta = 0.2;
+    if (field_078c)
+      field_078c->Cam_MouseControl(delta);
+    if (dword_0123348c)
+    {
+      int nBits = dword_0123348c;
+      dword_0123348c = 0;
+      UpdateWindows(nBits);
+    }
+  }
 }
 
 LRESULT CMainFrame::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
@@ -923,6 +963,26 @@ extern "C" void __fastcall FUN_004177f0(CMainFrame *self)
       self->field_0788->ShowWindow(SW_SHOW);
   }
 }
+extern bool DAT_0058fbed;
+
+void CMainFrame::UpdateWindows(int nBits)
+{
+  if (!DAT_0058fbed)
+    return;
+  if (nBits & 6)
+    if (field_0788)
+      field_0788->RedrawWindow(NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW);
+  if ((nBits & 1) || ((nBits & 0x100) && field_07e4))
+    if (field_078c)
+      field_078c->RedrawWindow(NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW);
+  if (nBits & 0x28)
+    if (field_0794)
+      field_0794->RedrawWindow(NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW);
+  if (nBits & 0x10)
+    if (field_0790)
+      field_0790->RedrawWindow(NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW);
+}
+
 extern "C" void FUN_00417e00(unsigned v) { dword_0123348c |= v; }
 extern bool DAT_0109fe5c;
 extern "C" void __fastcall FUN_00417e10(CMainFrame *self)

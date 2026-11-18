@@ -34,6 +34,7 @@ public:
     virtual ~CCamWnd();
     void SetXYFriend(CXYWnd *window);
     void Cam_Init();
+    void Cam_MouseControl(float dtime);
     void FUN_00403ce0(int x, int y, float *dir);
     CXYWnd *m_pXYFriend;
     CameraState m_Camera;
