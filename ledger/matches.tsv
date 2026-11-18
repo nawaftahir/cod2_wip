@@ -646,6 +646,7 @@ addr	size	source	symbol	name	tag
 0x00426420	87	src/radiant/Pmesh.cpp	?FUN_00426420@@YAXPAUface_t@@PBUtexdef_t@@HHQBM22@Z	FUN_00426420	UNNAMED
 0x00426780	65	src/radiant/Pmesh.cpp	?FUN_00426780@@YAXPAUdrawVert_t@@PBUPatchControl@@H@Z	FUN_00426780	UNNAMED
 0x004269a0	46	src/radiant/Pmesh.cpp	?FUN_004269a0@@YAXPAUpatchMesh_t@@@Z	FUN_004269a0	UNNAMED
+0x00426a80	243	src/radiant/Pmesh.cpp	?AddBrushForPatch@@YAPAUbrushdef_t@@PAUpatchMesh_t@@PAUentity_t@@@Z	AddBrushForPatch	SUPPORTED
 0x00426b80	139	src/radiant/Pmesh.cpp	?Patch_WidthDistanceTo@@YAMPAUpatchMesh_t@@H@Z	Patch_WidthDistanceTo	SUPPORTED
 0x00426c10	127	src/radiant/Pmesh.cpp	?Patch_HeightDistanceTo@@YAMPAUpatchMesh_t@@H@Z	Patch_HeightDistanceTo	SUPPORTED
 0x00426dc0	94	src/radiant/Pmesh.cpp	?FUN_00426dc0@@YAXPAUpatchMesh_t@@QBMPBUtexdef_t@@@Z	FUN_00426dc0	UNNAMED
@@ -659,11 +660,11 @@ addr	size	source	symbol	name	tag
 0x0042a3a0	67	src/radiant/Pmesh.cpp	?FUN_0042a3a0@@YAXPAUpatchMesh_t@@H_N@Z	FUN_0042a3a0	SUPPORTED
 0x0042a3f0	69	src/radiant/Pmesh.cpp	?FUN_0042a3f0@@YAXPAUpatchMesh_t@@H_N@Z	FUN_0042a3f0	SUPPORTED
 0x0042ab00	29	src/radiant/Pmesh.cpp	?FUN_0042ab00@@YAMQBM00@Z	FUN_0042ab00	UNNAMED
-0x0042aed0	125	src/radiant/Pmesh.cpp	?FUN_0042aed0@@YAXPAUselbrush_t@@M@Z	FUN_0042aed0	PINNED
+0x0042aed0	125	src/radiant/Pmesh.cpp	?FUN_0042aed0@@YAXPAUbrush_t@@M@Z	FUN_0042aed0	PINNED
 0x0042af50	63	src/radiant/Pmesh.cpp	?FUN_0042af50@@YAXM@Z	FUN_0042af50	SUPPORTED
 0x0042b6d0	14	src/radiant/Pmesh.cpp	?FUN_0042b6d0@@YAMHHMMM@Z	FUN_0042b6d0	UNNAMED
 0x0042b760	45	src/radiant/Pmesh.cpp	?FUN_0042b760@@YAMHHMHM@Z	FUN_0042b760	UNNAMED
-0x0042bd10	121	src/radiant/Pmesh.cpp	?FUN_0042bd10@@YAXPAUselbrush_t@@@Z	FUN_0042bd10	PINNED
+0x0042bd10	121	src/radiant/Pmesh.cpp	?FUN_0042bd10@@YAXPAUbrush_t@@@Z	FUN_0042bd10	PINNED
 0x0042beb0	88	src/radiant/Pmesh.cpp	?FUN_0042beb0@@YAXXZ	FUN_0042beb0	UNNAMED
 0x0042ca80	452	src/radiant/Pmesh.cpp	?FUN_0042ca80@@YAXPAUpatch_t@@@Z	FUN_0042ca80	SUPPORTED
 0x0042ea50	154	src/radiant/Pmesh.cpp	?FUN_0042ea50@@YAXPAUpatchMesh_t@@QBM@Z	FUN_0042ea50	UNNAMED
