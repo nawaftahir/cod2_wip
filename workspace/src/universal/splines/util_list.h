@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define __UTIL_LIST_H__
 
 #include <stdlib.h>
-#include <assert.h>
 #include "../assertive.h"
+#line 28
 
 template< class type >
 class idList {
@@ -222,8 +222,10 @@ idList<type>::operator[]
 */
 template< class type >
 inline type &idList<type>::operator[]( int index ) {
+#line 219
 	assert( index >= 0 );
 	assert( index < m_num );
+#line 227
 
 	return m_list[ index ];
 }

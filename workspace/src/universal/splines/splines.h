@@ -39,8 +39,8 @@ typedef int fileHandle_t;
 //extern void glBox(idVec3_t &color, idVec3_t &point, float size);
 //extern void glLabeledPoint(idVec3_t &color, idVec3_t &point, float size, const char *label);
 
-static vec4_t blue(0, 0, 1, 1);
-static vec4_t red(1, 0, 0, 1);
+//static vec4_t blue(0, 0, 1, 1);
+//static vec4_t red(1, 0, 0, 1);
 
 class idPointListInterface {
 public:
@@ -864,7 +864,7 @@ public:
 	}
 
 	void parse(const char *(*text));
-	qboolean load(const char *filename);
+	bool load(const char *filename);
 	void save(const char *filename);
 
 	void buildCamera();
@@ -1059,6 +1059,7 @@ protected:
 	idList<idCameraPosition*> targetPositions;
 	idList<idCameraEvent*> events;
 	idCameraFOV fov;
+	float field_50; // set in startCamera
 	int activeTarget;
 	float totalTime;
 	float baseTime;
