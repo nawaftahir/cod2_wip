@@ -214,7 +214,7 @@ extern MainFrameXYProj *dword_01233488;
 void FUN_00469210();
 
 // 0x00469350 (200 B)
-void FUN_00469350()
+extern "C" void FUN_00469350()
 {
 	Map_RemoveRegion();
 	dword_00591cdc[0] = dword_01233488->xy->GetOrigin()[0] - 0.5 * dword_01233488->xy->Width() / dword_01233488->xy->Scale();

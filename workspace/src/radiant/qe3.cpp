@@ -110,7 +110,7 @@ void Sys_Printf(const char *text, ...);
 void vectoangles(const vec3_t value1, vec3_t angles);
 
 // 0x0046dc40 (382 B)
-void FUN_0046dc40(void)
+extern "C" void FUN_0046dc40(void)
 {
 	if (DAT_01129898 != 1)
 		return;
@@ -170,7 +170,7 @@ extern int DAT_010bcd24;
 void FUN_0047a330(void);
 
 // 0x0046e180 (250 B)
-void FUN_0046e180(void)
+void QE_CountBrushesAndUpdateStatusBar(void)
 {
 	static int s_didonce;
 	static int s_lastentitycount;
