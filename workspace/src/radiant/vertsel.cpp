@@ -70,3 +70,32 @@ int FindEdge(int p1, int p2, face_t *f)
 
     return g_vertexSelectionState.numedges - 1;
 }
+
+// Brush views used by the retail loop: next at +4, def at +0x14, face count at +0x18; faces are 0xa8 bytes at def +0x3c.
+struct face_t { unsigned char pad[0xa8]; };
+struct vsBrushDef
+{
+    unsigned char pad[0x3c];
+    face_t *faces;
+};
+struct vsBrush
+{
+    vsBrush *prev;
+    vsBrush *next;
+    unsigned char pad08[0xc];
+    vsBrushDef *def;
+    int faceCount;
+};
+extern vsBrush selected_brushes;
+void FUN_004752c0(face_t *f);
+
+void SetupVertexSelection()
+{
+    g_vertexSelectionState.numpoints = 0;
+    g_vertexSelectionState.numedges = 0;
+    for (vsBrush *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+    {
+        for (int i = 0; i < b->faceCount; i++)
+            FUN_004752c0(b->def->faces + i);
+    }
+}

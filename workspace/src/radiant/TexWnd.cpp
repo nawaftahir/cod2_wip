@@ -84,9 +84,16 @@ struct TexWndRefExport {
     void *(*field_10)(const char *name, int type, int flags);   // 0x59c310
     void *pad1;
     char (*field_18)(void *handle);                             // 0x59c318
-    void *pad2[(0x138 - 0x1c) / 4];
+    void *pad2[(0xac - 0x1c) / 4];
+    void (*BeginScene)();                                       // 0x59c3ac
+    void (*EndScene)();                                         // 0x59c3b0
+    void *pad2b[4];
+    void (*ClearScreen)(int mask, const float *color, float depth, int stencil); // 0x59c3c4
+    void *pad2c[(0x138 - 0xc8) / 4];
     void (*field_138)(void *handle, RadMtlInfo *info);          // 0x59c438
-    void *pad3[3];
+    void *pad3[1];
+    char (*BeginWindow)(HWND hwnd);                             // 0x59c440
+    void (*EndWindow)(HWND hwnd);                               // 0x59c444
     void (*ResizeWindow)(HWND hwnd, int width, int height);     // 0x59c448
 };
 extern TexWndRefExport re;
@@ -553,8 +560,81 @@ void FUN_00442140(int pos)
     }
 }
 
+// 0x004421a0 (94 B)
+void FUN_004421a0(void)
+{
+    SCROLLINFO si;
+    si.cbSize = sizeof(si);
+    si.fMask = SIF_RANGE | SIF_PAGE;
+    si.nMin = 0;
+    si.nMax = dword_01128da4 + 16;
+    si.nPage = dword_01128d9c;
+    SetScrollInfo(dword_010bcd64, SB_VERT, &si, TRUE);
+    if (dword_01128da0 > si.nMax - si.nPage)
+        FUN_00442140(si.nMax - si.nPage);
+}
+
+// Retail 0x00441f80: texture pick, register args (ecx = y, edx = x at the caller).
+void __fastcall FUN_00441f80(int y, int x);
+void FUN_0043dff0();
+void __stdcall FUN_0043cf80(void *dlg);
+extern int dword_0109fdb4;
+extern char dword_01234a38[];
+extern int dword_0109fdbc;
+extern int dword_0109fdc0;
+class CTextureBar : public CDialogBar { public: void FUN_0043f460(); };
+class CMainFrame;
+struct CTexWndFrameProjection { unsigned char pad_00[0x2b8]; CTextureBar m_wndTextureBar; };
+class CPatchDialog : public CDialog { public: void GetPatchInfo(); };
+extern CPatchDialog g_PatchDialog;
+extern CMainFrame *g_pParentWnd;
+
+// 0x00442200 (135 B), flags in esi
+void FUN_00442200(int flags, int x, int y)
+{
+    POINT pt;
+    GetCursorPos(&pt);
+    dword_0109fdc0 = pt.x;
+    dword_0109fdbc = pt.y;
+    if (flags == 1 || flags == 5 || flags == 9)
+    {
+        FUN_00441f80(y, x);
+        if (dword_0109fdb4)
+        {
+            FUN_0043dff0();
+            FUN_0043cf80(dword_01234a38);
+        }
+        CTextureBar *textureBar = &reinterpret_cast<CTexWndFrameProjection *>(g_pParentWnd)->m_wndTextureBar;
+        if (textureBar->GetSafeHwnd())
+            textureBar->FUN_0043f460();
+        if (g_PatchDialog.GetSafeHwnd())
+            g_PatchDialog.GetPatchInfo();
+    }
+}
+
 // Retail one-byte RET, existing accepted source.
 extern "C" void FUN_00442290() {}
+
+// 0x004422a0 (92 B)
+void FUN_004422a0(int flags)
+{
+    int scale = 2;
+    if (flags & MK_SHIFT)
+        scale = 5;
+    if (flags & MK_RBUTTON)
+    {
+        POINT pt;
+        GetCursorPos(&pt);
+        if (pt.y != dword_0109fdbc)
+        {
+            FUN_00442140(dword_01128da0 - (pt.y - dword_0109fdbc) * scale);
+            SetCursorPos(dword_0109fdc0, dword_0109fdbc);
+        }
+    }
+}
+
+// 0x00442300: texture window draw (not written yet)
+void FUN_00442300();
 
 // Layout projection of the main frame: +0x7a0 is the window layout style (retail load at 0x442dbf);
 // the three methods are CMainFrame functions called through g_pParentWnd.
@@ -602,9 +682,45 @@ BEGIN_MESSAGE_MAP(CTexWnd, CWnd)
     ON_WM_TIMER()
     ON_WM_KEYDOWN()
     ON_WM_KEYUP()
+    ON_WM_PAINT()
     ON_WM_VSCROLL()
     ON_WM_MOUSEWHEEL()
 END_MESSAGE_MAP()
+
+extern int dword_01234d58;
+
+// 0x004429f0 (293 B), the texture window procedure
+LRESULT CALLBACK FUN_004429f0(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+    RECT rect;
+    GetClientRect(hwnd, &rect);
+    switch (msg)
+    {
+    case WM_CREATE:
+        dword_010bcd64 = hwnd;
+        return 0;
+    case WM_DESTROY:
+        return 0;
+    case WM_MOUSEMOVE:
+        FUN_004422a0(wParam);
+        return 0;
+    case WM_LBUTTONDOWN:
+    case WM_RBUTTONDOWN:
+    case WM_MBUTTONDOWN:
+        SetCapture(dword_010bcd64);
+        FUN_00442200(wParam, (short)LOWORD(lParam), (short)HIWORD(lParam) - dword_01234d58);
+        return 0;
+    case WM_LBUTTONUP:
+    case WM_RBUTTONUP:
+    case WM_MBUTTONUP:
+        if (!(wParam & (MK_LBUTTON | MK_RBUTTON | MK_MBUTTON)))
+            ReleaseCapture();
+        return 0;
+    case WM_MOUSEWHEEL:
+        return reinterpret_cast<CTexWndMainProjection *>(g_pParentWnd)->OnMouseWheel(LOWORD(wParam), HIWORD(wParam), CPoint(LOWORD(lParam), HIWORD(lParam)));
+    }
+    return DefWindowProc(hwnd, msg, wParam, lParam);
+}
 
 // 0x00442be0 (212 B)
 int CTexWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -669,6 +785,35 @@ void CTexWnd::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 void CTexWnd::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
     FUN_004137d0(g_pParentWnd, nChar);
+}
+
+extern int g_hunkTempSyncEnabled;
+extern int g_hunkTempLowWater;
+extern int g_hunkTempHighWater;
+extern float dword_01129708[];
+
+// 0x00442f70 (224 B)
+void CTexWnd::OnPaint()
+{
+    PAINTSTRUCT ps;
+    if (re.BeginWindow && re.BeginWindow(dword_010bcd64))
+    {
+        CDC::FromHandle(::BeginPaint(m_hWnd, &ps));
+        int nOld = dword_01128da4;
+        re.BeginScene();
+        re.ClearScreen(7, dword_01129708, 1.0f, 0);
+        FUN_00442300();
+        re.EndScene();
+        re.EndWindow(dword_010bcd64);
+        if (g_hunkTempSyncEnabled)
+            g_hunkTempHighWater = g_hunkTempLowWater;
+        if (dword_01233b64->textureScrollbar && (m_bNeedRange || dword_01128da4 != nOld))
+        {
+            FUN_004421a0();
+            m_bNeedRange = false;
+        }
+        ::EndPaint(m_hWnd, &ps);
+    }
 }
 
 // 0x00443050 (229 B)
