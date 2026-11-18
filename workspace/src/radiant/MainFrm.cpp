@@ -137,6 +137,7 @@ public:
   afx_msg void OnSysKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
   afx_msg void OnDestroy();
   afx_msg void OnFileExit();
+  void FUN_00417cf0();
   // three CSplitterWnd at 0x500, 0x5d8, 0x6b0
   char pad[0x180 - sizeof(CFrameWnd)];
   HWND field_0180;
@@ -632,6 +633,25 @@ extern "C" void __fastcall FUN_004177f0(CMainFrame *self)
       self->field_0788->ShowWindow(SW_HIDE);
     else
       self->field_0788->ShowWindow(SW_SHOW);
+  }
+}
+// view of the status bar and the six pane texts (offsets from retail)
+struct CMainFrameStatusView
+{
+  unsigned char pad0[0xd0];
+  CStatusBar m_wndStatusBar;
+  unsigned char pad1[0x7a4 - 0xd0 - sizeof(CStatusBar)];
+  CString m_strStatus[6];
+};
+
+// 0x00417cf0 (63 B), this in ebx
+void CMainFrame::FUN_00417cf0()
+{
+  CMainFrameStatusView *view = (CMainFrameStatusView *)this;
+  for (int i = 0; i < 6; i++)
+  {
+    if (view->m_strStatus[i].GetLength() >= 0 && view->m_wndStatusBar.GetSafeHwnd())
+      view->m_wndStatusBar.SetPaneText(i, view->m_strStatus[i], TRUE);
   }
 }
 extern "C" void FUN_00417e00(unsigned v) { dword_0123348c |= v; }
