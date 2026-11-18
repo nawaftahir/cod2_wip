@@ -95,6 +95,7 @@ addr	size	source	symbol	name	tag
 0x00407560	23	src/radiant/CamWnd.cpp	?OnKeyUp@CCamWnd@@IAEXIII@Z	CCamWnd::OnKeyUp	SUPPORTED
 0x00407580	34	src/radiant/CamWnd.cpp	?OnMouseWheel@CCamWnd@@IAEHIFVCPoint@@@Z	CCamWnd::OnMouseWheel	SUPPORTED
 0x004075b0	15	src/radiant/CamWnd.cpp	?OnSysKeyDown@CCamWnd@@IAEXIII@Z	CCamWnd::OnSysKeyDown	SUPPORTED
+0x00407730	142	src/radiant/CamWnd.cpp	??A?$idList@H@@QAEAAHH@Z	idList<int>::operator[]	SUPPORTED
 0x004077c0	1	src/radiant/CamWnd.cpp	_FUN_004077c0	FUN_004077c0	UNNAMED
 0x00407f80	29	src/radiant/CapDialog.cpp	??0CCapDialog@@QAE@PAVCWnd@@@Z	CCapDialog::CCapDialog	SUPPORTED
 0x00407fd0	5	src/radiant/CapDialog.cpp	??1CCapDialog@@UAE@XZ	CCapDialog::~CCapDialog	SUPPORTED
@@ -706,6 +707,7 @@ addr	size	source	symbol	name	tag
 0x0042ab00	29	src/radiant/Pmesh.cpp	?FUN_0042ab00@@YAMQBM00@Z	FUN_0042ab00	UNNAMED
 0x0042aed0	125	src/radiant/Pmesh.cpp	?FUN_0042aed0@@YAXPAUbrush_t@@M@Z	FUN_0042aed0	PINNED
 0x0042af50	63	src/radiant/Pmesh.cpp	?FUN_0042af50@@YAXM@Z	FUN_0042af50	SUPPORTED
+0x0042af90	346	src/radiant/Pmesh.cpp	?FUN_0042af90@@YA_NPBMPAE0PAM@Z	FUN_0042af90	UNNAMED
 0x0042b6d0	14	src/radiant/Pmesh.cpp	?FUN_0042b6d0@@YAMHHMMM@Z	FUN_0042b6d0	UNNAMED
 0x0042b760	45	src/radiant/Pmesh.cpp	?FUN_0042b760@@YAMHHMHM@Z	FUN_0042b760	UNNAMED
 0x0042bd10	121	src/radiant/Pmesh.cpp	?FUN_0042bd10@@YAXPAUbrush_t@@@Z	FUN_0042bd10	PINNED

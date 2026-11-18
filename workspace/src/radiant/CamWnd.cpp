@@ -72,7 +72,7 @@ void FUN_0045def0(int *vertCount, face_t *face, const unsigned int *color, int *
 void FUN_0040bff0();
 void FUN_0040c210();
 void FUN_0040c4a0(float (*quad)[4]);
-bool FUN_0042af90(const float *origin, const float *dir, float *hit, int flags);
+bool FUN_0042af90(const float *origin, unsigned char *hitInfo, const float *dir, float *hit);
 void FUN_0042e290(float *hit);
 void FUN_0045f7e0();
 void FUN_00451c00(brush_t *b, unsigned char *color);
@@ -899,7 +899,7 @@ void __stdcall FUN_00406610(CCamWnd *camera)
                     if (pt.x >= rect.left && pt.x < rect.right && pt.y >= rect.top && pt.y < rect.bottom)
                     {
                         camera->FUN_00403ce0(pt.x, rect.bottom - pt.y, dir);
-                        if (FUN_0042af90(origin, dir, hit, 0))
+                        if (FUN_0042af90(origin, NULL, dir, hit))
                             FUN_0042e290(hit);
                     }
                 }

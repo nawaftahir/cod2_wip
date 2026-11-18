@@ -988,6 +988,53 @@ void FUN_0042af50(float offset)
     FUN_0042aed0(&DAT_010a44b4, offset);
 }
 
+extern bool FUN_0044f630(brushdef_t *b);
+extern bool FUN_00436dc0(const float *origin, const float *dir, patch_t *patch, float *frac, int a5, int a6,
+                         unsigned char *hitInfo, int a8);
+
+bool FUN_0042af90(const float *origin, unsigned char *hitInfo, const float *dir, float *hit)
+{
+    float frac;
+    unsigned char info[4];
+    float best = 3.4028235e38f;
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (b->patch && !b->hiddenBrush && !FUN_0044f630(b->def)
+            && FUN_00436dc0(origin, dir, b->patch, &frac, 0, 0, info, 0) && best > frac)
+        {
+            best = frac;
+            if (hitInfo)
+            {
+                hitInfo[0] = info[0];
+                hitInfo[1] = info[1];
+                hitInfo[2] = info[2];
+                hitInfo[3] = info[3];
+            }
+        }
+    }
+    for (brush_t *b = DAT_010a44dc.next; b && b != &DAT_010a44dc; b = b->next)
+    {
+        {
+            if (b->patch && !b->hiddenBrush && !FUN_0044f630(b->def)
+                && FUN_00436dc0(origin, dir, b->patch, &frac, 0, 0, info, 0) && best > frac)
+            {
+                best = frac;
+                if (hitInfo)
+                {
+                    hitInfo[0] = info[0];
+                    hitInfo[1] = info[1];
+                    hitInfo[2] = info[2];
+                    hitInfo[3] = info[3];
+                }
+            }
+        }
+    }
+    if (best == 3.4028235e38f)
+        return false;
+    VectorMA(origin, best, dir, hit);
+    return true;
+}
+
 // Retail 0x0042b6d0, 14 B. Isolated exact MATCH in run 42070669799.
 float FUN_0042b6d0(int unused1, int unused2,
                     float offset, float factor, float scale)
