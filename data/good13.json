@@ -19040,7 +19040,7 @@
 ]
 },
 {
-"name": "$L96653",
+"name": "$L96365",
 "obj": "module",
 "size": 6,
 "hits": [],
@@ -35845,7 +35845,7 @@
 ]
 },
 {
-"name": "$L118312",
+"name": "$L117996",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -35853,7 +35853,7 @@
 ]
 },
 {
-"name": "$L118314",
+"name": "$L117998",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -35886,7 +35886,7 @@
 ]
 },
 {
-"name": "$L132209",
+"name": "$L131893",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -35894,7 +35894,7 @@
 ]
 },
 {
-"name": "$L132211",
+"name": "$L131895",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -35972,7 +35972,7 @@
 ]
 },
 {
-"name": "$L104450",
+"name": "$L104162",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -35988,7 +35988,7 @@
 ]
 },
 {
-"name": "$L147616",
+"name": "$L147300",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -43394,7 +43394,7 @@
 ]
 },
 {
-"name": "?speex_encode_native@@YAHPAXPAMPAUSpeexBits@@@Z",
+"name": "_speex_encode_native",
 "obj": "speex.obj",
 "size": 16,
 "hits": [
@@ -43403,7 +43403,7 @@
 ]
 },
 {
-"name": "?speex_decode_native@@YAHPAXPAUSpeexBits@@PAM@Z",
+"name": "_speex_decode_native",
 "obj": "speex.obj",
 "size": 16,
 "hits": [
@@ -43462,7 +43462,7 @@
 ]
 },
 {
-"name": "?nb_mode_query@@YAHPBXHPAX@Z",
+"name": "_nb_mode_query",
 "obj": "speex.obj",
 "size": 101,
 "hits": [
@@ -43470,7 +43470,7 @@
 ]
 },
 {
-"name": "?wb_mode_query@@YAHPBXHPAX@Z",
+"name": "_wb_mode_query",
 "obj": "speex.obj",
 "size": 104,
 "hits": [
@@ -43800,7 +43800,7 @@
 "scan": 1
 },
 {
-"name": "?compute_quant_weights@@YAXPAM0H@Z",
+"name": "_compute_quant_weights",
 "obj": "quant_lsp.obj",
 "size": 466,
 "hits": [
@@ -43808,7 +43808,7 @@
 ]
 },
 {
-"name": "?lsp_quant@@YAHPAMPBCHH@Z",
+"name": "_lsp_quant",
 "obj": "quant_lsp.obj",
 "size": 449,
 "hits": [
@@ -43816,7 +43816,7 @@
 ]
 },
 {
-"name": "?lsp_weight_quant@@YAHPAM0PBCHH@Z",
+"name": "_lsp_weight_quant",
 "obj": "quant_lsp.obj",
 "size": 511,
 "hits": [
@@ -43824,7 +43824,7 @@
 ]
 },
 {
-"name": "?lsp_quant_nb@@YAXPAM0HPAUSpeexBits@@@Z",
+"name": "_lsp_quant_nb",
 "obj": "quant_lsp.obj",
 "size": 999,
 "hits": [
@@ -43832,7 +43832,7 @@
 ]
 },
 {
-"name": "?lsp_unquant_nb@@YAXPAMHPAUSpeexBits@@@Z",
+"name": "_lsp_unquant_nb",
 "obj": "quant_lsp.obj",
 "size": 935,
 "hits": [
@@ -43840,7 +43840,7 @@
 ]
 },
 {
-"name": "?lsp_quant_lbr@@YAXPAM0HPAUSpeexBits@@@Z",
+"name": "_lsp_quant_lbr",
 "obj": "quant_lsp.obj",
 "size": 855,
 "hits": [
@@ -43848,7 +43848,7 @@
 ]
 },
 {
-"name": "?lsp_unquant_lbr@@YAXPAMHPAUSpeexBits@@@Z",
+"name": "_lsp_unquant_lbr",
 "obj": "quant_lsp.obj",
 "size": 637,
 "hits": [
@@ -43856,7 +43856,7 @@
 ]
 },
 {
-"name": "?lsp_quant_high@@YAXPAM0HPAUSpeexBits@@@Z",
+"name": "_lsp_quant_high",
 "obj": "quant_lsp.obj",
 "size": 823,
 "hits": [
@@ -43864,7 +43864,7 @@
 ]
 },
 {
-"name": "?lsp_unquant_high@@YAXPAMHPAUSpeexBits@@@Z",
+"name": "_lsp_unquant_high",
 "obj": "quant_lsp.obj",
 "size": 468,
 "hits": [
@@ -43872,7 +43872,7 @@
 ]
 },
 {
-"name": "?mix_and_saturate@@YAXPAM00H@Z",
+"name": "_mix_and_saturate",
 "obj": "sb_celp.obj",
 "size": 83,
 "hits": [
@@ -43880,7 +43880,7 @@
 ]
 },
 {
-"name": "?sb_encoder_init@@YAPAXPBUSpeexMode@@@Z",
+"name": "_sb_encoder_init",
 "obj": "sb_celp.obj",
 "size": 1950,
 "hits": [
@@ -43888,7 +43888,7 @@
 ]
 },
 {
-"name": "?sb_encoder_destroy@@YAXPAX@Z",
+"name": "_sb_encoder_destroy",
 "obj": "sb_celp.obj",
 "size": 25,
 "hits": [
@@ -43896,7 +43896,7 @@
 ]
 },
 {
-"name": "?sb_encode@@YAHPAX0PAUSpeexBits@@@Z",
+"name": "_sb_encode",
 "obj": "sb_celp.obj",
 "size": 3713,
 "hits": [
@@ -43904,7 +43904,7 @@
 ]
 },
 {
-"name": "?sb_decoder_init@@YAPAXPBUSpeexMode@@@Z",
+"name": "_sb_decoder_init",
 "obj": "sb_celp.obj",
 "size": 742,
 "hits": [
@@ -43912,7 +43912,7 @@
 ]
 },
 {
-"name": "?sb_decoder_destroy@@YAXPAX@Z",
+"name": "_sb_decoder_destroy",
 "obj": "sb_celp.obj",
 "size": 25,
 "hits": [
@@ -43920,7 +43920,7 @@
 ]
 },
 {
-"name": "?sb_decode_lost@@YAXPAUSBDecState@@PAMHPAD@Z",
+"name": "_sb_decode_lost",
 "obj": "sb_celp.obj",
 "size": 574,
 "hits": [
@@ -43928,7 +43928,7 @@
 ]
 },
 {
-"name": "?sb_decode@@YAHPAXPAUSpeexBits@@0@Z",
+"name": "_sb_decode",
 "obj": "sb_celp.obj",
 "size": 1957,
 "hits": [
@@ -43936,7 +43936,7 @@
 ]
 },
 {
-"name": "?sb_encoder_ctl@@YAHPAXH0@Z",
+"name": "_sb_encoder_ctl",
 "obj": "sb_celp.obj",
 "size": 2016,
 "hits": [
@@ -43944,7 +43944,7 @@
 ]
 },
 {
-"name": "?sb_decoder_ctl@@YAHPAXH0@Z",
+"name": "_sb_decoder_ctl",
 "obj": "sb_celp.obj",
 "size": 1036,
 "hits": [
@@ -43952,7 +43952,7 @@
 ]
 },
 {
-"name": "?nb_encoder_init@@YAPAXPBUSpeexMode@@@Z",
+"name": "_nb_encoder_init",
 "obj": "nb_celp.obj",
 "size": 1831,
 "hits": [
@@ -43960,7 +43960,7 @@
 ]
 },
 {
-"name": "?nb_encoder_destroy@@YAXPAX@Z",
+"name": "_nb_encoder_destroy",
 "obj": "nb_celp.obj",
 "size": 286,
 "hits": [
@@ -43968,7 +43968,7 @@
 ]
 },
 {
-"name": "?nb_encode@@YAHPAX0PAUSpeexBits@@@Z",
+"name": "_nb_encode",
 "obj": "nb_celp.obj",
 "size": 4678,
 "hits": [
@@ -43976,7 +43976,7 @@
 ]
 },
 {
-"name": "?nb_decoder_init@@YAPAXPBUSpeexMode@@@Z",
+"name": "_nb_decoder_init",
 "obj": "nb_celp.obj",
 "size": 835,
 "hits": [
@@ -43984,7 +43984,7 @@
 ]
 },
 {
-"name": "?nb_decoder_destroy@@YAXPAX@Z",
+"name": "_nb_decoder_destroy",
 "obj": "nb_celp.obj",
 "size": 109,
 "hits": [
@@ -43992,7 +43992,7 @@
 ]
 },
 {
-"name": "?nb_decode_lost@@YAXPAUDecState@@PAMPAD@Z",
+"name": "_nb_decode_lost",
 "obj": "nb_celp.obj",
 "size": 925,
 "hits": [
@@ -44000,14 +44000,15 @@
 ]
 },
 {
-"name": "?nb_decode@@YAHPAXPAUSpeexBits@@0@Z",
+"name": "_nb_decode",
 "obj": "nb_celp.obj",
 "size": 3239,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4e9090"
+]
 },
 {
-"name": "?nb_encoder_ctl@@YAHPAXH0@Z",
+"name": "_nb_encoder_ctl",
 "obj": "nb_celp.obj",
 "size": 1564,
 "hits": [
@@ -44015,7 +44016,7 @@
 ]
 },
 {
-"name": "?nb_decoder_ctl@@YAHPAXH0@Z",
+"name": "_nb_decoder_ctl",
 "obj": "nb_celp.obj",
 "size": 824,
 "hits": [
@@ -44023,7 +44024,7 @@
 ]
 },
 {
-"name": "?compute_weighted_codebook@@YAXPBCPBMPAM22HHPAD@Z",
+"name": "_compute_weighted_codebook",
 "obj": "cb_search.obj",
 "size": 411,
 "hits": [
@@ -44031,7 +44032,7 @@
 ]
 },
 {
-"name": "?split_cb_search_shape_sign_N1@@YAXQAM000PBXHHPAM2PAUSpeexBits@@PADHH@Z",
+"name": "_split_cb_search_shape_sign_N1",
 "obj": "cb_search.obj",
 "size": 1767,
 "hits": [
@@ -44039,7 +44040,7 @@
 ]
 },
 {
-"name": "?split_cb_search_shape_sign@@YAXQAM000PBXHHPAM2PAUSpeexBits@@PADHH@Z",
+"name": "_split_cb_search_shape_sign",
 "obj": "cb_search.obj",
 "size": 4186,
 "hits": [
@@ -44047,7 +44048,7 @@
 ]
 },
 {
-"name": "?split_cb_shape_sign_unquant@@YAXPAMPBXHPAUSpeexBits@@PAD@Z",
+"name": "_split_cb_shape_sign_unquant",
 "obj": "cb_search.obj",
 "size": 548,
 "hits": [
@@ -44055,7 +44056,7 @@
 ]
 },
 {
-"name": "?noise_codebook_quant@@YAXQAM000PBXHHPAM2PAUSpeexBits@@PADHH@Z",
+"name": "_noise_codebook_quant",
 "obj": "cb_search.obj",
 "size": 200,
 "hits": [
@@ -44063,7 +44064,7 @@
 ]
 },
 {
-"name": "?noise_codebook_unquant@@YAXPAMPBXHPAUSpeexBits@@PAD@Z",
+"name": "_noise_codebook_unquant",
 "obj": "cb_search.obj",
 "size": 26,
 "hits": [
@@ -44096,7 +44097,7 @@
 "sameva": 1
 },
 {
-"name": "?inner_prod@@YAMPBM0H@Z",
+"name": "_inner_prod",
 "obj": "ltp.obj",
 "size": 72,
 "hits": [
@@ -44104,7 +44105,7 @@
 ]
 },
 {
-"name": "?pitch_xcorr@@YAXPBM0PAMHHPAD@Z",
+"name": "_pitch_xcorr",
 "obj": "ltp.obj",
 "size": 49,
 "hits": [
@@ -44112,7 +44113,7 @@
 ]
 },
 {
-"name": "?open_loop_nbest_pitch@@YAXPAMHHHPAH0HPAD@Z",
+"name": "_open_loop_nbest_pitch",
 "obj": "ltp.obj",
 "size": 1479,
 "hits": [
@@ -44120,7 +44121,7 @@
 ]
 },
 {
-"name": "?pitch_gain_search_3tap@@YAMQBM000QAMPBXHHHPAUSpeexBits@@PADPBM5PAMPAHHH@Z",
+"name": "_pitch_gain_search_3tap",
 "obj": "ltp.obj",
 "size": 2760,
 "hits": [
@@ -44128,7 +44129,7 @@
 ]
 },
 {
-"name": "?pitch_search_3tap@@YAHQAMPAM0000PBXHHMHHPAUSpeexBits@@PAD11HHH@Z",
+"name": "_pitch_search_3tap",
 "obj": "ltp.obj",
 "size": 985,
 "hits": [
@@ -44136,7 +44137,7 @@
 ]
 },
 {
-"name": "?pitch_unquant_3tap@@YAXQAMHHMPBXHPAHPAMPAUSpeexBits@@PADHHMH@Z",
+"name": "_pitch_unquant_3tap",
 "obj": "ltp.obj",
 "size": 1143,
 "hits": [
@@ -44144,7 +44145,7 @@
 ]
 },
 {
-"name": "?forced_pitch_quant@@YAHQAMPAM0000PBXHHMHHPAUSpeexBits@@PAD11HHH@Z",
+"name": "_forced_pitch_quant",
 "obj": "ltp.obj",
 "size": 155,
 "hits": [
@@ -44152,7 +44153,7 @@
 ]
 },
 {
-"name": "?forced_pitch_unquant@@YAXQAMHHMPBXHPAHPAMPAUSpeexBits@@PADHHMH@Z",
+"name": "_forced_pitch_unquant",
 "obj": "ltp.obj",
 "size": 185,
 "hits": [
@@ -44160,7 +44161,7 @@
 ]
 },
 {
-"name": "?spx_cos@@YAMM@Z",
+"name": "_spx_cos",
 "obj": "lsp.obj",
 "size": 103,
 "hits": [
@@ -44168,7 +44169,7 @@
 ]
 },
 {
-"name": "?cheb_poly_eva@@YAMPAMMHPAD@Z",
+"name": "_cheb_poly_eva",
 "obj": "lsp.obj",
 "size": 273,
 "hits": [
@@ -44176,7 +44177,7 @@
 ]
 },
 {
-"name": "?lpc_to_lsp@@YAHPAMH0HMPAD@Z",
+"name": "_lpc_to_lsp",
 "obj": "lsp.obj",
 "size": 978,
 "hits": [
@@ -44184,7 +44185,7 @@
 ]
 },
 {
-"name": "?lsp_to_lpc@@YAXPAM0HPAD@Z",
+"name": "_lsp_to_lpc",
 "obj": "lsp.obj",
 "size": 1303,
 "hits": [
@@ -44192,7 +44193,7 @@
 ]
 },
 {
-"name": "?lsp_enforce_margin@@YAXPAMHM@Z",
+"name": "_lsp_enforce_margin",
 "obj": "lsp.obj",
 "size": 426,
 "hits": [
@@ -44200,7 +44201,7 @@
 ]
 },
 {
-"name": "?lsp_interpolate@@YAXPAM00HHH@Z",
+"name": "_lsp_interpolate",
 "obj": "lsp.obj",
 "size": 247,
 "hits": [
@@ -44208,7 +44209,7 @@
 ]
 },
 {
-"name": "?bw_lpc@@YAXMPBMPAMH@Z",
+"name": "_bw_lpc",
 "obj": "filters.obj",
 "size": 153,
 "hits": [
@@ -44216,7 +44217,7 @@
 ]
 },
 {
-"name": "?signal_mul@@YAXPBMPAMMH@Z",
+"name": "_signal_mul",
 "obj": "filters.obj",
 "size": 136,
 "hits": [
@@ -44224,7 +44225,7 @@
 ]
 },
 {
-"name": "?signal_div@@YAXPBMPAMMH@Z",
+"name": "_signal_div",
 "obj": "filters.obj",
 "size": 152,
 "hits": [
@@ -44232,7 +44233,7 @@
 ]
 },
 {
-"name": "?compute_rms@@YAMPBMH@Z",
+"name": "_compute_rms",
 "obj": "filters.obj",
 "size": 126,
 "hits": [
@@ -44240,7 +44241,7 @@
 ]
 },
 {
-"name": "?filter_mem2@@YAXPBM00PAMHH1@Z",
+"name": "_filter_mem2",
 "obj": "filters.obj",
 "size": 330,
 "hits": [
@@ -44248,7 +44249,7 @@
 ]
 },
 {
-"name": "?iir_mem2@@YAXPBM0PAMHH1@Z",
+"name": "_iir_mem2",
 "obj": "filters.obj",
 "size": 241,
 "hits": [
@@ -44256,7 +44257,7 @@
 ]
 },
 {
-"name": "?fir_mem2@@YAXPBM0PAMHH1@Z",
+"name": "_fir_mem2",
 "obj": "filters.obj",
 "size": 230,
 "hits": [
@@ -44264,7 +44265,7 @@
 ]
 },
 {
-"name": "?syn_percep_zero@@YAXPBM000PAMHHPAD@Z",
+"name": "_syn_percep_zero",
 "obj": "filters.obj",
 "size": 96,
 "hits": [
@@ -44272,7 +44273,7 @@
 ]
 },
 {
-"name": "?residue_percep_zero@@YAXPBM000PAMHHPAD@Z",
+"name": "_residue_percep_zero",
 "obj": "filters.obj",
 "size": 100,
 "hits": [
@@ -44280,7 +44281,7 @@
 ]
 },
 {
-"name": "?compute_impulse_response@@YAXPBM00PAMHHPAD@Z",
+"name": "_compute_impulse_response",
 "obj": "filters.obj",
 "size": 732,
 "hits": [
@@ -44288,7 +44289,7 @@
 ]
 },
 {
-"name": "?qmf_decomp@@YAXPBM0PAM1HH1PAD@Z",
+"name": "_qmf_decomp",
 "obj": "filters.obj",
 "size": 669,
 "hits": [
@@ -44296,7 +44297,7 @@
 ]
 },
 {
-"name": "?fir_mem_up@@YAXPBM0PAMHH1PAD@Z",
+"name": "_fir_mem_up",
 "obj": "filters.obj",
 "size": 574,
 "hits": [
@@ -44304,7 +44305,7 @@
 ]
 },
 {
-"name": "?comb_filter_mem_init@@YAXPAUCombFilterMem@@@Z",
+"name": "_comb_filter_mem_init",
 "obj": "filters.obj",
 "size": 21,
 "hits": [
@@ -44312,7 +44313,7 @@
 ]
 },
 {
-"name": "?comb_filter@@YAXPAM00HHH0MPAUCombFilterMem@@@Z",
+"name": "_comb_filter",
 "obj": "filters.obj",
 "size": 1133,
 "hits": [
@@ -44320,7 +44321,7 @@
 ]
 },
 {
-"name": "?_spx_lpc@@YAMPAMPBMH@Z",
+"name": "__spx_lpc",
 "obj": "lpc.obj",
 "size": 461,
 "hits": [
@@ -44328,7 +44329,7 @@
 ]
 },
 {
-"name": "?_spx_autocorr@@YAXPBMPAMHH@Z",
+"name": "__spx_autocorr",
 "obj": "lpc.obj",
 "size": 195,
 "hits": [
@@ -44336,7 +44337,7 @@
 ]
 },
 {
-"name": "?scal_quant@@YAHMPBMH@Z",
+"name": "_scal_quant",
 "obj": "vq.obj",
 "size": 132,
 "hits": [
@@ -44345,7 +44346,7 @@
 ]
 },
 {
-"name": "?scal_quant32@@YAHMPBMH@Z",
+"name": "_scal_quant32",
 "obj": "vq.obj",
 "size": 132,
 "hits": [
@@ -44354,7 +44355,7 @@
 ]
 },
 {
-"name": "?vq_index@@YAHPAMPBMHH@Z",
+"name": "_vq_index",
 "obj": "vq.obj",
 "size": 216,
 "hits": [
@@ -44362,7 +44363,7 @@
 ]
 },
 {
-"name": "?vq_nbest@@YAXPAMPBMHH0HPAH0PAD@Z",
+"name": "_vq_nbest",
 "obj": "vq.obj",
 "size": 529,
 "hits": [
@@ -44370,7 +44371,7 @@
 ]
 },
 {
-"name": "?vq_nbest_sign@@YAXPAMPBMHH0HPAH0PAD@Z",
+"name": "_vq_nbest_sign",
 "obj": "vq.obj",
 "size": 580,
 "hits": [
