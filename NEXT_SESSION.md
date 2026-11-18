@@ -1,38 +1,25 @@
-# Next session: CoD2MP_s.exe 1.3 to 100%
+# Next session: CoD2MP_s.exe 1.3 (then 1.0) to 100%
 
 Worktree `dev/cod2_wip/.worktrees/w29` (branch `client/1.3/w29`, equal to `client/1.3/main`).
-State: 1,974,041 / 1,974,272 same-offset (231 B). Gate: `tools/ratchet13.sh` with absolute ANCHOR/DXSDK.
+State 11-18: 1.3 1,974,158 / 1,974,272 same-offset (114 B, all .text); 1.0 (w10o) 1,699,707 / 1,699,840 (133 B).
+Gate: `tools/ratchet13.sh` / `tools/ratchet10.sh` with absolute ANCHOR/DXSDK; clean builds only for accept.
+Lab slots: `.worktrees/w29a`, `w29b`, `w29c` (reset to client/1.3/w29 and lab every touched obj before use).
 
-## What is left
-1. `.rdata` constant pool, 68 B: double 1000.0 (first user CL_DemoCompleted, compiled F 5436, retail needs it
-   between Pickup_Health 5603 and Die@Particle 5635) and float 720.0f (fire_grenade F 6035, retail after
-   Mantle_CreateAnims 6041). Pool order = compile (F) order. Both bodies equal retail.
-2. Knock-ons of 1: ~40 B pool addresses in otherwise matched fns, static .bss addresses
-   (Com_ErrorCleanup, Com_GetSubtitleStringEdReference). VM_Notify and Window_Paint also change with compile order.
-3. Regalloc/scheduling residue: FX_CalcOriginAndAxis 56 (slot packer), CG_DrawCursorhint 17, XAnimCalc 15,
-   CG_FireWeapon 7, CG_DrawGrenadePointer 6, Menu_SetNextCursorItem 5, StartWeaponAnim 4, nb_decode 3,
-   FX_AddFxToScene 2.
+## What is left (1.3)
+FX_CalcOriginAndAxis 56, CG_DrawCursorhint 17, XAnimCalc 15, VM_Notify 6, CG_DrawGrenadePointer 6,
+Menu_SetNextCursorItem 5, Window_Paint 4, nb_decode 3, FX_AddFxToScene 2. 1.0 adds DSound_UpdateSample 9,
+CL_SetCGameTime 6, Pickup_Weapon 4 (heap-pointer ties, KNOWLEDGE 33).
 
-## Already exhausted (see docs/TRIED.md, do not repeat)
-Single decl moves, DFS root moves, one-edge hidden-call searches (only fabricated calls fit), source shapes for
-every fn in 3 (25+ rows each), per-TU flags /Op /Ob2 /G6 /GB /Oy- on the residue TUs, speex as C.
+## Facts to start from (KNOWLEDGE.md, 11-18)
+- `tools/fdiff.py` stops at 60 output lines unless a 6th arg is given (use 100000). FX real base = 116 lines.
+- Local picks: per-class round robin, next FREE reg after the pointer (`tools/c2rr13.sh`, `tools/c2pk13.sh`).
+  Rotated residues = a different busy set at a pick, not missing dead picks (CG_BuildSolidList control).
+- XAnimCalc: retail = our pick order (parts t8e0, obj t849, animToModel t8e1) with the pointer one step further
+  right after byte pick 12. Find what takes that step.
+- FX: retail branch-4 height shares its GetVal temp slot (0x2c), width alone at 0x30; weight order alone cannot
+  give the 8th entry (one more retail item overlaps width).
+- Load CSE is per definition of the pointer var: a same-value re-def ends the family (CG_FireWeapon win).
 
-## 11-17 night (all dead, see TRIED/KNOWLEDGE)
-Inlined-wrapper model, hidden edge from the whole DemoCompleted subtree, every node as first DFS root, flags /Oa /Ow /GX /Gs.
-Key constraint: under any list order DemoCompleted's pass is <= 24 (depth bound), and the matched fns pin today's order
-everywhere else (the 53-change root/decl moves lose 1.38 M), so retail must have ONE extra edge from CL_DemoCompleted to a
-pass-24 fn whose inlined body folds away, or the IL graph has an input we do not model. Next real step: read c2 0x1070cfdf
-edge collection for non-call IL references (address-of, vtable, data with initializers) instead of more model searches.
-
-## Next attacks (in order)
-1. c2 compile-order trace: find why CL_DemoCompleted / fire_grenade compile when they do (c2 0x1070cfdf walk,
-   tools/dfs13.sh, peel13.py). Look for any input besides call edges: address-taken refs, static initializers,
-   EH/dtor edges, COMDAT inline IL loading, symbol-list insertion from undefined refs in earlier objs.
-2. FX_CalcOriginAndAxis slot packer (c2slots13.sh, KNOWLEDGE w5/w12 rows): retail creates the height/len
-   entry last; find the IL ref-count shape that gives it (JKA ancestor in KNOWLEDGE for shape).
-3. Per-file flag lever (new PINNED rule): probe flags per TU on any residue that ignores every source edit.
-
-## Rules
-Never stop or send status text until 100%. Background every build. Clean-gate accept, commit, push, merge to
-client/1.3/main on green. No asm, byte arrays, fake callees or behaviour changes. Log every attempt in TRIED.md,
-every PINNED fact in KNOWLEDGE.md and the client-recon msvc71-c2.md reference.
+## Do not repeat
+Everything in docs/TRIED.md. Spelling sweeps, declared-type changes, agent waves (11-18: 7 B per ~1.5M tokens).
+Next real attack: IL-level differences in the functions compiled before the residues (heap and busy-set state).
