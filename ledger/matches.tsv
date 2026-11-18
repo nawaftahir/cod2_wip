@@ -2034,3 +2034,20 @@ addr	size	source	symbol	name	tag
 0x00470a50	94	src/radiant/select.cpp	?FUN_00470a50@@YAXQAM0@Z	FUN_00470a50	SUPPORTED
 0x00465550	34	src/radiant/entity.cpp	?FUN_00465550@@YAXPAUentityInst_t@@@Z	FUN_00465550	UNNAMED
 0x00465780	29	src/radiant/entity.cpp	?FUN_00465780@@YAXPAUentity_t@@PBD@Z	FUN_00465780	UNNAMED
+0x0043c7c0	182	src/radiant/SurfaceDlg.cpp	??1CSurfaceDlg@@UAE@XZ	CSurfaceDlg::~CSurfaceDlg	SUPPORTED
+0x0043c880	284	src/radiant/SurfaceDlg.cpp	??0CSurfaceDlg@@QAE@PAVCWnd@@@Z	CSurfaceDlg::CSurfaceDlg	SUPPORTED
+0x0043c9a0	34	src/radiant/SurfaceDlg.cpp	??_GCSurfaceDlg@@UAEPAXI@Z	CSurfaceDlg::`scalar deleting destructor'	SUPPORTED
+0x0043e400	53	src/radiant/SurfaceDlg.cpp	?FUN_0043e400@@YAXXZ	FUN_0043e400	UNNAMED
+0x0043e540	31	src/radiant/SurfaceDlg.cpp	?FUN_0043e540@@YA_NXZ	FUN_0043e540	UNNAMED
+0x0043e780	8	src/radiant/SurfaceDlg.cpp	?OnKeyDown@CSurfaceDlg@@IAEXIII@Z	CSurfaceDlg::OnKeyDown	SUPPORTED
+0x0043e7d0	103	src/radiant/SurfaceDlg.cpp	?FUN_0043e7d0@CSurfaceDlg@@QAEXXZ	CSurfaceDlg::FUN_0043e7d0	UNNAMED
+0x0043e840	27	src/radiant/SurfaceDlg.cpp	?FUN_0043e840@CSurfaceDlg@@IAEXXZ	CSurfaceDlg::FUN_0043e840	UNNAMED
+0x0043e860	15	src/radiant/SurfaceDlg.cpp	?OnClose@CSurfaceDlg@@IAEXXZ	CSurfaceDlg::OnClose	SUPPORTED
+0x0043e870	27	src/radiant/SurfaceDlg.cpp	?OnOK@CSurfaceDlg@@MAEXXZ	CSurfaceDlg::OnOK	SUPPORTED
+0x0043e890	82	src/radiant/SurfaceDlg.cpp	?OnDestroy@CSurfaceDlg@@IAEXXZ	CSurfaceDlg::OnDestroy	SUPPORTED
+0x0043e920	9	src/radiant/SurfaceDlg.cpp	?OnCtlColor@CSurfaceDlg@@IAEPAUHBRUSH__@@PAVCDC@@PAVCWnd@@I@Z	CSurfaceDlg::OnCtlColor	SUPPORTED
+0x0043ea90	30	src/radiant/SurfaceDlg.cpp	?FUN_0043ea90@CSurfaceDlg@@IAEXXZ	CSurfaceDlg::FUN_0043ea90	UNNAMED
+0x0043eab0	16	src/radiant/SurfaceDlg.cpp	?FUN_0043eab0@CSurfaceDlg@@IAEXXZ	CSurfaceDlg::FUN_0043eab0	UNNAMED
+0x0043ec10	31	src/radiant/SurfaceDlg.cpp	?FUN_0043ec10@CSurfaceDlg@@IAEXXZ	CSurfaceDlg::FUN_0043ec10	UNNAMED
+0x0043ec30	5	src/radiant/SurfaceDlg.cpp	?FUN_0043ec30@CSurfaceDlg@@IAEXXZ	CSurfaceDlg::FUN_0043ec30	UNNAMED
+0x0043ec40	5	src/radiant/SurfaceDlg.cpp	?FUN_0043ec40@CSurfaceDlg@@IAEXXZ	CSurfaceDlg::FUN_0043ec40	UNNAMED

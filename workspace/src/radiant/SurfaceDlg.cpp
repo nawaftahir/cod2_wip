@@ -86,16 +86,50 @@ public:
 	float m_f310;
 	float m_f314;
 	float m_f318;
+	CSurfaceDlg(CWnd *pParent = NULL);
+	void FUN_0043e7d0();
 protected:
 	virtual void DoDataExchange(CDataExchange *pDX);
 	virtual BOOL OnInitDialog();
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	virtual void OnOK();
+	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
+	afx_msg void OnClose();
+	afx_msg void OnDestroy();
+	afx_msg HBRUSH OnCtlColor(CDC *pDC, CWnd *pWnd, UINT nCtlColor);
+	afx_msg void FUN_0043e840();
+	afx_msg void FUN_0043ea90();
+	afx_msg void FUN_0043eab0();
+	afx_msg void FUN_0043ec10();
+	afx_msg void FUN_0043ec30();
+	afx_msg void FUN_0043ec40();
 	DECLARE_MESSAGE_MAP()
 };
 
 // Message map entries are not reconstructed yet; the retail map is at 0x548690.
+// Partial: handlers whose callees are unwritten are left out; retail order otherwise.
 BEGIN_MESSAGE_MAP(CSurfaceDlg, CDialog)
+	ON_WM_KEYDOWN()
+	ON_WM_CLOSE()
+	ON_WM_DESTROY()
+	ON_WM_CTLCOLOR()
+	ON_WM_CREATE()
+	ON_BN_CLICKED(1284, FUN_0043ea90)
+	ON_BN_CLICKED(1286, FUN_0043ec10)
+	ON_BN_CLICKED(1287, FUN_0043eab0)
+	ON_EN_CHANGE(1211, FUN_0043ec30)
+	ON_EN_CHANGE(1035, FUN_0043ec40)
+	ON_BN_CLICKED(1489, FUN_0043e840)
 END_MESSAGE_MAP()
+
+// Retail 0x0043c880
+CSurfaceDlg::CSurfaceDlg(CWnd *pParent) : CDialog(0x74, pParent)
+{
+	m_f314 = 1.0f;
+	m_f318 = 1.0f;
+	m_f30c = 1.0f;
+	m_f310 = 1.0f;
+}
 
 // Retail 0x0043c9d0
 void CSurfaceDlg::DoDataExchange(CDataExchange *pDX)
@@ -237,6 +271,24 @@ struct surfPrefs_t
 extern surfPrefs_t *dword_01233b64;
 BOOL LoadRegistryInfo(const char *pszName, void *pvBuf, long *plSize);
 
+class CMainFrame;
+class CTextureBar : public CDialogBar { public: void FUN_0043f460(); };
+struct CSurfFrameProjection { unsigned char pad_00[0x2b8]; CTextureBar m_wndTextureBar; };
+extern CMainFrame *g_pParentWnd;
+
+// Retail 0x0043e400: refresh the inspector and the texture bar (Q3Radiant UpdateSurfaceDialog shape).
+void FUN_0043e400()
+{
+    if (surfDlgGlob.hwnd)
+    {
+        FUN_0043dff0();
+        FUN_0043cf80(&DAT_01234a38);
+    }
+    CTextureBar *bar = &reinterpret_cast<CSurfFrameProjection *>(g_pParentWnd)->m_wndTextureBar;
+    if (bar->GetSafeHwnd())
+        bar->FUN_0043f460();
+}
+
 // Retail 0x0043e440 (247 B): open the surface inspector, creating it on first use.
 void FUN_0043e440()
 {
@@ -268,6 +320,17 @@ void FUN_0043e440()
 extern int DAT_011298b8;
 extern int DAT_011298bc;
 extern int DAT_011298c0;
+
+// Retail 0x0043e540: close the inspector (Q3Radiant ByeByeSurfaceDialog shape).
+bool FUN_0043e540()
+{
+    if (surfDlgGlob.hwnd)
+    {
+        PostMessage(surfDlgGlob.hwnd, WM_COMMAND, IDCANCEL, 0);
+        return true;
+    }
+    return false;
+}
 
 // Retail 0x0043e560 (473 B)
 BOOL CSurfaceDlg::OnInitDialog()
@@ -308,8 +371,78 @@ BOOL CSurfaceDlg::OnInitDialog()
     return TRUE;
 }
 
+void CSurfaceDlg::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	CDialog::OnKeyDown(nChar, nRepCnt, nFlags);
+}
+
+void * __stdcall FUN_0043d630(CSurfaceDlg *dlg);
+void FUN_004702d0(void *texdef);
+void FUN_00470690(int value);
+
+// Retail 0x0043e7d0: apply pending edits.
+void CSurfaceDlg::FUN_0043e7d0()
+{
+	if (field_71 || field_72)
+	{
+		void *tex = FUN_0043d630(this);
+		if (field_71)
+		{
+			FUN_004702d0(tex);
+			field_71 = false;
+		}
+		if (field_72)
+		{
+			if (surfDlgGlob.field_40 != 0.0f)
+				FUN_00470690((int)surfDlgGlob.field_40);
+			field_72 = false;
+		}
+		FUN_0043cf80(this);
+	}
+}
+
+void CSurfaceDlg::FUN_0043e840()
+{
+	FUN_0043e7d0();
+	CDialog::OnOK();
+	surfDlgGlob.hwnd = NULL;
+}
+
+void CSurfaceDlg::OnClose()
+{
+	surfDlgGlob.hwnd = NULL;
+	CDialog::OnClose();
+}
+
+void CSurfaceDlg::OnOK()
+{
+	FUN_0043e7d0();
+	CDialog::OnOK();
+	surfDlgGlob.hwnd = NULL;
+}
+
+BOOL SaveRegistryInfo(const char *pszName, void *pvBuf, long lSize);
+
+void CSurfaceDlg::OnDestroy()
+{
+	if (GetSafeHwnd())
+	{
+		CRect rct;
+		GetWindowRect(rct);
+		SaveRegistryInfo("Radiant::SurfaceWindow", &rct, sizeof(rct));
+	}
+	CDialog::OnDestroy();
+	surfDlgGlob.hwnd = NULL;
+	g_nUpdateBits = -1;
+}
+
 // Retail one-byte RET bodies verified with MSVC 7.1. Original entry-point ownership/signatures remain provisional.
 extern "C" void FUN_0043e910() {}
+
+HBRUSH CSurfaceDlg::OnCtlColor(CDC *pDC, CWnd *pWnd, UINT nCtlColor)
+{
+	return CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
+}
 
 int CSurfaceDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
@@ -317,4 +450,37 @@ int CSurfaceDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		return -1;
 
 	return 0;
+}
+
+extern int DAT_01128dc4;
+void FUN_00434190(int a, int b, int c, int d);
+void FUN_00434290();
+void FUN_00474230(float x, float y, int flag);
+
+void CSurfaceDlg::FUN_0043ea90()
+{
+	FUN_00434190(0, 0, DAT_01128dc4, DAT_01128dc4);
+	g_nUpdateBits = -1;
+}
+
+void CSurfaceDlg::FUN_0043eab0()
+{
+	FUN_00434290();
+	g_nUpdateBits = -1;
+}
+
+void CSurfaceDlg::FUN_0043ec10()
+{
+	FUN_00474230(1.0f, 1.0f, 0);
+	g_nUpdateBits = -1;
+}
+
+void CSurfaceDlg::FUN_0043ec30()
+{
+	field_71 = true;
+}
+
+void CSurfaceDlg::FUN_0043ec40()
+{
+	field_72 = true;
 }
