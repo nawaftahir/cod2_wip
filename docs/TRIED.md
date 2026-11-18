@@ -564,3 +564,5 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | Menu_SetNextCursorItem (Fable w29b, 11-18, 10 labs + c2pk13) | head spellings H1-H11 (28, same 10 picks), entry web forms E1-E3 (34/34/42) | no gain; head loads are webs in retail too (the `mov eax,edx` copy needs a shared CSE value) |
 | VM_Notify (Fable w29b, 11-18, 7 labs on t1) | size/type/newSize webs, doubled parens on the integer products | all 13 = t1; folded |
 | speex misc.c as C too (w29, 11-18, gate on spx-c) | drop `extern "C"` + /TP on misc.c | same as spx-c: nb_decode gain, same two ties lost, net -5 |
+| Menu_SetNextCursorItem (agent w29b, 11-18, 12 labs) | goto/for/while(1)/bottom-test loop shapes (28), do/while + entry test (39), getter in while (28) | getter as SetFocus index MATCHED, gate +5 |
+| VM_Notify (agent w29c, 11-18, 14 labs on t1) | `(currentValue - 1)->type`, `-= 1`, `+= 1`, pre-inc, `!=` swapped, xor test, break loop, newSize from 0, role swap | all 13-17; `type - VAR_PRECODEPOS` test = 3 (lead) |

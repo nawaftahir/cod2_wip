@@ -1144,3 +1144,8 @@ set by a later lowering stage, not by the list scheduler.
 - PINNED (w29 11-18, gate +6 on 1.3 and 1.0): CG_DrawGrenadePointer matched by paren depth: width `(((Get..Width(..))))`, height plain
   (mirror also matches in lab). Sched trace: block 0 sits at the 81-tuple cap, so `fchs` fell into block 1 behind `mov edx`
   (prio 0xa400); the tuple count pulls it back. `(((x)))` on one call result is a different step than `((x))` on one or both.
+- PINNED (w29 11-18, gate +5 on 1.3 and 1.0): Menu_SetNextCursorItem matched. Item_SetFocus takes
+  `menu->items[Menu_Getter_5338b0(menu)]` directly (no `item` local there). The inlined getter as the index shifts the
+  round-robin by one pick; no loop shape could (every single-test loop gives the same 10 picks; picks follow block order).
+- LEAD (w29c 11-18, lab 3 lines): VM_Notify t1 loop with `while ( type - VAR_PRECODEPOS );` fixes the size/type colour tie;
+  only `add ecx,-8` vs retail `cmp ecx,8` left.
