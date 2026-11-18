@@ -495,3 +495,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | nb_decode w29 (11-18, lab) | vocoder `.8*g*exci*...` (exci instead of exc[i]) | worse (x87 order changes, SIB swap stays) |
 | FX_AddFxToScene w29 (11-18, 3 labs) | explicit `return;`, `model` local for mModel (=4 lines); `renderFxFlags = 8` (code changes) | no gain |
 | CG_DrawCursorhint psweep13 (w29, 11-18, lab) | per-line sweep L1409-1470 | all lines diff 6 (base), L1467 worse (10). No gain |
+| FX_CalcOriginAndAxis (w29, 11-18, 2 labs, base 28) | `len` block-local in both `&2` blocks; separate `len2` in branch 4 only | both 39 lines, 1463 B. Reverted |
