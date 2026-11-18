@@ -1127,3 +1127,7 @@ set by a later lowering stage, not by the list scheduler.
   set only in functions with exception regions: Sys_SupportsSSE (__try) and STL _Buynode/_Copy (try/catch), 16 items in
   the whole 1.3 link. Retail FX has no EH code, so retail width is NOT flagged; the retail map needs real conflicts for
   width (an item live across width in R1/R2/R3) or a different item set. The flag route for FX is closed.
+- PINNED (w29 11-18, gate +2, idea from a Fable read): FX_AddFxToScene matched. Retail's model value is a cross-block web,
+  not a local pick, so the `&ent` lea takes the next round-robin reg (edx). Two identical arm defs are hoisted above the
+  test; `XModel *model = NULL; ... if (!model) model = effect->mModel;` keeps the load in the join block as a web. Lever
+  for any "one pick step off" residue: turn the last temp into a two-def web whose second def stays in place.
