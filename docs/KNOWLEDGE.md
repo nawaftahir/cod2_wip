@@ -1104,3 +1104,8 @@ set by a later lowering stage, not by the list scheduler.
   these sets reproduces our map exactly. Model result: with this graph no item order leaves width alone in a 4th entry
   (once height sits in R3, width joins R2 or R1), so retail's graph gives width more conflicts, or an item with no
   visible slot refs creates R4 before width. Retail b1 order (dir2 before scale) also removes the height-scale edge.
+- SUPPORTED (w29 11-18, /tmp/sibscan.py over our .text, 382 walker-base vs 342 walker-index loop operands): the SR
+  `[a+b+k]` base/index order is not fixed. Same `x[i] - y[i]` shape, walker = y in both: VecNCompareCustomEpsilon (params,
+  walker is the param itself) gives [walker+diff]; nb_decode lsp_dist (st->old_qlsp/st->qlsp field loads, walker is a new
+  temp) gives [diff+walker]. Retail's nb_decode vocoder is [walker+diff] where ours is [diff+walker] (walker = copy of exc).
+  HYPOTHESIS: the order follows temp/symbol numbers of the walker vs the diff (user var walker = lower number = base).

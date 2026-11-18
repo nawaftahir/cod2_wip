@@ -28,6 +28,14 @@ CL_SetCGameTime 6, Pickup_Weapon 4 (heap-pointer ties, KNOWLEDGE 33).
   (while, for(;;)+break, goto into the test, guarded do/while, CoD4 do/while) still makes the entry test pick 1.
 - FX_AddFxToScene: the model load must not be a pick (TRIED 511).
 
+## 11-18 late mechanism notes (KNOWLEDGE tail)
+- Menu: both loop tests are `cmp mem(cursor), t` with t an uncoloured kind-3 CSE temp; the bit-4 action loads the
+  cursor side into a register-less temp = the local pick. The increment block's edx/ecx come from post-pick lowering of
+  `inc mem`, so they never move the pointer. Need: a source form whose ENTRY test has no uncoloured CSE temp.
+- FX: slot packer is newest-entry-first; decoded conflict graph: width conflicts only with height. With that graph no
+  item order leaves width alone (retail 0x30), so retail's IL gives width more conflicts or a hidden R4 item.
+- nb_decode: SR base/index order looks tied to walker vs diff temp numbers (VecNCompare vs lsp_dist examples).
+
 ## Do not repeat
 Everything in docs/TRIED.md. Spelling sweeps, declared-type changes, agent waves (11-18: 7 B per ~1.5M tokens).
 Next real attack: IL-level differences in the functions compiled before the residues (heap and busy-set state).
