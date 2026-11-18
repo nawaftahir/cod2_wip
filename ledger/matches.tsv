@@ -979,6 +979,7 @@ addr	size	source	symbol	name	tag
 0x0045cc90	302	src/radiant/brush.cpp	?FUN_0045cc90@@YAXM@Z	FUN_0045cc90	UNNAMED
 0x0045cdc0	406	src/radiant/brush.cpp	?FUN_0045cdc0@@YAXM@Z	FUN_0045cdc0	UNNAMED
 0x0045cf60	290	src/radiant/brush.cpp	?FUN_0045cf60@@YAXM@Z	FUN_0045cf60	UNNAMED
+0x0045d090	431	src/radiant/brush.cpp	?FUN_0045d090@@YA_NPBUbrushdef_t@@PAMPBM@Z	FUN_0045d090	UNNAMED
 0x0045d240	517	src/radiant/brush.cpp	?FUN_0045d240@@YAXPBUbrushdef_t@@PBUorientation_t@@QAM2@Z	FUN_0045d240	UNNAMED
 0x0045ebc0	40	src/radiant/brush.cpp	?FUN_0045ebc0@@YAMMM@Z	FUN_0045ebc0	SUPPORTED
 0x0045efb0	92	src/radiant/brush.cpp	?FUN_0045efb0@@YAXPAUface_t@@@Z	FUN_0045efb0	SUPPORTED
