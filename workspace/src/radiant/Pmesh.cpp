@@ -21,7 +21,9 @@
 
 struct material_t
 {
-    unsigned char field_00[0x14];
+    unsigned char field_00[4];
+    const char *name;
+    unsigned char field_08[0xc];
     int width;
     int height;
 };
@@ -932,6 +934,19 @@ int __fastcall FUN_00429df0(void *, int value)
     return -1;
 }
 
+int FUN_00439620(const vec3_t v1, const vec3_t v2);
+
+// index of the selected control point at v, or -1
+int FUN_00429f00(const vec3_t v)
+{
+    for (int i = 0; i < DAT_010c4d84; ++i)
+    {
+        if (FUN_00439620(v, (const float *)DAT_010c4d88[i]))
+            return i;
+    }
+    return -1;
+}
+
 void FUN_0042a0a0(patchMesh_t *p, PatchControl *c, int weld);
 
 // Retail 0x0042a3a0: select one row (every column's control) of a patch.
@@ -1064,6 +1079,19 @@ void FUN_0042bd10(brush_t *list)
             b->patch->def->field_382e = 0;
         }
     }
+}
+
+void FUN_004433b0();
+void Undo_GeneralStart(char *operation);
+
+bool FUN_0042bd90()
+{
+    FUN_004433b0();
+    Undo_GeneralStart("patch painting");
+    if (SendMessageA(g_hwndCheck_01234004, 0xf0, 0, 0))
+        FUN_0042bd10(&DAT_010a44dc);
+    FUN_0042bd10(&DAT_010a44b4);
+    return true;
 }
 
 // Projection of CAdvCurveEditDlg (AdvCurveDlg.cpp) for the one global instance used here.
@@ -1595,6 +1623,35 @@ void FUN_00433830(patchMesh_t *p)
 }
 
 
+void FUN_00432a60(patchMesh_t *p);
+
+void FUN_00432b70(patchMesh_t *p)
+{
+    FUN_00432a60(p);
+    if (p->cache_3824)
+        free(p->cache_3824);
+    p->cache_3824 = FUN_004267d0(p, DAT_01128d94, NULL, NULL);
+    p->version++;
+}
+
+extern patchMesh_t DAT_0109c538;
+
+void FUN_00432f00(patchMesh_t *p)
+{
+    DAT_0109c538.width = p->width;
+    DAT_0109c538.height = p->height;
+    DAT_0109c538.type_10 = p->type_10;
+    memcpy(DAT_0109c538.ctrl, p->ctrl, sizeof(p->ctrl));
+}
+
+void FUN_00432f30(patchMesh_t *p)
+{
+    p->width = DAT_0109c538.width;
+    p->height = DAT_0109c538.height;
+    p->type_10 = DAT_0109c538.type_10;
+    memcpy(p->ctrl, DAT_0109c538.ctrl, sizeof(p->ctrl));
+}
+
 bool OnlyPatchesSelected()
 {
     if (g_ptrSelectedFaces.GetSize() > 0 || selected_brushes.next == &selected_brushes)
@@ -1756,6 +1813,15 @@ void Patch_SetBendRotateOrigin()
     g_vRotateOrigin[2] = g_vBendOrigin[2];
 }
 
+void FUN_004340e0()
+{
+    if (DAT_012334b9)
+    {
+        FUN_00434040();
+        DAT_0123348c = -1;
+    }
+}
+
 extern const char *DAT_00590a1c[];
 extern int DAT_00590a00;
 
@@ -1791,6 +1857,15 @@ void FUN_00434110()
         DAT_012334c0 = 0;
     }
     DAT_0123348c = -1;
+}
+
+// Q3 Patch_GetTextureName
+const char *FUN_00434850()
+{
+    patch_t *pp = DAT_010a44b4.next->patch;
+    if (pp)
+        return ((material_t *)(&pp->def->image_18)[DAT_01128d90])->name;
+    return "";
 }
 
 void FUN_00435840()
@@ -1907,6 +1982,11 @@ void FUN_00439680(const vec2_t src, vec2_t dst)
 {
     dst[0] = src[0];
     dst[1] = src[1];
+}
+
+float FUN_00439690(const vec3_t v)
+{
+    return v[0] * v[0] + v[1] * v[1] + v[2] * v[2];
 }
 
 void FUN_00439720(unsigned char *p, unsigned char a, unsigned char b, unsigned char c, unsigned char d)
