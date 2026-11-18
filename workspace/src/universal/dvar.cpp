@@ -34,7 +34,7 @@ bool Dvar_IsSystemActive()
 {
 	return isDvarSystemActive;
 }
-
+#pragma auto_inline(off)
 static int generateHashValue(const char *fname)
 {
 	int i;
@@ -57,7 +57,7 @@ static int generateHashValue(const char *fname)
 	hash &= FILE_HASH_SIZE - 1;
 	return hash;
 }
-
+#pragma auto_inline(on)
 bool Dvar_IsValidName(const char *dvarName)
 {
 	int index;
@@ -816,14 +816,14 @@ const char *Dvar_DomainToString_GetLines(unsigned char type, DvarLimits domain, 
 	assert( outLineCount );
 	return Dvar_DomainToString_Internal(type, domain, outBuffer, outBufferLen, outLineCount);
 }
-
+#pragma auto_inline(off)
 void Dvar_PrintDomain(unsigned char type, DvarLimits domain)
 {
 	char domainBuffer[1024];
 
 	Com_Printf("  %s\n", Dvar_DomainToString(type, domain, domainBuffer, sizeof(domainBuffer)));
 }
-
+#pragma auto_inline(on)
 int FUN_0048b760(const float *v1, const float *v2);
 
 static bool Dvar_ValuesEqual(unsigned char type, DvarValue val0, DvarValue val1)
