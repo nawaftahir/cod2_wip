@@ -1797,15 +1797,16 @@ void CG_FireWeapon(centity_t *cent, int event, int barrel)
     struct DObj_s *obj;
 
     ent = &cent->nextState;
-    if (!cent->nextState.weapon)
+    if (!ent->weapon)
         return;
 
-    if (cent->nextState.weapon > BG_GetNumWeapons()) {
+    if (ent->weapon > BG_GetNumWeapons()) {
         Com_Error(ERR_DROP, "\x15"
                      "CG_FireWeapon: ent->weapon > BG_GetNumWeapons()");
         return;
     }
 
+    ent = &cent->nextState; // retail reloads ent->weapon below
     weapInfo = &cg_weaponsArray[ent->weapon];
     cent->bMuzzleFlash = 1;
 
