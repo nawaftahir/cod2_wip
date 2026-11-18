@@ -32780,8 +32780,9 @@
 "name": "?FX_CalcOriginAndAxis@@YAXPAUEffectPrimitive@@QAMQBMQAY02M@Z",
 "obj": "FxUtil.obj",
 "size": 1463,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4a0b10"
+]
 },
 {
 "name": "?FX_CalcImpactOrigin@@YAXPBUPrimitiveTemplate@@QBMQAM1PAY02$$CBM@Z",
