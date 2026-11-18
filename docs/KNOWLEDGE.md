@@ -1123,3 +1123,7 @@ set by a later lowering stage, not by the list scheduler.
   0x108a7880 != 0; FX items all have +0x40 = 0, so that path would isolate every item, not retail), 0x10807bf2 (kind 5
   only), 0x107018a1 (a symbol c2 creates when [fn+0x8c]&0x20000; ours 0x02000432). Open: which of these flags retail's
   width (HYPOTHESIS: width is a c2-created symbol via 0x107018a1).
+- PINNED (w29a 11-18, tools/c2f4_13.sh whole-link cave log, branch client/1.3/w29a): the packer all-conflict flag [sym+6]&4 is
+  set only in functions with exception regions: Sys_SupportsSSE (__try) and STL _Buynode/_Copy (try/catch), 16 items in
+  the whole 1.3 link. Retail FX has no EH code, so retail width is NOT flagged; the retail map needs real conflicts for
+  width (an item live across width in R1/R2/R3) or a different item set. The flag route for FX is closed.
