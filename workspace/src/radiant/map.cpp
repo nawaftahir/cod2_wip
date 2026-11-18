@@ -191,6 +191,41 @@ void Map_RemoveRegion()
 	g_nUpdateBits = -1;
 }
 
+// xy view: size 0x58/0x5c, scale 0x60, origin 0x70; held by the main frame at 0x788 (retail offsets)
+struct XYViewProj
+{
+	unsigned char pad00[0x58];
+	int width;
+	int height;
+	float scale;
+	unsigned char pad64[0xc];
+	float origin[3];
+	float *GetOrigin() { return origin; }
+	int Width() { return width; }
+	int Height() { return height; }
+	float Scale() { return scale; }
+};
+struct MainFrameXYProj
+{
+	unsigned char pad00[0x788];
+	XYViewProj *xy;
+};
+extern MainFrameXYProj *dword_01233488;
+void FUN_00469210();
+
+// 0x00469350 (200 B)
+extern "C" void FUN_00469350()
+{
+	Map_RemoveRegion();
+	dword_00591cdc[0] = dword_01233488->xy->GetOrigin()[0] - 0.5 * dword_01233488->xy->Width() / dword_01233488->xy->Scale();
+	dword_00591ce8[0] = 0.5 * dword_01233488->xy->Width() / dword_01233488->xy->Scale() + dword_01233488->xy->GetOrigin()[0];
+	dword_00591cdc[1] = dword_01233488->xy->GetOrigin()[1] - 0.5 * dword_01233488->xy->Height() / dword_01233488->xy->Scale();
+	dword_00591ce8[1] = 0.5 * dword_01233488->xy->Height() / dword_01233488->xy->Scale() + dword_01233488->xy->GetOrigin()[1];
+	dword_00591cdc[2] = 131072.0f;
+	dword_00591ce8[2] = 131072.0f;
+	FUN_00469210();
+}
+
 // 0x00469570 (284 B)
 void UniqueTargetName(CString &name)
 {
