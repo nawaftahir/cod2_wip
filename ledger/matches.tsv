@@ -809,6 +809,8 @@ addr	size	source	symbol	name	tag
 0x00446bc0	84	src/radiant/VertEditDlg.cpp	?OnDrawItem@CVertEditDlg@@IAEXHPAUtagDRAWITEMSTRUCT@@@Z	CVertEditDlg::OnDrawItem	SUPPORTED
 0x00447210	28	src/radiant/VertEditDlg.cpp	?FUN_00447210@@YAXXZ	FUN_00447210	UNNAMED
 0x00447230	468	src/radiant/VertEditDlg.cpp	?FUN_00447230@@YA?AUVertEditHsl@@UVertEditRgb@@@Z	FUN_00447230	UNNAMED
+0x00447a50	242	src/radiant/Winding.cpp	?FUN_00447a50@@YA_NPBUfacePlane_t@@0_N@Z	FUN_00447a50	UNNAMED
+0x00447b50	164	src/radiant/Winding.cpp	?FUN_00447b50@@YA_NQBM00PAUfacePlane_t@@@Z	FUN_00447b50	UNNAMED
 0x00447c00	84	src/radiant/Winding.cpp	?Point_Equal@@YA_NQBM0M@Z	Point_Equal	SUPPORTED
 0x00447c60	691	src/radiant/Winding.cpp	?Winding_BaseForPlane@@YAPAUwinding_t@@PBUfacePlane_t@@@Z	Winding_BaseForPlane	SUPPORTED
 0x00447f20	39	src/radiant/Winding.cpp	?Winding_Alloc@@YAPAUwinding_t@@H@Z	Winding_Alloc	SUPPORTED

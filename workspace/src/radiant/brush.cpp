@@ -77,6 +77,11 @@ extern void (*FUN_0059c468)(const float *inColor, unsigned int *outColor);
 extern char *va(const char *format, ...);
 extern brushdef_t *BrushDef_CloneNoWinding(const brushdef_t *b);
 extern void BrushDef_Free(brushdef_t *def);
+extern bool FUN_00447a50(const facePlane_t *a, const facePlane_t *b, bool flip);
+extern bool FUN_00447b50(const vec3_t p1, const vec3_t p2, const vec3_t p3, facePlane_t *plane);
+extern bool Point_Equal(const vec3_t p1, const vec3_t p2, float epsilon);
+extern void Winding_RemovePoint(winding_t *w, int point);
+extern winding_t *FUN_00448a10(const winding_t *f1, const winding_t *f2, const vec3_t planenormal, bool keep);
 extern bool FUN_004481e0(const winding_t *w1, const winding_t *w2, const vec3_t normal1, const vec3_t normal2, float dist1, float dist2);
 #line 37
 brush_t *Brush_Alloc()
@@ -523,19 +528,289 @@ void Brush_RemoveEmptyFaces(brushdef_t *b)
 
 bool FUN_00455e20(const brushdef_t *b)
 {
-    for (int i = 0; i < b->faceCount; ++i)
+    int faceCount = b->faceCount;
+    for (int i = 0; i < faceCount; ++i)
     {
-        if (!b->faces[i].w)
+        winding_t *w1 = b->faces[i].w;
+        if (!w1)
             continue;
-        for (int j = 0; j < b->faceCount; ++j)
+        for (int j = 0; j < faceCount; ++j)
         {
             if (i == j || !b->faces[j].w)
                 continue;
-            if (FUN_004481e0(b->faces[i].w, b->faces[j].w, b->faces[i].plane.normal, b->faces[j].plane.normal, (float)b->faces[i].plane.dist, (float)b->faces[j].plane.dist))
+            if (FUN_004481e0(w1, b->faces[j].w, b->faces[i].plane.normal, b->faces[j].plane.normal, (float)b->faces[i].plane.dist, (float)b->faces[j].plane.dist))
                 return false;
         }
     }
     return true;
+}
+
+// pad
+#line 861
+int FUN_00455ee0(brushdef_t *b, const vec3_t vertex, const vec3_t delta, vec3_t end, bool bSnap)
+{
+    face_t *face, *newface;
+    winding_t *w, tmpw;
+    vec3_t start, mid;
+    facePlane_t plane;
+    int movefaces[64];
+    int movefacepoints[64];
+    int originalFaceIndex[64];
+    int i, j, k, faceIndex, numFaces, nummovefaces, result, done;
+    float dot, front, back, frac, smallestfrac;
+
+    result = true;
+    tmpw.pointCount = 3;
+    VectorCopy(vertex, start);
+    VectorAdd(vertex, delta, end);
+    if (bSnap)
+    {
+        for (i = 0; i < 3; i++)
+            end[i] = floor(end[i] / g_qeglobals.d_gridsize + 0.5) * g_qeglobals.d_gridsize;
+    }
+    if (Point_Equal(start, end, 0.3f))
+        return false;
+    for (i = 0; i < b->faceCount; i++)
+    {
+        originalFaceIndex[i] = i;
+        w = b->faces[i].w;
+        if (!w)
+            continue;
+        for (k = 0; k < w->pointCount; k++)
+        {
+            if (Point_Equal(w->points[k], end, 0.3f))
+            {
+                VectorCopy(vertex, end);
+                return false;
+            }
+        }
+    }
+    do
+    {
+        nummovefaces = 0;
+        numFaces = b->faceCount;
+        for (faceIndex = 0; faceIndex < numFaces; faceIndex++)
+        {
+            face = &b->faces[faceIndex];
+            w = face->w;
+            if (!w)
+                continue;
+            for (i = 0; i < w->pointCount; i++)
+            {
+                if (Point_Equal(w->points[i], start, 0.2f))
+                    break;
+            }
+            if (i == w->pointCount)
+                continue;
+            if (face->w->pointCount <= 3)
+            {
+                movefacepoints[nummovefaces] = i;
+                movefaces[nummovefaces++] = faceIndex;
+                continue;
+            }
+            dot = DotProduct(end, face->plane.normal) - face->plane.dist;
+            if (dot > 0.1)
+            {
+                for (k = i; k < i + w->pointCount - 3; k++)
+                {
+                    VectorCopy(w->points[i], tmpw.points[0]);
+                    VectorCopy(w->points[(k + 1) % w->pointCount], tmpw.points[1]);
+                    VectorCopy(w->points[(k + 2) % w->pointCount], tmpw.points[2]);
+                    newface = Face_Alloc(b, face);
+                    face = &b->faces[faceIndex];
+                    brush_assert1(newface == &b->faces[b->faceCount - 1]);
+                    originalFaceIndex[b->faceCount - 1] = originalFaceIndex[faceIndex];
+                    Face_FreeWinding(newface);
+                    newface->w = Winding_Clone(&tmpw);
+                    // pad
+                    // pad
+                    brush_assert1(newface == &b->faces[b->faceCount - 1]);
+                    movefaces[nummovefaces] = b->faceCount - 1;
+                    movefacepoints[nummovefaces++] = 0;
+                    brush_assert1(Point_Equal( start, b->faces[movefaces[nummovefaces - 1]].w->points[movefacepoints[nummovefaces - 1]], 0.2f ));
+                }
+                VectorCopy(w->points[(w->pointCount + i - 2) % w->pointCount], tmpw.points[0]);
+                VectorCopy(w->points[(w->pointCount + i - 1) % w->pointCount], tmpw.points[1]);
+                VectorCopy(w->points[i], tmpw.points[2]);
+                Face_FreeWinding(face);
+                face->w = Winding_Clone(&tmpw);
+                movefaces[nummovefaces] = faceIndex;
+                movefacepoints[nummovefaces++] = 2;
+                // pad
+                // pad
+                brush_assert1(Point_Equal( start, b->faces[movefaces[nummovefaces - 1]].w->points[movefacepoints[nummovefaces - 1]], 0.2f ));
+            }
+            else
+            {
+                VectorCopy(w->points[(w->pointCount + i - 1) % w->pointCount], tmpw.points[0]);
+                VectorCopy(w->points[i], tmpw.points[1]);
+                VectorCopy(w->points[(i + 1) % w->pointCount], tmpw.points[2]);
+                Winding_RemovePoint(w, i);
+                newface = Face_Alloc(b, face);
+                // pad
+                // pad
+                // pad
+                // pad
+                // pad
+                brush_assert1(newface == &b->faces[b->faceCount - 1]);
+                originalFaceIndex[b->faceCount - 1] = originalFaceIndex[faceIndex];
+                Face_FreeWinding(newface);
+                newface->w = Winding_Clone(&tmpw);
+                // pad
+                // pad
+                brush_assert1(newface == &b->faces[b->faceCount - 1]);
+                movefaces[nummovefaces] = b->faceCount - 1;
+                movefacepoints[nummovefaces++] = 1;
+                brush_assert1(Point_Equal( start, b->faces[movefaces[nummovefaces - 1]].w->points[movefacepoints[nummovefaces - 1]], 0.2f ));
+            }
+        }
+        VectorCopy(end, mid);
+        smallestfrac = 1;
+        done = true;
+        for (faceIndex = 0; faceIndex < b->faceCount; faceIndex++)
+        {
+            for (i = 0; i < nummovefaces; i++)
+            {
+                if (originalFaceIndex[movefaces[i]] == faceIndex)
+                    break;
+            }
+            if (i >= nummovefaces)
+                continue;
+            for (j = 0; j < nummovefaces; j++)
+            {
+                if (faceIndex == movefaces[j])
+                    break;
+            }
+            if (j >= nummovefaces)
+            {
+                memcpy(&plane, &b->faces[originalFaceIndex[faceIndex]].plane, sizeof(facePlane_t));
+            }
+            else
+            {
+                k = movefacepoints[j];
+                w = b->faces[movefaces[j]].w;
+                VectorCopy(w->points[(k + 1) % w->pointCount], tmpw.points[0]);
+                VectorCopy(w->points[(k + 2) % w->pointCount], tmpw.points[1]);
+                k = movefacepoints[i];
+                w = b->faces[movefaces[i]].w;
+                VectorCopy(w->points[(k + 1) % w->pointCount], tmpw.points[2]);
+                if (!FUN_00447b50(tmpw.points[0], tmpw.points[1], tmpw.points[2], &plane))
+                {
+                    VectorCopy(w->points[(k + 2) % w->pointCount], tmpw.points[2]);
+                    if (!FUN_00447b50(tmpw.points[0], tmpw.points[1], tmpw.points[2], &plane))
+                        continue;
+                }
+            }
+            front = DotProduct(start, plane.normal) - plane.dist;
+            back = DotProduct(end, plane.normal) - plane.dist;
+            if (front < 0.01f && back < 0.01f)
+                continue;
+            if (front > -0.01f && back > -0.01f)
+                continue;
+            back = front - back;
+            if (fabs(back) < 0.001f)
+                continue;
+            frac = front / back;
+            if (frac < smallestfrac)
+            {
+                mid[0] = start[0] + (end[0] - start[0]) * frac;
+                mid[1] = start[1] + (end[1] - start[1]) * frac;
+                mid[2] = start[2] + (end[2] - start[2]) * frac;
+                smallestfrac = frac;
+            }
+            done = false;
+        }
+        for (i = 0; i < nummovefaces; i++)
+        {
+            face = &b->faces[movefaces[i]];
+            w = face->w;
+            // pad
+            // pad
+            // pad
+            // pad
+            // pad
+            // pad
+            // pad
+            // pad
+            // pad
+            // pad
+            // pad
+            // pad
+            // pad
+            // pad
+            // pad
+            assert(Point_Equal( w->points[movefacepoints[i]], start, 0.2f ));
+            VectorCopy(mid, w->points[movefacepoints[i]]);
+            for (j = 0; j < 3; j++)
+                VectorCopy(w->points[j], face->planepts[j]);
+            Face_MakePlane(face);
+            if (VectorLength(face->plane.normal) < 0.1f)
+                result = false;
+        }
+        if (result && FUN_00455e20(b))
+        {
+            VectorCopy(mid, start);
+        }
+        else
+        {
+            for (i = 0; i < nummovefaces; i++)
+            {
+                face = &b->faces[movefaces[i]];
+                w = face->w;
+                VectorCopy(start, w->points[movefacepoints[i]]);
+                for (j = 0; j < 3; j++)
+                    VectorCopy(w->points[j], face->planepts[j]);
+                Face_MakePlane(face);
+            }
+            result = false;
+            VectorCopy(start, end);
+            done = true;
+        }
+        for (faceIndex = 0; faceIndex < b->faceCount; faceIndex++)
+            // pad
+            // pad
+            // pad
+            // pad
+            // pad
+            // pad
+            // pad
+            assert(originalFaceIndex[faceIndex] <= faceIndex);
+        for (faceIndex = 0; faceIndex < b->faceCount; )
+        {
+            j = originalFaceIndex[faceIndex];
+            if (j == faceIndex)
+            {
+                faceIndex++;
+                continue;
+            }
+            if (!FUN_00447a50(&b->faces[faceIndex].plane, &b->faces[j].plane, false))
+            {
+                faceIndex++;
+                continue;
+            }
+            w = FUN_00448a10(b->faces[faceIndex].w, b->faces[j].w, b->faces[faceIndex].plane.normal, true);
+            if (!w)
+            {
+                faceIndex++;
+                continue;
+            }
+            if (b->faces[j].w)
+            {
+                delete b->faces[j].w;
+                b->faces[j].w = NULL;
+            }
+            b->faces[j].w = w;
+            Brush_RemoveFace(b, faceIndex);
+            for (i = faceIndex; i < b->faceCount; i++)
+            {
+                originalFaceIndex[i] = originalFaceIndex[i + 1];
+                if (originalFaceIndex[i] >= faceIndex)
+                    originalFaceIndex[i]--;
+            }
+        }
+    } while (!done);
+    b->version++;
+    return result;
 }
 
 #line 1110
