@@ -372,6 +372,34 @@ int FUN_00440df0(char *filename, RadiantFilterEntry *table, int count, int limit
     return count;
 }
 
+extern RadiantFilterEntry DAT_00590a68[256];
+extern RadiantFilterEntry DAT_00591268[256];
+
+// 0x00440fa0 (347 B)
+void FUN_00440fa0()
+{
+    HMENU hMenu = GetSubMenu(GetMenu(dword_010bcd54), 5);
+    if (!texWndGlobals.usageCount && !texWndGlobals.localeCount)
+    {
+        texWndGlobals.usageCount = FUN_00440df0("../deffiles/materials/usage.txt", DAT_00590a68, 1, 256, 1);
+        texWndGlobals.localeCount = FUN_00440df0("../deffiles/materials/locale.txt", DAT_00591268, 1, 256, 0);
+    }
+    AppendTextureFilterMenu(hMenu, "Usage", DAT_00590a68, texWndGlobals.usageCount, 60000);
+    AppendTextureFilterMenu(hMenu, "Locale", DAT_00591268, texWndGlobals.localeCount, 60256);
+    AppendTextureFilterMenu(hMenu, "Surface type", surfaceTypes, 23, 60512);
+    texWndGlobals.usageFilter = 0;
+    texWndGlobals.localeFilter = 0;
+    texWndGlobals.surfaceTypeFilter = 0;
+    for (int i = 0; i < texWndGlobals.localeCount; i++)
+    {
+        if (DAT_00591268[i].name && !_stricmp(DAT_00591268[i].name, "decal"))
+            texWndGlobals.decalLocaleBit = 1 << DAT_00591268[i].id;
+    }
+    CheckMenuItem(hMenu, texWndGlobals.usageFilter + 60000, MF_CHECKED);
+    CheckMenuItem(hMenu, texWndGlobals.localeFilter + 60256, MF_CHECKED);
+    CheckMenuItem(hMenu, texWndGlobals.surfaceTypeFilter + 60512, MF_CHECKED);
+}
+
 // 0x00441100 (252 B), index in ebx
 void FUN_00441100(int index)
 {
@@ -445,6 +473,64 @@ void Texture_ShowAll(void)
 }
 
 
+
+// Layout projections for FUN_004414a0 (offsets from retail).
+typedef qtexture_s InuseTex;
+struct InuseTexdef { InuseTex *radMat; unsigned char pad[0x18]; };
+struct InuseFace { unsigned char pad[0x24]; InuseTexdef texdef[2]; unsigned char pad2[0xa8 - 0x24 - 2 * sizeof(InuseTexdef)]; };
+struct InusePatch { unsigned char pad[0x18]; InuseTex *radMat[2]; };
+struct InuseEclass { unsigned char pad[8]; int fixedsize; };
+struct InuseEntityDef { unsigned char pad[0x50]; InuseEclass *eclass; };
+struct InuseBrushDef
+{
+    unsigned char pad[8];
+    InuseEntityDef *entdef;
+    unsigned char pad1[0x2c];
+    int faceCount;
+    InuseFace *faces;
+    unsigned char pad2[4];
+    InusePatch *patch;
+};
+struct InuseOwner { unsigned char pad[0x38]; char *sub; };
+struct InuseBrush
+{
+    InuseBrush *prev;
+    InuseBrush *next;
+    InuseOwner *owner;
+    unsigned char pad[8];
+    InuseBrushDef *def;
+};
+extern struct { int activeMaterial; } g_qeglobals;
+
+// 0x004414a0 (351 B)
+void FUN_004414a0(InuseBrush *head)
+{
+    for (InuseBrush *b = head->next; b && b != head; b = b->next)
+    {
+        InuseBrushDef *def = b->def;
+        if (def->entdef->eclass->fixedsize)
+        {
+            if (b->owner->sub)
+                FUN_004414a0((InuseBrush *)(b->owner->sub + 0xc));
+        }
+        else if (def->patch)
+        {
+#line 575
+            assert(def->patch->radMat);
+            def->patch->radMat[g_qeglobals.activeMaterial]->inuse = 1;
+        }
+        else
+        {
+            for (int i = 0; i < def->faceCount; i++)
+            {
+                InuseFace *f = &def->faces[i];
+#line 583
+                assert(f->texdef[g_qeglobals.activeMaterial].radMat);
+                f->texdef[g_qeglobals.activeMaterial].radMat->inuse = 1;
+            }
+        }
+    }
+}
 
 // Retail one-byte RET, existing accepted source.
 extern "C" void FUN_00442290() {}

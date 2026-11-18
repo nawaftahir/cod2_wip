@@ -760,6 +760,7 @@ addr	size	source	symbol	name	tag
 0x00440c70	48	src/radiant/TexWnd.cpp	?Editor_DoesMaterialExist@@YAPAUqtexture_s@@PBD@Z	Editor_DoesMaterialExist	SUPPORTED
 0x00440d90	90	src/radiant/TexWnd.cpp	?AppendTextureFilterMenu@@YAHPAUHMENU__@@PBDPBURadiantFilterEntry@@HH@Z	AppendTextureFilterMenu	SUPPORTED
 0x00440df0	420	src/radiant/TexWnd.cpp	?FUN_00440df0@@YAHPADPAURadiantFilterEntry@@HHH@Z	FUN_00440df0	UNNAMED
+0x00440fa0	347	src/radiant/TexWnd.cpp	?FUN_00440fa0@@YAXXZ	FUN_00440fa0	UNNAMED
 0x00441100	252	src/radiant/TexWnd.cpp	?FUN_00441100@@YAXH@Z	FUN_00441100	UNNAMED
 0x00441200	252	src/radiant/TexWnd.cpp	?FUN_00441200@@YAXH@Z	FUN_00441200	UNNAMED
 0x00441300	249	src/radiant/TexWnd.cpp	?FUN_00441300@@YAXH@Z	FUN_00441300	UNNAMED
@@ -983,6 +984,7 @@ addr	size	source	symbol	name	tag
 0x004681b0	27	src/radiant/map.cpp	?FUN_004681b0@@YAPAUentity_t@@XZ	FUN_004681b0	UNNAMED
 0x00469100	53	src/radiant/map.cpp	?Map_IsBrushFiltered@@YA_NPAUbrushDef_t@@@Z	Map_IsBrushFiltered	SUPPORTED
 0x00469140	206	src/radiant/map.cpp	?Map_RemoveRegion@@YAXXZ	Map_RemoveRegion	SUPPORTED
+0x00469350	200	src/radiant/map.cpp	?FUN_00469350@@YAXXZ	FUN_00469350	UNNAMED
 0x00469570	284	src/radiant/map.cpp	?UniqueTargetName@@YAXAAV?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@Z	UniqueTargetName	SUPPORTED
 0x00469690	165	src/radiant/map.cpp	?FUN_00469690@@YAXAAV?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@Z	FUN_00469690	UNNAMED
 0x0046ae70	106	src/radiant/map.cpp	?FUN_0046ae70@@YAXPAUentityInst_t@@00PAUeclass_t@@@Z	FUN_0046ae70	UNNAMED
@@ -1018,6 +1020,7 @@ addr	size	source	symbol	name	tag
 0x0046caf0	11	src/radiant/points.cpp	?Pointfile_Clear@@YAXXZ	Pointfile_Clear	SUPPORTED
 0x0046cb00	14	src/radiant/points.cpp	?Pointfile_HasPoints@@YAHXZ	Pointfile_HasPoints	SUPPORTED
 0x0046cb10	111	src/radiant/qe3.cpp	?FUN_0046cb10@@YAPADPBD@Z	FUN_0046cb10	PINNED
+0x0046dc40	382	src/radiant/qe3.cpp	?FUN_0046dc40@@YAXXZ	FUN_0046dc40	UNNAMED
 0x0046e120	61	src/radiant/qe3.cpp	?FUN_0046e120@@YAXXZ	FUN_0046e120	UNNAMED
 0x0046e280	229	src/radiant/qe3.cpp	?COM_Parse@@YAPADPAD@Z	COM_Parse	SUPPORTED
 0x0046e4a0	55	src/radiant/select.cpp	?FUN_0046e4a0@@YAXXZ	FUN_0046e4a0	SUPPORTED
