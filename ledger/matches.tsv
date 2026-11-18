@@ -817,7 +817,6 @@ addr	size	source	symbol	name	tag
 0x00442ef0	75	src/radiant/TexWnd.cpp	?OnTimer@CTexWnd@@IAEXI@Z	CTexWnd::OnTimer	SUPPORTED
 0x00442f40	15	src/radiant/TexWnd.cpp	?OnKeyDown@CTexWnd@@IAEXIII@Z	CTexWnd::OnKeyDown	SUPPORTED
 0x00442f50	23	src/radiant/TexWnd.cpp	?OnKeyUp@CTexWnd@@IAEXIII@Z	CTexWnd::OnKeyUp	SUPPORTED
-0x00443050	228	src/radiant/TexWnd.cpp	?OnVScroll@CTexWnd@@IAEXIIPAVCScrollBar@@@Z	CTexWnd::OnVScroll	SUPPORTED
 0x00443140	34	src/radiant/TexWnd.cpp	?OnMouseWheel@CTexWnd@@IAEHIFVCPoint@@@Z	CTexWnd::OnMouseWheel	SUPPORTED
 0x004431f0	166	src/radiant/Undo.cpp	?FUN_004431f0@@YAXPAUbrushdef_t@@0@Z	FUN_004431f0	PINNED
 0x004432a0	242	src/radiant/Undo.cpp	?FUN_004432a0@@YAXPAUbrushdef_t@@@Z	FUN_004432a0	PINNED
