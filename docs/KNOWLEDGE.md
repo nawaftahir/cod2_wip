@@ -1210,3 +1210,7 @@ set by a later lowering stage, not by the list scheduler.
   (`mov edx,[ebx-4]; sub ebx,8; inc; cmp edx,8`) but changes colours and code all over the fn (1612 B), so it is not the cause.
 - PINNED (agent, static c2 read): constant symbols are interned by VALUE only (0x1077e132, key [op+0x18], kind 7): no spelling
   separates the compare 8 from the step 8 (KS1-KS7 on F4: 13/23/24).
+- PINNED (agent w29b lab D4, 11-20): unfolding the load in the server-text loop (a surviving dominating use,
+  `tempValue3.type = currentValue->type;`) gives retail's loop schedule and immediate 8 but F4's size/type colour swap.
+  Every separate-load form (F4, D4, __assume) lands on the same tie (`_size` 62 < load temp 64). `__assume` anywhere
+  in the fn changes code fn-wide (AS4/AS5), so it is not the cause. Dead stores, struct copies, comma, x-x forms fold (22).
