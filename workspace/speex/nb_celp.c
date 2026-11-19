@@ -47,6 +47,32 @@
 #include "vbr.h"
 #include "misc.h"
 #include <speex/speex_callbacks.h>
+/* stand-in: 24 unused symbols, no code or data. c2 hashes global symbol ordinals in LTCG tie breaks;
+   retail's link had a different symbol count before this point (KNOWLEDGE 1.3: speex symbol pad). */
+static int spx_pad_0;
+static int spx_pad_1;
+static int spx_pad_2;
+static int spx_pad_3;
+static int spx_pad_4;
+static int spx_pad_5;
+static int spx_pad_6;
+static int spx_pad_7;
+static int spx_pad_8;
+static int spx_pad_9;
+static int spx_pad_10;
+static int spx_pad_11;
+static int spx_pad_12;
+static int spx_pad_13;
+static int spx_pad_14;
+static int spx_pad_15;
+static int spx_pad_16;
+static int spx_pad_17;
+static int spx_pad_18;
+static int spx_pad_19;
+static int spx_pad_20;
+static int spx_pad_21;
+static int spx_pad_22;
+static int spx_pad_23;
 
 #ifndef M_PI
 #define M_PI           3.14159265358979323846  /* pi */

@@ -186,3 +186,9 @@ All are split inline decisions; the cause is the site count, not the callee (sta
 - So these "ties" are decided by heap address low bits (entries 0x60 apart: bucket = base&0x3f + {0,32}). The base depends on everything c2 allocated before, which is why ties re-roll on unrelated edits and why the same obj gives different code in another build.
 - Consequence: a tie fn matches when the heap state at that fn gives retail's bucket order. It converges when everything compiled before it matches retail; or it can be steered by the in-function allocation offset ahead of the hashed objects.
 - Next: (1) find the allocator for these kind-3 objects (which arena, alignment); (2) measure which in-function source change shifts their offset by 16/32 B without changing code; (3) build a predictor: base & 0x3f per tie fn -> needed shift.
+- PINNED (w10o gate, 11-19, 28 -> 12 B): speex as C (spx-c) + labelled symbol pads: 24 `static int` in speex/nb_celp.c and
+  32 in zlib/zutil.c. LTCG tie keys are global symbol ordinals mod 64 (1.3 KNOWLEDGE). Only C TUs count: unused statics in a
+  C++ TU are dropped and do nothing; non-static or initialised pads emit data. Scan (lab10 whole-file): nb_celp alone has no
+  count that fixes Pickup_Weapon, Scr_ParseGameTypeList and SP_worldspawn together; a second site in zlib (earlier in link
+  order) shifts them differently and also fixes DSound_UpdateSample. Grid in ~/cod2/lab/pad10*.txt. Replace with retail's
+  real symbols when found.
