@@ -920,6 +920,9 @@ addr	size	source	symbol	name	tag
 0x0044c5c0	90	src/radiant/XYWnd.cpp	?FUN_0044c5c0@CXYWnd@@QAEXHHQAM0@Z	CXYWnd::FUN_0044c5c0	UNNAMED
 0x0044cf30	58	src/radiant/XYWnd.cpp	?XY_MouseUp@CXYWnd@@QAEXHHH@Z	CXYWnd::XY_MouseUp	SUPPORTED
 0x0044cf70	330	src/radiant/XYWnd.cpp	?DragDelta@CXYWnd@@QAEHHHQAM@Z	CXYWnd::DragDelta	SUPPORTED
+0x0044f530	42	src/radiant/XYWnd.cpp	?FUN_0044f530@brushdef_t@@QAE_NH@Z	brushdef_t::FUN_0044f530	UNNAMED
+0x0044f560	42	src/radiant/XYWnd.cpp	?FUN_0044f560@brushdef_t@@QAE_NH@Z	brushdef_t::FUN_0044f560	UNNAMED
+0x0044f590	53	src/radiant/XYWnd.cpp	?FUN_0044f590@@YA_NPAUbrushdef_t@@H@Z	FUN_0044f590	UNNAMED
 0x0044f5d0	86	src/radiant/XYWnd.cpp	?FUN_0044f5d0@@YA_NPAUbrush_t@@@Z	FUN_0044f5d0	UNNAMED
 0x00451c00	509	src/radiant/XYWnd.cpp	?FUN_00451c00@@YAXPAUbrush_t@@PAI@Z	FUN_00451c00	UNNAMED
 0x00452900	4	src/radiant/XYWnd.cpp	?GetOrigin@CXYWnd@@QAEAAY02MXZ	CXYWnd::GetOrigin	SUPPORTED

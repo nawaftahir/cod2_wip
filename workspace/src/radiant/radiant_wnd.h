@@ -194,6 +194,7 @@ protected:
     void DrawClipPoints();
     void BuildIconClipPlanes();
     void XY_DrawGrid();
+    void XY_DrawBlockGrid();
     void PaintSizeInfo(int nDim1, int nDim2);
     void DrawRotateIcon();
     void DrawCameraIcon();

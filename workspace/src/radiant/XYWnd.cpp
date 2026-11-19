@@ -17,7 +17,8 @@ struct brush_t
     brush_t *prev;
     brush_t *next;
     struct entityInst_t *owner;
-    unsigned char pad0c[8];
+    brush_t *onext;
+    unsigned char pad10[4];
     brushdef_t *def;
     unsigned char pad18[0xe];
     unsigned char hiddenBrush;
@@ -158,7 +159,14 @@ BEGIN_MESSAGE_MAP(CXYWnd, CWnd)
     ON_WM_CREATE()
     ON_WM_LBUTTONDOWN()
     ON_WM_MBUTTONDOWN()
+    ON_WM_RBUTTONDOWN()
+    ON_WM_LBUTTONUP()
+    ON_WM_MBUTTONUP()
+    ON_WM_RBUTTONUP()
+    ON_WM_MOUSEMOVE()
+    ON_WM_PAINT()
     ON_WM_KEYDOWN()
+    ON_WM_SIZE()
     ON_WM_DESTROY()
     ON_WM_KEYUP()
     ON_WM_NCCALCSIZE()
@@ -683,6 +691,39 @@ void CXYWnd::SetPointMode(bool b)
     g_bPointMode = b;
     if (!b)
         g_nPointCount = 0;
+}
+
+extern int (*FUN_0059c440)(void *);
+extern void (*FUN_0059c3ac)(void *);
+extern void (*FUN_0059c3b0)(void);
+extern void (*FUN_0059c444)(void *);
+extern void *dword_010bcd68;
+extern int dword_01233514;
+extern int dword_01147dd0, dword_01147dd4;
+extern unsigned char byte_012334d8;
+extern float color_01129718[4];
+extern void (*FUN_0059c3c4)(int, const float *, float, int);
+
+// 0x0044b2a0
+void CXYWnd::OnPaint()
+{
+    PAINTSTRUCT ps;
+    if (FUN_0059c440 && FUN_0059c440(dword_010bcd68))
+    {
+        HDC dc = ::BeginPaint(m_hWnd, &ps);
+        (*FUN_0059c3ac)(CDC::FromHandle(dc));
+        (*FUN_0059c3c4)(7, color_01129718, 1.0f, 0);
+        XY_Draw();
+        if (byte_012334d8)
+            DrawCrosshairs();
+        if (g_bClipMode)
+            DrawClipPoints();
+        (*FUN_0059c3b0)();
+        (*FUN_0059c444)(dword_010bcd68);
+        if (dword_01233514)
+            dword_01147dd4 = dword_01147dd0;
+        ::EndPaint(m_hWnd, &ps);
+    }
 }
 
 void CXYWnd::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -1439,6 +1480,512 @@ void CXYWnd::XY_MouseMoved(int x, int y, int buttons)
     }
 }
 
+struct xyEclass_t
+{
+    unsigned char pad00[4];
+    char *name;
+    int field_08;
+    unsigned char pad0c[0x18];
+    float color[4];
+    unsigned char pad34[0x124];
+    char *modelName;
+    unsigned char pad15c[4];
+    unsigned flags;
+};
+struct xyEntity_t
+{
+    unsigned char pad00[0x50];
+    xyEclass_t *eclass;
+    xyEclass_t *modelClass;
+    unsigned char pad58[0xc];
+    void *epairs;
+};
+struct entityInst_t
+{
+    entityInst_t *prev;
+    entityInst_t *next;
+    xyEntity_t *def;
+    brush_t brushes;
+};
+struct XYShader
+{
+    unsigned char pad00[4];
+    char *name;
+    unsigned char pad08[1];
+    unsigned char flagsByte9;
+    unsigned char pad0a[6];
+    unsigned flags10;
+    unsigned char pad14[8];
+    unsigned contents;
+    unsigned flags20;
+};
+struct XYFace
+{
+    unsigned char pad00[0x24];
+    XYShader *shader;
+    unsigned char pad28[0x78 - 0x28];
+    int contents;
+    unsigned char pad7c[0xa8 - 0x7c];
+};
+struct xypatch_t
+{
+    unsigned char pad00[0x10];
+    int type;
+};
+struct brushdef_t
+{
+    unsigned char pad00[8];
+    xyEntity_t *owner;
+    unsigned char pad0c[0x14];
+    float mins[3];
+    float maxs[3];
+    int numFaces;
+    XYFace *faces;
+    unsigned char pad40[4];
+    xypatch_t *patch;
+    bool FUN_0044f530(int mask);
+    bool FUN_0044f560(int mask);
+};
+
+// renderer export table, base 0x59c300; only the slots used here are typed
+struct XYRefExport
+{
+    unsigned char pad000[0x11c];
+    void (*DrawText)(const char *text, int font, const float *origin, const float *right, const float *up, const float *color);
+    unsigned char pad120[0x3c];
+    void (*DrawPoints)(int count, int size, const void *verts);
+    void (*AddLines)(int count, int width, const void *verts);
+    void (*DrawTris)(void *material, int a, int indexCount, const unsigned short *indices, int vertCount,
+                     float (*xyzw)[4], float (*normal)[3], const unsigned int *colors, float (*st)[2]);
+    void (*ColorToBytes)(const float *color, unsigned int *out);
+};
+extern XYRefExport re;
+
+struct XYVert
+{
+    float xyz[3];
+    unsigned color;
+};
+extern float region_mins[3];
+extern float region_maxs[3];
+extern float g_colors[32][4];
+extern signed char byte_01129890;
+extern int dword_011298c4;
+extern void *dword_011298c8;
+bool FUN_00453410(const float *a, const float *b);
+
+static int XYAddLine(XYVert *verts, int n, int d1, int d2, int d3, float x0, float y0, float x1, float y1, float z, unsigned color)
+{
+    verts[n].xyz[d1] = x0;
+    verts[n].xyz[d2] = y0;
+    verts[n].xyz[d3] = z;
+    verts[n].color = color;
+    verts[n + 1].xyz[d1] = x1;
+    verts[n + 1].xyz[d2] = y1;
+    verts[n + 1].xyz[d3] = z;
+    verts[n + 1].color = color;
+    return n + 2;
+}
+
+// 0x0044d7e0: coordinate grid with minor/major lines and labels
+void CXYWnd::XY_DrawGrid()
+{
+    XYVert verts[1024];
+    char text[32];
+    unsigned color;
+    float x, y;
+
+    int nDim1 = (m_nViewType == YZ) ? 1 : 0;
+    int nDim2 = (m_nViewType == XY) ? 1 : 2;
+    int nDim3 = 3 - nDim1 - nDim2;
+    float w = (float)(m_nWidth / 2) / m_fScale;
+    float h = (float)(m_nHeight / 2) / m_fScale;
+
+    float xb = m_vOrigin[nDim1] - w;
+    if (!(xb >= region_mins[nDim1]))
+        xb = region_mins[nDim1];
+    xb = (float)floor(xb / 64.0f) * 64.0f;
+    float xe = w + m_vOrigin[nDim1];
+    if (!(xe <= region_maxs[nDim1]))
+        xe = region_maxs[nDim1];
+    xe = (float)ceil(xe / 64.0f) * 64.0f;
+    float yb = m_vOrigin[nDim2] - h;
+    if (!(yb >= region_mins[nDim2]))
+        yb = region_mins[nDim2];
+    yb = (float)floor(yb / 64.0f) * 64.0f;
+    float ye = h + m_vOrigin[nDim2];
+    if (!(ye <= region_maxs[nDim2]))
+        ye = region_maxs[nDim2];
+    ye = (float)ceil(ye / 64.0f) * 64.0f;
+
+    int step = (int)(6.4 / m_fScale);
+    if (step >= 64)
+    {
+        int s = 1;
+        do
+            s <<= 1;
+        while (s < step);
+        step = s;
+    }
+    else
+        step = 64;
+
+    if (g_qeglobals.d_showgrid)
+    {
+        int n = 0;
+        if (!(m_fScale <= 0.1f) && !((float)g_qeglobals.d_gridsize * m_fScale < 4.0f) && !FUN_00453410(g_colors[1], g_colors[2]))
+        {
+            re.ColorToBytes(g_colors[2], &color);
+            for (x = xb; x < xe; x += (float)g_qeglobals.d_gridsize)
+                if (((int)x & 63) != 0)
+                    n = XYAddLine(verts, n, nDim1, nDim2, nDim3, x, yb, x, ye, -131072.0f, color);
+            for (y = yb; y < ye; y += (float)g_qeglobals.d_gridsize)
+                if (((int)y & 63) != 0)
+                    n = XYAddLine(verts, n, nDim1, nDim2, nDim3, xb, y, xe, y, -131072.0f, color);
+        }
+        re.ColorToBytes(g_colors[3], &color);
+        if (!(xb > xe))
+            for (x = xb; x <= xe; x += (float)step)
+                n = XYAddLine(verts, n, nDim1, nDim2, nDim3, x, yb, x, ye, -131072.0f, color);
+        if (!(yb > ye))
+            for (y = yb; y <= ye; y += (float)step)
+                n = XYAddLine(verts, n, nDim1, nDim2, nDim3, xb, y, xe, y, -131072.0f, color);
+        re.AddLines(n / 2, 1, verts);
+    }
+
+    if (byte_01129890 < 0)
+        return;
+
+    float right[3] = {0, 0, 0};
+    float up[3] = {0, 0, 0};
+    float pos[3], pos2[3];
+    up[nDim2] = -1.0f / m_fScale;
+    right[nDim1] = -1.0f / m_fScale;
+    pos[nDim2] = h + m_vOrigin[nDim2] - 1.0f / m_fScale;
+    pos[nDim3] = 0;
+    for (x = xb; x < xe; x += (float)step)
+    {
+        sprintf(text, "%.0f", x);
+        pos[nDim1] = x;
+        float ox = (m_nWidth & 1) ? 0.0f : (float)(0.5 / m_fScale);
+        float oy = (m_nHeight & 1) ? 0.0f : (float)(0.5 / m_fScale);
+        pos2[nDim1] = ox + x;
+        pos2[nDim2] = oy + pos[nDim2];
+        pos2[nDim3] = pos[nDim3];
+        re.DrawText(text, dword_011298c4, pos2, right, up, g_colors[8]);
+    }
+
+    right[0] = 0;
+    right[1] = 0;
+    right[2] = 0;
+    up[0] = 0;
+    up[1] = 0;
+    up[2] = 0;
+    right[nDim1] = 1.0f / m_fScale;
+    up[nDim2] = -1.0f / m_fScale;
+    pos[nDim1] = m_vOrigin[nDim1] - w + 1.0f / m_fScale;
+    pos[nDim3] = 0;
+    for (y = yb; y < ye; y += (float)step)
+    {
+        sprintf(text, "%.0f", y);
+        pos[nDim2] = 1.0f / m_fScale + y;
+        float ox = (m_nWidth & 1) ? 0.0f : (float)(0.5 / m_fScale);
+        float oy = (m_nHeight & 1) ? 0.0f : (float)(0.5 / m_fScale);
+        pos2[nDim1] = ox + pos[nDim1];
+        pos2[nDim2] = pos[nDim2] + oy;
+        pos2[nDim3] = pos[nDim3];
+        re.DrawText(text, dword_011298c4, pos2, right, up, g_colors[8]);
+    }
+
+    const char *name = "XY Top";
+    if (m_nViewType != XY)
+    {
+        name = "XZ Front";
+        if (m_nViewType != XZ)
+            name = "YZ Side";
+    }
+    pos[nDim1] = m_vOrigin[nDim1] - w + 35.0f / m_fScale;
+    pos[nDim2] = h + m_vOrigin[nDim2] - 20.0f / m_fScale;
+    float ox = (m_nWidth & 1) ? 0.0f : (float)(0.5 / m_fScale);
+    float oy = (m_nHeight & 1) ? 0.0f : (float)(0.5 / m_fScale);
+    pos2[nDim1] = ox + pos[nDim1];
+    pos2[nDim2] = pos[nDim2] + oy;
+    pos2[nDim3] = pos[nDim3];
+    re.DrawText(name, dword_011298c4, pos2, right, up, g_colors[m_bActive ? 13 : 8]);
+}
+
+// 0x0044e4b0: 1024-unit block grid with "%i,%i" block labels (Q3 XY_DrawBlockGrid)
+void CXYWnd::XY_DrawBlockGrid()
+{
+    XYVert verts[1024];
+    char text[32];
+    unsigned color;
+    float x, y;
+
+    int nDim1 = (m_nViewType == YZ) ? 1 : 0;
+    int nDim2 = (m_nViewType == XY) ? 1 : 2;
+    int nDim3 = 3 - nDim1 - nDim2;
+    int w = (int)((float)m_nWidth * (0.5f / m_fScale));
+    int h = (int)((float)m_nHeight * (0.5f / m_fScale));
+
+    float xb = m_vOrigin[nDim1] - (float)w;
+    if (!(xb >= region_mins[nDim1]))
+        xb = region_mins[nDim1];
+    xb = (float)floor(xb / 1024.0f) * 1024.0f;
+    float xe = (float)w + m_vOrigin[nDim1];
+    if (!(xe <= region_maxs[nDim1]))
+        xe = region_maxs[nDim1];
+    xe = (float)ceil(xe / 1024.0f) * 1024.0f;
+    float yb = m_vOrigin[nDim2] - (float)h;
+    if (!(yb >= region_mins[nDim2]))
+        yb = region_mins[nDim2];
+    yb = (float)floor(yb / 1024.0f) * 1024.0f;
+    float ye = (float)h + m_vOrigin[nDim2];
+    if (!(ye <= region_maxs[nDim2]))
+        ye = region_maxs[nDim2];
+    ye = (float)ceil(ye / 1024.0f) * 1024.0f;
+
+    re.ColorToBytes(g_colors[7], &color);
+    int n = 0;
+    if (xb < xe)
+        for (x = xb; x <= xe; x += 1024.0f)
+            n = XYAddLine(verts, n, nDim1, nDim2, nDim3, x, yb, x, ye, 131072.0f, color);
+    if (yb < ye)
+        for (y = yb; y <= ye; y += 1024.0f)
+            n = XYAddLine(verts, n, nDim1, nDim2, nDim3, xb, y, xe, y, 131072.0f, color);
+    if (n)
+        re.AddLines(n / 2, 2, verts);
+
+    float right[3] = {0, 0, 0};
+    float up[3] = {0, 0, 0};
+    float pos[3], pos2[3];
+    right[nDim1] = 1.0f / m_fScale;
+    up[nDim2] = -1.0f / m_fScale;
+    for (x = xb; x < xe; x += 1024.0f)
+    {
+        for (y = yb; y < ye; y += 1024.0f)
+        {
+            int ybi = (int)(y / 1024.0f - 0.4999999990686774);
+            int xbi = (int)(x / 1024.0f - 0.4999999990686774);
+            sprintf(text, "%i,%i", xbi, ybi);
+            pos[nDim1] = x + 512.0f;
+            pos[nDim2] = y + 512.0f;
+            pos[nDim3] = 131072.0f;
+            float ox = (m_nWidth & 1) ? 0.0f : (float)(0.5 / m_fScale);
+            float oy = (m_nHeight & 1) ? 0.0f : (float)(0.5 / m_fScale);
+            pos2[nDim1] = ox + pos[nDim1];
+            pos2[nDim2] = oy + pos[nDim2];
+            pos2[nDim3] = 131072.0f;
+            re.DrawText(text, dword_011298c4, pos2, right, up, g_colors[7]);
+        }
+    }
+}
+
+extern float g_vRotateOrigin[3];
+extern float color_0053dc94[4];
+
+static void XYDrawQuad(const float *c, const float *a, const float *b, unsigned color)
+{
+    float xyzw[4][4];
+    float normal[4][3];
+    float st[4][2];
+    unsigned colors[4];
+    unsigned short indices[6] = {1, 0, 2, 2, 0, 3};
+    xyzw[0][0] = c[0] - b[0] - 0.0f;
+    xyzw[0][1] = c[1] - b[1] - a[0];
+    xyzw[0][2] = c[2] - 0.0f - a[1];
+    xyzw[1][0] = c[0] + b[0] - 0.0f;
+    xyzw[1][1] = c[1] + b[1] - a[0];
+    xyzw[1][2] = c[2] + 0.0f - a[1];
+    xyzw[2][0] = c[0] + b[0] + 0.0f;
+    xyzw[2][1] = c[1] + b[1] + a[0];
+    xyzw[2][2] = c[2] + 0.0f + a[1];
+    xyzw[3][0] = c[0] - b[0] + 0.0f;
+    xyzw[3][1] = c[1] - b[1] + a[0];
+    xyzw[3][2] = c[2] + 0.0f + a[1];
+    for (int i = 0; i < 4; i++)
+    {
+        xyzw[i][3] = 1.0f;
+        normal[i][0] = 0;
+        normal[i][1] = 0;
+        normal[i][2] = 1.0f;
+        st[i][0] = 0;
+        st[i][1] = 0;
+        colors[i] = color;
+    }
+    re.DrawTris(dword_011298c8, 3, 6, indices, 4, xyzw, normal, colors, st);
+}
+
+// 0x0044eb10: small quad and point at the rotate origin
+void CXYWnd::DrawRotateIcon()
+{
+    float fillColor[4] = {0.8f, 0.1f, 0.9f, 0.25f};
+    float pointColor[4] = {1.0f, 0.2f, 1.0f, 1.0f};
+    float c[3], a[2], b[2];
+    unsigned color;
+    XYVert point;
+
+    if (m_nViewType != XY)
+    {
+        a[0] = 0;
+        if (m_nViewType != YZ)
+        {
+            c[2] = g_vRotateOrigin[2];
+            c[0] = g_vRotateOrigin[0];
+            c[1] = 131072.0f;
+            a[1] = 4.0f;
+            b[0] = 4.0f;
+            b[1] = 0;
+        }
+        else
+        {
+            c[1] = g_vRotateOrigin[1];
+            c[0] = 131072.0f;
+            c[2] = g_vRotateOrigin[2];
+            a[1] = 4.0f;
+            b[0] = 0;
+            b[1] = 4.0f;
+        }
+    }
+    else
+    {
+        c[0] = g_vRotateOrigin[0];
+        c[1] = g_vRotateOrigin[1];
+        c[2] = 131072.0f;
+        a[0] = 4.0f;
+        a[1] = 0;
+        b[0] = 4.0f;
+        b[1] = 0;
+    }
+    re.ColorToBytes(fillColor, &color);
+    XYDrawQuad(c, a, b, color);
+    point.xyz[0] = c[0];
+    point.xyz[1] = c[1];
+    point.xyz[2] = c[2];
+    re.ColorToBytes(pointColor, &point.color);
+    re.DrawPoints(1, 1, &point);
+}
+
+// 0x0044eea0: camera position marker with view direction
+void CXYWnd::DrawCameraIcon()
+{
+    XYVert verts[14];
+    unsigned color;
+    int d1, d2;
+    float angle;
+    CCamWnd *cam = reinterpret_cast<CMainFrameCamProjection *>(g_pParentWnd)->m_pCamWnd;
+
+    if (m_nViewType != XY)
+    {
+        angle = cam->m_Camera.angles[0];
+        d1 = (m_nViewType == YZ) ? 1 : 0;
+        d2 = 2;
+    }
+    else
+    {
+        angle = cam->m_Camera.angles[1];
+        d1 = 0;
+        d2 = 1;
+    }
+    float p[3];
+    p[0] = cam->m_Camera.origin[0];
+    p[1] = cam->m_Camera.origin[1];
+    p[2] = cam->m_Camera.origin[2];
+    float a = (angle + 45.0f) * 0.017453292f;
+    p[3 - d1 - d2] = 131072.0f;
+    float s = sin(a);
+    float cs = cos(a);
+
+    for (int i = 0; i < 14; i++)
+    {
+        verts[i].xyz[0] = p[0];
+        verts[i].xyz[1] = p[1];
+        verts[i].xyz[2] = p[2];
+    }
+    verts[0].xyz[d1] -= 16.0f;
+    verts[1].xyz[d2] += 8.0f;
+    verts[2] = verts[1];
+    verts[3].xyz[d1] += 16.0f;
+    verts[4] = verts[3];
+    verts[5].xyz[d2] -= 8.0f;
+    verts[6] = verts[5];
+    verts[7].xyz[d1] -= 16.0f;
+    verts[8] = verts[7];
+    verts[9] = verts[3];
+    verts[10].xyz[d1] += cs * 48.0f;
+    verts[10].xyz[d2] += s * 48.0f;
+    verts[12].xyz[d1] += s * 48.0f;
+    verts[12].xyz[d2] -= cs * 48.0f;
+    re.ColorToBytes(color_0053dc94, &color);
+    for (int i = 0; i < 14; i++)
+        verts[i].color = color;
+    re.AddLines(7, 1, verts);
+}
+
+// 0x0044f1a0: Z view marker at the z window position (XY view only)
+void CXYWnd::DrawZIcon()
+{
+    if (m_nViewType != XY)
+        return;
+    float x = dword_01139e54[0];
+    float y = dword_01139e54[1];
+    unsigned color;
+    float c[3] = {x, y, 131072.0f};
+    float a[2] = {8.0f, 8.0f};
+    float b[2] = {8.0f, 8.0f};
+    XYVert verts[14];
+
+    re.ColorToBytes(color_0053dc94, &color);
+    XYDrawQuad(c, a, b, color);
+    float xn = x - 8.0f, xp = x + 8.0f, yn = y - 8.0f, yp = y + 8.0f;
+    int n = 0;
+    n = XYAddLine(verts, n, 0, 1, 2, xn, yn, xp, yn, 131072.0f, color);
+    n = XYAddLine(verts, n, 0, 1, 2, xp, yn, xp, yp, 131072.0f, color);
+    n = XYAddLine(verts, n, 0, 1, 2, xp, yp, xn, yp, 131072.0f, color);
+    n = XYAddLine(verts, n, 0, 1, 2, xn, yp, xn, yn, 131072.0f, color);
+    xn = x - 4.0f;
+    xp = x + 4.0f;
+    yn = y - 4.0f;
+    yp = y + 4.0f;
+    n = XYAddLine(verts, n, 0, 1, 2, xn, yp, xp, yp, 131072.0f, color);
+    n = XYAddLine(verts, n, 0, 1, 2, xp, yp, xn, yn, 131072.0f, color);
+    n = XYAddLine(verts, n, 0, 1, 2, xn, yn, xp, yn, 131072.0f, color);
+    re.AddLines(7, 1, verts);
+}
+
+// 0x0044f530: every face has a surface flag in the mask (flag word at +0x20)
+bool brushdef_t::FUN_0044f530(int mask)
+{
+    for (int i = 0; i < numFaces; i++)
+    {
+        if (!(faces[i].shader->flags20 & mask))
+            return false;
+    }
+    return true;
+}
+
+// 0x0044f560: any face has a content flag in the mask
+bool brushdef_t::FUN_0044f560(int mask)
+{
+    for (int i = 0; i < numFaces; i++)
+    {
+        if (faces[i].shader->contents & mask)
+            return true;
+    }
+    return false;
+}
+
+// 0x0044f590: any face has a surface flag byte in the mask
+bool FUN_0044f590(brushdef_t *b, int flag)
+{
+    for (int i = 0; i < b->numFaces; i++)
+    {
+        if (b->faces[i].shader->flagsByte9 & flag)
+            return true;
+    }
+    return false;
+}
+
 bool FUN_0044f630(brushdef_t *b);
 
 #line 2572
@@ -1450,10 +1997,364 @@ bool FUN_0044f5d0(brush_t *b)
     return FUN_0044f630(b->def);
 }
 
+extern int g_filterFlags;
+extern int g_filterFlags2;
+extern entityInst_t *g_pWorldEntity;
+bool FUN_00465d80(xyEntity_t *e, const char *key);
+extern int dword_01128d90;
+extern int dword_01244d74;
+extern CString g_strFilter;
+struct xyEntity_t;
+const char *FUN_00464bb0(void *epairs, const char *key);
+bool FUN_00465e10(xyEntity_t *e, const char *key, const char *value);
+void I_strncpyz(char *dst, const char *src, int size);
+
+static bool AllFacesNameContain(brushdef_t *d, const char *s)
+{
+    int i = 0;
+    while (i < d->numFaces && strstr(d->faces[i].shader->name, s))
+        i++;
+    return i == d->numFaces;
+}
+
+// 0x0044f630: true when the brush is hidden by the view filters
+bool FUN_0044f630(brushdef_t *b)
+{
+    char buf[1024];
+    char token[1024];
+#line 2589
+    assert(b);
+    if (!b->owner)
+        return true;
+    if (dword_01128d90 == 1 && !b->owner->eclass->field_08 && !FUN_0044f590(b, 2))
+        return true;
+    const char *name = b->faces[0].shader->name;
+    int i;
+    if (g_filterFlags & 0x2000)
+    {
+        for (i = 0; i < b->numFaces; i++)
+        {
+            if (!strstr(b->faces[i].shader->name, "caulk") && !strstr(b->faces[i].shader->name, "nodraw_decal"))
+                break;
+        }
+        if (i == b->numFaces)
+            return true;
+    }
+    if (g_filterFlags & 0x8000000)
+    {
+        bool all = true;
+        for (i = 0; i < b->numFaces; i++)
+        {
+            if (!(b->faces[i].shader->flags20 & 0x800))
+            {
+                all = false;
+                break;
+            }
+        }
+        if (all)
+            return true;
+    }
+    if (g_filterFlags < 0)
+    {
+        bool all = true;
+        for (i = 0; i < b->numFaces; i++)
+        {
+            if (!(b->faces[i].shader->flags20 & 0x1000000))
+            {
+                all = false;
+                break;
+            }
+        }
+        if (all)
+            return true;
+    }
+    if (g_filterFlags2 & 0x200)
+    {
+        for (i = 0; i < b->numFaces; i++)
+        {
+            if (!strstr(b->faces[i].shader->name, "bcs"))
+                break;
+        }
+        if (i == b->numFaces)
+            return true;
+        if (FUN_00465e10(b->owner, "targetname", "trigger_location"))
+            return true;
+        if (FUN_00465e10(b->owner, "targetname", "trigger_landmark"))
+            return true;
+    }
+    if (g_filterFlags2 & 0x800)
+    {
+        for (i = 0; i < b->numFaces; i++)
+        {
+            if (!strstr(b->faces[i].shader->name, "escort"))
+                break;
+        }
+        if (i == b->numFaces)
+            return true;
+        if (FUN_00465e10(b->owner, "targetname", "escortchain"))
+            return true;
+    }
+    if (g_filterFlags2 & 0x1000)
+    {
+        for (i = 0; i < b->numFaces; i++)
+        {
+            if (!strstr(b->faces[i].shader->name, "kill"))
+                break;
+        }
+        if (i == b->numFaces)
+            return true;
+    }
+    if (g_filterFlags2 & 0x2000)
+    {
+        for (i = 0; i < b->numFaces; i++)
+        {
+            if (!strstr(b->faces[i].shader->name, "spawner_trigger"))
+                break;
+        }
+        if (i == b->numFaces)
+            return true;
+        if (FUN_00465e10(b->owner, "targetname", "flood_and_secure"))
+            return true;
+        if (FUN_00465e10(b->owner, "targetname", "flood_spawner"))
+            return true;
+    }
+    if (g_filterFlags2 & 0x4000)
+    {
+        for (i = 0; i < b->numFaces; i++)
+        {
+            if (!strstr(b->faces[i].shader->name, "stopspawn"))
+                break;
+        }
+        if (i == b->numFaces)
+            return true;
+        if (FUN_00465e10(b->owner, "targetname", "friendly_spawn"))
+            return true;
+    }
+    if (g_filterFlags2 & 0x8000)
+    {
+        for (i = 0; i < b->numFaces; i++)
+        {
+            if (!strstr(b->faces[i].shader->name, "aitrig"))
+                break;
+        }
+        if (i == b->numFaces)
+            return true;
+        if (FUN_00465e10(b->owner, "classname", "trigger_friendlychain"))
+            return true;
+    }
+    if (g_filterFlags2 & 0x10000)
+    {
+        for (i = 0; i < b->numFaces; i++)
+        {
+            if (!strstr(b->faces[i].shader->name, "ambient"))
+                break;
+        }
+        if (i == b->numFaces)
+            return true;
+        if (FUN_00465e10(b->owner, "targetname", "ambient"))
+            return true;
+        if (FUN_00465e10(b->owner, "targetname", "ambient_volume"))
+            return true;
+    }
+    if (g_filterFlags & 0x1000)
+    {
+        if (strstr(name, "hint") || strstr(name, "skip"))
+            return true;
+    }
+    if (g_filterFlags2 & 0x100)
+    {
+        if (strstr(name, "goal_volume"))
+            return true;
+    }
+    if (g_filterFlags2 & 8)
+    {
+        for (i = 0; i < b->numFaces; i++)
+        {
+            if (b->faces[i].shader->flags10 & dword_01244d74)
+                return true;
+        }
+        if (strstr(name, "decal"))
+            return true;
+    }
+    if (g_filterFlags2 & 0x400)
+    {
+        for (i = 0; i < b->numFaces; i++)
+        {
+            if (b->faces[i].shader->flags10 & dword_01244d74)
+                return false;
+            if (strstr(b->faces[i].shader->name, "decal"))
+                return false;
+        }
+        return true;
+    }
+    if (g_filterFlags & 0x20)
+    {
+        if (strstr(name, "clip"))
+            return true;
+    }
+    if (g_filterFlags & 8)
+    {
+        for (i = 0; i < b->numFaces; i++)
+        {
+            if (b->faces[i].shader->flags20 & 0x20)
+                return true;
+            if ((b->faces[i].shader->contents & 0x1f00000) == 0x1400000)
+                return true;
+        }
+    }
+    if (g_filterFlags & 0x40)
+    {
+        if ((b->faces[0].contents & 0x8002084) == 0x8000000)
+            return true;
+    }
+    if (g_filterFlags & 0x2000000)
+    {
+        if (b->faces[0].contents & 0x2080)
+            return true;
+    }
+    if (g_filterFlags2 & 0x10)
+    {
+        if ((b->faces[0].contents & 0x8000004) == 0x8000004)
+            return true;
+    }
+    if (g_filterFlags & 0x20000000)
+    {
+        if (b->owner == g_pWorldEntity->def || !strncmp(b->owner->eclass->name, "func_group", 10))
+        {
+            if (b->faces[0].contents & 0x28000000)
+                return true;
+        }
+    }
+    if (g_filterFlags & 0x80)
+    {
+        if (b->patch && b->patch->type != 0x40)
+            return true;
+    }
+    if (g_filterFlags & 0x8000)
+    {
+        if (b->patch && b->patch->type == 0x40)
+            return true;
+    }
+    if (g_filterFlags & 0x10000000)
+    {
+        if (b->faces[0].shader->flags20 & 0x20000000)
+            return true;
+    }
+    if (g_filterFlags2 & 2)
+    {
+        if (b->FUN_0044f560(0x80000000))
+            return true;
+    }
+    if (b->owner == g_pWorldEntity->def || !strcmp(b->owner->eclass->name, "func_group"))
+    {
+        if ((g_filterFlags & 0x10) && !(b->faces[0].contents & 0x8000000) && !b->patch && !strstr(name, "portal"))
+            return true;
+        return false;
+    }
+    if (g_filterFlags & 2)
+    {
+        if (strcmp(b->owner->eclass->name, "func_group") && strcmp(b->owner->eclass->name, "light"))
+            return true;
+    }
+    if (g_filterFlags & 0x40000000)
+    {
+        if (strcmp(b->owner->eclass->name, "func_group") && strcmp(b->owner->eclass->name, "misc_model") && strcmp(b->owner->eclass->name, "misc_prefab"))
+        {
+            if (b->owner->modelClass || b->owner->eclass->modelName || FUN_00465d80(b->owner, "model"))
+                return true;
+        }
+    }
+    if (g_filterFlags & 0x10000)
+    {
+        if (!strncmp(b->owner->eclass->name, "ammo", 4) || !strncmp(b->owner->eclass->name, "item", 4))
+            return true;
+    }
+    if (g_filterFlags & 0x40000)
+    {
+        if (!strncmp(b->owner->eclass->name, "info", 4))
+            return true;
+    }
+    if (g_filterFlags & 0x80000)
+    {
+        if (!strcmp(b->owner->eclass->name, "misc_model"))
+            return true;
+    }
+    if (g_filterFlags & 0x100000)
+    {
+        if (!strncmp(b->owner->eclass->name, "weapon", 6))
+            return true;
+    }
+    if (g_filterFlags & 0x200000)
+    {
+        if (!strncmp(b->owner->eclass->name, "func", 4))
+            return true;
+    }
+    if (g_filterFlags & 0x800000)
+    {
+        if (!strncmp(b->owner->eclass->name, "trigger", 7))
+            return true;
+    }
+    if (g_filterFlags & 0x20000)
+    {
+        if (!strncmp(b->owner->eclass->name, "ai", 2) || !strncmp(b->owner->eclass->name, "actor", 5))
+            return true;
+    }
+    if (g_filterFlags & 0x1000000)
+    {
+        if (!strncmp(b->owner->eclass->name, "misc", 4))
+            return true;
+    }
+    if (g_filterFlags2 & 4)
+    {
+        if ((b->owner->eclass->flags & 0x20) && strcmp(b->owner->eclass->name, "node_pathnode"))
+            return true;
+    }
+    if (g_filterFlags2 & 1)
+    {
+        if (!strcmp(b->owner->eclass->name, "node_pathnode"))
+            return true;
+    }
+    const char *src = g_strFilter;
+    char *dst = buf;
+    while ((*dst++ = *src++))
+        ;
+    if (g_strFilter.GetLength() > 0)
+    {
+        char *tok = strtok(buf, ",;");
+        while (tok)
+        {
+            while (*tok == ' ')
+                tok++;
+            if (!strstr(tok, ":"))
+            {
+                if (strstr(b->owner->eclass->name, tok))
+                    return true;
+            }
+            else
+            {
+                I_strncpyz(token, tok, sizeof(token));
+                char *colon = strstr(token, ":");
+                if (colon)
+                {
+                    *colon++ = 0;
+                    if (FUN_00465e10(b->owner, token, colon))
+                        return true;
+                }
+            }
+            tok = strtok(NULL, ",;");
+        }
+    }
+    if (g_filterFlags & 1)
+    {
+        if (!strncmp(b->owner->eclass->name, "light", 5))
+            return b->owner->eclass->flags & 1;
+    }
+    if (g_filterFlags & 4)
+        return (b->owner->eclass->flags >> 2) & 1;
+    return false;
+}
+
 // views of the editor structs this routine reads (offsets from retail accesses)
-struct xyEclass_t { unsigned char pad00[4]; char *name; unsigned char pad08[0x1c]; float color[4]; };
-struct xyEntity_t { unsigned char pad00[0x50]; xyEclass_t *eclass; };
-struct entityInst_t { unsigned char pad00[8]; xyEntity_t *def; };
 struct xyFace_t { unsigned char pad00[0x78]; int contents; };
 struct xyBrushdef_t { unsigned char pad00[0x3c]; xyFace_t *faces; unsigned char pad40; unsigned char field_41; };
 extern float color_01129798[4];
@@ -1466,6 +2367,432 @@ extern float color_01129858[4];
 extern float color_01129868[4];
 extern void (*FUN_0059c468)(const float *inColor, unsigned int *outColor);
 bool FUN_0045d090(const brushdef_t *b, float *color, const float *defaultColor);
+
+struct GfxPointVertex { float xyz[3]; unsigned char color[4]; };
+int R_Add3DLine(GfxPointVertex *verts, const float *p1, const float *p2, const void *color, int width, int vertCount, int maxVertCount);
+float Vec3Normalize(float *v);
+extern entityInst_t entities;
+int FUN_0046d710(int *out, const char *s);
+
+static void BrushCenter(const brush_t *b, float *c)
+{
+    const float *m = (const float *)((const char *)b->def + 0x20);
+    c[0] = (m[0] + m[3]) * 0.5f;
+    c[1] = (m[1] + m[4]) * 0.5f;
+    c[2] = (m[2] + m[5]) * 0.5f;
+}
+
+static void EntityColor(entityInst_t *e, brush_t *b, unsigned *out)
+{
+    float color[4];
+    const float *c = e->def->eclass->color;
+    color[0] = c[0];
+    color[1] = c[1];
+    color[2] = c[2];
+    color[3] = 1.0f;
+    FUN_0045d090(b->def, color, color);
+    (*FUN_0059c468)(color, out);
+}
+
+// 0x004501f0: draws arrows from every entity to the entities its "target" names
+void ConnectEntitiesByTargetname(void)
+{
+    const char *names[0x8000];
+    entityInst_t *named[0x8000];
+    GfxPointVertex verts[0x552];
+    unsigned color;
+    int count = 0;
+    int n = 0;
+    int numLines = 0;
+
+    if (*(unsigned char *)0x1129888 & 4)
+        return;
+    for (entityInst_t *e = (entityInst_t *)entities.next; e != &entities && n != 0x8000; e = (entityInst_t *)e->next)
+    {
+        const char *name = FUN_00464bb0((char *)e->def + 100, "targetname");
+        names[n] = name;
+        if (*name && e->brushes.onext != &e->brushes)
+            named[n++] = e;
+    }
+    count = n;
+    for (entityInst_t *e = (entityInst_t *)entities.next; e != &entities; e = (entityInst_t *)e->next)
+    {
+        const char *target = FUN_00464bb0((char *)e->def + 100, "target");
+#line 3091
+        assert(target);
+        if (!*target)
+            continue;
+        brush_t *b = e->brushes.onext;
+        if (b == &e->brushes)
+            continue;
+        if (FUN_0044f5d0(b))
+            continue;
+        bool found = false;
+        for (int i = 0; i < count; i++)
+        {
+            if (strcmp(names[i], target))
+                continue;
+            entityInst_t *te = named[i];
+            brush_t *tb = te->brushes.onext;
+            found = true;
+            if (FUN_0044f5d0(tb))
+                continue;
+            float a[3], c[3], d[3], arrow[6];
+            BrushCenter(b, c);
+            BrushCenter(tb, a);
+            d[0] = c[0] - a[0];
+            d[1] = c[1] - a[1];
+            d[2] = c[2] - a[2];
+            float len = Vec3Normalize(d);
+            float px = d[0] * 8.0f;
+            float py = d[1] * 8.0f;
+            arrow[0] = px - py;
+            arrow[1] = px + py;
+            arrow[3] = px + py;
+            arrow[4] = py - px;
+#line 3124
+            assert(tb->owner && tb->owner == te);
+            EntityColor(te, tb, &color);
+            numLines = R_Add3DLine(verts, a, c, &color, 1, numLines, 0x552);
+            int steps = 1 - (int)(len / -256.0f);
+            for (int s = 0; s < steps; s++)
+            {
+                float t = ((float)s + 0.5f) * len / (float)steps;
+                float m[3], w[3];
+                m[0] = t * d[0] + a[0];
+                m[1] = t * d[1] + a[1];
+                m[2] = d[2] * t + a[2];
+                w[0] = m[0] + arrow[0];
+                w[1] = m[1] + arrow[1];
+                w[2] = m[2];
+                float v[3] = { m[0] + arrow[3], m[1] + arrow[4], m[2] };
+                numLines = R_Add3DLine(verts, m, w, &color, 1, numLines, 0x552);
+                numLines = R_Add3DLine(verts, m, v, &color, 1, numLines, 0x552);
+            }
+        }
+        if (!found)
+        {
+            float a[3], c[3];
+            BrushCenter(b, a);
+            for (int i = 0; i < 3; i++)
+                c[i] = (float)rand() / 32768.0f * 150.0f + a[i] - 75.0f;
+            float col[4];
+            col[0] = (float)rand() / 32768.0f;
+            col[1] = (float)rand() / 32768.0f;
+            col[2] = (float)rand() / 32768.0f;
+            col[3] = 1.0f;
+            (*FUN_0059c468)(col, &color);
+            numLines = R_Add3DLine(verts, a, c, &color, 1, numLines, 0x552);
+        }
+    }
+    if (numLines)
+        (*(void (**)(int, int, GfxPointVertex *))0x59c460)(numLines / 2, 1, verts);
+}
+
+// 0x004509a0: draws arrows from every entity to the entities its "script_linkTo" names
+void ConnectEntitiesByScriptLinkName(void)
+{
+    int names[0x8000];
+    entityInst_t *named[0x8000];
+    GfxPointVertex verts[0x552];
+    unsigned color;
+    int linkTo[32];
+    int n = 0;
+    int numLines = 0;
+
+    if (*(unsigned char *)0x1129888 & 4)
+        return;
+    for (entityInst_t *e = (entityInst_t *)entities.next; e != &entities && n != 0x8000; e = (entityInst_t *)e->next)
+    {
+        int id = atol(FUN_00464bb0((char *)e->def + 100, "script_linkName"));
+        names[n] = id;
+        if (id && e->brushes.onext != &e->brushes)
+            named[n++] = e;
+    }
+    for (entityInst_t *e = (entityInst_t *)entities.next; e != &entities; e = (entityInst_t *)e->next)
+    {
+        const char *tokens = FUN_00464bb0((char *)e->def + 100, "script_linkTo");
+#line 3214
+        assert(tokens);
+        if (!*tokens)
+            continue;
+        brush_t *b = e->brushes.onext;
+        if (b == &e->brushes)
+            continue;
+        if (FUN_0044f5d0(b))
+            continue;
+        int numLinks = FUN_0046d710(linkTo, tokens);
+        for (int i = 0; i < n; i++)
+        {
+            int j = 0;
+            while (j < numLinks && linkTo[j] != names[i])
+                j++;
+            if (j >= numLinks)
+                continue;
+            entityInst_t *te = named[i];
+            brush_t *tb = te->brushes.onext;
+            if (FUN_0044f5d0(tb))
+                continue;
+            float from[3], to[3];
+            BrushCenter(b, from);
+            BrushCenter(tb, to);
+#line 3248
+            assert(tb->owner && tb->owner == te);
+            EntityColor(te, tb, &color);
+            numLines = R_Add3DLine(verts, to, from, &color, 1, numLines, 0x552);
+        }
+    }
+    if (numLines)
+        (*(void (**)(int, int, GfxPointVertex *))0x59c460)(numLines / 2, 1, verts);
+}
+
+extern const char *dword_00591bbc[3];
+extern const char *dword_00591bc8;
+extern float g_vecArrow[4];
+extern unsigned char byte_0124a216;
+
+static void XYLabel(CXYWnd *wnd, const char *fmt, float value, int d1, int d2, int d3, const float *at, const float *right, const float *up)
+{
+    char text[64];
+    float pos[3];
+    sprintf(text, fmt, (double)value);
+    pos[d1] = at[d1];
+    pos[d2] = at[d2];
+    pos[d3] = 2048.0f;
+    re.DrawText(text, dword_011298c4, pos, right, up, g_colors[1]);
+}
+
+// 0x00450d90: arrowhead between two points plus the length labels
+void DrawConnectionArrow(int nDim1, int nDim2, CXYWnd *wnd, const float *p1, const float *p2)
+{
+    int nDim3 = 3 - nDim2 - nDim1;
+    float d[3], head[4][3], line[8][3];
+    unsigned color;
+    float right[3], up[3], pos[3];
+    float scale = wnd->m_fScale;
+
+    d[0] = p2[0] - p1[0];
+    d[1] = p2[1] - p1[1];
+    d[2] = p2[2] - p1[2];
+    (*FUN_0059c468)(g_colors[0], &color);
+
+    float w = 6.0f / scale;
+    float h = 10.0f / scale;
+    for (int i = 0; i < 8; i++)
+        line[i][nDim3] = 2048.0f;
+    line[0][nDim2] = p1[nDim2];
+    line[0][nDim1] = p1[nDim1] - w;
+    line[1][nDim2] = p1[nDim2];
+    line[1][nDim1] = p1[nDim1] - h;
+    line[2][nDim2] = p1[nDim2];
+    line[2][nDim1] = p1[nDim1] - h;
+    line[3][nDim2] = p2[nDim2] + w;
+    line[3][nDim1] = p1[nDim1] - h;
+    line[4][nDim2] = p2[nDim2] + w;
+    line[4][nDim1] = p1[nDim1] - w;
+    line[5][nDim2] = p2[nDim2] + h;
+    line[5][nDim1] = p1[nDim1];
+    line[6][nDim2] = p2[nDim2] + h;
+    line[6][nDim1] = p2[nDim1];
+    line[7][nDim2] = p2[nDim2] + w;
+    line[7][nDim1] = p2[nDim1];
+    (void)head;
+    re.AddLines(4, 1, line);
+
+    right[nDim1] = 1.0f / scale;
+    right[nDim2] = 0;
+    right[nDim3] = 0;
+    up[nDim1] = 0;
+    up[nDim2] = -1.0f / scale;
+    up[nDim3] = 0;
+    pos[nDim1] = (p1[nDim1] + p2[nDim1]) * 0.5f;
+    pos[nDim2] = p1[nDim2] - 24.0f / scale;
+    pos[nDim3] = 2048.0f;
+    XYLabel(wnd, dword_00591bbc[nDim1], d[nDim1], nDim1, nDim2, nDim3, pos, right, up);
+    pos[nDim1] = 16.0f / scale + p2[nDim1];
+    pos[nDim2] = (p1[nDim2] + p2[nDim2]) * 0.5f;
+    XYLabel(wnd, dword_00591bbc[nDim2], d[nDim2], nDim1, nDim2, nDim3, pos, right, up);
+    pos[nDim1] = 4.0f / scale + p1[nDim1];
+    pos[nDim2] = 8.0f / scale + p2[nDim2];
+    XYLabel(wnd, dword_00591bc8, p2[nDim2], nDim1, nDim2, nDim3, pos, right, up);
+}
+
+// 0x00451230: circle of lines around a light, in the plane the view shows
+void DrawLightRadiusIcon(const float *center, int width, CXYWnd *wnd, float radius, int segments, unsigned *color)
+{
+    GfxPointVertex verts[0x400];
+    float a[3], b[3], prev[3], cur[3];
+    int n = 0;
+
+    if (wnd->m_nViewType == YZ)
+    {
+        a[0] = 0; a[1] = radius; a[2] = 0;
+        b[0] = 0; b[1] = 0; b[2] = radius;
+    }
+    else if (wnd->m_nViewType == XZ)
+    {
+        a[0] = radius; a[1] = 0; a[2] = 0;
+        b[0] = 0; b[1] = 0; b[2] = radius;
+    }
+    else
+    {
+        a[0] = radius; a[1] = 0; a[2] = 0;
+        b[0] = 0; b[1] = radius; b[2] = 0;
+    }
+    float step = 6.2831855f / (float)segments;
+    float s = sinf(step);
+    float c = cosf(step);
+    float sn = 0;
+    float cs = 1.0f;
+    prev[0] = b[0] + center[0];
+    prev[1] = b[1] + center[1];
+    prev[2] = b[2] + center[2];
+    for (int i = 0; i < segments; i++)
+    {
+        float ns = cs * s + sn * c;
+        cs = cs * c - sn * s;
+        sn = ns;
+        cur[0] = a[0] * sn + center[0] + b[0] * cs;
+        cur[1] = a[1] * sn + center[1] + b[1] * cs;
+        cur[2] = a[2] * sn + center[2] + b[2] * cs;
+        n = R_Add3DLine(verts, prev, cur, color, width, n, 0x400);
+        prev[0] = cur[0];
+        prev[1] = cur[1];
+        prev[2] = cur[2];
+    }
+    if (n)
+        re.AddLines(n / 2, width, verts);
+}
+
+// 0x00451470: light radius circle from the "radius" key
+void DrawLight_Radius(brush_t *b, int width, CXYWnd *wnd, unsigned *color)
+{
+    float center[3];
+    BrushCenter(b, center);
+#line 3412
+    assert(b->owner->def == b->def->owner);
+    atof(FUN_00464bb0((char *)b->owner->def + 100, "light"));
+    float radius = (float)atof(FUN_00464bb0((char *)b->owner->def + 100, "radius"));
+    DrawLightRadiusIcon(center, width, wnd, radius, 32, color);
+}
+
+// 0x00451550: light radius circle in the light's own "_color"
+void DrawLight_Color(brush_t *b, CXYWnd *wnd, int width)
+{
+    float rgb[4] = { 0.2f, 0.5f, 0.35f, 1.0f };
+    unsigned color;
+    float center[3];
+    float r, g, bl;
+    const char *colorString = FUN_00464bb0((char *)b->owner->def + 100, "_color");
+#line 3435
+    assert(colorString);
+    if (sscanf(colorString, "%f %f %f", &r, &g, &bl) == 3)
+    {
+        rgb[0] = r;
+        rgb[1] = g;
+        rgb[2] = bl;
+    }
+    (*FUN_0059c468)(rgb, &color);
+    BrushCenter(b, center);
+#line 3443
+    assert(b->owner->def == b->def->owner);
+    float radius = (float)atof(FUN_00464bb0((char *)b->owner->def + 100, "radius"));
+    if (radius != 0.0f)
+        DrawLightRadiusIcon(center, width, wnd, radius, 32, &color);
+}
+
+// 0x004516e0: box showing the light's extent in the side views
+void DrawLight_Box(const float *center, unsigned *color, int width, CXYWnd *wnd, float radius, float up, float down, int segments)
+{
+    GfxPointVertex verts[8];
+    float pts[6][3];
+    int n = 0;
+#line 3468
+    assert(wnd->m_nViewType == XY || wnd->m_nViewType == XZ || wnd->m_nViewType == YZ);
+    if (wnd->m_nViewType == XY)
+    {
+        DrawLightRadiusIcon(center, width, wnd, radius, segments, color);
+        return;
+    }
+    for (int i = 0; i < 6; i++)
+    {
+        pts[i][0] = center[0];
+        pts[i][1] = center[1];
+        pts[i][2] = center[2];
+    }
+    int d = wnd->m_nViewType != XZ;
+    pts[3][d] -= radius;
+    pts[1][d] += radius;
+    pts[2][d] += radius;
+    pts[0][d] -= radius;
+    pts[5][2] += down;
+    pts[1][2] += down;
+    pts[4][2] += up;
+    pts[0][2] += up;
+    n = R_Add3DLine(verts, pts[0], pts[3], color, width, n, 8);
+    n = R_Add3DLine(verts, pts[2], pts[1], color, width, n, 8);
+    n = R_Add3DLine(verts, pts[4], pts[5], color, width, n, 8);
+    if (n)
+        re.AddLines(n / 2, width, verts);
+}
+
+// 0x00451920: cone light drawn as a box of the "height" key
+void DrawLight_ConeHeight(brush_t *b, CXYWnd *wnd, int segments, int width)
+{
+    float center[3];
+#line 3513
+    assert(b->owner->def == b->def->owner);
+    float radius = (float)atof(FUN_00464bb0((char *)b->owner->def + 100, "radius"));
+    if (radius <= 0.0f)
+        return;
+    xyEntity_t *def = b->owner->def;
+    float height;
+    if ((signed char)((char *)def->eclass)[352] < 0)
+        height = 32.0f;
+    else
+    {
+        height = (float)atof(FUN_00464bb0((char *)def + 100, "height"));
+        if (!(height > 0.0f))
+            height = 80.0f;
+    }
+    const float *org = (const float *)((char *)def + 0x58);
+    center[0] = org[0];
+    center[1] = org[1];
+    center[2] = org[2] + ((float *)def->eclass)[5];
+    unsigned color = 0;
+    DrawLight_Box(center, &color, width, wnd, height, 0.0f, 0.0f, segments);
+}
+
+// 0x00451a40: classname label next to a light in the side views
+void DrawLight_Classname(int nView, brush_t *b, float scale, int color)
+{
+#line 3552
+    assert(nView == XY || nView == XZ || nView == YZ);
+    if ((*(unsigned char *)0x1129890 & 0x20) || !b->owner || b->owner == (entityInst_t *)&entities)
+        return;
+#line 3563
+    assert(b->owner->def == b->def->owner);
+    entityInst_t *e = b->owner;
+    if (b != e->brushes.onext)
+        return;
+#line 3567
+    assert(b->owner->def == b->def->owner);
+    const char *name = FUN_00464bb0((char *)e->def + 100, "classname");
+    float pos[3], right[3], up[3];
+    int d1 = nView == YZ;
+    int d2 = (nView != XY) + 1;
+    int d3 = 3 - d2 - d1;
+    pos[d1] = ((const float *)((char *)b->def + 0x20))[d1] + 4.0f;
+    pos[d2] = ((const float *)((char *)b->def + 0x20))[d2] + 4.0f;
+    pos[d3] = 2048.0f;
+    right[d1] = 1.0f / scale;
+    right[d2] = 0;
+    right[d3] = 0;
+    up[d1] = 0;
+    up[d2] = -1.0f / scale;
+    up[d3] = 0;
+    re.DrawText(name, dword_011298c4, pos, right, up, (const float *)color);
+}
 
 #define Vector4Copy(a, b) ((b)[0] = (a)[0], (b)[1] = (a)[1], (b)[2] = (a)[2], (b)[3] = (a)[3])
 
@@ -1505,6 +2832,198 @@ void FUN_00451c00(brush_t *b, unsigned int *outColor)
     (*FUN_0059c468)(color, outColor);
 }
 
+extern brush_t active_brushes;
+extern unsigned char byte_0109fe64;
+extern int dword_011298b0;
+extern int dword_011298dc, dword_011298e0, dword_011298e4, dword_011298e8;
+extern void *dword_011298ec;
+extern float color_011297a8[4];
+extern float color_011297b8[4];
+extern void (*FUN_0059c394)(const float *);
+extern void (*FUN_0059c3c4)(int, const float *, float, int);
+extern void (*FUN_0059c454)(const float *, const float (*)[3], float);
+extern void (*FUN_0059c478)(void);
+extern void (*FUN_0059c47c)(void);
+extern float g_vSelectionColor[4];
+void FUN_00451e00(CXYWnd *wnd, float *bounds);
+void FUN_0040bff0(void);
+void FUN_0040c210(void);
+void FUN_0040c4a0(const float *quad);
+void FUN_00436690(void);
+void FUN_0045d7f0(brush_t *b, int view, int a, int b2, int c, int d, const unsigned *color, int width, int flag);
+void FUN_0045f7e0(void);
+void FUN_00450d90(int nDim1, int nDim2, CXYWnd *wnd, const float *p1, const float *p2);
+void ExpandBounds(const float addedmins[3], const float addedmaxs[3], float mins[3], float maxs[3]);
+
+// 0x004520d0: paints the whole 2D view
+#line 3855
+void CXYWnd::XY_Draw()
+{
+    if (!active_brushes.next)
+        return;
+    int nDim1 = (m_nViewType == YZ) ? 1 : 0;
+    int nDim2 = (m_nViewType == XY) ? 1 : 2;
+    int nDim3 = 3 - nDim1 - nDim2;
+    float axes[3][3] = {};
+    axes[0][nDim3] = 1.0f;
+    axes[1][nDim1] = -1.0f;
+    axes[2][nDim2] = 1.0f;
+    (*FUN_0059c454)(m_vOrigin, axes, m_fScale);
+    XY_DrawGrid();
+
+    float hw = 0.5f / m_fScale * (float)m_nWidth;
+    float hh = 0.5f / m_fScale * (float)m_nHeight;
+    float vis[4];
+    vis[0] = m_vOrigin[nDim1] - hw;
+    vis[2] = hw + m_vOrigin[nDim1];
+    vis[1] = m_vOrigin[nDim2] - hh;
+    vis[3] = hh + m_vOrigin[nDim2];
+    FUN_00451e00(this, vis);
+
+    int *frame = (int *)dword_01233b64;
+    int lineWidthA = frame[160] ? 3 : 30;
+    int lineWidthB = frame[161] ? 3 : 30;
+    (*FUN_0059c478)();
+    for (brush_t *b = active_brushes.next; b != &active_brushes; b = b->next)
+    {
+        const float *mn = (const float *)((char *)b->def + 0x20);
+        if (mn[nDim1] > vis[2] || mn[nDim2] > vis[3])
+            continue;
+        if (FUN_0044f5d0(b))
+            continue;
+        unsigned color[4];
+        FUN_00451c00(b, color);
+        FUN_0045d7f0(b, m_nViewType, lineWidthA, 30, lineWidthB, 30, color, 1, 0);
+        DrawLight_Classname(m_nViewType, b, m_fScale, (int)g_colors[2]);
+    }
+    FUN_0040bff0();
+    (*FUN_0059c47c)();
+    if (!(*(unsigned char *)0x1129890 & 0x40))
+        XY_DrawBlockGrid();
+
+    float col[4];
+    if (!g_bRotateMode)
+    {
+        if (!byte_0109fe64)
+        {
+            col[0] = color_011297a8[0];
+            col[1] = color_011297a8[1];
+            col[2] = color_011297a8[3];
+            col[3] = color_011297a8[2];
+        }
+        else
+        {
+            col[0] = 0.1f;
+            col[1] = 0.8f;
+            col[2] = 1.0f;
+            col[3] = 0.1f;
+        }
+    }
+    else
+    {
+        col[0] = 0.8f;
+        col[1] = 0.1f;
+        col[2] = 0.9f;
+        col[3] = 1.0f;
+    }
+    unsigned color;
+    (*FUN_0059c468)(col, &color);
+    float selMins[3] = { 131072.0f, 131072.0f, 131072.0f };
+    float selMaxs[3] = { -131072.0f, -131072.0f, -131072.0f };
+    bool anyOrigin = false;
+    (*FUN_0059c3c4)(2, (const float *)0x53dc54, 1.0f, 0);
+    (*FUN_0059c478)();
+    for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+    {
+        int width = frame[153] != 0 ? 2 : 1;
+        FUN_0045d7f0(b, m_nViewType, lineWidthA, 30, lineWidthB, 30, &color, width, 0);
+        DrawLight_Classname(m_nViewType, b, m_fScale, (int)col);
+        assert(b->owner->def == b->def->owner);
+        xyEntity_t *ent = b->owner->def;
+        unsigned flags = ent->eclass->flags;
+        if (flags & 1)
+            DrawLight_Radius(b, 1, this, &color);
+        else if (flags & 0x20)
+            DrawLight_ConeHeight(b, this, (int)this, 1);
+        else if (flags & 0xc0)
+            DrawLight_ConeHeight(b, this, (int)this, width);
+        else
+            DrawLight_Color(b, this, width);
+        if (!anyOrigin)
+        {
+            if (b->owner->def)
+                anyOrigin = true;
+            if (frame[143])
+                ExpandBounds((const float *)((char *)b->def + 0x20), (const float *)((char *)b->def + 0x2c), selMins, selMaxs);
+        }
+    }
+    for (brush_t *b = active_brushes.next; b != &active_brushes; b = b->next)
+    {
+        const float *mn = (const float *)((char *)b->def + 0x20);
+        if (mn[nDim1] > vis[2] || mn[nDim2] > vis[3])
+            continue;
+        xyEntity_t *ent = b->owner->def;
+        if ((((char *)ent->eclass)[352] & 0xc0) == 0)
+        {
+            const char *name = FUN_00464bb0((char *)ent + 100, "targetname");
+            if (!memcmp(name, "badplace", 9))
+                DrawLight_Color(b, this, frame[153] != 0 ? 2 : 1);
+            if (!memcmp(name, "heading", 8))
+                DrawLight_Color(b, this, frame[153] != 0 ? 2 : 1);
+        }
+        else
+        {
+            unsigned c4[4];
+            FUN_00451c00(b, c4);
+            DrawLight_ConeHeight(b, this, (int)this, 1);
+        }
+    }
+    (*FUN_0059c394)(color_011297b8);
+    (*FUN_0059c47c)();
+    (*FUN_0059c394)(NULL);
+    if (frame[155])
+        FUN_00436690();
+    if (!anyOrigin && !g_bRotateMode && !byte_0109fe64 && selected_brushes.next != &selected_brushes && frame[143])
+        FUN_00450d90(nDim1, nDim2, this, selMins, selMaxs);
+    FUN_0040c210();
+
+    if (dword_011298ec == (void *)0x44c620 && (dword_011298b0 == 5 || dword_011298b0 == 14 || dword_011298b0 == 15 || dword_011298b0 == 16 || dword_011298b0 == 17))
+    {
+        float p0[3], p1[3];
+        int x0 = dword_011298dc < dword_011298e0 ? dword_011298dc : dword_011298e0;
+        int x1 = dword_011298dc < dword_011298e0 ? dword_011298e0 : dword_011298dc;
+        int y0 = dword_011298e4 < dword_011298e8 ? dword_011298e4 : dword_011298e8;
+        int y1 = dword_011298e4 < dword_011298e8 ? dword_011298e8 : dword_011298e4;
+        XY_ToPoint(x0, y0, p0);
+        p0[nDim3] = 2048.0f;
+        XY_ToPoint(x1, y1, p1);
+        p1[nDim3] = 2048.0f;
+        float quad[4][4];
+        quad[0][nDim1] = p0[nDim1];
+        quad[0][nDim2] = p0[nDim2];
+        quad[0][nDim3] = 2048.0f;
+        quad[0][3] = 1.0f;
+        quad[1][nDim1] = p0[nDim1];
+        quad[1][nDim2] = p1[nDim2];
+        quad[1][nDim3] = 2048.0f;
+        quad[1][3] = 1.0f;
+        quad[2][nDim1] = p1[nDim1];
+        quad[2][nDim2] = p1[nDim2];
+        quad[2][nDim3] = 2048.0f;
+        quad[2][3] = 1.0f;
+        quad[3][nDim1] = p1[nDim1];
+        quad[3][nDim2] = p0[nDim2];
+        quad[3][nDim3] = 2048.0f;
+        quad[3][3] = 1.0f;
+        FUN_0040c4a0(&quad[0][0]);
+    }
+    DrawCameraIcon();
+    DrawZIcon();
+    if (g_bRotateMode)
+        DrawRotateIcon();
+    FUN_0045f7e0();
+}
+
 float (&CXYWnd::GetOrigin())[3]
 {
     return m_vOrigin;
@@ -1517,10 +3036,109 @@ void CXYWnd::SetOrigin(float org[3])
     m_vOrigin[2] = org[2];
 }
 
+extern int (*FUN_0059c448)(void *, int, int);
+void FUN_00449c90(void);
+void FUN_0046fb30(void);
+extern int dword_0123348c;
+extern bool g_bRogueClipMode;
+extern void *dword_010bcd68;
+
+// 0x00452930
+void CXYWnd::OnSize(UINT nType, int cx, int cy)
+{
+    CWnd::OnSize(nType, cx, cy);
+    CRect rect;
+    GetClientRect(rect);
+    m_nWidth = rect.Width();
+    m_nHeight = rect.Height();
+    if (FUN_0059c448)
+        FUN_0059c448(dword_010bcd68, m_nWidth, m_nHeight);
+    Invalidate(FALSE);
+}
+
+// 0x00452990
+void CXYWnd::Clip()
+{
+    if (!g_bClipMode)
+        return;
+    brush_t saved;
+    saved.next = &saved;
+    FUN_00449c90();
+    bool sw = g_bSwitch;
+    if (m_nViewType == XZ)
+        sw = !sw;
+    if (*(int *)((char *)dword_01233b64 + 0x2d8))
+        sw = !sw;
+    brush_t *pList = sw ? &g_brFrontSplits : &g_brBackSplits;
+    if (pList->next == pList)
+        return;
+    FUN_00449ff0(&saved, pList);
+    CleanList(&g_brFrontSplits);
+    CleanList(&g_brBackSplits);
+    FUN_0046fb30();
+    FUN_00449ff0(&selected_brushes, &saved);
+    SetClipMode(!g_bRogueClipMode);
+    g_bRogueClipMode = false;
+    dword_0123348c = -1;
+}
+
+// 0x00452a60
+void CXYWnd::SplitClip()
+{
+    FUN_00449c90();
+    if (g_brFrontSplits.next != &g_brFrontSplits && g_brBackSplits.next != &g_brBackSplits)
+    {
+        FUN_0046fb30();
+        FUN_00449ff0(&selected_brushes, &g_brFrontSplits);
+        FUN_00449ff0(&selected_brushes, &g_brBackSplits);
+        CleanList(&g_brFrontSplits);
+        CleanList(&g_brBackSplits);
+        SetClipMode(g_bRogueClipMode ? false : true);
+        g_bRogueClipMode = false;
+    }
+}
+
 void FUN_00452ae0()
 {
     g_bSwitch = !g_bSwitch;
     g_nUpdateBits |= 0x102;
+}
+
+extern int dword_010c4d84;
+extern float **dword_010c4d88;
+extern CMainFrame *dword_01233488;
+
+// 0x00452b00: centres the view on the camera, the selection or the point list
+void CXYWnd::PositionView()
+{
+    int nDim1 = (m_nViewType == YZ) ? 1 : 0;
+    int nDim2 = (m_nViewType == XY) ? 1 : 2;
+    int mode = dword_011298b0;
+    if ((mode != 1 && mode != 4 && mode != 5 && mode != 6 && mode != 9) || dword_010c4d84 == 0)
+    {
+        void *cam = *(void **)((char *)dword_01233488 + 0x78c);
+        m_vOrigin[nDim1] = ((float *)((char *)cam + 0x60))[nDim1];
+        m_vOrigin[nDim2] = ((float *)((char *)cam + 0x60))[nDim2];
+        for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+        {
+            if (b->next == &selected_brushes)
+            {
+                const float *m = (const float *)((char *)b->def + 0x20);
+                m_vOrigin[nDim1] = (m[nDim1] + m[nDim1 + 3]) * 0.5f;
+                m_vOrigin[nDim2] = (m[nDim2] + m[nDim2 + 3]) * 0.5f;
+            }
+        }
+        return;
+    }
+    m_vOrigin[nDim1] = 0;
+    m_vOrigin[nDim2] = 0;
+    for (int i = 0; i < dword_010c4d84; i++)
+    {
+        m_vOrigin[nDim1] += dword_010c4d88[i][nDim1];
+        m_vOrigin[nDim2] += dword_010c4d88[i][nDim2];
+    }
+    m_vOrigin[nDim1] /= (float)dword_010c4d84;
+    m_vOrigin[nDim2] /= (float)dword_010c4d84;
 }
 
 void CXYWnd::FUN_00452c30()
@@ -1581,6 +3199,29 @@ bool CXYWnd::RotateMode()
 bool CXYWnd::ScaleMode()
 {
     return g_bScaleMode;
+}
+
+void FUN_00470c00(float *mid);
+
+// 0x00452d90
+void CXYWnd::SetRotateMode(bool bMode)
+{
+    if (!bMode)
+        g_bRotateMode = false;
+    else if (selected_brushes.next == &selected_brushes)
+    {
+        Sys_Printf("Need a brush selected to turn on Mouse Rotation mode\n");
+        g_bRotateMode = false;
+    }
+    else
+    {
+        g_bRotateMode = true;
+        FUN_00470c00(g_vRotateOrigin);
+        g_vRotation[0] = 0;
+        g_vRotation[1] = 0;
+        g_vRotation[2] = 0;
+    }
+    RedrawWindow(NULL, NULL, RDW_INVALIDATE | RDW_ERASE | RDW_UPDATENOW);
 }
 
 void CXYWnd::SetScaleMode(bool bMode)
