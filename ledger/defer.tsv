@@ -730,3 +730,13 @@ addr	agent	date	reason
 0x0045c6b0	bulk-d	2026-11-19	FUN_0045c6b0 (next group key): bulk draft: 68%, sizes 567/469, first diff +0x5
 0x0045d7f0	bulk-d	2026-11-19	FUN_0045d7f0 (brush draw dispatcher, signature now as CamWnd calls it): bulk draft: 36%, sizes 439/427, first diff +0x7
 0x0045e1a0	bulk-d	2026-11-19	FUN_0045e1a0 (Q3 Brush_Move shape with texture lock): bulk draft: 36%, sizes 315/275, first diff +0x5
+0x0045a830	bulk-d	2026-11-19	FUN_45a830 (Brush_RebuildIfStale shape (asserts 2484-2490)): bulk draft: 99%, sizes 226/226, first diff +0x19
+0x0045af00	bulk-d	2026-11-19	FUN_45af00 (free instance faces (asserts 2613-2614)): bulk draft: 74%, sizes 197/192, first diff +0x1
+0x0045c890	bulk-d	2026-11-19	FUN_45c890 (prune import key on selected brushes (assert line 3189)): bulk draft: 88%, sizes 193/191, first diff +0xf
+0x0045e2c0	bulk-d	2026-11-19	FUN_45e2c0 (print face planepts (Face %i)): bulk draft: 85%, sizes 169/171, first diff +0x10
+0x0045ef60	bulk-d	2026-11-19	FUN_45ef60 (per-face patch/planepts update): bulk draft: body links at 0x4340d0, not at retail address; check order
+0x0045f6a0	bulk-d	2026-11-19	FUN_45f6a0 (brush center with grid snap): bulk draft: 30%, sizes 151/116, first diff +0x5
+0x0045f720	bulk-d	2026-11-19	FUN_45f720 (bump version of brush list (recursive into group)): bulk draft: 51%, sizes 131/132, first diff +0xe
+0x0045f7b0	bulk-d	2026-11-19	FUN_45f7b0 (bump version of the three brush lists): bulk draft: links at 0x4344e0, not at retail address; check order
+0x0045f7e0	bulk-d	2026-11-19	FUN_45f7e0 (rebuild stale moved brushes (array 0x12485b8)): bulk draft: 38%, sizes 46/71, first diff +0x0
+0x0045f860	bulk-d	2026-11-19	FUN_45f860 (points equal within epsilon): bulk draft: 98%, sizes 72/72, first diff +0x18
