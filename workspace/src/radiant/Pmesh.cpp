@@ -268,7 +268,7 @@ extern bool DAT_00590a04;
 extern bool DAT_00590a05;
 extern int DAT_005909f8;
 void FUN_00433ad0();
-int FUN_00434360(const float *planes, bool bAdd);
+bool FUN_00434360(const float *planes, bool bRemove);
 void FUN_00433f20();
 void FUN_00434630(const float *planes, bool bAdd);
 void FUN_00434810(const hitplane_t *planes, bool bAdd);
@@ -310,6 +310,80 @@ void FUN_004369b0();
 bool FUN_00436dc0(const float *origin, const float *dir, patch_t *pm, float *t, int *y, int *x, int a, int b);
 void FUN_00437730(const float *origin, const float *dir);
 void Undo_AddBrush(brushdef_t *brush);
+struct trace28_t { int hit; int pad4; float dist; unsigned char rest[16]; };
+trace28_t FUN_0046ef10(const float *org, const float *dir, int flags);
+void FUN_00435c00();
+bool FUN_00466060(const char *classname);
+bool FUN_004388b0(brush_t *a, brush_t *b);
+bool FUN_00438ca0();
+bool FUN_00465e10(entity_t *e, const char *key, const char *value);
+void FUN_00465bf0(entity_t *e, const char *key, const char *value);
+void FUN_00465c60(epair_t *&e, const char *key);
+void FUN_004655f0();
+void FUN_004657a0(entity_t *e, const char *key);
+void FUN_00443fd0(entity_t *e);
+void FUN_00443d90(brush_t *b);
+extern entity_t *DAT_012334ec;
+void FUN_00438120();
+void FUN_00437400();
+extern int DAT_010bcd2c;
+void FUN_0045afc0(brushdef_t *b);
+void FUN_004354b0();
+extern int DAT_01128dc8, DAT_01128dcc, DAT_01128dd0;
+extern float DAT_01128dd4[16][16][2];
+void FUN_0042f970(patchMesh_t *p, const texdef_t *td, bool bApply, bool bKeepLayout);
+bool FUN_0042fb50(const float *delta, patchMesh_t *p, const float *anchor);
+extern const int DAT_0053da30[][2];
+extern const int DAT_0053d9b8[][2];
+extern const int DAT_0053dab8[][2];
+extern const int DAT_0053dab0[][2];
+brush_t *FUN_004275a0(patchMesh_t *pm, bool bByColumn, bool bFirst);
+brush_t *FUN_00427ef0(patchMesh_t *pm, int nType, bool bFirst);
+eclass_t *FUN_00464770(int a, const char *name);
+entity_t *FUN_00466d80(eclass_t *ec);
+void FUN_00444110(entity_t *e);
+void FUN_00428b80();
+int FUN_00439620(const vec3_t v1, const vec3_t v2);
+void FUN_004348e0(int thickness, bool bSeam);
+class CCapDialog : public CDialog
+{
+public:
+    enum { IDD = 161 };
+    CCapDialog(CWnd *pParent = NULL);
+    int m_nCap;
+
+protected:
+    virtual void DoDataExchange(CDataExchange *pDX);
+    DECLARE_MESSAGE_MAP()
+};
+
+void FUN_00428e20(bool bCone, bool bBevel, bool bEndcap, bool bSquare);
+float FUN_00439600(float f);
+bool FUN_00436bc0(const float *tri0, const float *org, int mode, const float *tri1, const float *pt, const float *nrm, float *outT, float *outU, float *outV);
+void FUN_00436690();
+void TextureAxisFromPlane(const plane_t *pln, float *xv, float *yv);
+bool FUN_004379f0(patchMesh_t *p, float *out);
+void FUN_00438510(brush_t *pb1, brush_t *pb0, const int *a3, const int *a4, const int *a5);
+void FUN_00458c00(brush_t *b);
+void FUN_004678c0(entity_t *e);
+void FUN_00432950(patchMesh_t *p);
+bool FUN_00431570(const char **data_p, PatchControl *v, int nTexPairs);
+brushdef_t *FUN_00431890(const char **data_p, int version, bool bTerrain);
+extern int DAT_00596d48;
+extern unsigned char DAT_00592788[];
+extern const void *DAT_0053d944[];
+extern const void *DAT_0053d964[];
+int FUN_004209a0(const char **data_p, const char *name, const void *table);
+void *FUN_00440c10(const char *name, int version);
+char *Com_Parse(const char **data_p);
+char *Com_ParseOnLine(const char **data_p);
+void Com_UngetToken();
+int Com_ParseInt(const char **data_p);
+int Com_MatchToken(const char **buf_p, const char *match, int warning);
+void FUN_0042d270(FILE *file, patch_t *pm, bool bBrush, bool bUV, bool bFacets);
+extern int DAT_01129984;
+extern int DAT_01129980;
+void FUN_00432f60(float scaleS, float scaleT, int mode);
 //E-DECLS-END
 
 // Retail 0x00425770, 152 bytes; exact relocation-normalized MATCH
@@ -1150,6 +1224,391 @@ brush_t *Patch_GenericMesh(int nWidth, int nHeight, int nOrientation, bool bDele
         FUN_0046f0b0(nb, 1, 1, 0);
     }
     return nb;
+}
+
+// Retail 0x004275a0: build a cap patch (3x3 or 5x5) over one edge of the patch.
+brush_t *FUN_004275a0(patchMesh_t *pm, bool bByColumn, bool bFirst)
+{
+    brush_t *b;
+    bool bSmall;
+    if (pm->width > 9)
+    {
+        b = Patch_GenericMesh(5, 5, 2, false, false);
+        bSmall = false;
+    }
+    else
+    {
+        b = Patch_GenericMesh(3, 3, 2, false, false);
+        bSmall = true;
+    }
+    if (!b)
+    {
+        Sys_Printf("Unable to cap. You may need to ungroup the patch.\n");
+        return NULL;
+    }
+#line 1107
+    assert( b->patch->def == b->def->patch );
+    patchMesh_t *def = b->patch->def;
+    vec3_t mins = {131072.0f, 131072.0f, 131072.0f};
+    vec3_t maxs = {-131072.0f, -131072.0f, -131072.0f};
+    def->type_10 |= 0x1000;
+    int count = bByColumn ? pm->width : pm->height;
+    int edge = bFirst ? 0 : (bByColumn ? pm->height : pm->width) - 1;
+    FillPatch(def, pm->ctrl[0][edge].xyz);
+    for (int i = 0; i < count; i++)
+    {
+        const int (*ring)[2] = bSmall ? DAT_0053d9b8 : DAT_0053da30;
+        const float *src = bByColumn ? pm->ctrl[i][edge].xyz : pm->ctrl[edge][i].xyz;
+        float *dst = def->ctrl[ring[i][0]][ring[i][1]].xyz;
+        dst[0] = src[0];
+        dst[1] = src[1];
+        dst[2] = src[2];
+        AddPointToBounds(def->ctrl[ring[i][0]][ring[i][1]].xyz, mins, maxs);
+    }
+    vec3_t mid = {(maxs[0] + mins[0]) * 0.5f, (maxs[1] + mins[1]) * 0.5f, (maxs[2] + mins[2]) * 0.5f};
+    int nInner = bSmall ? 1 : 9;
+    for (int i = 0; i < nInner; i++)
+    {
+        const int (*inner)[2] = bSmall ? DAT_0053dab0 : DAT_0053dab8;
+        float *dst = def->ctrl[inner[i][0]][inner[i][1]].xyz;
+        dst[0] = mid[0];
+        dst[1] = mid[1];
+        dst[2] = mid[2];
+    }
+    if (bFirst)
+    {
+        for (int x = 0; x < def->width; x++)
+        {
+            for (int r = 0; r < def->height / 2; r++)
+            {
+                PatchControl tmp = def->ctrl[x][def->height - 1 - r];
+                def->ctrl[x][def->height - 1 - r] = def->ctrl[x][r];
+                def->ctrl[x][r] = tmp;
+            }
+        }
+    }
+    FUN_004269d0(def, true);
+    Patch_CapTexture(def, false, dword_1128DC4, dword_1128DC4);
+#line 1168
+    assert( ((patchsym_proj *)def)->symbiot == (brushowner_proj *)b->def );
+    assert( b->patch->def == def );
+    assert( b->def->patch == def );
+    return b;
+}
+
+// Retail 0x00427ef0: build a special cap (bevel, endcap or their inverses) over one edge.
+brush_t *FUN_00427ef0(patchMesh_t *pm, int nType, bool bFirst)
+{
+    brush_t *b = (nType == 3) ? Patch_GenericMesh(5, 3, 2, false, false) : Patch_GenericMesh(3, 3, 2, false, false);
+    if (!b)
+    {
+        Sys_Printf("Unable to cap. Make sure you ungroup before re - capping.");
+        return NULL;
+    }
+#line 1193
+    assert( b->patch->def == b->def->patch );
+    patchMesh_t *def = b->patch->def;
+    def->type_10 |= 0x1000;
+    int edge = bFirst ? 0 : pm->height - 1;
+    vec3_t mins, maxs;
+    Patch_CalcBounds(pm, mins, maxs, false);
+#define SRC(i) (pm->ctrl[i][edge].xyz)
+#define SET(x, y, v) (def->ctrl[x][y].xyz[0] = (v)[0], def->ctrl[x][y].xyz[1] = (v)[1], def->ctrl[x][y].xyz[2] = (v)[2])
+    bool bFlip;
+    if (nType == 2)
+    {
+        SET(0, 0, SRC(0));
+        SET(0, 2, SRC(2));
+        SET(0, 1, SRC(1));
+        SET(2, 2, SRC(1));
+        SET(1, 0, SRC(1));
+        SET(1, 1, SRC(1));
+        SET(1, 2, SRC(1));
+        SET(2, 0, SRC(1));
+        SET(2, 1, SRC(1));
+        bFlip = false;
+    }
+    else if (nType == 0)
+    {
+        SET(0, 0, SRC(2));
+        SET(0, 1, SRC(1));
+        SET(0, 2, SRC(0));
+        vec3_t d;
+        d[0] = SRC(0)[0] - SRC(1)[0] + SRC(2)[0];
+        d[1] = SRC(0)[1] - SRC(1)[1] + SRC(2)[1];
+        d[2] = SRC(0)[2] - SRC(1)[2] + SRC(2)[2];
+        SET(2, 2, d);
+        SET(1, 0, d);
+        SET(1, 1, d);
+        SET(1, 2, d);
+        SET(2, 0, d);
+        SET(2, 1, d);
+        bFlip = true;
+    }
+    else if (nType == 1)
+    {
+        vec3_t mid;
+        mid[0] = (SRC(4)[0] + SRC(0)[0]) * 0.5f;
+        mid[1] = (SRC(4)[1] + SRC(0)[1]) * 0.5f;
+        mid[2] = (SRC(4)[2] + SRC(0)[2]) * 0.5f;
+        SET(0, 0, SRC(0));
+        SET(1, 0, mid);
+        SET(2, 0, SRC(4));
+        SET(0, 2, SRC(2));
+        SET(1, 2, SRC(2));
+        SET(2, 2, SRC(2));
+        SET(1, 1, SRC(2));
+        SET(0, 1, SRC(1));
+        SET(2, 1, SRC(3));
+        bFlip = false;
+    }
+    else
+    {
+        SET(0, 0, SRC(0));
+        SET(1, 0, SRC(1));
+        SET(2, 0, SRC(2));
+        SET(3, 0, SRC(3));
+        SET(4, 0, SRC(4));
+        SET(0, 1, SRC(1));
+        SET(1, 1, SRC(1));
+        SET(2, 1, SRC(2));
+        SET(3, 1, SRC(3));
+        SET(4, 1, SRC(3));
+        SET(0, 2, SRC(1));
+        SET(1, 2, SRC(1));
+        SET(2, 2, SRC(2));
+        SET(3, 2, SRC(3));
+        SET(4, 2, SRC(3));
+        bFlip = (nType == 3);
+    }
+#undef SET
+#undef SRC
+    if (bFirst == bFlip)
+    {
+        for (int x = 0; x < def->width; x++)
+        {
+            for (int r = 0; r < def->height / 2; r++)
+            {
+                PatchControl tmp = def->ctrl[x][def->height - 1 - r];
+                def->ctrl[x][def->height - 1 - r] = def->ctrl[x][r];
+                def->ctrl[x][r] = tmp;
+            }
+        }
+    }
+    FUN_004269d0(def, true);
+    Patch_CapTexture(def, false, dword_1128DC4, dword_1128DC4);
+#line 1290
+    assert( ((patchsym_proj *)def)->symbiot == (brushowner_proj *)b->def );
+    assert( b->patch->def == def );
+    assert( b->def->patch == def );
+    return b;
+}
+
+// Retail 0x00428b80: cap the selected patch, or ask for a special cap when no edge is closed.
+void FUN_00428b80()
+{
+    if (!QE_SingleBrush_Pmesh() || !DAT_010a44b4.next->patch)
+    {
+        Sys_Printf("Cannot cap multiple selection. Please select a single patch.\n");
+        return;
+    }
+    brush_t *pb = DAT_010a44b4.next;
+#line 1314
+    assert( pb->patch->def == pb->def->patch );
+    patchMesh_t *def = pb->patch->def;
+    brush_t *caps[4] = {NULL, NULL, NULL, NULL};
+    int n = 0;
+    int w = def->width, h = def->height;
+    if (FUN_00439620(def->ctrl[0][0].xyz, def->ctrl[w - 1][0].xyz))
+    {
+        brush_t *c = FUN_004275a0(def, true, false);
+        if (c)
+            caps[n++] = c;
+    }
+    if (FUN_00439620(def->ctrl[0][h - 1].xyz, def->ctrl[w - 1][h - 1].xyz))
+    {
+        brush_t *c = FUN_004275a0(def, true, true);
+        if (c)
+            caps[n++] = c;
+    }
+    if (FUN_00439620(def->ctrl[0][0].xyz, def->ctrl[0][h - 1].xyz))
+    {
+        brush_t *c = FUN_004275a0(def, false, false);
+        if (c)
+            caps[n++] = c;
+    }
+    if (FUN_00439620(def->ctrl[w - 1][0].xyz, def->ctrl[w - 1][h - 1].xyz))
+    {
+        brush_t *c = FUN_004275a0(def, false, true);
+        if (c)
+            caps[n++] = c;
+    }
+    if (n == 0)
+    {
+        CCapDialog dlg;
+        if (dlg.DoModal() == IDOK)
+        {
+            caps[0] = FUN_00427ef0(def, dlg.m_nCap, false);
+            caps[1] = FUN_00427ef0(def, dlg.m_nCap, true);
+            n = 2;
+        }
+    }
+    while (n > 0)
+    {
+        brush_t *c = caps[--n];
+        if (c)
+            FUN_0046f0b0(c, 1, 1, 0);
+    }
+    if (pb->owner == DAT_012334ec)
+    {
+        eclass_t *ec = FUN_00464770(0, "func_group");
+        if (ec)
+        {
+            entity_t *e = FUN_00466d80(ec);
+            FUN_00465bf0(e->def, "type", "patchCapped");
+            FUN_00444110(e->def);
+        }
+    }
+}
+
+// Retail 0x00428e20 (split rows 0x428e20/0x428e70): build a patch from the selected brush.
+void FUN_00428e20(bool bCone, bool bBevel, bool bEndcap, bool bSquare)
+{
+    if (!QE_SingleBrush_Pmesh())
+        return;
+    brush_t *sel = DAT_010a44b4.next;
+    entity_t *owner = sel->owner;
+    brushdef_t *b = sel->def;
+    patchMesh_t *p = MakeNewPatch();
+    p->height = 3;
+    p->type_10 = 1;
+    if (bBevel && !bSquare)
+    {
+        p->type_10 = 2;
+        p->width = 3;
+        int step = (int)((b->maxs[2] - b->mins[2]) / 2.0f);
+        int z = (int)b->mins[2];
+        for (int h = 0; h < p->height; h++)
+        {
+            p->ctrl[0][h].xyz[0] = b->mins[0];
+            p->ctrl[0][h].xyz[1] = b->mins[1];
+            p->ctrl[0][h].xyz[2] = (float)z;
+            p->ctrl[1][h].xyz[0] = b->maxs[0];
+            p->ctrl[1][h].xyz[1] = b->mins[1];
+            p->ctrl[1][h].xyz[2] = (float)z;
+            p->ctrl[2][h].xyz[0] = b->maxs[0];
+            p->ctrl[2][h].xyz[1] = b->maxs[1];
+            p->ctrl[2][h].xyz[2] = (float)z;
+            z += step;
+        }
+    }
+    else if (bEndcap && !bSquare)
+    {
+        p->type_10 = 4;
+        p->width = 5;
+        int step = (int)((b->maxs[2] - b->mins[2]) / 2.0f);
+        int z = (int)b->mins[2];
+        for (int h = 0; h < p->height; h++)
+        {
+            p->ctrl[0][h].xyz[0] = b->mins[0];
+            p->ctrl[0][h].xyz[1] = b->mins[1];
+            p->ctrl[0][h].xyz[2] = (float)z;
+            p->ctrl[1][h].xyz[0] = b->mins[0];
+            p->ctrl[1][h].xyz[1] = b->maxs[1];
+            p->ctrl[1][h].xyz[2] = (float)z;
+            p->ctrl[2][h].xyz[0] = (b->maxs[0] - b->mins[0]) * 0.5 + b->mins[0];
+            p->ctrl[2][h].xyz[1] = b->maxs[1];
+            p->ctrl[2][h].xyz[2] = (float)z;
+            p->ctrl[3][h].xyz[0] = b->maxs[0];
+            p->ctrl[3][h].xyz[1] = b->maxs[1];
+            p->ctrl[3][h].xyz[2] = (float)z;
+            p->ctrl[4][h].xyz[0] = b->maxs[0];
+            p->ctrl[4][h].xyz[1] = b->mins[1];
+            p->ctrl[4][h].xyz[2] = (float)z;
+            z += step;
+        }
+    }
+    else
+    {
+        p->width = 9;
+        p->ctrl[1][0].xyz[0] = b->mins[0];
+        p->ctrl[1][0].xyz[1] = b->mins[1];
+        p->ctrl[3][0].xyz[0] = b->maxs[0];
+        p->ctrl[3][0].xyz[1] = b->mins[1];
+        p->ctrl[5][0].xyz[0] = b->maxs[0];
+        p->ctrl[5][0].xyz[1] = b->maxs[1];
+        p->ctrl[7][0].xyz[0] = b->mins[0];
+        p->ctrl[7][0].xyz[1] = b->maxs[1];
+        for (int c = 1; c < p->width - 1; c += 2)
+        {
+            p->ctrl[c][0].xyz[2] = b->mins[2];
+            p->ctrl[c][2].xyz[0] = p->ctrl[c][0].xyz[0];
+            p->ctrl[c][2].xyz[1] = p->ctrl[c][0].xyz[1];
+            p->ctrl[c][2].xyz[2] = b->maxs[2];
+            p->ctrl[c][1].xyz[0] = (p->ctrl[c][2].xyz[0] + p->ctrl[c][0].xyz[0]) * 0.5f;
+            p->ctrl[c][1].xyz[1] = (p->ctrl[c][2].xyz[1] + p->ctrl[c][0].xyz[1]) * 0.5f;
+            p->ctrl[c][1].xyz[2] = (p->ctrl[c][2].xyz[2] + p->ctrl[c][0].xyz[2]) * 0.5f;
+        }
+        InterpolateInteriorPoints(p);
+        if (bSquare)
+        {
+            if (bBevel)
+            {
+                for (int h = 0; h < p->height; h++)
+                {
+                    VectorCopy(p->ctrl[1][h].xyz, p->ctrl[2][h].xyz);
+                    VectorCopy(p->ctrl[7][h].xyz, p->ctrl[6][h].xyz);
+                }
+            }
+            else if (bEndcap)
+            {
+                for (int h = 0; h < p->height; h++)
+                {
+                    VectorCopy(p->ctrl[5][h].xyz, p->ctrl[4][h].xyz);
+                    VectorCopy(p->ctrl[1][h].xyz, p->ctrl[2][h].xyz);
+                    VectorCopy(p->ctrl[7][h].xyz, p->ctrl[6][h].xyz);
+                    VectorCopy(p->ctrl[8][h].xyz, p->ctrl[7][h].xyz);
+                }
+            }
+            else
+            {
+                for (int c = 0; c < p->width - 1; c++)
+                    for (int h = 0; h < p->height; h++)
+                        VectorCopy(p->ctrl[c + 1][h].xyz, p->ctrl[c][h].xyz);
+                for (int h = 0; h < p->height; h++)
+                    VectorCopy(p->ctrl[0][h].xyz, p->ctrl[8][h].xyz);
+            }
+        }
+    }
+    for (int i = 0; i < 2; i++)
+        (&p->image_18)[i] = *(void **)((char *)b->faces + i * 0x1c + 0x24);
+    FUN_00427160(p, 0);
+    if (p->type_10 & 0x40)
+        FUN_00426e80(p, 1, 16.0f);
+    else
+        FUN_00426f20(p, 1, 16.0f);
+    p->flag_382f = 1;
+    p->value_3834 = 16.0f;
+    if (p->cache_3824)
+        free(p->cache_3824);
+    p->cache_3824 = FUN_004267d0(p, DAT_01128d94, NULL, NULL);
+    p->version++;
+    if (bCone)
+    {
+        p->type_10 = 0x10;
+        float cx = (b->maxs[0] + b->mins[0]) * 0.5;
+        float cy = (b->maxs[1] + b->mins[1]) * 0.5;
+        for (int i = 0; i < p->width; i++)
+        {
+            p->ctrl[i][2].xyz[0] = cx;
+            p->ctrl[i][2].xyz[1] = cy;
+        }
+    }
+    brushdef_t *def = AddBrushForPatch(p, owner->def);
+    brush_t *nb = FUN_00458440(def, owner);
+    FUN_00459210(nb, &DAT_010a44dc);
+    FUN_0046fb30();
+    FUN_0046f0b0(nb, 1, 1, 0);
 }
 
 // Retail 0x004296f0: terrain variant of 0x004293f0.
@@ -2440,6 +2899,65 @@ void FUN_0042ce10(patch_t *pm)
     pm->version = pm->def->version;
 }
 
+// Retail 0x0042d270: write one patch as Maya MEL (a polyPlane or a list of triangle facets).
+void FUN_0042d270(FILE *file, patch_t *pm, bool bBrush, bool bUV, bool bFacets)
+{
+    fprintf(file, "\t{\r\n");
+    if (bBrush)
+    {
+        fprintf(file, "\t\tstring $strPolyList[];\r\n");
+        fprintf(file, "\t\tstring $strBrush[];\r\n\r\n");
+    }
+    fprintf(file, "\t\tstring $strPolyInfo[];\r\n");
+    patchCache_t *mesh = (patchCache_t *)pm->def->cache_3824;
+    if (bFacets)
+    {
+        for (int i = 0; i < pm->indexCount; i += 3)
+        {
+            fprintf(file, "\t\t$strPolyInfo = `polyCreateFacet -ch off -tx 1 -s 1");
+            for (int k = 2; k >= 0; k--)
+            {
+                const float *v = mesh->verts[pm->indices[0][i + k]].xyz;
+                fprintf(file, " -p %f %f %f", v[0], v[1], v[2]);
+            }
+            fprintf(file, "`;\r\n");
+            fprintf(file, "\t$strPolyList[%d] = $strPolyInfo[0];\r\n", i / 3);
+            if (bUV)
+            {
+                for (int k = 2; k >= 0; k--)
+                {
+                    const float *v = mesh->verts[pm->indices[0][i + k]].xyz;
+                    fprintf(file, "\t\tpolyEditUV -r false -u %f -v %f ($strPolyInfo[0]).map[%d];\r\n", v[3], v[4], k);
+                }
+            }
+        }
+        if (bBrush)
+        {
+            fprintf(file, "\t\t$strBrush = `polyUnite -ch 0 ($strPolyList)`;\r\n");
+            fprintf(file, "\t\tpolyMergeVertex -d 0.01 -ch 0 $strBrush[0];\r\n");
+            fprintf(file, "\t\tpolySoftEdge -a 180 -ch 0 $strBrush[0];\r\n");
+            fprintf(file, "\t\tparent $strBrush[0] $strGroups[$iCurGroup];\r\n");
+        }
+        else
+            fprintf(file, "\t\tparent $strPolyList $strGroups[$iCurGroup];\r\n");
+    }
+    else
+    {
+        int count = mesh->width * mesh->height;
+        fprintf(file, "\t\t$strPolyInfo = `polyPlane -ch off -sx %d -sy %d`;\r\n", mesh->width - 1, mesh->height - 1);
+        for (int i = 0; i < count; i++)
+        {
+            const float *v = mesh->verts[i].xyz;
+            fprintf(file, "\t\tmove -ws %f %f %f ($strPolyInfo[0] + \".vtx[%d]\");\r\n", v[0], v[1], v[2], i);
+        }
+        fprintf(file, "\t\tparent $strPolyInfo[0] $strGroups[$iCurGroup];\r\n");
+    }
+    DAT_01129984++;
+    fprintf(file, "\t}\r\n");
+    fprintf(file, "\tprogressWindow -edit -s 1;\r\n");
+    fprintf(file, "\tprogressWindow -edit -st \"%d of %d objects\";\r\n", DAT_01129984, DAT_01129980);
+}
+
 // Retail 0x0042d560: rebuild the render data of a patch instance when it is stale.
 void FUN_0042d560(patch_t *pm)
 {
@@ -2992,6 +3510,86 @@ void FUN_0042f790(patch_t *p)
         g_PatchDialog.GetPatchInfo();
 }
 
+// Retail 0x0042f970: set one texture layer on a patch and refresh its coordinates.
+void FUN_0042f970(patchMesh_t *p, const texdef_t *td, bool bApply, bool bKeepLayout)
+{
+    ((void **)&p->image_18)[DAT_01128d90] = td->mat;
+    p->version++;
+    if (bKeepLayout && DAT_01128dc8)
+    {
+        if (p->width == DAT_01128dcc && p->height == DAT_01128dd0)
+        {
+            for (int x = 0; x < p->width; x++)
+            {
+                for (int y = 0; y < p->height; y++)
+                {
+                    p->ctrl[x][y].st[DAT_01128d94][0] = DAT_01128dd4[x][y][0];
+                    p->ctrl[x][y].st[DAT_01128d94][1] = DAT_01128dd4[x][y][1];
+                }
+            }
+            if (DAT_01128d94 == 1)
+                p->flag_382f = 0;
+            if (p->cache_3824)
+                free(p->cache_3824);
+            p->cache_3824 = FUN_004267d0(p, DAT_01128d94, NULL, NULL);
+            p->version++;
+        }
+    }
+    else if (bApply)
+    {
+        plane_t pl;
+        if (FUN_00425f40(p, &pl))
+            FUN_00426dc0(p, pl.normal, td);
+    }
+    if (g_PatchDialog.GetSafeHwnd())
+        g_PatchDialog.GetPatchInfo();
+}
+
+// Retail 0x0042fb50: scale a patch by a drag delta, then shift it so the opposite corner stays put.
+bool FUN_0042fb50(const float *delta, patchMesh_t *p, const float *anchor)
+{
+    vec3_t mins, maxs;
+    float oldExt[3], newExt[3], center[3], scale[3], shift[3];
+    Patch_CalcBounds(p, mins, maxs, false);
+    oldExt[0] = maxs[0] - mins[0];
+    oldExt[1] = maxs[1] - mins[1];
+    oldExt[2] = maxs[2] - mins[2];
+    for (int i = 0; i < 3; i++)
+    {
+        if (oldExt[i] == 0.0f && anchor[i] != 0.0f)
+            return false;
+    }
+    center[0] = oldExt[0] / 2.0f + mins[0];
+    center[1] = oldExt[1] / 2.0f + mins[1];
+    center[2] = oldExt[2] / 2.0f + mins[2];
+    for (int i = 0; i < 3; i++)
+        scale[i] = delta[i] == 0.0f ? 1.0f : (float)(delta[i] / oldExt[i] + 1.0);
+    FUN_0042f840(p, center, scale, false);
+    Patch_CalcBounds(p, mins, maxs, false);
+    newExt[0] = maxs[0] - mins[0];
+    newExt[1] = maxs[1] - mins[1];
+    newExt[2] = maxs[2] - mins[2];
+    shift[0] = (newExt[0] - oldExt[0]) * 0.5f;
+    shift[1] = (newExt[1] - oldExt[1]) * 0.5f;
+    shift[2] = (newExt[2] - oldExt[2]) * 0.5f;
+    for (int i = 0; i < 3; i++)
+    {
+        float d = anchor[i] - delta[i];
+        if (d * d > 1.0000001e-06f)
+        {
+            if (delta[0] != anchor[0])
+                shift[0] = -shift[0];
+            if (delta[1] != anchor[1])
+                shift[1] = -shift[1];
+            if (delta[2] != anchor[2])
+                shift[2] = -shift[2];
+            break;
+        }
+    }
+    FUN_0042ea50(p, shift);
+    return true;
+}
+
 // 0x0042fda0 (609 B): add one extrapolated control column at the nearer end
 void FUN_0042fda0(patchMesh_t *p, int index)
 {
@@ -3327,9 +3925,9 @@ void FUN_00430c40(patchMesh_t *p, int nCols)
         VectorSubtract(p->ctrl[p->width - 1 - nCols][h].xyz, p->ctrl[0][h].xyz, d);
         float inv = 1.0f / (float)(p->width - 1);
         vec3_t step;
-        step[0] = d[0] * inv;
-        step[1] = d[1] * inv;
-        step[2] = d[2] * inv;
+        step[0] = inv * d[0];
+        step[1] = inv * d[1];
+        step[2] = inv * d[2];
         for (int w = 0; w < p->width - 1; w++)
             VectorAdd(p->ctrl[w][h].xyz, step, p->ctrl[w + 1][h].xyz);
     }
@@ -3364,9 +3962,9 @@ void FUN_00430e20(patchMesh_t *p, int nRows)
         VectorSubtract(p->ctrl[w][p->height - 1 - nRows].xyz, p->ctrl[w][0].xyz, d);
         float inv = 1.0f / (float)(p->height - 1);
         vec3_t step;
-        step[0] = d[0] * inv;
-        step[1] = d[1] * inv;
-        step[2] = d[2] * inv;
+        step[0] = inv * d[0];
+        step[1] = inv * d[1];
+        step[2] = inv * d[2];
         for (int h = 0; h < p->height - 1; h++)
             VectorAdd(p->ctrl[w][h].xyz, step, p->ctrl[w][h + 1].xyz);
     }
@@ -3402,8 +4000,8 @@ void FUN_00430ff0()
             float inv = 1.0f / (float)(p->height - 1);
             vec3_t step;
             step[0] = inv * d[0];
-            step[1] = d[1] * inv;
-            step[2] = d[2] * inv;
+            step[1] = inv * d[1];
+            step[2] = inv * d[2];
             for (int h = 0; h < p->height - 1; h++)
                 VectorAdd(p->ctrl[w][h].xyz, step, p->ctrl[w][h + 1].xyz);
             FUN_00427160(p, DAT_01128d94);
@@ -3435,8 +4033,8 @@ void FUN_004311a0()
             float inv = 1.0f / (float)(p->width - 1);
             vec3_t step;
             step[0] = inv * d[0];
-            step[1] = d[1] * inv;
-            step[2] = d[2] * inv;
+            step[1] = inv * d[1];
+            step[2] = inv * d[2];
             for (int w = 0; w < p->width - 1; w++)
                 VectorAdd(p->ctrl[w][h].xyz, step, p->ctrl[w + 1][h].xyz);
         }
@@ -3504,6 +4102,159 @@ void FUN_00431490(int nCols, int nRows)
     }
     if (g_PatchDialog.GetSafeHwnd())
         g_PatchDialog.GetPatchInfo();
+}
+
+// Retail 0x00431570: parse one patch vertex "v x y z [c r g b a] t s t ... [f flags]".
+bool FUN_00431570(const char **data_p, PatchControl *v, int nTexPairs)
+{
+#line 4664
+    assert( v );
+    if (strcmp(Com_Parse(data_p), "v"))
+        return false;
+    v->xyz[0] = (float)atof(Com_ParseOnLine(data_p));
+    v->xyz[1] = (float)atof(Com_ParseOnLine(data_p));
+    v->xyz[2] = (float)atof(Com_ParseOnLine(data_p));
+    const char *tok = Com_Parse(data_p);
+    if (strcmp(tok, "c"))
+    {
+        v->color_28[2] = 0xff;
+        v->color_28[1] = 0xff;
+        v->color_28[0] = 0xff;
+        v->color_28[3] = 0xff;
+    }
+    else
+    {
+        v->color_28[2] = atol(Com_ParseOnLine(data_p));
+        v->color_28[1] = atol(Com_ParseOnLine(data_p));
+        v->color_28[0] = atol(Com_ParseOnLine(data_p));
+        v->color_28[3] = atol(Com_ParseOnLine(data_p));
+        tok = Com_Parse(data_p);
+    }
+    if (strcmp(tok, "t"))
+        return false;
+    for (int i = 0; i < nTexPairs; i++)
+    {
+        v->st[i][0] = (float)atof(Com_ParseOnLine(data_p)) * 0.0009765625f;
+        v->st[i][1] = (float)atof(Com_ParseOnLine(data_p)) * 0.0009765625f;
+    }
+    if (strcmp(Com_Parse(data_p), "f"))
+    {
+        v->flags_34 = 0;
+        Com_UngetToken();
+        return true;
+    }
+    v->flags_34 = atol(Com_ParseOnLine(data_p));
+    return true;
+}
+
+// Retail 0x00431890: parse a patch brush ("{ material ... }") from the map text.
+brushdef_t *FUN_00431890(const char **data_p, int version, bool bTerrain)
+{
+    if (Com_Parse(data_p)[0] != '{')
+        return NULL;
+    patchMesh_t *p = MakeNewPatch();
+    if (version >= 4)
+    {
+        p->field_08 = FUN_004209a0(data_p, "contents", DAT_0053d944);
+        p->field_0c = FUN_004209a0(data_p, "toolFlags", DAT_0053d964);
+    }
+    DAT_00592788[DAT_00596d48 * 0x45c + 0x405] = 1;
+    p->image_18 = FUN_00440c10(Com_Parse(data_p), version);
+    if (version < 4)
+    {
+        Com_MatchToken(data_p, "(", 0);
+        p->width = atol(Com_ParseOnLine(data_p));
+    }
+    else
+    {
+        p->lightmap_1c = FUN_00440c10(Com_Parse(data_p), version);
+        DAT_00592788[DAT_00596d48 * 0x45c + 0x405] = 0;
+        p->width = Com_ParseInt(data_p);
+    }
+    p->height = atol(Com_ParseOnLine(data_p));
+    if (version <= 3)
+    {
+        p->field_08 = atol(Com_ParseOnLine(data_p));
+        if (version == 3)
+            p->field_0c = atol(Com_ParseOnLine(data_p));
+    }
+    if (version != 3)
+    {
+        if (version <= 1)
+            Com_ParseOnLine(data_p);
+    }
+    if (version == 0)
+        Com_ParseOnLine(data_p);
+    if (bTerrain)
+        p->type_10 = 0x40;
+    const char *tok = Com_ParseOnLine(data_p);
+    if (version > 3)
+    {
+        float v = (float)atof(tok);
+        p->value_3834 = v;
+        p->flag_382f = v != 0.0f;
+    }
+    else
+    {
+        p->value_3834 = (float)atol(tok);
+        if (!(p->value_3834 > 0.0f))
+            p->value_3834 = 16.0f;
+        p->flag_382f = 1;
+    }
+    p->style_14 = atol(Com_ParseOnLine(data_p));
+    if (p->style_14 < 1)
+        p->style_14 = 1;
+    if (version >= 4)
+    {
+        for (int x = 0; x < p->width; x++)
+        {
+            Com_MatchToken(data_p, "(", 0);
+            for (int y = 0; y < p->height; y++)
+                FUN_00431570(data_p, &p->ctrl[x][y], 2);
+            Com_MatchToken(data_p, ")", 0);
+        }
+    }
+    else
+    {
+        Com_MatchToken(data_p, ")", 0);
+        Com_MatchToken(data_p, "(", 0);
+        for (int x = 0; x < p->width; x++)
+        {
+            Com_MatchToken(data_p, "(", 0);
+            for (int y = 0; y < p->height; y++)
+            {
+                Com_MatchToken(data_p, "(", 0);
+                p->ctrl[x][y].xyz[0] = (float)atof(Com_ParseOnLine(data_p));
+                p->ctrl[x][y].xyz[1] = (float)atof(Com_ParseOnLine(data_p));
+                p->ctrl[x][y].xyz[2] = (float)atof(Com_ParseOnLine(data_p));
+                p->ctrl[x][y].st[0][0] = (float)atof(Com_ParseOnLine(data_p));
+                p->ctrl[x][y].st[0][1] = (float)atof(Com_ParseOnLine(data_p));
+                p->ctrl[x][y].st[1][0] = 0.0f;
+                p->ctrl[x][y].st[1][1] = 0.0f;
+                p->ctrl[x][y].color_28[0] = atol(Com_ParseOnLine(data_p));
+                p->ctrl[x][y].color_28[1] = atol(Com_ParseOnLine(data_p));
+                p->ctrl[x][y].color_28[2] = atol(Com_ParseOnLine(data_p));
+                p->ctrl[x][y].color_28[3] = atol(Com_ParseOnLine(data_p));
+                p->ctrl[x][y].flags_34 = atol(Com_ParseOnLine(data_p));
+                Com_MatchToken(data_p, ")", 0);
+            }
+            Com_MatchToken(data_p, ")", 0);
+        }
+        Com_MatchToken(data_p, ")", 0);
+        p->lightmap_1c = FUN_00440840("lightmap_gray");
+        float scale = p->value_3834;
+        if (p->type_10 & 0x40)
+            FUN_00426e80(p, 1, scale);
+        else
+            FUN_00426f20(p, 1, scale);
+        p->flag_382f = 1;
+        p->value_3834 = scale;
+    }
+    Com_MatchToken(data_p, "}", 0);
+    if (p->cache_3824)
+        free(p->cache_3824);
+    p->cache_3824 = FUN_004267d0(p, DAT_01128d94, NULL, NULL);
+    return AddBrushForPatch(p, NULL);
 }
 
 // Retail 0x00432430: rotate the texture coordinates of a patch (selected points only in vertex mode).
@@ -3632,6 +4383,126 @@ void FUN_00432ca0(bool bFlipWidth)
         DAT_0123348c = -1;
     if (g_PatchDialog.GetSafeHwnd())
         g_PatchDialog.GetPatchInfo();
+}
+
+// Length of one grid step between two controls: along two chosen axes, or all three when ax < 0.
+static float PatchStepLen(const PatchControl *a, const PatchControl *b, int ax, int ay)
+{
+    if (ax < 0)
+    {
+        float dx = b->xyz[0] - a->xyz[0];
+        float dy = b->xyz[1] - a->xyz[1];
+        float dz = b->xyz[2] - a->xyz[2];
+        return (float)sqrt(dy * dy + dx * dx + dz * dz);
+    }
+    float d0 = b->xyz[ax] - a->xyz[ax];
+    float d1 = b->xyz[ay] - a->xyz[ay];
+    return (float)sqrt(d1 * d1 + d0 * d0);
+}
+
+// Retail 0x00432f60: set texture coordinates of every selected patch (mode 1 = by length, 2 = even grid).
+void FUN_00432f60(float scaleS, float scaleT, int mode)
+{
+    brush_t *b = DAT_010a44b4.next;
+    while (b != &DAT_010a44b4 && !b->patch)
+        b = b->next;
+    if (b == &DAT_010a44b4)
+        return;
+    FUN_004433b0();
+    Undo_GeneralStart("Patch set texturing");
+    Undo_AddBrushList((selbrush_t *)&DAT_010a44b4);
+    for (b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch)
+            continue;
+#line 5156
+        assert( b->patch->def == b->def->patch );
+        patchMesh_t *p = b->patch->def;
+        if (mode != 2 && (p->type_10 & 0x40))
+        {
+            int ax = -1, ay = -1;
+            if (mode != 1)
+            {
+                brushdef_t *d = b->def;
+                float dx = d->maxs[0] - d->mins[0];
+                float dy = d->maxs[1] - d->mins[1];
+                float dz = (d->maxs[2] - d->mins[2]) * 0.5f;
+                if (!(dz >= dx) && !(dz >= dy))
+                {
+                    ay = 1;
+                    ax = 0;
+                }
+                else
+                {
+                    ay = 2;
+                    ax = 0;
+                    if (!(dy < dx))
+                        ax = 1;
+                }
+            }
+            for (int y = 0; y < p->height; y++)
+            {
+                float total = 0.0f;
+                if (p->width <= 1)
+                    total = 1.0f;
+                else
+                {
+                    for (int x = 1; x < p->width; x++)
+                        total += PatchStepLen(&p->ctrl[x - 1][y], &p->ctrl[x][y], ax, ay);
+                    if (total == 0.0f)
+                        total = 1.0f;
+                }
+                float scale = scaleS / total;
+                p->ctrl[0][y].st[DAT_01128d94][0] = 0.0f;
+                total = 0.0f;
+                for (int x = 1; x < p->width; x++)
+                {
+                    total += PatchStepLen(&p->ctrl[x - 1][y], &p->ctrl[x][y], ax, ay);
+                    p->ctrl[x][y].st[DAT_01128d94][0] = scale * total;
+                }
+            }
+            for (int x = 0; x < p->width; x++)
+            {
+                float total = 0.0f;
+                if (p->height <= 1)
+                    total = 1.0f;
+                else
+                {
+                    for (int y = 1; y < p->height; y++)
+                        total += PatchStepLen(&p->ctrl[x][y - 1], &p->ctrl[x][y], ax, ay);
+                    if (total == 0.0f)
+                        total = 1.0f;
+                }
+                float scale = scaleT / total;
+                p->ctrl[x][0].st[DAT_01128d94][1] = 0.0f;
+                total = 0.0f;
+                for (int y = 1; y < p->height; y++)
+                {
+                    total += PatchStepLen(&p->ctrl[x][y - 1], &p->ctrl[x][y], ax, ay);
+                    p->ctrl[x][y].st[DAT_01128d94][1] = scale * total;
+                }
+            }
+        }
+        else
+        {
+            for (int x = 0; x < p->width; x++)
+            {
+                for (int y = 0; y < p->height; y++)
+                {
+                    p->ctrl[x][y].st[DAT_01128d94][0] = (float)x * scaleS / (float)(p->width - 1);
+                    p->ctrl[x][y].st[DAT_01128d94][1] = (float)y * scaleT / (float)(p->height - 1);
+                }
+            }
+        }
+        if (DAT_01128d94 == 1)
+            p->flag_382f = 0;
+        if (p->cache_3824)
+            free(p->cache_3824);
+        p->cache_3824 = FUN_004267d0(p, DAT_01128d94, NULL, NULL);
+        p->version++;
+    }
+    FUN_00443f80((selbrush_t *)&DAT_010a44b4);
+    Undo_End();
 }
 
 // Retail 0x00433910: apply a texture rotate, shift and scale to every selected patch.
@@ -3856,6 +4727,63 @@ void FUN_00434290()
     Undo_End();
 }
 
+// Retail 0x00434360: add (or remove) the control points inside a drag quad in the move list.
+bool FUN_00434360(const float *planes, bool bRemove)
+{
+    const hitplane_t *pl = (const hitplane_t *)planes;
+    bool bChanged = false;
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch)
+            continue;
+#line 5796
+        assert( b->patch->def == b->def->patch );
+        patchMesh_t *p = b->patch->def;
+        for (int x = 0; x < p->width; x++)
+        {
+            for (int y = 0; y < p->height; y++)
+            {
+                PatchControl *c = &p->ctrl[x][y];
+                int k;
+                for (k = 0; k < 4; k++)
+                    if (!(pl[k].n[0] * c->xyz[0] + pl[k].n[2] * c->xyz[2] + pl[k].n[1] * c->xyz[1] < pl[k].d))
+                        break;
+                if (k != 4)
+                    continue;
+                if (bRemove)
+                {
+#line 5812
+                    assert( !DAT_0112993e && !DAT_0112993f );
+                    int idx = IndexOfMovePoint(c);
+                    if (idx >= 0)
+                    {
+                        int n = DAT_010c4d84 - idx;
+                        if (n - 1 > 0)
+                            memmove(&DAT_010c4d88[idx], &DAT_010c4d88[idx + 1], (n - 1) * 4);
+                        DAT_010c4d84--;
+                    }
+                }
+                else if (DAT_0112993e)
+                {
+                    c->flags_34 |= 2;
+                    bChanged = true;
+                }
+                else if (DAT_0112993f)
+                {
+                    c->flags_34 &= ~2;
+                    bChanged = true;
+                }
+                else if (!(c->flags_34 & 2) && IndexOfMovePoint(c) < 0)
+                {
+                    bChanged = true;
+                    FUN_0042a040(p, c);
+                }
+            }
+        }
+    }
+    return bChanged;
+}
+
 // Retail 0x00434630: apply a drag quad to the selected patch points, retrying in add mode.
 void FUN_00434630(const float *planes, bool bAdd)
 {
@@ -3939,6 +4867,162 @@ patchMesh_t *FUN_00434880(const patchMesh_t *src)
     return p;
 }
 
+// Retail 0x004348e0: thicken the selected patch with an offset copy and optional seam strips.
+void FUN_004348e0(int thickness, bool bSeam)
+{
+    thickness = -thickness;
+    patchMesh_t *p = SinglePatchSelected();
+    if (!p)
+    {
+        Sys_Printf("Cannot thicken multiple patches. Please select a single patch.\n");
+        return;
+    }
+    if (p->type_10 & 0x40)
+    {
+        Sys_Printf("Thickening of terrain patches not yet implemented.  Tell the coders if you need this feature.\n");
+        return;
+    }
+    FUN_004433b0();
+    Undo_GeneralStart("Patch thicken");
+    Undo_AddBrushList((selbrush_t *)&DAT_010a44b4);
+    Patch_MeshNormals(p);
+    patchMesh_t *dup = FUN_00434880(p);
+    for (int x = 0; x < p->width; x++)
+    {
+        for (int y = 0; y < p->height; y++)
+        {
+            float t = (float)thickness;
+            dup->ctrl[x][y].xyz[0] = t * p->ctrl[x][y].normal[0] + p->ctrl[x][y].xyz[0];
+            dup->ctrl[x][y].xyz[1] = t * p->ctrl[x][y].normal[1] + p->ctrl[x][y].xyz[1];
+            dup->ctrl[x][y].xyz[2] = t * p->ctrl[x][y].normal[2] + p->ctrl[x][y].xyz[2];
+        }
+    }
+    FUN_004269d0(dup, true);
+    dup->type_10 |= 0x4000;
+    brush_t *nb = FUN_00458440((brushdef_t *)dup->cache_3828, DAT_010a44b4.next->owner);
+    FUN_00459210(nb, &DAT_010a44b4);
+    if (bSeam)
+    {
+        vec3_t mins, maxs;
+        if (!(p->type_10 & 1))
+        {
+            int lastCol = p->width - 1;
+        {
+            brush_t *bA = Patch_GenericMesh(3, p->height, 2, false, true);
+    #line 6006
+            assert( bA->patch->def == bA->def->patch );
+            patchMesh_t *sd = bA->patch->def;
+            sd->type_10 |= 0x2000;
+            for (int r = 0; r < p->height; r++)
+            {
+                sd->ctrl[0][r].xyz[0] = p->ctrl[0][r].xyz[0];
+                sd->ctrl[0][r].xyz[1] = p->ctrl[0][r].xyz[1];
+                sd->ctrl[0][r].xyz[2] = p->ctrl[0][r].xyz[2];
+                sd->ctrl[2][r].xyz[0] = dup->ctrl[0][r].xyz[0];
+                sd->ctrl[2][r].xyz[1] = dup->ctrl[0][r].xyz[1];
+                sd->ctrl[2][r].xyz[2] = dup->ctrl[0][r].xyz[2];
+                sd->ctrl[1][r].xyz[0] = (sd->ctrl[0][r].xyz[0] + sd->ctrl[2][r].xyz[0]) * 0.5f;
+                sd->ctrl[1][r].xyz[1] = (sd->ctrl[0][r].xyz[1] + sd->ctrl[2][r].xyz[1]) * 0.5f;
+                sd->ctrl[1][r].xyz[2] = (sd->ctrl[0][r].xyz[2] + sd->ctrl[2][r].xyz[2]) * 0.5f;
+            }
+            Patch_CalcBounds(sd, mins, maxs, true);
+            Brush_RebuildBrush((brushdef_t *)sd->cache_3828, mins, maxs);
+            Patch_Naturalize(sd);
+            FUN_00432a60(sd);
+            if (sd->cache_3824)
+                free(sd->cache_3824);
+            sd->cache_3824 = FUN_004267d0(sd, DAT_01128d94, NULL, NULL);
+            sd->version++;
+            FUN_0046f0b0(bA, 1, 1, 0);
+        }
+        {
+            brush_t *bB = Patch_GenericMesh(3, p->height, 2, false, true);
+    #line 6025
+            assert( bB->patch->def == bB->def->patch );
+            patchMesh_t *sd = bB->patch->def;
+            sd->type_10 |= 0x2000;
+            for (int r = 0; r < p->height; r++)
+            {
+                sd->ctrl[0][r].xyz[0] = p->ctrl[lastCol][r].xyz[0];
+                sd->ctrl[0][r].xyz[1] = p->ctrl[lastCol][r].xyz[1];
+                sd->ctrl[0][r].xyz[2] = p->ctrl[lastCol][r].xyz[2];
+                sd->ctrl[2][r].xyz[0] = dup->ctrl[lastCol][r].xyz[0];
+                sd->ctrl[2][r].xyz[1] = dup->ctrl[lastCol][r].xyz[1];
+                sd->ctrl[2][r].xyz[2] = dup->ctrl[lastCol][r].xyz[2];
+                sd->ctrl[1][r].xyz[0] = (sd->ctrl[0][r].xyz[0] + sd->ctrl[2][r].xyz[0]) * 0.5f;
+                sd->ctrl[1][r].xyz[1] = (sd->ctrl[0][r].xyz[1] + sd->ctrl[2][r].xyz[1]) * 0.5f;
+                sd->ctrl[1][r].xyz[2] = (sd->ctrl[0][r].xyz[2] + sd->ctrl[2][r].xyz[2]) * 0.5f;
+            }
+            Patch_CalcBounds(sd, mins, maxs, true);
+            Brush_RebuildBrush((brushdef_t *)sd->cache_3828, mins, maxs);
+            Patch_Naturalize(sd);
+            FUN_0046f0b0(bB, 1, 1, 0);
+        }
+        }
+        int lastRow = p->height - 1;
+        {
+            brush_t *bC = Patch_GenericMesh(p->width, 3, 2, false, true);
+    #line 6043
+            assert( bC->patch->def == bC->def->patch );
+            patchMesh_t *sd = bC->patch->def;
+            sd->type_10 |= 0x2000;
+            for (int c = 0; c < p->width; c++)
+            {
+                sd->ctrl[c][0].xyz[0] = p->ctrl[c][0].xyz[0];
+                sd->ctrl[c][0].xyz[1] = p->ctrl[c][0].xyz[1];
+                sd->ctrl[c][0].xyz[2] = p->ctrl[c][0].xyz[2];
+                sd->ctrl[c][2].xyz[0] = dup->ctrl[c][0].xyz[0];
+                sd->ctrl[c][2].xyz[1] = dup->ctrl[c][0].xyz[1];
+                sd->ctrl[c][2].xyz[2] = dup->ctrl[c][0].xyz[2];
+                sd->ctrl[c][1].xyz[0] = (sd->ctrl[c][0].xyz[0] + sd->ctrl[c][2].xyz[0]) * 0.5f;
+                sd->ctrl[c][1].xyz[1] = (sd->ctrl[c][0].xyz[1] + sd->ctrl[c][2].xyz[1]) * 0.5f;
+                sd->ctrl[c][1].xyz[2] = (sd->ctrl[c][0].xyz[2] + sd->ctrl[c][2].xyz[2]) * 0.5f;
+            }
+            Patch_CalcBounds(sd, mins, maxs, true);
+            Brush_RebuildBrush((brushdef_t *)sd->cache_3828, mins, maxs);
+            Patch_Naturalize(sd);
+            FUN_00432a60(sd);
+            if (sd->cache_3824)
+                free(sd->cache_3824);
+            sd->cache_3824 = FUN_004267d0(sd, DAT_01128d94, NULL, NULL);
+            sd->version++;
+            FUN_0046f0b0(bC, 1, 1, 0);
+        }
+        {
+            brush_t *bD = Patch_GenericMesh(p->width, 3, 2, false, true);
+    #line 6062
+            assert( bD->patch->def == bD->def->patch );
+            patchMesh_t *sd = bD->patch->def;
+            sd->type_10 |= 0x2000;
+            for (int c = 0; c < p->width; c++)
+            {
+                sd->ctrl[c][0].xyz[0] = p->ctrl[c][lastRow].xyz[0];
+                sd->ctrl[c][0].xyz[1] = p->ctrl[c][lastRow].xyz[1];
+                sd->ctrl[c][0].xyz[2] = p->ctrl[c][lastRow].xyz[2];
+                sd->ctrl[c][2].xyz[0] = dup->ctrl[c][lastRow].xyz[0];
+                sd->ctrl[c][2].xyz[1] = dup->ctrl[c][lastRow].xyz[1];
+                sd->ctrl[c][2].xyz[2] = dup->ctrl[c][lastRow].xyz[2];
+                sd->ctrl[c][1].xyz[0] = (sd->ctrl[c][0].xyz[0] + sd->ctrl[c][2].xyz[0]) * 0.5f;
+                sd->ctrl[c][1].xyz[1] = (sd->ctrl[c][0].xyz[1] + sd->ctrl[c][2].xyz[1]) * 0.5f;
+                sd->ctrl[c][1].xyz[2] = (sd->ctrl[c][0].xyz[2] + sd->ctrl[c][2].xyz[2]) * 0.5f;
+            }
+            Patch_CalcBounds(sd, mins, maxs, true);
+            Brush_RebuildBrush((brushdef_t *)sd->cache_3828, mins, maxs);
+            Patch_Naturalize(sd);
+            FUN_0046f0b0(bD, 1, 1, 0);
+        }
+    }
+    FUN_00432a60(dup);
+    if (dup->cache_3824)
+        free(dup->cache_3824);
+    dup->cache_3824 = FUN_004267d0(dup, DAT_01128d94, NULL, NULL);
+    dup->version++;
+    if (g_PatchDialog.GetSafeHwnd())
+        g_PatchDialog.GetPatchInfo();
+    FUN_00443f80((selbrush_t *)&DAT_010a44b4);
+    Undo_End();
+}
+
 // Retail 0x004353d0: transpose every selected patch (swap rows and columns, flip winding).
 void FUN_004353d0()
 {
@@ -3957,6 +5041,75 @@ void FUN_004353d0()
         p->version++;
         FUN_004269d0(p, true);
     }
+}
+
+// Retail 0x004354b0: snap the selected control points, or the whole selection, to the grid.
+void FUN_004354b0()
+{
+    float saved[1025][3];
+    bool bWholeBrushes = false;
+    brush_t *b = DAT_010a44b4.next;
+    if (DAT_010c4d84 > 0 && b != &DAT_010a44b4)
+    {
+        brush_t *c = b;
+        while (c->patch)
+        {
+            c = c->next;
+            if (c == &DAT_010a44b4)
+            {
+                bWholeBrushes = true;
+                break;
+            }
+        }
+    }
+    if (!bWholeBrushes)
+    {
+        for (; b != &DAT_010a44b4; b = b->next)
+        {
+            if (b->patch)
+            {
+#line 6232
+                assert( b->patch->def == b->def->patch );
+                patchMesh_t *p = b->patch->def;
+                for (int i = 0; i < p->width; i++)
+                {
+                    for (int j = 0; j < p->height; j++)
+                    {
+                        for (int k = 0; k < 3; k++)
+                            p->ctrl[i][j].xyz[k] = floor(p->ctrl[i][j].xyz[k] / (float)DAT_010bcd2c + 0.5) * (double)DAT_010bcd2c;
+                    }
+                }
+                FUN_004269d0(p, true);
+            }
+            else
+                FUN_0045afc0(b->def);
+        }
+        return;
+    }
+    if (DAT_010c4d84 > 1025)
+    {
+        Sys_Printf("Can only grid snap selected vertices if less than %i selected\n", 1025);
+        return;
+    }
+    for (int i = 0; i < DAT_010c4d84; i++)
+    {
+        float *pt = (float *)DAT_010c4d88[i];
+        saved[i][0] = pt[0];
+        saved[i][1] = pt[1];
+        saved[i][2] = pt[2];
+        for (int k = 0; k < 3; k++)
+            pt[k] = (float)(floor(pt[k] / (float)DAT_010bcd2c + 0.5) * (double)DAT_010bcd2c);
+    }
+    for (b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (b->patch)
+        {
+#line 6215
+            assert( b->patch->def == b->def->patch );
+            FUN_004269d0(b->patch->def, true);
+        }
+    }
+    DAT_0123348c = -1;
 }
 
 // Retail 0x00435760: swap the current layer material on a patch brush when its name matches (or when forced).
@@ -4054,6 +5207,34 @@ void FUN_00435a80(patchMesh_t *p, int col)
         c->xyz[1] = (1.0f - t) * first[1] + second[1] * t;
         c->xyz[2] = (1.0f - t) * first[2] + second[2] * t;
     }
+}
+
+// Retail 0x00435c00: nudge each selected control point down onto the nearest surface.
+void FUN_00435c00()
+{
+    if (DAT_011298b0 != 1 && DAT_011298b0 != 4)
+        return;
+    patchMesh_t *p = SinglePatchSelected();
+    if (!p)
+    {
+        Sys_Printf("must have a single patch selected to redistribute");
+        return;
+    }
+    float dir[3] = {0.0f, 0.0f, -1.0f};
+    for (int i = 0; i < DAT_010c4d84; i++)
+    {
+        float *pt = (float *)DAT_010c4d88[i];
+        float org[3] = {pt[0], pt[1], pt[2]};
+        trace28_t tr = FUN_0046ef10(org, dir, 0x200);
+        if (tr.hit)
+        {
+            pt[0] = dir[0] * tr.dist + org[0];
+            pt[1] = dir[1] * tr.dist + org[1];
+            pt[2] = dir[2] * tr.dist + org[2];
+        }
+    }
+    FUN_004269d0(p, true);
+    DAT_0123348c = -1;
 }
 
 // Retail 0x00435d20: redistribute the selected control points between selected ends of each row and column.
@@ -4273,6 +5454,76 @@ void FUN_004364b0()
     DAT_0123348c = -1;
 }
 
+// Retail 0x00436690: draw lines between selected-patch control points that are close together.
+void FUN_00436690()
+{
+    GfxPointVertex verts[1362];
+    unsigned int packed;
+    float color[4] = {0.3f, 0.8f, 0.6f, 1.0f};
+    if (DAT_012485bc > 0)
+        return;
+    brush_t *b = DAT_010a44b4.next;
+    if (b == &DAT_010a44b4)
+        return;
+    for (; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch)
+            return;
+    }
+    if (DAT_010c2d7c < 2)
+        return;
+    DAT_010c2d7c = 0;
+    for (b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch)
+            continue;
+#line 6859
+        assert( b->patch->def == b->def->patch );
+        patchMesh_t *p = b->patch->def;
+        for (int x = 0; x < p->width; x++)
+        {
+            for (int y = 0; y < p->height; y++)
+            {
+                DAT_010bcd7c[DAT_010c2d7c][0] = p->ctrl[x][y].xyz[0];
+                DAT_010bcd7c[DAT_010c2d7c][1] = p->ctrl[x][y].xyz[1];
+                DAT_010bcd7c[DAT_010c2d7c][2] = p->ctrl[x][y].xyz[2];
+                if (DAT_010c2d7c < 0x7ff)
+                    DAT_010c2d7c++;
+            }
+        }
+    }
+    int tol = PREFS_INT(0x28c);
+    float radiusSq = (float)(tol * tol);
+    (*FUN_0059c468)(color, &packed);
+    int n = DAT_010c2d7c - 1;
+    bool bAny = false;
+    if (n <= 0)
+        return;
+    int count = 0;
+    int lines = 0;
+    for (int i = n; i > 0; i--)
+    {
+        for (int j = i - 1; j >= 0; j--)
+        {
+            float dx = DAT_010bcd7c[j][0] - DAT_010bcd7c[i][0];
+            float dy = DAT_010bcd7c[j][1] - DAT_010bcd7c[i][1];
+            float d = dy * dy + dx * dx;
+            if (!(d > radiusSq) && !(d <= 0.1f))
+            {
+                count = R_Add3DLine(verts, DAT_010bcd7c[j], DAT_010bcd7c[i], &packed, 1, count, 1362);
+                lines++;
+                bAny = true;
+                if (lines > 400)
+                    break;
+            }
+        }
+    }
+    if (count)
+        (*FUN_0059c460)(count / 2, 1, verts);
+    if (bAny)
+        DAT_0123348c |= 2;
+}
+
 // Retail 0x004369b0: connect the selected patch points or vertices depending on the selection.
 void FUN_004369b0()
 {
@@ -4366,6 +5617,52 @@ void FUN_004369b0()
     FUN_00435e40();
 }
 
+// Retail 0x00436bc0: ray/triangle test against a plane normal; mode 1 flips the triangle winding.
+bool FUN_00436bc0(const float *tri0, const float *org, int mode, const float *tri1, const float *pt, const float *nrm, float *outT, float *outU, float *outV)
+{
+    const float *a = tri1;
+    const float *b = tri0;
+    if (mode == 1)
+    {
+        a = tri0;
+        b = tri1;
+    }
+    float e0[3] = {org[0] - a[0], org[1] - a[1], org[2] - a[2]};
+    float e1[3] = {b[0] - a[0], b[1] - a[1], b[2] - a[2]};
+    float c[3];
+    c[0] = e1[2] * nrm[1] - e1[1] * nrm[2];
+    c[1] = e1[0] * nrm[2] - e1[2] * nrm[0];
+    c[2] = e1[1] * nrm[0] - e1[0] * nrm[1];
+    float det = c[2] * e0[2] + c[1] * e0[1] + c[0] * e0[0];
+    float sign;
+    if (det >= 0.0001)
+        sign = 1.0f;
+    else if (mode == 0 && det <= -0.0001)
+    {
+        sign = -1.0f;
+        det = -det;
+    }
+    else
+        return false;
+    float d[3] = {pt[0] - a[0], pt[1] - a[1], pt[2] - a[2]};
+    float u = (d[2] * c[2] + d[1] * c[1] + d[0] * c[0]) * sign;
+    if (u < 0.0f || u > det)
+        return false;
+    float q[3];
+    q[0] = d[1] * e0[2] - d[2] * e0[1];
+    q[1] = d[2] * e0[0] - e0[2] * d[0];
+    q[2] = d[0] * e0[1] - d[1] * e0[0];
+    float v = (q[0] * nrm[0] + q[2] * nrm[2] + q[1] * nrm[1]) * sign;
+    if (v < 0.0f || v + u > det)
+        return false;
+    *outT = (q[2] * e1[0] + q[1] * e1[1] + q[0] * e1[2]) * sign / det;
+    if (outU)
+        *outU = u / det;
+    if (outV)
+        *outV = v / det;
+    return true;
+}
+
 // Retail 0x00437390: distance between the positions of two control points (passed by value).
 float FUN_00437390(PatchControl a, PatchControl b)
 {
@@ -4378,6 +5675,67 @@ float FUN_00437390(PatchControl a, PatchControl b)
     v[2] = v[2] * v[2];
     float len = v[2] + v[1] + v[0];
     return (float)sqrt(len);
+}
+
+// Retail 0x00437400: flip every terrain quad diagonal that is longer than the other one.
+void FUN_00437400()
+{
+    int nFaces = 0;
+    int nBrushes = 0;
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch || b->patch->def->type_10 != 0x40)
+            continue;
+        patchMesh_t *p = b->patch->def;
+        bool bFlipped = false;
+        for (int x = 0; x < p->width - 1; x++)
+        {
+            for (int y = 0; y < p->height - 1; y++)
+            {
+                PatchControl a = p->ctrl[x + 1][y + 1];
+                PatchControl a0 = p->ctrl[x][y];
+                float d1 = sqrt((a0.xyz[0] - a.xyz[0]) * (a0.xyz[0] - a.xyz[0]) + (a0.xyz[1] - a.xyz[1]) * (a0.xyz[1] - a.xyz[1]) + (a0.xyz[2] - a.xyz[2]) * (a0.xyz[2] - a.xyz[2]));
+                PatchControl c = p->ctrl[x][y + 1];
+                PatchControl c0 = p->ctrl[x + 1][y];
+                float d2 = sqrt((c0.xyz[0] - c.xyz[0]) * (c0.xyz[0] - c.xyz[0]) + (c0.xyz[1] - c.xyz[1]) * (c0.xyz[1] - c.xyz[1]) + (c0.xyz[2] - c.xyz[2]) * (c0.xyz[2] - c.xyz[2]));
+                if (d1 == d2)
+                    continue;
+                if (p->ctrl[x][y].flags_34 & 1)
+                {
+                    if (d1 < d2)
+                        continue;
+                }
+                else if (d1 > d2)
+                    continue;
+                if (!bFlipped)
+                {
+                    FUN_004433b0();
+                    Undo_GeneralStart("Turn terrain edge");
+                    Undo_AddBrush((brushdef_t *)p->cache_3828);
+                }
+                p->ctrl[x][y].flags_34 ^= 1;
+                bFlipped = true;
+                nFaces++;
+            }
+        }
+        if (bFlipped)
+        {
+            nBrushes++;
+            FUN_004269d0(p, true);
+        }
+        undo_proj *u = DAT_0109fdcc;
+        if (u && u->field_0c == 0)
+        {
+            brushdef_t *def = (brushdef_t *)p->cache_3828;
+            *(int *)((char *)def + 0x10) = u->field_08;
+            entity_t *e = *(entity_t **)((char *)def + 8);
+            if (e->eclass->fixedsize)
+                *(int *)((char *)e + 0x6c) = u->field_08;
+        }
+        Undo_End();
+    }
+    Sys_Printf("Autofliped %i faces in %i brushes.\n", nFaces, nBrushes);
+    DAT_0123348c = -1;
 }
 
 // Retail 0x00437730: pick the terrain patch edge under a ray and flip its diagonal.
@@ -4435,6 +5793,70 @@ bool FUN_00437890(const float *a, float *out, const float *s, const float *t, co
         return true;
     }
     return false;
+}
+
+// Retail 0x004379f0: derive scale, shift and rotation of a terrain patch texture mapping (false if not uniform).
+bool FUN_004379f0(patchMesh_t *p, float *out)
+{
+    plane_t plane;
+    int ix[3], iy[3];
+    float xv[3], yv[3];
+    if (!FUN_00425f40(p, &plane))
+        return false;
+    if (!FUN_00425d10(p, ix, iy))
+        return false;
+    TextureAxisFromPlane(&plane, xv, yv);
+    float pa[3], pb[3], ps[3], pt[3];
+    for (int k = 0; k < 3; k++)
+    {
+        PatchControl *c = &p->ctrl[ix[k]][iy[k]];
+        pb[k] = yv[1] * c->xyz[1] + yv[2] * c->xyz[2] + yv[0] * c->xyz[0];
+        pa[k] = xv[1] * c->xyz[1] + xv[2] * c->xyz[2] + xv[0] * c->xyz[0];
+        pt[k] = c->st[DAT_01128d94][0];
+        ps[k] = c->st[DAT_01128d94][1];
+    }
+    float m[6];
+    if (!FUN_00437890(pa, m, ps, pt, pb))
+        return false;
+    if (m[0] == 0.0f && m[1] == 0.0f)
+        return false;
+    if (m[3] == 0.0f && m[4] == 0.0f)
+        return false;
+    const int *image = (const int *)(&p->image_18)[DAT_01128d90];
+    for (int x = 0; x < p->width; x++)
+    {
+        for (int y = 0; y < p->height; y++)
+        {
+            PatchControl *c = &p->ctrl[x][y];
+            float v1 = yv[1] * c->xyz[1] + yv[2] * c->xyz[2] + yv[0] * c->xyz[0];
+            float v2 = xv[1] * c->xyz[1] + xv[2] * c->xyz[2] + xv[0] * c->xyz[0];
+            float ds = (float)fabs(v2 * m[1] + v1 * m[0] + m[2] - c->st[DAT_01128d94][0]);
+            float dt = (float)fabs(v2 * m[4] + v1 * m[3] + m[5] - c->st[DAT_01128d94][1]);
+            if ((float)image[5] * ds > 0.001f)
+                return false;
+            if ((float)image[6] * dt > 0.001f)
+                return false;
+        }
+    }
+    for (int i = 0; i < 2; i++)
+    {
+        float *row = &m[i * 3];
+        out[3 + i] = row[2];
+        float len = (float)fabs(sqrt(row[1] * row[1] + row[0] * row[0]));
+        out[1 + i] = len;
+        if (len == 0.0f)
+            return false;
+        row[0] = row[0] / len;
+        row[1] = row[1] / len;
+        (void)(1.0f / len);
+    }
+    float angle = (float)atan2(m[3], m[4]) * 57.29578f;
+    out[5] = angle;
+    float rounded = (float)floor(angle + 0.5f);
+    if ((float)fabs(rounded - angle) >= 0.001f)
+        return false;
+    out[5] = rounded;
+    return true;
 }
 
 // Retail 0x00437e50: insert a row or column in a terrain patch between two adjacent selected points.
@@ -4521,6 +5943,109 @@ void FUN_00438020()
    MATCHES 100%. Not landed: the retail image holds no pointer to either function, so the probe is
    invented code. 42fda0/430010 then sit at 39%/30%: p in ebx vs retail esi + reload from [ebp+8]. */
 
+// Retail 0x00438120: delete the selection; patch rows/columns first, else the brush with its entity links.
+void FUN_00438120()
+{
+    int x, y;
+    bool bRemoved = false;
+    brush_t *b;
+    for (b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch && DAT_010a44b4.next->next == &DAT_010a44b4 && FUN_00465d80(b->owner->def, "targetname"))
+            break;
+#line 7604
+        assert( b->patch->def == b->def->patch );
+        patchMesh_t *p = b->patch->def;
+        if ((p->type_10 & 0x40) && FUN_00429bc0(p, &x, &y))
+        {
+            if (x < 0)
+                FUN_004309e0(p, y);
+            else
+                FUN_00430b10(p, x);
+            bRemoved = true;
+            FUN_004269d0(p, bRemoved);
+        }
+    }
+    if (b == &DAT_010a44b4)
+    {
+        if (!bRemoved)
+            return;
+        if (g_PatchDialog.GetSafeHwnd())
+            g_PatchDialog.GetPatchInfo();
+        DAT_0123348c = -1;
+        return;
+    }
+    entity_t *e = b->owner->def;
+    const char *name = ValueForKey(*(epair_t **)((char *)e + 0x64), "targetname");
+    const char *newTarget = NULL;
+    if (FUN_00465d80(e, "target"))
+    {
+        newTarget = ValueForKey(*(epair_t **)((char *)e + 0x64), "target");
+        for (brush_t *n = DAT_010a44dc.next; n != &DAT_010a44dc; n = n->next)
+        {
+            entity_t *o = n->owner->def;
+            if (FUN_00465e10(o, "target", name))
+                FUN_00465bf0(o, "target", newTarget);
+        }
+    }
+    else
+    {
+        for (brush_t *n = DAT_010a44dc.next; n != &DAT_010a44dc; n = n->next)
+        {
+            entity_t *o = n->owner->def;
+            if (FUN_00465e10(o, "target", name))
+            {
+                FUN_00465c60(*(epair_t **)((char *)o + 0x64), "target");
+                FUN_004655f0();
+                FUN_004657a0(o, "target");
+            }
+        }
+        newTarget = NULL;
+    }
+    FUN_004433b0();
+    Undo_GeneralStart("delete");
+    Undo_AddBrushList((selbrush_t *)&DAT_010a44b4);
+    for (b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        entity_t *o = b->owner->def;
+        if (DAT_0109fdcc)
+        {
+            FUN_00443fd0(o);
+            if (o != DAT_012334ec->def)
+            {
+                brush_t *head = &((entity_brushes_proj *)o->field_38)->head;
+                for (brush_t *eb = head->next; eb != head; eb = eb->next)
+                    FUN_00443d90(eb);
+            }
+        }
+        else
+            Sys_Printf("Undo_AddEntity: no last undo.\n");
+    }
+    FUN_0046fb30();
+    FUN_00443f80((selbrush_t *)&DAT_010a44b4);
+    Undo_End();
+    if (g_PatchDialog.GetSafeHwnd())
+        g_PatchDialog.GetPatchInfo();
+    if (newTarget)
+    {
+        brush_t *n;
+        while ((n = DAT_010a44dc.next) != &DAT_010a44dc)
+        {
+            while (!FUN_00465e10(n->owner->def, "targetname", newTarget))
+            {
+                n = n->next;
+                if (n == &DAT_010a44dc)
+                {
+                    DAT_0123348c = -1;
+                    return;
+                }
+            }
+            FUN_0046f0b0(n, 1, 1, 0);
+        }
+    }
+    DAT_0123348c = -1;
+}
+
 // Retail 0x00438430: start index and step of a walk over the control grid (regs: eax, edx, ecx, edi).
 void FUN_00438430(int *startW, const patchMesh_t *p, int *stepW, int *startH, int a, int b, int c, int *stepH)
 {
@@ -4561,6 +6086,232 @@ void FUN_00438430(int *startW, const patchMesh_t *p, int *stepW, int *startH, in
         *startH = p->height - 1;
         *stepH = -1;
     }
+}
+
+// Retail 0x00438510: stitch brush pb0's patch onto the end of pb1's patch, then free pb0.
+void FUN_00438510(brush_t *pb1, brush_t *pb0, const int *a3, const int *a4, const int *a5)
+{
+#line 7721
+    assert( pb0->patch->def == pb0->def->patch );
+#line 7722
+    assert( pb1->patch->def == pb1->def->patch );
+    patchMesh_t *pm0 = pb0->patch->def;
+    patchMesh_t *pm1 = pb1->patch->def;
+    int swapped = a5[0];
+    int inv0 = 1 - a4[0];
+    if (a3[0] != 1)
+        FUN_00435230(pm0);
+    if (inv0 != 1)
+        FUN_00432950(pm0);
+    if (swapped != 0)
+        FUN_00432a60(pm0);
+    int swapped1 = a5[1];
+    int inv1 = a4[1];
+    bool bToggled = false;
+    bool bFlipped = false;
+    if (a3[1] != 1)
+    {
+        bToggled = true;
+        FUN_00435230(pm1);
+    }
+    if (inv1 != 1)
+    {
+        bFlipped = true;
+        FUN_00432950(pm1);
+    }
+    if (swapped1 != 0)
+    {
+        bFlipped = !bFlipped;
+        FUN_00432a60(pm1);
+    }
+#line 7729
+    assert( pm0->height == pm1->height );
+    for (int j = 0; j < pm0->height; j++)
+    {
+#line 7731
+        assert( FUN_00439620(pm1->ctrl[pm1->width - 1][j].xyz, pm0->ctrl[0][j].xyz) );
+    }
+    for (int j = 0; j < pm0->height; j++)
+    {
+        PatchControl *edge = &pm1->ctrl[pm1->width - 1][j];
+        edge->flags_34 &= ~1;
+        edge->flags_34 |= pm0->ctrl[0][j].flags_34 & 1;
+        for (int i = 1; i < pm0->width; i++)
+            memcpy(&pm1->ctrl[pm1->width - 1 + i][j], &pm0->ctrl[i][j], sizeof(PatchControl));
+    }
+    pm1->width += pm0->width - 1;
+    if (bToggled)
+        FUN_00435230(pm1);
+    if (bFlipped)
+    {
+        FUN_00432a60(pm1);
+        if (pm1->cache_3824)
+            free(pm1->cache_3824);
+        pm1->cache_3824 = FUN_004267d0(pm1, DAT_01128d94, NULL, NULL);
+        pm1->version++;
+    }
+    FUN_004269d0(pm1, true);
+    entity_t *owner = pb0->owner;
+    if (owner == DAT_012334ec || ((brush_t **)owner)[6] != pb0 || ((brush_t **)owner)[7] != pb0)
+    {
+        FUN_00458c00(pb0);
+        return;
+    }
+    entity_t *def = owner->def;
+    if (!DAT_0109fdcc)
+    {
+        Sys_Printf("Undo_AddEntity: no last undo.\n");
+        FUN_004678c0(pb0->owner);
+        return;
+    }
+    FUN_00443fd0(def);
+    if (def != DAT_012334ec->def)
+    {
+        brush_t *head = (brush_t *)((char *)def + 8);
+        for (brush_t *eb = ((brush_t **)((char *)def + 0xc))[0]; eb != head; eb = eb->next)
+            FUN_00443d90(eb);
+    }
+    FUN_004678c0(pb0->owner);
+}
+
+// Retail 0x004388b0: weld two selected patches that share one edge. Returns true when welded.
+bool FUN_004388b0(brush_t *pb0, brush_t *pb1)
+{
+#line 7767
+    assert( pb0 );
+#line 7768
+    assert( pb1 );
+#line 7769
+    assert( pb0 != pb1 );
+#line 7797
+    assert( pb0->patch->def == pb0->def->patch );
+#line 7798
+    assert( pb1->patch->def == pb1->def->patch );
+    patchMesh_t *pm0 = pb0->patch->def;
+    patchMesh_t *pm1 = pb1->patch->def;
+    bool bFound = false;
+    int m0[2], m1[2], m2[2];
+    for (int e0 = 0; e0 < 2; e0++)
+    {
+        int len0 = e0 ? pm0->height : pm0->width;
+        for (int e1 = 0; e1 < 2; e1++)
+        {
+            int len1 = e1 ? pm1->height : pm1->width;
+            if (len0 != len1)
+                continue;
+            for (int f0 = 0; f0 < 2; f0++)
+            {
+                int startCol0, stepCol0, startRow0, stepRow0;
+                FUN_00438430(&startCol0, pm0, &stepCol0, &startRow0, e0, f0, 0, &stepRow0);
+                for (int f1 = 0; f1 < 2; f1++)
+                {
+                    for (int rev = 0; rev < 2; rev++)
+                    {
+                        int startCol1, stepCol1, startRow1, stepRow1;
+                        FUN_00438430(&startCol1, pm1, &stepCol1, &startRow1, e1, f1, rev, &stepRow1);
+                        int c0 = startCol0, r0 = startRow0;
+                        int c1 = startCol1, r1 = startRow1;
+                        int n = 0;
+                        for (; n < len0; n++)
+                        {
+                            int k = 0;
+                            for (; k < 3; k++)
+                            {
+                                float d = pm1->ctrl[c1][r1].xyz[k] - pm0->ctrl[c0][r0].xyz[k];
+                                if (d * d > 1.0000001e-06f)
+                                    break;
+                            }
+                            if (k < 3)
+                                break;
+                            c0 += stepCol0;
+                            r0 += stepRow0;
+                            c1 += stepCol1;
+                            r1 += stepRow1;
+                        }
+                        if (n != len0)
+                            continue;
+                        if (bFound)
+                        {
+                            Sys_Printf("Cannot weld patches; more than one edge matches\n");
+                            return false;
+                        }
+                        int newEdge = pm1->height + pm1->width + pm0->width + pm0->height - len0 * 2 - 1;
+                        if (newEdge > 16)
+                        {
+                            Sys_Printf("Cannot weld patches; new edge size of %i is bigger than %i\n", newEdge, 16);
+                            return false;
+                        }
+                        m0[0] = e0;
+                        m0[1] = e1;
+                        m1[0] = f0;
+                        m1[1] = f1;
+                        m2[0] = 0;
+                        m2[1] = rev;
+                        bFound = true;
+                    }
+                }
+            }
+        }
+    }
+    if (!bFound)
+        return false;
+    FUN_00438510(pb1, pb0, m0, m1, m2);
+    return true;
+}
+
+// Retail 0x00438ca0: weld the selected patches that share an entity, as one undo step.
+bool FUN_00438ca0()
+{
+    bool bWorld = false;
+    bool bOther = false;
+    entity_t *prev = NULL;
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch)
+            return false;
+        entity_t *owner = b->owner;
+        if (FUN_00466060(ValueForKey(*(epair_t **)((char *)owner->def + 0x64), "classname")))
+        {
+            if (bOther)
+                return false;
+            bWorld = true;
+        }
+        else
+        {
+            if (bWorld)
+                return false;
+            if (prev && prev != owner)
+                return false;
+            bOther = true;
+        }
+        prev = owner;
+    }
+    FUN_004433b0();
+    Undo_GeneralStart("weld meshes");
+    Undo_AddBrushList((selbrush_t *)&DAT_010a44b4);
+    for (;;)
+    {
+        brush_t *a = DAT_010a44b4.next;
+        for (; a != &DAT_010a44b4; a = a->next)
+        {
+            brush_t *b;
+            for (b = a->next; b != &DAT_010a44b4; b = b->next)
+            {
+                if (!((b->def->patch->type_10 ^ a->def->patch->type_10) & 0x40) && FUN_004388b0(b, a))
+                    break;
+            }
+            if (b != &DAT_010a44b4)
+                break;
+        }
+        if (a == &DAT_010a44b4)
+            break;
+    }
+    FUN_00443f80((selbrush_t *)&DAT_010a44b4);
+    Undo_End();
+    if (g_PatchDialog.GetSafeHwnd())
+        g_PatchDialog.GetPatchInfo();
+    DAT_0123348c = -1;
+    return true;
 }
 
 // Retail 0x00438de0: copy the part of a patch past a row or column into a new patch brush and trim the original.
@@ -5320,6 +7071,12 @@ int FUN_004395e0(float x)
 {
     double bias = 9.313225746154785e-10;
     return (int)(x + bias);
+}
+
+// Retail 0x00439600: float wrapper around fabs.
+float FUN_00439600(float f)
+{
+    return (float)fabs(f);
 }
 
 // 0x00439620 (69 B), v1 in eax, v2 in ecx
