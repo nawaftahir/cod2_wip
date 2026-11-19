@@ -9,8 +9,8 @@
 
 struct z_t
 {
-	int cursorx;
 	int cursory;
+	int cursorx;
 	int width;
 	int height;
 	int timing;
