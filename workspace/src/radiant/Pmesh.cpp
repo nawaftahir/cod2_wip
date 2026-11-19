@@ -979,6 +979,21 @@ float FUN_0042ab00(const vec2_t p0, const vec2_t p1, const vec2_t p2)
     return (p1[1] - p0[1]) * p2[0] + (p2[1] - p1[1]) * p0[0] + (p0[1] - p2[1]) * p1[0];
 }
 
+// Retail 0x0042ad80: soft-selection weight of a control at xy distance from point.
+float FUN_0042ad80(const float *xyz, const float *point, float inner, float outer, float strength)
+{
+    float dx = xyz[0] - point[0];
+    float dy = xyz[1] - point[1];
+    float distSq = dy * dy + dx * dx;
+    if (distSq <= inner * inner)
+        return strength;
+    if (distSq >= outer * outer)
+        return 0.0f;
+    float t = (I_sqrt(distSq) - inner) / (outer - inner);
+    t = 1.0f - (3.0f - (t + t)) * t * t;
+    return t * strength;
+}
+
 extern HWND g_hwndCheck_01234004;
 extern brush_t DAT_010a44b4;
 void FUN_0042ae30(patchMesh_t *patch, float offset);
@@ -1050,6 +1065,81 @@ bool FUN_0042af90(const float *origin, unsigned char *hitInfo, const float *dir,
     return true;
 }
 
+typedef float (*PatchPaintFunc)(PatchControl *c, int component, float value, float delta, float weight);
+
+float FUN_00401c20();
+float FUN_00401b80();
+float FUN_00401bd0();
+float PointToBoxDistSq(const vec3_t point, const vec3_t mins, const vec3_t maxs);
+bool FUN_0044f5d0(brush_t *b);
+void Undo_AddBrush(brushdef_t *brush);
+void FUN_004269d0(patchMesh_t *p, bool bRebuildBrush);
+
+// Retail 0x0042b0f0: apply a soft-selection brush stroke to one patch (height and vertex colors).
+void FUN_0042b0f0(brush_t *b, int flags, const float *point, float delta, PatchPaintFunc func)
+{
+    float strength = FUN_00401c20();
+    if (strength == 0.0f)
+        return;
+    float inner = FUN_00401b80();
+    float outer = FUN_00401bd0();
+    if (PointToBoxDistSq(point, b->def->mins, b->def->maxs) > outer * outer)
+        return;
+    if (FUN_0044f5d0(b))
+        return;
+    bool changed = false;
+#line 2390
+    assert( b->patch->def == b->def->patch );
+    patchMesh_t *p = b->patch->def;
+    for (int i = 0; i < p->width; i++)
+    {
+        for (int j = 0; j < p->height; j++)
+        {
+            if (p->ctrl[i][j].flags_34 & 2)
+                continue;
+            float weight = FUN_0042ad80(p->ctrl[i][j].xyz, point, inner, outer, strength);
+            if (weight == 0.0f)
+                continue;
+            changed = true;
+            if (!p->field_382e)
+            {
+                p->field_382e = 1;
+                Undo_AddBrush((brushdef_t *)p->cache_3828);
+            }
+            if (flags & 1)
+                p->ctrl[i][j].xyz[2] = func(&p->ctrl[i][j], 0, p->ctrl[i][j].xyz[2], delta, weight);
+            if (flags & 8)
+                p->ctrl[i][j].color_28[0] = I_fround(min(255.0f, max(0.0f, func(&p->ctrl[i][j], 3, p->ctrl[i][j].color_28[0], delta * 0.0625f, weight))));
+            if (flags & 4)
+                p->ctrl[i][j].color_28[1] = I_fround(min(255.0f, max(0.0f, func(&p->ctrl[i][j], 2, p->ctrl[i][j].color_28[1], delta * 0.0625f, weight))));
+            if (flags & 2)
+                p->ctrl[i][j].color_28[2] = I_fround(min(255.0f, max(0.0f, func(&p->ctrl[i][j], 1, p->ctrl[i][j].color_28[2], delta * 0.0625f, weight))));
+            if (flags & 0x10)
+                p->ctrl[i][j].color_28[3] = I_fround(min(255.0f, max(0.0f, func(&p->ctrl[i][j], 4, p->ctrl[i][j].color_28[3], delta * 0.0625f, weight))));
+        }
+    }
+    if (changed)
+        FUN_004269d0(p, true);
+}
+
+// Retail 0x0042b640
+void FUN_0042b640(brush_t *list, int flags, const float *point, float delta, PatchPaintFunc func)
+{
+    for (brush_t *b = list->next; b != list; b = b->next)
+    {
+        if (b->patch)
+            FUN_0042b0f0(b, flags, point, delta, func);
+    }
+}
+
+// Retail 0x0042b680
+void FUN_0042b680(int flags, const float *point, float delta, PatchPaintFunc func)
+{
+    if (SendMessageA(g_hwndCheck_01234004, 0xf0, 0, 0))
+        FUN_0042b640(&DAT_010a44dc, flags, point, delta, func);
+    FUN_0042b640(&DAT_010a44b4, flags, point, delta, func);
+}
+
 // Retail 0x0042b6d0, 14 B. Isolated exact MATCH in run 42070669799.
 float FUN_0042b6d0(int unused1, int unused2,
                     float offset, float factor, float scale)
@@ -1060,12 +1150,29 @@ float FUN_0042b6d0(int unused1, int unused2,
 static float g_patchAccumWeights[5];
 static float g_patchAccumVals[5];
 
+// Retail 0x0042b6e0: blend a component toward its accumulated value.
+float FUN_0042b6e0(int unused1, int index, float value, float delta, float weight)
+{
+    float t = delta * weight;
+    t = max(0.0f, min(1.0f, t));
+    return (1.0f - t) * value + t * g_patchAccumVals[index];
+}
+
+
 // Retail 0x0042b760, 45 B: weighted control-point accumulator callback (5 components).
 float FUN_0042b760(int unused1, int index, float value, int unused2, float weight)
 {
     g_patchAccumVals[index] += value * weight;
     g_patchAccumWeights[index] += weight;
     return value;
+}
+
+// Retail 0x0042b790: twin of 0x0042b6e0.
+float FUN_0042b790(int unused1, int index, float value, float delta, float weight)
+{
+    float t = delta * weight;
+    t = max(0.0f, min(1.0f, t));
+    return (1.0f - t) * value + t * g_patchAccumVals[index];
 }
 
 void FUN_0042bd10(brush_t *list)

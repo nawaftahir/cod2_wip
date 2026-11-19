@@ -2119,3 +2119,4 @@ addr	size	source	symbol	name	tag
 0x00432b70	62	src/radiant/Pmesh.cpp	?FUN_00432b70@@YAXPAUpatchMesh_t@@@Z	FUN_00432b70	UNNAMED
 0x00435230	406	src/radiant/Pmesh.cpp	?FUN_00435230@@YAXPAUpatchMesh_t@@@Z	FUN_00435230	UNNAMED
 0x004384c0	75	src/radiant/Pmesh.cpp	?FUN_004384c0@@YAXPAUpatchMesh_t@@PA_N1HHH@Z	FUN_004384c0	UNNAMED
+0x0042ad80	161	src/radiant/Pmesh.cpp	?FUN_0042ad80@@YAMPBM0MMM@Z	FUN_0042ad80	UNNAMED
