@@ -701,3 +701,9 @@ addr	agent	date	reason
 0x0041c130	bulk-f	2026-11-19	bulk draft: 96%, sizes 79/79, first diff +0x2a
 0x0041c180	bulk-f	2026-11-19	bulk draft: 89%, sizes 79/76, first diff +0x2a
 0x0041c1d0	bulk-f	2026-11-19	bulk draft: 48%, sizes 119/149, first diff +0x1
+0x00448060	bulk-d	2026-11-19	Winding_InsertPoint: bulk draft: 83%, sizes 155/153, first diff +0x4b (retail copy loop stores to points[0] every iteration; written literally)
+0x00448100	bulk-d	2026-11-19	FUN_00448100 (Winding_IsTiny shape, edge^2 > 0.04): bulk draft: 18%, sizes 139/134, first diff +0x6
+0x00448550	bulk-d	2026-11-19	FUN_00448550 (Q3 Winding_SplitEpsilon): bulk draft: 96%, sizes 1000/1000, first diff +0x5 (prologue/register convention)
+0x00449180	bulk-d	2026-11-19	FUN_00449180 (Winding_Bounds): bulk draft: 2%, sizes 156/73. Retail calls AddPointToBounds (0x484xxx) out of line, ours inlines it cross-TU; auto_inline pragma would belong in com_math.cpp
+0x004493c0	bulk-d	2026-11-19	FUN_004493c0 (returns its 2nd stack arg): bulk draft: 0%, sizes 1/5; LTCG drops the unused result in ours
+0x00448d00	bulk-d	2026-11-19	FUN_00448d00 (Q3 Winding_Plane, edge^2 > 0.25): bulk draft: matches 100%, 916/916 in incremental make try, but flips to 33%, 917/916 on a clean gate (LTCG tie); kept as body

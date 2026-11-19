@@ -2187,3 +2187,8 @@ addr	size	source	symbol	name	tag
 0x0041bea0	17	src/radiant/MainFrm.cpp	_FUN_0041bea0	FUN_0041bea0	UNNAMED
 0x0041bec0	16	src/radiant/MainFrm.cpp	_FUN_0041bec0	FUN_0041bec0	UNNAMED
 0x0041d5a0	53	src/radiant/MainFrm.cpp	_FUN_0041d5a0	FUN_0041d5a0	UNNAMED
+0x00448190	79	src/radiant/Winding.cpp	?FUN_00448190@@YA_NPBUwinding_t@@@Z	FUN_00448190	UNNAMED
+0x004490a0	220	src/radiant/Winding.cpp	?FUN_004490a0@@YAMPBUwinding_t@@@Z	FUN_004490a0	UNNAMED
+0x004491d0	211	src/radiant/Winding.cpp	?FUN_004491d0@@YA_NPBUwinding_t@@PBUfacePlane_t@@QBMM@Z	FUN_004491d0	UNNAMED
+0x004492b0	272	src/radiant/Winding.cpp	?FUN_004492b0@@YA_NPBUwinding_t@@PBUfacePlane_t@@QBM2M@Z	FUN_004492b0	UNNAMED
+0x004493d0	28	src/radiant/Winding.cpp	?FUN_004493d0@@YAMM@Z	FUN_004493d0	UNNAMED

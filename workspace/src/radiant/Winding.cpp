@@ -142,6 +142,55 @@ void Winding_RemovePoint(winding_t *w, int point)
         memmove(w->points[point], w->points[point + 1], (w->pointCount - point) * sizeof(vec3_t));
 }
 
+winding_t *Winding_InsertPoint(winding_t *w, const vec3_t point, int pointIndex)
+{
+    if (pointIndex > w->pointCount)
+        FUN_0047a760("Winding_InsertPoint: pointIndex > w->pointCount");
+    else if (pointIndex < 0)
+        FUN_0047a760("Winding_InsertPoint: pointIndex < 0");
+    winding_t *neww = Winding_Alloc(w->pointCount + 1);
+    neww->pointCount = w->pointCount + 1;
+    const float *src = w->points[0];
+    for (int i = 0; i < neww->pointCount; i++) {
+        if (pointIndex == 0) {
+            VectorCopy(point, neww->points[0]);
+        } else {
+            VectorCopy(src, neww->points[0]);
+            i++;
+            src += 3;
+        }
+        i++;
+        src += 3;
+    }
+    return neww;
+}
+
+bool FUN_00448100(const winding_t *w)
+{
+    int edges = 0;
+    int prev = w->pointCount - 1;
+    for (int i = 0; i < w->pointCount; prev = i, i++) {
+        vec3_t delta;
+        VectorSubtract(w->points[i], w->points[prev], delta);
+        if (VectorLengthSquared(delta) > 0.04) {
+            if (++edges == 3)
+                return false;
+        }
+    }
+    return true;
+}
+
+bool FUN_00448190(const winding_t *w)
+{
+    for (int i = 0; i < w->pointCount; i++) {
+        for (int j = 0; j < 3; j++) {
+            if (w->points[i][j] < -131071.0f || w->points[i][j] > 131071.0f)
+                return true;
+        }
+    }
+    return false;
+}
+
 bool FUN_004481e0(const winding_t *w1, const winding_t *w2, const vec3_t normal1, const vec3_t normal2, float dist1, float dist2)
 {
     int i;
@@ -231,6 +280,87 @@ winding_t *FUN_00448280(winding_t *in, const facePlane_t *split, int keepon)
     return neww;
 }
 
+int FUN_00448550(const winding_t *in, const vec3_t normal, double dist, float epsilon, winding_t **front, winding_t **back)
+{
+    float dists[69];
+    int sides[69];
+    int counts[3];
+    float dot;
+    int i, j;
+    const float *p1, *p2;
+    vec3_t mid;
+    winding_t *f, *b;
+    int maxpts;
+
+    counts[0] = counts[1] = counts[2] = 0;
+    for (i = 0; i < in->pointCount; i++) {
+        dot = DotProduct(in->points[i], normal) - dist;
+        dists[i] = dot;
+        if (dot > epsilon)
+            sides[i] = 0;
+        else if (dot < -epsilon)
+            sides[i] = 1;
+        else
+            sides[i] = 2;
+        counts[sides[i]]++;
+    }
+    sides[i] = sides[0];
+    dists[i] = dists[0];
+    *front = *back = NULL;
+    if (!counts[0]) {
+        *back = Winding_Clone(in);
+        return (counts[1] == 0) + 1;
+    }
+    if (!counts[1]) {
+        *front = Winding_Clone(in);
+        return 0;
+    }
+    maxpts = in->pointCount + 4;
+    *front = f = Winding_Alloc(maxpts);
+    f->pointCount = 0;
+    *back = b = Winding_Alloc(maxpts);
+    b->pointCount = 0;
+    for (i = 0; i < in->pointCount; i++) {
+        p1 = in->points[i];
+        if (sides[i] == 2) {
+            VectorCopy(p1, f->points[f->pointCount]);
+            f->pointCount++;
+            VectorCopy(p1, b->points[b->pointCount]);
+            b->pointCount++;
+            continue;
+        }
+        if (sides[i] == 0) {
+            VectorCopy(p1, f->points[f->pointCount]);
+            f->pointCount++;
+        }
+        if (sides[i] == 1) {
+            VectorCopy(p1, b->points[b->pointCount]);
+            b->pointCount++;
+        }
+        if (sides[i + 1] == 2 || sides[i + 1] == sides[i])
+            continue;
+        p2 = in->points[(i + 1) % in->pointCount];
+        dot = dists[i] / (dists[i] - dists[i + 1]);
+        for (j = 0; j < 3; j++) {
+            if (normal[j] == 1)
+                mid[j] = dist;
+            else if (normal[j] == -1)
+                mid[j] = -dist;
+            else
+                mid[j] = p1[j] + (p2[j] - p1[j]) * dot;
+        }
+        VectorCopy(mid, f->points[f->pointCount]);
+        f->pointCount++;
+        VectorCopy(mid, b->points[b->pointCount]);
+        b->pointCount++;
+    }
+    if (f->pointCount > maxpts || b->pointCount > maxpts)
+        FUN_0047a760("Winding_Clip: points exceeded estimate");
+    if (f->pointCount > 64 || b->pointCount > 64)
+        FUN_0047a760("Winding_Clip: MAX_POINTS_ON_WINDING");
+    return 3;
+}
+
 bool FUN_00448940(const winding_t *w1, const winding_t *w2, int *outI, int *outJ)
 {
     int i, j;
@@ -302,4 +432,88 @@ winding_t *FUN_00448a10(const winding_t *f1, const winding_t *f2, const vec3_t p
         newf->pointCount++;
     }
     return newf;
+}
+
+void FUN_00448d00(const winding_t *w, vec3_t normal, double *dist)
+{
+    vec3_t v1, v2;
+    int i;
+
+    for (i = 0; i < w->pointCount; i++) {
+        VectorSubtract(w->points[(i + 1) % w->pointCount], w->points[i], v1);
+        VectorSubtract(w->points[(i + 2) % w->pointCount], w->points[i], v2);
+        if (VectorLengthSquared(v1) > 0.25f && VectorLengthSquared(v2) > 0.25f)
+            break;
+    }
+    Vec3Cross(v2, v1, normal);
+    Vec3Normalize(normal);
+    *dist = DotProduct(w->points[0], normal);
+}
+
+float FUN_004490a0(const winding_t *w)
+{
+    vec3_t d1, d2, cross;
+    float total = 0;
+
+    for (int i = 2; i < w->pointCount; i++) {
+        VectorSubtract(w->points[i - 1], w->points[0], d1);
+        VectorSubtract(w->points[i], w->points[0], d2);
+        Vec3Cross(d1, d2, cross);
+        total += VectorLength(cross);
+    }
+    return total * 0.5f;
+}
+
+void FUN_00449180(const winding_t *w, vec3_t mins, vec3_t maxs)
+{
+    mins[0] = mins[1] = mins[2] = 131072.0f;
+    maxs[0] = maxs[1] = maxs[2] = -131072.0f;
+    for (int i = 0; i < w->pointCount; i++)
+        AddPointToBounds(w->points[i], mins, maxs);
+}
+
+bool FUN_004491d0(const winding_t *w, const facePlane_t *plane, const vec3_t point, float epsilon)
+{
+    vec3_t dir, normal, pointvec;
+
+    for (int i = 0; i < w->pointCount; i++) {
+        VectorSubtract(w->points[(i + 1) % w->pointCount], w->points[i], dir);
+        VectorSubtract(point, w->points[i], pointvec);
+        Vec3Cross(dir, plane->normal, normal);
+        if (DotProduct(pointvec, normal) < -epsilon)
+            return false;
+    }
+    return true;
+}
+
+bool FUN_004492b0(const winding_t *w, const facePlane_t *plane, const vec3_t p1, const vec3_t p2, float epsilon)
+{
+    float front, back, frac;
+    vec3_t mid;
+
+    front = DotProduct(p1, plane->normal) - plane->dist;
+    back = DotProduct(p2, plane->normal) - plane->dist;
+    if (front < -epsilon && back < -epsilon)
+        return false;
+    if (front > epsilon && back > epsilon)
+        return false;
+    if (fabs(front - back) < 0.001f) {
+        VectorCopy(p2, mid);
+    } else {
+        frac = front / (front - back);
+        mid[0] = p1[0] + (p2[0] - p1[0]) * frac;
+        mid[1] = p1[1] + (p2[1] - p1[1]) * frac;
+        mid[2] = p1[2] + (p2[2] - p1[2]) * frac;
+    }
+    return FUN_004491d0(w, plane, mid, epsilon);
+}
+
+int FUN_004493c0(int a, int b)
+{
+    return b;
+}
+
+float FUN_004493d0(float x)
+{
+    return (float)fabs(x);
 }
