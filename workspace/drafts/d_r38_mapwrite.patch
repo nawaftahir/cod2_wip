@@ -1,0 +1,378 @@
+diff --git a/workspace/src/radiant/Pmesh.cpp b/workspace/src/radiant/Pmesh.cpp
+index 5ea34b08..98daacea 100644
+--- a/workspace/src/radiant/Pmesh.cpp
++++ b/workspace/src/radiant/Pmesh.cpp
+@@ -1814,6 +1814,57 @@ void FUN_0042fad0(patchMesh_t *p, int amount)
+     }
+ }
+ 
++class CFile;
++// vtable at 0x0054ebb0
++class UNKNOWN_0054ebb0
++{
++public:
++    virtual void FUN_0046bbf0(const char *fmt, ...);
++    CFile *m_file;
++};
++struct UNKNOWN_0053d944;
++extern const UNKNOWN_0053d944 UNKNOWN_0053d944_table[];
++extern const UNKNOWN_0053d944 UNKNOWN_0053d964_table[];
++void FUN_00420930(UNKNOWN_0054ebb0 *f, const UNKNOWN_0053d944 *table, const char *key, int flags);
++
++// 0x004321c0 (282 B), vert in eax, stream in esi
++void FUN_004321c0(PatchControl *patchVert, UNKNOWN_0054ebb0 *f, int stCount)
++{
++#line 4834
++    assert( patchVert );
++    f->FUN_0046bbf0("\tv %.8g %.8g %.8g", patchVert->xyz[0], patchVert->xyz[1], patchVert->xyz[2]);
++    if (patchVert->color_28[0] != 0xff || patchVert->color_28[1] != 0xff || patchVert->color_28[2] != 0xff || patchVert->color_28[3] != 0xff)
++        f->FUN_0046bbf0(" c %i %i %i %i", patchVert->color_28[2], patchVert->color_28[1], patchVert->color_28[0], patchVert->color_28[3]);
++    f->FUN_0046bbf0(" t");
++    for (int i = 0; i < stCount; i++)
++        f->FUN_0046bbf0(" %.8g %.8g", patchVert->st[i][0] * 1024.0f, patchVert->st[i][1] * 1024.0f);
++    if (patchVert->flags_34)
++        f->FUN_0046bbf0(" f %i", patchVert->flags_34);
++    f->FUN_0046bbf0("\n");
++}
++
++// 0x004322e0 (324 B), patch in edi, stream in eax
++void FUN_004322e0(patchMesh_t *p, UNKNOWN_0054ebb0 *f)
++{
++    if (p->type_10 & 0x40)
++        f->FUN_0046bbf0(" {\n  mesh\n  {\n");
++    else
++        f->FUN_0046bbf0(" {\n  curve\n  {\n");
++    FUN_00420930(f, UNKNOWN_0053d944_table, "contents", p->field_08);
++    FUN_00420930(f, UNKNOWN_0053d964_table, "toolFlags", p->field_0c);
++    f->FUN_0046bbf0("   %s\n", ((material_t *)p->image_18)->name);
++    f->FUN_0046bbf0("   %s\n", ((material_t *)p->lightmap_1c)->name);
++    f->FUN_0046bbf0("   %i %i %g %i\n", p->width, p->height, p->flag_382f ? p->value_3834 : 0.0f, p->style_14);
++    for (int i = 0; i < p->width; i++)
++    {
++        f->FUN_0046bbf0("   (\n");
++        for (int j = 0; j < p->height; j++)
++            FUN_004321c0(&p->ctrl[i][j], f, 2);
++        f->FUN_0046bbf0("   )\n");
++    }
++    f->FUN_0046bbf0("  }\n }\n");
++}
++
+ void FUN_004325d0(patchMesh_t *p, int c)
+ {
+     for (int i = 0; i < p->width; i++)
+diff --git a/workspace/src/radiant/XYWnd.cpp b/workspace/src/radiant/XYWnd.cpp
+index fb989f37..4c194bc0 100644
+--- a/workspace/src/radiant/XYWnd.cpp
++++ b/workspace/src/radiant/XYWnd.cpp
+@@ -851,6 +851,50 @@ void CXYWnd::SetScaleMode(bool bMode)
+ // Retail one-byte RET bodies verified with MSVC 7.1. Original entry-point ownership/signatures remain provisional.
+ extern "C" void FUN_00452e20() {}
+ 
++// vtable at 0x0054ebb0
++class UNKNOWN_0054ebb0
++{
++public:
++    UNKNOWN_0054ebb0(CFile *file);
++    virtual void FUN_0046bbf0(const char *fmt, ...);
++    CFile *m_file;
++};
++void FUN_0046adf0(CFile *file);
++void Sys_Printf(const char *fmt, ...);
++extern CMemFile g_Clipboard;
++
++void CXYWnd::Copy()
++{
++    CWaitCursor WaitCursor;
++    g_Clipboard.SetLength(0);
++    FUN_0046adf0(&g_Clipboard);
++    bool bClipped = false;
++    UINT nClipboard = ::RegisterClipboardFormat("RadiantClippings");
++    if (nClipboard > 0)
++    {
++        if (OpenClipboard())
++        {
++            ::EmptyClipboard();
++            long lSize = g_Clipboard.GetLength();
++            HANDLE h = ::GlobalAlloc(GMEM_ZEROINIT | GMEM_MOVEABLE | GMEM_DDESHARE, lSize + sizeof(long));
++            if (h != NULL)
++            {
++                unsigned char *cp = reinterpret_cast<unsigned char *>(::GlobalLock(h));
++                memcpy(cp, &lSize, sizeof(long));
++                cp += sizeof(long);
++                g_Clipboard.SeekToBegin();
++                g_Clipboard.Read(cp, lSize);
++                ::GlobalUnlock(h);
++                ::SetClipboardData(nClipboard, h);
++                ::CloseClipboard();
++                bClipped = true;
++            }
++        }
++    }
++    if (!bClipped)
++        Sys_Printf("Unable to register Windows clipboard formats, copy/paste between editors will not be possible");
++}
++
+ float (&CXYWnd::RotateOrigin())[3]
+ {
+     return g_vRotateOrigin;
+diff --git a/workspace/src/radiant/brush.cpp b/workspace/src/radiant/brush.cpp
+index ce9c1f70..12c0fe73 100644
+--- a/workspace/src/radiant/brush.cpp
++++ b/workspace/src/radiant/brush.cpp
+@@ -841,6 +841,55 @@ void Brush_SetDefaultTexdefs(brushdef_t *b, int skipLayer, float scale)
+         Face_SetDefaultTexdefs(&b->faces[i], skipLayer, scale);
+ }
+ 
++class CFile;
++// vtable at 0x0054ebb0
++class UNKNOWN_0054ebb0
++{
++public:
++    virtual void FUN_0046bbf0(const char *fmt, ...);
++    CFile *m_file;
++};
++struct UNKNOWN_0053d944;
++extern const UNKNOWN_0053d944 UNKNOWN_0053d944_table[];
++extern const UNKNOWN_0053d944 UNKNOWN_0053d964_table[];
++void FUN_00420930(UNKNOWN_0054ebb0 *f, const UNKNOWN_0053d944 *table, const char *key, int flags);
++void FUN_004322e0(patchMesh_t *p, UNKNOWN_0054ebb0 *f);
++
++// 0x004579e0 (488 B), stream in esi
++void FUN_004579e0(brushdef_t *b, UNKNOWN_0054ebb0 *f)
++{
++    if (b->patch)
++    {
++        FUN_004322e0(b->patch, f);
++        return;
++    }
++    f->FUN_0046bbf0("{\n");
++    FUN_00420930(f, UNKNOWN_0053d944_table, "contents", b->faces->contents);
++    FUN_00420930(f, UNKNOWN_0053d964_table, "toolFlags", b->faces->toolFlags);
++    for (int i = 0; i < b->faceCount; i++)
++    {
++        face_t *fa = &b->faces[i];
++        for (int j = 0; j < 3; j++)
++        {
++            f->FUN_0046bbf0(" (");
++            for (int k = 0; k < 3; k++)
++                f->FUN_0046bbf0(" %.8g", fa->planepts[j][k]);
++            f->FUN_0046bbf0(" )");
++        }
++        for (int t = 0; t < 2; t++)
++        {
++            texdef_t *td = &fa->texdef[t];
++#line 1405
++            assert(td);
++            const char *name = td->radMat->name;
++            assert(name[0]);
++            f->FUN_0046bbf0(" %s %.8g %.8g %.8g %.8g %.8g %.8g", name, td->scale[0], td->scale[1], td->shift[0], td->shift[1], td->rotate, td->crossterm);
++        }
++        f->FUN_0046bbf0("\n");
++    }
++    f->FUN_0046bbf0("}\n");
++}
++
+ #line 1420
+ void FUN_00457bd0(brushdef_t *b)
+ {
+diff --git a/workspace/src/radiant/entity.cpp b/workspace/src/radiant/entity.cpp
+index 2d458409..1836574e 100644
+--- a/workspace/src/radiant/entity.cpp
++++ b/workspace/src/radiant/entity.cpp
+@@ -57,7 +57,8 @@ struct brush_t
+ 	entityInst_t *owner;
+ 	brush_t *ownerNext;
+ 	brush_t *ownerPrev;
+-	unsigned char pad14[0x14];
++	brushdef_t *def;
++	unsigned char pad18[0x10];
+ };
+ 
+ struct entityInst_t
+@@ -582,6 +583,59 @@ void FUN_00466940(const char *key, FILE *f, const char *value)
+ 	fputc('\n', f);
+ }
+ 
++class CFile;
++// vtable at 0x0054ebb0
++class UNKNOWN_0054ebb0
++{
++public:
++	virtual void FUN_0046bbf0(const char *fmt, ...);
++	CFile *m_file;
++};
++extern entityInst_t *world_entity;
++extern brush_t selected_brushes;
++void FUN_004579e0(brushdef_t *b, UNKNOWN_0054ebb0 *f);
++
++// 0x00466c00 (383 B), stream in ecx
++void FUN_00466c00(entity_t *e, UNKNOWN_0054ebb0 *f)
++{
++	brush_t *b;
++	char text[128];
++
++#line 925
++	assert(world_entity);
++	if (world_entity->def != e)
++	{
++		for (b = selected_brushes.next; b != &selected_brushes; b = b->next)
++		{
++			if (b->owner->def == e)
++				break;
++		}
++		if (b == &selected_brushes)
++			return;
++	}
++	if (e->eclass->unk08)
++	{
++		sprintf(text, "%.0f %.0f %.0f", e->origin[0], e->origin[1], e->origin[2]);
++		FUN_00465bf0(e, "origin", text);
++	}
++	f->FUN_0046bbf0("{\n");
++	for (epair_t *ep = e->epairs; ep; ep = ep->next)
++		f->FUN_0046bbf0("\"%s\" \"%s\"\n", ep->key, ep->value);
++	if (!e->eclass->unk08)
++	{
++		int count = 0;
++		for (b = selected_brushes.next; b != &selected_brushes; b = b->next)
++		{
++			if (b->owner->def == e)
++			{
++				f->FUN_0046bbf0("// brush %i\n", count++);
++				FUN_004579e0(b->def, f);
++			}
++		}
++	}
++	f->FUN_0046bbf0("}\n");
++}
++
+ // 0x004671b0 (142 B)
+ void FUN_004671b0(brushdef_t *b, entity_t *owner)
+ {
+diff --git a/workspace/src/radiant/map.cpp b/workspace/src/radiant/map.cpp
+index ac927045..6f635601 100644
+--- a/workspace/src/radiant/map.cpp
++++ b/workspace/src/radiant/map.cpp
+@@ -2,11 +2,14 @@
+ #include <stdarg.h>
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <string.h>
+ 
+ struct epair_t;
+ struct eclass_t
+ {
+-	unsigned char pad00[0x160];
++	unsigned char pad00[4];
++	char *name;
++	unsigned char pad08[0x158];
+ 	int nShowFlags;
+ };
+ 
+@@ -275,6 +278,39 @@ void FUN_00469690(CString &name)
+ 	name.Format("%i", maxtarg + 1);
+ }
+ 
++// vtable at 0x0054ebb0
++class UNKNOWN_0054ebb0
++{
++public:
++	UNKNOWN_0054ebb0(CFile *file);
++	virtual void FUN_0046bbf0(const char *fmt, ...);
++
++	CFile *m_file;
++};
++
++void FUN_00466c00(entity_t *e, UNKNOWN_0054ebb0 *f);
++
++// 0x0046acb0 (216 B), stream in ebx
++void FUN_0046acb0(UNKNOWN_0054ebb0 *f)
++{
++#line 1213
++	map_assert2(entities.next != &entities);
++	map_assert2(!strcmp( entities.next->eclass->name, "worldspawn" ));
++	int count = 0;
++	for (entity_t *e = entities.next; e != &entities; e = e->next)
++	{
++		f->FUN_0046bbf0("// entity %i\n", count++);
++		FUN_00466c00(e, f);
++	}
++}
++
++// 0x0046adf0 (30 B), file in eax
++void FUN_0046adf0(CFile *file)
++{
++	UNKNOWN_0054ebb0 f(file);
++	FUN_0046acb0(&f);
++}
++
+ // 0x0046ae70 (106 B)
+ void FUN_0046ae70(entityInst_t *begin, entityInst_t *end, entityInst_t *skip, eclass_t *model)
+ {
+@@ -345,16 +381,6 @@ void FUN_0046bbc0(UNKNOWN_0046bba0 *obj, float *v)
+ 	v[2] = obj->vec[2];
+ }
+ 
+-// vtable at 0x0054ebb0
+-class UNKNOWN_0054ebb0
+-{
+-public:
+-	UNKNOWN_0054ebb0(CFile *file);
+-	virtual void FUN_0046bbf0(const char *fmt, ...);
+-
+-	CFile *m_file;
+-};
+-
+ // 0x0046bbe0 (10 B)
+ UNKNOWN_0054ebb0::UNKNOWN_0054ebb0(CFile *file)
+ {
+diff --git a/workspace/src/radiant/radiant_wnd.h b/workspace/src/radiant/radiant_wnd.h
+index 8f823a3b..0cb0ced5 100644
+--- a/workspace/src/radiant/radiant_wnd.h
++++ b/workspace/src/radiant/radiant_wnd.h
+@@ -125,6 +125,7 @@ public:
+     bool RotateMode();
+     bool ScaleMode();
+     void SetScaleMode(bool bMode);
++    void Copy();
+     float (&RotateOrigin())[3];
+     float (&Rotation())[3];
+     BOOL AreaSelectOK();
+=== new file workspace/src/radiant/UNKNOWN_00420930.cpp
+// Retail 0x00420930 group: map flag writers. Original TU name is still HYPOTHESIS.
+class CFile;
+
+// vtable at 0x0054ebb0
+class UNKNOWN_0054ebb0
+{
+public:
+	virtual void FUN_0046bbf0(const char *fmt, ...);
+	CFile *m_file;
+};
+
+struct UNKNOWN_0053d944
+{
+	const char *name;
+	int flags;
+};
+
+// contents and toolFlags name tables (retail 0x0053d944, 0x0053d964)
+extern const UNKNOWN_0053d944 UNKNOWN_0053d944_table[] = { { "weaponClip", 0x8002080 }, { "nonColliding", 0x8000004 }, { "detail", 0x8000000 }, { 0, 0 } };
+extern const UNKNOWN_0053d944 UNKNOWN_0053d964_table[] = { { "splitGeo", 0x100 }, { 0, 0 } };
+
+// 0x00420930 (108 B)
+void FUN_00420930(UNKNOWN_0054ebb0 *f, const UNKNOWN_0053d944 *table, const char *key, int flags)
+{
+	if (!flags)
+		return;
+	f->FUN_0046bbf0("  %s", key);
+	for (; table->name; table++)
+	{
+		if ((table->flags & flags) == table->flags)
+		{
+			f->FUN_0046bbf0(" %s", table->name);
+			flags &= ~table->flags;
+		}
+	}
+	f->FUN_0046bbf0(";\n");
+}
