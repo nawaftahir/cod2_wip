@@ -1181,3 +1181,11 @@ set by a later lowering stage, not by the list scheduler.
   that cmp counts the 8 once (n3 0xc, n16 +2) -> 8 gets ecx (22 lines; the [ebx-4] hoist is lost as a consequence).
   Retail implied: sub before inc AND the load a register temp before the sub. Who sets [n+0x18]=1 on the 8 node is untraced
   (node [n+5]=0x2c takes the bitset path 0x10746b50; next: write watch on [node+0x18] in the K3 link).
+- PINNED (agent w29b c2dbg13 write watch, 11-19): the constant-8 register count comes from 0x107801c0 (added at 0x10782695
+  `mov [esi+0x18],edx`): for a constant symbol (kind 0xd) and an op without table flag 0x800, the first use operand [t+0x28]
+  decides: kind 2 (direct mem) or kind 6 with base/index -> counts 1; kind 1 (register) -> 0. So `cmp [cv+4],8` counts the 8,
+  `cmp reg,8` does not. There is no separate fold pass: the server-order IL already carries the memory operand.
+- PINNED lever (agent, F4): `do { currentValue--; type = currentValue->type; newSize++; if ( bNoStack ) newSize += type; }
+  while ( type != VAR_PRECODEPOS );` - the bNoStack arm is dead (no code) but keeps `type` a register temp: retail's schedule,
+  immediate 8 and `lea eax`; residue 13 = only the t1 size/type colour swap. Needs the stand-in to use type AND the load
+  before newSize++. Same with a minus test = the 3-line M form.
