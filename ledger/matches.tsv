@@ -174,6 +174,7 @@ addr	size	source	symbol	name	tag
 0x00409840	46	src/radiant/DialogThick.cpp	?DoDataExchange@CDialogThick@@MAEXPAVCDataExchange@@@Z	CDialogThick::DoDataExchange	SUPPORTED
 0x00409870	6	src/radiant/DialogThick.cpp	?GetMessageMap@CDialogThick@@MBEPBUAFX_MSGMAP@@XZ	CDialogThick::GetMessageMap	SUPPORTED
 0x00409880	168	src/radiant/dlgcamera.cpp	??1CDlgCamera@@UAE@XZ	CDlgCamera::~CDlgCamera	SUPPORTED
+0x00409930	131	src/radiant/dlgcamera.cpp	?FUN_00409930@@YAXXZ	FUN_00409930	UNNAMED
 0x004099c0	263	src/radiant/dlgcamera.cpp	??0CDlgCamera@@QAE@PAVCWnd@@@Z	CDlgCamera::CDlgCamera	SUPPORTED
 0x00409ad0	34	src/radiant/dlgcamera.cpp	??_GCDlgCamera@@UAEPAXI@Z	CDlgCamera::scalar_deleting_dtor	SUPPORTED
 0x00409b00	193	src/radiant/dlgcamera.cpp	?DoDataExchange@CDlgCamera@@MAEXPAVCDataExchange@@@Z	CDlgCamera::DoDataExchange	SUPPORTED
