@@ -6,7 +6,7 @@ struct entity_s_def { unsigned char pad[0x50]; eclass_t *eclass; };
 struct entity_s { unsigned char pad[8]; entity_s_def *def; };
 struct winding_t;
 struct plane_t { float normal[3]; int type; double dist; };
-struct radmat_t { unsigned char pad[0x1c]; int compileFlags; int surfaceFlags; };
+struct radmat_t { int pad0; const char *name; unsigned char pad[0x14]; int compileFlags; int surfaceFlags; };
 struct texdef_t { radmat_t *radMat; unsigned char pad[24]; };
 struct face_t { float planepts[3][3]; texdef_t texdef[3]; unsigned char pad[8]; plane_t plane; unsigned char pad0[8]; winding_t *w; unsigned char pad1[4]; };
 struct brush_t { unsigned char pad0[8]; entity_s_def *owner; unsigned char pad1[0x2c]; int faceCount; face_t *faces; unsigned char pad2[4]; void *patch; };
@@ -357,3 +357,94 @@ bool Brush_IsFiltered(brush_t *def)
     }
     return false;
 }
+
+#include <stdlib.h>
+#include <string.h>
+extern winding_t *Winding_Clone(const winding_t *w);
+extern int FUN_00448550(const winding_t *in, const float normal[3], double dist, float epsilon, winding_t **front, winding_t **back);
+extern void FUN_00459430(brush_t *b, face_t *f, radmat_t *mat);
+extern void * __fastcall FUN_00440840(const char *name);
+extern void FUN_0047a5b0(const char *fmt, ...);
+bool FUN_00460470(winding_t *w, const plane_t *plane, brush_t *skip, selbrush_t *node, int faceIndex);
+
+bool FUN_00460440(brush_t *skip, brush_t *b)
+{
+    if (b == skip)
+        return true;
+    if (Brush_IsFixedOrPatch(b))
+        return true;
+    return !Brush_IsFiltered(b);
+}
+
+bool FUN_00460470(winding_t *w, const plane_t *plane, brush_t *skip, selbrush_t *node, int faceIndex)
+{
+    if (!w)
+        return false;
+    for (;;)
+    {
+        for (;; node = node->next)
+        {
+            if (node == &selected_brushes)
+            {
+                free(w);
+                return true;
+            }
+            brush_t *b = node->def;
+            if (b == skip || Brush_IsFixedOrPatch(b))
+                continue;
+            int anySurface, allSurface, allCompile;
+            Brush_GetFaceFlags(b, &anySurface, &allSurface, NULL, &allCompile);
+            if (!(anySurface & 0x20000000) && (allSurface & 1))
+                break;
+        }
+        for (;;)
+        {
+#line 407
+            assert(faceIndex >= 0 && faceIndex < node->def->faceCount);
+            face_t *f = &node->def->faces[faceIndex];
+            winding_t *front, *back;
+            int side = FUN_00448550(w, f->plane.normal, f->plane.dist, 0.01f, &front, &back);
+            free(w);
+            w = back;
+            if (FUN_00460470(front, plane, skip, node->next, 0))
+            {
+                if (w)
+                    free(w);
+                return true;
+            }
+            if (side == 2)
+            {
+                float d = f->plane.normal[0] * plane->normal[0] + f->plane.normal[1] * plane->normal[1] + f->plane.normal[2] * plane->normal[2];
+                if (d > 0.0f)
+                    break;
+            }
+            faceIndex++;
+            if (!w)
+                return false;
+            if (faceIndex == node->def->faceCount)
+            {
+                free(w);
+                return false;
+            }
+        }
+        faceIndex = 0;
+        if (!w)
+            return false;
+        node = node->next;
+    }
+}
+
+
+
+bool FUN_00460690(face_t *face, brush_t *b)
+{
+    if (face->w)
+    {
+        if (!FUN_00460470(Winding_Clone(face->w), &face->plane, b, selected_brushes.next, 0))
+            return false;
+    }
+    FUN_00459430(b, face, (radmat_t *)FUN_00440840("caulk"));
+    return true;
+}
+
+
