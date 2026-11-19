@@ -1176,7 +1176,20 @@ float FUN_0042b790(int unused1, int index, float value, float delta, float weigh
     return (1.0f - t) * value + t * g_patchAccumVals[index];
 }
 
-float FUN_0042b810(int unused1, int index, float value, float delta, float weight);
+extern int DAT_010bcd2c;
+float FUN_00494530(float x, float y, float z, float w);
+
+// Retail 0x0042b810: value-noise offset, seeded per component from the weights table.
+float FUN_0042b810(int c, int index, float value, float delta, float weight)
+{
+    const float *xyz = (const float *)c;
+    float scale = (float)(DAT_010bcd2c << 5);
+    float x = xyz[0] / scale;
+    float y = xyz[1] / scale;
+    float z = xyz[2] / scale;
+    float w = g_patchAccumWeights[index];
+    return FUN_00494530(x, y, z, w) * delta * weight + value;
+}
 
 // Projection of CAdvCurveEditDlg (AdvCurveDlg.cpp) for the one global instance used here.
 class CAdvCurveEditDlg : public CWnd
@@ -1192,7 +1205,6 @@ public:
     float FUN_004023c0();
 };
 extern CAdvCurveEditDlg DAT_01233b68;
-extern int DAT_010bcd2c;
 extern float DAT_0124a184;
 
 // Retail 0x0042b870: patch paint at the picked point, by the curve dialog's paint mode.
