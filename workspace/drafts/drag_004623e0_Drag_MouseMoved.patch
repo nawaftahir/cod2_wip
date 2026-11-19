@@ -1,0 +1,146 @@
+diff --git a/workspace/src/radiant/drag.cpp b/workspace/src/radiant/drag.cpp
+index 808535f1..d21b5cc4 100644
+--- a/workspace/src/radiant/drag.cpp
++++ b/workspace/src/radiant/drag.cpp
+@@ -22,8 +22,8 @@ public:
+     virtual void vfunc_18() = 0;
+     virtual void updateSelection(float x, float y, float z) = 0;
+ };
+-struct qeglobals_t { unsigned char pad_00[0x18]; int d_gridsize; unsigned char pad_1c[0x8070 - 0x1c]; int d_num_move_points; float *d_move_points[4096]; unsigned char pad_c074[0x6cb9c - 0xc074]; int d_select_mode; CSelectObject *selectObject; };
+-class CXYWnd { public: unsigned char pad_00[0xf4]; int m_nViewType; };
++struct qeglobals_t { unsigned char pad_00[0x18]; int d_gridsize; unsigned char pad_1c[0x8070 - 0x1c]; int d_num_move_points; float *d_move_points[4096]; unsigned char pad_c074[0x6cb9c - 0xc074]; int d_select_mode; CSelectObject *selectObject; unsigned char pad_6cba4[0x6cbcc - 0x6cba4]; int field_6cbcc; int pad_6cbd0; int field_6cbd4; };
++class CXYWnd { public: unsigned char pad_00[0x60]; float field_60; unsigned char pad_64[0xf4 - 0x64]; int m_nViewType; };
+ class CMainFrame
+ {
+ public:
+@@ -66,6 +66,19 @@ extern int FUN_00449760();
+ extern void FUN_00433f20();
+ extern void FUN_00433ed0();
+ extern void Select_RotateAxis(int axis, float deg, bool bPaint, bool bMouse);
++extern "C" void FUN_0041b190(CMainFrame *self);
++void FUN_0042beb0(void);
++void FUN_0042b870(int buttons, const float *origin, const float *dir);
++class CPrefsDlg { public: unsigned char pad_00[0x248]; BOOL m_bNoClamp; };
++extern CPrefsDlg *g_PrefsDlg;
++extern int drag_ok;
++extern int drag_first;
++extern int pressx, pressy;
++extern vec3_t drag_xvec, drag_yvec;
++extern bool DAT_0109fe5f;
++extern bool DAT_012334ba;
++extern bool DAT_0112993c;
++extern bool DAT_0112993d;
+ 
+ #define SCALE_X 0x01
+ #define SCALE_Y 0x02
+@@ -270,3 +283,110 @@ void MoveSelection(vec3_t move)
+         FUN_0046fd50(move, 0);
+     }
+ }
++
++// patch select modes 0xc..0x11 skip the axis lock and the move
++static bool IsPatchSelectMode(int mode)
++{
++    return mode == 0xe || mode == 0xf || mode == 0x10 || mode == 0x11 || mode == 0xc || mode == 0xd;
++}
++
++// 0x004623e0
++void Drag_MouseMoved(int x, int y, int buttons, float *origin, float *dir)
++{
++    vec3_t move, delta;
++    int i;
++
++    if (!buttons)
++    {
++        drag_ok = false;
++        DAT_0112993c = false;
++        DAT_0112993d = false;
++        return;
++    }
++
++    if (buttons == MK_SHIFT && !IsPatchSelectMode(g_qeglobals.d_select_mode))
++    {
++        drag_first = false;
++        if (abs(x - pressx) > abs(y - pressy))
++            y = pressy;
++        else
++            x = pressx;
++    }
++
++    if (DAT_0112993c || DAT_0112993d)
++    {
++        if (g_qeglobals.d_select_mode != 4 && !IsPatchSelectMode(g_qeglobals.d_select_mode))
++        {
++            if (buttons == 5)
++                return;
++            if (buttons == 9)
++            {
++                if (GetKeyState(VK_MENU) & 0x8000)
++                    return;
++            }
++            else if (buttons == 0xd)
++                return;
++        }
++        DAT_0112993c = false;
++        DAT_0112993d = false;
++        return;
++    }
++
++    if (!drag_ok)
++        return;
++
++    if ((buttons & MK_SHIFT) && !IsPatchSelectMode(g_qeglobals.d_select_mode))
++    {
++        drag_first = false;
++        if (abs(x - pressx) > abs(y - pressy))
++            y = pressy;
++        else
++            x = pressx;
++    }
++
++    if (g_qeglobals.d_select_mode == 10)
++    {
++        if (!(GetKeyState(VK_MENU) & 0x8000))
++        {
++            int mode = g_qeglobals.d_select_mode;
++            g_qeglobals.d_select_mode = 0;
++            if (mode == 11)
++                FUN_0041b190(g_pParentWnd);
++            else if (mode == 10)
++                FUN_0042beb0();
++            drag_ok = false;
++            return;
++        }
++        FUN_0042b870(buttons, origin, dir);
++        return;
++    }
++
++    for (i = 0; i < 3; i++)
++    {
++        move[i] = drag_yvec[i] * (y - pressy) + drag_xvec[i] * (x - pressx);
++        if (DAT_0109fe5f || DAT_012334ba)
++        {
++            move[i] *= g_pParentWnd->ActiveXY()->field_60;
++            if (FUN_00449760() == 1)
++                move[i] *= 0.5;
++            else if (FUN_00449760() == 2)
++                move[i] *= 0.75;
++        }
++        if (selected_brushes.next != &selected_brushes && selected_brushes.next->patch && DAT_0109fe5f
++            && FUN_00449760() == 1)
++            move[i] *= 0.5f;
++        else if (!g_PrefsDlg->m_bNoClamp)
++            move[i] = floor(move[i] / g_qeglobals.d_gridsize + 0.5) * g_qeglobals.d_gridsize;
++    }
++
++    VectorSubtract(move, pressdelta, delta);
++    VectorCopy(move, pressdelta);
++
++    if (g_qeglobals.d_select_mode == 5 || IsPatchSelectMode(g_qeglobals.d_select_mode))
++    {
++        g_qeglobals.field_6cbcc = x;
++        g_qeglobals.field_6cbd4 = y;
++        return;
++    }
++    MoveSelection(delta);
++}
