@@ -1089,40 +1089,36 @@ void Brush_SetDefaultTexdefs(brushdef_t *b, int skipLayer, float scale)
         Face_SetDefaultTexdefs(&b->faces[i], skipLayer, scale);
 }
 
-class CFile;
-// vtable at 0x0054ebb0
-class UNKNOWN_0054ebb0
+// RTTI .?AVAbstractFileWrapper@@; the slot 0 name is unknown, it is named after its first body 0x00467df0
+class AbstractFileWrapper
 {
 public:
-    virtual void FUN_0046bbf0(const char *fmt, ...);
-    CFile *m_file;
+    virtual void FUN_00467df0(const char *fmt, ...) = 0;
 };
-struct UNKNOWN_0053d944;
-extern const UNKNOWN_0053d944 UNKNOWN_0053d944_table[];
-extern const UNKNOWN_0053d944 UNKNOWN_0053d964_table[];
-void FUN_00420930(UNKNOWN_0054ebb0 *f, const UNKNOWN_0053d944 *table, const char *key, int flags);
-void FUN_004322e0(patchMesh_t *p, UNKNOWN_0054ebb0 *f);
+void FUN_00420b30(AbstractFileWrapper *f, int contents);
+void FUN_00420b50(AbstractFileWrapper *f, int toolFlags);
+void FUN_004322e0(patchMesh_t *p, AbstractFileWrapper *f);
 
 // 0x004579e0 (488 B), stream in esi
-void FUN_004579e0(brushdef_t *b, UNKNOWN_0054ebb0 *f)
+void FUN_004579e0(brushdef_t *b, AbstractFileWrapper *f)
 {
     if (b->patch)
     {
         FUN_004322e0(b->patch, f);
         return;
     }
-    f->FUN_0046bbf0("{\n");
-    FUN_00420930(f, UNKNOWN_0053d944_table, "contents", b->faces->contents);
-    FUN_00420930(f, UNKNOWN_0053d964_table, "toolFlags", b->faces->toolFlags);
+    f->FUN_00467df0("{\n");
+    FUN_00420b30(f, b->faces->contents);
+    FUN_00420b50(f, b->faces->toolFlags);
     for (int i = 0; i < b->faceCount; i++)
     {
         face_t *fa = &b->faces[i];
         for (int j = 0; j < 3; j++)
         {
-            f->FUN_0046bbf0(" (");
+            f->FUN_00467df0(" (");
             for (int k = 0; k < 3; k++)
-                f->FUN_0046bbf0(" %.8g", fa->planepts[j][k]);
-            f->FUN_0046bbf0(" )");
+                f->FUN_00467df0(" %.8g", fa->planepts[j][k]);
+            f->FUN_00467df0(" )");
         }
         for (int t = 0; t < 2; t++)
         {
@@ -1131,11 +1127,11 @@ void FUN_004579e0(brushdef_t *b, UNKNOWN_0054ebb0 *f)
             assert(td);
             const char *name = td->radMat->name;
             assert(name[0]);
-            f->FUN_0046bbf0(" %s %.8g %.8g %.8g %.8g %.8g %.8g", name, td->scale[0], td->scale[1], td->shift[0], td->shift[1], td->rotate, td->crossterm);
+            f->FUN_00467df0(" %s %.8g %.8g %.8g %.8g %.8g %.8g", name, td->scale[0], td->scale[1], td->shift[0], td->shift[1], td->rotate, td->crossterm);
         }
-        f->FUN_0046bbf0("\n");
+        f->FUN_00467df0("\n");
     }
-    f->FUN_0046bbf0("}\n");
+    f->FUN_00467df0("}\n");
 }
 
 #line 1420

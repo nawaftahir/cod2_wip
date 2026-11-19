@@ -3233,6 +3233,56 @@ void CXYWnd::SetScaleMode(bool bMode)
 // Retail one-byte RET bodies verified with MSVC 7.1. Original entry-point ownership/signatures remain provisional.
 extern "C" void FUN_00452e20() {}
 
+// RTTI .?AVAbstractFileWrapper@@; the slot 0 name is unknown, it is named after its first body 0x00467df0
+class AbstractFileWrapper
+{
+public:
+    virtual void FUN_00467df0(const char *fmt, ...) = 0;
+};
+// RTTI .?AVMemoryFileWrapper@@, vtable 0x0054ebb0
+class MemoryFileWrapper : public AbstractFileWrapper
+{
+public:
+    MemoryFileWrapper(CFile *file);
+    void FUN_00467df0(const char *fmt, ...);
+    CFile *m_file;
+};
+void FUN_0046adf0(CFile *file);
+void Sys_Printf(const char *fmt, ...);
+extern CMemFile g_Clipboard;
+
+void CXYWnd::Copy()
+{
+    CWaitCursor WaitCursor;
+    g_Clipboard.SetLength(0);
+    FUN_0046adf0(&g_Clipboard);
+    bool bClipped = false;
+    UINT nClipboard = ::RegisterClipboardFormat("RadiantClippings");
+    if (nClipboard > 0)
+    {
+        if (OpenClipboard())
+        {
+            ::EmptyClipboard();
+            long lSize = g_Clipboard.GetLength();
+            HANDLE h = ::GlobalAlloc(GMEM_ZEROINIT | GMEM_MOVEABLE | GMEM_DDESHARE, lSize + sizeof(long));
+            if (h != NULL)
+            {
+                unsigned char *cp = reinterpret_cast<unsigned char *>(::GlobalLock(h));
+                memcpy(cp, &lSize, sizeof(long));
+                cp += sizeof(long);
+                g_Clipboard.SeekToBegin();
+                g_Clipboard.Read(cp, lSize);
+                ::GlobalUnlock(h);
+                ::SetClipboardData(nClipboard, h);
+                ::CloseClipboard();
+                bClipped = true;
+            }
+        }
+    }
+    if (!bClipped)
+        Sys_Printf("Unable to register Windows clipboard formats, copy/paste between editors will not be possible");
+}
+
 float (&CXYWnd::RotateOrigin())[3]
 {
     return g_vRotateOrigin;

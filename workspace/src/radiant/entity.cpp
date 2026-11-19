@@ -14,6 +14,7 @@ struct epair_t
 	char *value;
 };
 
+struct modelDef_t;
 struct eclass_t
 {
 	unsigned char pad00[4];
@@ -21,7 +22,10 @@ struct eclass_t
 	int unk08;
 	float mins[3];
 	float maxs[3];
-	unsigned char pad24[0x158 - 0x24];
+	unsigned char pad24[0x34 - 0x24];
+	unsigned char texdef[0x20];
+	unsigned char pad54[0x154 - 0x54];
+	modelDef_t *model;
 	char *modelName;
 	unsigned char pad15c[4];
 	unsigned int flags;
@@ -57,7 +61,8 @@ struct brush_t
 	entityInst_t *owner;
 	brush_t *ownerNext;
 	brush_t *ownerPrev;
-	unsigned char pad14[0x14];
+	brushdef_t *def;
+	unsigned char pad18[0x10];
 };
 
 struct entityInst_t
@@ -67,7 +72,9 @@ struct entityInst_t
 	entity_t *def;
 	brush_t brushes; // 0x0c
 	void *modelInst; // 0x34
-	entityInst_t *children; // 0x38
+	entityInst_t *prefab; // 0x38
+	short version; // 0x3c
+	unsigned char pad3e[2];
 };
 
 // brushes at 0x08 (0x48 B), eclass 0x50, epairs 0x64 (retail offsets)
@@ -87,6 +94,39 @@ struct entity_t
 	int entityId;
 	int refCount;
 };
+
+// the loaded model of a prefab eclass; its entity list head sits at +0x08
+struct modelDef_t
+{
+	unsigned char pad00[4];
+	void *handle;
+	struct { entity_t *prev; entity_t *next; } entities;
+};
+
+struct orientation_t { float origin[3]; float axis[3][3]; };
+#define ECLASS_PREFAB 0x10
+
+void AngleVectors(const float *angles, float *forward, float *right, float *up);
+void DeleteKey(epair_t *&e, const char *key);
+char *Com_Parse(const char **data_p);
+char *Com_ParseOnLine(const char **data_p);
+void Radiant_Error(const char *fmt, ...);
+void Warning(const char *error, ...);
+brushdef_t *FUN_00457270(const char *token, const char **data);
+void FUN_0045b260(brushdef_t *b, const float *rot, const float *origin);
+struct texdef_t;
+brushdef_t *BrushDef_Create(const vec3_t mins, const vec3_t maxs, eclass_t *eclass, const texdef_t *td);
+eclass_t *FUN_00464930(const char *name, entity_t *ent);
+bool FUN_0045b420(brush_t *b);
+void FUN_0045af00(brush_t *b);
+void FUN_0045d240(const brushdef_t *b, const orientation_t *or, float *mins, float *maxs);
+brush_t *FUN_00458440(brushdef_t *def, entity_t *owner);
+void FUN_00459210(brush_t *b, brush_t *list);
+bool FUN_00465d80(entity_t *ent, const char *key);
+void FUN_00464c80(entityInst_t *e, float *mins, float *maxs);
+entityInst_t *FUN_00467770(entity_t *entDef, entityInst_t *list, brush_t *brushList);
+void FUN_00467640(entity_t *ent, float *vec);
+void FUN_004671b0(brushdef_t *b, entity_t *owner);
 
 extern entity_t entities;
 extern int DAT_011298b0;
@@ -134,12 +174,12 @@ char *ValueForKey(entity_t *ent, const char *key)
 // 0x00464c20 (60 B)
 void FUN_00464c20(entityInst_t *inst)
 {
-	if (inst->children)
+	if (inst->prefab)
 	{
-		while (inst->children->next != inst->children)
-			FUN_004678c0(inst->children->next);
-		delete inst->children;
-		inst->children = NULL;
+		while (inst->prefab->next != inst->prefab)
+			FUN_004678c0(inst->prefab->next);
+		delete inst->prefab;
+		inst->prefab = NULL;
 	}
 }
 
@@ -153,11 +193,98 @@ void FUN_00464c60(entityInst_t *inst)
 	}
 }
 
+// 0x004650b0 (290 B)
+void FUN_004650b0(entity_t *ent, orientation_t *or)
+{
+	vec3_t angles;
+	vec3_t right;
+
+#line 127
+	assert(ent);
+#line 128
+	assert(or);
+	if (FUN_00465d80(ent, "angles"))
+		sscanf(ValueForKey(ent, "angles"), "%f %f %f", &angles[0], &angles[1], &angles[2]);
+	else
+	{
+		angles[0] = 0;
+		angles[1] = 0;
+		angles[2] = 0;
+	}
+	AngleVectors(angles, or->axis[0], right, or->axis[2]);
+	or->axis[1][0] = 0 - right[0];
+	or->axis[1][1] = 0 - right[1];
+	or->axis[1][2] = 0 - right[2];
+	or->origin[0] = ent->origin[0];
+	or->origin[1] = ent->origin[1];
+	or->origin[2] = ent->origin[2];
+}
+
+// 0x004651e0 (876 B), ent in ebx
+void FUN_004651e0(entityInst_t *ent, float *mins, float *maxs)
+{
+	orientation_t or;
+
+#line 144
+	assert(ent);
+	assert(ent->def);
+	assert(ent->def->modelClass);
+	assert(ent->def->modelClass->model);
+	assert(ent->def->modelClass->model->entities.next);
+	assert(mins);
+	assert(maxs);
+	assert1(ent->prefab == NULL);
+	ent->prefab = new entityInst_t;
+	memset(ent->prefab, 0, sizeof(entityInst_t));
+	ent->prefab->next = ent->prefab;
+	ent->prefab->prev = ent->prefab;
+	ent->prefab->brushes.next = &ent->prefab->brushes;
+	ent->prefab->brushes.prev = &ent->prefab->brushes;
+	modelDef_t *model = ent->def->modelClass->model;
+	for (entity_t *def = model->entities.next; def != (entity_t *)&model->entities; def = def->next)
+	{
+		entityInst_t *inst = FUN_00467770(def, ent->prefab, &ent->prefab->brushes);
+		if (inst->def->eclass->flags & ECLASS_PREFAB)
+		{
+			brush_t *b = inst->brushes.ownerNext;
+#line 167
+			assert(b);
+			if (b != &inst->brushes)
+				FUN_0045b420(b);
+		}
+	}
+	FUN_004650b0(ent->def, &or);
+	mins[0] = 131072.0f;
+	mins[1] = 131072.0f;
+	mins[2] = 131072.0f;
+	maxs[0] = -131072.0f;
+	maxs[1] = -131072.0f;
+	maxs[2] = -131072.0f;
+	for (brush_t *b = ent->prefab->brushes.next; b != &ent->prefab->brushes; b = b->next)
+		FUN_0045d240(b->def, &or, mins, maxs);
+}
+
 // 0x00465550 (34 B)
 void FUN_00465550(entityInst_t *inst)
 {
 	FUN_00464c20(inst);
 	FUN_00464c60(inst);
+}
+
+// 0x00465580 (102 B)
+void FUN_00465580(entityInst_t *inst)
+{
+	if (inst->prefab)
+	{
+		for (brush_t *b = inst->prefab->brushes.next; b != &inst->prefab->brushes; b = b->next)
+			FUN_0045af00(b);
+		entityInst_t *head = inst->prefab;
+		for (entityInst_t *c = head->next; c != head; c = c->next)
+			FUN_00465580(c);
+	}
+	if (inst->modelInst)
+		inst->modelInst = NULL;
+	inst->version = inst->def->version - 1;
 }
 
 // 0x004655f0 (175 B)
@@ -360,6 +487,14 @@ void DeleteKey(epair_t *&e, const char *key)
 	}
 }
 
+// 0x00465ce0 (34 B)
+void FUN_00465ce0(entity_t *e, const char *key)
+{
+	DeleteKey(e->epairs, key);
+	FUN_004655f0(e, key);
+	FUN_004657a0(e, key);
+}
+
 // 0x00465d10 (31 B)
 float FloatForKey(entity_t *ent, const char *key)
 {
@@ -552,6 +687,20 @@ int Entity_MemorySize(entity_t *e)
 	return size;
 }
 
+// 0x00466400 (54 B)
+epair_t *FUN_00466400(const char **data, const char *key)
+{
+	epair_t *ep = new epair_t;
+
+	ep->next = NULL;
+	ep->key = FUN_0046cb10(key);
+	ep->value = FUN_0046cb10(Com_ParseOnLine(data));
+	return ep;
+}
+
+// 0x00466440 (1135 B)
+
+
 // 0x004668b0 (51 B)
 void FUN_004668b0(const float *a, const float *b, float *out)
 {
@@ -581,6 +730,38 @@ void FUN_00466940(const char *key, FILE *f, const char *value)
 	FUN_004668f0(value, f);
 	fputc('\n', f);
 }
+
+// RTTI .?AVAbstractFileWrapper@@; the slot 0 name is unknown, it is named after its first body 0x00467df0
+class AbstractFileWrapper
+{
+public:
+    virtual void FUN_00467df0(const char *fmt, ...) = 0;
+};
+// RTTI .?AVNormalFileWrapper@@, vtable 0x0054e52c
+class NormalFileWrapper : public AbstractFileWrapper
+{
+public:
+	NormalFileWrapper(FILE *file) : fp(file) {}
+	void FUN_00467df0(const char *fmt, ...);
+	FILE *fp;
+};
+// g_pParentWnd->m_pCamWnd (+0x78c), camera origin/angles at +0x60/+0x6c
+struct EntityCamProj { unsigned char pad00[0x60]; float origin[3]; float angles[3]; };
+struct EntityMainFrameProj { unsigned char pad00[0x78c]; EntityCamProj *camWnd; };
+extern EntityMainFrameProj *dword_01233488;
+struct brushDef_t;
+bool Map_IsBrushFiltered(brushDef_t *b);
+void FUN_004579e0(brushdef_t *b, AbstractFileWrapper *f);
+
+// 0x00466970 (649 B), FILE in ebx
+
+
+extern entityInst_t *world_entity;
+extern brush_t selected_brushes;
+void FUN_004579e0(brushdef_t *b, AbstractFileWrapper *f);
+
+// 0x00466c00 (383 B), stream in ecx
+
 
 // 0x004671b0 (142 B)
 void FUN_004671b0(brushdef_t *b, entity_t *owner)
@@ -717,6 +898,9 @@ void FUN_00467510(entity_t *e)
 	}
 }
 
+// 0x004675e0 (88 B), instance in esi, eclass in stack
+
+
 // 0x00467640 (59 B)
 void FUN_00467640(entity_t *ent, float *vec)
 {
@@ -749,6 +933,30 @@ void FUN_00467680(entity_t *entity, int delta)
 	}
 }
 
+// 0x00467770 (333 B)
+entityInst_t *FUN_00467770(entity_t *entDef, entityInst_t *list, brush_t *brushList)
+{
+#line 1307
+	assert(entDef);
+	entityInst_t *entInst = new entityInst_t;
+	memset(entInst, 0, sizeof(entityInst_t));
+	entInst->def = entDef;
+#line 1311
+	assert1(entInst->modelInst == NULL);
+	assert1(entInst->prefab == NULL);
+	entInst->version = entDef->version - 1;
+	entInst->next = list;
+	entInst->prev = list->prev;
+	list->prev->next = entInst;
+	list->prev = entInst;
+	entInst->brushes.ownerNext = &entInst->brushes;
+	entInst->brushes.ownerPrev = &entInst->brushes;
+	for (brushdef_t *b = entDef->brushes.onext; b != &entDef->brushes; b = b->onext)
+		FUN_00459210(FUN_00458440(b, (entity_t *)entInst), brushList);
+	entDef->refCount++;
+	return entInst;
+}
+
 // 0x004678c0 (432 B)
 void FUN_004678c0(entityInst_t *e)
 {
@@ -768,4 +976,27 @@ void FUN_004678c0(entityInst_t *e)
 	if (e->def->refCount == 0)
 		FUN_004661f0(e->def);
 	delete e;
+}
+
+// 0x00467a70 (361 B)
+void FUN_00467a70(entityInst_t *e)
+{
+	vec3_t mins;
+	vec3_t maxs;
+
+#line 1363
+	assert(e);
+	if (e->version == e->def->version)
+		return;
+	FUN_00464c20(e);
+	FUN_00464c60(e);
+	if (e->def->eclass->flags & ECLASS_PREFAB)
+		FUN_004651e0(e, mins, maxs);
+	else
+		FUN_00464c80(e, mins, maxs);
+#line 1374
+	assert(e->brushes.ownerNext != &e->brushes && e->brushes.ownerNext == e->brushes.ownerPrev);
+	assert(e->brushes.ownerNext->def && e->brushes.ownerNext->def->refCount >= 2);
+	FUN_0045b310(e->brushes.ownerNext->def, mins, maxs);
+	e->version = e->def->version;
 }
