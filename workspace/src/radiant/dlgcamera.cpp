@@ -24,6 +24,7 @@ extern CMainFrame *dword_01233488;
 extern "C" void FUN_0041b190(CMainFrame *self);
 void FUN_0042beb0();
 int SaveRegistryInfo(const char *name, void *data, long size);
+BOOL LoadRegistryInfo(const char *pszName, void *pvBuf, long *plSize);
 
 CDlgCamera g_dlgCamera;
 
@@ -62,6 +63,23 @@ BEGIN_MESSAGE_MAP(CDlgCamera, CDialog)
 	ON_COMMAND(ID_FILE_OPEN, OnFileOpen)
 	ON_COMMAND(ID_FILE_SAVE, OnFileSave)
 END_MESSAGE_MAP()
+
+void FUN_00409930()
+{
+	if (g_dlgCamera.GetSafeHwnd() == NULL)
+	{
+		g_dlgCamera.Create(CDlgCamera::IDD);
+		CRect rct;
+		LONG lSize = sizeof(rct);
+		if (LoadRegistryInfo("Radiant::CameraInspector", &rct, &lSize))
+		{
+			g_dlgCamera.SetWindowPos(NULL, rct.left, rct.top, 0, 0, SWP_NOSIZE | SWP_SHOWWINDOW);
+		}
+		g_nUpdateBits = -1;
+	}
+	g_dlgCamera.ShowWindow(SW_SHOW);
+	g_dlgCamera.setupFromCamera();
+}
 
 void CDlgCamera::OnBtnAddevent()
 {
