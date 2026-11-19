@@ -623,3 +623,10 @@ addr	agent	date	reason
 0x0046acb0	lane-d-r38	2026-11-19	Map_SaveSelected shape (asserts 1213/1214 map_assert2, stream ebx; drafts/d_r38_mapwrite.patch): 74%, 222/216. Third retail caller 0x46add9 unwritten; depends on 0x466c00 convention (stream ecx).
 0x0046adf0	lane-d-r38	2026-11-19	FUN_0046adf0 (CFile* eax, stack UNKNOWN_0054ebb0 then 0x46acb0; drafts/d_r38_mapwrite.patch): 66%, 27/30. No direct retail caller found (call scan), yet eax arg.
 0x00452e30	lane-d-r38	2026-11-19	CXYWnd::Copy Q3 shape (drafts/d_r38_mapwrite.patch): 71%, 292/287, first diff +0x40. Retail inlines 0x46adf0 and takes this on the stack (ret 4, caller 0x46fe50 pushes ActiveXY); ours thiscall. Needs caller 0x46fe50 and settled 0x46acb0.
+0x00488200	lane-d-r41	2026-11-19	AxisToSignedAngles verbatim lnxded-1.0 source: 74%, 291/275, first diff +0x1c (AxisToAngles also 81% 278/275 vs 0x4880e0). Not kept.
+0x00489260	lane-d-r41	2026-11-19	VectorRotate verbatim lnxded-1.0 source: 21%, 237/236, first diff +0x5; kept in workspace com_math as the callee of matched VectorRotateAroundOrigin 0x489350.
+0x00488c70	lane-d-r41	2026-11-19	BoxOnPlaneSide verbatim lnxded-1.0 source: 20%, 580/652, first diff +0x0. Not kept.
+0x004884a0	lane-d-r41	2026-11-19	SnapPointToIntersectingPlanes verbatim lnxded-1.0 source: 21%, 398/392 (SnapPointToPlanes 60% 974/958 vs 0x488630). Not kept.
+0x00489940	lane-d-r41	2026-11-19	SnapFloatToGrid verbatim lnxded-1.0 source: 13%, 155/471. Not kept.
+0x00497b30	lane-d-r41	2026-11-19	ScaledOrientationPosToWorld verbatim lnxded-1.0 source: 23%, 93/158. Not kept.
+0x00481990	lane-d-r41	2026-11-19	FS_ShutdownServerIwdNames/ReferencedIwds verbatim lnxded-1.0 source: 63%, 62/68, first diff +0x0. Not kept.

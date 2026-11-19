@@ -3008,6 +3008,14 @@ void AxisTransformComponents( const vec3_t axis[3], float x, float y, float z, v
 	out[1] = x * axis[0][1] + y * axis[1][1] + z * axis[2][1];
 	out[2] = x * axis[0][2] + y * axis[1][2] + z * axis[2][2];
 }
+
+void AnglesToAxis( const vec3_t angles, vec3_t axis[3] )
+{
+	vec3_t right;
+
+	AngleVectors( angles, axis[0], right, axis[2] );
+	VectorSubtract( vec3_origin, right, axis[1] );
+}
 void YawToAxis( float yaw, vec3_t axis[3] )
 {
 	vec3_t right;
@@ -3297,6 +3305,66 @@ float Vec3ScaleToUnitMax( const vec3_t v, vec3_t out )
 	scale = 1.0f / max;
 	VectorScale(v, scale, out);
 	return max;
+}
+
+void VectorRotate( const vec3_t vIn, const vec3_t vRotation, vec3_t out )
+{
+	vec3_t vWork;
+	vec3_t va;
+	int nIndex[3][2];
+	int i;
+	double dAngle;
+	double c;
+	double s;
+
+	VectorCopy(vIn, va);
+	VectorCopy(va, vWork);
+
+	nIndex[0][0] = 1;
+	nIndex[0][1] = 2;
+	nIndex[1][0] = 2;
+	nIndex[1][1] = 0;
+	nIndex[2][0] = 0;
+	nIndex[2][1] = 1;
+
+	for ( i = 0; i < 3; i++ )
+	{
+		if ( vRotation[i] != 0 )
+		{
+			dAngle = vRotation[i] * 3.14159265358979323846 / 180.0;
+			SinCos(dAngle, &s, &c);
+			vWork[nIndex[i][0]] = va[nIndex[i][0]] * c - va[nIndex[i][1]] * s;
+			vWork[nIndex[i][1]] = va[nIndex[i][0]] * s + va[nIndex[i][1]] * c;
+		}
+
+		VectorCopy(vWork, va);
+	}
+
+	VectorCopy(vWork, out);
+}
+
+void VectorRotateAroundOrigin( const vec3_t point, const vec3_t angles, const vec3_t origin, vec3_t out )
+{
+	vec3_t delta;
+	vec3_t rotated;
+
+	VectorSubtract(point, origin, delta);
+	VectorRotate(delta, angles, rotated);
+	VectorAdd(rotated, origin, out);
+}
+
+void SphericalToCartesian( vec3_t out, float radius, float angle )
+{
+	float sy;
+	float cy;
+	float sp;
+	float cp;
+
+	FastSinCos(angle, &sy, &cy);
+	FastSinCos(angle, &sp, &cp);
+	out[0] = radius * cy * cp;
+	out[1] = radius * sy * cp;
+	out[2] = radius * sp;
 }
 
 

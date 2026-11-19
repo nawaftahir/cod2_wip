@@ -2122,4 +2122,7 @@ addr	size	source	symbol	name	tag
 0x0042ad80	161	src/radiant/Pmesh.cpp	?FUN_0042ad80@@YAMPBM0MMM@Z	FUN_0042ad80	UNNAMED
 0x0042b810	96	src/radiant/Pmesh.cpp	?FUN_0042b810@@YAMHHMMM@Z	FUN_0042b810	UNNAMED
 0x004321c0	282	src/radiant/Pmesh.cpp	?FUN_004321c0@@YAXPAUPatchControl@@PAVUNKNOWN_0054ebb0@@H@Z	FUN_004321c0	UNNAMED
+0x00488040	65	src/universal/com_math.cpp	?AnglesToAxis@@YAXQBMQAY02M@Z	AnglesToAxis	SUPPORTED
 0x00488090	78	src/universal/com_math.cpp	?YawToAxis@@YAXMQAY02M@Z	YawToAxis	SUPPORTED
+0x00489350	75	src/universal/com_math.cpp	?VectorRotateAroundOrigin@@YAXQBM00QAM@Z	VectorRotateAroundOrigin	SUPPORTED
+0x004893a0	104	src/universal/com_math.cpp	?SphericalToCartesian@@YAXQAMMM@Z	SphericalToCartesian	SUPPORTED
