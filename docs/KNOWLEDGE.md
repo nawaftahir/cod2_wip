@@ -1164,3 +1164,8 @@ set by a later lowering stage, not by the list scheduler.
   compares + every currentValue +-8 step). The relational loop test makes a second loop reference to that web; it gets
   split with a `mov r,8` def in a side block (1 node, later dropped), which costs `_size` (merged with len) B 2 + 0x10 -> 62
   < `_type` 64. The minus test has no loop piece of the web (size 68) but emits `add ecx,-8` instead of `cmp ecx,8`.
+- PINNED (w29c c2pickmap13 with the FULL mangled name, 11-19): on the base loop the residue is two independent things.
+  (1) Rotation: shifting after pick 36 turns `lea edx` into retail's `lea eax` and changes nothing else (after 35: no change).
+  (2) Schedule: `inc ebp` before `sub ebx,8` is not moved by any pick shift. Every loop form that gives retail's sub-first order
+  (T1, H*, Z1, G2) also swaps the size/load colours, so the two may share one source cause. Note: c2dbg13 needs the full
+  mangled name (the cave compares to the terminator); a prefix silently never breaks.
