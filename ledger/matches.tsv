@@ -2127,7 +2127,9 @@ addr	size	source	symbol	name	tag
 0x0042d560	106	src/radiant/Pmesh.cpp	?FUN_0042d560@@YAXPAUpatch_t@@@Z	FUN_0042d560	UNNAMED
 0x004309e0	121	src/radiant/Pmesh.cpp	?FUN_004309e0@@YAXPAUpatchMesh_t@@H@Z	FUN_004309e0	UNNAMED
 0x004321c0	282	src/radiant/Pmesh.cpp	?FUN_004321c0@@YAXPAUPatchControl@@PAVUNKNOWN_0054ebb0@@H@Z	FUN_004321c0	UNNAMED
+0x00434880	88	src/radiant/Pmesh.cpp	?FUN_00434880@@YAPAUpatchMesh_t@@PBU1@@Z	FUN_00434880	UNNAMED
 0x004353d0	210	src/radiant/Pmesh.cpp	?FUN_004353d0@@YAXXZ	FUN_004353d0	UNNAMED
+0x00438de0	526	src/radiant/Pmesh.cpp	?FUN_00438de0@@YAXPAUpatchMesh_t@@HHPAUentity_t@@@Z	FUN_00438de0	UNNAMED
 0x004395a0	61	src/radiant/Pmesh.cpp	?FUN_004395a0@@YAXPBM0PAMM@Z	FUN_004395a0	UNNAMED
 0x004396d0	75	src/radiant/Pmesh.cpp	?FUN_004396d0@@YAMQBM@Z	FUN_004396d0	UNNAMED
 0x00488090	78	src/universal/com_math.cpp	?YawToAxis@@YAXMQAY02M@Z	YawToAxis	SUPPORTED
