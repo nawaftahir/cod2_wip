@@ -2198,6 +2198,8 @@ addr	size	source	symbol	name	tag
 0x0041bea0	17	src/radiant/MainFrm.cpp	_FUN_0041bea0	FUN_0041bea0	UNNAMED
 0x0041bec0	16	src/radiant/MainFrm.cpp	_FUN_0041bec0	FUN_0041bec0	UNNAMED
 0x0041d5a0	53	src/radiant/MainFrm.cpp	_FUN_0041d5a0	FUN_0041d5a0	UNNAMED
+0x00443830	30	src/radiant/Undo.cpp	?Undo_SetMaxMemorySize@@YAXH@Z	Undo_SetMaxMemorySize	SUPPORTED
+0x00443d70	17	src/radiant/Undo.cpp	?Undo_Start@@YAXPAD@Z	Undo_Start	SUPPORTED
 0x00448190	79	src/radiant/Winding.cpp	?FUN_00448190@@YA_NPBUwinding_t@@@Z	FUN_00448190	UNNAMED
 0x004490a0	220	src/radiant/Winding.cpp	?FUN_004490a0@@YAMPBUwinding_t@@@Z	FUN_004490a0	UNNAMED
 0x004491d0	211	src/radiant/Winding.cpp	?FUN_004491d0@@YA_NPBUwinding_t@@PBUfacePlane_t@@QBMM@Z	FUN_004491d0	UNNAMED
@@ -2205,4 +2207,9 @@ addr	size	source	symbol	name	tag
 0x004493d0	28	src/radiant/Winding.cpp	?FUN_004493d0@@YAMM@Z	FUN_004493d0	UNNAMED
 0x004598b0	97	src/radiant/brush.cpp	?FUN_004598b0@@YAXPAUbrushdef_t@@PBUtexdef_t@@@Z	FUN_004598b0	UNNAMED
 0x004599b0	233	src/radiant/brush.cpp	?FUN_004599b0@@YA_NQAM0PAUface_t@@@Z	FUN_004599b0	UNNAMED
+0x0046e4e0	51	src/radiant/select.cpp	?FUN_0046e4e0@@YAXH@Z	FUN_0046e4e0	SUPPORTED
+0x0046f2c0	367	src/radiant/select.cpp	?FUN_0046f2c0@@YAXPAUbrush_t@@@Z	FUN_0046f2c0	SUPPORTED
+0x0046f430	188	src/radiant/select.cpp	?FUN_0046f430@@YAXPAUbrush_t@@@Z	FUN_0046f430	SUPPORTED
 0x0046fbe0	355	src/radiant/select.cpp	?FUN_0046fbe0@@YAX_N@Z	FUN_0046fbe0	SUPPORTED
+0x00471a70	12	src/radiant/select.cpp	?FUN_00471a70@@YAXXZ	FUN_00471a70	SUPPORTED
+0x00471a80	12	src/radiant/select.cpp	?FUN_00471a80@@YAXXZ	FUN_00471a80	SUPPORTED
