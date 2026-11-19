@@ -192,3 +192,8 @@ All are split inline decisions; the cause is the site count, not the callee (sta
   count that fixes Pickup_Weapon, Scr_ParseGameTypeList and SP_worldspawn together; a second site in zlib (earlier in link
   order) shifts them differently and also fixes DSound_UpdateSample. Grid in ~/cod2/lab/pad10*.txt. Replace with retail's
   real symbols when found.
+- PINNED (w10o gate, 11-19, 12 -> 6 B, only VM_Notify left): more symbol pads fix CL_SetCGameTime (+ no losses): 20 `static int`
+  in qcommon/buildnumber.c, 36 in script/scr_yacc.c (after its FIRST #include; the last ones sit in a disabled #if), and 8
+  `extern "C" { static int x; }` in script/scr_animtree.cpp. In C++ that extern "C" static form counts as a symbol; plain
+  statics, static const, inline fns do not, anonymous-namespace ints emit data. Keys are not purely link position
+  (an animtree count of 12 flipped SV_DirectConnect, linked earlier). Lab scans: ~/cod2/lab/pad*.txt, cpp.sh, pad3.sh.

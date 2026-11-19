@@ -1,5 +1,15 @@
 #include "../qcommon/qcommon.h"
 #include "script_public.h"
+/* stand-in: 8 unused symbols, no code or data. c2 hashes global symbol ordinals in LTCG tie breaks;
+   retail's link had a different symbol count before this point (KNOWLEDGE: symbol pads). */
+extern "C" { static int at_pad_0; }
+extern "C" { static int at_pad_1; }
+extern "C" { static int at_pad_2; }
+extern "C" { static int at_pad_3; }
+extern "C" { static int at_pad_4; }
+extern "C" { static int at_pad_5; }
+extern "C" { static int at_pad_6; }
+extern "C" { static int at_pad_7; }
 
 static scrAnimGlob_t scrAnimGlob;
 scrAnimPub_t scrAnimPub;
