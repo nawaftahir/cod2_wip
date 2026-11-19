@@ -24617,8 +24617,9 @@
 "name": "?VM_Notify@@YAXIIPAUVariableValue@@@Z",
 "obj": "scr_vm.obj",
 "size": 1584,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x481190"
+]
 },
 {
 "name": "?Scr_NotifyNum@@YAXHHII@Z",
