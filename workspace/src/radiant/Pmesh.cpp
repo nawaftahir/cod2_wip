@@ -122,6 +122,196 @@ void FUN_0047a760(const char *fmt, ...);
 void FUN_00426e80(patchMesh_t *p, int layer, float scale);
 void FUN_00426f20(patchMesh_t *p, int layer, float scale);
 
+struct patch_eclass_t { unsigned char pad[4]; const char *name; int fixedsize; };
+struct entity_brushes_proj;
+struct epair_t;
+struct entity_t { unsigned char pad[8]; entity_t *def; unsigned char pad0[0x2c]; entity_brushes_proj *field_38; unsigned char pad1[0x14]; patch_eclass_t *eclass; unsigned char pad2[4]; float origin[3]; unsigned char pad3[4]; epair_t *epairs; };
+struct patch_t
+{
+    patchMesh_t *def;
+    short version;
+    unsigned char field_06;
+    unsigned char pad07;
+    void *matHandle;
+    void *vertHandle;
+    int vertCount;
+    int indexCount;
+    unsigned short *indices[2];
+};
+struct brush_t
+{
+    brush_t *prev;
+    brush_t *next;
+    entity_t *owner;
+    unsigned char pad0[8];
+    brushdef_t *def;
+    int faceCount;
+    unsigned char pad1[4];
+    patch_t *patch;
+    unsigned char pad2[2];
+    unsigned char hiddenBrush;
+};
+
+struct entity_brushes_proj { unsigned char pad[0xc]; brush_t head; };
+extern brush_t DAT_010a44dc;
+
+//E-DECLS
+// declarations for the bulk-drafted functions (addresses in the names)
+extern int DAT_01128d8c;
+extern float DAT_010f8d8c[][3];
+extern int DAT_010f8d88;
+extern float DAT_010c8d88[][3];
+extern int DAT_0123348c;
+extern char DAT_012334b8;
+extern char DAT_0112993e;
+extern char DAT_0112993f;
+extern int DAT_010c2d7c;
+extern float DAT_010bcd7c[][3];
+extern int DAT_010c4d84;
+extern int DAT_010c4d88[];
+extern brush_t DAT_010a44b4;
+int __fastcall FUN_00429df0(void *, int value);
+void FUN_0042a0a0(patchMesh_t *p, PatchControl *c, bool weld);
+void FUN_0042a3a0(patchMesh_t *p, int row, bool bMulti);
+void FUN_0042a3f0(patchMesh_t *p, int col, bool bMulti);
+void FUN_0042a440(patchMesh_t *p, int dx, int dy, bool bMulti, int x, int y);
+void FUN_00429f40(const float *v);
+void FUN_004269d0(patchMesh_t *p, bool bRebuildBrush);
+float FUN_00401c20();
+float FUN_00401b80();
+float FUN_00401bd0();
+void FUN_0042ab20(const float *delta);
+void FUN_0042af50(float offset);
+extern void Sys_Printf(const char *fmt, ...);
+static bool QE_SingleBrush_Pmesh(bool bQuiet = false);
+extern void *DAT_01128da8;
+void FUN_0046fb30();
+void FUN_0046f0b0(brush_t *b, int a, int b2, int c);
+struct orientation_t { vec3_t origin; vec3_t axis[3]; };
+void OrientationPosToWorld(const orientation_t *orient, const float *pos, float *out);
+extern orientation_t g_editorOrientation;
+extern void *(*FUN_0059c4a8)(int mat, int vertCount, float *xyz, float *tangent, float *binormal, float *normal, float *st, unsigned int *color);
+extern void (*FUN_0059c488)(void *mat, int arg, int vertCount, void *vertHandle, int indexCount, unsigned short *indices);
+#define ARRAY_COUNT(a) (sizeof(a) / sizeof((a)[0]))
+void FUN_0042ca80(patch_t *pm);
+extern bool DAT_012334ba;
+extern void *DAT_011298c8;
+extern patchMesh_t DAT_0109c538;
+class CMainFrame;
+extern "C" void FUN_0041b190(CMainFrame *self);
+extern CMainFrame *dword_01233488;
+void FUN_0042beb0();
+void FUN_0042d560(patch_t *pm);
+void FUN_0042d5d0(void *mat, patch_t *pm, int face, int arg);
+void FUN_00430220(patchMesh_t *p, int index);
+void FUN_00430610(patchMesh_t *p, int index);
+void FUN_004309e0(patchMesh_t *p, int index);
+void FUN_00430b10(patchMesh_t *p, int index);
+void FUN_00430370(patchMesh_t *p, bool bAdd);
+void FUN_00430760(patchMesh_t *p, bool bAdd);
+void FUN_00430a60(patchMesh_t *p, bool bFirst);
+void FUN_00430b90(patchMesh_t *p, bool bFirst);
+void FUN_00430c40(patchMesh_t *p, int nCols);
+void FUN_00430e20(patchMesh_t *p, int nRows);
+void FUN_0042ce10(patch_t *pm);
+void FUN_00427160(patchMesh_t *p, int layer);
+extern int DAT_01128d94;
+extern float dword_1128DC4;
+struct brushface_proj { unsigned char pad[0xa0]; struct { int numpoints; float points[1][3]; } *winding; unsigned char pad1[4]; };
+class CPrefsDlg;
+extern CPrefsDlg *dword_01233b64;
+#define PREFS_INT(off) (*(int *)((char *)dword_01233b64 + (off)))
+int FUN_0042efb0(brush_t *b);
+int FUN_0042f1b0(brush_t *b);
+int FUN_0042f2c0(brush_t *b);
+int FUN_0042f4f0(brush_t *b);
+bool FUN_0045b420(brush_t *b);
+extern CPatchDialog g_PatchDialog;
+bool FUN_00465d80(entity_t *e, const char *key);
+extern int (*FUN_0059c4a0)(void *handle, float (*verts)[3], int maxVerts, unsigned short *indices, int maxIndices);
+void MatrixTransformVectorCols(const vec3_t in, const vec3_t mat[3], vec3_t out);
+char *ValueForKey(epair_t *&e, const char *key);
+struct GfxPointVertex;
+int R_Add3DLine(GfxPointVertex *verts, const float *p1, const float *p2, const void *color, int width, int vertCount, int maxVertCount);
+extern float DAT_01129878[4];
+void FUN_0042d720(patch_t *pm);
+void FUN_0042e7b0(const unsigned int *color, int width, patch_t *pm);
+struct patchTexInfo_proj { unsigned char pad[4]; float scale[2]; float shift[2]; float rotate; };
+struct selbrush_t;
+void Undo_AddBrushList(selbrush_t *list);
+void FUN_00443f80(selbrush_t *list);
+void Undo_End();
+void FUN_00435230(patchMesh_t *p);
+void FUN_00432a60(patchMesh_t *p);
+void FUN_00432430(patchMesh_t *p, float angle);
+void FUN_00432800(patchMesh_t *p, float shiftS, float shiftT);
+void FUN_004326b0(patchMesh_t *p, float scaleS, float scaleT);
+void FUN_004270e0(patchMesh_t *p);
+void Patch_CapTexture(patchMesh_t *p, bool bCycleCap, float fScaleS, float fScaleT);
+void Patch_Naturalize(patchMesh_t *p);
+struct PatchPair { int x[2]; int y[2]; };
+void FUN_00432ca0(bool bFlipWidth); bool FUN_00429a00(patchMesh_t *patch, PatchPair *pPair);
+bool FUN_00429a00(patchMesh_t *patch, PatchPair *pPair);
+static inline int IndexOfMovePoint(const void *c)
+{
+    for (int i = 0; i < DAT_010c4d84; i++)
+        if ((const void *)DAT_010c4d88[i] == c)
+            return i;
+    return -1;
+}
+struct hitplane_t { float n[3]; float pad_c; double d; double pad_18; };
+bool FUN_00434690(const hitplane_t *pl, bool bRemove);
+extern int DAT_0109c528[3];
+extern float DAT_0109fdfc[3];
+extern int DAT_012334c0;
+extern bool DAT_00590a04;
+extern bool DAT_00590a05;
+extern int DAT_005909f8;
+void FUN_00433ad0();
+int FUN_00434360(const float *planes, bool bAdd);
+void FUN_00433f20();
+void FUN_00434630(const float *planes, bool bAdd);
+void FUN_00434810(const hitplane_t *planes, bool bAdd);
+patchMesh_t *FUN_00434880(const patchMesh_t *src);
+void FUN_00433ed0();
+void FUN_00433da0();
+extern int DAT_005909fc;
+extern const char *DAT_00590a08[];
+extern int DAT_012334bc;
+extern "C" void FUN_00409690(const char *text);
+extern int DAT_012335bc;
+extern CWnd DAT_012335a0;
+patchMesh_t *SinglePatchSelected();
+bool FUN_00435760(brushdef_t *b, const char *oldName, char *newName, bool bForce);
+void FUN_00433b90();
+void Patch_SetBendRotateOrigin();
+extern int DAT_0109fe60;
+void FUN_00435d20();
+void FUN_00435e40();
+void FUN_00436000();
+struct undo_proj { unsigned char pad[8]; int field_08; int field_0c; };
+extern undo_proj *DAT_0109fdcc;
+extern bool DAT_012334b9;
+extern int DAT_00590a00;
+extern const char *DAT_00590a1c[];
+void FUN_00434040();
+void FUN_0042ae30(patchMesh_t *p, float delta);
+bool FUN_0042bde0(brush_t *list);
+bool FUN_00437890(const float *a, float *out, const float *s, const float *t, const float *b);
+extern int DAT_012485bc; void FUN_004364b0();
+void FUN_00438de0(patchMesh_t *p, int x, int y, entity_t *owner);
+void FUN_00438ff0();
+struct brushowner_proj { unsigned char pad[8]; entity_t *owner; };
+struct patchsym_proj { unsigned char pad[0x3828]; brushowner_proj *symbiot; };
+void FUN_00436170();
+void FUN_004369b0();
+#define PREFS_BYTE(off) (*(unsigned char *)((char *)dword_01233b64 + (off)))
+
+bool FUN_00436dc0(const float *origin, const float *dir, patch_t *pm, float *t, int *y, int *x, int a, int b);
+void FUN_00437730(const float *origin, const float *dir);
+void Undo_AddBrush(brushdef_t *brush);
+//E-DECLS-END
+
 // Retail 0x00425770, 152 bytes; exact relocation-normalized MATCH
 // in the isolated MSVC 7.1 trial 42070900634. Material lookup uses ECX
 // argument, as established by retail disassembly.
@@ -888,41 +1078,238 @@ void FillPatch(patchMesh_t *p, vec3_t v)
     }
 }
 
-struct patch_eclass_t { unsigned char pad[8]; int fixedsize; };
-struct entity_t { unsigned char pad[8]; entity_t *def; unsigned char pad0[0x44]; patch_eclass_t *eclass; };
-struct patch_t
-{
-    patchMesh_t *def;
-    short version;
-    unsigned char field_06;
-    unsigned char pad07;
-    void *matHandle;
-    void *vertHandle;
-    int vertCount;
-    int indexCount;
-    unsigned short *indices[2];
-};
-struct brush_t
-{
-    brush_t *prev;
-    brush_t *next;
-    entity_t *owner;
-    unsigned char pad0[8];
-    brushdef_t *def;
-    int faceCount;
-    unsigned char pad1[4];
-    patch_t *patch;
-    unsigned char pad2[2];
-    unsigned char hiddenBrush;
-};
-
-extern brush_t DAT_010a44dc;
 
 // Retail 0x00429df0 / 34 B; MSVC 7.1 isolated referee MATCH
 // in run 42071492272. The decompiler names identify two existing
 // global objects: an index count and a contiguous 32-bit table.
 extern int DAT_010c4d84;
 extern int DAT_010c4d88[];
+
+// Retail 0x004293f0: build a generic patch mesh over the single selected brush.
+brush_t *Patch_GenericMesh(int nWidth, int nHeight, int nOrientation, bool bDeleteSource, bool bOverride)
+{
+    if (nHeight < 3 || nHeight > 15 || nWidth < 3 || nWidth > 15)
+    {
+        Sys_Printf("Invalid patch width or height.\n");
+        return NULL;
+    }
+    if (!bOverride && !QE_SingleBrush_Pmesh())
+    {
+        Sys_Printf("Cannot generate a patch from multiple selections.\n");
+        return NULL;
+    }
+    patchMesh_t *p = MakeNewPatch();
+    p->width = nWidth;
+    p->height = nHeight;
+    p->type_10 = 0;
+    int nFirst = 0;
+    int nSecond = 1;
+    if (nOrientation == 0)
+    {
+        nFirst = 1;
+        nSecond = 2;
+    }
+    else if (nOrientation == 1)
+        nSecond = 2;
+    brush_t *sel = DAT_010a44b4.next;
+    brushdef_t *b = sel->def;
+    entity_t *owner = sel->owner;
+    int xStep = (int)b->mins[nFirst];
+    float xAdj = fabs((b->maxs[nFirst] - b->mins[nFirst]) / (float)(nWidth - 1));
+    float yAdj = fabs((b->maxs[nSecond] - b->mins[nSecond]) / (float)(nHeight - 1));
+    for (int i = 0; i < nWidth; i++)
+    {
+        int yStep = (int)b->mins[nSecond];
+        for (int j = 0; j < nHeight; j++)
+        {
+            p->ctrl[i][j].xyz[nFirst] = (float)xStep;
+            p->ctrl[i][j].xyz[nSecond] = (float)yStep;
+            p->ctrl[i][j].xyz[nOrientation] = b->maxs[nOrientation];
+            yStep = (int)((float)yStep + yAdj);
+        }
+        xStep = (int)((float)xStep + xAdj);
+    }
+    (&p->image_18)[DAT_01128d90] = DAT_01128da8;
+    FUN_00427160(p, 0);
+    if (p->type_10 & 0x40)
+        FUN_00426e80(p, 1, 16.0f);
+    else
+        FUN_00426f20(p, 1, 16.0f);
+    p->flag_382f = 1;
+    p->value_3834 = 16.0f;
+    if (p->cache_3824)
+        free(p->cache_3824);
+    p->cache_3824 = FUN_004267d0(p, DAT_01128d94, NULL, NULL);
+    p->version++;
+    brushdef_t *def = AddBrushForPatch(p, owner->def);
+    brush_t *nb = FUN_00458440(def, owner);
+    FUN_00459210(nb, &DAT_010a44dc);
+    if (bDeleteSource)
+    {
+        FUN_0046fb30();
+        FUN_0046f0b0(nb, 1, 1, 0);
+    }
+    return nb;
+}
+
+// Retail 0x004296f0: terrain variant of 0x004293f0.
+brush_t *FUN_004296f0(int nWidth, int nHeight, int nOrientation, bool bDeleteSource, bool bOverride)
+{
+    if (nHeight < 2 || nHeight > 15 || nWidth < 2 || nWidth > 15)
+    {
+        Sys_Printf("Invalid terrain width or height.\n");
+        return NULL;
+    }
+    if (!bOverride && !QE_SingleBrush_Pmesh())
+    {
+        Sys_Printf("Cannot generate a terrain from multiple selections.\n");
+        return NULL;
+    }
+    patchMesh_t *p = MakeNewPatch();
+    p->width = nWidth;
+    p->height = nHeight;
+    p->type_10 = 0x40;
+    int nFirst = 0;
+    int nSecond = 1;
+    if (nOrientation == 0)
+    {
+        nFirst = 1;
+        nSecond = 2;
+    }
+    else if (nOrientation == 1)
+        nSecond = 2;
+    brush_t *sel = DAT_010a44b4.next;
+    brushdef_t *b = sel->def;
+    entity_t *owner = sel->owner;
+    int xStep = (int)b->mins[nFirst];
+    float xAdj = fabs((b->maxs[nFirst] - b->mins[nFirst]) / (float)(nWidth - 1));
+    float yAdj = fabs((b->maxs[nSecond] - b->mins[nSecond]) / (float)(nHeight - 1));
+    for (int i = 0; i < nWidth; i++)
+    {
+        int yStep = (int)b->mins[nSecond];
+        for (int j = 0; j < nHeight; j++)
+        {
+            p->ctrl[i][j].xyz[nFirst] = (float)xStep;
+            p->ctrl[i][j].xyz[nSecond] = (float)yStep;
+            p->ctrl[i][j].xyz[nOrientation] = b->maxs[nOrientation];
+            yStep = (int)((float)yStep + yAdj);
+        }
+        xStep = (int)((float)xStep + xAdj);
+    }
+    (&p->image_18)[DAT_01128d90] = DAT_01128da8;
+    FUN_00427160(p, 0);
+    if (p->type_10 & 0x40)
+        FUN_00426e80(p, 1, 16.0f);
+    else
+        FUN_00426f20(p, 1, 16.0f);
+    p->flag_382f = 1;
+    p->value_3834 = 16.0f;
+    if (p->cache_3824)
+        free(p->cache_3824);
+    p->cache_3824 = FUN_004267d0(p, DAT_01128d94, NULL, NULL);
+    p->version++;
+    brushdef_t *def = AddBrushForPatch(p, owner->def);
+    brush_t *nb = FUN_00458440(def, owner);
+    FUN_00459210(nb, &DAT_010a44dc);
+    if (bDeleteSource)
+    {
+        FUN_0046fb30();
+        FUN_0046f0b0(nb, 1, 1, 0);
+    }
+    return nb;
+}
+
+// Retail 0x00429a00: find the two selected control points of one patch and check they share a row or column.
+bool FUN_00429a00(patchMesh_t *patch, PatchPair *pPair)
+{
+#line 1698
+    assert( patch );
+#line 1699
+    assert( pPair );
+    PatchControl *pdvFound[2] = { NULL, NULL };
+    PatchControl *first = NULL;
+    PatchControl *second = NULL;
+    for (int i = 0; i < DAT_010c4d84; i++)
+    {
+        PatchControl *c = (PatchControl *)DAT_010c4d88[i];
+        if (c >= &patch->ctrl[0][0] && c <= &patch->ctrl[15][15])
+        {
+            if (first)
+            {
+                if (second)
+                {
+                    pdvFound[0] = first;
+                    return false;
+                }
+                pdvFound[1] = c;
+                second = c;
+            }
+            else
+                first = c;
+        }
+    }
+    pdvFound[0] = first;
+    if (!second)
+        return false;
+    for (int i = 0; i < 2; i++)
+    {
+        int index = pdvFound[i] - &patch->ctrl[0][0];
+        pPair->x[i] = index / 16;
+        pPair->y[i] = index - pPair->x[i] * 16;
+#line 1725
+        assert( pdvFound[i] == &patch->ctrl[pPair->x[i]][pPair->y[i]] );
+    }
+    if (pPair->x[0] == pPair->x[1] || pPair->y[0] == pPair->y[1])
+        return true;
+    Sys_Printf("selected vertices must be on the same column or row\n");
+    return false;
+}
+
+// Retail 0x00429bc0: the row or column shared by every selected control of a patch.
+bool FUN_00429bc0(patchMesh_t *patch, int *px, int *py)
+{
+#line 1746
+    assert(patch);
+    assert(px);
+    assert(py);
+    bool found = false;
+    *px = -1;
+    *py = -1;
+    for (int i = 0; i < DAT_010c4d84; i++)
+    {
+        PatchControl *pdv = (PatchControl *)DAT_010c4d88[i];
+        if (pdv < &patch->ctrl[0][0] || pdv > &patch->ctrl[15][15])
+            continue;
+        int idx = (int)(pdv - &patch->ctrl[0][0]);
+        int x = idx / 16;
+        int y = idx - x * 16;
+#line 1762
+        assert(pdv == &patch->ctrl[x][y]);
+        if (!found)
+        {
+            *px = x;
+            *py = y;
+            found = true;
+        }
+        else
+        {
+            if (*px != x)
+                *px = -1;
+            if (*py != y)
+                *py = -1;
+        }
+    }
+    if (!found)
+        return false;
+    if (*px >= 0 && *py >= 0)
+        return false;
+    if (*px < 0 && *py < 0)
+    {
+        Sys_Printf("selected vertices must be on the same column or row\n");
+        return false;
+    }
+    return true;
+}
 
 int __fastcall FUN_00429df0(void *, int value)
 {
@@ -936,6 +1323,34 @@ int __fastcall FUN_00429df0(void *, int value)
 
 int FUN_00439620(const vec3_t v1, const vec3_t v2);
 
+// Retail 0x00429e20: index of the point nearest enough to v in the 0x10f8d8c table, or -1.
+int FUN_00429e20(const float *v)
+{
+    for (int i = 0; i < DAT_01128d8c; i++)
+    {
+        float dx = DAT_010f8d8c[i][0] - v[0];
+        float dy = DAT_010f8d8c[i][1] - v[1];
+        float dz = DAT_010f8d8c[i][2] - v[2];
+        if (dz * dz + dy * dy + dx * dx < 0.01)
+            return i;
+    }
+    return -1;
+}
+
+// Retail 0x00429e90: same search over the 0x10c8d88 table.
+int FUN_00429e90(const float *v)
+{
+    for (int i = 0; i < DAT_010f8d88; i++)
+    {
+        float dx = DAT_010c8d88[i][0] - v[0];
+        float dy = DAT_010c8d88[i][1] - v[1];
+        float dz = DAT_010c8d88[i][2] - v[2];
+        if (dz * dz + dy * dy + dx * dx < 0.01)
+            return i;
+    }
+    return -1;
+}
+
 // index of the selected control point at v, or -1
 int FUN_00429f00(const vec3_t v)
 {
@@ -947,7 +1362,111 @@ int FUN_00429f00(const vec3_t v)
     return -1;
 }
 
-void FUN_0042a0a0(patchMesh_t *p, PatchControl *c, int weld);
+void FUN_0042a0a0(patchMesh_t *p, PatchControl *c, bool weld);
+
+// Retail 0x00429f40: remove the control point equal to v from the selection list.
+void FUN_00429f40(const float *v)
+{
+    for (;;)
+    {
+        int i;
+        for (i = 0; i < DAT_010c4d84; i++)
+        {
+            const float *p = (const float *)DAT_010c4d88[i];
+            int k;
+            for (k = 0; k < 3; k++)
+            {
+                float d = v[k] - p[k];
+                if (d * d > 1.0000001e-06f)
+                    break;
+            }
+            if (k == 3)
+                break;
+        }
+        if (i >= DAT_010c4d84)
+            return;
+        for (; i < DAT_010c4d84 - 1; i++)
+            DAT_010c4d88[i] = DAT_010c4d88[i + 1];
+        DAT_010c4d84--;
+    }
+}
+
+// Retail 0x00429fe0: true if every control of column col is flagged or in the selection list.
+bool FUN_00429fe0(patchMesh_t *p, int col)
+{
+    for (int i = 0; i < p->height; i++)
+    {
+        PatchControl *c = &p->ctrl[col][i];
+        if (!(c->flags_34 & 2) && FUN_00429df0(0, (int)c) == -1)
+            return false;
+    }
+    return true;
+}
+
+// Retail 0x0042a040: add a control to the selection list (front if the patch is the first selected brush's).
+void FUN_0042a040(patchMesh_t *p, PatchControl *c)
+{
+    if (DAT_010c4d84 != 0 && p->cache_3828 == DAT_010a44b4.next->def && DAT_010a44b4.next != &DAT_010a44b4)
+    {
+        memmove(&DAT_010c4d88[1], &DAT_010c4d88[0], DAT_010c4d84 * 4);
+        DAT_010c4d88[0] = (int)c;
+        DAT_010c4d84++;
+        return;
+    }
+    DAT_010c4d88[DAT_010c4d84] = (int)c;
+    DAT_010c4d84++;
+}
+
+// Retail 0x0042a0a0: add a control point to the move list, plus every coincident point of the selected patches.
+void FUN_0042a0a0(patchMesh_t *p, PatchControl *pt, bool bWeld)
+{
+    const float *v = pt->xyz;
+    int viewType = *(int *)(*(char **)((char *)dword_01233488 + 0x7e0) + 0xf4);
+    int axis0 = viewType == 0;
+    int axis1 = (viewType != 2) + 1;
+    FUN_0042a040(p, pt);
+    if ((!PREFS_BYTE(0x2e4) && !PREFS_BYTE(0x2e5)) || !bWeld)
+        return;
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch)
+            continue;
+#line 1908
+        assert( b->patch->def == b->def->patch );
+        patchMesh_t *pm = b->patch->def;
+        for (int w = 0; w < pm->width; w++)
+        {
+            for (int h = 0; h < pm->height; h++)
+            {
+                PatchControl *c = &pm->ctrl[w][h];
+                bool bDone = false;
+                if (PREFS_BYTE(0x2e4))
+                {
+                    int k;
+                    for (k = 0; k < 3; k++)
+                    {
+                        float d = v[k] - c->xyz[k];
+                        if (d * d > 1.0000001e-06f)
+                            break;
+                    }
+                    if (k == 3 && FUN_00429df0(0, (int)c) == -1)
+                    {
+                        FUN_0042a040(pm, c);
+                        bDone = true;
+                    }
+                }
+                if (!bDone && PREFS_BYTE(0x2e5) && DAT_005909f8 != 1)
+                {
+                    float d = (float)fabs(v[axis0] - c->xyz[axis0]);
+                    if (!(d > 0.001f))
+                        d = (float)fabs(v[axis1] - c->xyz[axis1]);
+                    if (!(d > 0.001f) && FUN_00429df0(0, (int)c) == -1)
+                        FUN_0042a040(pm, c);
+                }
+            }
+        }
+    }
+}
 
 // Retail 0x0042a3a0: select one row (every column's control) of a patch.
 void FUN_0042a3a0(patchMesh_t *p, int row, bool bMulti)
@@ -973,10 +1492,205 @@ void FUN_0042a3f0(patchMesh_t *p, int col, bool bMulti)
     }
 }
 
+// Retail 0x0042a440: select control (x, y) when its neighbour (x + dx, y + dy) is selected.
+void FUN_0042a440(patchMesh_t *p, int dx, int dy, bool bMulti, int x, int y)
+{
+    int nx = x + dx;
+    int ny = y + dy;
+    if (nx >= 0 && nx < p->width && ny >= 0 && ny < p->height)
+    {
+        PatchControl *n = &p->ctrl[nx][ny];
+        if (FUN_00429df0(0, (int)n) != -1 && !(p->ctrl[x][y].flags_34 & 2))
+        {
+            if (!bMulti)
+                FUN_00429f40(n->xyz);
+            FUN_0042a0a0(p, &p->ctrl[x][y], 0);
+        }
+    }
+}
+
+// Retail 0x0042a4b0: spread the selection by (dx, dy), sweeping away from the direction of travel.
+void FUN_0042a4b0(patchMesh_t *p, int dx, int dy, bool bMulti)
+{
+    if (dx < 0)
+    {
+        for (int x = p->width - 1; x >= 0; x--)
+            for (int y = 0; y < p->height; y++)
+                FUN_0042a440(p, dx, dy, bMulti, x, y);
+    }
+    else if (dy < 0)
+    {
+        for (int x = 0; x < p->width; x++)
+            for (int y = p->height - 1; y >= 0; y--)
+                FUN_0042a440(p, dx, dy, bMulti, x, y);
+    }
+    else
+    {
+        for (int x = 0; x < p->width; x++)
+            for (int y = 0; y < p->height; y++)
+                FUN_0042a440(p, dx, dy, bMulti, x, y);
+    }
+    DAT_0123348c = -1;
+}
+
+// Retail 0x0042a7f0: spread the control selection of every selected patch (curve edit modes 1 and 4).
+bool FUN_0042a7f0(int dx, int dy, bool bMulti)
+{
+    if (DAT_011298b0 != 1 && DAT_011298b0 != 4)
+        return false;
+    bool done = false;
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (b->patch)
+        {
+#line 2041
+            assert( b->patch->def == b->def->patch );
+            FUN_0042a4b0(b->patch->def, dx, dy, bMulti);
+            done = true;
+        }
+    }
+    return done;
+}
+
+// Retail 0x0042a890: click-select the control at point (a single control, a row or a column).
+void FUN_0042a890(const float *point, bool bMulti, bool bColumn)
+{
+    if (!DAT_012334b8 && !bMulti && !bColumn)
+    {
+        DAT_012334b8 = 1;
+        return;
+    }
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch)
+            continue;
+#line 2068
+        assert( b->patch->def == b->def->patch );
+        patchMesh_t *p = b->patch->def;
+        for (int x = 0; x < p->width; x++)
+        {
+            for (int y = 0; y < p->height; y++)
+            {
+                PatchControl *c = &p->ctrl[x][y];
+                int k;
+                for (k = 0; k < 3; k++)
+                {
+                    float d = point[k] - c->xyz[k];
+                    if (d * d > 1.0000001e-06f)
+                        break;
+                }
+                if (k < 3)
+                    continue;
+                if (DAT_0112993e)
+                {
+                    DAT_010c4d84 = 0;
+                    c->flags_34 |= 2;
+                }
+                else if (DAT_0112993f)
+                {
+                    DAT_010c4d84 = 0;
+                    c->flags_34 &= ~2;
+                }
+                else if (FUN_00429df0(0, (int)c) == -1)
+                {
+                    if (bColumn)
+                    {
+                        FUN_0042a3f0(p, x, bMulti);
+                        return;
+                    }
+                    if (!bMulti)
+                        DAT_010c4d84 = 0;
+                    if (!(c->flags_34 & 2))
+                        FUN_0042a0a0(p, c, 1);
+                    return;
+                }
+                else
+                {
+                    if (bColumn)
+                    {
+                        if (FUN_00429fe0(p, x))
+                            FUN_0042a3a0(p, y, bMulti);
+                        else
+                            FUN_0042a3f0(p, x, bMulti);
+                        return;
+                    }
+                    if (DAT_012334b8)
+                    {
+                        FUN_00429f40(point);
+                        return;
+                    }
+                }
+            }
+        }
+    }
+}
+
 // Retail 0x0042ab00: 2D cross-product term of three points (eax, ecx, edx).
 float FUN_0042ab00(const vec2_t p0, const vec2_t p1, const vec2_t p2)
 {
     return (p1[1] - p0[1]) * p2[0] + (p2[1] - p1[1]) * p0[0] + (p0[1] - p2[1]) * p1[0];
+}
+
+// Retail 0x0042ab20: move the selected controls by delta and rebuild their patches.
+void FUN_0042ab20(const float *delta)
+{
+    for (int i = 0; i < DAT_010c4d84; i++)
+    {
+        float *p = (float *)DAT_010c4d88[i];
+        p[0] += delta[0];
+        p[1] += delta[1];
+        p[2] += delta[2];
+    }
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch)
+            continue;
+#line 2153
+        assert( b->patch->def == b->def->patch );
+        patchMesh_t *p = b->patch->def;
+        DAT_010c2d7c = 0;
+        for (int x = 0; x < p->width; x++)
+        {
+            for (int y = 0; y < p->height; y++)
+            {
+                DAT_010bcd7c[DAT_010c2d7c][0] = p->ctrl[x][y].xyz[0];
+                DAT_010bcd7c[DAT_010c2d7c][1] = p->ctrl[x][y].xyz[1];
+                DAT_010bcd7c[DAT_010c2d7c][2] = p->ctrl[x][y].xyz[2];
+                if (DAT_010c2d7c < 0x7ff)
+                    DAT_010c2d7c++;
+            }
+        }
+        FUN_004269d0(p, true);
+    }
+}
+
+// Retail 0x0042ac60: soft-selection weight of a point by its distance to the nearest selected control.
+float FUN_0042ac60(const float *xyz)
+{
+    float weight = FUN_00401c20();
+    if (weight == 0.0f)
+        return 0.0f;
+    float inner = FUN_00401b80();
+    float outer = FUN_00401bd0();
+    float best = 3.4028235e38f;
+    for (int i = 0; i < DAT_010c4d84; i++)
+    {
+        const float *p = (const float *)DAT_010c4d88[i];
+        float dx = xyz[0] - p[0];
+        float dy = xyz[1] - p[1];
+        float d = dy * dy + dx * dx;
+        if (d <= inner * inner)
+            return weight;
+        if (!(best <= d))
+            best = d;
+    }
+    if (best < outer * outer)
+    {
+        float t = (I_sqrt(best) - inner) / (outer - inner);
+        t = 1.0f - (3.0f - (t + t)) * t * t;
+        return t * weight;
+    }
+    return 0.0f;
 }
 
 // Retail 0x0042ad80: soft-selection weight of a control at xy distance from point.
@@ -997,6 +1711,24 @@ float FUN_0042ad80(const float *xyz, const float *point, float inner, float oute
 extern HWND g_hwndCheck_01234004;
 extern brush_t DAT_010a44b4;
 void FUN_0042ae30(patchMesh_t *patch, float offset);
+
+// Retail 0x0042ae30: raise every unlocked control point by its falloff weight times delta.
+void FUN_0042ae30(patchMesh_t *p, float delta)
+{
+    for (int w = 0; w < p->width; w++)
+    {
+        for (int h = 0; h < p->height; h++)
+        {
+            PatchControl *c = &p->ctrl[w][h];
+            if (c->flags_34 & 2)
+                continue;
+            float weight = FUN_0042ac60(c->xyz);
+            if (weight != 0.0f)
+                c->xyz[2] = weight * delta + c->xyz[2];
+        }
+    }
+    FUN_004269d0(p, true);
+}
 
 void FUN_0042aed0(brush_t *list, float offset)
 {
@@ -1195,6 +1927,7 @@ float FUN_0042b810(int c, int index, float value, float delta, float weight)
 class CAdvCurveEditDlg : public CWnd
 {
 public:
+    bool FUN_00401d30();
     int FUN_00401d90();
     void FUN_00401df0(int selected);
     void FUN_00402300(COLORREF value);
@@ -1347,8 +2080,33 @@ bool FUN_0042bd90()
     return true;
 }
 
-void FUN_0042bde0(brush_t *list);
+bool FUN_0042bde0(brush_t *list);
 void Undo_End();
+
+// Retail 0x0042bde0: clear the hit flag on every patch in a brush list and restore its undo id.
+bool FUN_0042bde0(brush_t *list)
+{
+    for (brush_t *b = list->next; b != list; b = b->next)
+    {
+        if (!b->patch)
+            continue;
+#line 2668
+        assert( b->patch->def == b->def->patch );
+        if (b->patch->def->field_382e)
+        {
+            b->def->patch->field_382e = 0;
+            undo_proj *u = DAT_0109fdcc;
+            if (u && u->field_0c == 0)
+            {
+                *(int *)((char *)b->def + 0x10) = u->field_08;
+                entity_t *e = *(entity_t **)((char *)b->def + 8);
+                if (e->eclass->fixedsize)
+                    *(int *)((char *)e + 0x6c) = u->field_08;
+            }
+        }
+    }
+    return true;
+}
 
 void FUN_0042beb0()
 {
@@ -1369,9 +2127,6 @@ int FUN_0042c790(patchMesh_t *p, const float *center, float radius1, float radiu
 extern void (*FUN_0059c45c)(int count, int width, const GfxPointVertex *verts);
 extern void (*FUN_0059c460)(int count, int width, const GfxPointVertex *verts);
 extern void (*FUN_0059c468)(const float *inColor, unsigned int *outColor);
-struct orientation_t { vec3_t origin; vec3_t axis[3]; };
-extern orientation_t g_editorOrientation;
-void OrientationPosToWorld(const orientation_t *orient, const float *pos, float *out);
 static const vec4_t flt_005471d0[2] = { { 1.0f, 1.0f, 0.0f, 1.0f }, { 1.0f, 0.25f, 0.25f, 1.0f } };
 
 
@@ -1455,6 +2210,15 @@ int FUN_0042c3f0(patchMesh_t *p, const float *center, float radius1, float radiu
         }
     }
     return vertCount;
+}
+
+// Retail 0x0042bf10: apply a curve-edit move: patch paint for the detail drag mode, else move the selection.
+void FUN_0042bf10(const float *v)
+{
+    if (DAT_01233b68.FUN_00401d30() && DAT_01233b68.FUN_00401d90() == 1)
+        FUN_0042af50(v[2]);
+    else
+        FUN_0042ab20(v);
 }
 
 int FUN_0042c790(patchMesh_t *p, const float *center, float radius1, float radius2, int vertCount, int maxVerts, GfxPointVertex *verts)
@@ -1568,6 +2332,456 @@ extern bool DAT_012334b9;
 extern bool DAT_012334ba;
 void FUN_00433ad0();
 void FUN_00434040();
+
+// Retail 0x0042cc50: drop the render data of a patch instance and mark it stale.
+void FUN_0042cc50(patch_t *pm)
+{
+#line 3043
+    assert( pm );
+    if (!pm->vertHandle)
+    {
+#line 3047
+        assert( !pm->indices[PM_FRONT_FACE] );
+#line 3048
+        assert( !pm->indices[PM_BACK_FACE] );
+#line 3049
+        assert( !pm->indexCount );
+#line 3050
+        assert( !pm->vertCount );
+        return;
+    }
+    pm->vertHandle = NULL;
+#line 3055
+    assert( pm->indices[PM_BACK_FACE] == pm->indices[PM_FRONT_FACE] + pm->indexCount );
+    free(pm->indices[PM_FRONT_FACE]);
+    pm->indices[PM_FRONT_FACE] = NULL;
+    pm->indices[PM_BACK_FACE] = NULL;
+    pm->indexCount = 0;
+    pm->vertCount = 0;
+    pm->version = pm->def->version - 1;
+}
+
+// Retail 0x0042ce10: build the render vertex and index data of a patch instance from its subdivided mesh.
+void FUN_0042ce10(patch_t *pm)
+{
+    FUN_0042ca80(pm);
+    patchMesh_t *def = pm->def;
+    mesh_t *mesh = (mesh_t *)def->cache_3824;
+    pm->vertCount = mesh->height * mesh->width;
+    float *xyz = (float *)malloc(pm->vertCount * 12);
+    float *tangent = (float *)malloc(pm->vertCount * 12);
+    float *binormal = (float *)malloc(pm->vertCount * 12);
+    float *normal = (float *)malloc(pm->vertCount * 12);
+    float *st = (float *)malloc(pm->vertCount * 8);
+    unsigned int *color = (unsigned int *)malloc(pm->vertCount * 4);
+    for (int i = 0; i < pm->vertCount; i++)
+    {
+        drawVert_t *v = &mesh->verts[i];
+        OrientationPosToWorld(&g_editorOrientation, v->xyz, &xyz[i * 3]);
+        tangent[i * 3 + 0] = 1.0f;
+        tangent[i * 3 + 1] = 0.0f;
+        tangent[i * 3 + 2] = 0.0f;
+        binormal[i * 3 + 0] = 0.0f;
+        binormal[i * 3 + 1] = 1.0f;
+        binormal[i * 3 + 2] = 0.0f;
+        normal[i * 3 + 0] = v->normal[0];
+        normal[i * 3 + 1] = v->normal[1];
+        normal[i * 3 + 2] = v->normal[2];
+        st[i * 2 + 0] = v->st[0];
+        st[i * 2 + 1] = v->st[1];
+        color[i] = *(unsigned int *)v->color;
+    }
+    int mat = *(int *)(&def->image_18)[DAT_01128d90];
+    pm->matHandle = (void *)mat;
+    pm->vertHandle = (*FUN_0059c4a8)(mat, pm->vertCount, xyz, tangent, binormal, normal, st, color);
+    free(color);
+    free(st);
+    free(normal);
+    free(binormal);
+    free(tangent);
+    free(xyz);
+    pm->indexCount = (mesh->height * 6 - 6) * (mesh->width - 1);
+    unsigned short *indices = (unsigned short *)malloc(pm->indexCount * 4);
+    pm->indices[PM_FRONT_FACE] = indices;
+    pm->indices[PM_BACK_FACE] = indices + pm->indexCount;
+    int indexCount = 0;
+    for (int y = 0; y < mesh->height - 1; y++)
+    {
+        for (int x = 0; x < mesh->width - 1; x++)
+        {
+            unsigned short *out = &pm->indices[PM_FRONT_FACE][indexCount];
+            unsigned short row0 = (unsigned short)(mesh->width * y);
+            unsigned short row1 = (unsigned short)(mesh->width * (y + 1));
+            if (pm->def->type_10 == 0x40 && (pm->def->ctrl[x][y].flags_34 & 1))
+            {
+                out[0] = row0 + x;
+                out[1] = row1 + x + 1;
+                out[2] = row0 + x + 1;
+                out[3] = row1 + x + 1;
+                out[4] = row0 + x;
+                out[5] = row1 + x;
+            }
+            else
+            {
+                out[0] = row0 + x;
+                out[1] = row1 + x;
+                out[2] = row0 + x + 1;
+                out[3] = row0 + x + 1;
+                out[4] = row1 + x;
+                out[5] = row1 + x + 1;
+            }
+            indexCount += 6;
+        }
+    }
+#line 3141
+    assert( indexCount == pm->indexCount );
+    for (int i = 0; i < pm->indexCount; i++)
+        pm->indices[PM_BACK_FACE][i] = pm->indices[PM_FRONT_FACE][pm->indexCount - i - 1];
+    pm->version = pm->def->version;
+}
+
+// Retail 0x0042d560: rebuild the render data of a patch instance when it is stale.
+void FUN_0042d560(patch_t *pm)
+{
+    if (!pm->vertHandle || pm->version != pm->def->version)
+    {
+        FUN_0042ce10(pm);
+#line 3239
+        assert( pm->version == pm->def->version );
+    }
+}
+
+// Retail 0x0042d5d0: hand one face's index buffer of a patch instance to the renderer.
+void FUN_0042d5d0(void *mat, patch_t *pm, int face, int arg)
+{
+#line 3247
+    assert( pm );
+#line 3248
+    assert( pm->version == pm->def->version );
+    if (!mat)
+        mat = *(void **)(&pm->def->image_18)[DAT_01128d90];
+#line 3255
+    assert( face == PM_FRONT_FACE || face == PM_BACK_FACE );
+#line 3256
+    assert( face >= 0 && face < ARRAY_COUNT( pm->indices ) );
+    (*FUN_0059c488)(mat, arg, pm->vertCount, pm->vertHandle, pm->indexCount, pm->indices[face]);
+}
+
+// Retail 0x0042e550: draw a patch instance in the given mode, with an optional wireframe overlay.
+void FUN_0042e550(int mode, patch_t *pm, void *mat, int bFlag)
+{
+    FUN_0042d560(pm);
+    bool bDrawn;
+    if (PREFS_INT(0x2e0) == 0 || (PREFS_INT(0x2e0) == 2 && mode != 30))
+    {
+        FUN_0042d5d0(mat, pm, PM_FRONT_FACE, mode);
+        bDrawn = true;
+    }
+    else
+        bDrawn = false;
+    if (bFlag)
+    {
+        if (!bDrawn)
+            FUN_0042d5d0(DAT_011298c8, pm, PM_FRONT_FACE, mode);
+    }
+    else
+    {
+#line 3247
+        assert( pm );
+#line 3248
+        assert( pm->version == pm->def->version );
+        if (!mat)
+            mat = *(void **)(&pm->def->image_18)[DAT_01128d90];
+        (*FUN_0059c488)(mat, 30, pm->vertCount, pm->vertHandle, pm->indexCount, pm->indices[PM_BACK_FACE]);
+        if (PREFS_INT(0x2e0))
+        {
+            (*FUN_0059c468)((const float *)&DAT_01129878, (unsigned int *)&bFlag);
+            FUN_0042e7b0((unsigned int *)&bFlag, 2, pm);
+        }
+    }
+    FUN_0042d720(pm);
+}
+
+// Retail 0x0042e6c0: draw both faces of a patch instance with draw mode 29.
+void FUN_0042e6c0(patch_t *pm)
+{
+    FUN_0042d560(pm);
+    FUN_0042d5d0(DAT_011298c8, pm, PM_FRONT_FACE, 29);
+    FUN_0042d5d0(DAT_011298c8, pm, PM_BACK_FACE, 29);
+}
+
+// Retail 0x0042e7b0: draw the quad grid of a patch instance as 3D lines.
+void FUN_0042e7b0(const unsigned int *color, int width, patch_t *pm)
+{
+    GfxPointVertex verts[1362];
+#line 3524
+    assert( pm );
+    patchCache_t *mesh = (patchCache_t *)pm->def->cache_3824;
+#line 3526
+    assert( mesh );
+    int count = 0;
+    for (int r = 0; r < mesh->height - 1; r++)
+    {
+        for (int c = 0; c < mesh->width - 1; c++)
+        {
+            const float *a = mesh->verts[r * mesh->width + c].xyz;
+            const float *b = a + 11;
+            const float *cc = mesh->verts[(r + 1) * mesh->width + c].xyz;
+            const float *d = cc + 11;
+            if (c == 0)
+                count = R_Add3DLine(verts, a, cc, color, width, count, 1362);
+            if (r == 0)
+                count = R_Add3DLine(verts, a, b, color, width, count, 1362);
+            count = R_Add3DLine(verts, d, b, color, width, count, 1362);
+            count = R_Add3DLine(verts, d, cc, color, width, count, 1362);
+            if (pm->def->type_10 == 0x40 && (pm->def->ctrl[c][r].flags_34 & 1))
+                count = R_Add3DLine(verts, a, d, color, width, count, 1362);
+            else
+                count = R_Add3DLine(verts, cc, b, color, width, count, 1362);
+        }
+    }
+    if (count)
+        (*FUN_0059c460)(count / 2, width, verts);
+    FUN_0042d720(pm);
+}
+
+// Retail 0x0042eaf0: transform the selected controls of a patch about an origin by a 3x3 matrix.
+void FUN_0042eaf0(patchMesh_t *p, const float *origin, const float *matrix, bool bSnap)
+{
+    DAT_0109c538.width = p->width;
+    DAT_0109c538.height = p->height;
+    DAT_0109c538.type_10 = p->type_10;
+    memcpy(DAT_0109c538.ctrl, p->ctrl, sizeof(p->ctrl));
+    for (int i = 0; i < p->width; i++)
+    {
+        for (int j = 0; j < p->height; j++)
+        {
+            if (DAT_011298b0 == 4 || DAT_012334ba)
+            {
+                if (FUN_00429df0(0, (int)&p->ctrl[i][j]) == -1)
+                    continue;
+            }
+            PatchControl *c = &p->ctrl[i][j];
+            float dx = c->xyz[0] - origin[0];
+            float dy = c->xyz[1] - origin[1];
+            float dz = c->xyz[2] - origin[2];
+            for (int k = 0; k < 3; k++)
+            {
+                c->xyz[k] = dz * matrix[k * 3 + 2] + dx * matrix[k * 3] + origin[k] + dy * matrix[k * 3 + 1];
+                if (bSnap)
+                    c->xyz[k] = (float)floor(c->xyz[k] + 0.5);
+            }
+        }
+    }
+    FUN_004269d0(p, true);
+}
+
+// Retail 0x0042ec60: start vertex dragging: remember the position of every control of every selected patch.
+void FUN_0042ec60()
+{
+    DAT_010c2d7c = 0;
+    DAT_010c4d84 = 0;
+    DAT_010f8d88 = 0;
+    DAT_01128d8c = 0;
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch)
+            continue;
+#line 3617
+        assert( b->patch->def == b->def->patch );
+        patchMesh_t *p = b->patch->def;
+        for (int w = 0; w < p->width; w++)
+        {
+            for (int h = 0; h < p->height; h++)
+            {
+                DAT_010bcd7c[DAT_010c2d7c][0] = p->ctrl[w][h].xyz[0];
+                DAT_010bcd7c[DAT_010c2d7c][1] = p->ctrl[w][h].xyz[1];
+                DAT_010bcd7c[DAT_010c2d7c][2] = p->ctrl[w][h].xyz[2];
+                if (DAT_010c2d7c < 0x7ff)
+                    DAT_010c2d7c++;
+            }
+        }
+    }
+    int mode = DAT_011298b0;
+    DAT_011298b0 = 4;
+    if (mode == 11)
+        FUN_0041b190(dword_01233488);
+    else if (mode == 10)
+        FUN_0042beb0();
+}
+
+// Retail 0x0042edc0: rebuild the drag point lists from the selection and start the current edit mode.
+void FUN_0042edc0()
+{
+    DAT_010c2d7c = 0;
+    DAT_010c4d84 = 0;
+    DAT_010f8d88 = 0;
+    DAT_01128d8c = 0;
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (b->patch)
+        {
+#line 3668
+            assert( b->patch->def == b->def->patch );
+            patchMesh_t *p = b->patch->def;
+            for (int w = 0; w < p->width; w++)
+            {
+                for (int h = 0; h < p->height; h++)
+                {
+                    VectorCopy(p->ctrl[w][h].xyz, DAT_010bcd7c[DAT_010c2d7c]);
+                    if (DAT_010c2d7c < 0x7ff)
+                        DAT_010c2d7c++;
+                }
+            }
+        }
+        else if (DAT_010f8d88 < 0x4000)
+        {
+            if (b->owner->field_38)
+                FUN_0042efb0(b);
+            else if (FUN_0045b420(b))
+            {
+                if (!memcmp(b->owner->def->eclass->name, "misc_model", 11) && PREFS_INT(0x274))
+                    FUN_0042f2c0(b);
+                else if (!b->owner->def->eclass->fixedsize && PREFS_INT(0x274))
+                    FUN_0042f4f0(b);
+            }
+            else if (!b->owner->def->eclass->fixedsize && PREFS_INT(0x274))
+                FUN_0042f4f0(b);
+        }
+    }
+    int mode = DAT_011298b0;
+    DAT_011298b0 = 4;
+    if (mode == 11)
+        FUN_0041b190(dword_01233488);
+    else if (mode == 10)
+        FUN_0042beb0();
+}
+
+// Retail 0x0042efb0: add the points of every member of an entity group to the move-point list, rotated by its angles.
+int FUN_0042efb0(brush_t *b)
+{
+    int added = 0;
+    brush_t *head = &b->owner->field_38->head;
+    for (brush_t *c = head->next; c != head; c = c->next)
+    {
+        if (DAT_010f8d88 >= 0x4000)
+            continue;
+        if (c->owner->field_38 && PREFS_INT(0x278))
+            added += FUN_0042efb0(c);
+        else if (c->patch)
+            added += FUN_0042f1b0(c);
+        else if (FUN_0045b420(c))
+        {
+            if (!memcmp(c->owner->def->eclass->name, "misc_model", 11) && PREFS_INT(0x270))
+                added += FUN_0042f2c0(c);
+            else if (!c->owner->def->eclass->fixedsize && PREFS_INT(0x274))
+                added += FUN_0042f4f0(c);
+        }
+        else if (!c->owner->def->eclass->fixedsize && PREFS_INT(0x274))
+            added += FUN_0042f4f0(c);
+    }
+    entity_t *e = b->owner->def;
+    vec3_t angles;
+    if (FUN_00465d80(e, "angles"))
+        sscanf(ValueForKey(e->epairs, "angles"), "%f %f %f", &angles[0], &angles[1], &angles[2]);
+    else
+        angles[0] = angles[1] = angles[2] = 0;
+    vec3_t mat[3], right;
+    AngleVectors(angles, mat[0], right, mat[2]);
+    mat[1][0] = 0.0f - right[0];
+    mat[1][1] = 0.0f - right[1];
+    mat[1][2] = 0.0f - right[2];
+    for (int i = DAT_010f8d88 - added; i < DAT_010f8d88; i++)
+    {
+        vec3_t out;
+        MatrixTransformVectorCols(DAT_010c8d88[i], mat, out);
+        out[0] += e->origin[0];
+        out[1] += e->origin[1];
+        out[2] += e->origin[2];
+        VectorCopy(out, DAT_010c8d88[i]);
+    }
+    return added;
+}
+
+// Retail 0x0042f1b0: add the control points of a patch brush to the unique move-point list.
+int FUN_0042f1b0(brush_t *b)
+{
+#line 3739
+    assert( b->patch->def == b->def->patch );
+    patchMesh_t *p = b->patch->def;
+    int added = 0;
+    for (int w = 0; w < p->width; w++)
+    {
+        for (int h = 0; h < p->height; h++)
+        {
+            if (FUN_00429e90(p->ctrl[w][h].xyz) < 0 && DAT_010f8d88 < 0x4000)
+            {
+                VectorCopy(p->ctrl[w][h].xyz, DAT_010c8d88[DAT_010f8d88]);
+                DAT_010f8d88++;
+                added++;
+            }
+        }
+    }
+    return added;
+}
+
+// Retail 0x0042f2c0: add the vertices of a model entity to the move-point list, rotated by its angles.
+int FUN_0042f2c0(brush_t *b)
+{
+    float verts[0x4000][3];
+    unsigned short indices[0x8000];
+    entity_t *e = b->owner->def;
+    int count = FUN_0059c4a0(*(void **)(*(char **)(*(char **)((char *)e + 0x54) + 0x154) + 4), verts, 0x4000, indices, 0x10000);
+    if (!count)
+        return 0;
+    vec3_t angles;
+    if (FUN_00465d80(e, "angles"))
+        sscanf(ValueForKey(e->epairs, "angles"), "%f %f %f", &angles[0], &angles[1], &angles[2]);
+    else
+        angles[0] = angles[1] = angles[2] = 0;
+    vec3_t mat[3], right;
+    AngleVectors(angles, mat[0], right, mat[2]);
+    mat[1][0] = 0.0f - right[0];
+    mat[1][1] = 0.0f - right[1];
+    mat[1][2] = 0.0f - right[2];
+    int added = 0;
+    for (int i = 0; i < count; i++)
+    {
+        vec3_t out;
+        MatrixTransformVectorCols(verts[indices[i]], mat, out);
+        out[0] += e->origin[0];
+        out[1] += e->origin[1];
+        out[2] += e->origin[2];
+        if (FUN_00429e90(out) < 0 && DAT_010f8d88 < 0x4000)
+        {
+            VectorCopy(out, DAT_010c8d88[DAT_010f8d88]);
+            DAT_010f8d88++;
+            added++;
+        }
+    }
+    return added;
+}
+
+// Retail 0x0042f4f0: add the winding points of every face of a brush to the unique move-point list.
+int FUN_0042f4f0(brush_t *b)
+{
+    int added = 0;
+    for (int f = 0; f < b->faceCount; f++)
+    {
+        const brushface_proj *face = &(*(brushface_proj **)((char *)b->def + 0x3c))[f];
+        for (int i = 0; i < face->winding->numpoints; i++)
+        {
+            const float *pt = face->winding->points[i];
+            if (FUN_00429e90(pt) < 0 && DAT_010f8d88 < 0x4000)
+            {
+                VectorCopy(pt, DAT_010c8d88[DAT_010f8d88]);
+                DAT_010f8d88++;
+                added++;
+            }
+        }
+    }
+    return added;
+}
 
 void FUN_0042f5d0()
 {
@@ -1686,13 +2900,31 @@ static vec3_t g_vBendOrigin;
 extern int dword_5909F8;
 extern bool byte_12334B8;
 
+// Retail 0x0042f840: scale the (unselected-skipped) controls of a patch about a centre, per axis.
+void FUN_0042f840(patchMesh_t *p, const float *center, const float *scale, bool bRebuild)
+{
+    for (int w = 0; w < p->width; w++)
+    {
+        for (int h = 0; h < p->height; h++)
+        {
+            if (DAT_011298b0 == 4 && (DAT_010c4d84 <= 0 || FUN_00429df0(0, (int)&p->ctrl[w][h]) == -1))
+                continue;
+            for (int k = 0; k < 3; k++)
+                p->ctrl[w][h].xyz[k] = (p->ctrl[w][h].xyz[k] - center[k]) * scale[k] + center[k];
+        }
+    }
+    if (bRebuild)
+        FUN_004269d0(p, true);
+    if (g_PatchDialog.GetSafeHwnd())
+        g_PatchDialog.GetPatchInfo();
+}
+
 void FUN_0042f950(int value)
 {
     byte_12334B8 = (value == dword_5909F8);
     dword_5909F8 = value;
 }
 
-extern CPatchDialog g_PatchDialog;
 char *va(const char *format, ...);
 
 // the brush def a patch hangs off; retail asserts call it p->symbiot
@@ -1758,6 +2990,1667 @@ void FUN_0042f790(patch_t *p)
     delete p;
     if (g_PatchDialog.GetSafeHwnd())
         g_PatchDialog.GetPatchInfo();
+}
+
+// 0x0042fda0 (609 B): add one extrapolated control column at the nearer end
+void FUN_0042fda0(patchMesh_t *p, int index)
+{
+    int w = p->width;
+    if (w + 1 >= 16)
+        return;
+    float half = (float)w * 0.5f;
+    if (!((float)index > half) && index != w - 1)
+    {
+        for (int i = w; i > 0; i--)
+        {
+            for (int j = 0; j < p->height; j++)
+            {
+                p->ctrl[i][j] = p->ctrl[i - 1][j];
+                for (int k = 0; k < 3; k++)
+                    p->ctrl[i][j].xyz[k] = p->ctrl[i - 1][j].xyz[k];
+            }
+        }
+        for (int j = 0; j < p->height; j++)
+        {
+            p->ctrl[0][j] = p->ctrl[1][j];
+            for (int k = 0; k < 3; k++)
+                p->ctrl[0][j].xyz[k] = p->ctrl[1][j].xyz[k] - p->ctrl[2][j].xyz[k] + p->ctrl[1][j].xyz[k];
+            for (int k = 0; k < 3; k++)
+                DAT_010bcd7c[DAT_010c2d7c][k] = p->ctrl[0][j].xyz[k];
+            if (DAT_010c2d7c < 0x7ff)
+                DAT_010c2d7c++;
+        }
+        p->width++;
+    }
+    else
+    {
+        for (int j = 0; j < p->height; j++)
+        {
+            p->ctrl[w][j] = p->ctrl[w - 1][j];
+            for (int k = 0; k < 3; k++)
+                p->ctrl[w][j].xyz[k] = p->ctrl[w - 1][j].xyz[k] - p->ctrl[w - 2][j].xyz[k] + p->ctrl[w - 1][j].xyz[k];
+            for (int k = 0; k < 3; k++)
+                DAT_010bcd7c[DAT_010c2d7c][k] = p->ctrl[w][j].xyz[k];
+            if (DAT_010c2d7c < 0x7ff)
+                DAT_010c2d7c++;
+        }
+        p->width++;
+    }
+}
+
+// 0x00430010 (526 B): add one extrapolated control row at the nearer end
+void FUN_00430010(patchMesh_t *p, int index)
+{
+    int w = p->height;
+    if (w + 1 >= 16)
+        return;
+    float half = (float)w * 0.5f;
+    if (!((float)index > half) && index != w - 1)
+    {
+        for (int i = w; i > 0; i--)
+        {
+            for (int j = 0; j < p->width; j++)
+            {
+                p->ctrl[j][i] = p->ctrl[j][i - 1];
+                for (int k = 0; k < 3; k++)
+                    p->ctrl[j][i].xyz[k] = p->ctrl[j][i - 1].xyz[k];
+            }
+        }
+        for (int j = 0; j < p->width; j++)
+        {
+            p->ctrl[j][0] = p->ctrl[j][1];
+            for (int k = 0; k < 3; k++)
+                p->ctrl[j][0].xyz[k] = p->ctrl[j][1].xyz[k] - p->ctrl[j][2].xyz[k] + p->ctrl[j][1].xyz[k];
+            for (int k = 0; k < 3; k++)
+                DAT_010bcd7c[DAT_010c2d7c][k] = p->ctrl[j][0].xyz[k];
+            if (DAT_010c2d7c < 0x7ff)
+                DAT_010c2d7c++;
+        }
+        p->height++;
+    }
+    else
+    {
+        for (int j = 0; j < p->width; j++)
+        {
+            p->ctrl[j][w] = p->ctrl[j][w - 1];
+            for (int k = 0; k < 3; k++)
+                p->ctrl[j][w].xyz[k] = p->ctrl[j][w - 1].xyz[k] - p->ctrl[j][w - 2].xyz[k] + p->ctrl[j][w - 1].xyz[k];
+            for (int k = 0; k < 3; k++)
+                DAT_010bcd7c[DAT_010c2d7c][k] = p->ctrl[j][w].xyz[k];
+            if (DAT_010c2d7c < 0x7ff)
+                DAT_010c2d7c++;
+        }
+        p->height++;
+    }
+}
+
+// Retail 0x00430220: insert a control column at index, halfway between its neighbours.
+void FUN_00430220(patchMesh_t *p, int index)
+{
+    if (p->width + 1 >= 16)
+        return;
+    for (int h = 0; h < p->height; h++)
+    {
+        for (int w = p->width - 1; w >= index; w--)
+            p->ctrl[w + 1][h] = p->ctrl[w][h];
+        PatchControl *c = &p->ctrl[index][h];
+        const PatchControl *prev = &p->ctrl[index - 1][h];
+        for (int k = 0; k < 3; k++)
+            c->xyz[k] = (prev->xyz[k] + c->xyz[k]) * 0.5f;
+        float *s = &c->st[0][0];
+        const float *ps = &prev->st[0][0];
+        for (int k = 0; k < 4; k++)
+            s[k] = (ps[k] + s[k]) * 0.5f;
+        DAT_010bcd7c[DAT_010c2d7c][0] = c->xyz[0];
+        DAT_010bcd7c[DAT_010c2d7c][1] = c->xyz[1];
+        DAT_010bcd7c[DAT_010c2d7c][2] = c->xyz[2];
+        if (DAT_010c2d7c < 0x7ff)
+            DAT_010c2d7c++;
+    }
+    p->width++;
+}
+
+// Retail 0x00430370: insert two control columns at the start (bAdd false) or end (bAdd true) of a patch.
+void FUN_00430370(patchMesh_t *p, bool bAdd)
+{
+    if (!(p->type_10 & 0x40))
+    {
+        if (p->width + 2 >= 16)
+            return;
+        if (!bAdd)
+        {
+            for (int h = 0; h < p->height; h++)
+            {
+                for (int w = p->width - 1; w >= 0; w--)
+                    p->ctrl[w + 2][h] = p->ctrl[w][h];
+                vec3_t d;
+                VectorSubtract(p->ctrl[1][h].xyz, p->ctrl[0][h].xyz, d);
+                for (int k = 0; k < 3; k++)
+                    d[k] *= 0.33333334f;
+                VectorCopy(p->ctrl[0][h].xyz, p->ctrl[1][h].xyz);
+                VectorAdd(p->ctrl[1][h].xyz, d, p->ctrl[1][h].xyz);
+                VectorCopy(p->ctrl[1][h].xyz, p->ctrl[2][h].xyz);
+                VectorAdd(p->ctrl[2][h].xyz, d, p->ctrl[2][h].xyz);
+            }
+        }
+        else
+        {
+            int w = p->width - 1;
+            for (int h = 0; h < p->height; h++)
+            {
+                vec3_t d;
+                VectorSubtract(p->ctrl[w][h].xyz, p->ctrl[w - 1][h].xyz, d);
+                for (int k = 0; k < 3; k++)
+                    d[k] *= 0.33333334f;
+                p->ctrl[w + 2][h] = p->ctrl[w][h];
+                p->ctrl[w][h] = p->ctrl[w - 1][h];
+                VectorAdd(p->ctrl[w][h].xyz, d, p->ctrl[w][h].xyz);
+                p->ctrl[w + 1][h] = p->ctrl[w][h];
+                VectorAdd(p->ctrl[w + 1][h].xyz, d, p->ctrl[w + 1][h].xyz);
+            }
+        }
+        p->width += 2;
+    }
+    else if (!bAdd)
+        FUN_00430220(p, 1);
+    else
+        FUN_00430220(p, p->width - 1);
+    if (g_PatchDialog.GetSafeHwnd())
+        g_PatchDialog.GetPatchInfo();
+}
+
+// Retail 0x00430610: insert a control row at index, halfway between its neighbours.
+void FUN_00430610(patchMesh_t *p, int index)
+{
+    if (p->height + 1 >= 16)
+        return;
+    for (int w = 0; w < p->width; w++)
+    {
+        for (int h = p->height - 1; h >= index; h--)
+            p->ctrl[w][h + 1] = p->ctrl[w][h];
+        PatchControl *c = &p->ctrl[w][index];
+        const PatchControl *prev = &p->ctrl[w][index - 1];
+        for (int k = 0; k < 3; k++)
+            c->xyz[k] = (prev->xyz[k] + c->xyz[k]) * 0.5f;
+        float *s = &c->st[0][0];
+        const float *ps = &prev->st[0][0];
+        for (int k = 0; k < 4; k++)
+            s[k] = (ps[k] + s[k]) * 0.5f;
+        DAT_010bcd7c[DAT_010c2d7c][0] = c->xyz[0];
+        DAT_010bcd7c[DAT_010c2d7c][1] = c->xyz[1];
+        DAT_010bcd7c[DAT_010c2d7c][2] = c->xyz[2];
+        if (DAT_010c2d7c < 0x7ff)
+            DAT_010c2d7c++;
+    }
+    p->height++;
+}
+
+// Retail 0x00430760: insert two control rows at the start (bAdd false) or end (bAdd true) of a patch.
+void FUN_00430760(patchMesh_t *p, bool bAdd)
+{
+    if (!(p->type_10 & 0x40))
+    {
+        if (p->height + 2 >= 16)
+            return;
+        if (!bAdd)
+        {
+            for (int w = 0; w < p->width; w++)
+            {
+                for (int h = p->height - 1; h >= 0; h--)
+                    p->ctrl[w][h + 2] = p->ctrl[w][h];
+                vec3_t d;
+                VectorSubtract(p->ctrl[w][1].xyz, p->ctrl[w][0].xyz, d);
+                for (int k = 0; k < 3; k++)
+                    d[k] *= 0.33333334f;
+                VectorCopy(p->ctrl[w][0].xyz, p->ctrl[w][1].xyz);
+                VectorAdd(p->ctrl[w][1].xyz, d, p->ctrl[w][1].xyz);
+                VectorCopy(p->ctrl[w][1].xyz, p->ctrl[w][2].xyz);
+                VectorAdd(p->ctrl[w][2].xyz, d, p->ctrl[w][2].xyz);
+            }
+        }
+        else
+        {
+            int h = p->height - 1;
+            for (int w = 0; w < p->width; w++)
+            {
+                vec3_t d;
+                VectorSubtract(p->ctrl[w][h].xyz, p->ctrl[w][h - 1].xyz, d);
+                for (int k = 0; k < 3; k++)
+                    d[k] *= 0.33333334f;
+                p->ctrl[w][h + 2] = p->ctrl[w][h];
+                p->ctrl[w][h] = p->ctrl[w][h - 1];
+                VectorAdd(p->ctrl[w][h].xyz, d, p->ctrl[w][h].xyz);
+                p->ctrl[w][h + 1] = p->ctrl[w][h];
+                VectorAdd(p->ctrl[w][h + 1].xyz, d, p->ctrl[w][h + 1].xyz);
+            }
+        }
+        p->height += 2;
+    }
+    else if (!bAdd)
+        FUN_00430610(p, 1);
+    else
+        FUN_00430610(p, p->height - 1);
+    if (g_PatchDialog.GetSafeHwnd())
+        g_PatchDialog.GetPatchInfo();
+}
+
+// Retail 0x004309e0: remove the control row at index from a terrain patch.
+void FUN_004309e0(patchMesh_t *p, int index)
+{
+    if (p->height > 2)
+    {
+        p->height--;
+        if (index != p->height)
+        {
+            for (int w = 0; w < p->width; w++)
+                for (int h = index; h < p->height; h++)
+                    p->ctrl[w][h] = p->ctrl[w][h + 1];
+        }
+    }
+}
+
+// Retail 0x00430a60: remove two control rows from the start (bFirst) or end of a patch.
+void FUN_00430a60(patchMesh_t *p, bool bFirst)
+{
+    if (!(p->type_10 & 0x40))
+    {
+        if (p->height < 4)
+            return;
+        p->height -= 2;
+        if (bFirst)
+        {
+            for (int w = 0; w < p->width; w++)
+                for (int h = 0; h < p->height; h++)
+                    p->ctrl[w][h] = p->ctrl[w][h + 2];
+        }
+    }
+    else if (!bFirst)
+        FUN_004309e0(p, p->height - 1);
+    else
+        FUN_004309e0(p, 0);
+    if (g_PatchDialog.GetSafeHwnd())
+        g_PatchDialog.GetPatchInfo();
+}
+
+// Retail 0x00430b10: remove the control column at index from a terrain patch.
+void FUN_00430b10(patchMesh_t *p, int index)
+{
+    if (p->width > 2)
+    {
+        p->width--;
+        if (index != p->width && index < p->width)
+        {
+            for (int w = index; w < p->width; w++)
+                for (int h = 0; h < p->height; h++)
+                    p->ctrl[w][h] = p->ctrl[w + 1][h];
+        }
+    }
+}
+
+// Retail 0x00430b90: remove two control columns from the start (bFirst) or end of a patch.
+void FUN_00430b90(patchMesh_t *p, bool bFirst)
+{
+    if (!(p->type_10 & 0x40))
+    {
+        if (p->width < 4)
+            return;
+        p->width -= 2;
+        if (bFirst)
+        {
+            for (int h = 0; h < p->height; h++)
+                for (int w = 0; w < p->width; w++)
+                    p->ctrl[w][h] = p->ctrl[w + 2][h];
+        }
+    }
+    else if (!bFirst)
+        FUN_00430b10(p, p->width - 1);
+    else
+        FUN_00430b10(p, 0);
+    if (g_PatchDialog.GetSafeHwnd())
+        g_PatchDialog.GetPatchInfo();
+}
+
+// Retail 0x00430c40: add nCols columns to a patch, spreading the controls evenly over the old extent.
+void FUN_00430c40(patchMesh_t *p, int nCols)
+{
+    if (p->type_10 & 0x40)
+    {
+        Sys_Printf("********* Patch_AdjustColumns not  implemented for terrain brushes, since it looked like dead code\n");
+        return;
+    }
+    if (nCols & 1 || p->width + nCols < 3 || p->width + nCols > 16)
+        return;
+    p->width += nCols;
+    for (int h = 0; h < p->height; h++)
+    {
+        vec3_t d;
+        VectorSubtract(p->ctrl[p->width - 1 - nCols][h].xyz, p->ctrl[0][h].xyz, d);
+        float inv = 1.0f / (float)(p->width - 1);
+        vec3_t step;
+        step[0] = d[0] * inv;
+        step[1] = d[1] * inv;
+        step[2] = d[2] * inv;
+        for (int w = 0; w < p->width - 1; w++)
+            VectorAdd(p->ctrl[w][h].xyz, step, p->ctrl[w + 1][h].xyz);
+    }
+    for (int w = 0; w < p->width; w++)
+    {
+        for (int h = 0; h < p->height; h++)
+        {
+            p->ctrl[w][h].st[DAT_01128d94][0] = (float)w / ((float)(p->width - 1) * dword_1128DC4);
+            p->ctrl[w][h].st[DAT_01128d94][1] = (float)h / ((float)(p->height - 1) * dword_1128DC4);
+        }
+    }
+    if (DAT_01128d94 == 1)
+        p->flag_382f = 0;
+    if (g_PatchDialog.GetSafeHwnd())
+        g_PatchDialog.GetPatchInfo();
+}
+
+// Retail 0x00430e20: add nRows rows to a patch, spreading the controls evenly over the old extent.
+void FUN_00430e20(patchMesh_t *p, int nRows)
+{
+    if (p->type_10 & 0x40)
+    {
+        Sys_Printf("********* Patch_AdjustRows not implemented for terrain brushes, since it looked like dead code\n");
+        return;
+    }
+    if (nRows & 1 || p->height + nRows < 3 || p->height + nRows > 16)
+        return;
+    p->height += nRows;
+    for (int w = 0; w < p->width; w++)
+    {
+        vec3_t d;
+        VectorSubtract(p->ctrl[w][p->height - 1 - nRows].xyz, p->ctrl[w][0].xyz, d);
+        float inv = 1.0f / (float)(p->height - 1);
+        vec3_t step;
+        step[0] = d[0] * inv;
+        step[1] = d[1] * inv;
+        step[2] = d[2] * inv;
+        for (int h = 0; h < p->height - 1; h++)
+            VectorAdd(p->ctrl[w][h].xyz, step, p->ctrl[w][h + 1].xyz);
+    }
+    for (int w = 0; w < p->width; w++)
+    {
+        for (int h = 0; h < p->height; h++)
+        {
+            p->ctrl[w][h].st[DAT_01128d94][0] = (float)w / ((float)(p->width - 1) * dword_1128DC4);
+            p->ctrl[w][h].st[DAT_01128d94][1] = (float)h / ((float)(p->height - 1) * dword_1128DC4);
+        }
+    }
+    if (DAT_01128d94 == 1)
+        p->flag_382f = 0;
+    if (g_PatchDialog.GetSafeHwnd())
+        g_PatchDialog.GetPatchInfo();
+}
+
+// Retail 0x00430ff0: spread the controls of every selected patch evenly along its rows.
+void FUN_00430ff0()
+{
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch)
+            continue;
+#line 4537
+        assert( b->patch->def == b->def->patch );
+        patchMesh_t *p = b->patch->def;
+        FUN_004269d0(p, true);
+        for (int w = 0; w < p->width; w++)
+        {
+            vec3_t d;
+            VectorSubtract(p->ctrl[w][p->height - 1].xyz, p->ctrl[w][0].xyz, d);
+            float inv = 1.0f / (float)(p->height - 1);
+            vec3_t step;
+            step[0] = inv * d[0];
+            step[1] = d[1] * inv;
+            step[2] = d[2] * inv;
+            for (int h = 0; h < p->height - 1; h++)
+                VectorAdd(p->ctrl[w][h].xyz, step, p->ctrl[w][h + 1].xyz);
+            FUN_00427160(p, DAT_01128d94);
+            if (p->cache_3824)
+                free(p->cache_3824);
+            p->cache_3824 = FUN_004267d0(p, DAT_01128d94, NULL, NULL);
+            p->version++;
+        }
+    }
+    if (g_PatchDialog.GetSafeHwnd())
+        g_PatchDialog.GetPatchInfo();
+}
+
+// Retail 0x004311a0: spread the controls of every selected patch evenly along its columns.
+void FUN_004311a0()
+{
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch)
+            continue;
+#line 4572
+        assert( b->patch->def == b->def->patch );
+        patchMesh_t *p = b->patch->def;
+        FUN_004269d0(p, true);
+        for (int h = 0; h < p->height; h++)
+        {
+            vec3_t d;
+            VectorSubtract(p->ctrl[p->width - 1][h].xyz, p->ctrl[0][h].xyz, d);
+            float inv = 1.0f / (float)(p->width - 1);
+            vec3_t step;
+            step[0] = inv * d[0];
+            step[1] = d[1] * inv;
+            step[2] = d[2] * inv;
+            for (int w = 0; w < p->width - 1; w++)
+                VectorAdd(p->ctrl[w][h].xyz, step, p->ctrl[w + 1][h].xyz);
+        }
+        FUN_00427160(p, DAT_01128d94);
+        if (p->cache_3824)
+            free(p->cache_3824);
+        p->cache_3824 = FUN_004267d0(p, DAT_01128d94, NULL, NULL);
+        p->version++;
+    }
+    if (g_PatchDialog.GetSafeHwnd())
+        g_PatchDialog.GetPatchInfo();
+}
+
+// Retail 0x00431360: insert or remove rows or columns at the start or end of every selected patch.
+void FUN_00431360(bool bInsert, bool bColumn, bool bFirst)
+{
+    bool bUpdate = false;
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch)
+            continue;
+#line 4605
+        assert( b->patch->def == b->def->patch );
+        patchMesh_t *p = b->patch->def;
+        if (!bInsert)
+        {
+            if (!bColumn)
+                FUN_00430a60(p, bFirst);
+            else
+                FUN_00430b90(p, bFirst);
+        }
+        else if (!bColumn)
+            FUN_00430760(p, false);
+        else
+            FUN_00430370(p, false);
+#line 4622
+        assert( p == b->patch->def );
+        FUN_004269d0(p, true);
+        bUpdate = true;
+    }
+    if (bUpdate)
+        DAT_0123348c = -1;
+}
+
+// Retail 0x00431490: grow every selected patch by whole rows and columns.
+void FUN_00431490(int nCols, int nRows)
+{
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch)
+            continue;
+#line 4641
+        assert( b->patch->def == b->def->patch );
+        patchMesh_t *p = b->patch->def;
+        if (!(p->type_10 & 0x40))
+        {
+            FUN_00430370(p, false);
+            if (nRows != 0)
+                FUN_00430e20(p, nRows);
+            if (nCols != 0)
+                FUN_00430c40(p, nCols);
+        }
+        else
+            Sys_Printf("********* Patch_AdjustSelectedRowCols not implemented for terrain brushes, since it looked like dead code\n");
+    }
+    if (g_PatchDialog.GetSafeHwnd())
+        g_PatchDialog.GetPatchInfo();
+}
+
+// Retail 0x00432430: rotate the texture coordinates of a patch (selected points only in vertex mode).
+void FUN_00432430(patchMesh_t *p, float fAngle)
+{
+    for (int i = 0; i < p->width; i++)
+    {
+        for (int j = 0; j < p->height; j++)
+        {
+            if (DAT_011298b0 == 4 && (DAT_010c4d84 <= 0 || FUN_00429df0(0, (int)&p->ctrl[i][j]) == -1))
+                continue;
+            float x = p->ctrl[i][j].st[DAT_01128d94][0];
+            float y = p->ctrl[i][j].st[DAT_01128d94][1];
+            float a = fAngle * 3.1415927f / 180.0f;
+            p->ctrl[i][j].st[DAT_01128d94][0] = (float)cos(a) * x - (float)sin(a) * y;
+            p->ctrl[i][j].st[DAT_01128d94][1] = (float)cos(a) * y + (float)sin(a) * x;
+        }
+    }
+    if (DAT_01128d94 == 1)
+        p->flag_382f = 0;
+    if (p->cache_3824)
+        free(p->cache_3824);
+    p->cache_3824 = FUN_004267d0(p, DAT_01128d94, NULL, NULL);
+    p->version++;
+}
+
+// Retail 0x00432800: shift the texture coordinates of a patch (selected points only in vertex mode).
+void FUN_00432800(patchMesh_t *p, float fx, float fy)
+{
+    if (fabs(fx) >= 1.0f)
+        fx /= 10.0f;
+    if (fabs(fy) >= 1.0f)
+        fy /= 10.0f;
+    for (int i = 0; i < p->width; i++)
+    {
+        for (int j = 0; j < p->height; j++)
+        {
+            if (DAT_011298b0 == 4 && (DAT_010c4d84 <= 0 || FUN_00429df0(0, (int)&p->ctrl[i][j]) == -1))
+                continue;
+            p->ctrl[i][j].st[DAT_01128d94][0] += fx;
+            p->ctrl[i][j].st[DAT_01128d94][1] += fy;
+        }
+    }
+    if (DAT_01128d94 == 1)
+        p->flag_382f = 0;
+    if (p->cache_3824)
+        free(p->cache_3824);
+    p->cache_3824 = FUN_004267d0(p, DAT_01128d94, NULL, NULL);
+    p->version++;
+}
+
+// Retail 0x00432bb0: invert (flip) every selected patch.
+void FUN_00432bb0()
+{
+    bool bUpdate = false;
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch)
+            continue;
+#line 5049
+        assert( b->patch->def == b->def->patch );
+        patchMesh_t *p = b->patch->def;
+        FUN_00432a60(p);
+        if (p->cache_3824)
+            free(p->cache_3824);
+        p->version++;
+        p->cache_3824 = FUN_004267d0(p, DAT_01128d94, NULL, NULL);
+        bUpdate = true;
+    }
+    if (bUpdate)
+        DAT_0123348c = -1;
+    if (g_PatchDialog.GetSafeHwnd())
+        g_PatchDialog.GetPatchInfo();
+}
+
+// Retail 0x00432ca0: mirror the texture coordinates of every selected patch along one axis.
+void FUN_00432ca0(bool bFlipWidth)
+{
+    bool bUpdate = false;
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch)
+            continue;
+#line 5076
+        assert( b->patch->def == b->def->patch );
+        patchMesh_t *p = b->patch->def;
+        bUpdate = true;
+        if (!bFlipWidth)
+        {
+            for (int i = 0; i < p->width; i++)
+            {
+                for (int j = 0; j < p->height / 2; j++)
+                {
+                    float s = p->ctrl[i][p->height - 1 - j].st[DAT_01128d94][0];
+                    float t = p->ctrl[i][p->height - 1 - j].st[DAT_01128d94][1];
+                    p->ctrl[i][p->height - 1 - j].st[DAT_01128d94][0] = p->ctrl[i][j].st[DAT_01128d94][0];
+                    p->ctrl[i][p->height - 1 - j].st[DAT_01128d94][1] = p->ctrl[i][j].st[DAT_01128d94][1];
+                    p->ctrl[i][j].st[DAT_01128d94][0] = s;
+                    p->ctrl[i][j].st[DAT_01128d94][1] = t;
+                }
+            }
+        }
+        else
+        {
+            for (int j = 0; j < p->height; j++)
+            {
+                for (int i = 0; i < p->width / 2; i++)
+                {
+                    float s = p->ctrl[p->width - 1 - i][j].st[DAT_01128d94][0];
+                    float t = p->ctrl[p->width - 1 - i][j].st[DAT_01128d94][1];
+                    p->ctrl[p->width - 1 - i][j].st[DAT_01128d94][0] = p->ctrl[i][j].st[DAT_01128d94][0];
+                    p->ctrl[p->width - 1 - i][j].st[DAT_01128d94][1] = p->ctrl[i][j].st[DAT_01128d94][1];
+                    p->ctrl[i][j].st[DAT_01128d94][0] = s;
+                    p->ctrl[i][j].st[DAT_01128d94][1] = t;
+                }
+            }
+        }
+        if (DAT_01128d94 == 1)
+            p->flag_382f = 0;
+        if (p->cache_3824)
+            free(p->cache_3824);
+        p->cache_3824 = FUN_004267d0(p, DAT_01128d94, NULL, NULL);
+        p->version++;
+    }
+    if (bUpdate)
+        DAT_0123348c = -1;
+    if (g_PatchDialog.GetSafeHwnd())
+        g_PatchDialog.GetPatchInfo();
+}
+
+// Retail 0x00433910: apply a texture rotate, shift and scale to every selected patch.
+void FUN_00433910(const patchTexInfo_proj *info)
+{
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch)
+            continue;
+#line 5336
+        assert( b->patch->def == b->def->patch );
+        patchMesh_t *p = b->patch->def;
+        if (info->rotate != 0.0f)
+            FUN_00432430(p, info->rotate);
+        if (info->shift[0] != 0.0f || info->shift[1] != 0.0f)
+            FUN_00432800(p, info->shift[0], info->shift[1]);
+        if (info->scale[0] != 0.0f || info->scale[1] != 0.0f)
+            FUN_004326b0(p, info->scale[0], info->scale[1]);
+    }
+}
+
+// Retail 0x00433ad0: toggle the patch bend tool on or off.
+void FUN_00433ad0()
+{
+    if (DAT_012334ba)
+    {
+        DAT_012334ba = false;
+        if (DAT_012335bc)
+            DAT_012335a0.ShowWindow(SW_HIDE);
+        FUN_0041b190(dword_01233488);
+        return;
+    }
+    patchMesh_t *p = SinglePatchSelected();
+    if (!p)
+    {
+        Sys_Printf("Must bend a single patch");
+        return;
+    }
+    if (p->type_10 & 0x40)
+    {
+        Sys_Printf("Patch_BendToggle: Bending of terrain curves not implemented\n");
+        return;
+    }
+    DAT_0109c538.width = p->width;
+    DAT_0109c538.height = p->height;
+    DAT_0109c538.type_10 = p->type_10;
+    memcpy(DAT_0109c538.ctrl, p->ctrl, sizeof(p->ctrl));
+    DAT_012334ba = true;
+    DAT_005909fc = 0;
+    DAT_00590a04 = true;
+    DAT_012334c0 = 1;
+    FUN_00409690(DAT_00590a08[0]);
+}
+
+// Retail 0x00433da0: step the bend tool to its next state.
+void FUN_00433da0()
+{
+    if (!DAT_012334ba)
+        return;
+    if (DAT_005909fc >= 3)
+        FUN_00433ad0();
+    else
+    {
+        DAT_005909fc++;
+        FUN_00409690(DAT_00590a08[DAT_005909fc]);
+        if (DAT_005909fc == 1)
+        {
+            DAT_0109c528[2] = 0;
+            DAT_0109c528[1] = 0;
+            DAT_0109c528[0] = 0;
+            DAT_012334bc = 0;
+            FUN_00433b90();
+            DAT_0123348c = -1;
+            return;
+        }
+        if (DAT_005909fc == 2)
+        {
+            DAT_00590a05 = 1;
+            DAT_0123348c = -1;
+            return;
+        }
+    }
+    DAT_0123348c = -1;
+}
+
+// Retail 0x00433ed0: select the bend axis row or column of the single selected patch.
+void FUN_00433ed0()
+{
+    patchMesh_t *p = SinglePatchSelected();
+    if (!p)
+    {
+        FUN_00433ad0();
+        return;
+    }
+    if (p->type_10 & 0x40)
+    {
+        Sys_Printf("Patch_SelectBendAxis: Bending of terrain curves not implemented\n");
+        return;
+    }
+    if (DAT_00590a04)
+        FUN_0042a3a0(p, DAT_012334c0, false);
+    else
+        FUN_0042a3f0(p, DAT_012334c0, false);
+    Patch_SetBendRotateOrigin();
+}
+
+// Retail 0x00433f20: select the bend-normal side (rows or columns) of the single selected patch.
+void FUN_00433f20()
+{
+    patchMesh_t *p = SinglePatchSelected();
+    if (!p)
+    {
+        FUN_00433ad0();
+        return;
+    }
+    if (p->type_10 & 0x40)
+    {
+        Sys_Printf("Patch_SelectBendNormal: Bending of terrain curves not implemented\n");
+        return;
+    }
+    DAT_010c4d84 = 0;
+    if (DAT_00590a04)
+    {
+        if (DAT_00590a05)
+        {
+            for (int i = 0; i < DAT_012334c0; i++)
+                FUN_0042a3a0(p, i, true);
+        }
+        else
+        {
+            for (int i = p->height - 1; i > DAT_012334c0; i--)
+                FUN_0042a3a0(p, i, true);
+        }
+    }
+    else if (DAT_00590a05)
+    {
+        for (int i = 0; i < DAT_012334c0; i++)
+            FUN_0042a3f0(p, i, true);
+    }
+    else
+    {
+        for (int i = p->width - 1; i > DAT_012334c0; i--)
+            FUN_0042a3f0(p, i, true);
+    }
+    Patch_SetBendRotateOrigin();
+}
+
+// Retail 0x00434040: toggle the insert/delete patch tool on or off.
+void FUN_00434040()
+{
+    if (DAT_012334b9)
+    {
+        DAT_012334b9 = false;
+        if (DAT_012335bc)
+            DAT_012335a0.ShowWindow(SW_HIDE);
+        FUN_0041b190(dword_01233488);
+        return;
+    }
+    patchMesh_t *p = SinglePatchSelected();
+    if (!p)
+    {
+        Sys_Printf("Must work with a single patch");
+        return;
+    }
+    DAT_0109c538.width = p->width;
+    DAT_0109c538.height = p->height;
+    DAT_0109c538.type_10 = p->type_10;
+    memcpy(DAT_0109c538.ctrl, p->ctrl, sizeof(p->ctrl));
+    DAT_012334b9 = true;
+    DAT_00590a00 = 0;
+    DAT_00590a04 = true;
+    DAT_012334c0 = 0;
+    FUN_00409690(DAT_00590a1c[0]);
+}
+
+// Retail 0x00434190: natural or cap texturing on every selected patch, as one undo step.
+void FUN_00434190(bool bCap, bool bCycle, float fScaleS, float fScaleT)
+{
+    brush_t *b = DAT_010a44b4.next;
+    while (b != &DAT_010a44b4 && !b->patch)
+        b = b->next;
+    if (b == &DAT_010a44b4)
+        return;
+    FUN_004433b0();
+    Undo_GeneralStart(bCycle ? "Patch cap texturing" : "Patch natural texturing");
+    Undo_AddBrushList((selbrush_t *)&DAT_010a44b4);
+    for (b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch)
+            continue;
+#line 5747
+        assert( b->patch->def == b->def->patch );
+        if (bCap)
+            Patch_CapTexture(b->patch->def, bCycle, fScaleS, fScaleT);
+        else
+            Patch_Naturalize(b->patch->def);
+    }
+    FUN_00443f80((selbrush_t *)&DAT_010a44b4);
+    Undo_End();
+}
+
+// Retail 0x00434290: lightmap texturing on every selected patch, as one undo step.
+void FUN_00434290()
+{
+    brush_t *b = DAT_010a44b4.next;
+    while (b != &DAT_010a44b4 && !b->patch)
+        b = b->next;
+    if (b == &DAT_010a44b4)
+        return;
+    FUN_004433b0();
+    Undo_GeneralStart("Patch lightmap texturing");
+    Undo_AddBrushList((selbrush_t *)&DAT_010a44b4);
+    for (b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch)
+            continue;
+#line 5773
+        assert( b->patch->def == b->def->patch );
+        FUN_004270e0(b->patch->def);
+    }
+    FUN_00443f80((selbrush_t *)&DAT_010a44b4);
+    Undo_End();
+}
+
+// Retail 0x00434630: apply a drag quad to the selected patch points, retrying in add mode.
+void FUN_00434630(const float *planes, bool bAdd)
+{
+    bool bRetry = true;
+    if (!bAdd || DAT_0112993e || DAT_0112993f)
+    {
+        DAT_010c4d84 = 0;
+        bRetry = false;
+    }
+    DAT_005909f8 = -1;
+    if (!FUN_00434360(planes, false) && bRetry)
+        FUN_00434360(planes, true);
+}
+
+// Retail 0x00434690: add or remove the unique points that lie inside four planes (selection quad).
+bool FUN_00434690(const hitplane_t *pl, bool bRemove)
+{
+    bool bChanged = false;
+    if (DAT_0112993e || DAT_0112993f)
+        return false;
+    for (int i = 0; i < DAT_010f8d88; i++)
+    {
+        const float *pt = DAT_010c8d88[i];
+        int k;
+        for (k = 0; k < 4; k++)
+            if (!(pl[k].n[0] * pt[0] + pl[k].n[2] * pt[2] + pl[k].n[1] * pt[1] < pl[k].d))
+                break;
+        if (k != 4)
+            continue;
+        if (!bRemove)
+        {
+            if (FUN_00429e20(pt) < 0)
+            {
+                float *dst = DAT_010f8d8c[DAT_01128d8c];
+                dst[0] = pt[0];
+                dst[1] = pt[1];
+                dst[2] = pt[2];
+                DAT_01128d8c++;
+                bChanged = true;
+            }
+        }
+        else
+        {
+#line 5891
+            assert( !DAT_0112993e && !DAT_0112993f );
+            int idx = FUN_00429e20(pt);
+            if (idx >= 0)
+            {
+                int n = DAT_01128d8c - idx;
+                if (n - 1 > 0)
+                    memmove(DAT_010f8d8c[idx], DAT_010f8d8c[idx + 1], (n - 1) * 12);
+                DAT_01128d8c--;
+            }
+        }
+    }
+    return bChanged;
+}
+
+// Retail 0x00434810: apply a drag quad to the unique point list, retrying in add mode.
+void FUN_00434810(const hitplane_t *planes, bool bAdd)
+{
+    bool bRetry = true;
+    if (!bAdd)
+    {
+        DAT_01128d8c = 0;
+        bRetry = false;
+    }
+    DAT_005909f8 = -1;
+    if (!FUN_00434690(planes, false) && bRetry)
+        FUN_00434690(planes, true);
+}
+
+// Retail 0x00434880: duplicate a patch mesh with a fresh cache.
+patchMesh_t *FUN_00434880(const patchMesh_t *src)
+{
+    patchMesh_t *p = MakeNewPatch();
+    *p = *src;
+    p->cache_3824 = NULL;
+    p->cache_3824 = FUN_004267d0(p, DAT_01128d94, NULL, NULL);
+    AddBrushForPatch(p, *(entity_t **)((char *)src->cache_3828 + 8));
+    return p;
+}
+
+// Retail 0x004353d0: transpose every selected patch (swap rows and columns, flip winding).
+void FUN_004353d0()
+{
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch)
+            continue;
+#line 6161
+        assert( b->patch->def == b->def->patch );
+        patchMesh_t *p = b->patch->def;
+        FUN_00435230(p);
+        FUN_00432a60(p);
+        if (p->cache_3824)
+            free(p->cache_3824);
+        p->cache_3824 = FUN_004267d0(p, DAT_01128d94, NULL, NULL);
+        p->version++;
+        FUN_004269d0(p, true);
+    }
+}
+
+// Retail 0x00435760: swap the current layer material on a patch brush when its name matches (or when forced).
+bool FUN_00435760(brushdef_t *b, const char *oldName, char *newName, bool bForce)
+{
+#line 6256
+    assert( b );
+#line 6257
+    assert( b->patch );
+    patchMesh_t *p = b->patch;
+    if (!bForce)
+    {
+        material_t *mat = (material_t *)(&p->image_18)[DAT_01128d90];
+        if (_stricmp(mat->name, oldName))
+            return false;
+    }
+    (&p->image_18)[DAT_01128d90] = FUN_00440840(newName);
+    p->version++;
+    return true;
+}
+
+// Retail 0x00435900: spread the selected control points of one row evenly between the first two selected points.
+void FUN_00435900(patchMesh_t *p, int row)
+{
+    bool bFirst = false, bSecond = false;
+    int iFirst = 0, iSecond = 0;
+    vec3_t first, second;
+    for (int j = 0; j < p->height; j++)
+    {
+        PatchControl *c = &p->ctrl[row][j];
+        if (IndexOfMovePoint(c) == -1)
+            continue;
+        if (bSecond)
+            continue;
+        if (bFirst)
+        {
+            VectorCopy(c->xyz, second);
+            bSecond = true;
+            iSecond = j;
+        }
+        else
+        {
+            VectorCopy(c->xyz, first);
+            iFirst = j;
+            bFirst = true;
+        }
+    }
+    if (!bFirst || !bSecond)
+        return;
+    for (int j = 0; j < p->height; j++)
+    {
+        PatchControl *c = &p->ctrl[row][j];
+        if (IndexOfMovePoint(c) == -1 || (c->flags_34 & 2))
+            continue;
+        float t = (float)(j - iFirst) / (float)(iSecond - iFirst);
+        c->xyz[0] = (1.0f - t) * first[0] + second[0] * t;
+        c->xyz[1] = (1.0f - t) * first[1] + second[1] * t;
+        c->xyz[2] = (1.0f - t) * first[2] + second[2] * t;
+    }
+}
+
+// Retail 0x00435a80: spread the selected control points of one column evenly between the first two selected points.
+void FUN_00435a80(patchMesh_t *p, int col)
+{
+    bool bFirst = false, bSecond = false;
+    int iFirst = 0, iSecond = 0;
+    vec3_t first, second;
+    for (int i = 0; i < p->width; i++)
+    {
+        PatchControl *c = &p->ctrl[i][col];
+        if (IndexOfMovePoint(c) == -1)
+            continue;
+        if (bFirst)
+        {
+            VectorCopy(c->xyz, second);
+            bSecond = true;
+            iSecond = i;
+        }
+        else
+        {
+            VectorCopy(c->xyz, first);
+            bFirst = true;
+            iFirst = i;
+        }
+    }
+    if (!bFirst || !bSecond)
+        return;
+    for (int i = 0; i < p->width; i++)
+    {
+        PatchControl *c = &p->ctrl[i][col];
+        if (IndexOfMovePoint(c) == -1 || (c->flags_34 & 2))
+            continue;
+        float t = (float)(i - iFirst) / (float)(iSecond - iFirst);
+        c->xyz[0] = (1.0f - t) * first[0] + second[0] * t;
+        c->xyz[1] = (1.0f - t) * first[1] + second[1] * t;
+        c->xyz[2] = (1.0f - t) * first[2] + second[2] * t;
+    }
+}
+
+// Retail 0x00435d20: redistribute the selected control points between selected ends of each row and column.
+void FUN_00435d20()
+{
+    if (DAT_011298b0 != 1 && DAT_011298b0 != 4)
+        return;
+    patchMesh_t *p = SinglePatchSelected();
+    if (!p)
+    {
+        Sys_Printf("must have a single patch selected to redistribute");
+        return;
+    }
+    bool bAny = false;
+    for (int i = 0; i < p->width; i++)
+        for (int j = 0; j < p->height; j++)
+            if (IndexOfMovePoint(&p->ctrl[i][j]) != -1)
+            {
+                bAny = true;
+                break;
+            }
+    if (!bAny)
+    {
+        Sys_Printf("No vertices selected, can't redistribute.\n");
+        return;
+    }
+    for (int j = 0; j < p->height; j++)
+        FUN_00435a80(p, j);
+    for (int i = 0; i < p->width; i++)
+        FUN_00435900(p, i);
+    Sys_Printf("Redistributing patch points.\n");
+    DAT_0123348c = -1;
+    FUN_004269d0(p, true);
+}
+
+// Retail 0x00435e40: weld the selected control points onto the nearest unique point within the tolerance.
+void FUN_00435e40()
+{
+    float oldPos[0x1001][3];
+    if (DAT_010c4d84 < 1)
+    {
+        Sys_Printf("can only connect patch vertices if at least 1 vertices are selected\n");
+        return;
+    }
+    if ((unsigned)DAT_010c4d84 > 0x1001)
+    {
+        Sys_Printf("can only connect patch vertices if at most %i vertices are selected\n", 0x1001);
+        return;
+    }
+    int tol = PREFS_INT(0x28c);
+    float tol2 = (float)(tol * tol);
+    int nMerged = 0;
+    if (DAT_010c4d84 > 0)
+    {
+        for (int i = 0; i < DAT_010c4d84; i++)
+        {
+            float best = tol2 + 1.0f;
+            int idx = -1;
+            for (int k = 0; k < DAT_01128d8c; k++)
+            {
+                float *sel = (float *)DAT_010c4d88[i];
+                float dx = DAT_010f8d8c[k][0] - sel[0];
+                float dy = DAT_010f8d8c[k][1] - sel[1];
+                float d = dy * dy + dx * dx;
+                if (!(d > tol2) && d < best)
+                {
+                    best = d;
+                    idx = k;
+                }
+            }
+            if (!(best > tol2))
+            {
+                float *sel = (float *)DAT_010c4d88[i];
+                oldPos[nMerged][0] = sel[0];
+                oldPos[nMerged][1] = sel[1];
+                oldPos[nMerged][2] = sel[2];
+                sel[0] = DAT_010f8d8c[idx][0];
+                sel[1] = DAT_010f8d8c[idx][1];
+                sel[2] = DAT_010f8d8c[idx][2];
+                nMerged++;
+            }
+        }
+        if (nMerged == 0)
+            Sys_Printf("No vertices are close enough to do Tolerant Weld\n");
+        else if (nMerged == 1)
+            Sys_Printf("Merged 1 vertex\n");
+        else
+            Sys_Printf("Merged %i vertices\n", nMerged);
+    }
+    else
+        Sys_Printf("No vertices are close enough to do Tolerant Weld\n");
+    DAT_010c4d84 = 0;
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+        if (b->patch)
+            FUN_004269d0(b->patch->def, true);
+    DAT_0123348c = -1;
+}
+
+// Retail 0x00436000: snap the selected control points onto the first unique point, per unlocked axis.
+void FUN_00436000()
+{
+    float oldPos[0x401][3];
+    if (DAT_010c4d84 < 1)
+    {
+        Sys_Printf("can only connect patch vertices if at least 1 patch vertices are selected\n");
+        return;
+    }
+    if ((unsigned)DAT_010c4d84 > 0x401)
+    {
+        Sys_Printf("can only connect patch vertices if at most %i vertices are selected\n", 0x401);
+        return;
+    }
+    int mask = DAT_0109fe60;
+    int i = 0;
+    do
+    {
+        float *c = (float *)DAT_010c4d88[i];
+        if (!(mask & 1) && !(mask & 2) && !(mask & 4))
+        {
+            oldPos[i][0] = c[0];
+            oldPos[i][1] = c[1];
+            oldPos[i][2] = c[2];
+            c[0] = DAT_010f8d8c[0][0];
+            c[1] = DAT_010f8d8c[0][1];
+            c[2] = DAT_010f8d8c[0][2];
+        }
+        else
+        {
+            oldPos[i][0] = c[0];
+            oldPos[i][1] = c[1];
+            oldPos[i][2] = c[2];
+            if (!(mask & 1))
+                c[0] = DAT_010f8d8c[0][0];
+            if (!(mask & 2))
+                c[1] = DAT_010f8d8c[0][1];
+            if (!(mask & 4))
+                c[2] = DAT_010f8d8c[0][2];
+        }
+    } while (++i < DAT_010c4d84);
+    DAT_010c4d84 = 0;
+    DAT_01128d8c = 0;
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+        if (b->patch)
+            FUN_004269d0(b->patch->def, true);
+    DAT_0123348c = -1;
+}
+
+// Retail 0x004364b0: push the selected patch points out to a circle around their centre.
+void FUN_004364b0()
+{
+    float oldPos[0x401][3];
+    if (DAT_012485bc > 0)
+    {
+        Sys_Printf("can only connect patch vertices if only patches are selected\n");
+        return;
+    }
+    brush_t *b = DAT_010a44b4.next;
+    if (b == &DAT_010a44b4)
+    {
+        Sys_Printf("can only connect patch vertices if only patches are selected\n");
+        return;
+    }
+    for (b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch)
+        {
+            Sys_Printf("can only connect patch vertices if only patches are selected\n");
+            return;
+        }
+    }
+    int n = DAT_010c4d84;
+    if (n < 2)
+    {
+        Sys_Printf("can only splay patch vertices if at least 2 vertices are selected\n");
+        return;
+    }
+    if ((unsigned)n > 0x401)
+    {
+        Sys_Printf("can only splay patch vertices if at most %i vertices are selected\n", 0x401);
+        return;
+    }
+    float *first = (float *)DAT_010c4d88[0];
+    float minX = first[0], minY = first[1];
+    float maxX = first[0], maxY = first[1];
+    for (int i = n - 1; i > 0; i--)
+    {
+        float *pt = (float *)DAT_010c4d88[i];
+        if (!(pt[0] >= minX))
+            minX = pt[0];
+        if (!(pt[0] <= maxX))
+            maxX = pt[0];
+        if (!(pt[1] >= minY))
+            minY = pt[1];
+        if (!(pt[1] <= maxY))
+            maxY = pt[1];
+    }
+    float cx = (maxX + minX) * 0.5f;
+    float cy = (maxY + minY) * 0.5f;
+    float radius = (float)PREFS_INT(0x298);
+    for (int i = 0; i < n; i++)
+    {
+        float *pt = (float *)DAT_010c4d88[i];
+        float v[2];
+        oldPos[i][0] = pt[0];
+        v[0] = pt[0] - cx;
+        oldPos[i][1] = pt[1];
+        oldPos[i][2] = pt[2];
+        v[1] = pt[1] - cy;
+        Vec2Normalize(v);
+        pt = (float *)DAT_010c4d88[i];
+        pt[0] = v[0] * radius + cx;
+        pt[1] = v[1] * radius + cy;
+    }
+    for (b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+        if (b->patch)
+            FUN_004269d0(b->patch->def, true);
+    DAT_0123348c = -1;
+}
+
+// Retail 0x004369b0: connect the selected patch points or vertices depending on the selection.
+void FUN_004369b0()
+{
+    float oldPos[0x401][3];
+    if (PREFS_INT(0x26c) != 1)
+    {
+        brush_t *b = DAT_010a44b4.next;
+        for (;;)
+        {
+            if (b == &DAT_010a44b4)
+            {
+                Sys_Printf("can only connect patch vertices if a patch selected\n");
+                return;
+            }
+            if (b->patch)
+                break;
+            b = b->next;
+        }
+        if (DAT_01128d8c > 0)
+        {
+            FUN_00436000();
+            return;
+        }
+        int n = DAT_010c4d84;
+        if (n < 2)
+        {
+            Sys_Printf("can only connect patch vertices if at least 2 vertices are selected\n");
+            return;
+        }
+        if ((unsigned)n > 0x401)
+        {
+            Sys_Printf("can only connect patch vertices if at most %i vertices are selected\n", 0x401);
+            return;
+        }
+        int mask = DAT_0109fe60;
+        int i = 1;
+        for (;;)
+        {
+            float *c = (float *)DAT_010c4d88[i];
+            float *first = (float *)DAT_010c4d88[0];
+            if (!(mask & 1) && !(mask & 2) && !(mask & 4))
+            {
+                oldPos[i - 1][0] = c[0];
+                oldPos[i - 1][1] = c[1];
+                oldPos[i - 1][2] = c[2];
+                c[0] = first[0];
+                c[1] = first[1];
+                c[2] = first[2];
+            }
+            else
+            {
+                oldPos[i - 1][0] = c[0];
+                oldPos[i - 1][1] = c[1];
+                oldPos[i - 1][2] = c[2];
+                if (!(mask & 1))
+                    c[0] = first[0];
+                if (!(mask & 2))
+                    c[1] = first[1];
+                if (!(mask & 4))
+                    c[2] = first[2];
+            }
+            if (++i >= DAT_010c4d84)
+                break;
+        }
+        b = DAT_010a44b4.next;
+        DAT_010c4d84 = 0;
+        for (; b != &DAT_010a44b4; b = b->next)
+            if (b->patch)
+                FUN_004269d0(b->patch->def, true);
+        DAT_0123348c = -1;
+        return;
+    }
+    if (DAT_012485bc > 0)
+    {
+        FUN_00435e40();
+        return;
+    }
+    brush_t *b = DAT_010a44b4.next;
+    if (b != &DAT_010a44b4)
+    {
+        while (b->patch)
+        {
+            b = b->next;
+            if (b == &DAT_010a44b4)
+            {
+                FUN_00436170();
+                return;
+            }
+        }
+    }
+    FUN_00435e40();
+}
+
+// Retail 0x00437390: distance between the positions of two control points (passed by value).
+float FUN_00437390(PatchControl a, PatchControl b)
+{
+    vec3_t v;
+    v[0] = a.xyz[0] - b.xyz[0];
+    v[0] = v[0] * v[0];
+    v[1] = a.xyz[1] - b.xyz[1];
+    v[1] = v[1] * v[1];
+    v[2] = a.xyz[2] - b.xyz[2];
+    v[2] = v[2] * v[2];
+    float len = v[2] + v[1] + v[0];
+    return (float)sqrt(len);
+}
+
+// Retail 0x00437730: pick the terrain patch edge under a ray and flip its diagonal.
+void FUN_00437730(const float *origin, const float *dir)
+{
+    float t, bestT = 3.402823466e+38f;
+    int bestY = 0, y, x;
+    patchMesh_t *best = NULL;
+    int bestX = 0;
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch || b->patch->def->type_10 != 0x40)
+            continue;
+        if (FUN_00436dc0(origin, dir, b->patch, &t, &y, &x, 0, 0) && bestT > t)
+        {
+            bestT = t;
+            bestY = y;
+            bestX = x;
+            best = b->patch->def;
+        }
+    }
+    if (!best)
+        return;
+    FUN_004433b0();
+    Undo_GeneralStart("Turn terrain edge");
+    Undo_AddBrush((brushdef_t *)best->cache_3828);
+    best->ctrl[bestX][bestY].flags_34 ^= 1;
+    FUN_004269d0(best, true);
+    DAT_0123348c = -1;
+    undo_proj *u = DAT_0109fdcc;
+    if (u && u->field_0c == 0)
+    {
+        brushdef_t *def = (brushdef_t *)best->cache_3828;
+        *(int *)((char *)def + 0x10) = u->field_08;
+        entity_t *e = *(entity_t **)((char *)def + 8);
+        if (e->eclass->fixedsize)
+            *(int *)((char *)e + 0x6c) = u->field_08;
+    }
+    Undo_End();
+}
+
+// Retail 0x00437890: build a 2x3 inverse basis matrix from two vectors and two axes (false when degenerate).
+bool FUN_00437890(const float *a, float *out, const float *s, const float *t, const float *b)
+{
+    float det = (a[1] - a[2]) * b[0] + (b[2] - b[1]) * a[0] + a[2] * b[1] - b[2] * a[1];
+    if (det <= -0.001f || det >= 0.001f)
+    {
+        det = 1.0f / det;
+        out[0] = ((a[1] - a[2]) * t[0] + (a[2] - a[0]) * t[1] + (a[0] - a[1]) * t[2]) * det;
+        out[3] = ((a[0] - a[1]) * s[2] + (a[2] - a[0]) * s[1] + (a[1] - a[2]) * s[0]) * det;
+        out[1] = ((b[1] - b[0]) * t[2] + (b[2] - b[1]) * t[0] + (b[0] - b[2]) * t[1]) * det;
+        out[4] = ((b[2] - b[1]) * s[0] + (b[1] - b[0]) * s[2] + (b[0] - b[2]) * s[1]) * det;
+        out[2] = ((a[2] * b[1] - b[2] * a[1]) * t[0] + (b[0] * a[1] - a[0] * b[1]) * t[2] + (b[2] * a[0] - b[0] * a[2]) * t[1]) * det;
+        out[5] = ((b[0] * a[1] - a[0] * b[1]) * s[2] + (a[2] * b[1] - b[2] * a[1]) * s[0] + (b[2] * a[0] - b[0] * a[2]) * s[1]) * det;
+        return true;
+    }
+    return false;
+}
+
+// Retail 0x00437e50: insert a row or column in a terrain patch between two adjacent selected points.
+void FUN_00437e50()
+{
+    PatchPair pair;
+    bool bUpdate = false;
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch)
+            continue;
+#line 7449
+        assert( b->patch->def == b->def->patch );
+        patchMesh_t *p = b->patch->def;
+        if (!(p->type_10 & 0x40))
+            continue;
+        if (!FUN_00429a00(p, &pair))
+            continue;
+        if (pair.x[0] != pair.x[1])
+        {
+#line 7467
+            assert( pair.y[0] == pair.y[1] );
+            if (pair.x[0] == pair.x[1] + 1)
+                FUN_00430220(p, pair.x[0]);
+            else if (pair.x[1] == pair.x[0] + 1)
+                FUN_00430220(p, pair.x[1]);
+            else
+                Sys_Printf("vertices must be adjacent to insert a row or column\n");
+        }
+        else if (pair.y[0] == pair.y[1] + 1)
+            FUN_00430610(p, pair.y[0]);
+        else if (pair.y[1] == pair.y[0] + 1)
+            FUN_00430610(p, pair.y[1]);
+        else
+            Sys_Printf("vertices must be adjacent to insert a row or column\n");
+        bUpdate = true;
+        if (p->cache_3824)
+            free(p->cache_3824);
+        p->cache_3824 = FUN_004267d0(p, DAT_01128d94, NULL, NULL);
+        p->version++;
+    }
+    if (!bUpdate)
+        return;
+    if (g_PatchDialog.GetSafeHwnd())
+        g_PatchDialog.GetPatchInfo();
+    DAT_0123348c = -1;
+}
+
+// 0x00438020 (241 B): add a control row or column next to the selected terrain vertices
+void FUN_00438020()
+{
+    bool bChanged = false;
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch)
+            continue;
+#line 7505
+        assert( b->patch->def == b->def->patch );
+        patchMesh_t *p = b->patch->def;
+        if (!(p->type_10 & 0x40))
+            continue;
+        int x, y;
+        if (!FUN_00429bc0(p, &x, &y))
+            continue;
+        if (x >= 0)
+            FUN_0042fda0(p, x);
+        else
+            FUN_00430010(p, y);
+        bChanged = true;
+        FUN_004269d0(p, bChanged);
+    }
+    if (bChanged)
+    {
+        if (g_PatchDialog.GetSafeHwnd())
+            g_PatchDialog.GetPatchInfo();
+        DAT_0123348c = -1;
+    }
+}
+
+
+/* r21: retail convention test. Adding an unreferenced
+   static void c_probe_unused(void (**out)(patchMesh_t *, int)) { out[0] = FUN_0042fda0; out[1] = FUN_00430010; }
+   makes LTCG keep the stack convention (the probe itself is dropped from the exe) and 0x438020
+   MATCHES 100%. Not landed: the retail image holds no pointer to either function, so the probe is
+   invented code. 42fda0/430010 then sit at 39%/30%: p in ebx vs retail esi + reload from [ebp+8]. */
+
+// Retail 0x00438430: start index and step of a walk over the control grid (regs: eax, edx, ecx, edi).
+void FUN_00438430(int *startW, const patchMesh_t *p, int *stepW, int *startH, int a, int b, int c, int *stepH)
+{
+    if (!a)
+    {
+        if (!c)
+        {
+            *startW = c;
+            *stepW = 1;
+        }
+        else
+        {
+            *startW = p->width - 1;
+            *stepW = -1;
+        }
+        if (!b)
+        {
+            *startH = b;
+            *stepH = b;
+            return;
+        }
+        *startH = p->height - 1;
+        *stepH = 0;
+    }
+    else
+    {
+        if (!b)
+            *startW = b;
+        else
+            *startW = p->width - 1;
+        *stepW = 0;
+        if (!c)
+        {
+            *startH = c;
+            *stepH = 1;
+            return;
+        }
+        *startH = p->height - 1;
+        *stepH = -1;
+    }
+}
+
+// Retail 0x00438de0: copy the part of a patch past a row or column into a new patch brush and trim the original.
+void FUN_00438de0(patchMesh_t *p, int col, int row, entity_t *owner)
+{
+#line 7942
+    assert( col == 0 || row == 0 );
+    patchMesh_t *np = MakeNewPatch();
+    np->image_18 = p->image_18;
+    np->lightmap_1c = p->lightmap_1c;
+    np->width = p->width - col;
+    np->height = p->height - row;
+    np->field_08 = p->field_08;
+    np->type_10 = p->type_10;
+    np->style_14 = p->style_14;
+    np->value_3834 = p->value_3834;
+    np->flag_382f = p->flag_382f;
+    for (int i = col; i < p->width; i++)
+        for (int j = row; j < p->height; j++)
+            memcpy(&np->ctrl[i - col][j - row], &p->ctrl[i][j], sizeof(PatchControl));
+    brushowner_proj *pNewBrush = (brushowner_proj *)AddBrushForPatch(np, owner->def);
+    FUN_004269d0(np, true);
+    patchsym_proj *pm = (patchsym_proj *)p;
+#line 7961
+    assert( pNewBrush->owner == pm->symbiot->owner );
+#line 7962
+    assert( pNewBrush->owner == owner->def );
+    FUN_00459210(FUN_00458440((brushdef_t *)pNewBrush, owner), &DAT_010a44b4);
+    if (col)
+        p->width = col + 1;
+    else
+        p->height = row + 1;
+    FUN_004269d0(p, true);
+}
+
+// Retail 0x00438ff0: split each selected patch at the selected control row or column.
+void FUN_00438ff0()
+{
+    FUN_004433b0();
+    Undo_GeneralStart("split patches");
+    Undo_AddBrushList((selbrush_t *)&DAT_010a44b4);
+    bool bSplit = false;
+    for (;;)
+    {
+        brush_t *b;
+        for (b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+        {
+            if (!b->patch)
+                continue;
+#line 7995
+            assert( b->patch->def == b->def->patch );
+            patchMesh_t *p = b->patch->def;
+            int x, y;
+            if (!FUN_00429bc0(p, &x, &y))
+                continue;
+            if (x < 0)
+            {
+                if (y != 0 && y != p->height - 1)
+                {
+                    if ((p->type_10 & 0x40) || !(y & 1))
+                    {
+                        FUN_00438de0(p, 0, y, b->owner);
+                        bSplit = true;
+                        break;
+                    }
+                    Sys_Printf("can only split curves on odd rows and columns");
+                }
+            }
+            else if (x != 0 && x != p->width - 1)
+            {
+                if ((p->type_10 & 0x40) || !(x & 1))
+                {
+                    FUN_00438de0(p, x, 0, b->owner);
+                    bSplit = true;
+                    break;
+                }
+                Sys_Printf("can only split curves on odd rows and columns");
+            }
+        }
+        if (b == &DAT_010a44b4)
+            break;
+    }
+    FUN_00443f80((selbrush_t *)&DAT_010a44b4);
+    Undo_End();
+    if (bSplit)
+    {
+        if (g_PatchDialog.GetSafeHwnd())
+            g_PatchDialog.GetPatchInfo();
+        DAT_0123348c = -1;
+    }
 }
 
 // 0x004393c0 (142 B), p in edx
@@ -2028,7 +4921,7 @@ bool AnyPatchesSelected()
 
 extern void Sys_Printf(const char *fmt, ...);
 
-static bool QE_SingleBrush_Pmesh(bool bQuiet = false)
+static bool QE_SingleBrush_Pmesh(bool bQuiet)
 {
     if (selected_brushes.next == &selected_brushes || selected_brushes.next->next != &selected_brushes)
     {
@@ -2389,6 +5282,46 @@ void FUN_00439500(const vec2_t a, const vec2_t b, vec2_t out)
     out[1] = (a[1] + b[1]) * 0.5f;
 }
 
+// Retail 0x00439520: float wrapper over the CRT cos().
+float FUN_00439520(float x)
+{
+    return (float)cos(x);
+}
+
+// Retail 0x00439540: second copy of the float cos() wrapper.
+float FUN_00439540(float x)
+{
+    return (float)cos(x);
+}
+
+// Retail 0x00439560: float wrapper over the CRT sin().
+float FUN_00439560(float x)
+{
+    return (float)sin(x);
+}
+
+// Retail 0x00439580: second copy of the float sin() wrapper.
+float FUN_00439580(float x)
+{
+    return (float)sin(x);
+}
+
+// Retail 0x004395a0: per-component lerp of two 4-vectors, a + (b - a) * t.
+void FUN_004395a0(const float *a, const float *b, float *out, float t)
+{
+    out[0] = (b[0] - a[0]) * t + a[0];
+    out[1] = (b[1] - a[1]) * t + a[1];
+    out[2] = (b[2] - a[2]) * t + a[2];
+    out[3] = (b[3] - a[3]) * t + a[3];
+}
+
+// Retail 0x004395e0: float to int with a tiny bias (0x556b28 = 9.313225746154785e-10).
+int FUN_004395e0(float x)
+{
+    double bias = 9.313225746154785e-10;
+    return (int)(x + bias);
+}
+
 // 0x00439620 (69 B), v1 in eax, v2 in ecx
 int FUN_00439620(const vec3_t v1, const vec3_t v2)
 {
@@ -2419,6 +5352,14 @@ void FUN_00439680(const vec2_t src, vec2_t dst)
 float FUN_00439690(const vec3_t v)
 {
     return v[0] * v[0] + v[1] * v[1] + v[2] * v[2];
+}
+
+// Retail 0x004396d0: length of a vec3 (v in eax).
+float FUN_004396d0(const vec3_t v)
+{
+    float z = v[2], y = v[1], x = v[0];
+    float sum = x * x + y * y + z * z;
+    return (float)sqrt(sum);
 }
 
 void FUN_00439720(unsigned char *p, unsigned char a, unsigned char b, unsigned char c, unsigned char d)

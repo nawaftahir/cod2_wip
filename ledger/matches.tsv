@@ -2086,6 +2086,8 @@ addr	size	source	symbol	name	tag
 0x0040ced0	36	src/radiant/filtersettings.cpp	??1CFilterSettings@@UAE@XZ	CFilterSettings::~CFilterSettings	SUPPORTED
 0x0041fa80	6	src/radiant/MapInfo.cpp	?GetMessageMap@CMapInfo@@MBEPBUAFX_MSGMAP@@XZ	CMapInfo::GetMessageMap	SUPPORTED
 0x00424340	34	src/radiant/PatchDensityDlg.cpp	??_GCPatchDensityDlg@@UAEPAXI@Z	CPatchDensityDlg::scalar_deleting_dtor	SUPPORTED
+0x00429fe0	85	src/radiant/Pmesh.cpp	?FUN_00429fe0@@YA_NPAUpatchMesh_t@@H@Z	FUN_00429fe0	UNNAMED
+0x0042a7f0	157	src/radiant/Pmesh.cpp	?FUN_0042a7f0@@YA_NHH_N@Z	FUN_0042a7f0	UNNAMED
 0x004325d0	217	src/radiant/Pmesh.cpp	?FUN_004325d0@@YAXPAUpatchMesh_t@@H@Z	FUN_004325d0	UNNAMED
 0x004326b0	336	src/radiant/Pmesh.cpp	?FUN_004326b0@@YAXPAUpatchMesh_t@@MM@Z	FUN_004326b0	UNNAMED
 0x00433830	214	src/radiant/Pmesh.cpp	?FUN_00433830@@YAXPAUpatchMesh_t@@@Z	FUN_00433830	UNNAMED
@@ -2121,8 +2123,16 @@ addr	size	source	symbol	name	tag
 0x004384c0	75	src/radiant/Pmesh.cpp	?FUN_004384c0@@YAXPAUpatchMesh_t@@PA_N1HHH@Z	FUN_004384c0	UNNAMED
 0x0042ad80	161	src/radiant/Pmesh.cpp	?FUN_0042ad80@@YAMPBM0MMM@Z	FUN_0042ad80	UNNAMED
 0x0042b810	96	src/radiant/Pmesh.cpp	?FUN_0042b810@@YAMHHMMM@Z	FUN_0042b810	UNNAMED
+0x0042cc50	438	src/radiant/Pmesh.cpp	?FUN_0042cc50@@YAXPAUpatch_t@@@Z	FUN_0042cc50	UNNAMED
+0x0042d560	106	src/radiant/Pmesh.cpp	?FUN_0042d560@@YAXPAUpatch_t@@@Z	FUN_0042d560	UNNAMED
+0x004309e0	121	src/radiant/Pmesh.cpp	?FUN_004309e0@@YAXPAUpatchMesh_t@@H@Z	FUN_004309e0	UNNAMED
 0x004321c0	282	src/radiant/Pmesh.cpp	?FUN_004321c0@@YAXPAUPatchControl@@PAVUNKNOWN_0054ebb0@@H@Z	FUN_004321c0	UNNAMED
 0x00488040	65	src/universal/com_math.cpp	?AnglesToAxis@@YAXQBMQAY02M@Z	AnglesToAxis	SUPPORTED
+0x00434880	88	src/radiant/Pmesh.cpp	?FUN_00434880@@YAPAUpatchMesh_t@@PBU1@@Z	FUN_00434880	UNNAMED
+0x004353d0	210	src/radiant/Pmesh.cpp	?FUN_004353d0@@YAXXZ	FUN_004353d0	UNNAMED
+0x00438de0	526	src/radiant/Pmesh.cpp	?FUN_00438de0@@YAXPAUpatchMesh_t@@HHPAUentity_t@@@Z	FUN_00438de0	UNNAMED
+0x004395a0	61	src/radiant/Pmesh.cpp	?FUN_004395a0@@YAXPBM0PAMM@Z	FUN_004395a0	UNNAMED
+0x004396d0	75	src/radiant/Pmesh.cpp	?FUN_004396d0@@YAMQBM@Z	FUN_004396d0	UNNAMED
 0x00488090	78	src/universal/com_math.cpp	?YawToAxis@@YAXMQAY02M@Z	YawToAxis	SUPPORTED
 0x00489350	75	src/universal/com_math.cpp	?VectorRotateAroundOrigin@@YAXQBM00QAM@Z	VectorRotateAroundOrigin	SUPPORTED
 0x004893a0	104	src/universal/com_math.cpp	?SphericalToCartesian@@YAXQAMMM@Z	SphericalToCartesian	SUPPORTED
