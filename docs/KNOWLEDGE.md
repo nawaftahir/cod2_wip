@@ -1194,3 +1194,6 @@ set by a later lowering stage, not by the list scheduler.
   def) - loop 16 (4 distinct nodes: the 8 piece is the 4th) + exit block 48. U5 (minus test, no 8 piece in the loop): 32-0-12+48
   = 68 > 64 -> right colours. Levers: +1 distinct referenced node or +1 size ref in the def or exit block (+8), or move the 8
   piece's def out of the side block into the def block. Dead stores/copies/folded consts vanish before scoring.
+- PINNED (agent w29a c2sched13, 11-19): base loop block: load prio 0x9c00 idx 2, inc 0x1400 idx 1, sub 0x1400 idx 3, cmp idx 4;
+  inc and sub tie on height and inc wins on creation index. An unused `newSize++` is created ahead of the condition wherever it
+  is written (inside the compare too), so only a load-carrying temp moves it, and every named temp swaps the colours.
