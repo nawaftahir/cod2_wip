@@ -1174,3 +1174,10 @@ set by a later lowering stage, not by the list scheduler.
   then inc) and retail's colours; residue = `sub/xor ecx,8` vs `cmp ecx,8` + `lea edx` (7). The same loop with a relational
   test (`!=`, J1/J3/K3) enregisters the constant 8 (`mov ecx,8; sub ebx,ecx; cmp edx,ecx`, 22). So retail = relational test
   where the 8 stays an immediate: find what keeps the constant-8 web out of a register in the server-order loop.
+- PINNED (agent w29b c2opwalk/c2rl, 11-19): constant-8 colour in the count loop. Last colour round: the loop piece of the 8 web
+  is one node reloaded by op 0x26a. Score at 0x10783a45: referenced node n3 += [n+0x18]*weight, live-only n3 -= weight (0x10783a7b).
+  Base loop tuples `26a; 21 inc; 26b; 01 t=[cv-4]; 32 sub cv,8; 2f cmp t,8` -> 8 node has 0 counted refs, n16 -2, stays immediate.
+  Server order (K3) `26a; 32 sub; 21 inc; 26b; 2f cmp [cv+4],8`: the single-use load folds into the cmp memory operand and
+  that cmp counts the 8 once (n3 0xc, n16 +2) -> 8 gets ecx (22 lines; the [ebx-4] hoist is lost as a consequence).
+  Retail implied: sub before inc AND the load a register temp before the sub. Who sets [n+0x18]=1 on the 8 node is untraced
+  (node [n+5]=0x2c takes the bitset path 0x10746b50; next: write watch on [node+0x18] in the K3 link).
