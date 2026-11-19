@@ -175,9 +175,36 @@ protected:
     afx_msg void OnSysKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
     afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
     afx_msg void OnMButtonDown(UINT nFlags, CPoint point);
+    afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
+    afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
+    afx_msg void OnMButtonUp(UINT nFlags, CPoint point);
+    afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
+    afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+    afx_msg void OnPaint();
+    afx_msg void OnSize(UINT nType, int cx, int cy);
+    afx_msg void OnTimer(UINT nIDEvent);
+    afx_msg void OnEntityCreate(UINT nID);
     void OriginalButtonDown(UINT nFlags, CPoint point);
+    void OriginalButtonUp(UINT nFlags, CPoint point);
     void DropClipPoint(UINT nFlags, CPoint point);
     void XY_MouseDown(int x, int y, int buttons);
+    void XY_MouseMoved(int x, int y, int buttons);
+    void NewBrushDrag(int x, int y);
+    void DrawCrosshairs();
+    void DrawClipPoints();
+    void BuildIconClipPlanes();
+    void XY_DrawGrid();
+    void PaintSizeInfo(int nDim1, int nDim2);
+    void DrawRotateIcon();
+    void DrawCameraIcon();
+    void DrawZIcon();
+    void XY_Draw();
+    bool XY_BoundsCull(const float *mins, const float *maxs);
+    void Clip();
+    void SplitClip();
+    void PositionView();
+    void SetRotateMode(bool bMode);
+    void Copy();
 
     DECLARE_MESSAGE_MAP()
 };
