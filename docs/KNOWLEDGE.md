@@ -1201,3 +1201,11 @@ set by a later lowering stage, not by the list scheduler.
   Reused only if the block before the header has an empty tuple list and its predecessor is in the parent loop; else a new
   block is linked in (0x1075c72c). Loop-split defs (the 8 piece) go into the preheader. An empty `goto x; x:` block before
   the do does not change F4 (13).
+- PINNED (Mac 1.3 demo binary with STABS, refrences/Call of Duty 2 Mac Demo, i386 slice; ~/cod2/lab/mac/stabs.py): VM_Notify
+  source lines in the count region = the SERVER text: 3477 size=, (3478 newSize=size, 3479 currentValue=top), 3481 do,
+  3483 newSize++, 3484 currentValue--, (3485 assert(currentValue->type != VAR_CODEPOS)), 3487 while (currentValue->type !=
+  VAR_PRECODEPOS), 3490 len = STACKBUF_BUFFER_SIZE * size (one line), 3491 bufLen. Locals: VariableValue.type is int.
+  So retail = server form (SV, 22 lines in our build: load folds into cmp and the 8 gets a register). The fold/count depends on
+  c2 global [0x108a9208] (1 in our link) inside 0x107801c0: find what sets it.
+- PINNED (agent, static c2 read): constant symbols are interned by VALUE only (0x1077e132, key [op+0x18], kind 7): no spelling
+  separates the compare 8 from the step 8 (KS1-KS7 on F4: 13/23/24).

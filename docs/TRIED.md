@@ -589,3 +589,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | VM_Notify base sched/pick round (agent w29a, 11-19, ~20 labs) | newSize++ folded into the test b1-b3 (7), compare into type b4 (84), top-tested while b5 (55), zero-code casts/parens h1-h5 q4-q12 (7), dominated if/break p1/p2 (7), ternary pointer q9 (19) | no match |
 | VM_Notify preheader round (agent + w29c, 11-19) | size load moved past loop A1 (13, merged), empty goto block D1/D2 (13), type held in len/bufLen/stackId/startLocalId R1-R4 (13) | no match |
 | VM_Notify F4 round 2 (w29c, 11-19) | assert as empty if I1-I4 (7/22), switch/break exits SW1-SW3 (13), -1/-8/&[-1] steps NG1-NG4 (13), inline helper IH1/IH2 (112/224) | no match; 8 piece stays (two loop refs to one constant symbol) |
+| VM_Notify constant spellings (agent w29b, 11-19) | enum cast, sizeof, short/uchar, static const table, template const, short* step KS1-KS7 | 13/23/24: constants interned by value |
