@@ -131,7 +131,7 @@ void FUN_00443590(void);
 void FUN_00443860(void);
 void FUN_0041d930(entityInst_t *list, const char *msg);
 void FUN_0041e160(const char *msg);
-void FUN_0046fbe0(int a);
+void FUN_0046fbe0(bool a);
 void FUN_00458c00(brush_t *b);
 void FUN_004671b0(brushdef_t *b, entity_t *owner);
 brush_t *FUN_00458440(brushdef_t *b, entityInst_t *owner);

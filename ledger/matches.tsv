@@ -2205,3 +2205,4 @@ addr	size	source	symbol	name	tag
 0x004493d0	28	src/radiant/Winding.cpp	?FUN_004493d0@@YAMM@Z	FUN_004493d0	UNNAMED
 0x004598b0	97	src/radiant/brush.cpp	?FUN_004598b0@@YAXPAUbrushdef_t@@PBUtexdef_t@@@Z	FUN_004598b0	UNNAMED
 0x004599b0	233	src/radiant/brush.cpp	?FUN_004599b0@@YA_NQAM0PAUface_t@@@Z	FUN_004599b0	UNNAMED
+0x0046fbe0	355	src/radiant/select.cpp	?FUN_0046fbe0@@YAX_N@Z	FUN_0046fbe0	SUPPORTED
