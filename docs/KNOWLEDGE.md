@@ -1214,3 +1214,21 @@ set by a later lowering stage, not by the list scheduler.
   `tempValue3.type = currentValue->type;`) gives retail's loop schedule and immediate 8 but F4's size/type colour swap.
   Every separate-load form (F4, D4, __assume) lands on the same tie (`_size` 62 < load temp 64). `__assume` anywhere
   in the fn changes code fn-wide (AS4/AS5), so it is not the cause. Dead stores, struct copies, comma, x-x forms fold (22).
+- PINNED (agent w29a GAIN=2 WGT=1, 11-20): the colour score is one rule per block: N = referenced colour nodes in the
+  block; a referenced node gets refs x N x weight, a live-only node -N x weight. A named local (even block-local) gets a
+  colour node; a kind-3 compiler temp does not. Base loop: N 3 (cv, newSize, 8 piece) -> `_size` 66 > every 64. t1/F4:
+  the named `type` is a 4th node (64) and drops `_size` to 62 (`_size` = 78 - 4N, type = 16N). Lever: keep the load an
+  unnamed temp.
+- PINNED (agent w29a g0 walks, 11-20): a load folds into the cmp memory operand only when no def of its base register
+  sits between the read and the compare (then the cmp counts the 8 once and it gets a register). A post-decrement in
+  the test (`(cv--)[-1].type`) puts the sub between them: load = compiler temp, cmp reg,8, 8 stays immediate.
+- PINNED (w29b/c labs, 11-20): a conditional-expression test puts the latch work in its arms, after the load:
+  C1 `while ( (currentValue--)[-1].type != VAR_PRECODEPOS ? (newSize++, true) : (newSize++, false) );` gives retail's
+  loop (load ecx, sub, inc, cmp ecx,8, size eax) but swaps cv/newSize ebx<->ebp fn-wide + `lea edx` (55).
+  C1g `while ( currentValue[-1].type != VAR_PRECODEPOS ? (currentValue--, newSize++, true) : (currentValue--,
+  newSize++, false) );` gives retail regs, colours and `lea eax`; only `mov ecx,8` (the test load folds, 22). Arm
+  statement order sets the latch order (C1p inc-first). Need: C1g's cv boost with C1's unfolded test.
+- PINNED (agent w29a static + winedbg, 11-20): x86 `cmp` comes only from IL compare op 0x288 (lowering switch 0x1077333c
+  case 18 -> 0x10773aaf; class 0xd000 goes to 0x107f175e). The peephole at 0x107b8254 (fn 0x107b7d09, post-RA) only folds
+  `mov r,[m]; test r,r` (op 0x33, both uses the same reg, r dead) into `cmp [m],0`; it never touches sub/add. So a minus or
+  xor test can never become `cmp ecx,8`: retail's test is a relational/equality operator on an unfolded load temp (C1 IL).
