@@ -70,3 +70,4 @@ Each row was measured. Tags/spec names point into `archive/LESSONS.md` and the o
 | DSound_UpdateSample 1.0 (w10o, 11-18, 1 lab) | `DWORD dwLockLen[2]` array (FX hw[2] lever) | 44 lines, 498 B: worse |
 | DSound_UpdateSample 1.0 (w10o, 11-18, 7 labs) | len1 copy local (D2/D7 9 lines but 497 B: slots fixed, len1 kept in reg), dataOffset/off0 (18), l2 web on Unlock (18), l1 web (11, 499 B), len2 copy (22), len1 copy for memcpy only (18) | no match; the len1 copy is the only lever that moves the slot swap |
 | VM_Notify counted pads (w10o, 11-19) | 0-56 `extern "C" { static int }` pads at the top of scr_vm.cpp (the C++ form that counts) | VM_Notify 6 at every count while other ties move: VM_Notify is NOT a symbol-count tie, the source is wrong |
+| VM_Notify (11-20) | 1.3 landing ported (named type + always-false bNoStack term in the conditional-expression test) | MATCH, sha256 identical |

@@ -1,5 +1,8 @@
 # CoD2MP_s.exe 1.0: status
 
+## 11-20: VM_Notify matched (1.3 source ported); release build SHA-256 == retail anchor (0bdee00f...), clean gate
+1,699,840 / 1,699,840 same-offset, 7,568/7,568 fns. Source + mechanism: client-1.3 docs/KNOWLEDGE.md 11-20.
+
 ## Numbers (`meter-1.0.json`, accept ed7898a3 on 11-13, clean gate)
 - Whole file same-offset: 1,699,582 / 1,699,840 = **99.985%** (258 B left). PE header equal to retail (two-pass mss32.lib).
 - 11-13: 1.3 fixes ported (Rich, AdsOverlay, CG_CalcCrosshairPosition +380, Sway); IW folder layout mirrored from 1.3,
