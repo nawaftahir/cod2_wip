@@ -707,3 +707,26 @@ addr	agent	date	reason
 0x00449180	bulk-d	2026-11-19	FUN_00449180 (Winding_Bounds): bulk draft: 2%, sizes 156/73. Retail calls AddPointToBounds (0x484xxx) out of line, ours inlines it cross-TU; auto_inline pragma would belong in com_math.cpp
 0x004493c0	bulk-d	2026-11-19	FUN_004493c0 (returns its 2nd stack arg): bulk draft: 0%, sizes 1/5; LTCG drops the unused result in ours
 0x00448d00	bulk-d	2026-11-19	FUN_00448d00 (Q3 Winding_Plane, edge^2 > 0.25): bulk draft: matches 100%, 916/916 in incremental make try, but flips to 33%, 917/916 on a clean gate (LTCG tie); kept as body
+0x00453e90	bulk-d	2026-11-19	FUN_00453e90 (face render verts, asserts 87-101): bulk draft: 85%, sizes 950/948, first diff +0x2b
+0x00454b70	bulk-d	2026-11-19	FUN_00454b70 (planepts ST for both layers): bulk draft: 90%, sizes 261/261, first diff +0x7
+0x00454c80	bulk-d	2026-11-19	FUN_00454c80 (texdef from locked planepts ST; 0x494360/0x494400/0x43fbc0 with register args): bulk draft: 22%, sizes 215/226, first diff +0x3
+0x00454f30	bulk-d	2026-11-19	FUN_00454f30 (point list contains): bulk draft: 93%, sizes 61/61, first diff +0x11
+0x00454f70	bulk-d	2026-11-19	FUN_00454f70 (gather unique face points): bulk draft: 18%, sizes 200/225, first diff +0x5; shape now calls 0x454f30
+0x00455660	bulk-d	2026-11-19	FUN_00455660 (face winding from verts): bulk draft: 32%, sizes 394/409, first diff +0x5
+0x00455800	bulk-d	2026-11-19	FUN_00455800 (Q3 Brush_MakeFaceWinding): bulk draft: 87%, sizes 331/325, first diff +0x5
+0x00455cf0	bulk-d	2026-11-19	FUN_00455cf0 (Q3 Brush_SplitBrushByFace): bulk draft: 93%, sizes 298/298, first diff +0x60
+0x004579e0	bulk-d	2026-11-19	FUN_004579e0 (Brush_Write shape): bulk draft: 37%, sizes 487/488, first diff +0x6
+0x00458dc0	bulk-d	2026-11-19	FUN_00458dc0 (brush def clone, no windings): bulk draft: 22%, sizes 218/225, first diff +0xf
+0x00458eb0	bulk-d	2026-11-19	FUN_00458eb0 (brush def full clone): bulk draft: 34%, sizes 229/239, first diff +0xe
+0x004593c0	bulk-d	2026-11-19	FUN_004593c0 (set texdef of face layer): bulk draft: 42%, sizes 121/107, first diff +0x25
+0x00459430	bulk-d	2026-11-19	FUN_00459430 (set face radMat, asserts 2089-2091): bulk draft: 98%, sizes 256/256, first diff +0x14 (b/f register convention)
+0x00459530	bulk-d	2026-11-19	FUN_00459530 (set texdef keep material, asserts 2102-2105): bulk draft: 98%, sizes 354/354, first diff +0x14 (register convention)
+0x004596a0	bulk-d	2026-11-19	FUN_004596a0 (lightmap scale of one face, asserts 2116-2118): bulk draft: 98%, sizes 322/322, first diff +0x15 (register convention)
+0x004597f0	bulk-d	2026-11-19	FUN_004597f0 (texdef to all faces + patch update): bulk draft: 52%, sizes 190/191, first diff +0x6
+0x00459920	bulk-d	2026-11-19	FUN_00459920 (lightmap scale all faces): bulk draft: 47%, sizes 144/144, first diff +0xf
+0x00459aa0	bulk-d	2026-11-19	FUN_00459aa0 (add to move-points list at g_qeglobals+0x8070, f in edx): bulk draft: 53%, sizes 56/56, first diff +0x6
+0x0045b840	bulk-d	2026-11-19	FUN_0045b840 (entity bounds box, 27 R_Add3DLine): bulk draft: 20%, sizes 1985/1909, first diff +0x4
+0x0045bfc0	bulk-d	2026-11-19	FUN_0045bfc0 (fixed-size entity model draw): bulk draft: 42%, sizes 1090/1109, first diff +0xf
+0x0045c6b0	bulk-d	2026-11-19	FUN_0045c6b0 (next group key): bulk draft: 68%, sizes 567/469, first diff +0x5
+0x0045d7f0	bulk-d	2026-11-19	FUN_0045d7f0 (brush draw dispatcher, signature now as CamWnd calls it): bulk draft: 36%, sizes 439/427, first diff +0x7
+0x0045e1a0	bulk-d	2026-11-19	FUN_0045e1a0 (Q3 Brush_Move shape with texture lock): bulk draft: 36%, sizes 315/275, first diff +0x5
