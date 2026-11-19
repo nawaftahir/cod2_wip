@@ -277,6 +277,16 @@ int Undo_GetMaxSize(void)
 	return g_undoMaxSize;
 }
 
+// 0x00443830 (30 B)
+void Undo_SetMaxMemorySize(int size)
+{
+	FUN_00443590();
+	if (size < 1024)
+		g_undoMaxMemorySize = 1024;
+	else
+		g_undoMaxMemorySize = size;
+}
+
 // 0x00443850 (6 B)
 int Undo_GetMaxMemorySize(void)
 {
@@ -389,6 +399,13 @@ bool FUN_00443cd0(undo_t *undo, entity_t *ent)
 	if (ent == world_entity->def)
 		return true;
 	return false;
+}
+
+// 0x00443d70 (17 B)
+void Undo_Start(char *operation)
+{
+	FUN_004433b0();
+	Undo_GeneralStart(operation);
 }
 
 // 0x00443d90 (157 B)
