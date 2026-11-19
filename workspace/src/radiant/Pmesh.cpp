@@ -171,7 +171,7 @@ extern int DAT_010c4d84;
 extern int DAT_010c4d88[];
 extern brush_t DAT_010a44b4;
 int __fastcall FUN_00429df0(void *, int value);
-void FUN_0042a0a0(patchMesh_t *p, PatchControl *c, int weld);
+void FUN_0042a0a0(patchMesh_t *p, PatchControl *c, bool weld);
 void FUN_0042a3a0(patchMesh_t *p, int row, bool bMulti);
 void FUN_0042a3f0(patchMesh_t *p, int col, bool bMulti);
 void FUN_0042a440(patchMesh_t *p, int dx, int dy, bool bMulti, int x, int y);
@@ -305,6 +305,11 @@ struct brushowner_proj { unsigned char pad[8]; entity_t *owner; };
 struct patchsym_proj { unsigned char pad[0x3828]; brushowner_proj *symbiot; };
 void FUN_00436170();
 void FUN_004369b0();
+#define PREFS_BYTE(off) (*(unsigned char *)((char *)dword_01233b64 + (off)))
+
+bool FUN_00436dc0(const float *origin, const float *dir, patch_t *pm, float *t, int *y, int *x, int a, int b);
+void FUN_00437730(const float *origin, const float *dir);
+void Undo_AddBrush(brushdef_t *brush);
 //E-DECLS-END
 
 // Retail 0x00425770, 152 bytes; exact relocation-normalized MATCH
@@ -1357,7 +1362,7 @@ int FUN_00429f00(const vec3_t v)
     return -1;
 }
 
-void FUN_0042a0a0(patchMesh_t *p, PatchControl *c, int weld);
+void FUN_0042a0a0(patchMesh_t *p, PatchControl *c, bool weld);
 
 // Retail 0x00429f40: remove the control point equal to v from the selection list.
 void FUN_00429f40(const float *v)
@@ -1410,6 +1415,57 @@ void FUN_0042a040(patchMesh_t *p, PatchControl *c)
     }
     DAT_010c4d88[DAT_010c4d84] = (int)c;
     DAT_010c4d84++;
+}
+
+// Retail 0x0042a0a0: add a control point to the move list, plus every coincident point of the selected patches.
+void FUN_0042a0a0(patchMesh_t *p, PatchControl *pt, bool bWeld)
+{
+    const float *v = pt->xyz;
+    int viewType = *(int *)(*(char **)((char *)dword_01233488 + 0x7e0) + 0xf4);
+    int axis0 = viewType == 0;
+    int axis1 = (viewType != 2) + 1;
+    FUN_0042a040(p, pt);
+    if ((!PREFS_BYTE(0x2e4) && !PREFS_BYTE(0x2e5)) || !bWeld)
+        return;
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch)
+            continue;
+#line 1908
+        assert( b->patch->def == b->def->patch );
+        patchMesh_t *pm = b->patch->def;
+        for (int w = 0; w < pm->width; w++)
+        {
+            for (int h = 0; h < pm->height; h++)
+            {
+                PatchControl *c = &pm->ctrl[w][h];
+                bool bDone = false;
+                if (PREFS_BYTE(0x2e4))
+                {
+                    int k;
+                    for (k = 0; k < 3; k++)
+                    {
+                        float d = v[k] - c->xyz[k];
+                        if (d * d > 1.0000001e-06f)
+                            break;
+                    }
+                    if (k == 3 && FUN_00429df0(0, (int)c) == -1)
+                    {
+                        FUN_0042a040(pm, c);
+                        bDone = true;
+                    }
+                }
+                if (!bDone && PREFS_BYTE(0x2e5) && DAT_005909f8 != 1)
+                {
+                    float d = (float)fabs(v[axis0] - c->xyz[axis0]);
+                    if (!(d > 0.001f))
+                        d = (float)fabs(v[axis1] - c->xyz[axis1]);
+                    if (!(d > 0.001f) && FUN_00429df0(0, (int)c) == -1)
+                        FUN_0042a040(pm, c);
+                }
+            }
+        }
+    }
 }
 
 // Retail 0x0042a3a0: select one row (every column's control) of a patch.
@@ -4322,6 +4378,45 @@ float FUN_00437390(PatchControl a, PatchControl b)
     v[2] = v[2] * v[2];
     float len = v[2] + v[1] + v[0];
     return (float)sqrt(len);
+}
+
+// Retail 0x00437730: pick the terrain patch edge under a ray and flip its diagonal.
+void FUN_00437730(const float *origin, const float *dir)
+{
+    float t, bestT = 3.402823466e+38f;
+    int bestY = 0, y, x;
+    patchMesh_t *best = NULL;
+    int bestX = 0;
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch || b->patch->def->type_10 != 0x40)
+            continue;
+        if (FUN_00436dc0(origin, dir, b->patch, &t, &y, &x, 0, 0) && bestT > t)
+        {
+            bestT = t;
+            bestY = y;
+            bestX = x;
+            best = b->patch->def;
+        }
+    }
+    if (!best)
+        return;
+    FUN_004433b0();
+    Undo_GeneralStart("Turn terrain edge");
+    Undo_AddBrush((brushdef_t *)best->cache_3828);
+    best->ctrl[bestX][bestY].flags_34 ^= 1;
+    FUN_004269d0(best, true);
+    DAT_0123348c = -1;
+    undo_proj *u = DAT_0109fdcc;
+    if (u && u->field_0c == 0)
+    {
+        brushdef_t *def = (brushdef_t *)best->cache_3828;
+        *(int *)((char *)def + 0x10) = u->field_08;
+        entity_t *e = *(entity_t **)((char *)def + 8);
+        if (e->eclass->fixedsize)
+            *(int *)((char *)e + 0x6c) = u->field_08;
+    }
+    Undo_End();
 }
 
 // Retail 0x00437890: build a 2x3 inverse basis matrix from two vectors and two axes (false when degenerate).
