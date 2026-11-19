@@ -6458,55 +6458,51 @@ void FUN_0042fad0(patchMesh_t *p, int amount)
     }
 }
 
-class CFile;
-// vtable at 0x0054ebb0
-class UNKNOWN_0054ebb0
+// RTTI .?AVAbstractFileWrapper@@; the slot 0 name is unknown, it is named after its first body 0x00467df0
+class AbstractFileWrapper
 {
 public:
-    virtual void FUN_0046bbf0(const char *fmt, ...);
-    CFile *m_file;
+    virtual void FUN_00467df0(const char *fmt, ...) = 0;
 };
-struct UNKNOWN_0053d944;
-extern const UNKNOWN_0053d944 UNKNOWN_0053d944_table[];
-extern const UNKNOWN_0053d944 UNKNOWN_0053d964_table[];
-void FUN_00420930(UNKNOWN_0054ebb0 *f, const UNKNOWN_0053d944 *table, const char *key, int flags);
+void FUN_00420b30(AbstractFileWrapper *f, int contents);
+void FUN_00420b50(AbstractFileWrapper *f, int toolFlags);
 
 // 0x004321c0 (282 B), vert in eax, stream in esi
-void FUN_004321c0(PatchControl *patchVert, UNKNOWN_0054ebb0 *f, int stCount)
+void FUN_004321c0(PatchControl *patchVert, AbstractFileWrapper *f, int stCount)
 {
 #line 4834
     assert( patchVert );
-    f->FUN_0046bbf0("\tv %.8g %.8g %.8g", patchVert->xyz[0], patchVert->xyz[1], patchVert->xyz[2]);
+    f->FUN_00467df0("\tv %.8g %.8g %.8g", patchVert->xyz[0], patchVert->xyz[1], patchVert->xyz[2]);
     if (patchVert->color_28[0] != 0xff || patchVert->color_28[1] != 0xff || patchVert->color_28[2] != 0xff || patchVert->color_28[3] != 0xff)
-        f->FUN_0046bbf0(" c %i %i %i %i", patchVert->color_28[2], patchVert->color_28[1], patchVert->color_28[0], patchVert->color_28[3]);
-    f->FUN_0046bbf0(" t");
+        f->FUN_00467df0(" c %i %i %i %i", patchVert->color_28[2], patchVert->color_28[1], patchVert->color_28[0], patchVert->color_28[3]);
+    f->FUN_00467df0(" t");
     for (int i = 0; i < stCount; i++)
-        f->FUN_0046bbf0(" %.8g %.8g", patchVert->st[i][0] * 1024.0f, patchVert->st[i][1] * 1024.0f);
+        f->FUN_00467df0(" %.8g %.8g", patchVert->st[i][0] * 1024.0f, patchVert->st[i][1] * 1024.0f);
     if (patchVert->flags_34)
-        f->FUN_0046bbf0(" f %i", patchVert->flags_34);
-    f->FUN_0046bbf0("\n");
+        f->FUN_00467df0(" f %i", patchVert->flags_34);
+    f->FUN_00467df0("\n");
 }
 
 // 0x004322e0 (324 B), patch in edi, stream in eax
-void FUN_004322e0(patchMesh_t *p, UNKNOWN_0054ebb0 *f)
+void FUN_004322e0(patchMesh_t *p, AbstractFileWrapper *f)
 {
     if (p->type_10 & 0x40)
-        f->FUN_0046bbf0(" {\n  mesh\n  {\n");
+        f->FUN_00467df0(" {\n  mesh\n  {\n");
     else
-        f->FUN_0046bbf0(" {\n  curve\n  {\n");
-    FUN_00420930(f, UNKNOWN_0053d944_table, "contents", p->field_08);
-    FUN_00420930(f, UNKNOWN_0053d964_table, "toolFlags", p->field_0c);
-    f->FUN_0046bbf0("   %s\n", ((material_t *)p->image_18)->name);
-    f->FUN_0046bbf0("   %s\n", ((material_t *)p->lightmap_1c)->name);
-    f->FUN_0046bbf0("   %i %i %g %i\n", p->width, p->height, p->flag_382f ? p->value_3834 : 0.0f, p->style_14);
+        f->FUN_00467df0(" {\n  curve\n  {\n");
+    FUN_00420b30(f, p->field_08);
+    FUN_00420b50(f, p->field_0c);
+    f->FUN_00467df0("   %s\n", ((material_t *)p->image_18)->name);
+    f->FUN_00467df0("   %s\n", ((material_t *)p->lightmap_1c)->name);
+    f->FUN_00467df0("   %i %i %g %i\n", p->width, p->height, p->flag_382f ? p->value_3834 : 0.0f, p->style_14);
     for (int i = 0; i < p->width; i++)
     {
-        f->FUN_0046bbf0("   (\n");
+        f->FUN_00467df0("   (\n");
         for (int j = 0; j < p->height; j++)
             FUN_004321c0(&p->ctrl[i][j], f, 2);
-        f->FUN_0046bbf0("   )\n");
+        f->FUN_00467df0("   )\n");
     }
-    f->FUN_0046bbf0("  }\n }\n");
+    f->FUN_00467df0("  }\n }\n");
 }
 
 void FUN_004325d0(patchMesh_t *p, int c)

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../universal/assertive.h"
+#include <stdio.h>
 
 // 0x0046cb10 (111 B)
 char *FUN_0046cb10(const char *str)
@@ -12,6 +13,29 @@ char *FUN_0046cb10(const char *str)
 	char *copy = new char[size];
 	memcpy(copy, str, size);
 	return copy;
+}
+
+struct epair_t;
+struct entity_t;
+extern entity_t *dword_010bcd34;
+extern char dword_0124b658[];
+char *ValueForKey(entity_t *ent, const char *key);
+void FUN_004668f0(const char *s, FILE *f);
+void FUN_0046d190(const char *dir);
+void Error(const char *error, ...);
+void Sys_Printf(const char *text, ...);
+
+// 0x0046cb80: game path of a file name, relative names are put under basepath
+char *FUN_0046cb80(const char *name)
+{
+	if (name && *name)
+	{
+		if (*name == '/' || *name == '\\')
+			return (char *)name;
+		sprintf(dword_0124b658, "%s/%s", ValueForKey(dword_010bcd34, "basepath"), name);
+		return dword_0124b658;
+	}
+	return 0;
 }
 
 extern int DAT_010bcd28;
@@ -99,6 +123,7 @@ struct MainFrameProj
 };
 
 extern entity_t entities;
+extern brush_t selected_brushes;
 extern int DAT_01129898;
 extern brush_t *DAT_0112989c;
 extern entityInst_t *DAT_012334ec;
@@ -108,6 +133,43 @@ extern HWND dword_010bcd70;
 char *ValueForKey(epair_t *&e, const char *key);
 void Sys_Printf(const char *text, ...);
 void vectoangles(const vec3_t value1, vec3_t angles);
+
+// 0x0046d0b0
+void FUN_0046d0b0(char *out, const char *in, int size)
+{
+	char *filePart = 0;
+	GetFullPathNameA(in, size, out, &filePart);
+	if (!GetShortPathNameA(in, out, size))
+		strcpy(out, in);
+}
+
+// 0x0046d390
+void FUN_0046d390(void)
+{
+	Sys_Printf("Scanning single player weapons: %s/*\n", "weapons/sp");
+	FUN_0046d190("weapons/sp");
+	Sys_Printf("Scanning multiplayer weapons: %s/*\n", "weapons/mp");
+	FUN_0046d190("weapons/mp");
+}
+
+// 0x0046d680: writes the project entity key/values
+int FUN_0046d680(const char *file)
+{
+	FILE *f = fopen(file, "w+");
+	if (!f)
+		Error("Could not open project file!");
+	fprintf(f, "{\n");
+	for (epair_t *ep = *(epair_t **)((char *)dword_010bcd34 + 0x64); ep; ep = ep->next)
+	{
+		FUN_004668f0(ep->key, f);
+		fputc(' ', f);
+		FUN_004668f0(ep->value, f);
+		fputc('\n', f);
+	}
+	fprintf(f, "}\n");
+	fclose(f);
+	return 1;
+}
 
 // 0x0046dc40 (382 B)
 extern "C" void FUN_0046dc40(void)
@@ -153,6 +215,23 @@ found:
 	dword_0123348c |= 3;
 }
 
+// 0x0046e0c0
+bool FUN_0046e0c0(bool quiet)
+{
+	if (selected_brushes.next == &selected_brushes || selected_brushes.next->next != &selected_brushes)
+	{
+		if (!quiet)
+			Sys_Printf("Error: you must have a single brush selected\n");
+		return false;
+	}
+	if (selected_brushes.next->owner->def->eclass->fixedsize && !quiet)
+	{
+		Sys_Printf("Error: you cannot manipulate fixed size entities\n");
+		return false;
+	}
+	return true;
+}
+
 // 0x0046e120 (61 B)
 void FUN_0046e120(void)
 {
@@ -161,8 +240,24 @@ void FUN_0046e120(void)
 	Z_Init();
 }
 
+// 0x0046e160: backslashes to slashes
+void FUN_0046e160(char *dst, const char *src)
+{
+	while (*src)
+	{
+		if (*src == '\\')
+			*dst = '/';
+		else
+			*dst = *src;
+		dst++;
+		src++;
+	}
+	*dst = 0;
+}
+
 extern char com_token[];
 extern int com_eof;
+
 
 extern brush_t active_brushes;
 extern int DAT_010bcd20;
@@ -307,4 +402,33 @@ int ParseCommandLine(char *cmdLine, char **argv, int maxArgs)
 		*cmdLine++ = 0;
 	}
 	return argc;
+}
+
+// 0x0046e3f0
+int FUN_0046e3f0(const char *s)
+{
+	int n = 0;
+	for (const char *p = s; *p; p++)
+	{
+		n <<= 4;
+		if (*p >= '0' && *p <= '9')
+			n += *p - '0';
+		else if (*p >= 'a' && *p <= 'f')
+			n += *p - 'a' + 10;
+		else if (*p >= 'A' && *p <= 'F')
+			n += *p - 'A' + 10;
+		else
+			Error("Bad hex number: %s", s);
+	}
+	return n;
+}
+
+// 0x0046e460: decimal, $hex or 0xhex
+int FUN_0046e460(const char *s)
+{
+	if (*s == '$')
+		return FUN_0046e3f0(s + 1);
+	if (s[0] == '0' && s[1] == 'x')
+		return FUN_0046e3f0(s + 2);
+	return atol(s);
 }

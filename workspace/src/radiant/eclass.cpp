@@ -13,7 +13,9 @@ struct brushdef_t
 	brushdef_t *onext;
 	unsigned char pad08[0x14];
 	int refCount;
-	unsigned char pad20[0x28];
+	unsigned char pad20[0x22];
+	short version;
+	unsigned char pad44[4];
 };
 
 // brushes sentinel at 0x08, refCount at 0x78 (retail offsets)
@@ -22,7 +24,9 @@ struct entity_t
 	entity_t *prev;
 	entity_t *next;
 	brushdef_t brushes;
-	unsigned char pad50[0x28];
+	struct eclass_t *eclass;
+	struct eclass_t *modelClass;
+	unsigned char pad58[0x20];
 	int refCount;
 };
 
@@ -66,6 +70,26 @@ struct eclass_t
 extern eclass_t *eclass;
 extern eclass_t *eclass_bad;
 extern eclass_t *g_modelClasses;
+extern char com_token[];
+extern char *debugname;
+struct XModel;
+int XModelBad(XModel *model);
+extern XModel *(__cdecl *dword_0059c308)(const char *);
+extern void (__cdecl *dword_0059c44c)(void);
+extern void (__cdecl *dword_0059c450)(void);
+char *COM_Parse(char *data);
+extern int dword_011298b0;
+char *FUN_0046cb10(const char *str);
+void Sys_Printf(const char *fmt, ...);
+void FUN_0045a220(brushdef_t *b, int flag);
+void FUN_00475350();
+int FUN_00468260(entity_t *list, const char *path);
+char *ValueForKey(entity_t *ent, const char *key);
+extern entity_t *dword_010bcd34;
+qtexture_s *__fastcall FUN_00440840(char *name);
+bool FUN_00463d60(eclass_t *e);
+eclass_t *FUN_00464770(int hasBrushes, const char *name);
+#define Eclass_hasModel FUN_00463d60
 
 void FUN_004661f0(entity_t *e);
 
@@ -134,6 +158,66 @@ void CleanUpEntities()
 		delete eclass_bad;
 		eclass_bad = 0;
 	}
+}
+
+// 0x00463240: entity list of the model entry in *pm, loaded from path
+bool FUN_00463240(entitymodel_t **pm, const char *path)
+{
+	entity_t *list = (entity_t *)&(*pm)->entities;
+	list->prev = list->next = list;
+	if (!FUN_00468260(list, path))
+	{
+		list->prev = list->next = 0;
+		return false;
+	}
+	for (entity_t *e = list->next; e != list; e = e->next)
+	{
+		e->refCount++;
+#line 126
+		eclass_assert1(e->refCount == 1);
+		for (brushdef_t *b = e->brushes.onext; b != &e->brushes; b = b->onext)
+		{
+			b->refCount++;
+			FUN_0045a220(b, 1);
+			if (dword_011298b0 == 1 || dword_011298b0 == 2)
+				FUN_00475350();
+			b->version++;
+		}
+	}
+	return true;
+}
+
+// 0x00463310
+void FUN_00463310(const char *name, entitymodel_t **model)
+{
+	if (!_strnicmp(name, "xmodel", 6) && (name[6] == '/' || name[6] == '\\'))
+	{
+		Sys_Printf("Loading model %s...", name);
+		(*model)->handle = dword_0059c308(name);
+#line 145
+		assert((*model)->handle);
+		if (!XModelBad((XModel *)(*model)->handle))
+		{
+			Sys_Printf(" successful.\n");
+			return;
+		}
+	}
+	Sys_Printf(" failed.\n");
+}
+
+// 0x004633d0
+void FUN_004633d0(const char *file, entitymodel_t **model)
+{
+	CString path;
+	Sys_Printf("Loading prefab %s...", file);
+	path = ValueForKey(dword_010bcd34, "mapspath");
+	if (path.GetLength() > 0 && path[path.GetLength() - 1] != '\\')
+		path += '\\';
+	path += file;
+	if (FUN_00463240(model, path))
+		Sys_Printf(" successful.\n");
+	else
+		Sys_Printf(" failed.\n");
 }
 
 // 0x004634f0
@@ -225,6 +309,144 @@ void setSpecialLoad(eclass_t *e, const char *pWhat, char *&p)
 	}
 }
 
+// 0x00463860
+eclass_t *FUN_00463860(char *text)
+{
+	char *t;
+	int len;
+	int r, i;
+	char parms[256], *p;
+	eclass_t *e;
+
+	e = new eclass_t;
+	memset(e, 0, sizeof(*e));
+
+	text += strlen("/*QUAKED ");
+
+	text = COM_Parse(text);
+	e->name = new char[strlen(com_token) + 1];
+	strcpy(e->name, com_token);
+	debugname = e->name;
+	e->color[0] = e->color[1] = e->color[2] = 1.0f;
+	e->f30 = 1.0f;
+	r = sscanf(text, " (%g %g %g)", &e->color[0], &e->color[1], &e->color[2]);
+	if (r != 3)
+		return e;
+	e->mtl = FUN_00440840("$opaque");
+	e->f38 = (float)e->mtl->width * 0.25f;
+	e->f3c = (float)e->mtl->height * 0.25f;
+
+	while (*text != ')')
+	{
+		if (!*text)
+			return e;
+		text++;
+	}
+	text++;
+
+	text = COM_Parse(text);
+	if (com_token[0] == '(')
+	{
+		e->fixedsize = 1;
+		r = sscanf(text, "%f %f %f) (%f %f %f)", &e->mins[0], &e->mins[1], &e->mins[2],
+			&e->maxs[0], &e->maxs[1], &e->maxs[2]);
+		if (r != 6)
+			return e;
+
+		for (i = 0; i < 2; i++)
+		{
+			while (*text != ')')
+			{
+				if (!*text)
+					return e;
+				text++;
+			}
+			text++;
+		}
+	}
+
+	p = parms;
+	while (*text && *text != '\n')
+		*p++ = *text++;
+	*p = 0;
+	text++;
+
+	p = parms;
+	for (i = 0; i < 8; i++)
+	{
+		p = COM_Parse(p);
+		if (!p)
+			break;
+		strcpy(e->flagnames[i], com_token);
+	}
+
+	for (t = text; t[0] && !(t[0] == '*' && t[1] == '/'); t++)
+		;
+
+	len = t - text;
+	e->comments = new char[len + 1];
+	memcpy(e->comments, text, len);
+	e->comments[len] = 0;
+
+	setSpecialLoad(e, "defaultmdl=", e->defaultmdl);
+	setSpecialLoad(e, "model=", e->modelpath);
+
+	e->flags = 0;
+	if (_stricmp(e->name, "worldspawn"))
+		e->flags |= 2;
+	if (!_stricmp(e->name, "light"))
+		e->flags |= 1;
+	else if (!_stricmp(e->name, "path"))
+		e->flags |= 4;
+	else if (!_stricmp(e->name, "misc_model"))
+		e->flags |= 8;
+	else if (!_stricmp(e->name, "script_model"))
+		e->flags |= 8;
+	else if (!_stricmp(e->name, "script_vehicle"))
+		e->flags |= 8;
+	else if (!_stricmp(e->name, "misc_prefab"))
+		e->flags |= 0x10;
+	else if (!_stricmp(e->name, "trigger_radius"))
+		e->flags |= 0x40;
+	else if (!_stricmp(e->name, "trigger_disk"))
+		e->flags |= 0x80;
+	else if (!strncmp(e->name, "node_", 5))
+		e->flags |= 0x20;
+
+	return e;
+}
+
+// 0x00463bf0: model entries from the ';' separated modelpath
+void FUN_00463bf0(eclass_t *e)
+{
+	CStringList list(10);
+	if (!e->model)
+	{
+		e->model = new entitymodel_t;
+		memset(e->model, 0, sizeof(entitymodel_t));
+	}
+	char *copy = FUN_0046cb10(e->modelpath);
+	for (char *tok = strtok(copy, ";"); tok; tok = strtok(0, ";"))
+		list.AddHead(tok);
+	entitymodel_t *model = e->model;
+	for (int i = 0; i < list.GetCount(); i++)
+	{
+		if (!(e->flags & 0x10))
+			FUN_00463310((const char *)list.GetAt(list.FindIndex(i)), &model);
+		else
+			FUN_004633d0((const char *)list.GetAt(list.FindIndex(i)), &model);
+		model->next = new entitymodel_t;
+		model = model->next;
+		memset(model, 0, sizeof(entitymodel_t));
+	}
+	delete[] copy;
+	delete[] e->modelpath;
+	e->modelpath = 0;
+}
+
+// 0x00463d60
+
+
 // 0x00463e40
 void FUN_00463e40(eclass_t *e, eclass_t **head)
 {
@@ -256,4 +478,89 @@ void FUN_00463e40(eclass_t *e, eclass_t **head)
 void FUN_00463e90(eclass_t *e)
 {
 	FUN_00463e40(e, &eclass);
+}
+
+// 0x00464770
+eclass_t *FUN_00464770(int hasBrushes, const char *name)
+{
+	eclass_t *e;
+	char init[1024];
+
+	if (!name)
+		return eclass_bad;
+	for (e = eclass; e; e = e->next)
+		if (!_stricmp(name, e->name))
+			return e;
+	if (hasBrushes)
+		sprintf(init, "/*QUAKED %s (0 0.5 0) ?\nNot found in source.\n", name);
+	else
+		sprintf(init, "/*QUAKED %s (0 0.5 0) (-8 -8 -8) (8 8 8)\nNot found in source.\n", name);
+	e = FUN_00463860(init);
+	FUN_00463e40(e, &eclass);
+	return e;
+}
+
+// 0x00464830
+bool FUN_00464830(const char *modelName)
+{
+#line 750
+	assert(modelName);
+#line 751
+	assert(modelName[0]);
+	for (eclass_t *e = g_modelClasses; e; e = e->next)
+	{
+		if (!_stricmp(modelName, e->name))
+		{
+#line 757
+			assert(Eclass_hasModel(e));
+			return true;
+		}
+	}
+	return false;
+}
+
+// 0x00464930
+eclass_t *FUN_00464930(const char *name, entity_t *ent)
+{
+	if (!name || !strlen(name))
+		return 0;
+	eclass_t *e;
+	for (e = g_modelClasses; e; e = e->next)
+		if (!_stricmp(name, e->name))
+			break;
+	if (e)
+	{
+		if ((ent->eclass->flags ^ e->flags) & 0x10)
+			return 0;
+#line 779
+		assert(Eclass_hasModel(e));
+		ent->modelClass = e;
+		return e;
+	}
+	dword_0059c450();
+	e = new eclass_t;
+	memset(e, 0, sizeof(eclass_t));
+	e->name = FUN_0046cb10(name);
+	e->modelpath = FUN_0046cb10(name);
+	e->flags |= ent->eclass->flags & 0x10;
+	e->color[0] = e->color[2] = 0.85f;
+	eclass_t *base = FUN_00464770(0, name);
+	e->mins[0] = base->mins[0];
+	e->mins[1] = base->mins[1];
+	e->mins[2] = base->mins[2];
+	e->maxs[0] = base->maxs[0];
+	e->maxs[1] = base->maxs[1];
+	e->maxs[2] = base->maxs[2];
+	if (base->defaultmdl)
+		e->defaultmdl = FUN_0046cb10(base->defaultmdl);
+	if (Eclass_hasModel(e))
+	{
+		FUN_00463e40(e, &g_modelClasses);
+		ent->modelClass = e;
+		dword_0059c44c();
+		return e;
+	}
+	FUN_004630c0(e);
+	dword_0059c44c();
+	return 0;
 }
