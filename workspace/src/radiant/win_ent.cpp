@@ -84,7 +84,7 @@ void FUN_00478220(int w, int h);
 bool FUN_004131d0(const char *pszName, HWND hwnd);
 eclass_t *FUN_00464770(int a, const char *name);
 entity_t *FUN_00466d80(eclass_t *ec);
-void FUN_0046fbe0(int a);
+void FUN_0046fbe0(bool a);
 void FUN_0046f0b0(brush_t *b, int a, int b2, int c);
 
 // Q3Radiant Win_ent.cpp FieldWndProc shape

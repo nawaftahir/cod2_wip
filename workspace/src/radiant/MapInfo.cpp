@@ -62,7 +62,7 @@ struct prefab_t
 
 extern brush_t active_brushes;
 extern entity_t entities;
-void FUN_0046fbe0(int a);
+void FUN_0046fbe0(bool a);
 bool FUN_00463d60(eclass_t *eclass);
 
 static void FUN_0041f670(brush_t *b, int *stats)

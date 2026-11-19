@@ -85,7 +85,7 @@ BOOL LoadRegistryInfo(const char *pszName, void *pvBuf, long *plSize);
 BOOL SaveMruInReg(MRUMENU *lpMruMenu, char *lpszKey);
 void DeleteMruMenu(MRUMENU *lpMruMenu);
 int SaveRegistryInfo(const char *name, void *data, long size);
-void FUN_0046fbe0(int a);
+void FUN_0046fbe0(bool a);
 BOOL DoColor(int iIndex);
 char *va(const char *format, ...);
 void FUN_0047a250(HWND hwnd, const char *name);
