@@ -1189,3 +1189,8 @@ set by a later lowering stage, not by the list scheduler.
   while ( type != VAR_PRECODEPOS );` - the bNoStack arm is dead (no code) but keeps `type` a register temp: retail's schedule,
   immediate 8 and `lea eax`; residue 13 = only the t1 size/type colour swap. Needs the stand-in to use type AND the load
   before newSize++. Same with a minus test = the 3-line M form.
+- PINNED (agent w29b opwalk GAIN=2, 11-19): F4 colour swap = `_size` 62 < load temp 64 (both popped by score; tie goes to the
+  later web). `_size` = def block +32 (4 refs x 4 nodes x w2) - side block 069b05e8 2 (c2-made block with the split `mov r,8`
+  def) - loop 16 (4 distinct nodes: the 8 piece is the 4th) + exit block 48. U5 (minus test, no 8 piece in the loop): 32-0-12+48
+  = 68 > 64 -> right colours. Levers: +1 distinct referenced node or +1 size ref in the def or exit block (+8), or move the 8
+  piece's def out of the side block into the def block. Dead stores/copies/folded consts vanish before scoring.
