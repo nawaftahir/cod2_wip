@@ -7,6 +7,9 @@
   (owner decision, tools/meter.py).
 - Source tree follows IW's layout since 11-13 (docs/LAYOUT.md, 281/370 TUs pinned by Mac 1.3 STABS).
 
+## 11-20 w29: VM_Notify matched; release build SHA-256 == retail anchor (8f482e64...), clean gate 1,974,272 / 1,974,272
+same-offset, matched-fn 1,581,451, 9,504/9,504 fns. Ported to 1.0: SHA-256 identical too. Source + c2 mechanism: KNOWLEDGE 11-20.
+
 ## 11-16 w29: CG_CalcCrosshairPosition matched (+436 matched-fn, +12 same-offset 1,973,505) by three dead reads of
 viewaxis[k][2] (x87 object numbering, KNOWLEDGE w29 11-16); ported to 1.0 (+436, same-offset 1,699,668).
 

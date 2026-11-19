@@ -1,4 +1,4 @@
-# VM_Notify handoff (11-20)
+# VM_Notify handoff (11-20) - CLOSED 11-20: matched in both clients, see KNOWLEDGE
 
 Last diff in both clients: 1.3 same-offset 1974266/1974272, 1.0 1699834/1699840. Retail loop is identical in both.
 

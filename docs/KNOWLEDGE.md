@@ -1232,3 +1232,13 @@ set by a later lowering stage, not by the list scheduler.
   case 18 -> 0x10773aaf; class 0xd000 goes to 0x107f175e). The peephole at 0x107b8254 (fn 0x107b7d09, post-RA) only folds
   `mov r,[m]; test r,r` (op 0x33, both uses the same reg, r dead) into `cmp [m],0`; it never touches sub/add. So a minus or
   xor test can never become `cmp ecx,8`: retail's test is a relational/equality operator on an unfolded load temp (C1 IL).
+- PINNED (agent w29a, c2 static + GAIN=1, 11-20): colour register choice = chooser 0x107833f2 (from 0x10782a18). cost[]
+  per reg: + each pending neighbour's preference weights ([n+0x38] entries on its free regs), + [n+0x40]*100 when a
+  neighbour has one free reg left, - own preferences; then the first free reg with strictly lowest cost in class order
+  0x1086917c (class 0: 1,2,3,7,8,4,6 = eax ecx edx esi edi ebx ebp). opwalk G lines after a P line are that chooser's
+  neighbour scan, not worklist inserts. C1's swap: newStackValue (196) pops before cv (182) and takes ebx.
+- PINNED (gate 11-20, both clients sha256 identical): VM_Notify landed as
+  `while ( (type = (currentValue--)[-1].type) != VAR_PRECODEPOS ? (newSize++, bNoStack && (newSize += type), true) : (newSize++, false) );`
+  The post-decrement keeps the load an unfolded compare operand (cmp ecx,8, 8 immediate); the arms put inc after
+  sub; the named type, kept alive by the always-false bNoStack term (no code), is a third colour node in the test block
+  (N 2 -> 3), which lifts cv above newStackValue so cv takes ebx. Labelled stand-in.
