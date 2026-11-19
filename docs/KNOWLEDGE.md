@@ -1169,3 +1169,8 @@ set by a later lowering stage, not by the list scheduler.
   (2) Schedule: `inc ebp` before `sub ebx,8` is not moved by any pick shift. Every loop form that gives retail's sub-first order
   (T1, H*, Z1, G2) also swaps the size/load colours, so the two may share one source cause. Note: c2dbg13 needs the full
   mangled name (the cave compares to the terminator); a prefix silently never breaks.
+- PINNED (w29c labs K*, 11-19): server-order loop (`newSize++; currentValue--;` then test on `currentValue->type`) with a
+  destructive test (`- PRE`, `^ PRE`, `!(x - PRE == 0)`) gives retail's schedule (load hoisted to `[ebx-4]` before `sub ebx,8`,
+  then inc) and retail's colours; residue = `sub/xor ecx,8` vs `cmp ecx,8` + `lea edx` (7). The same loop with a relational
+  test (`!=`, J1/J3/K3) enregisters the constant 8 (`mov ecx,8; sub ebx,ecx; cmp edx,ecx`, 22). So retail = relational test
+  where the 8 stays an immediate: find what keeps the constant-8 web out of a register in the server-order loop.
