@@ -21,7 +21,6 @@ addr	agent	date	reason
 0x00413250	lane-c-r9	2026-11-18	CMainFrame::OnDestroy (msgmap 0x542010, WM_DESTROY, handler 0x413250 PINNED): body in workspace MainFrm.cpp, 44%, sizes 1338/1336, first diff +0x5 (ours keeps this in esi, retail in ebx; retail passes SaveMruInReg edi, FUN_0047a250 hwnd in esi and SavePrefs this in esi, all unwritten callees). Structure of every block equals retail. Landing it did not change FUN_004661f0 convention.
 0x004139e0	lane-b-r21	2026-11-18	CMainFrame::OnCreateClient (3395 B): still not written. Landed this round: 4772c0, 477390, CFilterSettings ctor 40ce20, CTexWnd ctor 4428d0. Remaining blockers: (1) SetViewType 452ca0 (esi=this) unmatched; (2) body needs complete CCamWnd/CXYWnd/CZWnd/CEditWnd class views for dynamic_cast, RUNTIME_CLASS, new sizes 0x168/0x120/0x58/0x100 and the vtable Create call (slot 0x54): these classes are only defined inside their own .cpp, so a shared header (proposal) is needed, a local copy would be a conflicting class view; (3) CSplitterWnd members at 0x500/0x5d8/0x6b0 are a char array in CMainFrame, need real members. Retail shape read in full, three layouts: QE4 (style 1), 4-pane splitter (default), 3-splitter (style 0).
 0x004139e0	lane-b-r20	2026-11-18	CMainFrame::OnCreateClient (3395 B, ret 8, 2 stack args): not written. Full retail disassembly read; shape = Q3 OnCreateClient with dynamic_cast (CEdit/CCamWnd/CXYWnd/CZWnd/CTexWnd type descriptors), CFilterSettings new (stdcall ctor 0x40ce20 + 0x40cf30 esi=dlg), CreateEntityWindow 0x477390 (eax=hInstance; needs 0x4772c0 esi=hInstance WEnt_Create 206 B; callees 476f10/478220/47a760 are cdecl), LoadWindowPlacement 0x4131d0 (matched r20), LoadWindowState 0x47a2b0 (matched r20), SetViewType 0x452ca0 (deferred above), CCamWnd ctor esi, CXYWnd/CTexWnd ctors stack-form (0x4428d0 is lane A), CreateQEChildren 0x412e00 (stdcall, this). Ready order for next lane: 4772c0+477390 (win_ent.cpp), 452ca0 once operator= inlining settles, then the body.
-0x004190a0	claude-a-r13	2026-11-18	FUN_004190a0 (CMainFrame update handler, pCmdUI->Enable(state)): best 55%, 56/51 B, first diff +0x0. Retail: if (p && p->field_0c) Enable(1-as-bool via mov eax,1; movzx eax,al) else Enable(0-as-bool), two separate vtable calls. 3 forms tried: Enable(true)/Enable(false) (pushes imm, 51 B); bool local set in if (merges to one call, 56 B); first form with ptr struct. Retail loads DAT_0109fdcc into eax, ours into ecx; the bool-through-al arg needs an inlined bool helper whose source is unknown.
 0x0041a010	lane-d-r12	2026-11-18	CMainFrame nudge/rotate-view handler (652 B, this in ecx, dir in edx, 1 stack arg, CString::Format inline): not written. Callees 0x470ef0 (select.cpp 248 B, arg eax), 0x470d80 (359 B), 0x46fd50 (252 B) are unwritten register-arg functions in select.cpp; 0x4075c0/0x402a70 are AUTO. Write the select.cpp trio with this caller as one cluster.
 0x0041a010	lane-d-r13	2026-11-18	CMainFrame nudge/rotate handler (652 B): not written. Its select callees 0x470ef0, 0x470d80, 0x46fd50 are all deferred (see their rows: chain ends at 0x470a50 / 0x470c50 / 0x470ce0), plus unmatched 0x4075c0, 0x402a70, 0x417cf0. Four retail callers 0x419fa0..0x419ff0 are tiny and unwritten.
 0x0041f910	lane-b-r15	2026-11-18	FUN_0041f910 (MapInfo.cpp, CMapStringToPtr count over entity list, recursive): best 98%, 183/183 B, first diff +0x89: retail loads eax=[esi+8] then ecx=[eax+0x50] for the final flags test, ours ecx then edx (same instructions, register names only). 3 variants tried: int nValue declared outside loop (needed, 35% -> 98%), void *v temp before (*map)[name] = v (needed to evaluate RHS before operator[]), local eclass pointer and a void *& slot form: same result. Body in workspace MapInfo.cpp.
@@ -485,7 +484,6 @@ addr	agent	date	reason
 0x0041a010	lane-d-r13	2026-11-18	CMainFrame nudge/rotate handler (652 B): not written. Its select callees 0x470ef0, 0x470d80, 0x46fd50 are all deferred (see their rows: chain ends at 0x470a50 / 0x470c50 / 0x470ce0), plus unmatched 0x4075c0, 0x402a70, 0x417cf0. Four retail callers 0x419fa0..0x419ff0 are tiny and unwritten.
 0x00470ef0	lane-d-r13	2026-11-18	FUN_00470ef0 (Select_RotateAxis shape, 248 B, axis eax, float+2 bools on stack): not written. Callees unwritten or deferred: FUN_00470c50 (deferred 29%), FUN_00470ce0 (needs Brush_Rotate 0x45f340, unwritten); SinCosDegrees/AxisClear matched. Our caller would push args to FUN_00470c50 (retail eax=out vec) so the body cannot match before 0x470c50, which is blocked by the 0x470a50 ExpandBounds inline decision (see that row).
 0x00470d80	lane-d-r13	2026-11-18	FUN_00470d80 (359 B, assert + per-brush loop, ends Sys_MarkMapModified): not written. Calls FUN_00470c50 (eax out, deferred 29%), FUN_0042f840, FUN_0045a220, FUN_00475350 (all unmatched, 0 ledger rows); same 0x470a50 blocker as 0x470ef0.
-0x004190a0	claude-a-r13	2026-11-18	FUN_004190a0 (CMainFrame update handler, pCmdUI->Enable(state)): best 55%, 56/51 B, first diff +0x0. Retail: if (p && p->field_0c) Enable(1-as-bool via mov eax,1; movzx eax,al) else Enable(0-as-bool), two separate vtable calls. 3 forms tried: Enable(true)/Enable(false) (pushes imm, 51 B); bool local set in if (merges to one call, 56 B); first form with ptr struct. Retail loads DAT_0109fdcc into eax, ours into ecx; the bool-through-al arg needs an inlined bool helper whose source is unknown.
 0x00441460	claude-a-r13	2026-11-18	FUN_00441460 (Texture_ShowAll + Sys_Printf("Showing all textures...") + g_nUpdateBits|=0x10): matches alone (53 B) but once defined LTCG inlines it into FUN_00441100/FUN_00441200/FUN_00441300 (302/252, 302/252, 299/249 B) and FUN_0041ba70 (53/5 B), flipping four matched rows; retail keeps it as a called function. Dropped; needs the real caller convention/cold-path shape first.
 0x00457bd0	lane-c-r13	2026-11-18	FUN_00457bd0 (brush def face color from owner, esi=def, asserts 1422): 99%, sizes 260/260, first diff +0xe8: retail stores [ecx+edx+0xa4], ours [edx+ecx+0xa4] (operand order of faces[i].color; everything else equal, ecx/edx roles equal). 4 variants tried (faces[i], i[faces], char* offset form with separate counter = 96%, i*sizeof+base): none flips the order. Body kept in brush.cpp without a ledger row because the matched FUN_004671b0 needs it (esi convention).
 0x00458440	lane-c-r13	2026-11-18	FUN_00458440 (Brush create from def+owner, eax=def, ebx=owner, asserts 1610-1627): 99%, sizes 511/511, first diff +0x1ad: last assert b->owner->def == b->def->owner loads owner/def into ecx/edx where retail uses edx/ecx (one swapped register pair). Tried 3 variants (as written, entity_t def typed entity_t*, operands swapped = 98% and wrong assert text). Callee FUN_004392a0 now matched (Pmesh.cpp, patch_t instance). Body kept in brush.cpp without a ledger row.
@@ -594,7 +592,6 @@ addr	agent	date	reason
 0x00441420	lane-a-r24	2026-11-18	FUN_00441420 (SelectTexture(16,16); dword_01128da0=0): needs the 0x441f80 register convention; body in TexWnd.cpp, no row.
 0x0044f630	lane-a-r24	2026-11-18	FUN_0044f630 (XYWnd, 2994 B): full body drafted in workspace/drafts/XYWnd_0044f630.patch, best 73%, 2995/2994 B, first diff +0x5 (frame 0x810 vs retail 0x814); /Ob1 experiment (flags not committed) gave 76%, 2979/2994. Helper 0x44f560 (brushdef_t member, 42 B) and 0x44f590 (53 B) match 100% standalone but LTCG inlines 0x44f560 where retail calls it (about 15 variants tried); rest is regalloc. Blocks select.cpp 0x471dd0/0x471a90.
 0x0044f5d0	lane-a-r24	2026-11-18	esi-register wrapper with 11 retail callers; not written (callers not landed together). See XYWnd draft patch.
-0x0041b590	lane-a-r24	2026-11-18	CMainFrame menu-check handler (162 B): drafted in workspace/drafts/MainFrm_0041b590.patch, 92% 163/162 B; only diff is the SelectTexture 0x441f80 register convention. Lands when 0x441f80 does.
 0x004683e0	lane-b-r26	2026-11-18	Map_LoadFile cluster (with FUN_004681d0 MATCH, FUN_00468260 49% 460/373 +0x7, Map_New 0x468d10 63% 261/238 +0x3a): Map_LoadFile 60% 1453/1320 first diff +0x7a. LTCG inlines FUN_0046b550 and Entity_AddToList 0x466110 (retail calls both: Entity_AddToList has 4 retail callers 0x4440a0/0x466e4f/0x468389/0x468d67, most unwritten); FUN_00464770 is unwritten so Map_New pushes its name arg (retail ecx). Needs those callers/callee first. Draft: workspace/drafts/b_r26_map_loadfile.patch.
 0x0042bf50	lane-g-r26	2026-11-18	FUN_0042bf50 clip ring segments to triangle and draw on its plane (a=ebx, b=edi, c=esi, 6 stack args, R_Add3DLine verts in eax): body in Pmesh.cpp, 41%, 1174/1175 B, first diff +0xd. Register args, pts[2][3] layout, d1<=0/else branch shape, plane block and offset (camera vpn * -0.125) match. Residue: x87 load order in the 2D edge dots (retail e0/e1 x-term first, e2 y-term first, loop dist x first; ours the opposite) does not move with term order, operand order or Dot2Product (Dot2Product: 37%); d1/t stack slots differ. With this body in, matched FUN_0042e290 flips to 70% (697/695, +0x168) via 0x42c3f0 conventions, so the body is parked in workspace/drafts/g_r26_42bf50.cpp.
 0x00405bb0	lane-g-r26	2026-11-18	FUN_00405bb0 solid cylinder (stdcall ret 0x18, sideCount clamp 3..256, 4*sideCount verts, assert line 1371 'indexCount == (sideCount * 2 + (sideCount - 2) * 2) * 3', re.DrawTris): body in CamWnd.cpp, 20%, 1155/1169 B, first diff +0x4: frame 0xb830 vs 0xb840; retail keeps sideCount and i in memory and puts the scalars between colors and st. Moving local declarations did not change layout. Lifts caller 0x4063b0 from 80% to 93%.
@@ -623,3 +620,77 @@ addr	agent	date	reason
 0x0046acb0	lane-d-r38	2026-11-19	Map_SaveSelected shape (asserts 1213/1214 map_assert2, stream ebx; drafts/d_r38_mapwrite.patch): 74%, 222/216. Third retail caller 0x46add9 unwritten; depends on 0x466c00 convention (stream ecx).
 0x0046adf0	lane-d-r38	2026-11-19	FUN_0046adf0 (CFile* eax, stack UNKNOWN_0054ebb0 then 0x46acb0; drafts/d_r38_mapwrite.patch): 66%, 27/30. No direct retail caller found (call scan), yet eax arg.
 0x00452e30	lane-d-r38	2026-11-19	CXYWnd::Copy Q3 shape (drafts/d_r38_mapwrite.patch): 71%, 292/287, first diff +0x40. Retail inlines 0x46adf0 and takes this on the stack (ret 4, caller 0x46fe50 pushes ActiveXY); ours thiscall. Needs caller 0x46fe50 and settled 0x46acb0.
+0x004114f0	bulk-f	2026-11-19	bulk draft: body matches but retail calls CImageList::FromHandle (ICF-folded MFC thunk)
+0x004138c0	bulk-f	2026-11-19	bulk draft: 81%, sizes 38/37, first diff +0x1f
+0x00414da0	bulk-f	2026-11-19	bulk draft: 70%, sizes 49/51, first diff +0x2
+0x00414de0	bulk-f	2026-11-19	bulk draft: 50%, sizes 9/10, first diff +0x0
+0x00415100	bulk-f	2026-11-19	bulk draft: 33%, sizes 18/16, first diff +0x0
+0x00415140	bulk-f	2026-11-19	bulk draft: 48%, sizes 119/149, first diff +0x1
+0x004151e0	bulk-f	2026-11-19	bulk draft: 42%, sizes 46/47, first diff +0x0
+0x00415210	bulk-f	2026-11-19	bulk draft: 66%, sizes 39/42, first diff +0x4
+0x00415650	bulk-f	2026-11-19	bulk draft: 33%, sizes 18/16, first diff +0x0
+0x00415660	bulk-f	2026-11-19	bulk draft: 42%, sizes 46/47, first diff +0x0
+0x004156a0	bulk-f	2026-11-19	bulk draft: 56%, sizes 154/166, first diff +0x5
+0x004159e0	bulk-f	2026-11-19	bulk draft: 42%, sizes 46/47, first diff +0x0
+0x00416030	bulk-f	2026-11-19	bulk draft: 55%, sizes 16/18, first diff +0x0
+0x00416050	bulk-f	2026-11-19	bulk draft: 61%, sizes 16/21, first diff +0x0
+0x00416070	bulk-f	2026-11-19	bulk draft: 61%, sizes 16/21, first diff +0x0
+0x00416e90	bulk-f	2026-11-19	bulk draft: 67%, sizes 59/61, first diff +0x0
+0x00416ed0	bulk-f	2026-11-19	bulk draft: 67%, sizes 56/58, first diff +0x0
+0x00416f10	bulk-f	2026-11-19	bulk draft: 68%, sizes 56/58, first diff +0x0
+0x00416f50	bulk-f	2026-11-19	bulk draft: 70%, sizes 56/58, first diff +0x0
+0x00416f90	bulk-f	2026-11-19	bulk draft: 70%, sizes 56/58, first diff +0x0
+0x00416fd0	bulk-f	2026-11-19	bulk draft: 68%, sizes 56/58, first diff +0x0
+0x004170b0	bulk-f	2026-11-19	bulk draft: 40%, sizes 9/15, first diff +0x0
+0x004170c0	bulk-f	2026-11-19	bulk draft: 44%, sizes 12/18, first diff +0x0
+0x004170e0	bulk-f	2026-11-19	bulk draft: 40%, sizes 9/15, first diff +0x0
+0x004170f0	bulk-f	2026-11-19	bulk draft: 22%, sizes 79/71, first diff +0x0
+0x004171b0	bulk-f	2026-11-19	bulk draft: 48%, sizes 114/106, first diff +0x0
+0x00417400	bulk-f	2026-11-19	bulk draft: 35%, sizes 81/80, first diff +0x0
+0x00417450	bulk-f	2026-11-19	bulk draft: 35%, sizes 81/80, first diff +0x0
+0x00417580	bulk-f	2026-11-19	bulk draft: 29%, sizes 15/17, first diff +0x0
+0x004175a0	bulk-f	2026-11-19	bulk draft: 29%, sizes 15/17, first diff +0x0
+0x004175c0	bulk-f	2026-11-19	bulk draft: 29%, sizes 15/17, first diff +0x0
+0x004175e0	bulk-f	2026-11-19	bulk draft: 29%, sizes 15/17, first diff +0x0
+0x00417840	bulk-f	2026-11-19	bulk draft: 36%, sizes 73/79, first diff +0x0
+0x00417a90	bulk-f	2026-11-19	bulk draft: 22%, sizes 79/71, first diff +0x0
+0x00417e40	bulk-f	2026-11-19	bulk draft: 65%, sizes 80/89, first diff +0x0
+0x00417ea0	bulk-f	2026-11-19	bulk draft: 88%, sizes 70/67, first diff +0x2
+0x00418ec0	bulk-f	2026-11-19	bulk draft: 49%, sizes 201/203, first diff +0xb
+0x00419000	bulk-f	2026-11-19	bulk draft: 77%, sizes 18/17, first diff +0x1
+0x004190a0	bulk-f	2026-11-19	bulk draft: 14%, sizes 30/56, first diff +0x0
+0x00419200	bulk-f	2026-11-19	bulk draft: 75%, sizes 44/39, first diff +0x17
+0x00419230	bulk-f	2026-11-19	bulk draft: 75%, sizes 45/40, first diff +0x18
+0x004196a0	bulk-f	2026-11-19	bulk draft: 39%, sizes 113/113, first diff +0x7
+0x00419a60	bulk-f	2026-11-19	bulk draft: 66%, sizes 71/67, first diff +0x0
+0x00419ab0	bulk-f	2026-11-19	bulk draft: 64%, sizes 73/69, first diff +0x0
+0x00419b90	bulk-f	2026-11-19	bulk draft: 50%, sizes 9/10, first diff +0x0
+0x00419bc0	bulk-f	2026-11-19	bulk draft: 75%, sizes 102/101, first diff +0x25
+0x00419c30	bulk-f	2026-11-19	bulk draft: 53%, sizes 54/53, first diff +0xe
+0x00419d40	bulk-f	2026-11-19	bulk draft: 54%, sizes 87/91, first diff +0x5
+0x00419fa0	bulk-f	2026-11-19	bulk draft: 88%, sizes 17/17, first diff +0x6
+0x00419fc0	bulk-f	2026-11-19	bulk draft: 64%, sizes 17/14, first diff +0x6
+0x00419fd0	bulk-f	2026-11-19	bulk draft: 88%, sizes 17/17, first diff +0x6
+0x00419ff0	bulk-f	2026-11-19	bulk draft: 88%, sizes 17/17, first diff +0x6
+0x0041a2b0	bulk-f	2026-11-19	bulk draft: 57%, sizes 54/53, first diff +0xa
+0x0041b070	bulk-f	2026-11-19	bulk draft: 43%, sizes 65/60, first diff +0x0
+0x0041b0b0	bulk-f	2026-11-19	bulk draft: 43%, sizes 65/60, first diff +0x0
+0x0041b590	bulk-f	2026-11-19	bulk draft: 88%, sizes 153/162, first diff +0x7a
+0x0041b640	bulk-f	2026-11-19	bulk draft: 28%, sizes 38/29, first diff +0x0
+0x0041b660	bulk-f	2026-11-19	bulk draft: 28%, sizes 38/29, first diff +0x0
+0x0041b680	bulk-f	2026-11-19	bulk draft: 28%, sizes 38/29, first diff +0x0
+0x0041b6a0	bulk-f	2026-11-19	bulk draft: 28%, sizes 38/29, first diff +0x0
+0x0041b6c0	bulk-f	2026-11-19	bulk draft: 31%, sizes 38/29, first diff +0x0
+0x0041b930	bulk-f	2026-11-19	bulk draft: 44%, sizes 12/18, first diff +0x0
+0x0041b950	bulk-f	2026-11-19	bulk draft: 70%, sizes 48/47, first diff +0x0
+0x0041b980	bulk-f	2026-11-19	bulk draft: 66%, sizes 48/47, first diff +0x0
+0x0041b9b0	bulk-f	2026-11-19	bulk draft: 66%, sizes 48/47, first diff +0x0
+0x0041b9e0	bulk-f	2026-11-19	bulk draft: 70%, sizes 48/47, first diff +0x0
+0x0041ba10	bulk-f	2026-11-19	bulk draft: 66%, sizes 48/47, first diff +0x0
+0x0041ba40	bulk-f	2026-11-19	bulk draft: 72%, sizes 48/47, first diff +0x0
+0x0041bd40	bulk-f	2026-11-19	bulk draft: 48%, sizes 119/149, first diff +0x8
+0x0041be80	bulk-f	2026-11-19	bulk draft: 78%, sizes 32/29, first diff +0x5
+0x0041c0e0	bulk-f	2026-11-19	bulk draft: 96%, sizes 79/79, first diff +0x2a
+0x0041c130	bulk-f	2026-11-19	bulk draft: 96%, sizes 79/79, first diff +0x2a
+0x0041c180	bulk-f	2026-11-19	bulk draft: 89%, sizes 79/76, first diff +0x2a
+0x0041c1d0	bulk-f	2026-11-19	bulk draft: 48%, sizes 119/149, first diff +0x1

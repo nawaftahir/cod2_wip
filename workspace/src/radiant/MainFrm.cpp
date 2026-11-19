@@ -137,6 +137,7 @@ typedef char MainFrameSplitSize[(sizeof(CSplitterWnd) == 0xd8) ? 1 : -1];
 
 class CMainFrame : public CFrameWnd
 {
+  DECLARE_DYNAMIC(CMainFrame)
 public:
   virtual BOOL PreCreateWindow(CREATESTRUCT &cs);
   virtual BOOL PreTranslateMessage(MSG *pMsg);
@@ -153,6 +154,9 @@ public:
   afx_msg void OnDestroy();
   afx_msg void OnFileExit();
   void FUN_00417cf0();
+  void FUN_00419560();
+  void FUN_00419cc0();
+  void FUN_004190a0(CCmdUI *pCmdUI);
   CStatusBar m_wndStatusBar;
   CLstToolBar m_wndToolBar;
   CDialogBar m_wndDialogBar;
@@ -217,11 +221,128 @@ struct PatchView { char pad[0x70]; int org[3]; };
 #define PF(off) PFP(dword_01233b64, off)
 #define PFB(off) (*(bool *)((char *)dword_01233b64 + (off)))
 
+// 0x00411000
+void FUN_0047aa30();
+void FUN_00468d10();
+void FUN_0047a8d0();
+void FUN_0047ab50(bool);
+void FUN_00468910(const char *name, int flag);
+void FUN_004749a0();
+void FUN_00474b70();
+void FUN_00403610(CCamWnd *cam, int a);
+void FUN_00452ca0(CXYWnd *xy, int type);
+void FUN_00452b00(CXYWnd *xy);
+void FUN_00479c00(int a);
+void FUN_004416b0(int a);
+void FUN_004433b0();
+void Undo_GeneralStart(char *operation);
+struct selbrush_t { selbrush_t *prev; selbrush_t *next; unsigned char pad08[0x0c]; brushdef_t *def; int field_18; int field_1c; int field_20; };
+void Undo_AddBrushList(selbrush_t *list);
+void FUN_00443f80(selbrush_t *list);
+void Undo_End();
+extern selbrush_t selected_selbrushes;
+void FUN_004721a0(int a, int b);
+void FUN_00472280(int a, int b);
+void FUN_004718b0(const char *key);
+void FUN_00428e20(int a, int b, int c, int d);
+void FUN_00431360(int a, int b, int c);
+void FUN_004311a0();
+void FUN_00430ff0();
+void FUN_00435c00();
+void FUN_00434190(int a, int b, int c, int d);
+void FUN_004354b0();
+void FUN_004353d0();
+void FUN_00428b80();
+void FUN_00474230(float a, float b, int c);
+void FUN_00472860(int a, float b);
+void FUN_0046fd50(float *vec, int a);
+bool FUN_0042a7f0(int a, int b, bool c);
+void FUN_00415ef0(const char *name, int axis);
+void FUN_004369b0();
+bool FUN_00438ca0();
+void FUN_0046ddc0();
+void FUN_0045ff30();
+void FUN_00460700();
+extern int DAT_010bcd2c;
+extern int DAT_01128dc4;
+
+// 0x00411001
+class idCameraDef { public: void save(const char *filename); };
+void FUN_00444a00();
+void FUN_00452a60(CWnd *w);
+void FUN_00452e30(CWnd *w);
+void FUN_00439160(int a);
+void FUN_00473f50();
+void FUN_00473c70(int a);
+void FUN_0045e2c0(brushdef_t *b);
+void FUN_0041a010(int dir, int grid);
+void FUN_00433ad0();
+void FUN_00434040();
+void FUN_0041b590(CMainFrame *self, int id);
+void FUN_0041b820(CMainFrame *self);
+void FUN_00438020();
+void FUN_0049c2b0(idCameraDef *cam, const char *name);
+void FUN_0049b7a0(idCameraDef *cam);
+extern idCameraDef *DAT_00597154;
+void FUN_00409930();
+int FUN_0041e540(int a, idCameraDef *cam);
+extern int DAT_011298b4;
+bool FUN_0046b550();
+void FUN_0046b5b0();
+extern int DAT_010a4908;
+int FUN_00449760();
+void FUN_0045cc90(float a);
+extern bool DAT_0109fe5f;
+extern bool DAT_012334ba;
+extern bool DAT_012334b9;
+void FUN_004114f0(CWnd *pWnd, UINT nID);
+
+// 0x00411002
+void FUN_00477580(int a);
+bool FUN_00452d90(CWnd *w);
+void FUN_00452990();
+extern "C" void FUN_00467f00();
+void FUN_00433da0();
+extern bool DAT_0109fe5e;
+extern int DAT_011299a8;
+extern float DAT_012334a8;
+extern "C" void __fastcall FUN_00418ec0(CMainFrame *self);
+extern "C" void __fastcall FUN_004171b0(CMainFrame *self);
+
+// 0x00411003
+BOOL CALLBACK FUN_004766d0(HWND, UINT, WPARAM, LPARAM);
+extern int DAT_0109fe60;
+extern bool DAT_012334f5;
+extern bool DAT_012334f6;
+
+
+
+// 0x00411004
+void FUN_00441f80();
+extern int DAT_01128da0;
+
+// 0x00411210
+IMPLEMENT_DYNAMIC(CMainFrame, CFrameWnd)
+
 extern "C" int __stdcall FUN_00411230(int a0, int a1) { return 0; }
 extern "C" void FUN_00411240() {}
 
 CMainFrame::~CMainFrame()
 {
+}
+
+// 0x004114f0
+// Q3Radiant HandlePopup
+void FUN_004114f0(CWnd *pWnd, UINT nID)
+{
+  CPoint ptMouse;
+  ::GetCursorPos(&ptMouse);
+  CMenu menu;
+  menu.LoadMenu(nID);
+  CMenu *pMenu = menu.GetSubMenu(0);
+  pMenu->TrackPopupMenu(TPM_RIGHTBUTTON, ptMouse.x, ptMouse.y, pWnd);
+  menu.DestroyMenu();
+  pWnd->SetFocus();
 }
 
 extern "C" void __stdcall FUN_004115a0(int a0, int a1) {  }
@@ -552,6 +673,14 @@ void __stdcall FUN_004137d0(CMainFrame *self, UINT nChar)
   }
 }
 
+// 0x004138c0
+bool FUN_004138c0(int nChar)
+{
+  if (nChar == VK_UP || nChar == VK_LEFT || nChar == VK_RIGHT || nChar == VK_DOWN)
+    return ::GetKeyState(nChar) != 0;
+  return true;
+}
+
 void CMainFrame::OnSysKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
   OnKeyDown(nChar, nRepCnt, nFlags);
@@ -799,6 +928,42 @@ void CMainFrame::OnFileExit()
 }
 
 extern int DAT_010a4910;
+// 0x00414ca0
+extern "C" void FUN_00414ca0()
+{
+  if (FUN_0046ba10())
+  {
+    if (::MessageBox(g_qeglobals.d_hwndMain, "This will lose changes to the map", "warning", MB_OKCANCEL) == IDCANCEL)
+      return;
+  }
+  FUN_0046b9b0();
+  FUN_0047aa30();
+}
+
+// 0x00414ce0
+extern "C" void FUN_00414ce0()
+{
+  if (FUN_0046ba10())
+  {
+    if (::MessageBox(g_qeglobals.d_hwndMain, "This will lose changes to the map", "warning", MB_OKCANCEL) == IDCANCEL)
+      return;
+  }
+  FUN_0046b9b0();
+  FUN_00468d10();
+}
+
+// 0x00414d20
+extern "C" void FUN_00414d20()
+{
+  if (FUN_0046ba10())
+  {
+    if (::MessageBox(g_qeglobals.d_hwndMain, "This will lose changes to the map", "warning", MB_OKCANCEL) == IDCANCEL)
+      return;
+  }
+  FUN_0046b9b0();
+  FUN_0047a8d0();
+}
+
 extern "C" void FUN_00414d60()
 {
   if (DAT_010a4910)
@@ -808,6 +973,18 @@ extern "C" void FUN_00414d60()
 }
 extern "C" void FUN_00414d80() {}
 extern "C" void FUN_00414d90() {}
+// 0x00414da0
+extern "C" void FUN_00414da0()
+{
+  if (!strcmp((const char *)&dword_010a4508, "unnamed.map"))
+    FUN_0047ab50(false);
+  else
+    FUN_00468910((const char *)&dword_010a4508, 0);
+}
+
+// 0x00414de0
+extern "C" void FUN_00414de0() { FUN_0047ab50(false); }
+
 extern "C" void FUN_00414df0() { FUN_00425260(&dword_010a4508); }
 extern "C" void FUN_00414e00() { FUN_00425500(&dword_010a4508); }
 extern "C" void FUN_00414e10() { FUN_004253d0(&dword_010a4508); }
@@ -826,11 +1003,65 @@ extern "C" void __fastcall FUN_00414e50(CMainFrame *self)
   cam->angles[1] = floor((cam->angles[1] + 11.0f) / 22.5) * 22.5;
   dword_0123348c |= 5;
 }
+// 0x00414ea0
+extern "C" void FUN_00414ea0() { FUN_004749a0(); dword_0123348c |= 5; }
+
+// 0x00414eb0
+extern "C" void FUN_00414eb0() { FUN_00474b70(); dword_0123348c |= 5; }
+
+// 0x00415100
+extern "C" void __fastcall FUN_00415100(CMainFrame *self) { FUN_00403610(self->field_078c, 0); }
+
 extern "C" void FUN_00415110()
 {
   PF(0x22c) = !PF(0x22c);
   dword_01233b64->SavePrefs();
 }
+// 0x00415140
+extern "C" void __fastcall FUN_00415140(CMainFrame *self)
+{
+  HWND window = g_qeglobals.field_4c;
+  int style = self->field_07a0;
+  if (style != 0 && style != 1 && style != 3)
+  {
+    if (DAT_011299a8 == 0x80)
+    {
+      if (::IsWindowVisible(window))
+        ::ShowWindow(window, SW_HIDE);
+      else
+        ::ShowWindow(window, SW_SHOW);
+      return;
+    }
+  }
+  else if (::IsWindowVisible(window) && DAT_011299a8 == 0x80)
+  {
+    ::ShowWindow(window, SW_HIDE);
+    return;
+  }
+  ::ShowWindow(window, SW_SHOW);
+  FUN_00477580(0x80);
+}
+
+// 0x004151e0
+extern "C" void __fastcall FUN_004151e0(CMainFrame *self)
+{
+  if (self->field_07a0 != 2)
+  {
+    FUN_00452ca0(self->field_0788, 0);
+    FUN_00452b00(self->field_0788);
+  }
+  dword_0123348c |= 2;
+}
+
+// 0x00415210
+extern "C" void __stdcall FUN_00415210(CMainFrame *self, int a)
+{
+  if (self == NULL)
+    FUN_00479c00(a);
+  else
+    FUN_00479c00(self->m_hWnd ? (int)self->m_hWnd : 0);
+}
+
 extern "C" void FUN_00415280() { Dvar_SetStringByName("r_textureMode", "nearest"); dword_0123348c |= 1; }
 extern "C" void FUN_004152a0() { Dvar_SetStringByName("r_textureMode", "linear"); dword_0123348c |= 1; }
 extern "C" void FUN_004152c0() { Dvar_SetStringByName("r_textureMode", "bilinear"); dword_0123348c |= 1; }
@@ -840,8 +1071,40 @@ extern "C" void __stdcall FUN_00415320(int nID) { Texture_SetMode(nID); }
 extern "C" void __stdcall FUN_00415330(int nID) { FUN_00441100(nID - 60000); }
 extern "C" void __stdcall FUN_00415350(int nID) { FUN_00441200(nID - 60256); }
 extern "C" void __stdcall FUN_00415370(int nID) { FUN_00441300(nID - 60512); }
+// 0x00415650
+extern "C" void __fastcall FUN_00415650(CMainFrame *self) { FUN_00403610(self->field_078c, 1); }
+
+// 0x00415660
+extern "C" void __fastcall FUN_00415660(CMainFrame *self)
+{
+  if (self->field_07a0 != 2)
+  {
+    FUN_00452ca0(self->field_0788, 2);
+    FUN_00452b00(self->field_0788);
+  }
+  dword_0123348c |= 2;
+}
+
 extern "C" void FUN_00415690() {}
 extern float DAT_01139e60;
+// 0x004156a0
+extern "C" void __fastcall FUN_004156a0(CMainFrame *self)
+{
+  CXYWnd *xy = self->field_0788;
+  if (xy && xy->m_bActive)
+  {
+    xy->m_fScale *= 1.25f;
+    if (xy->m_fScale > 160.0f)
+      xy->m_fScale = 160.0f;
+    DAT_012334a8 = self->field_0788->m_fScale;
+  }
+  DAT_01139e60 *= 1.25f;
+  dword_0123348c |= 6;
+  if (DAT_01139e60 > 160.0f)
+    DAT_01139e60 = 160.0f;
+  dword_0123348c |= 0x28;
+}
+
 extern "C" void FUN_00415960()
 {
   DAT_01139e60 *= 1.25f;
@@ -856,6 +1119,17 @@ extern "C" void FUN_004159a0()
     DAT_01139e60 = 0.003125f;
   dword_0123348c |= 0x28;
 }
+// 0x004159e0
+extern "C" void __fastcall FUN_004159e0(CMainFrame *self)
+{
+  if (self->field_07a0 != 2)
+  {
+    FUN_00452ca0(self->field_0788, 1);
+    FUN_00452b00(self->field_0788);
+  }
+  dword_0123348c |= 2;
+}
+
 extern "C" void FUN_00415b90() { FUN_0043e440(); }
 extern "C" void FUN_00415ba0() {}
 void DoFind(void);
@@ -873,6 +1147,15 @@ extern "C" void FUN_00415e20() { DoColor(4); dword_0123348c |= 0xffffffff; }
 extern "C" void FUN_00415e40() { DoColor(3); dword_0123348c |= 0xffffffff; }
 extern "C" void FUN_00415e60() { DoColor(2); dword_0123348c |= 0xffffffff; }
 extern "C" void FUN_00415e80() { DoColor(1); dword_0123348c |= 0xffffffff; }
+// 0x00416030
+extern "C" void FUN_00416030() { FUN_00415ef0("flip X", 0); }
+
+// 0x00416050
+extern "C" void FUN_00416050() { FUN_00415ef0("flip Y", 1); }
+
+// 0x00416070
+extern "C" void FUN_00416070() { FUN_00415ef0("flip Z", 2); }
+
 extern "C" void FUN_00416270() { Map_RemoveRegion(); }
 extern "C" void FUN_00416280() { FUN_004694d0(); }
 extern "C" void FUN_00416290() { FUN_004692a0(); }
@@ -880,10 +1163,42 @@ extern "C" void FUN_004162a0() { FUN_00469420(); }
 extern "C" void FUN_004162b0() { FUN_00469350(); }
 extern "C" void FUN_00416480() { FUN_004364b0(); }
 extern "C" void FUN_00416490() { FUN_0046dfc0(); }
+// 0x004164a0
+extern int DAT_011298b0;
+extern "C" void FUN_004164a0()
+{
+  if (DAT_011298b0 == 4)
+    FUN_004369b0();
+  else if (!FUN_00438ca0())
+    FUN_0046ddc0();
+}
+
 extern "C" void FUN_004164c0() { FUN_0046dc40(); }
 extern "C" void FUN_004164d0() { FUN_00471dd0(); }
 extern int DAT_01129934;
 extern int DAT_01129938;
+// 0x00416540
+extern "C" void FUN_00416540()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("CSG merge");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_0045ff30();
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+// 0x00416570
+extern "C" void FUN_00416570()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("Auto caulk");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00460700();
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
 extern "C" void FUN_004165a0() { DAT_01129934 ^= 1; dword_0123348c |= 0xffffffff; }
 extern "C" void FUN_004165c0() { DAT_01129938 ^= 1; dword_0123348c |= 0xffffffff; }
 extern "C" void __fastcall FUN_00416870(CMainFrame *self)
@@ -893,14 +1208,112 @@ extern "C" void __fastcall FUN_00416870(CMainFrame *self)
   dword_01233b64->SavePrefs();
   dword_0123348c |= 0xffffffff;
 }
+// 0x00416e90
+extern "C" void FUN_00416e90()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("make detail");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_004721a0(0x2080, 0x8000000);
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+// 0x00416ed0
+extern "C" void FUN_00416ed0()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("make structural");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_004721a0(0x8002084, 0);
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+// 0x00416f10
+extern "C" void FUN_00416f10()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("make weaponclip");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_004721a0(0, 0x8002080);
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+// 0x00416f50
+extern "C" void FUN_00416f50()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("make noncolliding");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_004721a0(0, 0x8000004);
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+// 0x00416f90
+extern "C" void FUN_00416f90()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("make split coplanar geo");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00472280(0, 0x100);
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+// 0x00416fd0
+extern "C" void FUN_00416fd0()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("make don't split coplanar geo");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00472280(0x100, 0);
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
 extern "C" void FUN_00417010() { FUN_00470ff0(); }
 extern "C" void FUN_00417020() { FUN_00471530(); }
 extern "C" void FUN_00417030() { FUN_00471270(); }
 extern "C" void FUN_00417040() { FUN_004713e0(); }
 extern "C" void FUN_00417050() { FUN_00471670(); }
+// 0x00417060
+extern "C" void FUN_00417060() { FUN_004718b0("targetname"); }
+
+// 0x00417070
+extern "C" void FUN_00417070() { FUN_004718b0("classname"); }
+
 extern "C" void FUN_00417080() { FUN_00471a90(); }
 void FUN_00476ce0(void);
 extern "C" void FUN_00417090() { FUN_00476ce0(); }
+// 0x004170b0
+extern "C" void __fastcall FUN_004170b0(CMainFrame *self) { FUN_004114f0(self, 124); }
+
+// 0x004170c0
+extern "C" void __fastcall FUN_004170c0(CMainFrame *self) { FUN_004114f0(self, 170); }
+
+// 0x004170e0
+extern "C" void __fastcall FUN_004170e0(CMainFrame *self) { FUN_004114f0(self, 125); }
+
+// 0x004170f0
+extern "C" void __fastcall FUN_004170f0(CMainFrame *self)
+{
+  if (self->field_07a0 != 2)
+  {
+    CXYWnd *xy = self->field_0788;
+    if (xy->m_nViewType == 2)
+      FUN_00452ca0(xy, 1);
+    else if (xy->m_nViewType == 1)
+      FUN_00452ca0(xy, 0);
+    else
+      FUN_00452ca0(xy, 2);
+    FUN_00452b00(self->field_0788);
+    dword_0123348c |= 2;
+  }
+}
+
 extern "C" void FUN_00417140() { dword_0123348c |= 1; }
 void CMainFrame::FUN_00417150(CCmdUI *pCmdUI)
 {
@@ -908,6 +1321,25 @@ void CMainFrame::FUN_00417150(CCmdUI *pCmdUI)
 }
 void DoAbout(void);
 extern "C" void FUN_00417190() { DoAbout(); }
+// 0x004171b0
+extern "C" void __fastcall FUN_004171b0(CMainFrame *self)
+{
+  if (self->field_07e0)
+  {
+    CXYWnd *xy = (CXYWnd *)self->field_07e0;
+    if (DAT_0109fe5e)
+    {
+      xy->SetClipMode(false);
+      ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x800f, 0);
+      return;
+    }
+    if (DAT_0109fe5f)
+      FUN_00418ec0(self);
+    xy->SetClipMode(true);
+    ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x800f, 1);
+  }
+}
+
 extern "C" void __fastcall FUN_00417220(CMainFrame *self)
 {
   CAM->angles[0] -= 22.5;
@@ -928,6 +1360,26 @@ extern "C" void __fastcall FUN_00417340(CMainFrame *self)
   cam->origin[2] -= 32.0f;
   dword_0123348c |= dword_01233b64->m_bCamXYUpdate ? 3 : 1;
 }
+// 0x00417400
+extern "C" void __fastcall FUN_00417400(CMainFrame *self)
+{
+  if (!FUN_0042a7f0(1, 0, false))
+  {
+    CAM->angles[1] += 22.5;
+    dword_0123348c |= dword_01233b64->m_bCamXYUpdate ? 3 : 1;
+  }
+}
+
+// 0x00417450
+extern "C" void __fastcall FUN_00417450(CMainFrame *self)
+{
+  if (!FUN_0042a7f0(-1, 0, false))
+  {
+    CAM->angles[1] -= 22.5;
+    dword_0123348c |= dword_01233b64->m_bCamXYUpdate ? 3 : 1;
+  }
+}
+
 extern "C" void __fastcall FUN_004174a0(CMainFrame *self)
 {
   CamView *cam = CAM;
@@ -944,6 +1396,18 @@ extern "C" void __fastcall FUN_00417510(CMainFrame *self)
   cam->origin[2] += cam->right[2] * 32.0f;
   dword_0123348c |= dword_01233b64->m_bCamXYUpdate ? 3 : 1;
 }
+// 0x00417580
+extern "C" void FUN_00417580() { FUN_0042a7f0(0, -1, true); }
+
+// 0x004175a0
+extern "C" void FUN_004175a0() { FUN_0042a7f0(0, 1, true); }
+
+// 0x004175c0
+extern "C" void FUN_004175c0() { FUN_0042a7f0(1, 0, true); }
+
+// 0x004175e0
+extern "C" void FUN_004175e0() { FUN_0042a7f0(-1, 0, true); }
+
 extern "C" void __fastcall FUN_00417600(CMainFrame *self)
 {
   CamView *cam = CAM;
@@ -1012,6 +1476,41 @@ struct CMainFrameStatusView
   CString m_strStatus[6];
 };
 
+// 0x00417840
+extern "C" void __fastcall FUN_00417840(CMainFrame *self)
+{
+  if (self->field_07a0 == 1 || self->field_07a0 == 2)
+  {
+    if (self->field_0794 && self->field_0794->GetSafeHwnd())
+    {
+      if (::IsWindowVisible(self->field_0794->GetSafeHwnd()))
+        self->field_0794->ShowWindow(SW_HIDE);
+      else
+        self->field_0794->ShowWindow(SW_SHOW);
+    }
+  }
+  else
+    FUN_00444a00();
+}
+
+// 0x004179e0
+// 0x00417a90
+extern "C" void __fastcall FUN_00417a90(CMainFrame *self)
+{
+  if (self->field_07a0 != 2)
+  {
+    CXYWnd *xy = self->field_0788;
+    if (xy->m_nViewType == 2)
+      FUN_00452ca0(xy, 1);
+    else if (xy->m_nViewType == 1)
+      FUN_00452ca0(xy, 0);
+    else
+      FUN_00452ca0(xy, 2);
+    FUN_00452b00(self->field_0788);
+    dword_0123348c |= 2;
+  }
+}
+
 // 0x00417cf0 (63 B), this in ebx
 void CMainFrame::FUN_00417cf0()
 {
@@ -1032,6 +1531,40 @@ extern "C" void __fastcall FUN_00417e10(CMainFrame *self)
     dword_0123348c |= 0x102;
   }
 }
+// 0x00417e40
+extern "C" void __fastcall FUN_00417e40(CMainFrame *self)
+{
+  if (self->field_07e0 && DAT_0109fe5e)
+  {
+    FUN_004433b0();
+    Undo_GeneralStart("clip selected");
+    Undo_AddBrushList(&selected_selbrushes);
+    FUN_00452990();
+    FUN_00443f80(&selected_selbrushes);
+    Undo_End();
+    return;
+  }
+  if (DAT_012334ba)
+    FUN_00433da0();
+}
+
+// 0x00417ea0
+extern "C" void __fastcall FUN_00417ea0(CMainFrame *self)
+{
+  if (self->field_07e0)
+  {
+    FUN_004433b0();
+    Undo_GeneralStart("split selected");
+    Undo_AddBrushList(&selected_selbrushes);
+    FUN_00452a60(self->field_07e0);
+    FUN_00443f80(&selected_selbrushes);
+    Undo_End();
+  }
+}
+
+// 0x00417ef0
+extern "C" CWnd *__fastcall FUN_00417ef0(CMainFrame *self) { return self->field_07e0; }
+
 extern "C" void FUN_00417f00() {}
 extern "C" void FUN_00417f10() {}
 extern "C" void FUN_00417f20() { DoColor(9); dword_0123348c |= 0xffffffff; }
@@ -1052,6 +1585,51 @@ extern "C" void FUN_004180e0() { DoColor(18); dword_0123348c |= 0xffffffff; }
 extern "C" void FUN_00418100() { DoColor(20); dword_0123348c |= 0xffffffff; }
 extern "C" void FUN_00418120() { DoColor(21); dword_0123348c |= 0xffffffff; }
 extern bool DAT_0109fe5f;
+// 0x00418ec0
+extern "C" void __fastcall FUN_00418ec0(CMainFrame *self)
+{
+  if (self->field_07e0)
+  {
+    if (DAT_0109fe5e)
+      FUN_004171b0(self);
+    if (!DAT_0109fe5f)
+    {
+      if (FUN_00452d90(self->field_07e0))
+      {
+        ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x802a, 1);
+        return;
+      }
+      ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x802a, 0);
+    }
+    else
+    {
+      DAT_0109fe5f = false;
+      ::RedrawWindow(self->field_07e0->m_hWnd, NULL, NULL, 0x105);
+      ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x802a, 0);
+      for (selbrush_t *b = selected_selbrushes.next; b != &selected_selbrushes; b = b->next)
+      {
+        if (b->field_20 == 0)
+        {
+          FUN_00467f00();
+          return;
+        }
+      }
+    }
+  }
+}
+
+// 0x00418f90
+extern "C" void __fastcall FUN_00418f90(CMainFrame *self)
+{
+  CWnd *window = self->field_07e0;
+  if (window)
+  {
+    DAT_0109fe5f = false;
+    ::RedrawWindow(window->m_hWnd, NULL, NULL, 0x105);
+    ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x802a, 0);
+  }
+}
+
 extern "C" void FUN_00418fd0()
 {
   CWnd *window = g_pParentWnd->field_07e0;
@@ -1068,18 +1646,99 @@ extern "C" void __fastcall FUN_00418cf0(CMainFrame *self)
   prefs->SavePrefs();
   ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x8019, MAKELONG(PF(0x248) == 0, 0));
 }
+// 0x00419000
+extern "C" void __fastcall FUN_00419000(CMainFrame *self)
+{
+  if (self->field_07e0)
+    FUN_00452e30(self->field_07e0);
+}
+
 extern "C" void FUN_00419080() { Undo_Undo(); }
 extern "C" void FUN_00419090() { Undo_Redo(); }
 extern int DAT_0109fdc4;
+// 0x004190a0
+struct Dat109fdcc { unsigned char pad00[0xc]; int field_0c; };
+extern Dat109fdcc *DAT_0109fdcc;
+void CMainFrame::FUN_004190a0(CCmdUI *pCmdUI)
+{
+  if (DAT_0109fdcc && DAT_0109fdcc->field_0c)
+    pCmdUI->Enable(TRUE);
+  else
+    pCmdUI->Enable(FALSE);
+}
+
 void CMainFrame::FUN_004190e0(CCmdUI *pCmdUI)
 {
   bool enable = DAT_0109fdc4 != 0;
   pCmdUI->Enable(enable);
 }
+// 0x00419100
+extern int DAT_0112988c;
+extern "C" void __fastcall FUN_00419100(CMainFrame *self)
+{
+  if (--DAT_0112988c == 0)
+    DAT_0112988c = -1;
+  self->FUN_00419560();
+}
+
+// 0x00419120
+extern "C" void FUN_00419120() { FUN_00474230(1.0f, 1.0f, 0); dword_0123348c = -1; }
+
+// 0x00419140
+extern "C" void FUN_00419140() { FUN_00474230(1.0f, 1.0f, 1); dword_0123348c = -1; }
+
+// 0x00419160
+extern "C" void __fastcall FUN_00419160(CMainFrame *self)
+{
+  if (++DAT_0112988c == 0)
+    DAT_0112988c = 1;
+  self->FUN_00419560();
+}
+
+// 0x00419180
+extern "C" void FUN_00419180() { FUN_004733f0(FUN_00449760()); }
+
+// 0x00419190
+extern "C" void FUN_00419190() { FUN_004733f0(-FUN_00449760()); }
+
+// 0x004191a0
+extern "C" void FUN_004191a0() { FUN_00472860(0, (float)(DAT_010bcd2c * 2)); }
+
+// 0x004191d0
+extern "C" void FUN_004191d0() { FUN_00472860(0, (float)(-DAT_010bcd2c * 2)); }
+
+// 0x00419200
+extern "C" void FUN_00419200() { FUN_00472860((float)(DAT_010bcd2c * 2), 0); }
+
+// 0x00419230
+extern "C" void FUN_00419230() { FUN_00472860((float)(-DAT_010bcd2c * 2), 0); }
+
+// 0x00419660
+extern "C" void __fastcall FUN_00419660(CMainFrame *self) { self->FUN_00419560(); }
+
 extern "C" void FUN_00419670() { CFindTextureDlg::show(); }
 extern void (*dword_0059c474)(void);
 extern "C" void FUN_00419680() { dword_0059c474(); dword_0123348c |= 0xffffffff; }
 void DoProjectSettings(void);
+// 0x004196a0
+extern "C" void __fastcall FUN_004196a0(CMainFrame *self)
+{
+  int flag;
+  if ((DAT_0109fe60 & 2) && (DAT_0109fe60 & 4))
+  {
+    DAT_0109fe60 = 0;
+    flag = 0;
+  }
+  else
+  {
+    DAT_0109fe60 = 6;
+    flag = 1;
+  }
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x802e, flag);
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x802f, 0);
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x8030, 0);
+}
+
 extern "C" void FUN_00419930() { DoProjectSettings(); }
 extern "C" void FUN_00419950() { DialogBox(g_qeglobals.d_hInstance, (LPCSTR)217, g_qeglobals.d_hwndMain, FUN_00476840); }
 extern "C" void FUN_00419970() { FUN_0045c890(); }
@@ -1091,17 +1750,128 @@ extern "C" void FUN_004199b0() { FUN_0045cdc0(0.9f); dword_0123348c = -1; }
 extern "C" void FUN_004199d0() { FUN_0045cf60(1.1f); dword_0123348c = -1; }
 extern "C" void FUN_004199f0() { FUN_0045cf60(0.9f); dword_0123348c = -1; }
 extern int DAT_0109fecc;
+// 0x00419a10
+extern "C" void FUN_00419a10() { FUN_0045cc90(-0.05f); FUN_00439160(-1); dword_0123348c = -1; }
+
+// 0x00419a30
+extern "C" void FUN_00419a30() { FUN_0045cc90(0.05f); FUN_00439160(1); dword_0123348c = -1; }
+
+// 0x00419a60
+extern "C" void __fastcall FUN_00419a60(CMainFrame *self)
+{
+  CPrefsDlg *prefs = dword_01233b64;
+  if (--PFP(prefs, 0x2c4) < 1)
+    PFP(prefs, 0x2c4) = 1;
+  prefs->SavePrefs();
+  dword_0123348c |= 1;
+  self->FUN_00419560();
+}
+
+// 0x00419ab0
+extern "C" void __fastcall FUN_00419ab0(CMainFrame *self)
+{
+  CPrefsDlg *prefs = dword_01233b64;
+  if (++PFP(prefs, 0x2c4) > 220)
+    PFP(prefs, 0x2c4) = 220;
+  prefs->SavePrefs();
+  dword_0123348c |= 1;
+  self->FUN_00419560();
+}
+
+// 0x00419b90
+extern "C" void FUN_00419b90() { FUN_0047ab50(true); }
+
 void CMainFrame::FUN_00419ba0(CCmdUI *pCmdUI)
 {
   pCmdUI->Enable(DAT_0109fecc);
 }
+// 0x00419bc0
+extern "C" void FUN_00419bc0()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("move up");
+  Undo_AddBrushList(&selected_selbrushes);
+  float vec[3] = { 0, 0, (float)-DAT_010bcd2c };
+  FUN_0046fd50(vec, 1);
+  dword_0123348c |= 0xb;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+// 0x00419c30
+extern "C" void FUN_00419c30()
+{
+  float vec[3] = { 0, 0, (float)DAT_010bcd2c };
+  FUN_0046fd50(vec, 1);
+  dword_0123348c |= 0xb;
+}
+
 extern "C" void FUN_00419c70() {}
 extern "C" void FUN_00419c80() {}
+// 0x00419c90
+extern "C" void FUN_00419c90()
+{
+  for (selbrush_t *b = selected_selbrushes.next; b != &selected_selbrushes; b = b->next)
+    FUN_0045e2c0(b->def);
+}
+
+// 0x00419cc0
+void CMainFrame::FUN_00419cc0()
+{
+  if (m_wndTextureBar.GetSafeHwnd())
+    m_wndTextureBar.FUN_0043f460();
+}
+
+// 0x00419ce0
+extern "C" void FUN_00419ce0()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("make cone");
+  Undo_AddBrushList(&selected_selbrushes);
+  DAT_012334f5 = true;
+  DAT_012334f6 = false;
+  DialogBox(g_qeglobals.d_hInstance, (LPCSTR)113, g_qeglobals.d_hwndMain, FUN_004766d0);
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+// 0x00419d40
+extern "C" void __fastcall FUN_00419d40(CMainFrame *self)
+{
+  PF(0x244) ^= 1;
+  CMenu *pMenu = self->GetMenu();
+  if (pMenu)
+    ::CheckMenuItem(pMenu->m_hMenu, 0x8043, PF(0x244) ? MF_CHECKED : MF_UNCHECKED);
+  dword_01233b64->SavePrefs();
+  self->FUN_00419560();
+}
+
 extern "C" void FUN_00419f80() { FUN_0045c950(); }
 extern "C" void FUN_00419f90() { FUN_00437400(); }
+// 0x00419fa0
+extern "C" void FUN_00419fa0() { FUN_0041a010(3, DAT_010bcd2c); }
+
+// 0x00419fc0
+extern "C" void FUN_00419fc0() { FUN_0041a010(0, DAT_010bcd2c); }
+
+// 0x00419fd0
+extern "C" void FUN_00419fd0() { FUN_0041a010(2, DAT_010bcd2c); }
+
+// 0x00419ff0
+extern "C" void FUN_00419ff0() { FUN_0041a010(1, DAT_010bcd2c); }
+
 BOOL CMainFrame::PreTranslateMessage(MSG *pMsg)
 {
   return CFrameWnd::PreTranslateMessage(pMsg);
+}
+
+// 0x0041a2b0
+extern "C" void __stdcall FUN_0041a2b0(int axis, float amount)
+{
+  float vec[3] = { 0, 0, 0 };
+  vec[axis] = amount;
+  FUN_0046fd50(vec, 1);
+  dword_0123348c = -1;
 }
 
 extern "C" void __fastcall FUN_0041a2f0(CMainFrame *self)
@@ -1206,6 +1976,30 @@ extern "C" void __fastcall FUN_0041aa10(CMainFrame *self)
   dword_01233b64->SavePrefs();
   dword_0123348c |= 0xffffffff;
 }
+// 0x0041aa80
+extern "C" void FUN_0041aa80()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("make curve cone");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00428e20(1, 0, 0, 0);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+// 0x0041aad0
+extern "C" void FUN_0041aad0()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("make curve cylinder");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00428e20(0, 0, 0, 0);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
 extern "C" void __fastcall FUN_0041ab20(CMainFrame *self)
 {
   PFB(0x2e4) ^= 1;
@@ -1213,6 +2007,30 @@ extern "C" void __fastcall FUN_0041ab20(CMainFrame *self)
   dword_01233b64->SavePrefs();
   dword_0123348c |= 0xffffffff;
 }
+// 0x0041ab70
+extern "C" void FUN_0041ab70()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("make bevel");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00428e20(0, 1, 0, 0);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+// 0x0041abc0
+extern "C" void FUN_0041abc0()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("make end cap");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00428e20(0, 0, 1, 0);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
 extern "C" void FUN_0041ac10() {}
 extern "C" void FUN_0041ac20() {}
 extern "C" void __fastcall FUN_0041ac30(CMainFrame *self)
@@ -1222,9 +2040,169 @@ extern "C" void __fastcall FUN_0041ac30(CMainFrame *self)
   dword_01233b64->SavePrefs();
   dword_0123348c |= 0xffffffff;
 }
+// 0x0041ac80
+extern "C" void FUN_0041ac80()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("insert colum");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00431360(1, 1, 1);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+// 0x0041acd0
+extern "C" void FUN_0041acd0()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("insert row");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00431360(1, 0, 1);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+// 0x0041ad20
+extern "C" void FUN_0041ad20()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("delete column");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00431360(0, 1, 1);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+// 0x0041ad70
+extern "C" void FUN_0041ad70()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("delete row");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00431360(0, 0, 1);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+// 0x0041adc0
+extern "C" void FUN_0041adc0()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("add (2) columns");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00431360(1, 1, 1);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+// 0x0041ae10
+extern "C" void FUN_0041ae10()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("add (2) rows");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00431360(1, 0, 1);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+// 0x0041ae60
+extern "C" void FUN_0041ae60()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("insert (2) columns");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00431360(1, 1, 0);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+// 0x0041aeb0
+extern "C" void FUN_0041aeb0()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("insert (2) rows");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00431360(1, 0, 0);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
 extern "C" void FUN_0041af00() { FUN_00432bb0(); }
 extern "C" void FUN_0041af10() { FUN_00432ca0(0); }
 extern "C" void FUN_0041af20() { FUN_00432ca0(1); }
+// 0x0041af30
+extern "C" void FUN_0041af30()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("delete first (2) columns");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00431360(0, 1, 1);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+// 0x0041af80
+extern "C" void FUN_0041af80()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("delete first (2) rows");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00431360(0, 0, 1);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+// 0x0041afd0
+extern "C" void FUN_0041afd0()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("delete last (2) columns");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00431360(0, 1, 0);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+// 0x0041b020
+extern "C" void FUN_0041b020()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("delete last (2) rows");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00431360(0, 0, 0);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+// 0x0041b070
+extern "C" void __fastcall FUN_0041b070(CMainFrame *self)
+{
+  FUN_00433ad0();
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x8072, MAKELONG(DAT_012334ba != 0, 0));
+  dword_0123348c = -1;
+}
+
+// 0x0041b0b0
+extern "C" void __fastcall FUN_0041b0b0(CMainFrame *self)
+{
+  FUN_00434040();
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x8068, MAKELONG(DAT_012334b9 != 0, 0));
+  dword_0123348c = -1;
+}
+
 extern "C" void FUN_0041b0f0() {}
 
 extern bool DAT_012334ba;
@@ -1245,11 +2223,179 @@ extern "C" void FUN_0041b190(CMainFrame *self)
   ::CheckMenuItem(::GetMenu(g_qeglobals.d_hwndMain), 0x8173, DAT_0112993f ? MF_CHECKED : MF_UNCHECKED);
   ::CheckMenuItem(::GetMenu(g_qeglobals.d_hwndMain), 0x8175, DAT_011298b0 == 11 ? MF_CHECKED : MF_UNCHECKED);
 }
+// 0x0041b470
+extern "C" void FUN_0041b470()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("curve cap");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00428b80();
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+// 0x0041b4b0
+extern "C" void FUN_0041b4b0() { FUN_004311a0(); dword_0123348c = -1; }
+
+// 0x0041b4c0
+extern "C" void FUN_0041b4c0() { FUN_00430ff0(); dword_0123348c = -1; }
+
+// 0x0041b4d0
+extern "C" void FUN_0041b4d0() { FUN_00435c00(); dword_0123348c = -1; }
+
+// 0x0041b4e0
+extern "C" void FUN_0041b4e0() { FUN_00434190(0, 0, DAT_01128dc4, DAT_01128dc4); dword_0123348c = -1; }
+
+// 0x0041b500
+extern "C" void FUN_0041b500()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("snap to grid");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_004354b0();
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+// 0x0041b540
+extern "C" void FUN_0041b540()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("square cylinder");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00428e20(0, 0, 0, 1);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+// 0x0041b590
+void FUN_0041b590(CMainFrame *self, int id)
+{
+  CMenu *pMenu = self->GetMenu();
+  if (pMenu)
+  {
+    ::CheckMenuItem(pMenu->m_hMenu, 0x8082, MF_UNCHECKED);
+    ::CheckMenuItem(pMenu->m_hMenu, 0x8081, MF_UNCHECKED);
+    ::CheckMenuItem(pMenu->m_hMenu, 0x8080, MF_UNCHECKED);
+    ::CheckMenuItem(pMenu->m_hMenu, 0x807f, MF_UNCHECKED);
+    ::CheckMenuItem(pMenu->m_hMenu, 0x807e, MF_UNCHECKED);
+    ::CheckMenuItem(pMenu->m_hMenu, id, MF_CHECKED);
+  }
+  dword_01233b64->SavePrefs();
+  FUN_00441f80();
+  DAT_01128da0 = 0;
+  dword_0123348c |= 0x10;
+}
+
+// 0x0041b640
+extern "C" void __fastcall FUN_0041b640(CMainFrame *self) { PF(0x2d0) = 10; FUN_0041b590(self, 0x8082); }
+
+// 0x0041b660
+extern "C" void __fastcall FUN_0041b660(CMainFrame *self) { PF(0x2d0) = 100; FUN_0041b590(self, 0x807f); }
+
+// 0x0041b680
+extern "C" void __fastcall FUN_0041b680(CMainFrame *self) { PF(0x2d0) = 200; FUN_0041b590(self, 0x807e); }
+
+// 0x0041b6a0
+extern "C" void __fastcall FUN_0041b6a0(CMainFrame *self) { PF(0x2d0) = 25; FUN_0041b590(self, 0x8081); }
+
+// 0x0041b6c0
+extern "C" void __fastcall FUN_0041b6c0(CMainFrame *self) { PF(0x2d0) = 50; FUN_0041b590(self, 0x8080); }
+
 extern "C" void FUN_0041b6e0() { FUN_00437e50(); }
+// 0x0041b6f0
+extern "C" void FUN_0041b6f0() { FUN_00438020(); }
+
 extern "C" void FUN_0041b700() { FUN_00438120(); }
 extern "C" void FUN_0041b710() { FUN_00438ff0(); }
+// 0x0041b7f0
+extern "C" void FUN_0041b7f0() { FUN_00434190(1, 1, DAT_01128dc4, DAT_01128dc4); dword_0123348c = -1; }
+
+// 0x0041b810
+extern "C" void FUN_0041b810() { FUN_004353d0(); dword_0123348c = -1; }
+
+// 0x0041b930
+extern "C" void __fastcall FUN_0041b930(CMainFrame *self) { FUN_004114f0(self, 160); }
+
+// 0x0041b950
+extern "C" void __fastcall FUN_0041b950(CMainFrame *self)
+{
+  PF(0x2cc) = 0x1000;
+  FUN_0041b820(self);
+  dword_01233b64->SavePrefs();
+  dword_0123348c = -1;
+}
+
+// 0x0041b980
+extern "C" void __fastcall FUN_0041b980(CMainFrame *self)
+{
+  PF(0x2cc) = 0x110;
+  FUN_0041b820(self);
+  dword_01233b64->SavePrefs();
+  dword_0123348c = -1;
+}
+
+// 0x0041b9b0
+extern "C" void __fastcall FUN_0041b9b0(CMainFrame *self)
+{
+  PF(0x2cc) = 0x101;
+  FUN_0041b820(self);
+  dword_01233b64->SavePrefs();
+  dword_0123348c = -1;
+}
+
+// 0x0041b9e0
+extern "C" void __fastcall FUN_0041b9e0(CMainFrame *self)
+{
+  PF(0x2cc) = 0x10010;
+  FUN_0041b820(self);
+  dword_01233b64->SavePrefs();
+  dword_0123348c = -1;
+}
+
+// 0x0041ba10
+extern "C" void __fastcall FUN_0041ba10(CMainFrame *self)
+{
+  PF(0x2cc) = 0x11010;
+  FUN_0041b820(self);
+  dword_01233b64->SavePrefs();
+  dword_0123348c = -1;
+}
+
+// 0x0041ba40
+extern "C" void __fastcall FUN_0041ba40(CMainFrame *self)
+{
+  PF(0x2cc) = 0x10001;
+  FUN_0041b820(self);
+  dword_01233b64->SavePrefs();
+  dword_0123348c = -1;
+}
+
 extern "C" void FUN_0041ba70() { FUN_00441460(); }
 extern "C" void FUN_0041ba80() { DoPatchInspector(); }
+// 0x0041ba90
+extern "C" void FUN_0041ba90()
+{
+  if (selected_selbrushes.next != &selected_selbrushes && selected_selbrushes.next->next == &selected_selbrushes)
+    FUN_00473f50();
+  else
+    FUN_00473c70(0);
+  dword_0123348c = -1;
+}
+
+// 0x0041bad0
+extern "C" void FUN_0041bad0()
+{
+  if (selected_selbrushes.next != &selected_selbrushes && selected_selbrushes.next->next == &selected_selbrushes)
+    FUN_00473f50();
+  else
+    FUN_00473c70(1);
+  dword_0123348c = -1;
+}
+
 extern "C" void __fastcall FUN_0041bb10(CMainFrame *self)
 {
   DAT_0112993e = !DAT_0112993e;
@@ -1282,7 +2428,40 @@ extern "C" void __fastcall FUN_0041bb50(CMainFrame *self)
   FUN_0041b190(self);
 }
 extern bool DAT_012334d8;
+// 0x0041bbb0
+extern "C" void FUN_0041bbb0()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("square bevel");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00428e20(0, 1, 0, 1);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+// 0x0041bc00
+extern "C" void FUN_0041bc00()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("square endcap");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00428e20(0, 0, 1, 1);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
 extern "C" void FUN_0041bcb0() { DAT_012334d8 ^= 1; dword_0123348c |= 2; }
+// 0x0041bcc0
+extern "C" void FUN_0041bcc0()
+{
+  for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+    b->field_26 = 1;
+  dword_0123348c = -1;
+  FUN_0046fbe0(1);
+}
+
 extern "C" void FUN_0041bcf0()
 {
   for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
@@ -1292,6 +2471,44 @@ extern "C" void FUN_0041bcf0()
 extern "C" void FUN_0041bd20() { FUN_004745d0(); }
 void Select_Invert();
 extern "C" void FUN_0041bd30() { Select_Invert(); dword_0123348c |= 0xb; }
+// 0x0041bd40
+extern "C" void __fastcall FUN_0041bd40(CMainFrame *self)
+{
+  HWND window = g_qeglobals.field_4c;
+  int style = self->field_07a0;
+  if (style != 0 && style != 3)
+  {
+    if (DAT_011299a8 == 0x800 && style != 1)
+    {
+      if (::IsWindowVisible(window))
+        ::ShowWindow(window, SW_HIDE);
+      else
+        ::ShowWindow(window, SW_SHOW);
+      return;
+    }
+  }
+  else if (::IsWindowVisible(window) && DAT_011299a8 == 0x800)
+  {
+    ::ShowWindow(window, SW_HIDE);
+    return;
+  }
+  ::ShowWindow(window, SW_SHOW);
+  FUN_00477580(0x800);
+}
+
+// 0x0041be80
+extern "C" void FUN_0041be80()
+{
+  FUN_0049c2b0(DAT_00597154, "maps/test.camera");
+  FUN_0049b7a0(DAT_00597154);
+}
+
+// 0x0041bea0
+extern "C" void FUN_0041bea0() { DAT_00597154->save("maps/test.camera"); }
+
+// 0x0041bec0
+extern "C" void FUN_0041bec0() { FUN_00409930(); dword_0123348c = -1; }
+
 extern "C" void FUN_0041c0b0() {}
 extern "C" void FUN_0041c0c0() {}
 extern "C" void FUN_0041c0d0() {}
@@ -1309,6 +2526,73 @@ extern "C" void __fastcall name(CMainFrame *self) \
     CheckMenuItem(::GetMenu(g_qeglobals.d_hwndMain), menuId, MF_CHECKED); \
   FUN_0040cf30(self->field_0798); \
   dword_0123348c |= redraw; \
+}
+
+// 0x0041c0e0
+extern "C" void FUN_0041c0e0()
+{
+  int previous = DAT_011298b0;
+  DAT_011298b0 = 8;
+  if (previous == 11)
+    FUN_0041b190(g_pParentWnd);
+  else if (previous == 10)
+    FUN_0042beb0();
+  DAT_011298b4 = FUN_0041e540(1, DAT_00597154);
+  FUN_00409930();
+  dword_0123348c = -1;
+}
+
+// 0x0041c130
+extern "C" void FUN_0041c130()
+{
+  int previous = DAT_011298b0;
+  DAT_011298b0 = 8;
+  if (previous == 11)
+    FUN_0041b190(g_pParentWnd);
+  else if (previous == 10)
+    FUN_0042beb0();
+  DAT_011298b4 = FUN_0041e540(2, DAT_00597154);
+  FUN_00409930();
+  dword_0123348c = -1;
+}
+
+// 0x0041c180
+extern "C" void FUN_0041c180()
+{
+  int previous = DAT_011298b0;
+  DAT_011298b0 = 8;
+  if (previous == 11)
+    FUN_0041b190(g_pParentWnd);
+  else if (previous == 10)
+    FUN_0042beb0();
+  DAT_011298b4 = FUN_0041e540(0, DAT_00597154);
+  FUN_00409930();
+  dword_0123348c = -1;
+}
+
+// 0x0041c1d0
+extern "C" void __fastcall FUN_0041c1d0(CMainFrame *self)
+{
+  HWND window = g_qeglobals.field_4c;
+  int style = self->field_07a0;
+  if (style != 0 && style != 1 && style != 3)
+  {
+    if (DAT_011299a8 == 0x2000)
+    {
+      if (::IsWindowVisible(window))
+        ::ShowWindow(window, SW_HIDE);
+      else
+        ::ShowWindow(window, SW_SHOW);
+      return;
+    }
+  }
+  else if (::IsWindowVisible(window) && DAT_011299a8 == 0x2000)
+  {
+    ::ShowWindow(window, SW_HIDE);
+    return;
+  }
+  ::ShowWindow(window, SW_SHOW);
+  FUN_00477580(0x2000);
 }
 
 FILTER_TOGGLE(FUN_0041c440, d_exclude, 0x10, 0x8155, 0xb)
@@ -1409,6 +2693,17 @@ extern "C" void FUN_0041d560() { FUN_00472bd0(0); }
 extern "C" void FUN_0041d570() { FUN_00472bd0(1); }
 extern "C" void FUN_0041d580() { FUN_004733f0(90); }
 extern "C" void FUN_0041d590() { FUN_0046b070(0); }
+
+// 0x0041d5a0
+extern "C" void FUN_0041d5a0()
+{
+  if (FUN_0046b550())
+  {
+    if (DAT_010a4908 && ::MessageBox(g_qeglobals.d_hwndMain, "This will lose changes to the map", "warning", MB_OKCANCEL) == IDCANCEL)
+      return;
+    FUN_0046b5b0();
+  }
+}
 
 // 0x0041d5e0 (843 B)
 void FUN_0041d5e0(brush_t *brushList, const char *msg)
