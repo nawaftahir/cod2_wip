@@ -3008,15 +3008,15 @@ void AxisTransformComponents( const vec3_t axis[3], float x, float y, float z, v
 	out[1] = x * axis[0][1] + y * axis[1][1] + z * axis[2][1];
 	out[2] = x * axis[0][2] + y * axis[1][2] + z * axis[2][2];
 }
-
-
-
-
-
-
-
-
-
+void YawToAxis( float yaw, vec3_t axis[3] )
+{
+	vec3_t right;
+	YawVectors(yaw, axis[0], right);
+	axis[2][0] = 0;
+	axis[2][1] = 0;
+	axis[2][2] = 1.0f;
+	VectorSubtract(vec3_origin, right, axis[1]);
+}
 /*
 ==============
 IntersectPlanes
