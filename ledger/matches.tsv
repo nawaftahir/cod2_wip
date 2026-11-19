@@ -74,6 +74,7 @@ addr	size	source	symbol	name	tag
 0x00403160	278	src/radiant/CamWnd.cpp	?OnPaint@CCamWnd@@IAEXXZ	CCamWnd::OnPaint	SUPPORTED
 0x00403280	4	src/radiant/CamWnd.cpp	?SetXYFriend@CCamWnd@@QAEXPAVCXYWnd@@@Z	CCamWnd::SetXYFriend	SUPPORTED
 0x00403290	5	src/radiant/CamWnd.cpp	?OnClose@CCamWnd@@IAEXXZ	CCamWnd::OnClose	SUPPORTED
+0x004032a0	69	src/radiant/CamWnd.cpp	?OnMouseMove@CCamWnd@@IAEXIVCPoint@@@Z	CCamWnd::OnMouseMove	SUPPORTED
 0x004032f0	94	src/radiant/CamWnd.cpp	?OnLButtonDown@CCamWnd@@IAEXIVCPoint@@@Z	CCamWnd::OnLButtonDown	SUPPORTED
 0x00403350	55	src/radiant/CamWnd.cpp	?OnLButtonUp@CCamWnd@@IAEXIVCPoint@@@Z	CCamWnd::OnLButtonUp	SUPPORTED
 0x00403390	78	src/radiant/CamWnd.cpp	?OnMButtonDown@CCamWnd@@IAEXIVCPoint@@@Z	CCamWnd::OnMButtonDown	SUPPORTED
@@ -96,8 +97,17 @@ addr	size	source	symbol	name	tag
 0x00407560	23	src/radiant/CamWnd.cpp	?OnKeyUp@CCamWnd@@IAEXIII@Z	CCamWnd::OnKeyUp	SUPPORTED
 0x00407580	34	src/radiant/CamWnd.cpp	?OnMouseWheel@CCamWnd@@IAEHIFVCPoint@@@Z	CCamWnd::OnMouseWheel	SUPPORTED
 0x004075b0	15	src/radiant/CamWnd.cpp	?OnSysKeyDown@CCamWnd@@IAEXIII@Z	CCamWnd::OnSysKeyDown	SUPPORTED
+0x004075e0	115	src/radiant/CamWnd.cpp	?FormatV@?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAEXPBDPAD@Z	ATL::CStringT::FormatV	SUPPORTED
+0x00407690	9	src/radiant/CamWnd.cpp	?Format@?$ChTraitsCRT@D@ATL@@SAHPADPBD0@Z	ATL::ChTraitsCRT::Format	SUPPORTED
+0x004076a0	9	src/radiant/CamWnd.cpp	?GetFormattedLength@?$ChTraitsCRT@D@ATL@@SAHPBDPAD@Z	ATL::ChTraitsCRT::GetFormattedLength	SUPPORTED
 0x00407730	142	src/radiant/CamWnd.cpp	??A?$idList@H@@QAEAAHH@Z	idList<int>::operator[]	SUPPORTED
 0x004077c0	1	src/radiant/CamWnd.cpp	_FUN_004077c0	FUN_004077c0	UNNAMED
+0x00407860	166	src/radiant/CamWnd.cpp	??0?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAE@PBD@Z	ATL::CStringT::CStringT(const char *)	SUPPORTED
+0x00407990	204	src/radiant/CamWnd.cpp	?LoadStringA@?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAEHPAUHINSTANCE__@@I@Z	ATL::CStringT::LoadString(HINSTANCE, UINT)	SUPPORTED
+0x00407a60	50	src/radiant/CamWnd.cpp	?AtlGetStringResourceImage@ATL@@YAPBUATLSTRINGRESOURCEIMAGE@1@PAUHINSTANCE__@@I@Z	ATL::AtlGetStringResourceImage	SUPPORTED
+0x00407aa0	96	src/radiant/CamWnd.cpp	?_AtlGetStringResourceImage@ATL@@YAPBUATLSTRINGRESOURCEIMAGE@1@PAUHINSTANCE__@@PAUHRSRC__@@I@Z	ATL::_AtlGetStringResourceImage	SUPPORTED
+0x00407b00	26	src/radiant/CamWnd.cpp	?GetBaseTypeLength@?$ChTraitsCRT@D@ATL@@SAHPBGH@Z	ATL::ChTraitsCRT::GetBaseTypeLength	SUPPORTED
+0x00407c40	31	src/radiant/CamWnd.cpp	?ConvertToBaseType@?$ChTraitsCRT@D@ATL@@SAXPADHPBGH@Z	ATL::ChTraitsCRT::ConvertToBaseType	SUPPORTED
 0x00407f80	29	src/radiant/CapDialog.cpp	??0CCapDialog@@QAE@PAVCWnd@@@Z	CCapDialog::CCapDialog	SUPPORTED
 0x00407fd0	5	src/radiant/CapDialog.cpp	??1CCapDialog@@UAE@XZ	CCapDialog::~CCapDialog	SUPPORTED
 0x00407fe0	25	src/radiant/CapDialog.cpp	?DoDataExchange@CCapDialog@@MAEXPAVCDataExchange@@@Z	CCapDialog::DoDataExchange	SUPPORTED

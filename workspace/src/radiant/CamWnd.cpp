@@ -17,7 +17,7 @@ struct eclass_t
 {
     unsigned char pad00[4];
     char *name;
-    unsigned char pad08[4];
+    int fixedsize;
     float mins[3];
     unsigned char pad18[0xc];
     float color[3];
@@ -78,7 +78,7 @@ void FUN_0045f7e0();
 void FUN_00451c00(brush_t *b, unsigned int *outColor);
 void __stdcall FUN_00405bb0(const float *origin, float radius, float top, float bottom, const unsigned int *color, int segments);
 
-struct CAdvCurveEditDlg { int FUN_00401d90(); };
+struct CAdvCurveEditDlg { int FUN_00401d90(); bool FUN_00401d30(); };
 // view of splines.h idPointListInterface (splines.h does not build next to com_math.h)
 class idPointListInterface
 {
@@ -174,6 +174,7 @@ extern CamWndRefExport re;
 
 class CCamWnd;
 void __stdcall FUN_00405380(CCamWnd *camera);
+bool FUN_00458fa0(brush_t *b, float *origin, float *dir, float *t, int flags);
 
 struct plane_t
 {
@@ -420,6 +421,127 @@ extern CPrefsDlg *dword_01233b64;
 extern unsigned dword_0123348c;
 extern int dword_0058fbe0;
 
+void FUN_00403610(CCamWnd *cam, int up)
+{
+    float start[3], dir[3], d, current, bestd;
+    brush_t *b;
+
+    start[0] = cam->m_Camera.origin[0];
+    start[1] = cam->m_Camera.origin[1];
+    start[2] = 131072.0f;
+    dir[0] = 0;
+    dir[1] = 0;
+    dir[2] = -1;
+    current = 131072.0f - (cam->m_Camera.origin[2] - 48.0f);
+    bestd = 0;
+    if (up == 0)
+        bestd = 262144.0f;
+    for (b = active_brushes.next; b != &active_brushes; b = b->next)
+    {
+        if (!FUN_00458fa0(b, start, dir, &d, 0))
+            continue;
+        if (up == 0)
+        {
+            if (d > current && d < bestd)
+                bestd = d;
+        }
+        else if (d < current && d > bestd)
+            bestd = d;
+    }
+    if (bestd == 0 || bestd == 262144.0f)
+        return;
+    dword_0123348c |= 0x21;
+    cam->m_Camera.origin[2] += current - bestd;
+}
+
+// FUN_00403720..FUN_004039e0: mouse-drag camera modes, all follow the cursor delta then recentre it
+void FUN_00403720(CCamWnd *cam)
+{
+    POINT pt;
+    float forward[3];
+    float step;
+
+    GetCursorPos(&pt);
+    if (pt.x != cam->m_ptCursor.x || pt.y != cam->m_ptCursor.y)
+    {
+        cam->m_Camera.angles[1] -= (float)dword_01233b64->m_nMoveSpeed / 500.0f * (float)(pt.x - cam->m_ptCursor.x);
+        forward[0] = cam->m_Camera.vpn[0];
+        forward[1] = cam->m_Camera.vpn[1];
+        forward[2] = 0;
+        step = (float)dword_01233b64->m_nMoveSpeed / -250.0f * (float)(pt.y - cam->m_ptCursor.y);
+        Vec3Normalize(forward);
+        cam->m_Camera.origin[0] += forward[0] * step;
+        cam->m_Camera.origin[1] += forward[1] * step;
+        cam->m_Camera.origin[2] += forward[2] * step;
+        SetCursorPos(cam->m_ptCursor.x, cam->m_ptCursor.y);
+        cam->field_128 = false;
+        ShowCursor(FALSE);
+        dword_0123348c |= (dword_01233b64->m_bCamXYUpdate != 0) * 4 + 1;
+    }
+}
+
+void FUN_00403840(CCamWnd *cam)
+{
+    POINT pt;
+    int x, y;
+
+    GetCursorPos(&pt);
+    x = cam->m_ptCursor.x;
+    if (pt.x != x || pt.y != cam->m_ptCursor.y)
+    {
+        cam->m_Camera.angles[1] -= (float)dword_01233b64->m_nMoveSpeed / 500.0f * (float)(pt.x - x);
+        y = cam->m_ptCursor.y;
+        cam->m_Camera.angles[0] -= (float)dword_01233b64->m_nMoveSpeed / 500.0f * (float)(pt.y - y);
+        SetCursorPos(x, y);
+        cam->field_128 = false;
+        ShowCursor(FALSE);
+        dword_0123348c |= (dword_01233b64->m_bCamXYUpdate != 0) * 4 + 1;
+    }
+}
+
+void FUN_00403920(CCamWnd *cam)
+{
+    POINT pt;
+    int x, y;
+
+    GetCursorPos(&pt);
+    x = cam->m_ptCursor.x;
+    if (pt.x != x || pt.y != cam->m_ptCursor.y)
+    {
+        y = cam->m_ptCursor.y;
+        cam->m_Camera.angles[1] -= (float)(pt.x - x) * 0.35f;
+        cam->m_Camera.angles[0] -= (float)(pt.y - y) * 0.35f;
+        SetCursorPos(x, y);
+        cam->field_128 = false;
+        ShowCursor(FALSE);
+        dword_0123348c |= (dword_01233b64->m_bCamXYUpdate != 0) * 4 + 1;
+    }
+}
+
+void FUN_004039e0(CCamWnd *cam)
+{
+    POINT pt;
+    float step;
+    int x, y;
+
+    GetCursorPos(&pt);
+    if (pt.x != cam->m_ptCursor.x || pt.y != cam->m_ptCursor.y)
+    {
+        step = (float)dword_01233b64->m_nMoveSpeed / 300.0f * (float)(pt.x - cam->m_ptCursor.x);
+        cam->m_Camera.origin[0] += step * cam->m_Camera.vright[0];
+        cam->m_Camera.origin[1] += step * cam->m_Camera.vright[1];
+        cam->m_Camera.origin[2] += step * cam->m_Camera.vright[2];
+        y = cam->m_ptCursor.y;
+        step = (float)dword_01233b64->m_nMoveSpeed / 300.0f * (float)(pt.y - y);
+        x = cam->m_ptCursor.x;
+        cam->m_Camera.origin[2] -= step;
+        SetCursorPos(x, y);
+        cam->field_128 = false;
+        ShowCursor(FALSE);
+        dword_0123348c |= (dword_01233b64->m_bCamXYUpdate != 0) * 4 + 1;
+    }
+}
+
 void CCamWnd::Cam_MouseControl(float dtime)
 {
     float xf, yf;
@@ -515,6 +637,46 @@ void FUN_00403dc0(int x1, int y1, int x2, int y2, plane_t *planes)
     }
 }
 
+struct trace_t { brush_t *brush; void *face; float dist; bool selected; float normal[3]; };
+struct selbrush_t;
+extern selbrush_t selected_selbrushes;
+extern double DAT_01129940;
+extern int DAT_005909f8;
+extern bool DAT_012334b8;
+extern bool DAT_0109fe5f;
+extern int DAT_010bcd2c;
+extern bool DAT_0112993c;
+extern bool DAT_0112993d;
+void SinCosDegrees(float angle, float *s, float *c);
+void AxisClear(float (*axis)[3]);
+void FUN_0046e4a0();
+trace_t FUN_0046ef10(const float *origin, const float *dir, int flags);
+void FUN_00470c50(float *mid);
+void FUN_00470a50(float mins[3], float maxs[3]);
+void FUN_00470ce0(bool flag, float *center, float (*matrix)[3], int a, int axis, float angle);
+void FUN_0046fd50(float *delta, int bSnap);
+void FUN_0046fe50();
+void FUN_004433b0();
+void Undo_GeneralStart(char *operation);
+void Undo_AddBrushList(selbrush_t *list);
+void FUN_00443f80(selbrush_t *list);
+void Undo_End();
+void FUN_0046fbe0(bool bDeselectFaces);
+void FUN_0046f0b0(brush_t *brush, bool bComplete, bool bStatus, bool bPositionView);
+void FUN_0046ddc0();
+void FUN_00465bf0(entity_t *e, const char *key, const char *value);
+void FUN_00467d00(entity_t *e, const float *normal);
+void Drag_Begin(int x, int y, int buttons, const float *xaxis, const float *yaxis, const float *origin, const float *dir,
+                void (*pfnDragRect)(int, int, int, int, float *));
+void Sys_Printf(const char *text, ...);
+void Sys_GetCursorPos(int *x, int *y);
+void Drag_MouseMoved(int x, int y, int buttons, float *origin, float *dir);
+void FUN_004733f0(int);
+void FUN_00472860(float x, float y);
+int FUN_00449760();
+
+#define CAM_ALT() (((unsigned)GetAsyncKeyState(VK_MENU) >> 15) & 1)
+
 void FUN_00462760(int buttons);
 
 void CCamWnd::Cam_MouseUp(int x, int y, int buttons)
@@ -526,6 +688,140 @@ void CCamWnd::Cam_MouseUp(int x, int y, int buttons)
     field_128 = true;
     while (ShowCursor(TRUE) < 0)
         ;
+}
+
+void CCamWnd::Cam_MouseMoved(int x, int y, int buttons)
+{
+    float dir[3];
+    int cx, cy, dx, dy, g, rx, ry;
+    POINT pt;
+
+    m_nCambuttonstate = buttons;
+    if (!buttons)
+    {
+        if (DAT_01233b68.FUN_00401d30())
+            dword_0123348c |= 1;
+        return;
+    }
+    m_ptButton.x = x;
+    m_ptButton.y = y;
+
+    if (buttons == MK_RBUTTON)
+    {
+        if (CAM_ALT())
+        {
+            if (dword_011298b0 == 10)
+            {
+                FUN_00403ce0(x, y, dir);
+                Drag_MouseMoved(x, y, MK_RBUTTON, m_Camera.origin, dir);
+                dword_0123348c |= 1;
+                return;
+            }
+            Sys_GetCursorPos(&cx, &cy);
+            if (cx == m_ptCursor.x && cy == m_ptCursor.y)
+                return;
+            field_120 += cx - m_ptCursor.x;
+            field_124 += cy - m_ptCursor.y;
+            g = DAT_010bcd2c;
+            rx = field_120 % g;
+            if (field_120 != rx || field_124 % g != field_124)
+            {
+                dx = field_120 - rx;
+                field_120 -= dx;
+                ry = field_124 - field_124 % DAT_010bcd2c;
+                field_124 -= ry;
+                FUN_00472860((float)dx, (float)ry);
+            }
+            SetCursorPos(m_ptCursor.x, m_ptCursor.y);
+            ShowCursor(FALSE);
+            field_128 = false;
+            return;
+        }
+    }
+    else if (buttons == (MK_RBUTTON | MK_CONTROL) && CAM_ALT())
+    {
+        GetCursorPos(&pt);
+        if (pt.x == m_ptCursor.x && pt.y == m_ptCursor.y)
+            return;
+        field_120 += pt.x - m_ptCursor.x;
+        field_124 += pt.y - m_ptCursor.y;
+        g = DAT_010bcd2c;
+        rx = field_120 % g;
+        if (field_120 != rx || field_124 % g != field_124)
+        {
+            dx = field_120 - rx;
+            field_120 = rx;
+            ry = field_124 - field_124 % DAT_010bcd2c;
+            field_124 -= ry;
+            FUN_004733f0(FUN_00449760() * (dx / DAT_010bcd2c + ry / DAT_010bcd2c));
+        }
+        SetCursorPos(m_ptCursor.x, m_ptCursor.y);
+        ShowCursor(FALSE);
+        field_128 = false;
+        return;
+    }
+
+    if ((buttons & MK_RBUTTON) && !CAM_ALT() && dword_01233b64->m_bCameraMode == 2)
+    {
+        if (buttons & MK_CONTROL)
+            FUN_004039e0(this);
+        else
+            FUN_00403920(this);
+        dword_0123348c |= 1;
+        return;
+    }
+    if (buttons == MK_RBUTTON)
+    {
+        if (!CAM_ALT() && dword_01233b64->m_bCameraMode == 1)
+        {
+            FUN_00403720(this);
+            dword_0123348c |= 1;
+            return;
+        }
+    }
+    else if (buttons == 14)
+    {
+        if (!CAM_ALT())
+        {
+            FUN_00403840(this);
+            dword_0123348c |= 1;
+            return;
+        }
+    }
+    else if (buttons == (MK_RBUTTON | MK_CONTROL))
+    {
+        if (!CAM_ALT())
+        {
+            FUN_004039e0(this);
+            dword_0123348c |= 1;
+            return;
+        }
+    }
+
+    GetCursorPos(&m_ptCursor);
+    if (buttons & (MK_LBUTTON | MK_MBUTTON))
+    {
+        if (!DAT_0112993c && !DAT_0112993d)
+        {
+            FUN_00403ce0(x, y, dir);
+            Drag_MouseMoved(x, y, buttons, m_Camera.origin, dir);
+            dword_0123348c |= 0xb;
+            return;
+        }
+        if (dword_011298b0 == 14 || dword_011298b0 == 15 || dword_011298b0 == 16 || dword_011298b0 == 17)
+        {
+            DAT_0112993c = false;
+            DAT_0112993d = false;
+            return;
+        }
+        if (buttons == 5 || (buttons == 9 && CAM_ALT()) || buttons == 13)
+        {
+            Cam_MouseDown(x, y, buttons);
+            return;
+        }
+        DAT_0112993c = false;
+        DAT_0112993d = false;
+    }
 }
 
 void CCamWnd::InitCull()
@@ -608,6 +904,9 @@ bool FUN_00405450(CCamWnd *camera, brush_t *brush)
 
     return false;
 }
+
+
+void __stdcall FUN_00405640(const float *origin, float radius, const float *color, int sideCount);
 
 // Solid cylinder: bottom cap, top cap and side quads
 void __stdcall FUN_00405bb0(const float *origin, float radius, float top, float bottom, const unsigned int *color, int sideCount)
@@ -725,6 +1024,39 @@ void __stdcall FUN_00406050(const float *origin, float radius, float height, int
     count = R_Add3DLine(verts, ring[segments - 1], ring[0], &color, 1, count, 0x2000);
     if (count)
         re.AddLines(count / 2, 1, verts);
+}
+
+void __stdcall FUN_004061f0(brush_t *brush, CCamWnd *camera)
+{
+    if (FUN_0044f5d0(brush))
+        return;
+    float origin[3], color[4];
+    origin[0] = (brush->def->mins[0] + brush->def->maxs[0]) * 0.5f;
+    origin[1] = (brush->def->mins[1] + brush->def->maxs[1]) * 0.5f;
+    origin[2] = (brush->def->mins[2] + brush->def->maxs[2]) * 0.5f;
+#line 1424
+    assert(brush->owner->def == brush->def->owner);
+    atof(ValueForKey(brush->owner->def->epairs, "light"));
+    color[0] = 1.0f;
+    color[1] = 1.0f;
+    color[2] = 1.0f;
+    CString colorString(ValueForKey(brush->owner->def->epairs, "_color"));
+    if (colorString.GetLength() > 0)
+    {
+        float r, g, b;
+        if (sscanf(colorString, "%f %f %f", &r, &g, &b) == 3)
+        {
+            color[0] = r;
+            color[1] = g;
+            color[2] = b;
+        }
+    }
+    color[3] = 1.0f;
+    color[0] *= 0.125f;
+    color[1] *= 0.125f;
+    color[2] *= 0.125f;
+    float radius = (float)atof(ValueForKey(brush->owner->def->epairs, "radius"));
+    FUN_00405640(origin, radius, color, 32);
 }
 
 #line 1461
