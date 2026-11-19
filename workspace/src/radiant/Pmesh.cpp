@@ -1065,7 +1065,8 @@ bool FUN_0042af90(const float *origin, unsigned char *hitInfo, const float *dir,
     return true;
 }
 
-typedef float (*PatchPaintFunc)(PatchControl *c, int component, float value, float delta, float weight);
+// first arg is the PatchControl; 0x42b6d0/0x42b760 are matched with int
+typedef float (*PatchPaintFunc)(int c, int component, float value, float delta, float weight);
 
 float FUN_00401c20();
 float FUN_00401b80();
@@ -1107,15 +1108,15 @@ void FUN_0042b0f0(brush_t *b, int flags, const float *point, float delta, PatchP
                 Undo_AddBrush((brushdef_t *)p->cache_3828);
             }
             if (flags & 1)
-                p->ctrl[i][j].xyz[2] = func(&p->ctrl[i][j], 0, p->ctrl[i][j].xyz[2], delta, weight);
+                p->ctrl[i][j].xyz[2] = func((int)&p->ctrl[i][j], 0, p->ctrl[i][j].xyz[2], delta, weight);
             if (flags & 8)
-                p->ctrl[i][j].color_28[0] = I_fround(min(255.0f, max(0.0f, func(&p->ctrl[i][j], 3, p->ctrl[i][j].color_28[0], delta * 0.0625f, weight))));
+                p->ctrl[i][j].color_28[0] = I_fround(min(255.0f, max(0.0f, func((int)&p->ctrl[i][j], 3, p->ctrl[i][j].color_28[0], delta * 0.0625f, weight))));
             if (flags & 4)
-                p->ctrl[i][j].color_28[1] = I_fround(min(255.0f, max(0.0f, func(&p->ctrl[i][j], 2, p->ctrl[i][j].color_28[1], delta * 0.0625f, weight))));
+                p->ctrl[i][j].color_28[1] = I_fround(min(255.0f, max(0.0f, func((int)&p->ctrl[i][j], 2, p->ctrl[i][j].color_28[1], delta * 0.0625f, weight))));
             if (flags & 2)
-                p->ctrl[i][j].color_28[2] = I_fround(min(255.0f, max(0.0f, func(&p->ctrl[i][j], 1, p->ctrl[i][j].color_28[2], delta * 0.0625f, weight))));
+                p->ctrl[i][j].color_28[2] = I_fround(min(255.0f, max(0.0f, func((int)&p->ctrl[i][j], 1, p->ctrl[i][j].color_28[2], delta * 0.0625f, weight))));
             if (flags & 0x10)
-                p->ctrl[i][j].color_28[3] = I_fround(min(255.0f, max(0.0f, func(&p->ctrl[i][j], 4, p->ctrl[i][j].color_28[3], delta * 0.0625f, weight))));
+                p->ctrl[i][j].color_28[3] = I_fround(min(255.0f, max(0.0f, func((int)&p->ctrl[i][j], 4, p->ctrl[i][j].color_28[3], delta * 0.0625f, weight))));
         }
     }
     if (changed)
@@ -1153,8 +1154,8 @@ static float g_patchAccumVals[5];
 // Retail 0x0042b6e0: blend a component toward its accumulated value.
 float FUN_0042b6e0(int unused1, int index, float value, float delta, float weight)
 {
-    float t = delta * weight;
-    t = max(0.0f, min(1.0f, t));
+    float f = delta * weight;
+    float t = max(0.0f, min(1.0f, f));
     return (1.0f - t) * value + t * g_patchAccumVals[index];
 }
 
@@ -1170,9 +1171,142 @@ float FUN_0042b760(int unused1, int index, float value, int unused2, float weigh
 // Retail 0x0042b790: twin of 0x0042b6e0.
 float FUN_0042b790(int unused1, int index, float value, float delta, float weight)
 {
-    float t = delta * weight;
-    t = max(0.0f, min(1.0f, t));
+    float f = delta * weight;
+    float t = max(0.0f, min(1.0f, f));
     return (1.0f - t) * value + t * g_patchAccumVals[index];
+}
+
+float FUN_0042b810(int unused1, int index, float value, float delta, float weight);
+
+// Projection of CAdvCurveEditDlg (AdvCurveDlg.cpp) for the one global instance used here.
+class CAdvCurveEditDlg : public CWnd
+{
+public:
+    int FUN_00401d90();
+    void FUN_00401df0(int selected);
+    void FUN_00402300(COLORREF value);
+    COLORREF FUN_00402320();
+    void FUN_00402330(BYTE value);
+    BYTE FUN_00402350();
+    void FUN_00402360(float value);
+    float FUN_004023c0();
+};
+extern CAdvCurveEditDlg DAT_01233b68;
+extern int DAT_010bcd2c;
+extern float DAT_0124a184;
+
+// Retail 0x0042b870: patch paint at the picked point, by the curve dialog's paint mode.
+void FUN_0042b870(int buttons, const float *origin, const float *dir)
+{
+    vec3_t hit;
+    if ((buttons == 1 || buttons == 2) && FUN_0042af90(origin, NULL, dir, hit))
+    {
+    float scale = 1.0f;
+    if (buttons != 1)
+        scale = -1.0f;
+    int flags = 0;
+    if (((CButton *)DAT_01233b68.GetDlgItem(1469))->GetCheck())
+        flags = 1;
+    if (((CButton *)DAT_01233b68.GetDlgItem(1470))->GetCheck())
+        flags |= 0xe;
+    else
+    {
+        if (((CButton *)DAT_01233b68.GetDlgItem(1471))->GetCheck())
+            flags |= 2;
+        if (((CButton *)DAT_01233b68.GetDlgItem(1472))->GetCheck())
+            flags |= 4;
+        if (((CButton *)DAT_01233b68.GetDlgItem(1473))->GetCheck())
+            flags |= 8;
+    }
+    if (((CButton *)DAT_01233b68.GetDlgItem(1474))->GetCheck())
+        flags |= 0x10;
+    switch (DAT_01233b68.FUN_00401d90())
+    {
+    case 0:
+        FUN_0042b680(flags, hit, (float)DAT_010bcd2c * scale * 0.5f, FUN_0042b6d0);
+        break;
+    case 1:
+        break;
+    case 2:
+        g_patchAccumVals[0] = DAT_01233b68.FUN_004023c0();
+        if (scale < 0.0f)
+        {
+            g_patchAccumVals[1] = 255.0f;
+            g_patchAccumVals[2] = 255.0f;
+            g_patchAccumVals[3] = 255.0f;
+            g_patchAccumVals[4] = 255.0f;
+        }
+        else
+        {
+            COLORREF color = DAT_01233b68.FUN_00402320();
+            g_patchAccumVals[1] = GetRValue(color);
+            g_patchAccumVals[2] = GetGValue(color);
+            g_patchAccumVals[3] = GetBValue(color);
+            g_patchAccumVals[4] = DAT_01233b68.FUN_00402350();
+        }
+        FUN_0042b680(flags, hit, 1.0f, FUN_0042b6e0);
+        break;
+    case 3:
+        g_patchAccumWeights[0] = 0.0f;
+        g_patchAccumVals[0] = 0.0f;
+        g_patchAccumWeights[1] = 0.0f;
+        g_patchAccumVals[1] = 0.0f;
+        g_patchAccumWeights[2] = 0.0f;
+        g_patchAccumVals[2] = 0.0f;
+        g_patchAccumWeights[3] = 0.0f;
+        g_patchAccumVals[3] = 0.0f;
+        g_patchAccumWeights[4] = 0.0f;
+        g_patchAccumVals[4] = 0.0f;
+        FUN_0042b680(flags, hit, 0.0f, (PatchPaintFunc)FUN_0042b760);
+        if (g_patchAccumWeights[0] != 0.0f)
+            g_patchAccumVals[0] /= g_patchAccumWeights[0];
+        else
+            flags &= ~1;
+        if (g_patchAccumWeights[1] != 0.0f)
+            g_patchAccumVals[1] /= g_patchAccumWeights[1];
+        else
+            flags &= ~2;
+        if (g_patchAccumWeights[2] != 0.0f)
+            g_patchAccumVals[2] /= g_patchAccumWeights[2];
+        else
+            flags &= ~4;
+        if (g_patchAccumWeights[3] != 0.0f)
+            g_patchAccumVals[3] /= g_patchAccumWeights[3];
+        else
+            flags &= ~8;
+        if (g_patchAccumWeights[4] != 0.0f)
+            g_patchAccumVals[4] /= g_patchAccumWeights[4];
+        else
+            flags &= ~0x10;
+        if (flags)
+            FUN_0042b680(flags, hit, FUN_00401c20() * (float)DAT_010bcd2c * 0.01f, FUN_0042b790);
+        break;
+    case 4:
+        g_patchAccumWeights[0] = DAT_0124a184;
+        g_patchAccumWeights[1] = DAT_0124a184;
+        g_patchAccumWeights[2] = DAT_0124a184;
+        g_patchAccumWeights[3] = DAT_0124a184;
+        g_patchAccumWeights[4] = DAT_0124a184;
+        DAT_0124a184 += 1.0f;
+        FUN_0042b680(flags, hit, FUN_00401c20(), FUN_0042b810);
+        break;
+    case 5:
+    {
+        unsigned char info[4];
+        if (!FUN_0042af90(origin, info, dir, hit))
+            return;
+        g_patchAccumVals[0] = hit[2];
+        g_patchAccumVals[1] = info[2];
+        g_patchAccumVals[2] = info[1];
+        g_patchAccumVals[3] = info[0];
+        g_patchAccumVals[4] = info[3];
+        DAT_01233b68.FUN_00402360(hit[2]);
+        DAT_01233b68.FUN_00402300(RGB(info[2], info[1], info[0]));
+        DAT_01233b68.FUN_00402330(info[3]);
+        break;
+    }
+    }
+    }
 }
 
 void FUN_0042bd10(brush_t *list)
@@ -1201,14 +1335,6 @@ bool FUN_0042bd90()
     return true;
 }
 
-// Projection of CAdvCurveEditDlg (AdvCurveDlg.cpp) for the one global instance used here.
-class CAdvCurveEditDlg
-{
-public:
-    int FUN_00401d90();
-    void FUN_00401df0(int selected);
-};
-extern CAdvCurveEditDlg DAT_01233b68;
 void FUN_0042bde0(brush_t *list);
 void Undo_End();
 
