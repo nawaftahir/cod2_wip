@@ -28,7 +28,10 @@ struct XYQEGlobals
 {
     int d_showgrid;
     int d_gridsize;
-    unsigned char pad0[0x24];
+    unsigned char pad0a[8];
+    float d_new_brush_bottom[3];
+    float d_new_brush_top[3];
+    unsigned char pad0b[4];
     HWND d_hwndMain;
     unsigned char pad1[0x10];
     HWND d_hwndXY;
@@ -46,7 +49,8 @@ extern int g_nScaleHow;
 extern int g_nPointCount;
 extern float g_vRotateOrigin[3];
 extern float g_vRotation[3];
-extern void *g_pMovingClip;
+class CClipPoint;
+extern CClipPoint *g_pMovingClip;
 extern brush_t g_brClipboard;
 extern brush_t g_brUndo;
 
@@ -63,6 +67,18 @@ class CMainFrame
 {
 public:
     void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
+    void FUN_00417cf0();
+    void SetStatusText(int nPane, const char *pText)
+    {
+        if (pText && nPane <= 5 && nPane > 0)
+        {
+            m_strStatus[nPane] = pText;
+            FUN_00417cf0();
+        }
+    }
+
+    unsigned char pad_00[0x7a4];
+    CString m_strStatus[6];
 };
 void __stdcall FUN_004137d0(CMainFrame *self, UINT nChar);
 struct CXYWndMainProjection
@@ -90,6 +106,11 @@ extern CClipPoint g_PointPoints[512];
 extern CClipPoint g_Clip1;
 extern CClipPoint g_Clip2;
 extern CClipPoint g_Clip3;
+extern CClipPoint *g_pMovingPoint;
+extern float tdp[3];
+extern CString g_strStatus;
+extern int pressx;
+extern int pressy;
 
 extern CPrefsDlg *dword_01233b64;
 struct eclass_t
@@ -272,7 +293,7 @@ void CXYWnd::DropClipPoint(UINT nFlags, CPoint point)
     if (g_pMovingClip)
     {
         SetCapture();
-        SnapToPoint(point.x, rctZ.Height() - 1 - point.y, (float *)g_pMovingClip);
+        SnapToPoint(point.x, rctZ.Height() - 1 - point.y, g_pMovingClip->m_ptClip);
     }
     else
     {
@@ -374,6 +395,69 @@ void FUN_00449ff0(brush_t *to, brush_t *from)
     }
 }
 
+// 0x0044a030: Q3Radiant CXYWnd::OnRButtonDown.
+void CXYWnd::OnRButtonDown(UINT nFlags, CPoint point)
+{
+    CMainFrameXYView *frame = reinterpret_cast<CMainFrameXYView *>(g_pParentWnd);
+    if (frame->m_pActiveXY)
+        frame->m_pActiveXY->m_bActive = false;
+    frame->m_pActiveXY = this;
+    if (this)
+        m_bActive = true;
+    m_ptDown = point;
+    m_bRButtonDown = true;
+    if (dword_01233b64->m_nMouseButtons == 3 && (GetKeyState(VK_CONTROL) & 0x8000))
+    {
+        if (!ClipMode())
+        {
+            SetClipMode(true);
+            g_bRogueClipMode = true;
+        }
+        DropClipPoint(nFlags, point);
+        return;
+    }
+    OriginalButtonDown(nFlags, point);
+}
+
+// 0x0044a0d0: Q3Radiant CXYWnd::OnLButtonUp.
+void CXYWnd::OnLButtonUp(UINT nFlags, CPoint point)
+{
+    if (ClipMode())
+    {
+        if (g_pMovingClip)
+        {
+            ReleaseCapture();
+            g_pMovingClip = NULL;
+        }
+    }
+    OriginalButtonUp(nFlags, point);
+}
+
+// 0x0044a130
+void CXYWnd::OnMButtonUp(UINT nFlags, CPoint point)
+{
+    OriginalButtonUp(nFlags, point);
+}
+
+// 0x0044a170: Q3Radiant CXYWnd::OnRButtonUp.
+void CXYWnd::OnRButtonUp(UINT nFlags, CPoint point)
+{
+    m_bRButtonDown = false;
+    if (point == m_ptDown)
+    {
+        bool bGo = true;
+        if (GetKeyState(VK_MENU) & 0x8000)
+            bGo = false;
+        if (GetKeyState(VK_CONTROL) & 0x8000)
+            bGo = false;
+        if (GetKeyState(VK_SHIFT) & 0x8000)
+            bGo = false;
+        if (bGo)
+            HandleDrop();
+    }
+    OriginalButtonUp(nFlags, point);
+}
+
 // 0x0044a210: Q3Radiant CXYWnd::OriginalButtonDown.
 void CXYWnd::OriginalButtonDown(UINT nFlags, CPoint point)
 {
@@ -388,12 +472,160 @@ void CXYWnd::OriginalButtonDown(UINT nFlags, CPoint point)
     m_nScrollFlags = nFlags;
 }
 
+// 0x0044a2a0: Q3Radiant CXYWnd::OriginalButtonUp.
+void CXYWnd::OriginalButtonUp(UINT nFlags, CPoint point)
+{
+    CRect rctZ;
+    GetClientRect(rctZ);
+    XY_MouseUp(point.x, rctZ.Height() - 1 - point.y, nFlags);
+    if (!(nFlags & (MK_LBUTTON | MK_RBUTTON | MK_MBUTTON)))
+        ReleaseCapture();
+}
+
 float fDiff(float f1, float f2)
 {
   if (f1 > f2)
     return f1 - f2;
   else
     return f2 - f1;
+}
+
+// 0x0044a2f0: Q3Radiant CXYWnd::OnMouseMove.
+void CXYWnd::OnMouseMove(UINT nFlags, CPoint point)
+{
+    m_ptDown.x = 0;
+    m_ptDown.y = 0;
+
+    if (dword_01233b64->m_bChaseMouse == TRUE && GetCapture() == this
+        && (point.x < 32.0f || point.y < 32.0f || point.x > m_nWidth - 32.0f || point.y > m_nHeight - 32.0f))
+    {
+        m_ptDragAdj.x = 0;
+        m_ptDragAdj.y = 0;
+        if (point.x < 0 || point.y < 0 || point.x > m_nWidth || point.y > m_nHeight)
+        {
+            int dx = 0;
+            int dy = 0;
+            if (point.x < 0)
+                dx = -point.x;
+            else if (point.x > m_nWidth)
+                dx = m_nWidth - point.x;
+            if (point.y < 0)
+                dy = -point.y;
+            else if (point.y > m_nHeight)
+                dy = m_nHeight - point.y;
+            point.x += dx;
+            point.y += dy;
+            CPoint cursor;
+            GetCursorPos(&cursor);
+            SetCursorPos(cursor.x + dx, cursor.y + dy);
+        }
+        if (point.x < 32.0f)
+            m_ptDragAdj.x = (int)(32.0f - point.x);
+        else if (point.x > m_nWidth - 32.0f)
+            m_ptDragAdj.x = (int)(m_nWidth - 32.0f - point.x);
+        if (point.y < 32.0f)
+            m_ptDragAdj.y = (int)(32.0f - point.y);
+        else if (point.y > m_nHeight - 32.0f)
+            m_ptDragAdj.y = (int)(m_nHeight - 32.0f - point.y);
+        if (m_nTimerID == -1)
+        {
+            m_nTimerID = SetTimer(100, 50, NULL);
+            m_ptDrag = point;
+            m_ptDragTotal.x = 0;
+            m_ptDragTotal.y = 0;
+        }
+        return;
+    }
+    if (m_nTimerID != -1)
+    {
+        KillTimer(m_nTimerID);
+        pressx -= m_ptDragTotal.x;
+        pressy += m_ptDragTotal.y;
+        m_nTimerID = -1;
+    }
+
+    bool bCrossHair = false;
+    if (m_bRButtonDown)
+    {
+        XY_MouseMoved(point.x, m_nHeight - 1 - point.y, nFlags);
+    }
+    else
+    {
+        tdp[0] = tdp[1] = tdp[2] = 0;
+        SnapToPoint(point.x, m_nHeight - 1 - point.y, tdp);
+
+        g_strStatus.Format("x:: %.1f  y:: %.1f  z:: %.1f", tdp[0], tdp[1], tdp[2]);
+        g_pParentWnd->SetStatusText(1, g_strStatus);
+
+        if (!PointMode())
+        {
+            if (!ClipMode())
+            {
+                XY_MouseMoved(point.x, m_nHeight - 1 - point.y, nFlags);
+            }
+            else if (g_pMovingClip && GetCapture() == this)
+            {
+                bCrossHair = true;
+                SnapToPoint(point.x, m_nHeight - 1 - point.y, g_pMovingClip->m_ptClip);
+                g_nUpdateBits |= 0x102;
+            }
+            else
+            {
+                g_pMovingClip = NULL;
+                int nDim1 = (m_nViewType == YZ) ? 1 : 0;
+                int nDim2 = (m_nViewType == XY) ? 1 : 2;
+                if (g_Clip1.m_bSet)
+                {
+                    if (fDiff(g_Clip1.m_ptClip[nDim1], tdp[nDim1]) < 3 && fDiff(g_Clip1.m_ptClip[nDim2], tdp[nDim2]) < 3)
+                    {
+                        bCrossHair = true;
+                        g_pMovingClip = &g_Clip1;
+                    }
+                }
+                if (g_Clip2.m_bSet)
+                {
+                    if (fDiff(g_Clip2.m_ptClip[nDim1], tdp[nDim1]) < 3 && fDiff(g_Clip2.m_ptClip[nDim2], tdp[nDim2]) < 3)
+                    {
+                        bCrossHair = true;
+                        g_pMovingClip = &g_Clip2;
+                    }
+                }
+                if (g_Clip3.m_bSet)
+                {
+                    if (fDiff(g_Clip3.m_ptClip[nDim1], tdp[nDim1]) < 3 && fDiff(g_Clip3.m_ptClip[nDim2], tdp[nDim2]) < 3)
+                    {
+                        g_pMovingClip = &g_Clip3;
+                        SetCursor(LoadCursor(NULL, IDC_CROSS));
+                        return;
+                    }
+                }
+                if (!bCrossHair)
+                    XY_MouseMoved(point.x, m_nHeight - 1 - point.y, nFlags);
+            }
+        }
+        else if (g_pMovingPoint && GetCapture() == this)
+        {
+            bCrossHair = true;
+            SnapToPoint(point.x, m_nHeight - 1 - point.y, g_pMovingPoint->m_ptClip);
+            g_pMovingPoint->UpdatePointPtr();
+            g_nUpdateBits |= 0x102;
+        }
+        else
+        {
+            g_pMovingPoint = NULL;
+            int nDim1 = (m_nViewType == YZ) ? 1 : 0;
+            int nDim2 = (m_nViewType == XY) ? 1 : 2;
+            for (int n = 0; n < g_nPointCount; n++)
+            {
+                if (fDiff(g_PointPoints[n].m_ptClip[nDim1], tdp[nDim1]) < 3 && fDiff(g_PointPoints[n].m_ptClip[nDim2], tdp[nDim2]) < 3)
+                {
+                    bCrossHair = true;
+                    g_pMovingPoint = &g_PointPoints[n];
+                }
+            }
+        }
+    }
+    SetCursor(LoadCursor(NULL, bCrossHair ? IDC_CROSS : IDC_ARROW));
 }
 
 // 0x0044abc0 / 0x0044abf0: Q3Radiant CXYWnd::RetainClipMode / SetClipMode.
@@ -658,6 +890,310 @@ void CXYWnd::FUN_0044c5c0(int x, int y, float origin[3], float dir[3])
     }
 }
 
+// view of splines.h idPointListInterface (vtable only)
+class idPointListInterface
+{
+public:
+    virtual ~idPointListInterface() {}
+    virtual int numPoints() { return 0; }
+    virtual void addPoint(const float x, const float y, const float z) {}
+    virtual void addPoint(const float *v) {}
+};
+extern brush_t selected_brushes;
+extern int dword_011298b0;
+extern idPointListInterface *dword_011298b4;
+extern int dword_010bcd2c;
+extern int dword_005909f8;
+extern bool byte_012334b8;
+extern bool byte_012334ba;
+extern float dword_0109c528[3];
+extern float dword_01139e54[2];
+void Sys_GetCursorPos(int *x, int *y);
+void FUN_0046e4a0();
+void FUN_00470c50(float *mid);
+void FUN_0046fd50(float *move, int snap);
+void FUN_0046fe50();
+void FUN_004433b0();
+void Undo_GeneralStart(char *op);
+void Undo_AddBrushList(brush_t *list);
+void FUN_00443f80(brush_t *list);
+void Undo_End();
+void FUN_0046fbe0(int b);
+void FUN_0046f0b0(brush_t *b, int a, int c, int d);
+void FUN_0046ddc0();
+float FUN_00407800(float y, float x);
+struct XYPlane
+{
+    float normal[3];
+    double dist;
+    int type;
+};
+void FUN_0044c620(int a0, int a1, int a2, int a3, XYPlane *planes);
+void FUN_00460fe0(void (*cb)(int, int, int, int, XYPlane *), int x, int y, float *right, float *up, float *origin, float *dir);
+void FUN_004623e0(int buttons, int x, int y, float *origin, float *dir);
+struct XYWorldEntity
+{
+    unsigned char pad[8];
+    void *field_08;
+};
+extern XYWorldEntity *dword_012334ec;
+extern bool g_bCrossHairs;
+extern bool byte_0112993c;
+extern bool byte_0112993d;
+brush_t *FUN_00457ce0(void *owner, void *texdef);
+void FUN_00457dd0(float *mins, float *maxs, brush_t *b, int flag);
+void FUN_0045a220(brush_t *b, int flag);
+void FUN_00475350();
+void Sys_MarkMapModified();
+void FUN_004671b0(brush_t *b, void *entity);
+brush_t *FUN_00458440(brush_t *b, void *owner);
+void FUN_0045b310(brushdef_t *def, float *mins, float *maxs);
+extern unsigned char texdef_01128da8[];
+void Sys_Printf(const char *fmt, ...);
+struct CMainFrameCamProjection
+{
+    unsigned char pad[0x78c];
+    CCamWnd *m_pCamWnd;
+};
+
+// 0x0044c620: drag-select volume callback, four side planes from the rectangle corners.
+static void PlaneFromEdge(XYPlane *pl, const float *dir, const float *a, const float *b)
+{
+    float edge[3];
+    edge[0] = a[0] - b[0];
+    edge[1] = a[1] - b[1];
+    edge[2] = a[2] - b[2];
+    pl->normal[0] = edge[1] * dir[2] - edge[2] * dir[1];
+    pl->normal[1] = edge[2] * dir[0] - edge[0] * dir[2];
+    pl->normal[2] = edge[0] * dir[1] - edge[1] * dir[0];
+    pl->dist = a[0] * pl->normal[0] + a[2] * pl->normal[2] + a[1] * pl->normal[1];
+    pl->type = -1;
+}
+
+void FUN_0044c620(int a0, int a1, int a2, int a3, XYPlane *planes)
+{
+    float origin[4][3];
+    float dir[3];
+    int lo0 = (a0 < a2) ? a0 : a2;
+    int hi0 = a0 - lo0 + a2;
+    int lo1 = (a1 < a3) ? a1 : a3;
+    int hi1 = a1 - lo1 + a3;
+    CXYWnd *xy = reinterpret_cast<CMainFrameXYView *>(g_pParentWnd)->m_pActiveXY;
+
+    if (xy->m_nViewType == 1)
+    {
+        xy->FUN_0044c5c0(lo1, lo0, origin[0], dir);
+        xy->FUN_0044c5c0(lo1, hi0, origin[1], dir);
+        xy->FUN_0044c5c0(hi1, hi0, origin[2], dir);
+        xy->FUN_0044c5c0(hi1, lo0, origin[3], dir);
+    }
+    else
+    {
+        xy->FUN_0044c5c0(lo1, lo0, origin[0], dir);
+        xy->FUN_0044c5c0(hi1, lo0, origin[1], dir);
+        xy->FUN_0044c5c0(hi1, hi0, origin[2], dir);
+        xy->FUN_0044c5c0(lo1, hi0, origin[3], dir);
+    }
+    PlaneFromEdge(&planes[0], dir, origin[0], origin[3]);
+    PlaneFromEdge(&planes[1], dir, origin[1], origin[0]);
+    PlaneFromEdge(&planes[2], dir, origin[2], origin[1]);
+    PlaneFromEdge(&planes[3], dir, origin[3], origin[2]);
+}
+
+// 0x0044c8a0: Q3Radiant CXYWnd::XY_MouseDown plus the CoD2 alt-click move/clone paths.
+void CXYWnd::XY_MouseDown(int x, int y, int buttons)
+{
+    float point[3];
+    float origin[3], dir[3], right[3], up[3];
+    int nMouseButton = dword_01233b64->m_nMouseButtons == 2 ? MK_RBUTTON : MK_MBUTTON;
+
+    m_nButtonstate = buttons;
+    m_nPressx = x;
+    m_nPressy = y;
+    m_vPressdelta[0] = 0;
+    m_vPressdelta[1] = 0;
+    m_vPressdelta[2] = 0;
+
+    FUN_0044c5c0(x, y, origin, dir);
+    XY_ToPoint(x, y, point);
+
+    float fScale = 1 / m_fScale;
+    if (m_nViewType == 2)
+    {
+        right[0] = fScale;
+        right[1] = 0;
+        right[2] = 0;
+        up[0] = 0;
+        up[1] = fScale;
+        up[2] = 0;
+    }
+    else if (m_nViewType == 0)
+    {
+        right[1] = fScale;
+        right[2] = 0;
+        right[0] = 0;
+        up[0] = 0;
+        up[2] = fScale;
+        up[1] = 0;
+    }
+    else
+    {
+        right[0] = fScale;
+        right[2] = 0;
+        right[1] = 0;
+        up[0] = 0;
+        up[2] = fScale;
+        up[1] = 0;
+    }
+
+    m_bPress_selection = (selected_brushes.next != &selected_brushes);
+    GetCursorPos(&m_ptCursor);
+
+    if (buttons == (MK_CONTROL | nMouseButton) && (GetAsyncKeyState(VK_MENU) & 0x8000))
+    {
+        if (selected_brushes.next == &selected_brushes)
+            return;
+        FUN_0046e4a0();
+        float mid[3], dst[3], move[3];
+        FUN_00470c50(mid);
+        dst[0] = mid[0];
+        dst[1] = mid[1];
+        dst[2] = mid[2];
+        SnapToPoint(x, y, dst);
+        move[0] = dst[0] - mid[0];
+        move[1] = dst[1] - mid[1];
+        move[2] = dst[2] - mid[2];
+        FUN_0046fd50(move, 0);
+        g_nUpdateBits = -1;
+        return;
+    }
+
+    if ((GetAsyncKeyState(VK_MENU) & 0x8000) && (buttons == (MK_LBUTTON | MK_CONTROL) || buttons == (MK_SHIFT | nMouseButton))
+        && dword_011298b0 != 4)
+    {
+        if (selected_brushes.next == &selected_brushes)
+            return;
+        FUN_0046e4a0();
+        brush_t *single = NULL;
+        if (buttons & MK_SHIFT)
+        {
+            if (selected_brushes.next->next != &selected_brushes)
+            {
+                Sys_Printf("can only alt + shift + middle click if a single brush is selected\n");
+                return;
+            }
+            single = selected_brushes.next;
+        }
+        float mid[3], dst[3], move[3];
+        FUN_00470c50(mid);
+        int save = dword_010bcd2c;
+        dword_010bcd2c = 0;
+        FUN_0046fe50();
+        dword_010bcd2c = save;
+        FUN_004433b0();
+        Undo_GeneralStart("duplicate");
+        Undo_AddBrushList(&selected_brushes);
+        dst[0] = mid[0];
+        dst[1] = mid[1];
+        dst[2] = mid[2];
+        SnapToPoint(x, y, dst);
+        move[0] = dst[0] - mid[0];
+        move[1] = dst[1] - mid[1];
+        move[2] = dst[2] - mid[2];
+        FUN_0046fd50(move, 0);
+        if (single)
+        {
+#line 1614
+            assert(selected_brushes.next != &selected_brushes);
+            brush_t *clone = selected_brushes.next;
+            FUN_0046fbe0(1);
+            FUN_0046f0b0(single, 1, 0, 0);
+            FUN_0046f0b0(clone, 1, 0, 0);
+            FUN_0046ddc0();
+        }
+        FUN_00443f80(&selected_brushes);
+        Undo_End();
+        g_nUpdateBits = -1;
+        return;
+    }
+
+    if (buttons == MK_LBUTTON || buttons == (MK_LBUTTON | MK_SHIFT) || buttons == (MK_LBUTTON | MK_CONTROL)
+        || buttons == (MK_LBUTTON | MK_CONTROL | MK_SHIFT)
+        || ((buttons == MK_RBUTTON || buttons == (MK_RBUTTON | MK_SHIFT)) && (GetAsyncKeyState(VK_MENU) & 0x8000)))
+    {
+        if (dword_011298b0 == 8)
+        {
+            XY_ToGridPoint(x, y, point);
+            if (dword_011298b4)
+                dword_011298b4->addPoint(point[0], point[1], point[2]);
+            return;
+        }
+        int nView = (m_nViewType == 2) ? 2 : (m_nViewType == 0) ? 0x400 : 0x200;
+        byte_012334b8 = (nView == dword_005909f8);
+        dword_005909f8 = nView;
+        FUN_00460fe0(FUN_0044c620, x, y, right, up, origin, dir);
+        return;
+    }
+
+    CMainFrameCamProjection *frame = reinterpret_cast<CMainFrameCamProjection *>(g_pParentWnd);
+    if (m_nButtonstate == (MK_CONTROL | nMouseButton))
+    {
+        VectorCopyXY(point, frame->m_pCamWnd->m_Camera.origin);
+        g_nUpdateBits |= 5;
+    }
+
+    if ((dword_01233b64->m_nMouseButtons == 3 && m_nButtonstate == MK_MBUTTON)
+        || (dword_01233b64->m_nMouseButtons == 2 && m_nButtonstate == (MK_SHIFT | MK_CONTROL | MK_RBUTTON)))
+    {
+        CameraState &cam = frame->m_pCamWnd->m_Camera;
+        point[0] -= cam.origin[0];
+        point[1] -= cam.origin[1];
+        point[2] -= cam.origin[2];
+        int n1 = (m_nViewType == 2) ? 1 : 2;
+        int n2 = (m_nViewType == 0) ? 1 : 0;
+        int nAngle = (m_nViewType == 2) ? 1 : 0;
+        if (point[n1] || point[n2])
+        {
+            cam.angles[nAngle] = FUN_00407800(point[n1], point[n2]) * (180 / 3.14159265358979323846f);
+            g_nUpdateBits |= 0x104;
+        }
+    }
+
+    if (m_nButtonstate == (MK_SHIFT | nMouseButton))
+    {
+        if (RotateMode() || byte_012334ba)
+        {
+            SnapToPoint(x, y, point);
+            VectorCopyXY(point, g_vRotateOrigin);
+            if (byte_012334ba)
+            {
+                dword_0109c528[0] = point[0];
+                dword_0109c528[1] = point[1];
+                dword_0109c528[2] = point[2];
+            }
+            g_nUpdateBits |= 2;
+            return;
+        }
+        SnapToPoint(x, y, point);
+        if (m_nViewType == 2)
+        {
+            dword_01139e54[0] = point[0];
+            dword_01139e54[1] = point[1];
+        }
+        else if (m_nViewType == 0)
+        {
+            dword_01139e54[0] = point[1];
+            dword_01139e54[1] = point[2];
+        }
+        else
+        {
+            dword_01139e54[0] = point[0];
+            dword_01139e54[1] = point[2];
+        }
+        g_nUpdateBits |= 0xc;
+    }
+}
+
 void CXYWnd::XY_MouseUp(int x, int y, int buttons)
 {
     Drag_MouseUp(buttons);
@@ -696,6 +1232,211 @@ BOOL CXYWnd::DragDelta(int x, int y, float move[3])
     if (move[0] || move[1] || move[2])
         return TRUE;
     return FALSE;
+}
+
+// 0x0044d0c0: Q3Radiant CXYWnd::NewBrushDrag.
+void CXYWnd::NewBrushDrag(int x, int y)
+{
+    float mins[3], maxs[3], junk[3];
+    int i;
+    float temp;
+
+    if (!DragDelta(x, y, junk))
+        return;
+
+    int nDim = (m_nViewType == XY) ? 2 : (m_nViewType == YZ) ? 0 : 1;
+
+    SnapToPoint(m_nPressx, m_nPressy, mins);
+    mins[nDim] = g_qeglobals.d_gridsize * ((int)(g_qeglobals.d_new_brush_bottom[nDim] / g_qeglobals.d_gridsize));
+    SnapToPoint(x, y, maxs);
+    maxs[nDim] = g_qeglobals.d_gridsize * ((int)(g_qeglobals.d_new_brush_top[nDim] / g_qeglobals.d_gridsize));
+    if (maxs[nDim] <= mins[nDim])
+        maxs[nDim] = mins[nDim] + g_qeglobals.d_gridsize;
+
+    for (i = 0; i < 3; i++)
+    {
+        if (mins[i] == maxs[i])
+            return;
+        if (mins[i] > maxs[i])
+        {
+            temp = mins[i];
+            mins[i] = maxs[i];
+            maxs[i] = temp;
+        }
+    }
+
+    if (selected_brushes.next == &selected_brushes)
+    {
+        brush_t *n = FUN_00457ce0(NULL, texdef_01128da8);
+        FUN_00457dd0(mins, maxs, n, 0);
+        if (!n)
+            return;
+        FUN_0045a220(n, 1);
+        if (dword_011298b0 == 1 || dword_011298b0 == 2)
+            FUN_00475350();
+        Sys_MarkMapModified();
+        (*(unsigned short *)((char *)n + 0x42))++;
+        FUN_004671b0(n, dword_012334ec->field_08);
+        FUN_00459210(FUN_00458440(n, dword_012334ec), &selected_brushes);
+    }
+    else
+    {
+        FUN_0045b310(selected_brushes.next->def, mins, maxs);
+    }
+
+    float vSize[3];
+    vSize[0] = maxs[0] - mins[0];
+    vSize[1] = maxs[1] - mins[1];
+    vSize[2] = maxs[2] - mins[2];
+    g_strStatus.Format("Size X:: %.1f  Y:: %.1f  Z:: %.1f", vSize[0], vSize[1], vSize[2]);
+    g_pParentWnd->SetStatusText(2, g_strStatus);
+    g_nUpdateBits |= 3;
+}
+
+// 0x0044d320: Q3Radiant CXYWnd::XY_MouseMoved.
+void CXYWnd::XY_MouseMoved(int x, int y, int buttons)
+{
+    float point[3];
+    float origin[3], dir[3];
+
+    if (!m_nButtonstate)
+    {
+        if (g_bCrossHairs)
+        {
+            ::ShowCursor(FALSE);
+            g_nUpdateBits |= 6;
+            ::ShowCursor(TRUE);
+        }
+        return;
+    }
+
+    if (m_nButtonstate == MK_LBUTTON && !m_bPress_selection && dword_011298b0 == 0)
+    {
+        NewBrushDrag(x, y);
+        return;
+    }
+
+    if (!(m_nButtonstate & MK_LBUTTON) && (m_nButtonstate != (MK_RBUTTON | MK_SHIFT) || !(GetAsyncKeyState(VK_MENU) & 0x8000)))
+    {
+        int nMouseButton = dword_01233b64->m_nMouseButtons == 2 ? MK_RBUTTON : MK_MBUTTON;
+        CMainFrameCamProjection *frame = reinterpret_cast<CMainFrameCamProjection *>(g_pParentWnd);
+
+        if (dword_011298b0 == 10 && m_nButtonstate == MK_RBUTTON && (GetAsyncKeyState(VK_MENU) & 0x8000))
+        {
+            FUN_0044c5c0(x, y, origin, dir);
+            FUN_004623e0(buttons, x, y, origin, dir);
+            g_nUpdateBits |= 0x10c;
+            return;
+        }
+
+        if (m_nButtonstate == (MK_CONTROL | nMouseButton) && !(GetAsyncKeyState(VK_MENU) & 0x8000))
+        {
+            SnapToPoint(x, y, point);
+            VectorCopyXY(point, frame->m_pCamWnd->m_Camera.origin);
+            g_nUpdateBits |= 5;
+            return;
+        }
+
+        if (m_nButtonstate == (MK_SHIFT | nMouseButton))
+        {
+            if (RotateMode() || byte_012334ba)
+            {
+                SnapToPoint(x, y, point);
+                VectorCopyXY(point, g_vRotateOrigin);
+                if (byte_012334ba)
+                {
+                    dword_0109c528[0] = point[0];
+                    dword_0109c528[1] = point[1];
+                    dword_0109c528[2] = point[2];
+                }
+                g_nUpdateBits |= 2;
+                return;
+            }
+            SnapToPoint(x, y, point);
+            if (m_nViewType == XY)
+            {
+                dword_01139e54[0] = point[0];
+                dword_01139e54[1] = point[1];
+            }
+            else if (m_nViewType == YZ)
+            {
+                dword_01139e54[0] = point[1];
+                dword_01139e54[1] = point[2];
+            }
+            else
+            {
+                dword_01139e54[0] = point[0];
+                dword_01139e54[1] = point[2];
+            }
+            g_nUpdateBits |= 0xc;
+            return;
+        }
+
+        if ((dword_01233b64->m_nMouseButtons == 3 && m_nButtonstate == MK_MBUTTON)
+            || (dword_01233b64->m_nMouseButtons == 2 && m_nButtonstate == (MK_SHIFT | MK_CONTROL | MK_RBUTTON)))
+        {
+            CameraState &cam = frame->m_pCamWnd->m_Camera;
+            SnapToPoint(x, y, point);
+            point[0] -= cam.origin[0];
+            point[1] -= cam.origin[1];
+            point[2] -= cam.origin[2];
+            int n1 = (m_nViewType == XY) ? 1 : 2;
+            int n2 = (m_nViewType == YZ) ? 1 : 0;
+            int nAngle = (m_nViewType == XY) ? 1 : 0;
+            if (point[n1] || point[n2])
+            {
+                cam.angles[nAngle] = FUN_00407800(point[n1], point[n2]) * (180 / 3.14159265358979323846f);
+                g_nUpdateBits |= 0x104;
+            }
+            return;
+        }
+
+        if (m_nButtonstate == MK_RBUTTON)
+        {
+            int cx, cy;
+            Sys_GetCursorPos(&cx, &cy);
+            if (cx != m_ptCursor.x || cy != m_ptCursor.y)
+            {
+                int nDim1 = (m_nViewType == YZ) ? 1 : 0;
+                int nDim2 = (m_nViewType == XY) ? 1 : 2;
+                m_vOrigin[nDim1] -= (cx - m_ptCursor.x) / m_fScale;
+                m_vOrigin[nDim2] += (cy - m_ptCursor.y) / m_fScale;
+                SetCursorPos(m_ptCursor.x, m_ptCursor.y);
+                ::ShowCursor(FALSE);
+                g_nUpdateBits |= 6;
+            }
+        }
+        return;
+    }
+
+    if (!byte_0112993c && !byte_0112993d)
+    {
+        FUN_0044c5c0(x, y, origin, dir);
+        FUN_004623e0(buttons, x, y, origin, dir);
+        g_nUpdateBits |= 0x10c;
+        return;
+    }
+    switch (dword_011298b0)
+    {
+    case 14:
+    case 15:
+    case 16:
+    case 17:
+        byte_0112993c = false;
+        byte_0112993d = false;
+        break;
+    default:
+        if (buttons != 5 && buttons != 13)
+        {
+            if (buttons != 9 || !(GetAsyncKeyState(VK_MENU) & 0x8000))
+            {
+                byte_0112993c = false;
+                byte_0112993d = false;
+                return;
+            }
+        }
+        XY_MouseDown(x, y, buttons);
+    }
 }
 
 bool FUN_0044f630(brushdef_t *b);
