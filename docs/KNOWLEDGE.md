@@ -1197,3 +1197,7 @@ set by a later lowering stage, not by the list scheduler.
 - PINNED (agent w29a c2sched13, 11-19): base loop block: load prio 0x9c00 idx 2, inc 0x1400 idx 1, sub 0x1400 idx 3, cmp idx 4;
   inc and sub tie on height and inc wins on creation index. An unused `newSize++` is created ahead of the condition wherever it
   is written (inside the compare too), so only a load-carrying temp moves it, and every named temp swaps the colours.
+- PINNED (agent w29b c2dbg13, 11-19): side block 069b05e8 = c2 loop preheader (0x1076cb5c, from 0x1075e5e5 per loop per pass).
+  Reused only if the block before the header has an empty tuple list and its predecessor is in the parent loop; else a new
+  block is linked in (0x1075c72c). Loop-split defs (the 8 piece) go into the preheader. An empty `goto x; x:` block before
+  the do does not change F4 (13).
