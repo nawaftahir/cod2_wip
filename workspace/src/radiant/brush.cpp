@@ -2439,13 +2439,13 @@ void FUN_0045f7b0()
     FUN_0045f720(&dword_010a448c);
 }
 
-
+#pragma auto_inline(off)
 void FUN_0045f7e0()
 {
     for (int i = 0; i < dword_012485bc; i++)
         FUN_0045a830(*(brush_t **)((char *)dword_012485b8 + i * 12));
 }
-
+#pragma auto_inline(on)
 
 void FUN_0045f830(const vec3_t a, const vec3_t b, vec3_t out, float t)
 {

@@ -26,7 +26,11 @@ void FUN_00441460(void);
 extern HWND dword_010bcd54;
 extern int g_nUpdateBits;
 #define ARRAY_COUNT(a) (sizeof(a) / sizeof((a)[0]))
-struct RadiantFilterEntry;
+struct RadiantFilterEntry {
+    const char *name;
+    int id;
+};
+extern RadiantFilterEntry surfaceTypes[23];
 
 // Retail texture comparator: two 32-bit entries, name pointer at +4.
 // Original table names/extents are still pending broader TexWnd reconstruction.
@@ -50,9 +54,11 @@ void SortTextures()
 // What the renderer fills in for a material (44 B on the stack in the callers);
 // the two scale fields are named by the assert text in 0x004406c0.
 struct RadMtlInfo {
-    unsigned char pad0[0x0c];
+    int field_00, field_04, field_08;
     unsigned char field_0c;
-    unsigned char pad1[8];
+    unsigned char field_0d;
+    unsigned short field_0e, field_10, field_12;
+    unsigned char field_14;
     unsigned char field_15;
     unsigned short field_16;
     int field_18;
@@ -86,19 +92,30 @@ struct TexWndRefExport {
     void *(*field_10)(const char *name, int type, int flags);   // 0x59c310
     void *pad1;
     char (*field_18)(void *handle);                             // 0x59c318
-    void *pad2[(0xac - 0x1c) / 4];
+    void *pad2[(0x98 - 0x1c) / 4];
+    void (*field_98)(float x, float y, float w, float h, float s0, float t0, float s1, float t1,
+                     const float *color, void *material);       // 0x59c398
+    void *pad2a[(0xac - 0x9c) / 4];
     void (*BeginScene)();                                       // 0x59c3ac
     void (*EndScene)();                                         // 0x59c3b0
     void *pad2b[4];
     void (*ClearScreen)(int mask, const float *color, float depth, int stencil); // 0x59c3c4
     void *pad2c[(0x114 - 0xc8) / 4];
     int (*field_114)(int arg);                                  // 0x59c414
-    void *pad2d[(0x138 - 0x118) / 4];
+    void (*field_118)(const char *text, int maxChars, int font, float x, float y,
+                      float xScale, float yScale, const float *color, int style); // 0x59c418
+    void *pad2d[(0x138 - 0x11c) / 4];
     void (*field_138)(void *handle, RadMtlInfo *info);          // 0x59c438
     void *pad3[1];
     char (*BeginWindow)(HWND hwnd);                             // 0x59c440
     void (*EndWindow)(HWND hwnd);                               // 0x59c444
     void (*ResizeWindow)(HWND hwnd, int width, int height);     // 0x59c448
+    void *pad4[(0x160 - 0x14c) / 4];
+    void (*AddLines)(int count, int width, const void *verts);  // 0x59c460
+    void *pad5;
+    void (*ColorToBytes)(const float *color, unsigned char *out); // 0x59c468
+    void *pad6[(0x1b0 - 0x16c) / 4];
+    void (*field_1b0)();                                        // 0x59c4b0
 };
 extern TexWndRefExport re;
 
@@ -118,7 +135,7 @@ struct TexWndGlobals_stub {
     bool filterEnabled;         // +0x0f
     CString filter;             // +0x10
     int materialCount;            // +0x14
-    qtexture_s *sorted[0x4000]; // +0x18
+    qtexture_s *sortedMaterials[0x4000]; // +0x18
     qtexture_s *qtextures;
     int decalLocaleBit;
     MaterialNameRemap *materialNameRemap;
@@ -190,8 +207,16 @@ qtexture_s *FUN_004406c0(char *name, void *handle, RadMtlInfo *mtlInfo)
     qtexture_s **head = &texWndGlobals.qtextures;
     newRadMat->next = *head;
     *head = newRadMat;
-    texWndGlobals.sorted[texWndGlobals.materialCount++] = newRadMat;
+    texWndGlobals.sortedMaterials[texWndGlobals.materialCount++] = newRadMat;
     return newRadMat;
+}
+
+// 0x004407f0 (77 B)
+void FUN_004407f0(qtexture_s *radMat)
+{
+#line 179
+    assert(radMat);
+    delete radMat;
 }
 
 // 0x00440840 (320 B)
@@ -308,11 +333,44 @@ qtexture_s *Editor_DoesMaterialExist(const char *name)
     return NULL;
 }
 
-struct RadiantFilterEntry {
-    const char *name;
-    int id;
-};
-extern RadiantFilterEntry surfaceTypes[23];
+enum FsThread { FS_THREAD_MAIN = 0, FS_THREAD_STREAM = 1 };
+enum FsListBehavior { FS_LIST_PURE_ONLY = 0, FS_LIST_ALL = 1 };
+int FS_Read(void *buffer, int len, int h);
+void FS_FCloseFile(int h);
+int FS_FOpenFileRead_Internal(const char *filename, int *file, int uniqueFILE, FsThread thread);
+char **FS_ListFiles(const char *path, const char *extension, FsListBehavior behavior, int *numfiles, int allocType);
+void FS_FreeFileList(char **list, int allocType);
+char *va(const char *format, ...);
+extern int dword_01143494;
+
+// 0x00440ca0 (230 B), scan materials/ for material headers and register the new ones
+void FUN_00440ca0(void)
+{
+    char **files;
+    int fileCount;
+    int file;
+    RadMtlInfo info;
+
+    files = FS_ListFiles("materials", "", FS_LIST_PURE_ONLY, &fileCount, 10);
+    for (int i = 0; i < fileCount; i++)
+    {
+        const char *path = va("materials/%s", files[i]);
+        dword_01143494 = 1;
+        FS_FOpenFileRead_Internal(path, &file, 0, FS_THREAD_MAIN);
+        if (file)
+        {
+            int got = FS_Read(&info, sizeof(info), file);
+            FS_FCloseFile(file);
+            if (got == sizeof(info) && info.field_15 && info.field_18 && info.autoTexScaleWidth && info.autoTexScaleHeight)
+            {
+                char *name = files[i];
+                if (!Editor_DoesMaterialExist(name))
+                    FUN_004406c0(name, 0, &info);
+            }
+        }
+    }
+    FS_FreeFileList(files, 10);
+}
 
 // 0x00440d90 (90 B)
 BOOL AppendTextureFilterMenu(HMENU hMenu, LPCSTR lpNewItem,
@@ -492,9 +550,19 @@ void Texture_ShowAll(void)
         q->inuse = 1;
     }
 }
+#pragma auto_inline(off)
+// 0x00441460 (53 B), out of line: retail 0x41ba70 is a plain jmp to it
+void FUN_00441460(void)
+{
+    for (qtexture_s *q = texWndGlobals.qtextures; q; q = q->next)
+    {
+        q->inuse = 1;
+    }
+    Sys_Printf("Showing all textures...\n");
+    g_nUpdateBits |= 0x10;
+}
 
-
-
+#pragma auto_inline(on)
 // Layout projections for FUN_004414a0 (offsets from retail).
 typedef qtexture_s InuseTex;
 struct InuseTexdef { InuseTex *radMat; unsigned char pad[0x18]; };
@@ -553,6 +621,77 @@ void FUN_004414a0(InuseBrush *head)
     }
 }
 
+extern HWND dword_010bcd70;
+extern InuseBrush dword_010a44dc;
+extern InuseBrush dword_010a44b4;
+extern InuseBrush dword_010a448c;
+
+// 0x00441600 (163 B)
+void FUN_00441600(void)
+{
+    dword_01128da0 = 0;
+    texWndGlobals.localeFilter = 0;
+    texWndGlobals.usageFilter = 0;
+    texWndGlobals.surfaceTypeFilter = 0;
+    for (qtexture_s *q = texWndGlobals.qtextures; q; q = q->next)
+    {
+        q->inuse = 0;
+    }
+    SendMessage(dword_010bcd70, 0x401, 0, (LPARAM)"Selecting active textures\n");
+    FUN_004414a0(&dword_010a44dc);
+    FUN_004414a0(&dword_010a44b4);
+    SortTextures();
+    g_nUpdateBits |= 0x10;
+    int count = 0;
+    for (qtexture_s *q = texWndGlobals.qtextures; q; q = q->next)
+    {
+        if (q->inuse)
+            count++;
+    }
+    Sys_Printf("%d textures in use\n", count);
+}
+
+void FUN_0043dff0();
+void __stdcall FUN_0043cf80(void *dlg);
+extern int dword_0109fdb4;
+extern char dword_01234a38[];
+class CTextureBar : public CDialogBar { public: void FUN_0043f460(); };
+struct CTexWndFrameProjection { unsigned char pad_00[0x2b8]; CTextureBar m_wndTextureBar; };
+class CMainFrame;
+extern CMainFrame *g_pParentWnd;
+struct brush_t;
+void FUN_0045f720(brush_t *head);
+void FUN_0045f7e0();
+extern int dword_01128d90;
+extern int dword_01128d94;
+extern float dword_01128dc4;
+
+// 0x004416b0 (152 B), texture in eax
+void FUN_004416b0(qtexture_s *tex)
+{
+    if (tex != (qtexture_s *)dword_01128d90 || tex != (qtexture_s *)dword_01128d94)
+    {
+        dword_01128d90 = (int)tex;
+        dword_01128d94 = (int)tex;
+        dword_01128dc4 = 0.25f;
+        if (tex)
+            dword_01128dc4 = 16.0f;
+        if (dword_0109fdb4)
+        {
+            FUN_0043dff0();
+            FUN_0043cf80(dword_01234a38);
+        }
+        CTextureBar *textureBar = &reinterpret_cast<CTexWndFrameProjection *>(g_pParentWnd)->m_wndTextureBar;
+        if (textureBar->GetSafeHwnd())
+            textureBar->FUN_0043f460();
+        FUN_0045f720((brush_t *)&dword_010a44dc);
+        FUN_0045f720((brush_t *)&dword_010a44b4);
+        FUN_0045f720((brush_t *)&dword_010a448c);
+        FUN_0045f7e0();
+        dword_0123348c |= 3;
+    }
+}
+
 // Texture window walk state: retail passes a pointer in esi to the two functions below.
 // Offsets +0x08..+0x28 are pinned by the retail loads and stores, the names are not known.
 struct TexIter
@@ -602,7 +741,7 @@ bool FUN_004417f0(TexIter *iter)
     {
 #line 702
         assert(iter->sortedIndex >= 0 && iter->sortedIndex < texWndGlobals.materialCount);
-        qtexture_s *q = texWndGlobals.sorted[iter->sortedIndex];
+        qtexture_s *q = texWndGlobals.sortedMaterials[iter->sortedIndex];
         iter->radMat = q;
         if (!q->field_0a)
             continue;
@@ -748,6 +887,40 @@ void FUN_00441ce0(float seconds)
     }
 }
 
+int FS_ReadFile(const char *qpath, void **buffer);
+void FS_FreeFile(void *buffer);
+
+// 0x00441d60 (540 B), open a shader file in the external editor at the first match
+void FUN_00441d60(const char *filename, const char *needle)
+{
+    CString text;
+    char *buffer;
+    int len = FS_ReadFile(filename, (void **)&buffer);
+    if (len > 0)
+        text = buffer;
+    int selPos = 0;
+    if (text.GetLength() > 0)
+    {
+        CString pattern(needle);
+        CString lowerText(text);
+        lowerText.MakeLower();
+        pattern.MakeLower();
+        int found = lowerText.Find(pattern);
+        if (found >= 0)
+            selPos = found;
+    }
+    CString command("editpad ");
+    command += buffer;
+    WinExec(command, SW_SHOWNORMAL);
+    FS_FreeFile(buffer);
+    FUN_00441ce0(1.5f);
+    HWND hEdit = FUN_00441ca0();
+    if (hEdit)
+        PostMessage(hEdit, EM_SETSEL, selPos, selPos);
+    else
+        Sys_Printf("Unable to load shader editor.\n");
+}
+
 // Main frame as seen from here: the six status pane texts sit at +0x7a4 (retail load at 0x441fe0..).
 class CMainFrame
 {
@@ -832,14 +1005,8 @@ void FUN_004421a0(void)
         FUN_00442140(si.nMax - si.nPage);
 }
 
-void FUN_0043dff0();
-void __stdcall FUN_0043cf80(void *dlg);
-extern int dword_0109fdb4;
-extern char dword_01234a38[];
 extern int dword_0109fdbc;
 extern int dword_0109fdc0;
-class CTextureBar : public CDialogBar { public: void FUN_0043f460(); };
-struct CTexWndFrameProjection { unsigned char pad_00[0x2b8]; CTextureBar m_wndTextureBar; };
 class CPatchDialog : public CDialog { public: void GetPatchInfo(); };
 extern CPatchDialog g_PatchDialog;
 extern CMainFrame *g_pParentWnd;
@@ -888,8 +1055,107 @@ void FUN_004422a0(int flags)
     }
 }
 
-// 0x00442300: texture window draw (not written yet)
-void FUN_00442300();
+extern float dword_01129788[4];
+extern float dword_011297a8[4];
+struct TexLineVert { float x, y, z; unsigned char color[4]; };
+
+// 0x00442300 (942 B), draw the texture tiles; the selected one gets a rectangle
+void FUN_00442300()
+{
+    TexIter iter;
+    int ctx = dword_011298c4;
+
+    FUN_00441750(&iter, ctx);
+    while (FUN_004417f0(&iter))
+    {
+#line 1045
+        assert(iter.radMat);
+        int y = iter.field_0c - dword_01128da0;
+        if (y >= -(iter.field_24 + iter.field_1c) && y < dword_01128d9c)
+        {
+            if (!iter.radMat->mtl)
+            {
+                qtexture_s *rv = FUN_00440840((char *)iter.radMat->name);
+#line 1055
+                assert(rv == iter.radMat);
+#line 1056
+                assert(iter.radMat->mtl);
+            }
+            float drawX = (float)iter.field_08;
+            float drawY = (float)(y + iter.field_24);
+            re.field_98(drawX, drawY, (float)iter.field_18, (float)iter.field_1c, 0.0f, 0.0f, 1.0f, 1.0f,
+                        colorWhite, iter.radMat->mtl);
+            if (!_stricmp(dword_01128da8.radMat->name, iter.radMat->name))
+            {
+                int x0 = iter.field_08 - 1;
+                int y0 = y + iter.field_24 - 1;
+                int x1 = x0 + iter.field_18 + 2;
+                int y1 = y0 + iter.field_1c + 2;
+                unsigned char color[4];
+                re.ColorToBytes(dword_011297a8, color);
+                TexLineVert v[8];
+                v[0].x = (float)x0; v[0].y = (float)y0;
+                v[1].x = (float)x1; v[1].y = (float)y0;
+                v[2].x = (float)x1; v[2].y = (float)y0;
+                v[3].x = (float)x1; v[3].y = (float)y1;
+                v[4].x = (float)x1; v[4].y = (float)y1;
+                v[5].x = (float)x0; v[5].y = (float)y1;
+                v[6].x = (float)x0; v[6].y = (float)y1;
+                v[7].x = (float)x0; v[7].y = (float)y0;
+                for (int i = 0; i < 8; i++)
+                {
+                    v[i].z = 0.0f;
+                    *(unsigned *)v[i].color = *(unsigned *)color;
+                }
+                re.AddLines(4, 1, v);
+            }
+            re.field_118(iter.radMat->name, 0x7fffffff, ctx, drawX, drawY, 1.0f, 1.0f, dword_01129788, 0);
+        }
+    }
+    dword_01128da4 = iter.field_20 + iter.field_0c;
+}
+
+// 0x004426b0 (47 B)
+void FUN_004426b0(void)
+{
+    FUN_004409a0();
+    dword_01128d90 = 0;
+    dword_01128d94 = 0;
+    dword_01128dc4 = 0.25f;
+    dword_01128da8.radMat = FUN_00440840((char *)"$default");
+    FUN_00440ca0();
+}
+
+// 0x004426e0 (372 B), free the filter menus' strings, every material and the name remaps
+void FUN_004426e0(void)
+{
+    int i;
+    for (i = 1; i < texWndGlobals.usageCount; i++)
+        delete[] DAT_00590a68[i].name;
+    texWndGlobals.usageCount = 0;
+    for (i = 1; i < texWndGlobals.localeCount; i++)
+        delete[] DAT_00591268[i].name;
+    texWndGlobals.localeCount = 0;
+    for (int materialIndex = 0; materialIndex < texWndGlobals.materialCount; materialIndex++)
+    {
+#line 1131
+        assert(texWndGlobals.sortedMaterials[materialIndex]);
+        delete[] texWndGlobals.sortedMaterials[materialIndex]->name;
+        FUN_004407f0(texWndGlobals.sortedMaterials[materialIndex]);
+    }
+    texWndGlobals.materialCount = 0;
+    texWndGlobals.qtextures = NULL;
+    if (re.field_1b0)
+        re.field_1b0();
+    while (texWndGlobals.materialNameRemap)
+    {
+        MaterialNameRemap *remap = texWndGlobals.materialNameRemap;
+        texWndGlobals.materialNameRemap = remap->next;
+        delete[] remap->shaderName;
+        delete[] remap->materialName;
+        delete remap;
+    }
+}
 
 // Layout projection of the main frame: +0x7a0 is the window layout style (retail load at 0x442dbf);
 // the three methods are CMainFrame functions called through g_pParentWnd.
@@ -972,6 +1238,32 @@ LRESULT CALLBACK FUN_004429f0(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     return DefWindowProc(hwnd, msg, wParam, lParam);
 }
 
+#define QE3_STYLE (WS_OVERLAPPED | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE | WS_CHILD)
+#define QE3_CHILDSTYLE (QE3_STYLE | WS_CAPTION | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX)
+#define QE3_SPLITTER_STYLE (WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_CLIPCHILDREN | WS_CLIPSIBLINGS)
+
+// 0x00442b20 (189 B)
+BOOL CTexWnd::PreCreateWindow(CREATESTRUCT &cs)
+{
+    WNDCLASS wc;
+    HINSTANCE hInstance = AfxGetInstanceHandle();
+    if (::GetClassInfo(hInstance, "QTEX", &wc) == FALSE)
+    {
+        memset(&wc, 0, sizeof(wc));
+        wc.style = CS_NOCLOSE;
+        wc.lpszClassName = "QTEX";
+        wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+        wc.lpfnWndProc = FUN_004429f0;
+        if (AfxRegisterClass(&wc) == FALSE)
+            Error("CZWnd RegisterClass: failed");
+    }
+    cs.lpszClass = "QTEX";
+    cs.lpszName = "TEX";
+    if (cs.style != QE3_CHILDSTYLE && cs.style != QE3_SPLITTER_STYLE)
+        cs.style = QE3_STYLE;
+    return CWnd::PreCreateWindow(cs);
+}
+
 // 0x00442be0 (212 B)
 int CTexWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
@@ -1013,6 +1305,61 @@ void CTexWnd::OnSize(UINT nType, int cx, int cy)
 void CTexWnd::OnParentNotify(UINT message, LPARAM lParam)
 {
     CWnd::OnParentNotify(message, lParam);
+}
+
+// 0x00442d60 (242 B)
+void CTexWnd::UpdateFilter(const char *pFilter)
+{
+    if (g_nTimerHandle > 0)
+        KillTimer(1);
+    texWndGlobals.filterEnabled = false;
+    if (pFilter)
+    {
+        texWndGlobals.filter = pFilter;
+        if (texWndGlobals.filter.GetLength() > 0)
+        {
+            texWndGlobals.filterEnabled = true;
+            int style = reinterpret_cast<const CTexWndMainProjection *>(g_pParentWnd)->m_nCurrentStyle;
+            if (style == 1 || style == 2)
+            {
+                if (texWndGlobals.filter.GetLength() > g_nLastLen)
+                {
+                    g_cLastChar = toupper(texWndGlobals.filter.GetAt(texWndGlobals.filter.GetLength() - 1));
+                    if (g_cLastChar == 'N' || g_cLastChar == 'O')
+                        g_nTimerHandle = SetTimer(1, 800, NULL);
+                }
+            }
+        }
+        g_nLastLen = texWndGlobals.filter.GetLength();
+        SortTextures();
+    }
+    g_nUpdateBits |= 0x10;
+}
+
+// 0x00442e60 (111 B)
+void CTexWnd::UpdatePrefs()
+{
+    if (!dword_01233b64->textureWindow)
+    {
+        m_wndFilter.ShowWindow(SW_HIDE);
+        texWndGlobals.textureOffset = 0;
+    }
+    else
+    {
+        m_wndFilter.ShowWindow(SW_SHOW);
+        texWndGlobals.textureOffset = 25;
+    }
+    ShowScrollBar(SB_VERT, dword_01233b64->textureScrollbar);
+    m_bNeedRange = true;
+    Invalidate();
+    UpdateWindow();
+}
+
+// 0x00442ed0 (23 B)
+void CTexWnd::FocusEdit()
+{
+    if (m_wndFilter.IsWindowVisible())
+        m_wndFilter.SetFocus();
 }
 
 // 0x00442ef0 (75 B)
