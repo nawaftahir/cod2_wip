@@ -1731,9 +1731,9 @@ bool FUN_00429bc0(patchMesh_t *patch, int *px, int *py)
     assert(patch);
     assert(px);
     assert(py);
-    bool found = false;
     *px = -1;
     *py = -1;
+    bool found = false;
     for (int i = 0; i < DAT_010c4d84; i++)
     {
         PatchControl *pdv = (PatchControl *)DAT_010c4d88[i];
@@ -1865,7 +1865,7 @@ bool FUN_00429fe0(patchMesh_t *p, int col)
 // Retail 0x0042a040: add a control to the selection list (front if the patch is the first selected brush's).
 void FUN_0042a040(patchMesh_t *p, PatchControl *c)
 {
-    if (DAT_010c4d84 != 0 && p->cache_3828 == DAT_010a44b4.next->def && DAT_010a44b4.next != &DAT_010a44b4)
+    if (DAT_010c4d84 != 0 && p->cache_3828 == DAT_010a44b4.next->def && DAT_010a44b4.prev != DAT_010a44b4.next)
     {
         memmove(&DAT_010c4d88[1], &DAT_010c4d88[0], DAT_010c4d84 * 4);
         DAT_010c4d88[0] = (int)c;
@@ -4094,7 +4094,9 @@ void FUN_00431490(int nCols, int nRows)
 #line 4641
         assert( b->patch->def == b->def->patch );
         patchMesh_t *p = b->patch->def;
-        if (!(p->type_10 & 0x40))
+        if (p->type_10 & 0x40)
+            Sys_Printf("********* Patch_AdjustSelectedRowCols not implemented for terrain brushes, since it looked like dead code\n");
+        else
         {
             FUN_00430370(p, false);
             if (nRows != 0)
@@ -4102,8 +4104,6 @@ void FUN_00431490(int nCols, int nRows)
             if (nCols != 0)
                 FUN_00430c40(p, nCols);
         }
-        else
-            Sys_Printf("********* Patch_AdjustSelectedRowCols not implemented for terrain brushes, since it looked like dead code\n");
     }
     if (g_PatchDialog.GetSafeHwnd())
         g_PatchDialog.GetPatchInfo();
@@ -4310,8 +4310,8 @@ void FUN_00432800(patchMesh_t *p, float fx, float fy)
     p->cache_3824 = FUN_004267d0(p, DAT_01128d94, NULL, NULL);
     p->version++;
 }
-
-// Retail 0x00432bb0: invert (flip) every selected patch.
+#pragma auto_inline(off)
+// Retail 0x00432bb0: invert (flip) every selected patch. Out of line: retail 0x41af00 calls it.
 void FUN_00432bb0()
 {
     bool bUpdate = false;
@@ -4325,8 +4325,8 @@ void FUN_00432bb0()
         FUN_00432a60(p);
         if (p->cache_3824)
             free(p->cache_3824);
-        p->version++;
         p->cache_3824 = FUN_004267d0(p, DAT_01128d94, NULL, NULL);
+        p->version++;
         bUpdate = true;
     }
     if (bUpdate)
@@ -4334,7 +4334,7 @@ void FUN_00432bb0()
     if (g_PatchDialog.GetSafeHwnd())
         g_PatchDialog.GetPatchInfo();
 }
-
+#pragma auto_inline(on)
 // Retail 0x00432ca0: mirror the texture coordinates of every selected patch along one axis.
 void FUN_00432ca0(bool bFlipWidth)
 {
