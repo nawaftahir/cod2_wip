@@ -3923,9 +3923,10 @@ void FUN_00430c40(patchMesh_t *p, int nCols)
     {
         vec3_t d;
         VectorSubtract(p->ctrl[p->width - 1 - nCols][h].xyz, p->ctrl[0][h].xyz, d);
+        float d0 = d[0];
         float inv = 1.0f / (float)(p->width - 1);
         vec3_t step;
-        step[0] = inv * d[0];
+        step[0] = inv * d0;
         step[1] = inv * d[1];
         step[2] = inv * d[2];
         for (int w = 0; w < p->width - 1; w++)
@@ -3956,19 +3957,21 @@ void FUN_00430e20(patchMesh_t *p, int nRows)
     if (nRows & 1 || p->height + nRows < 3 || p->height + nRows > 16)
         return;
     p->height += nRows;
-    for (int w = 0; w < p->width; w++)
+    int w;
+    for (w = 0; w < p->width; w++)
     {
         vec3_t d;
         VectorSubtract(p->ctrl[w][p->height - 1 - nRows].xyz, p->ctrl[w][0].xyz, d);
+        float d0 = d[0];
         float inv = 1.0f / (float)(p->height - 1);
         vec3_t step;
-        step[0] = inv * d[0];
+        step[0] = inv * d0;
         step[1] = inv * d[1];
         step[2] = inv * d[2];
         for (int h = 0; h < p->height - 1; h++)
             VectorAdd(p->ctrl[w][h].xyz, step, p->ctrl[w][h + 1].xyz);
     }
-    for (int w = 0; w < p->width; w++)
+    for (w = 0; w < p->width; w++)
     {
         for (int h = 0; h < p->height; h++)
         {
@@ -3997,9 +4000,10 @@ void FUN_00430ff0()
         {
             vec3_t d;
             VectorSubtract(p->ctrl[w][p->height - 1].xyz, p->ctrl[w][0].xyz, d);
+            float d0 = d[0];
             float inv = 1.0f / (float)(p->height - 1);
             vec3_t step;
-            step[0] = inv * d[0];
+            step[0] = inv * d0;
             step[1] = inv * d[1];
             step[2] = inv * d[2];
             for (int h = 0; h < p->height - 1; h++)
@@ -4030,9 +4034,10 @@ void FUN_004311a0()
         {
             vec3_t d;
             VectorSubtract(p->ctrl[p->width - 1][h].xyz, p->ctrl[0][h].xyz, d);
+            float d0 = d[0];
             float inv = 1.0f / (float)(p->width - 1);
             vec3_t step;
-            step[0] = inv * d[0];
+            step[0] = inv * d0;
             step[1] = inv * d[1];
             step[2] = inv * d[2];
             for (int w = 0; w < p->width - 1; w++)

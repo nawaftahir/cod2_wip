@@ -144,6 +144,9 @@ first-reference order of the memory leaves, not the text:
 - The /GL build hashes it differently from the scratch build, so test the real function with make try.
   The lever is the same: use a local pointer alias for a member array in one place, or drop it.
 Results:
+- Pmesh 0x430c40/0x430e20/0x430ff0/0x4311a0 MATCH (11-22, lane e7): first `step[0] = inv * d[0]` came out `fld d0; fmul inv`,
+  retail `fld inv; fmul d0`. Fix: a named copy `float d0 = d[0];` BEFORE `float inv = 1.0f / ...`, then `inv * d0`
+  (an earlier read of the leaf numbers it lower). 0x430e20 also needed `int w;` at function scope.
 - Winding_BaseForPlane 0x447c60 MATCH: `normal = p->normal` alias for fabs/VectorMA/scale/cross, but
   `DotProduct(vup, p->normal)` for the dot.
 - Winding_Clip 0x448280 MATCH (the integer `add ecx,eax` swap had the same cause):
