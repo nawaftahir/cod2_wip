@@ -34,12 +34,21 @@ BOOL CALLBACK FindBrushDlgProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lPa
 BOOL CALLBACK FUN_00476110(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam);
 BOOL CALLBACK FUN_00476aa0(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam);
 
+void Brush_MakeSidedCone(int sides);
+void Brush_MakeSidedSphere(int sides);
+void Brush_MakeSided(int sides);
+
 bool g_bDoCone = false;
 bool g_bDoSphere = false;
 
 void DoProjectSettings(void)
 {
     DialogBox(g_qeglobals.d_hInstance, (LPCSTR)153, g_qeglobals.d_hwndMain, ProjectDlgProc);
+}
+
+void DoFind(void)
+{
+    DialogBox(g_qeglobals.d_hInstance, (LPCSTR)110, g_qeglobals.d_hwndMain, FindBrushDlgProc);
 }
 
 /* CoD2-specific Go to position dialog (184), target callback 0x00476110. */
@@ -53,6 +62,36 @@ void DoRotate(void)
     DialogBox(g_qeglobals.d_hInstance, (LPCSTR)112, g_qeglobals.d_hwndMain, RotateDlgProc);
 }
 
+BOOL CALLBACK SidesDlgProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+    char sz[256];
+
+    switch (uMsg)
+    {
+    case WM_INITDIALOG:
+        SetFocus(GetDlgItem(hwndDlg, 1233));
+        return FALSE;
+    case WM_COMMAND:
+        switch (LOWORD(wParam))
+        {
+        case IDOK:
+            GetWindowText(GetDlgItem(hwndDlg, 1233), sz, 255);
+            if (g_bDoCone)
+                Brush_MakeSidedCone(atoi(sz));
+            else if (g_bDoSphere)
+                Brush_MakeSidedSphere(atoi(sz));
+            else
+                Brush_MakeSided(atoi(sz));
+            EndDialog(hwndDlg, 1);
+            return FALSE;
+        case IDCANCEL:
+            EndDialog(hwndDlg, 0);
+            return FALSE;
+        }
+    }
+    return FALSE;
+}
+
 void DoSides(bool bCone, bool bSphere, bool bTorus)
 {
     g_bDoCone = bCone;
@@ -60,17 +99,13 @@ void DoSides(bool bCone, bool bSphere, bool bTorus)
     DialogBox(g_qeglobals.d_hInstance, (LPCSTR)113, g_qeglobals.d_hwndMain, SidesDlgProc);
 }
 
-void DoFind(void)
-{
-    DialogBox(g_qeglobals.d_hInstance, (LPCSTR)110, g_qeglobals.d_hwndMain, FindBrushDlgProc);
-}
-
-
 /* CoD2 Maya export dialog (224), target callback 0x00476aa0. */
 void FUN_00476ce0(void)
 {
     DialogBox(g_qeglobals.d_hInstance, (LPCSTR)224, g_qeglobals.d_hwndMain, FUN_00476aa0);
 }
+
+
 
 BOOL CALLBACK AboutDlgProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
@@ -118,4 +153,10 @@ BOOL CALLBACK FUN_00476d70(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
 void DoAbout(void)
 {
     DialogBox(g_qeglobals.d_hInstance, (LPCSTR)114, g_qeglobals.d_hwndMain, AboutDlgProc);
+}
+
+// CoD2 dialog (225), target callback 0x00476d70.
+void FUN_00476db0(void)
+{
+    DialogBox(g_qeglobals.d_hInstance, (LPCSTR)225, g_qeglobals.d_hwndMain, FUN_00476d70);
 }

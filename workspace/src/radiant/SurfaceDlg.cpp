@@ -104,8 +104,10 @@ protected:
 	afx_msg void FUN_0043e950(NMHDR *pNMHDR, LRESULT *pResult);
 	void FUN_0043ddf0(UINT nSBCode, CScrollBar *pScrollBar);
 	void FUN_0043da00(int nID, bool bUp);
+	afx_msg void FUN_0043e980();
 	afx_msg void FUN_0043ea90();
 	afx_msg void FUN_0043eab0();
+	afx_msg void FUN_0043eac0();
 	afx_msg void FUN_0043ec10();
 	afx_msg void FUN_0043ec30();
 	afx_msg void FUN_0043ec40();
@@ -124,7 +126,9 @@ BEGIN_MESSAGE_MAP(CSurfaceDlg, CDialog)
 	ON_WM_CTLCOLOR()
 	ON_WM_CREATE()
 	ON_NOTIFY(UDN_DELTAPOS, 1248, FUN_0043e950)
+	ON_BN_CLICKED(1282, FUN_0043e980)
 	ON_BN_CLICKED(1284, FUN_0043ea90)
+	ON_BN_CLICKED(1283, FUN_0043eac0)
 	ON_BN_CLICKED(1286, FUN_0043ec10)
 	ON_BN_CLICKED(1287, FUN_0043eab0)
 	ON_NOTIFY(UDN_DELTAPOS, 1257, FUN_0043e950)
@@ -133,6 +137,10 @@ BEGIN_MESSAGE_MAP(CSurfaceDlg, CDialog)
 	ON_NOTIFY(UDN_DELTAPOS, 1251, FUN_0043e950)
 	ON_NOTIFY(UDN_DELTAPOS, 1260, FUN_0043e950)
 	ON_EN_CHANGE(1211, FUN_0043ec30)
+	ON_EN_CHANGE(1213, FUN_0043ec30)
+	ON_EN_CHANGE(1195, FUN_0043ec30)
+	ON_EN_CHANGE(1196, FUN_0043ec30)
+	ON_EN_CHANGE(1217, FUN_0043ec30)
 	ON_EN_CHANGE(1035, FUN_0043ec40)
 	ON_BN_CLICKED(1489, FUN_0043e840)
 END_MESSAGE_MAP()
@@ -653,10 +661,31 @@ int CSurfaceDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	return 0;
 }
 
-extern int DAT_01128dc4;
-void FUN_00434190(int a, int b, int c, int d);
+extern float DAT_01128dc4;
+extern int dword_011298b8, dword_011298bc, dword_011298c0;
+void FUN_00434190(bool bCap, bool bCycle, float fScaleS, float fScaleT);
+void FUN_00432f60(float scaleS, float scaleT, int mode);
 void FUN_00434290();
 void FUN_00474230(float x, float y, int flag);
+
+void CSurfaceDlg::FUN_0043e980()
+{
+	char text[128];
+	::GetWindowText(GetDlgItem(1089)->GetSafeHwnd(), text, 127);
+	float w = (float)atof(text);
+	if (w != 0.0f)
+	{
+		w *= DAT_01128dc4;
+		::GetWindowText(GetDlgItem(1142)->GetSafeHwnd(), text, 127);
+		float h = (float)atof(text);
+		if (h != 0.0f)
+		{
+			h *= DAT_01128dc4;
+			FUN_00434190(1, 0, w, h);
+			g_nUpdateBits = -1;
+		}
+	}
+}
 
 void CSurfaceDlg::FUN_0043ea90()
 {
@@ -667,6 +696,29 @@ void CSurfaceDlg::FUN_0043ea90()
 void CSurfaceDlg::FUN_0043eab0()
 {
 	FUN_00434290();
+	g_nUpdateBits = -1;
+}
+
+void CSurfaceDlg::FUN_0043eac0()
+{
+	char text[128];
+	::GetWindowText(GetDlgItem(1089)->GetSafeHwnd(), text, 127);
+	float s = (float)atof(text);
+	::GetWindowText(GetDlgItem(1142)->GetSafeHwnd(), text, 127);
+	float t = (float)atof(text);
+	int mode = GetCheckedRadioButton(1477, 1479);
+	if (mode)
+		dword_011298b8 = mode;
+	dword_011298bc = (int)s;
+	dword_011298c0 = (int)t;
+	if (mode == 1477)
+		FUN_00432f60(s, t, 0);
+	else if (mode == 1478)
+		FUN_00432f60(s, t, 1);
+	else if (mode == 1479)
+		FUN_00432f60(s, t, 2);
+	else
+		Sys_Printf("Select a texturing mode for SET\n");
 	g_nUpdateBits = -1;
 }
 

@@ -12,6 +12,9 @@ void Brush_FitTexture(float fS, float fT, int nZero);
 patchMesh_t* SinglePatchSelected();
 void Patch_ResetTexturing(float fx, float fy, int nOrientation);
 
+struct patchTexInfo_proj { unsigned char pad[4]; float scale[2]; float shift[2]; float rotate; };
+void FUN_00433910(const patchTexInfo_proj *info);
+
 
 
 CPatchDialog g_PatchDialog;
@@ -100,6 +103,16 @@ void CPatchDialog::OnBtnPatchreset()
 }
 
 
+void CPatchDialog::OnSelchangeComboCol()
+{
+	UpdateRowColInfo();
+}
+
+void CPatchDialog::OnSelchangeComboRow()
+{
+	UpdateRowColInfo();
+}
+
 void CPatchDialog::OnSelchangeComboType()
 {
 }
@@ -108,6 +121,13 @@ void CPatchDialog::OnOK()
 {
 	m_Patch = NULL;
 	CDialog::OnOK();
+}
+
+void CPatchDialog::OnDeltaposSpin(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
+	UpdateSpinners(pNMUpDown->iDelta > 0, pNMUpDown->hdr.idFrom);
+	*pResult = 0;
 }
 
 BOOL CPatchDialog::OnInitDialog()
@@ -213,3 +233,73 @@ void CPatchDialog::UpdateInfo()
 	GetPatchInfo();
 }
 
+
+void CPatchDialog::OnApply()
+{
+	UpdateData(TRUE);
+	if (m_Patch != NULL)
+	{
+		int r = m_wndRows.GetCurSel();
+		int c = m_wndCols.GetCurSel();
+		if (r >= 0 && r < m_Patch->height && c >= 0 && c < m_Patch->width)
+		{
+			m_Patch->ctrl[c][r].xyz[0] = m_fX;
+			m_Patch->ctrl[c][r].xyz[1] = m_fY;
+			m_Patch->ctrl[c][r].xyz[2] = m_fZ;
+			m_Patch->ctrl[c][r].st[DAT_01128d94][0] = m_fS;
+			m_Patch->ctrl[c][r].st[DAT_01128d94][1] = m_fT;
+			m_Patch->version++;
+			g_nUpdateBits = -1;
+		}
+	}
+}
+
+void CPatchDialog::UpdateSpinners(bool bUp, int nID)
+{
+	patchTexInfo_proj td;
+
+	td.rotate = 0.0f;
+	td.scale[0] = td.scale[1] = 0.0f;
+	td.shift[0] = td.shift[1] = 0.0f;
+
+	UpdateData(TRUE);
+
+	if (nID == 0x4eb)
+	{
+		if (bUp)
+			td.rotate = m_fRotate;
+		else
+			td.rotate = -m_fRotate;
+	}
+	else if (nID == 0x4e9)
+	{
+		if (bUp)
+			td.scale[0] = 1 - m_fHScale;
+		else
+			td.scale[0] = 1 + m_fHScale;
+	}
+	else if (nID == 0x4e6)
+	{
+		if (bUp)
+			td.scale[1] = 1 - m_fVScale;
+		else
+			td.scale[1] = 1 + m_fVScale;
+	}
+	else if (nID == 0x4e0)
+	{
+		if (bUp)
+			td.shift[0] = m_fHShift;
+		else
+			td.shift[0] = -m_fHShift;
+	}
+	else if (nID == 0x4e3)
+	{
+		if (bUp)
+			td.shift[1] = m_fVShift;
+		else
+			td.shift[1] = -m_fVShift;
+	}
+
+	FUN_00433910(&td);
+	g_nUpdateBits |= 1;
+}
