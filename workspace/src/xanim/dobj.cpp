@@ -185,6 +185,345 @@ int FUN_004a1890(const DObj_s *obj, unsigned int name)
 	return -1;
 }
 
+#define DOBJ_MAX_PARTS 128
+#define DOBJ_MAX_PART_BITS 4
+
+#line 255
+void DObjCreateDuplicateParts(DObj_s *obj)
+{
+	int boneCount;
+	int numBones;
+	XModel *model;
+	int boneIndex;
+	int localBoneIndex;
+	int boneIter;
+	XBoneHierarchy *hierarchy;
+	unsigned short *name;
+	byte *duplicateParts;
+	int len;
+	bool bRootMeld;
+	int index;
+	int parentIndex;
+	XModelParts *modelParts;
+	byte duplicatePartBits[0x444];
+
+#line 259
+	assert(!obj->duplicateParts);
+#line 260
+	assert(obj->numModels > 0);
+#line 262
+	assert(obj->numBones <= DOBJ_MAX_PARTS);
+#line 263
+	assert((DOBJ_MAX_PART_BITS * sizeof( int ) + obj->numBones * 2 * sizeof( unsigned char ) + 1) <= sizeof( duplicatePartBits ));
+
+	duplicateParts = &duplicatePartBits[16];
+	memset(duplicatePartBits, 0, 16);
+	len = 0;
+	numBones = obj->models[0]->parts->numBones;
+
+	for ( boneCount = 1; boneCount < obj->numModels; ++boneCount )
+	{
+		model = obj->models[boneCount];
+
+		if ( obj->modelParents[boneCount] == 0xFF )
+		{
+			modelParts = model->parts;
+			hierarchy = modelParts->hierarchy;
+			name = hierarchy->names;
+			boneIter = modelParts->numBones;
+			bRootMeld = 0;
+			boneIndex = -1;
+
+#line 282
+			assert(numBones);
+#line 283
+			assert(numBones < DOBJ_MAX_PARTS);
+
+			for ( localBoneIndex = 0; localBoneIndex < boneIter; ++localBoneIndex )
+			{
+				parentIndex = FUN_004a1890(obj, name[localBoneIndex]);
+#line 291
+				assertMsg((parentIndex >= 0), "(parentIndex) = %i", parentIndex);
+
+				if ( parentIndex != numBones + localBoneIndex )
+				{
+					if ( !localBoneIndex )
+						bRootMeld = 1;
+
+#line 299
+					assert(boneIndex + localBoneIndex + 1 < 256);
+#line 300
+					assert(parentIndex + 1 < 256);
+#line 301
+					assert(parentIndex < boneIndex + localBoneIndex);
+
+					index = numBones + localBoneIndex;
+					duplicateParts[len] = index + 1;
+					((int *)duplicatePartBits)[index >> 5] |= 1 << (index & 0x1F);
+#line 306
+					assert(duplicateParts[len]);
+					duplicateParts[++len] = parentIndex + 1;
+#line 309
+					assert(duplicateParts[len]);
+					++len;
+				}
+			}
+
+			if ( !bRootMeld )
+			{
+				Com_Printf(
+				    "WARNING: Attempting to meld model, but root part '%s' of model '%s' not found in model '%s' or any of its descendants\n",
+				    SL_ConvertToString(name[0]),
+				    model->name,
+				    obj->models[0]->name);
+			}
+		}
+
+		numBones += model->parts->numBones;
+	}
+
+	if ( !g_empty )
+	{
+		byte emptyBits[17];
+
+		memset(emptyBits, 0, sizeof(emptyBits));
+		g_empty = SL_GetStringOfLen((const char *)emptyBits, 0, 17, 12);
+#line 322
+		assert(g_empty);
+	}
+
+	if ( len )
+	{
+		duplicateParts[len++] = 0;
+		obj->duplicateParts = SL_GetStringOfLen((const char *)duplicatePartBits, 0, len + 16, 12);
+	}
+	else
+	{
+		obj->duplicateParts = g_empty;
+	}
+}
+
+#line 355
+void DObjGetHierarchyBits(DObj_s *obj, int boneIndex, int *partBits)
+{
+	int numModels;
+	int i;
+	int j;
+	XModelParts_s *parts;
+	const unsigned char *duplicateParts;
+	byte *parentList;
+	int localBoneIndex;
+	const unsigned char *pos;
+	int newBoneIndex;
+	int startIndex[8];
+	const int *duplicatePartBits;
+
+#line 360
+	assert(obj);
+#line 362
+	assert(boneIndex >= 0);
+#line 363
+	assert(boneIndex < obj->numBones);
+
+	for ( i = 0; i < 4; ++i )
+		partBits[i] = 0;
+
+	numModels = obj->numModels;
+#line 369
+	assert(numModels > 0);
+
+	if ( !obj->duplicateParts )
+		DObjCreateDuplicateParts(obj);
+
+#line 374
+	assert(obj->duplicateParts);
+	duplicatePartBits = (const int *)SL_ConvertToString(obj->duplicateParts);
+	duplicateParts = (const unsigned char *)(duplicatePartBits + 4);
+	pos = duplicateParts;
+
+	startIndex[0] = 0;
+
+	for ( j = 0; ; startIndex[j] = newBoneIndex )
+	{
+		parts = obj->models[j]->parts;
+		newBoneIndex = startIndex[j] + parts->numBones;
+
+		if ( newBoneIndex > boneIndex )
+			break;
+
+		if ( ++j == numModels )
+			return;
+	}
+
+	for ( parentList = parts->hierarchy->parentList; ; )
+	{
+		localBoneIndex = boneIndex - startIndex[j];
+#line 406
+		assert(localBoneIndex >= 0);
+
+		while ( 1 )
+		{
+			partBits[boneIndex >> 5] |= 1 << (boneIndex & 0x1F);
+
+			if ( (byte)(((byte)(duplicatePartBits[boneIndex >> 5] >> (boneIndex & 0x1F)) ^ 1) & 1) )
+			{
+				newBoneIndex = localBoneIndex - parts->numRootBones;
+
+				if ( newBoneIndex >= 0 )
+				{
+					boneIndex -= parentList[newBoneIndex];
+					break;
+				}
+
+				boneIndex = obj->modelParents[j];
+
+				if ( boneIndex == 255 )
+					return;
+			}
+			else
+			{
+				for ( pos = duplicateParts; ; pos += 2 )
+				{
+#line 431
+					assert(*pos);
+
+					if ( boneIndex == *pos - 1 )
+					{
+						boneIndex = pos[1] - 1;
+						break;
+					}
+				}
+			}
+
+			localBoneIndex = boneIndex - startIndex[--j];
+#line 444
+			assert(j >= 0);
+
+			if ( localBoneIndex >= 0 )
+			{
+				parts = obj->models[j]->parts;
+				parentList = parts->hierarchy->parentList;
+				break;
+			}
+		}
+	}
+}
+
+#line 474
+void DObjCompleteHierarchyBits(DObj_s *obj, int *partBits)
+{
+	int numModels;
+	int i;
+	int j;
+	XModelParts_s *parts;
+	const unsigned char *duplicateParts;
+	byte *parentList;
+	int localBoneIndex;
+	const unsigned char *pos;
+	int newBoneIndex;
+	int startIndex[8];
+	const int *duplicatePartBits;
+	int boneIndex;
+
+#line 479
+	assert(obj);
+#line 480
+	assert(obj->numBones > 0);
+
+	boneIndex = obj->numBones - 1;
+	numModels = obj->numModels;
+#line 485
+	assert(numModels > 0);
+
+	if ( !obj->duplicateParts )
+		DObjCreateDuplicateParts(obj);
+
+#line 490
+	assert(obj->duplicateParts);
+	duplicatePartBits = (const int *)SL_ConvertToString(obj->duplicateParts);
+	duplicateParts = (const unsigned char *)(duplicatePartBits + 4);
+	pos = duplicateParts;
+
+	startIndex[0] = 0;
+
+	for ( j = 0; ; startIndex[j] = newBoneIndex )
+	{
+		parts = obj->models[j]->parts;
+		newBoneIndex = startIndex[j] + parts->numBones;
+
+		if ( newBoneIndex > boneIndex )
+			break;
+
+		++j;
+#line 507
+		assert(j != numModels);
+	}
+
+	parentList = parts->hierarchy->parentList;
+
+	while ( 1 )
+	{
+		localBoneIndex = boneIndex - startIndex[j];
+
+		if ( localBoneIndex < 0 )
+		{
+			--j;
+
+			if ( j < 0 )
+				return;
+
+			parts = obj->models[j]->parts;
+			parentList = parts->hierarchy->parentList;
+			continue;
+		}
+
+		if ( (byte)(((byte)(partBits[boneIndex >> 5] >> (boneIndex & 0x1F)) ^ 1) & 1) )
+		{
+			--boneIndex;
+			continue;
+		}
+
+		if ( (byte)(((byte)(duplicatePartBits[boneIndex >> 5] >> (boneIndex & 0x1F)) ^ 1) & 1) )
+		{
+			newBoneIndex = localBoneIndex - parts->numRootBones;
+
+			if ( newBoneIndex >= 0 )
+			{
+				newBoneIndex = boneIndex - parentList[newBoneIndex];
+			}
+			else
+			{
+				newBoneIndex = obj->modelParents[j];
+
+				if ( newBoneIndex == 255 )
+				{
+					--boneIndex;
+					continue;
+				}
+			}
+		}
+		else
+		{
+			for ( pos = duplicateParts; ; pos += 2 )
+			{
+#line 558
+				assert(*pos);
+
+				if ( boneIndex == *pos - 1 )
+				{
+					newBoneIndex = pos[1] - 1;
+					break;
+				}
+			}
+		}
+
+#line 568
+		assert((unsigned)newBoneIndex < obj->numBones);
+		partBits[newBoneIndex >> 5] |= 1 << (newBoneIndex & 0x1F);
+		--boneIndex;
+	}
+}
+
 int DObjSkelIsBoneUpToDate(DObj_s *obj, int boneIndex)
 {
 	DSkel_t *skel;
@@ -786,6 +1125,322 @@ int DObjNumBones(const DObj *obj)
 	return obj->numBones;
 }
 
+void InvMatrixTransformVectorQuatTrans(const float *in, const DObjAnimMat *mat, float *out)
+{
+	float temp[3];
+	float axis[3][3];
+
+	VectorSubtract(in, mat->trans, temp);
+	ConvertQuatToMat(mat, axis);
+
+	out[0] = temp[0] * axis[0][0] + temp[1] * axis[0][1] + temp[2] * axis[0][2];
+	out[1] = temp[0] * axis[1][0] + temp[1] * axis[1][1] + temp[2] * axis[1][2];
+	out[2] = temp[0] * axis[2][0] + temp[1] * axis[2][1] + temp[2] * axis[2][2];
+}
+
+#line 1830
+void DObjTraceline(DObj_s *obj, float *start, float *end, unsigned char *priorityMap, DObjTrace_s *trace)
+{
+	vec3_t delta;
+	float invL2;
+	XModel *model;
+	XModelParts_s *parts;
+	float d2;
+	int numBones;
+	DObjAnimMat *boneMatrix;
+	DObjAnimMat *hitBoneMatrix;
+	float axis[3][3];
+	vec3_t center;
+	vec3_t startOffset;
+	vec3_t enfOffset;
+	float sphereFraction;
+	vec3_t offset;
+	float diff2;
+	vec3_t localStart;
+	vec3_t localEnd;
+	float enterFrac;
+	float fraction;
+	float solidHitFrac;
+	float dist1;
+	float dist2;
+	float dist;
+	int i;
+	float *bounds;
+	char bStartSolid;
+	char bEndSolid;
+	float sign;
+	int localBoneIndex;
+	float hitSign;
+	int hitT;
+	int traceHitT;
+	int globalBoneIndex;
+	DSkel_t *skel;
+	int modelIter;
+	unsigned int lowestPriority;
+	unsigned int currentPriority;
+	unsigned short *name;
+	const unsigned char *pos;
+	XBoneInfo *boneInfo;
+	int ignoreCollision;
+	unsigned char parentIndex;
+	XBoneHierarchy *hierarchy;
+	unsigned short classification;
+	float deltaLengthSq;
+	unsigned short classificationArray[128];
+
+	skel = obj->skel;
+#line 1838
+	assert(skel);
+#line 1840
+	assert(obj->duplicateParts);
+#line 1844
+	assert(!IS_NAN((start)[0]) && !IS_NAN((start)[1]) && !IS_NAN((start)[2]));
+#line 1845
+	assert(!IS_NAN((end)[0]) && !IS_NAN((end)[1]) && !IS_NAN((end)[2]));
+
+	trace->surfaceflags = 0;
+	trace->partName = 0;
+	trace->partGroup = 0;
+	VectorClear(trace->normal);
+	VectorSubtract(end, start, delta);
+	deltaLengthSq = VectorLengthSquared(delta);
+
+	if ( deltaLengthSq == 0.0 )
+		return;
+
+	boneMatrix = DObjGetRotTransArray(obj);
+
+	if ( !boneMatrix )
+		return;
+
+	invL2 = 1.0f / deltaLengthSq;
+	lowestPriority = 2;
+	pos = (const unsigned char *)(SL_ConvertToString(obj->duplicateParts) + 16);
+	globalBoneIndex = 0;
+	hitT = -1;
+	traceHitT = -1;
+	hitSign = 0.0;
+	hitBoneMatrix = 0;
+	solidHitFrac = trace->fraction;
+
+	for ( modelIter = 0; modelIter < obj->numModels; ++modelIter )
+	{
+		model = obj->models[modelIter];
+		parts = model->parts;
+		hierarchy = parts->hierarchy;
+		name = hierarchy->names;
+		numBones = parts->numBones;
+		ignoreCollision = obj->ignoreCollision & (1 << modelIter);
+
+		for ( localBoneIndex = 0; localBoneIndex < numBones; ++localBoneIndex, ++boneMatrix, ++globalBoneIndex )
+		{
+#line 1904
+			assert(skel->partBits.skel[globalBoneIndex >> 5] & (1 << (globalBoneIndex & 31)));
+#line 1909
+			assert(!IS_NAN((boneMatrix->quat)[0]) && !IS_NAN((boneMatrix->quat)[1]) && !IS_NAN((boneMatrix->quat)[2]) && !IS_NAN((boneMatrix->quat)[3]));
+#line 1910
+			assert(!IS_NAN((boneMatrix->trans)[0]) && !IS_NAN((boneMatrix->trans)[1]) && !IS_NAN((boneMatrix->trans)[2]));
+
+			classification = parts->partClassification[localBoneIndex];
+			currentPriority = priorityMap[classification];
+
+			if ( globalBoneIndex == *pos - 1 )
+			{
+				pos += 2;
+
+				if ( currentPriority == 1 )
+				{
+					classification = classificationArray[*(pos - 1) - 1];
+					currentPriority = priorityMap[classification];
+				}
+			}
+			else if ( currentPriority == 1 )
+			{
+				if ( localBoneIndex < parts->numRootBones )
+				{
+					parentIndex = obj->modelParents[modelIter];
+
+					classification = parentIndex != 0xFF ? classificationArray[parentIndex] : 0;
+				}
+				else
+				{
+					classification = classificationArray[globalBoneIndex
+					                                     - hierarchy->parentList[localBoneIndex - parts->numRootBones]];
+				}
+
+				currentPriority = priorityMap[classification];
+			}
+
+			classificationArray[globalBoneIndex] = classification;
+
+			if ( ignoreCollision )
+				continue;
+
+			boneInfo = &model->boneInfo[localBoneIndex];
+
+			if ( boneInfo->radiusSquared == 0.0 )
+				continue;
+			if ( lowestPriority > currentPriority )
+				continue;
+
+			MatrixTransformVectorQuatTrans(boneInfo->offset, boneMatrix, center);
+			VectorSubtract(start, center, startOffset);
+			sphereFraction = -DotProduct(startOffset, delta) * invL2;
+
+			if ( sphereFraction < 1.0f )
+			{
+				if ( sphereFraction > 0.0f )
+				{
+					VectorMA(startOffset, sphereFraction, delta, offset);
+					d2 = VectorLengthSquared(offset);
+				}
+				else
+				{
+					d2 = VectorLengthSquared(startOffset);
+				}
+			}
+			else
+			{
+				VectorSubtract(end, center, enfOffset);
+				d2 = VectorLengthSquared(enfOffset);
+			}
+
+			diff2 = boneInfo->radiusSquared - d2;
+
+			if ( diff2 <= 0.0f )
+				continue;
+			if ( lowestPriority == currentPriority
+			        && (float)(sphereFraction - sqrtf(diff2 * invL2)) >= trace->fraction )
+				continue;
+
+			InvMatrixTransformVectorQuatTrans(start, boneMatrix, localStart);
+			InvMatrixTransformVectorQuatTrans(end, boneMatrix, localEnd);
+#line 1947
+			assert(!IS_NAN((localStart)[0]) && !IS_NAN((localStart)[1]) && !IS_NAN((localStart)[2]));
+#line 1948
+			assert(!IS_NAN((localEnd)[0]) && !IS_NAN((localEnd)[1]) && !IS_NAN((localEnd)[2]));
+			enterFrac = 0.0;
+
+			if ( lowestPriority == currentPriority )
+				fraction = trace->fraction;
+			else
+				fraction = solidHitFrac;
+
+			bStartSolid = 1;
+			bEndSolid = 1;
+			sign = -1.0;
+
+			for ( bounds = boneInfo->bounds[0]; ; bounds += 3 )
+			{
+#line 1963
+				assert(!IS_NAN((bounds)[0]) && !IS_NAN((bounds)[1]) && !IS_NAN((bounds)[2]));
+
+				for ( i = 0; i < 3; ++i )
+				{
+					dist1 = (localStart[i] - bounds[i]) * sign;
+					dist2 = (localEnd[i] - bounds[i]) * sign;
+
+					if ( dist1 > 0.0 )
+					{
+						if ( dist2 > 0.0 )
+							goto out;
+
+						bStartSolid = 0;
+						dist = dist1 - dist2;
+#line 1977
+						assert(dist > 0);
+
+						if ( dist1 > enterFrac * dist )
+						{
+							enterFrac = dist1 / dist;
+							if ( enterFrac >= fraction )
+								goto out;
+
+							hitSign = sign;
+							hitT = i;
+						}
+					}
+					else if ( dist2 > 0.0 )
+					{
+						bEndSolid = 0;
+						dist = dist1 - dist2;
+#line 1991
+						assert(dist < 0);
+
+						if ( dist1 > fraction * dist )
+						{
+							fraction = dist1 / dist;
+
+							if ( enterFrac >= fraction )
+								goto out;
+						}
+					}
+				}
+
+				if ( sign == 1.0 )
+					break;
+
+				sign = 1.0;
+			}
+
+			if ( bStartSolid )
+			{
+				if ( bEndSolid == 0 )
+					continue;
+				if ( Dot2Product(delta, start) > 0.0 )
+					continue;
+
+				trace->fraction = 0.0;
+				trace->partName = name[localBoneIndex];
+				trace->partGroup = classification;
+
+				if ( delta[0] != 0.0 || delta[1] != 0.0 )
+				{
+					Vector2Copy(start, trace->normal);
+					Vec2Normalize(trace->normal);
+				}
+				else
+				{
+					trace->normal[2] = -I_sgn(delta[2]);
+				}
+				return;
+			}
+
+			if ( lowestPriority == currentPriority )
+			{
+				if ( enterFrac >= trace->fraction )
+					continue;
+			}
+			else
+			{
+				lowestPriority = currentPriority;
+			}
+
+			trace->fraction = enterFrac;
+			trace->partName = name[localBoneIndex];
+			trace->partGroup = classification;
+			traceHitT = hitT;
+			hitBoneMatrix = boneMatrix;
+out:
+			;
+		}
+	}
+
+	if ( hitBoneMatrix )
+	{
+#line 2050
+		assert(hitT >= 0);
+#line 2051
+		assert(hitT < 3);
+#line 2061
+		assert(traceHitT >= 0);
+#line 2062
+		assert(traceHitT < 3);
+		ConvertQuatToMat(hitBoneMatrix, axis);
+		VectorScale(axis[traceHitT], hitSign, trace->normal);
+	}
+}
+
 void DObjGeomTraceline(DObj_s *obj, float *localStart, float *localEnd, int contentmask, DObjTrace_s *results)
 {
 	trace_t trace;
@@ -918,6 +1573,19 @@ static void DObjClearAngles(DObjAnimMat *rotTrans)
 	rotTrans->quat[1] = 0.0f;
 	rotTrans->quat[2] = 0.0f;
 	rotTrans->quat[3] = 1.0f;
+}
+
+int DObjHasContents(DObj_s *obj, int contentmask)
+{
+	int i;
+
+	for ( i = 0; i < obj->numModels; ++i )
+	{
+		if ( (contentmask & XModelGetContents(obj->models[i])) != 0 )
+			return 1;
+	}
+
+	return 0;
 }
 
 static void DObjSetTrans(DObjAnimMat *rotTrans, const float *trans)

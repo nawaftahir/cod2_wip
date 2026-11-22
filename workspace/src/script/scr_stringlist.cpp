@@ -708,3 +708,131 @@ void Scr_ShutdownGameStrings()
 {
 	SL_ShutdownSystem(1);
 }
+
+byte *MT_InitForceAlloc();
+void MT_ForceAllocIndex(byte *allocBits, unsigned int nodeNum, int numBytes);
+void MT_FinishForceAlloc(byte *allocBits);
+
+void SL_TransferSystem(unsigned int from, unsigned int to)
+{
+	unsigned int hash;
+	HashEntry *entry;
+	RefString *refStr;
+
+#line 1142
+	assert(from);
+	assert(to);
+
+	for (hash = 1; hash < HASH_TABLE_SIZE; hash++)
+	{
+		entry = &scrStringGlob.hashTable[hash];
+
+		if (!(entry->status_next & HASH_STAT_MASK))
+			continue;
+
+		refStr = GetRefString(entry->str);
+
+		if (!(refStr->user & from))
+			continue;
+
+		refStr->user &= ~from;
+		refStr->user |= to;
+	}
+}
+
+void SL_Clear()
+{
+	unsigned int hash;
+	HashEntry *entry;
+	byte *allocBits;
+	RefString *refStr;
+	const char *str;
+	int len;
+
+	for (hash = 1; hash < HASH_TABLE_SIZE; hash++)
+	{
+		do
+		{
+			entry = &scrStringGlob.hashTable[hash];
+
+			if (!(entry->status_next & HASH_STAT_MASK))
+				break;
+
+			scrStringGlob.nextFreeEntry = 0;
+			SL_RemoveAllRefToString(entry->str);
+		} while (scrStringGlob.nextFreeEntry);
+	}
+
+	allocBits = MT_InitForceAlloc();
+#line 1201
+	assert(allocBits);
+
+	for (hash = 1; hash < HASH_TABLE_SIZE; hash++)
+	{
+		entry = &scrStringGlob.hashTable[hash];
+
+		if (!(entry->status_next & HASH_STAT_MASK))
+			continue;
+
+		refStr = GetRefString(entry->str);
+
+		if (!(refStr->user & 4))
+			continue;
+
+		str = SL_ConvertToString(entry->str);
+		len = strlen(str) + 1;
+		MT_ForceAllocIndex(allocBits, entry->str, len + REFSTRING_STRING_OFFSET);
+	}
+
+	MT_FinishForceAlloc(allocBits);
+}
+
+void SL_CreateCanonicalFilename(char *newFilename, const char *filename, int count)
+{
+	unsigned int c;
+
+#line 1230
+	assert(count);
+
+	do
+	{
+		do
+		{
+			do
+			{
+				c = *filename;
+				filename++;
+			} while (c == '\\');
+		} while (c == '/');
+
+		while (c >= ' ')
+		{
+			*newFilename = tolower(c);
+			newFilename++;
+
+			--count;
+
+			if (!count)
+				FUN_0047ae50(1, "Filename '%s' exceeds maximum length of %d", filename, count);
+
+			if (c == '/')
+				break;
+
+			c = *filename;
+			filename++;
+
+			if (c == '\\')
+				c = '/';
+		}
+	} while (c);
+
+	*newFilename = 0;
+}
+
+unsigned int Scr_CreateCanonicalFilename(const char *filename)
+{
+	char newFilename[1024];
+
+	SL_CreateCanonicalFilename(newFilename, filename, sizeof(newFilename));
+	return SL_GetString_(newFilename, 0, 7);
+}
