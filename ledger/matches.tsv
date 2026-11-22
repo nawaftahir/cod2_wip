@@ -2415,7 +2415,6 @@ addr	size	source	symbol	name	tag
 0x004114f0	176	src/radiant/MainFrm.cpp	?FUN_004114f0@@YAXPAVCWnd@@I@Z	FUN_004114f0	SUPPORTED
 0x0045ef60	74	src/radiant/brush.cpp	?FUN_0045ef60@@YAXPAUbrushdef_t@@HH@Z	FUN_0045ef60	SUPPORTED
 0x0045f7b0	34	src/radiant/brush.cpp	?FUN_0045f7b0@@YAXXZ	FUN_0045f7b0	HYPOTHESIS
-0x0044a210	136	src/radiant/XYWnd.cpp	?OriginalButtonDown@CXYWnd@@IAEXIVCPoint@@@Z	FUN_0044a210	SUPPORTED
 0x0041f5f0	17	src/radiant/MainFrm.cpp	?GetMenu@CWnd@@QBEPAVCMenu@@XZ	CWnd::GetMenu	SUPPORTED
 0x0041f610	24	src/radiant/MainFrm.cpp	?GetSubMenu@CMenu@@QBEPAV1@H@Z	CMenu::GetSubMenu	SUPPORTED
 0x00430c40	470	src/radiant/Pmesh.cpp	?FUN_00430c40@@YAXPAUpatchMesh_t@@H@Z	FUN_00430c40	SUPPORTED
