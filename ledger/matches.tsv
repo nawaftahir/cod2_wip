@@ -1245,9 +1245,12 @@ addr	size	source	symbol	name	tag
 0x0047c990	17	src/universal/assertive.cpp	?MapParseError@@YAXPBD@Z	MapParseError	UNNAMED
 0x0047c9b0	53	src/universal/assertive.cpp	?ReadMapLine@@YA_NPAU_iobuf@@PADH_N@Z	ReadMapLine	UNNAMED
 0x0047c9f0	72	src/universal/assertive.cpp	?SkipMapLines@@YA_NPADHPAU_iobuf@@H@Z	SkipMapLines	UNNAMED
+0x0047d1b0	190	src/universal/assertive.cpp	?FUN_0047d1b0@@YAPAUHINSTANCE__@@PBD@Z	FUN_0047d1b0	SUPPORTED
+0x0047d4b0	81	src/universal/assertive.cpp	?FUN_0047d4b0@@YAXXZ	FUN_0047d4b0	SUPPORTED
 0x0047d790	1	src/universal/assertive.cpp	_FUN_0047d790	FUN_0047d790	UNNAMED
 0x0047d7a0	6	src/universal/assertive.cpp	_FUN_0047d7a0	FUN_0047d7a0	UNNAMED
 0x0047d7b0	114	src/universal/assertive.cpp	_CopyMessageToClipboard	CopyMessageToClipboard	SUPPORTED
+0x0047d830	121	src/universal/assertive.cpp	?FUN_0047d830@@YAHHH@Z	FUN_0047d830	SUPPORTED
 0x0047d8b0	208	src/universal/assertive.cpp	?FUN_0047d8b0@@YAXPBD0PADHH@Z	FUN_0047d8b0	SUPPORTED
 0x0047d980	192	src/universal/assertive.cpp	?FUN_0047d980@@YAHPBD0HHH@Z	FUN_0047d980	SUPPORTED
 0x0047da40	8	src/universal/assertive.cpp	_FUN_0047da40	FUN_0047da40	UNNAMED
