@@ -1918,6 +1918,9 @@ addr	size	source	symbol	name	tag
 0x004aa090	97	src/script/scr_stringlist.cpp	?SL_GetStringForFloat@@YAIM@Z	SL_GetStringForFloat	SUPPORTED
 0x004aa100	92	src/script/scr_stringlist.cpp	?SL_GetStringForInt@@YAIH@Z	SL_GetStringForInt	SUPPORTED
 0x004aa160	113	src/script/scr_stringlist.cpp	?SL_GetStringForVector@@YAIPBM@Z	SL_GetStringForVector	SUPPORTED
+0x004aa310	201	src/script/scr_stringlist.cpp	?SL_TransferSystem@@YAXII@Z	SL_TransferSystem	PINNED
+0x004aa560	176	src/script/scr_stringlist.cpp	?SL_CreateCanonicalFilename@@YAXPADPBDH@Z	SL_CreateCanonicalFilename	PINNED
+0x004aa610	90	src/script/scr_stringlist.cpp	?Scr_CreateCanonicalFilename@@YAIPBD@Z	Scr_CreateCanonicalFilename	SUPPORTED
 0x004aa670	85	src/xanim/xmodel.cpp	?XModelBad@@YAHPAUXModel@@@Z	XModelBad	PINNED
 0x004aa6d0	6	src/xanim/xmodel.cpp	?XModelSetOptimize@@YAXH@Z	XModelSetOptimize	SUPPORTED
 0x004aa6e0	192	src/xanim/xmodel.cpp	?XModelPartsFree@@YAXPAUXModelParts_s@@@Z	XModelPartsFree	PINNED

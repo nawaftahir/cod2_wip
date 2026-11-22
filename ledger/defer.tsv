@@ -408,6 +408,7 @@ addr	agent	date	reason
 0x004a9b00	claude-d	2026-11-16	SL_TransferRefToUser: best 52%, sizes 176/139; ours inlines SL_DebugConvertToString into the assert, retail calls 0x4a88c0.
 0x004aa1e0	claude-d	2026-11-16	SL_ShutdownSystem: best 51%, sizes 268/275; retail takes user in ebx and counts the table loop down from 0x3fff, ours uses a pointer end compare.
 0x004aa300	claude-d	2026-11-16	Scr_ShutdownGameStrings: best 46%; blocked on SL_ShutdownSystem 0x4aa1e0 (retail passes user in ebx).
+0x004aa3e0	bulk-e4	2026-11-22	SL_Clear: bulk draft: 40%, sizes 415/369, first diff +0x0; retail walks the hash table by pointer with a stack counter (0x3fff) and inlines the remove-ref code
 0x004aaf40	claude-d	2026-11-16	XModelCalcBasePose: best 23%; 652/592; first diff +0x5: retail frame keeps pose pointers in [ebp-4..-0x10] and calls QuatMultiply/MatrixTransformVectorQuatTrans via register ABI (ecx/esi/ebx); ours inlines them. Needs 0x004a1440 and 0x004826e0 as matched register-ABI callees.
 0x004ab190	claude-d	2026-11-16	XModelPartsLoadFile: best 41%; 1127/1149; first diff +0x5: retail keeps the two bone counts in memory (mov word [ebp-0x4c]) and calls ConsumeQuat (0x004aae50, eax/esi ABI) and SL_GetStringOfLen 0x004a9080; blocked on ConsumeQuat.
 0x004ab710	claude-d	2026-11-16	XModelLoadCollData: best 91%; 1001/998; first diff +0x64; line numbers 280/284/298/311/335 aligned, 3 bytes over.
