@@ -154,3 +154,9 @@ void DoAbout(void)
 {
     DialogBox(g_qeglobals.d_hInstance, (LPCSTR)114, g_qeglobals.d_hwndMain, AboutDlgProc);
 }
+
+// CoD2 dialog (225), target callback 0x00476d70.
+void FUN_00476db0(void)
+{
+    DialogBox(g_qeglobals.d_hInstance, (LPCSTR)225, g_qeglobals.d_hwndMain, FUN_00476d70);
+}
