@@ -22,6 +22,8 @@ class CTexWnd : public CWnd {
 public:
     CTexWnd();
     void UpdateFilter(const char *pFilter);
+    void UpdatePrefs();
+    void FocusEdit();
     virtual ~CTexWnd();
 protected:
     virtual BOOL PreCreateWindow(CREATESTRUCT &cs);

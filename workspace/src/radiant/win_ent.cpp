@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../universal/assertive.h"
+#include "TexWnd.h"
 
 HWND hwndEnt[EntLast];
 
@@ -11,6 +12,21 @@ HWND hwndEnt[EntLast];
 #define EntComment 1
 #define EntCheck1 2
 #define EntProps 14
+#define EntDir0 15
+#define EntDir45 16
+#define EntDir90 17
+#define EntDir135 18
+#define EntDir180 19
+#define EntDir225 20
+#define EntDir270 21
+#define EntDir315 22
+#define EntDirUp 23
+#define EntDirDown 24
+#define EntDelProp 25
+#define EntKeyLabel 26
+#define EntValueLabel 28
+#define EntAssignModels 31
+#define EntTab 32
 
 struct epair_t
 {
@@ -79,13 +95,26 @@ extern char *dword_01233488;
 extern HWND dword_012485e4;
 LRESULT CALLBACK FUN_00478b40(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 void FUN_0047a760(const char *fmt, ...);
-void FUN_00476f10(HWND hwnd);
 void FUN_00478220(int w, int h);
+extern HINSTANCE dword_010bcd50;
+extern HWND dword_010bcd5c;
+extern HWND dword_010bcd64;
+extern HWND dword_010bcd74;
+extern CTabCtrl g_wndTabs;
+extern int dword_01129998;
+extern int dword_0112999c;
+extern int rgIds[EntLast];
+void FUN_004781f0(HWND e, int x, int y, int w, int h, HWND hwndPlacement, int swp);
 bool FUN_004131d0(const char *pszName, HWND hwnd);
 eclass_t *FUN_00464770(int a, const char *name);
 entity_t *FUN_00466d80(eclass_t *ec);
 void FUN_0046fbe0(bool a);
 void FUN_0046f0b0(brush_t *b, int a, int b2, int c);
+
+int rgIds[EntLast] = {
+    0x47f, 0x481, 0x414, 0x416, 0x418, 0x41a, 0x41c, 0x41f, 0x421, 0x423, 0x425,
+    0x428, 0x42a, 0x42c, 0x484, 0x492, 0x490, 0x48e, 0x486, 0x488, 0x48a, 0x48c,
+    0x494, 0x496, 0x498, 0x49e, 0x4c8, 0x4cd, 0x4cb, 0x47c, 0x4d7, 0x50e, 0};
 
 // Q3Radiant Win_ent.cpp FieldWndProc shape
 LRESULT CALLBACK FUN_00476dd0(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -149,6 +178,63 @@ LRESULT CALLBACK FUN_00476ec0(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
         break;
     }
     return CallWindowProc(dword_01129990, hwnd, uMsg, wParam, lParam);
+}
+
+// Q3Radiant Win_ent.cpp GetEntityControls shape
+void FUN_00476f10(HWND ghwnd)
+{
+    int i;
+
+    for (i = 0; i < EntLast; i++)
+    {
+        if (i == EntList || i == EntProps || i == EntComment)
+            continue;
+        if (i == EntKeyField || i == EntValueField)
+            continue;
+        hwndEnt[i] = GetDlgItem(ghwnd, rgIds[i]);
+        if (hwndEnt[i])
+        {
+            SetParent(hwndEnt[i], dword_010bcd60);
+            SendMessage(hwndEnt[i], WM_SETFONT, (WPARAM)GetStockObject(DEFAULT_GUI_FONT), (LPARAM)TRUE);
+        }
+    }
+    hwndEnt[EntList] = CreateWindow("listbox", NULL, 0x50a00503, 5, 5, 180, 99, dword_010bcd60, (HMENU)0x47f, dword_010bcd50, NULL);
+    if (!hwndEnt[EntList])
+        FUN_0047a760("CreateWindow failed");
+    hwndEnt[EntProps] = CreateWindow("listbox", NULL, 0x50a00183, 5, 100, 180, 99, dword_010bcd60, (HMENU)0x484, dword_010bcd50, NULL);
+    if (!hwndEnt[EntProps])
+        FUN_0047a760("CreateWindow failed");
+    hwndEnt[EntComment] = CreateWindow("edit", NULL, 0x50a00804, 5, 100, 180, 99, dword_010bcd60, (HMENU)0x481, dword_010bcd50, NULL);
+    if (!hwndEnt[EntComment])
+        FUN_0047a760("CreateWindow failed");
+    hwndEnt[EntKeyField] = CreateWindow("edit", NULL, 0x50800080, 5, 100, 180, 99, dword_010bcd60, (HMENU)0x4cd, dword_010bcd50, NULL);
+    if (!hwndEnt[EntKeyField])
+        FUN_0047a760("CreateWindow failed");
+    hwndEnt[EntValueField] = CreateWindow("edit", NULL, 0x50800080, 5, 100, 180, 99, dword_010bcd60, (HMENU)0x47c, dword_010bcd50, NULL);
+    if (!hwndEnt[EntValueField])
+        FUN_0047a760("CreateWindow failed");
+    g_wndTabs.SubclassDlgItem(0x520, CWnd::FromHandle(ghwnd));
+    hwndEnt[EntTab] = g_wndTabs.GetSafeHwnd();
+    ::SetParent(g_wndTabs.GetSafeHwnd(), dword_010bcd60);
+    g_wndTabs.InsertItem(4, "&Filters");
+    if (*(int *)(dword_01233488 + 0x7a0) > 0 && *(int *)(dword_01233488 + 0x7a0) < 3)
+    {
+        dword_010bcd5c = CreateWindow("edit", NULL, 0x50a00804, 5, 100, 180, 99, dword_010bcd60, (HMENU)0x4a2, dword_010bcd50, NULL);
+        if (!dword_010bcd5c)
+            FUN_0047a760("CreateWindow failed");
+        g_wndTabs.InsertItem(2, "C&onsole");
+        g_wndTabs.InsertItem(1, "&Textures");
+    }
+    g_wndTabs.InsertItem(0, "E&ntities");
+    g_wndTabs.ShowWindow(SW_SHOW);
+    SendMessage(hwndEnt[EntList], WM_SETFONT, (WPARAM)GetStockObject(DEFAULT_GUI_FONT), (LPARAM)TRUE);
+    SendMessage(hwndEnt[EntProps], WM_SETFONT, (WPARAM)GetStockObject(DEFAULT_GUI_FONT), (LPARAM)TRUE);
+    SendMessage(hwndEnt[EntComment], WM_SETFONT, (WPARAM)GetStockObject(DEFAULT_GUI_FONT), (LPARAM)TRUE);
+    SendMessage(hwndEnt[EntKeyField], WM_SETFONT, (WPARAM)GetStockObject(DEFAULT_GUI_FONT), (LPARAM)TRUE);
+    SendMessage(hwndEnt[EntValueField], WM_SETFONT, (WPARAM)GetStockObject(DEFAULT_GUI_FONT), (LPARAM)TRUE);
+    SendMessage(hwndEnt[EntTab], WM_SETFONT, (WPARAM)GetStockObject(DEFAULT_GUI_FONT), (LPARAM)TRUE);
+    if (*(int *)(dword_01233488 + 0x7a0) > 0 && *(int *)(dword_01233488 + 0x7a0) < 3)
+        SendMessage(dword_010bcd5c, WM_SETFONT, (WPARAM)GetStockObject(DEFAULT_GUI_FONT), (LPARAM)TRUE);
 }
 
 // Q3Radiant Win_ent.cpp FillClassList shape
@@ -217,6 +303,63 @@ BOOL FUN_00477390(HINSTANCE hInstance)
         RedrawWindow(dword_010bcd60, NULL, NULL, RDW_INVALIDATE | RDW_ERASE | RDW_ALLCHILDREN | RDW_UPDATENOW | RDW_ERASENOW);
     }
     return TRUE;
+}
+
+// Q3Radiant Win_ent.cpp SetInspectorMode shape
+void FUN_00477580(int iType)
+{
+    RECT rc;
+    HMENU hMenu = GetMenu(dword_010bcd54);
+
+    if ((*(int *)(dword_01233488 + 0x7a0) == 0 || *(int *)(dword_01233488 + 0x7a0) == 3) && (iType == 0x10 || iType == 0x40))
+        return;
+    if (iType == -1)
+    {
+        if (inspector_mode == 0x80)
+            iType = 0x10;
+        else if (inspector_mode == 0x10)
+            iType = 0x40;
+        else if (inspector_mode == 0x40)
+            iType = 0x800;
+        else
+        {
+            iType = 0x2000;
+            if (inspector_mode != 0x800)
+                iType = 0x80;
+        }
+    }
+    inspector_mode = iType;
+    switch (iType)
+    {
+    case 0x40:
+        SetWindowText(dword_010bcd60, "Console");
+        EnableMenuItem(hMenu, 0x810c, MF_DISABLED | MF_GRAYED);
+        SendMessage(g_wndTabs.m_hWnd, 0x130c, 3, 0);
+        break;
+    case 0x10:
+        SetWindowText(dword_010bcd60, "Textures");
+        (*(CTexWnd **)(dword_01233488 + 0x790))->FocusEdit();
+        EnableMenuItem(hMenu, 0x810c, MF_DISABLED | MF_GRAYED);
+        SendMessage(g_wndTabs.m_hWnd, 0x130c, 2, 0);
+        break;
+    case 0x80:
+        SetWindowText(dword_010bcd60, "Entity");
+        EnableMenuItem(hMenu, 0x810c, MF_BYCOMMAND);
+        SendMessage(g_wndTabs.m_hWnd, 0x130c, 0, 0);
+        break;
+    case 0x2000:
+        SetWindowText(dword_010bcd60, "Filters");
+        EnableMenuItem(hMenu, 0x810c, MF_DISABLED | MF_GRAYED);
+        if (*(int *)(dword_01233488 + 0x7a0) > 0 && *(int *)(dword_01233488 + 0x7a0) < 3)
+            SendMessage(g_wndTabs.m_hWnd, 0x130c, 1, 0);
+        else
+            SendMessage(g_wndTabs.m_hWnd, 0x130c, 1, 0);
+        break;
+    }
+    GetWindowRect(dword_010bcd60, &rc);
+    FUN_00478220(rc.right - rc.left - 8, rc.bottom - rc.top - 20);
+    SetWindowPos(dword_010bcd60, *(int *)(dword_01233488 + 0x7a0) == 1 ? HWND_TOP : HWND_TOPMOST, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, SWP_NOMOVE | SWP_NOSIZE);
+    RedrawWindow(dword_010bcd60, NULL, NULL, RDW_INVALIDATE | RDW_ERASE | RDW_ALLCHILDREN | RDW_UPDATENOW | RDW_ERASENOW);
 }
 
 // Q3Radiant Win_ent.cpp SetKeyValuePairs shape
@@ -425,4 +568,97 @@ void FUN_00478140()
 void FUN_004781f0(HWND e, int x, int y, int w, int h, HWND hwndPlacement, int swp)
 {
     SetWindowPos(e, hwndPlacement, col + x, y, w, h, swp);
+}
+
+// Q3Radiant Win_ent.cpp SizeEntityDlg shape
+void FUN_00478220(int iWidth, int iHeight)
+{
+    int y, x, xCheck, yCheck;
+    int i, iRow;
+    int w, h;
+
+#define MOVE(e, mx, my, mw, mh) FUN_004781f0(e, mx, my, mw, mh, HWND_TOP, 0x114)
+    if (iWidth < 32 || iHeight < 32 || (iWidth == dword_0112999c && iHeight == dword_01129998))
+        return;
+    dword_0112999c = iWidth;
+    dword_01129998 = iHeight;
+    SendMessage(dword_010bcd60, WM_SETREDRAW, 0, 0);
+    iHeight -= 24;
+    col = inspector_mode == 0x40 ? 0 : iWidth;
+    if (*(int *)(dword_01233488 + 0x7a0) > 0 && *(int *)(dword_01233488 + 0x7a0) < 3)
+        MOVE(dword_010bcd5c, 5, 5, iWidth - 10, iHeight - 10);
+    col = inspector_mode == 0x10 ? 0 : iWidth;
+    if (*(int *)(dword_01233488 + 0x7a0) > 0 && *(int *)(dword_01233488 + 0x7a0) < 3)
+        MOVE(dword_010bcd64, 5, 5, iWidth - 10, iHeight - 10);
+    col = inspector_mode == 0x2000 ? 0 : iWidth;
+    MOVE(dword_010bcd74, 5, 5, iWidth - 10, iHeight - 10);
+    col = inspector_mode == 0x80 ? 0 : iWidth;
+    y = iHeight / 2;
+    y -= 10;
+    y = y / 3;
+    w = iWidth - 10;
+    MOVE(hwndEnt[EntList], 5, 5, w, 2 * y);
+    MOVE(hwndEnt[EntComment], 5, 10 + 2 * y, w, y - 10);
+    xCheck = (iWidth - 10) / 3;
+    yCheck = 18;
+    x = 5;
+    for (iRow = 0; iRow <= 12; iRow += 4)
+    {
+        y = iHeight / 2;
+        for (i = 0; i < 4; i++)
+        {
+            MOVE(hwndEnt[EntCheck1 + i + iRow], x, y, xCheck, yCheck);
+            y += yCheck;
+        }
+        x += xCheck;
+    }
+    y = iHeight / 2 + 4 * yCheck;
+    w = iWidth - 10;
+    h = (iHeight - (yCheck * 5 + 10)) - y;
+    MOVE(hwndEnt[EntProps], 5, y, w, h);
+    y += h + 5;
+    w = iWidth - 50;
+    MOVE(hwndEnt[EntKeyLabel], 5, y, 40, yCheck);
+    MOVE(hwndEnt[EntKeyField], 45, y, w, yCheck);
+    y += yCheck;
+    MOVE(hwndEnt[EntValueLabel], 5, y, 40, yCheck);
+    MOVE(hwndEnt[EntValueField], 45, y, w, yCheck);
+    y += yCheck;
+    y += 2;
+    i = y;
+    x = 5;
+    xCheck = yCheck * 2;
+    MOVE(hwndEnt[EntDir135], x, y, xCheck, yCheck);
+    y += yCheck;
+    MOVE(hwndEnt[EntDir180], x, y, xCheck, yCheck);
+    y += yCheck;
+    MOVE(hwndEnt[EntDir225], x, y, xCheck, yCheck);
+    y = i;
+    x += xCheck;
+    MOVE(hwndEnt[EntDir90], x, y, xCheck, yCheck);
+    y += yCheck;
+    y += yCheck;
+    MOVE(hwndEnt[EntDir270], x, y, xCheck, yCheck);
+    y = i;
+    x += xCheck;
+    MOVE(hwndEnt[EntDir45], x, y, xCheck, yCheck);
+    y += yCheck;
+    MOVE(hwndEnt[EntDir0], x, y, xCheck, yCheck);
+    y += yCheck;
+    MOVE(hwndEnt[EntDir315], x, y, xCheck, yCheck);
+    y = i + yCheck / 2;
+    x += xCheck + xCheck / 2;
+    MOVE(hwndEnt[EntDirUp], x, y, xCheck, yCheck);
+    y += yCheck;
+    MOVE(hwndEnt[EntDirDown], x, y, xCheck, yCheck);
+    y = i;
+    x += 1.5 * xCheck;
+    MOVE(hwndEnt[EntDelProp], x, y, xCheck * 2, yCheck);
+    y += yCheck + 4;
+    MOVE(hwndEnt[EntAssignModels], x, y, xCheck * 2, yCheck);
+    col = 0;
+    iHeight += 24;
+    FUN_004781f0(hwndEnt[EntTab], 0, 0, iWidth, iHeight, HWND_BOTTOM, SWP_NOACTIVATE | SWP_NOCOPYBITS);
+    SendMessage(dword_010bcd60, WM_SETREDRAW, 1, 0);
+#undef MOVE
 }
