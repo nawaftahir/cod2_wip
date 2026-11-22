@@ -52,3 +52,27 @@ addr	size	source	symbol	name	tag
 0x00453300	90	src/radiant/XYWnd.cpp	?Left@?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QBE?AV12@H@Z	CStringT::Left (header inline)	AUTO
 0x004534a0	11	src/radiant/XYWnd.cpp	?GetSafeHmenu@CMenu@@QBEPAUHMENU__@@XZ	CMenu::GetSafeHmenu (header inline)	AUTO
 0x00464b50	88	src/radiant/eclass.cpp	?AppendChar@?$CSimpleStringT@D$0A@@ATL@@QAEXD@Z	CSimpleStringT::AppendChar (header inline)	AUTO
+0x00445140	33	src/radiant/VehicleDlg.cpp	??_ECVehicleDlg@@UAEPAXI@Z	CVehicleDlg::vector deleting destructor	AUTO
+0x00446050	22	src/radiant/VehicleDlg.cpp	?Compare@?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QBEHPBD@Z	ATL::CStringT::Compare(const char *)	AUTO
+0x0043b6d0	33	src/radiant/Radiant.cpp	??_GCRadiantApp@@UAEPAXI@Z	CRadiantApp::scalar deleting destructor	AUTO
+0x0043bfd0	26	src/radiant/Radiant.cpp	??0?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAE@PAUIAtlStringMgr@1@@Z	ATL::CStringT::CStringT(IAtlStringMgr *)	AUTO
+0x00422f30	33	src/radiant/ModelDlg.cpp	??_GCModelDlg@@UAEPAXI@Z	CModelDlg::scalar deleting destructor	AUTO
+0x00423ec0	35	src/radiant/ModelDlg.cpp	??0?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAE@ABV01@@Z	ATL::CStringT::CStringT(const CStringT &)	AUTO
+0x00423fb0	32	src/radiant/ModelDlg.cpp	??0?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAE@PBDHPAUIAtlStringMgr@1@@Z	ATL::CStringT::CStringT(const char *, int, IAtlStringMgr *)	AUTO
+0x00423fd0	35	src/radiant/ModelDlg.cpp	??0?$CSimpleStringT@D$0A@@ATL@@QAE@ABV01@@Z	ATL::CSimpleStringT::CSimpleStringT(const CSimpleStringT &)	AUTO
+0x00424000	10	src/radiant/ModelDlg.cpp	?GetManager@?$CSimpleStringT@D$0A@@ATL@@QBEPAUIAtlStringMgr@2@XZ	ATL::CSimpleStringT::GetManager	AUTO
+0x00407fa0	33	src/radiant/CapDialog.cpp	??_GCCapDialog@@UAEPAXI@Z	CCapDialog::scalar deleting destructor	AUTO
+0x00402880	30	src/radiant/AdvCurveDlg.cpp	??_GCSliderCtrl@@UAEPAXI@Z	CSliderCtrl::scalar deleting destructor	AUTO
+0x004028b0	30	src/radiant/AdvCurveDlg.cpp	??_ECEdit@@UAEPAXI@Z	CEdit::scalar deleting destructor	AUTO
+0x004028e0	30	src/radiant/AdvCurveDlg.cpp	??_ECButton@@UAEPAXI@Z	CButton::scalar deleting destructor	AUTO
+0x004024d0	13	src/radiant/AdvCurveDlg.cpp	?EndModalState@CWnd@@UAEXXZ	CWnd::EndModalState	AUTO
+0x004024e0	13	src/radiant/AdvCurveDlg.cpp	?BeginModalState@CWnd@@UAEXXZ	CWnd::BeginModalState	AUTO
+0x00402550	19	src/radiant/AdvCurveDlg.cpp	?CreatePopupMenu@CMenu@@QAEHXZ	CMenu::CreatePopupMenu	AUTO
+0x004025b0	16	src/radiant/AdvCurveDlg.cpp	??0CMenu@@QAE@XZ	??0CMenu@@QAE@XZ	AUTO
+0x00402750	29	src/radiant/AdvCurveDlg.cpp	??1?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAE@XZ	??1?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAE@XZ	AUTO
+0x00402770	29	src/radiant/AdvCurveDlg.cpp	??1?$CSimpleStringT@D$0A@@ATL@@QAE@XZ	??1?$CSimpleStringT@D$0A@@ATL@@QAE@XZ	AUTO
+0x004027a0	26	src/radiant/AdvCurveDlg.cpp	?Release@CStringData@ATL@@QAEXXZ	?Release@CStringData@ATL@@QAEXXZ	AUTO
+0x004027c0	24	src/radiant/AdvCurveDlg.cpp	??0?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAE@XZ	??0?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAE@XZ	AUTO
+0x004027e0	26	src/radiant/AdvCurveDlg.cpp	??0?$CSimpleStringT@D$0A@@ATL@@QAE@PAUIAtlStringMgr@1@@Z	??0?$CSimpleStringT@D$0A@@ATL@@QAE@PAUIAtlStringMgr@1@@Z	AUTO
+0x00402800	15	src/radiant/AdvCurveDlg.cpp	?Attach@?$CSimpleStringT@D$0A@@ATL@@AAEXPAUCStringData@2@@Z	?Attach@?$CSimpleStringT@D$0A@@ATL@@AAEXPAUCStringData@2@@Z	AUTO
+0x00402810	4	src/radiant/AdvCurveDlg.cpp	?data@CStringData@ATL@@QAEPAXXZ	?data@CStringData@ATL@@QAEPAXXZ	AUTO

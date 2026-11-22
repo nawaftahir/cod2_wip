@@ -52,9 +52,81 @@ void CTextureBar::DoDataExchange(CDataExchange *pDX)
     DDX_Text(pDX, 0x4ee, m_nRotateAmt);
 }
 
-// Preserve the already accepted one-byte retail body until its class-method
-// identity can be promoted without rewriting an existing ledger row.
-extern "C" void FUN_0043f420() {}
+extern int DAT_0112988c;
+extern int g_nUpdateBits;
+void FUN_00472860(float x, float y);
+void FUN_00472ff0(int x, int y);
+void FUN_004733f0(int);
+
+BEGIN_MESSAGE_MAP(CTextureBar, CDialogBar)
+    ON_NOTIFY(UDN_DELTAPOS, 1248, OnDeltaposSpinHshift)
+    ON_NOTIFY(UDN_DELTAPOS, 1251, OnDeltaposSpinVshift)
+    ON_NOTIFY(UDN_DELTAPOS, 1257, OnDeltaposSpinHScale)
+    ON_NOTIFY(UDN_DELTAPOS, 1254, OnDeltaposSpinVScale)
+    ON_NOTIFY(UDN_DELTAPOS, 1259, OnDeltaposSpinRotate)
+    ON_COMMAND(33087, FUN_0043f420)
+    ON_WM_CREATE()
+    ON_COMMAND(1070, OnBtnApplytexturestuff)
+END_MESSAGE_MAP()
+
+void CTextureBar::OnDeltaposSpinHshift(NMHDR *pNMHDR, LRESULT *pResult)
+{
+    NM_UPDOWN *pNMUpDown = (NM_UPDOWN *)pNMHDR;
+    *pResult = 0;
+    if (pNMUpDown->iDelta < 0)
+        FUN_00472860((float)abs(DAT_0112988c), 0);
+    else
+        FUN_00472860((float)-abs(DAT_0112988c), 0);
+    FUN_0043f460();
+}
+
+void CTextureBar::OnDeltaposSpinVshift(NMHDR *pNMHDR, LRESULT *pResult)
+{
+    NM_UPDOWN *pNMUpDown = (NM_UPDOWN *)pNMHDR;
+    *pResult = 0;
+    if (pNMUpDown->iDelta < 0)
+        FUN_00472860(0, (float)abs(DAT_0112988c));
+    else
+        FUN_00472860(0, (float)-abs(DAT_0112988c));
+    FUN_0043f460();
+}
+
+void CTextureBar::OnDeltaposSpinHScale(NMHDR *pNMHDR, LRESULT *pResult)
+{
+    NM_UPDOWN *pNMUpDown = (NM_UPDOWN *)pNMHDR;
+    *pResult = 0;
+    if (pNMUpDown->iDelta < 0)
+        FUN_00472ff0(abs(DAT_0112988c), 0);
+    else
+        FUN_00472ff0(-abs(DAT_0112988c), 0);
+    FUN_0043f460();
+}
+
+void CTextureBar::OnDeltaposSpinVScale(NMHDR *pNMHDR, LRESULT *pResult)
+{
+    NM_UPDOWN *pNMUpDown = (NM_UPDOWN *)pNMHDR;
+    *pResult = 0;
+    if (pNMUpDown->iDelta < 0)
+        FUN_00472ff0(0, abs(DAT_0112988c));
+    else
+        FUN_00472ff0(0, -abs(DAT_0112988c));
+    FUN_0043f460();
+}
+
+void CTextureBar::OnDeltaposSpinRotate(NMHDR *pNMHDR, LRESULT *pResult)
+{
+    NM_UPDOWN *pNMUpDown = (NM_UPDOWN *)pNMHDR;
+    *pResult = 0;
+    UpdateData(TRUE);
+    if (pNMUpDown->iDelta < 0)
+        FUN_004733f0(abs(m_nRotateAmt));
+    else
+        FUN_004733f0(-abs(m_nRotateAmt));
+    FUN_0043f460();
+}
+
+// One-byte retail handler
+void CTextureBar::FUN_0043f420() {}
 
 int CTextureBar::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
@@ -89,4 +161,29 @@ void CTextureBar::FUN_0043f460()
     m_nVScale = (int)pt->scale[1];
     m_nRotate = (int)pt->rotate;
     UpdateData(FALSE);
+}
+
+void CTextureBar::OnBtnApplytexturestuff()
+{
+    SetSurfaceAttributes();
+}
+
+void CTextureBar::SetSurfaceAttributes()
+{
+    if (DAT_012485b4.GetSize() != 0)
+    {
+        selFace_t selFace = DAT_012485b4[0];
+#line 187
+        assert( selFace.face == &selFace.brush->faces[selFace.index] );
+#line 188
+        assert( selFace.brush->version == selFace.brush->def->version );
+        texdef_t *pt = &selFace.brush->def->faces[selFace.index].texdef[DAT_01128d94];
+        UpdateData(TRUE);
+        g_nUpdateBits |= 1;
+        pt->shift[0] = (float)m_nHShift;
+        pt->shift[1] = (float)m_nVShift;
+        pt->scale[0] = (float)m_nHScale;
+        pt->scale[1] = (float)m_nVScale;
+        pt->rotate = (float)m_nRotate;
+    }
 }

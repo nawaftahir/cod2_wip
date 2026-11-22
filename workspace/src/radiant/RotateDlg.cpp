@@ -1,5 +1,7 @@
 #include "stdafx.h"
 
+void FUN_00470ef0(int axis, float deg, bool bUpdate, bool bMouse);
+
 class CRotateDlg : public CDialog
 {
 public:
@@ -57,6 +59,20 @@ void CRotateDlg::OnOK()
 	CDialog::OnOK();
 }
 
+void CRotateDlg::OnApply()
+{
+	UpdateData(TRUE);
+	float f = (float)atof(m_strX);
+	if (f != 0.0)
+		FUN_00470ef0(0, f, true, false);
+	f = (float)atof(m_strY);
+	if (f != 0.0)
+		FUN_00470ef0(1, f, true, false);
+	f = (float)atof(m_strZ);
+	if (f != 0.0)
+		FUN_00470ef0(2, f, true, false);
+}
+
 BOOL CRotateDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
@@ -64,6 +80,27 @@ BOOL CRotateDlg::OnInitDialog()
 	m_wndSpin2.SetRange(0, 359);
 	m_wndSpin3.SetRange(0, 359);
 	return TRUE;
+}
+
+void CRotateDlg::OnDeltaposSpin1(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
+	FUN_00470ef0(0, (float)pNMUpDown->iDelta, true, false);
+	*pResult = 0;
+}
+
+void CRotateDlg::OnDeltaposSpin2(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
+	FUN_00470ef0(1, (float)pNMUpDown->iDelta, true, false);
+	*pResult = 0;
+}
+
+void CRotateDlg::OnDeltaposSpin3(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
+	FUN_00470ef0(2, (float)pNMUpDown->iDelta, true, false);
+	*pResult = 0;
 }
 
 void CRotateDlg::ApplyNoPaint()

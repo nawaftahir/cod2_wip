@@ -91,6 +91,7 @@ CurveControl g_curveControls[3] =
     {1426, 1430,  8.0f, 0.0f,   16.0f,  1.0f, NULL, NULL}
 };
 
+extern int g_nUpdateBits;
 int g_curveUpdatePending;
 CWnd *g_curveParent;
 typedef char CurveParentWindowOffset[(offsetof(CWnd, m_hWnd) == 0x1c) ? 1 : -1];
