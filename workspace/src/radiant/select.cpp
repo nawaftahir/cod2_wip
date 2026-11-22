@@ -1129,6 +1129,20 @@ void FUN_00472840()
     FUN_00472280(0x100, 0);
 }
 
+void FUN_00473f50();
+void FUN_00473c70(int arg);
+extern int dword_0123348c;
+
+// 0x004741e0: select-all-of-type command, one brush picks by type, several by class
+void FUN_004741e0(int arg)
+{
+    if (selected_brushes.next != &selected_brushes && selected_brushes.next->next == &selected_brushes)
+        FUN_00473f50();
+    else
+        FUN_00473c70(arg);
+    dword_0123348c = -1;
+}
+
 // Retail one-byte RET bodies verified with MSVC 7.1. Original entry-point ownership/signatures remain provisional.
 extern "C" void FUN_00474540() {}
 

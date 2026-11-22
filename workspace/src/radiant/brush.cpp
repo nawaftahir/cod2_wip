@@ -1673,6 +1673,37 @@ int FUN_0045a150(brushdef_t *b, const int *indices, const vec3_t xyz, int count,
     return count + 1;
 }
 
+void FUN_00459ae0(brushdef_t *b, face_t *face, int flag);
+
+// 0x0045a030: clips a ray from a drag point against every face and records the cut face
+void FUN_0045a030(brushdef_t *b, const vec3_t origin, const vec3_t dir, int flag)
+{
+    for (int i = 0; i < b->faceCount; i++)
+    {
+        vec3_t p1, p2;
+        p1[0] = origin[0];
+        p1[2] = origin[2];
+        p1[1] = origin[1];
+        p2[0] = dir[0] * 262144.0f + origin[0];
+        p2[1] = dir[1] * 262144.0f + origin[1];
+        p2[2] = dir[2] * 262144.0f + origin[2];
+        for (int j = 0; j < b->faceCount; j++)
+        {
+            if (j != i)
+                FUN_004599b0(p1, p2, &b->faces[j]);
+        }
+        int k;
+        for (k = 0; k < 3; k++)
+        {
+            float d = p1[k] - origin[k];
+            if (d * d > 0.000001f)
+                break;
+        }
+        if (k < 3 && !FUN_004599b0(p1, p2, &b->faces[i]))
+            FUN_00459ae0(b, &b->faces[i], flag);
+    }
+}
+
 void FUN_0045a220(brushdef_t *b, bool snap)
 {
     brushVertex_t verts[1024];
@@ -2041,6 +2072,31 @@ void FUN_0045c890()
 
 
 
+// 0x0045c950: prints the 2D distance between consecutive selected entities
+void FUN_0045c950()
+{
+    bool first = true;
+    float last[2];
+    for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+    {
+        if (!b->owner || b->owner == world_entity)
+            continue;
+        entity_t *e = (entity_t *)b->def->owner;
+        float cur[2] = { e->origin[0], e->origin[1] };
+        if (first)
+            first = false;
+        else
+        {
+            float dx = cur[0] - last[0];
+            float dy = cur[1] - last[1];
+            float len = (float)sqrt(dy * dy + dx * dx);
+            Sys_Printf("Distance between entities: %f\n", len);
+        }
+        last[0] = cur[0];
+        last[1] = cur[1];
+    }
+}
+
 void FUN_0045cc90(float delta)
 {
     char buf[32];
@@ -2287,6 +2343,18 @@ void FUN_0045d7f0(brush_t *b, int viewType, int a3, int a4, int a5, int a6, cons
         VectorSubtract(e->origin, offset, offset);
     }
     FUN_0045d450(b, offset, viewType, a3, a4, (int)color, a8);
+}
+
+// 0x0045e070: refreshes every brush def of every entity in the list
+struct entityList_t { entityList_t *prev; entityList_t *next; brushdef_t *oprev; brushdef_t *onext; };
+
+void FUN_0045e070(entityList_t *head)
+{
+    for (entityList_t *e = head->next; e != head; e = e->next)
+    {
+        for (brushdef_t *b = e->onext; b != (brushdef_t *)&e->oprev; b = b->onext)
+            FUN_0045e0b0(b);
+    }
 }
 
 void FUN_0045e1a0(brushdef_t *b, const vec3_t move, bool bSnap)

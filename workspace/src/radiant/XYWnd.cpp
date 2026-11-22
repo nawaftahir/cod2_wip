@@ -20,7 +20,9 @@ struct brush_t
     brush_t *onext;
     unsigned char pad10[4];
     brushdef_t *def;
-    unsigned char pad18[0xe];
+    unsigned char pad18[8];
+    void *patch;
+    unsigned char pad24[2];
     unsigned char hiddenBrush;
 };
 
@@ -123,6 +125,141 @@ extern eclass_t *dword_012334dc;
 
 
 
+struct xyEclass_t
+{
+    unsigned char pad00[4];
+    char *name;
+    int field_08;
+    float mins[3];
+    float maxs[3];
+    float color[4];
+    unsigned char pad34[0x124];
+    char *modelName;
+    unsigned char pad15c[4];
+    unsigned flags;
+};
+struct xyEntity_t
+{
+    unsigned char pad00[0x50];
+    xyEclass_t *eclass;
+    xyEclass_t *modelClass;
+    unsigned char pad58[0xc];
+    void *epairs;
+};
+struct entityInst_t
+{
+    entityInst_t *prev;
+    entityInst_t *next;
+    xyEntity_t *def;
+    brush_t brushes;
+};
+struct XYShader
+{
+    unsigned char pad00[4];
+    char *name;
+    unsigned char pad08[1];
+    unsigned char flagsByte9;
+    unsigned char pad0a[6];
+    unsigned flags10;
+    unsigned char pad14[8];
+    unsigned contents;
+    unsigned flags20;
+};
+struct XYFace
+{
+    unsigned char pad00[0x24];
+    XYShader *shader;
+    unsigned char pad28[0x78 - 0x28];
+    int contents;
+    unsigned char pad7c[0xa0 - 0x7c];
+    void *w;
+    unsigned color;
+};
+struct xypatch_t
+{
+    unsigned char pad00[0x10];
+    int type;
+};
+struct brushdef_t
+{
+    unsigned char pad00[8];
+    xyEntity_t *owner;
+    unsigned char pad0c[0x14];
+    float mins[3];
+    float maxs[3];
+    int numFaces;
+    XYFace *faces;
+    unsigned char pad40[4];
+    xypatch_t *patch;
+    bool FUN_0044f530(int mask);
+    bool FUN_0044f560(int mask);
+};
+
+// renderer export table, base 0x59c300; only the slots used here are typed
+struct XYRefExport
+{
+    unsigned char pad000[0x11c];
+    void (*DrawText)(const char *text, int font, const float *origin, const float *right, const float *up, const float *color);
+    unsigned char pad120[0x3c];
+    void (*DrawPoints)(int count, int size, const void *verts);
+    void (*AddLines)(int count, int width, const void *verts);
+    void (*DrawTris)(void *material, int a, int indexCount, const unsigned short *indices, int vertCount,
+                     float (*xyzw)[4], float (*normal)[3], const unsigned int *colors, float (*st)[2]);
+    void (*ColorToBytes)(const float *color, unsigned int *out);
+};
+extern XYRefExport re;
+
+struct XYVert
+{
+    float xyz[3];
+    unsigned color;
+};
+extern float region_mins[3];
+extern float region_maxs[3];
+extern float g_colors[32][4];
+extern signed char byte_01129890;
+extern int dword_011298c4;
+extern void *dword_011298c8;
+bool FUN_00453410(const float *a, const float *b);
+
+typedef float vec3_t[3];
+struct qtexture_s
+{
+    unsigned char pad00[0x14];
+    int width;
+    int height;
+};
+struct GfxPointVertex { float xyz[3]; unsigned char color[4]; };
+extern void (*FUN_0059c468)(const float *inColor, unsigned int *outColor);
+extern brush_t selected_brushes;
+extern int dword_011298b0;
+extern int dword_0123348c;
+extern unsigned char texdef_01128da8[];
+struct XYWorldEntity
+{
+    unsigned char pad[8];
+    void *field_08;
+};
+extern XYWorldEntity *dword_012334ec;
+struct entity_t;
+struct texdef_t;
+struct eclass_t;
+void Sys_Printf(const char *fmt, ...);
+void Sys_MarkMapModified();
+void Undo_GeneralStart(char *op);
+void Undo_AddBrushList(brush_t *list);
+void FUN_00443f80(brush_t *list);
+void FUN_004433b0();
+void Undo_End();
+void FUN_0046fbe0(bool b);
+void FUN_0046f0b0(brush_t *b, int a, int c, int d);
+void FUN_00475350();
+brushdef_t *Brush_CreateFromTexdef(eclass_t *eclass, const texdef_t *td);
+void FUN_00457dd0(const vec3_t mins, const vec3_t maxs, brushdef_t *def, int flag);
+void FUN_0045a220(brushdef_t *b, bool snap);
+void FUN_004671b0(brushdef_t *b, entity_t *owner);
+brush_t *FUN_00458440(brushdef_t *def, entity_t *owner);
+
 IMPLEMENT_DYNCREATE(CXYWnd, CWnd)
 
 CXYWnd::CXYWnd()
@@ -168,6 +305,7 @@ BEGIN_MESSAGE_MAP(CXYWnd, CWnd)
     ON_WM_KEYDOWN()
     ON_WM_SIZE()
     ON_WM_DESTROY()
+    ON_WM_TIMER()
     ON_WM_KEYUP()
     ON_WM_NCCALCSIZE()
     ON_WM_KILLFOCUS()
@@ -175,6 +313,7 @@ BEGIN_MESSAGE_MAP(CXYWnd, CWnd)
     ON_WM_CLOSE()
     ON_WM_MOUSEWHEEL()
     ON_WM_SYSKEYDOWN()
+    ON_COMMAND_RANGE(0x5910, 0x80b4, OnEntityCreate)
 END_MESSAGE_MAP()
 
 BOOL CXYWnd::PreCreateWindow(CREATESTRUCT &cs)
@@ -387,6 +526,103 @@ void CleanList(brush_t *list)
         brush_t *next = b->next;
         Brush_Free(b);
         b = next;
+    }
+}
+
+// Q3Radiant face_t view for the clip plane (same tag and size 0xa8 as brush.cpp).
+struct face_t
+{
+    float planepts[3][3];
+    struct { qtexture_s *radMat; float scale[2]; float shift[2]; float rotate; float crossterm; } texdef[2];
+    unsigned char pad5c[0xa8 - 0x5c];
+};
+extern brush_t active_brushes;
+extern CClipPoint g_Clip1, g_Clip2, g_Clip3;
+struct CPatchDialog : public CDialog { void GetPatchInfo(); };
+extern CPatchDialog g_PatchDialog;
+qtexture_s * __fastcall FUN_00440840(char *name);
+void FUN_00455cf0(brushdef_t *in, const face_t *f, brushdef_t **front, brushdef_t **back);
+// 0x00449c90: Q3Radiant CXYWnd::ProduceSplitLists
+void FUN_00449c90(void)
+{
+    bool bFixed = false;
+    bool bPatches = false;
+    brush_t *pBrush = selected_brushes.next;
+    while (pBrush != &selected_brushes)
+    {
+        brush_t *pNext = pBrush->next;
+        if (!pBrush->patch)
+        {
+            if (pBrush->owner->def->eclass->field_08 != 0)
+            {
+                if (!bFixed)
+                {
+                    bFixed = true;
+                    Sys_Printf("Deslecting fixed size entities for clip operation.\n");
+                }
+                FUN_004592f0(pBrush);
+                FUN_00459210(pBrush, &active_brushes);
+            }
+        }
+        else
+        {
+            if (!bPatches)
+            {
+                bPatches = true;
+                Sys_Printf("Deslecting patches for clip operation.\n");
+            }
+            FUN_004592f0(pBrush);
+            FUN_00459210(pBrush, &active_brushes);
+            if (g_PatchDialog.GetSafeHwnd())
+                g_PatchDialog.GetPatchInfo();
+        }
+        pBrush = pNext;
+    }
+    bool clipMode = g_bClipMode;
+    CleanList(&g_brBackSplits);
+    CleanList(&g_brFrontSplits);
+    g_brBackSplits.next = &g_brBackSplits;
+    g_brFrontSplits.next = &g_brFrontSplits;
+    if (!clipMode || !g_Clip1.m_bSet || !g_Clip2.m_bSet)
+        return;
+    for (pBrush = selected_brushes.next; pBrush != NULL && pBrush != &selected_brushes; pBrush = pBrush->next)
+    {
+        face_t face;
+        memset(&face, 0, sizeof(face));
+        brushdef_t *back = NULL;
+        brushdef_t *front = NULL;
+        qtexture_s *caulk = FUN_00440840("caulk");
+        face.texdef[0].radMat = caulk;
+        face.texdef[0].scale[0] = (float)caulk->width * 0.25f;
+        face.texdef[0].scale[1] = (float)caulk->height * 0.25f;
+        qtexture_s *gray = FUN_00440840("lightmap_gray");
+        face.texdef[1].radMat = gray;
+        face.texdef[1].scale[0] = (float)gray->width * 16.0f;
+        face.texdef[1].scale[1] = (float)gray->height * 16.0f;
+        for (int i = 0; i < 3; i++)
+        {
+            face.planepts[0][i] = g_Clip1.m_ptClip[i];
+            face.planepts[1][i] = g_Clip2.m_ptClip[i];
+            face.planepts[2][i] = g_Clip3.m_ptClip[i];
+        }
+        if (!g_Clip3.m_bSet)
+        {
+            int viewType = reinterpret_cast<CMainFrameXYView *>(g_pParentWnd)->m_pActiveXY->m_nViewType;
+            face.planepts[2][0] = g_Clip1.m_ptClip[0];
+            face.planepts[2][1] = g_Clip1.m_ptClip[1];
+            face.planepts[2][2] = g_Clip1.m_ptClip[2];
+            if (viewType == XY)
+                face.planepts[2][2] = g_Clip1.m_ptClip[2] + 32.0f;
+            else if (viewType == XZ)
+                face.planepts[2][1] = g_Clip1.m_ptClip[1] + 32.0f;
+            else
+                face.planepts[2][0] = g_Clip1.m_ptClip[0] + 32.0f;
+        }
+        FUN_00455cf0(pBrush->def, &face, &back, &front);
+        if (front)
+            FUN_00459210(FUN_00458440(front, (entity_t *)pBrush->owner), &g_brFrontSplits);
+        if (back)
+            FUN_00459210(FUN_00458440(back, (entity_t *)pBrush->owner), &g_brBackSplits);
     }
 }
 
@@ -704,6 +940,131 @@ extern unsigned char byte_012334d8;
 extern float color_01129718[4];
 extern void (*FUN_0059c3c4)(int, const float *, float, int);
 
+extern int dword_011298c4;
+struct orientation_t;
+extern orientation_t dword_01129950;
+extern float color_011297c8[4];
+extern int FUN_0045d9a0(face_t *f, int a, unsigned *color, int b, int vertCount, int maxCount, GfxPointVertex *verts);
+void FUN_0040c590(const float *in, float *out, int nDim1, int nDim2, int nDim3, float scale, int width, int height);
+void OrientationPosToWorld(const orientation_t *orient, const float *pos, float *out);
+
+// 0x0044ad80: cross lines through the mouse point (Q3Radiant g_bCrossHairs block of OnPaint)
+void CXYWnd::DrawCrosshairs()
+{
+    float color[4] = { 0.2f, 0.9f, 0.2f, 0.8f };
+    unsigned packed;
+    (*FUN_0059c468)(color, &packed);
+    int nDim1 = (m_nViewType == YZ) ? 1 : 0;
+    int nDim2 = (m_nViewType == XY) ? 1 : 2;
+    GfxPointVertex v[4];
+    for (int i = 0; i < 4; i++)
+    {
+        v[i].xyz[0] = tdp[0];
+        v[i].xyz[1] = tdp[1];
+        v[i].xyz[2] = tdp[2];
+        *(unsigned *)v[i].color = packed;
+    }
+    v[0].xyz[nDim1] = -131072.0f;
+    v[1].xyz[nDim1] = 131072.0f;
+    v[2].xyz[nDim2] = -131072.0f;
+    v[3].xyz[nDim2] = 131072.0f;
+    re.AddLines(2, 1, v);
+}
+
+// 0x0044ae60: clip points, their numbers and the split brushes in the XY view
+void CXYWnd::DrawClipPoints()
+{
+    unsigned packed;
+    GfxPointVertex v[3];
+    int n = 0;
+    (*FUN_0059c468)(color_011297c8, &packed);
+    if (g_Clip1.m_bSet)
+    {
+        OrientationPosToWorld(&dword_01129950, g_Clip1.m_ptClip, v[n].xyz);
+        *(unsigned *)v[n].color = packed;
+        n++;
+    }
+    if (g_Clip2.m_bSet)
+    {
+        OrientationPosToWorld(&dword_01129950, g_Clip2.m_ptClip, v[n].xyz);
+        *(unsigned *)v[n].color = packed;
+        n++;
+        if (n == 3)
+        {
+            re.DrawPoints(n, 4, v);
+            n = 0;
+        }
+    }
+    if (g_Clip3.m_bSet)
+    {
+        OrientationPosToWorld(&dword_01129950, g_Clip3.m_ptClip, v[n].xyz);
+        *(unsigned *)v[n].color = packed;
+        n++;
+        if (n == 3)
+        {
+            re.DrawPoints(n, 4, v);
+            n = 0;
+        }
+    }
+    if (n)
+        re.DrawPoints(n, 4, v);
+
+    int nDim1 = (m_nViewType == YZ) ? 1 : 0;
+    int nDim2 = (m_nViewType == XY) ? 1 : 2;
+    int nDim3 = 3 - nDim2 - nDim1;
+    float right[3], up[3], pos[3], at[3];
+    right[nDim1] = 1.0f / m_fScale;
+    right[nDim2] = 0;
+    right[nDim3] = 0;
+    up[nDim1] = 0;
+    up[nDim2] = -1.0f / m_fScale;
+    up[nDim3] = 0;
+    if (g_Clip1.m_bSet)
+    {
+        at[0] = g_Clip1.m_ptClip[0] + 2.0f;
+        at[1] = g_Clip1.m_ptClip[1] + 2.0f;
+        at[2] = g_Clip1.m_ptClip[2] + 2.0f;
+        FUN_0040c590(at, pos, nDim1, nDim2, nDim3, m_fScale, m_nWidth, m_nHeight);
+        re.DrawText("1", dword_011298c4, pos, right, up, color_011297c8);
+    }
+    if (g_Clip2.m_bSet)
+    {
+        at[0] = g_Clip2.m_ptClip[0] + 2.0f;
+        at[1] = g_Clip2.m_ptClip[1] + 2.0f;
+        at[2] = g_Clip2.m_ptClip[2] + 2.0f;
+        FUN_0040c590(at, pos, nDim1, nDim2, nDim3, m_fScale, m_nWidth, m_nHeight);
+        re.DrawText("2", dword_011298c4, pos, right, up, color_011297c8);
+    }
+    if (g_Clip3.m_bSet)
+    {
+        at[0] = g_Clip3.m_ptClip[0] + 2.0f;
+        at[1] = g_Clip3.m_ptClip[1] + 2.0f;
+        at[2] = g_Clip3.m_ptClip[2] + 2.0f;
+        FUN_0040c590(at, pos, nDim1, nDim2, nDim3, m_fScale, m_nWidth, m_nHeight);
+        re.DrawText("3", dword_011298c4, pos, right, up, color_011297c8);
+    }
+    if (!g_Clip1.m_bSet || !g_Clip2.m_bSet)
+        return;
+    FUN_00449c90();
+    bool sw = (m_nViewType == XZ) ? !g_bSwitch : g_bSwitch;
+    brush_t *pList = sw ? &g_brFrontSplits : &g_brBackSplits;
+    static const float splitColor[4] = { 1.0f, 0.0f, 1.0f, 1.0f };
+    (*FUN_0059c468)(splitColor, &packed);
+    GfxPointVertex lines[200];
+    int count = 0;
+    for (brush_t *brush = pList->next; brush != NULL && brush != pList; brush = brush->next)
+    {
+        for (int faceIndex = 0; faceIndex < brush->def->numFaces; faceIndex++)
+        {
+#line 932
+            assert(brush->def->faces[faceIndex].w);
+            count = FUN_0045d9a0((face_t *)&brush->def->faces[faceIndex], -1, &packed, 1, count, 3, lines);
+        }
+    }
+    if (count)
+        re.AddLines(count / 2, 1, lines);
+}
+
 // 0x0044b2a0
 void CXYWnd::OnPaint()
 {
@@ -731,6 +1092,209 @@ void CXYWnd::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
     g_pParentWnd->OnKeyDown(nChar, nRepCnt, nFlags);
 }
 
+// retail assert with the first flag set (CreateEntityFromName)
+#define xy_assert1(expr) \
+    do { \
+        static bool s_assertDisable; \
+        if (!(expr) && !s_assertDisable) \
+        { \
+            switch (FUN_0047d980(#expr, __FILE__, __LINE__, 1, 1)) \
+            { \
+            case 0: \
+                DebugBreak(); \
+                break; \
+            case 2: \
+                s_assertDisable = true; \
+                break; \
+            } \
+        } \
+    } while (0)
+
+struct entity_t;
+struct texdef_t;
+eclass_t *FUN_00464770(int hasBrushes, const char *name);
+entity_t *FUN_00466d80(eclass_t *ec);
+void FUN_00467510(entity_t *e);
+void FUN_00465bf0(entity_t *e, const char *key, const char *value);
+bool FUN_00469740(entity_t *e);
+void FUN_00469690(CString &name);
+void FUN_00441c50(char *name);
+void FUN_00477580(int iType);
+void FUN_00444110(entity_t *ent);
+void Undo_AddEntity(entity_t *e);
+void FUN_004675e0(eclass_t *ec, brushdef_t *def);
+brushdef_t *BrushDef_Create(const vec3_t mins, const vec3_t maxs, eclass_t *eclass, const texdef_t *td);
+extern HWND dword_010bcd60;
+struct XYWorldEntity;
+
+// 0x0044b380: Q3Radiant CreateEntityFromName
+void CreateEntityFromName(const char *name)
+{
+    if (!_stricmp(name, "worldspawn"))
+    {
+        MessageBox(dword_010bcd54, "Can't create an entity with worldspawn.", "info", 0);
+        return;
+    }
+    eclass_t *pecNew = FUN_00464770(0, name);
+    xyEclass_t *ec = (xyEclass_t *)pecNew;
+    Undo_AddBrushList(&selected_brushes);
+    entityInst_t *petNew = (entityInst_t *)FUN_00466d80(pecNew);
+    if (petNew)
+    {
+        FUN_00467510((entity_t *)petNew->def);
+        brush_t *b = petNew->brushes.onext;
+#line 1042
+        xy_assert1(b != &petNew->brushes);
+        xy_assert1(b->owner->def == b->def->owner);
+        FUN_0046fbe0(1);
+        FUN_0046f0b0(b, 1, 1, 0);
+        if (FUN_00469740((entity_t *)petNew->def))
+        {
+            CString strExport;
+            FUN_00469690(strExport);
+            FUN_00465bf0((entity_t *)petNew->def, "export", strExport);
+        }
+        if (_stricmp(name, "misc_model") && _stricmp(name, "misc_prefab") && _stricmp(name, "script_model") && _stricmp(name, "script_vehicle"))
+        {
+            if (ec->flags & 0x40)
+            {
+                FUN_00465bf0((entity_t *)petNew->def, "radius", "256");
+                FUN_00465bf0((entity_t *)petNew->def, "height", "128");
+            }
+            else if (ec->flags & 0x80)
+                FUN_00465bf0((entity_t *)petNew->def, "radius", "256");
+            else if (!_stricmp(name, "trigger_multiple") || !_stricmp(name, "trigger_damage") || !_stricmp(name, "trigger_once") ||
+                     !_stricmp(name, "trigger_hurt") || !_stricmp(name, "trigger_lookat") || !_stricmp(name, "trigger_use") ||
+                     !_stricmp(name, "trigger_use_touch"))
+                FUN_00441c50("trigger");
+            else if (!_stricmp(name, "trigger_friendlychain"))
+                FUN_00441c50("aitrig");
+            else if (!_stricmp(name, "info_volume"))
+                FUN_00441c50("volume");
+        }
+        else
+        {
+            FUN_00477580(0x80);
+            PostMessage(dword_010bcd60, WM_COMMAND, 0x50e, 0);
+        }
+        FUN_00444110((entity_t *)petNew->def);
+    }
+    else
+    {
+        brush_t *b = selected_brushes.next;
+        if (b == &selected_brushes || b->next != &selected_brushes)
+            MessageBox(dword_010bcd54, "Failed to create entity.", "info", 0);
+        else
+        {
+#line 999
+            xy_assert1(b->owner->def == b->def->owner);
+            entityInst_t *owner = b->owner;
+            if ((void *)owner == (void *)dword_012334ec || owner->def->eclass->field_08 == 0 || ec->field_08 == 0)
+                MessageBox(dword_010bcd54, "Failed to create entity.", "info", 0);
+            else
+            {
+                Undo_AddEntity((entity_t *)owner->def);
+                const float *bmins = (const float *)((char *)b->def + 0x20);
+                float origin[3], mins[3], maxs[3];
+                origin[0] = bmins[0] - ec->mins[0];
+                origin[1] = bmins[1] - ec->mins[1];
+                origin[2] = bmins[2] - ec->mins[2];
+                mins[0] = origin[0] + ec->mins[0];
+                mins[1] = origin[1] + ec->mins[1];
+                mins[2] = origin[2] + ec->mins[2];
+                maxs[0] = origin[0] + ec->maxs[0];
+                maxs[1] = origin[1] + ec->maxs[1];
+                maxs[2] = origin[2] + ec->maxs[2];
+                owner->def->eclass = ec;
+                FUN_00465bf0((entity_t *)owner->def, "classname", name);
+                brushdef_t *nb = BrushDef_Create(mins, maxs, pecNew, (const texdef_t *)((char *)ec + 0x34));
+                FUN_004671b0(nb, (entity_t *)owner);
+                if (FUN_00469740((entity_t *)b->owner->def))
+                {
+                    CString strExport;
+                    FUN_00469690(strExport);
+                    FUN_00465bf0((entity_t *)b->owner->def, "export", strExport);
+                }
+                FUN_0045a220(nb, 1);
+                if (dword_011298b0 == 1 || dword_011298b0 == 2)
+                    FUN_00475350();
+                Sys_MarkMapModified();
+                ((short *)nb)[0x42 / 2]++;
+                entity_t *own = (entity_t *)b->owner;
+                Brush_Free(b);
+                brush_t *nbi = FUN_00458440(nb, own);
+#line 1025
+                xy_assert1(nbi->owner->def == nbi->def->owner);
+                FUN_00459210(nbi, &active_brushes);
+                FUN_0046f0b0(nbi, 1, 1, 0);
+                FUN_004675e0(pecNew, nb);
+#line 1029
+                assert(selected_brushes.next->def == nb && selected_brushes.prev->def == nb);
+            }
+        }
+    }
+    FUN_00443f80(&selected_brushes);
+}
+
+// 0x0044b9b0: Q3Radiant CreateEntityBrush, a 32 unit placeholder brush at the click
+brush_t *CreateEntityBrush(int height, int x, CXYWnd *pWnd)
+{
+    float mins[3], maxs[3];
+    pWnd->SnapToPoint(x, height, mins);
+    pWnd->SnapToPoint(x + 32, height + 32, maxs);
+    int nDim = (pWnd->m_nViewType == XY) ? 2 : (pWnd->m_nViewType == YZ) ? 0 : 1;
+    mins[nDim] = g_qeglobals.d_gridsize * ((int)(g_qeglobals.d_new_brush_bottom[nDim] / g_qeglobals.d_gridsize));
+    maxs[nDim] = g_qeglobals.d_gridsize * ((int)(g_qeglobals.d_new_brush_top[nDim] / g_qeglobals.d_gridsize));
+    if (maxs[nDim] <= mins[nDim])
+        maxs[nDim] = mins[nDim] + g_qeglobals.d_gridsize;
+    for (int i = 0; i < 3; i++)
+    {
+        if (mins[i] == maxs[i])
+            maxs[i] += 16.0f;
+        if (mins[i] > maxs[i])
+        {
+            float temp = mins[i];
+            mins[i] = maxs[i];
+            maxs[i] = temp;
+        }
+    }
+    brushdef_t *n = Brush_CreateFromTexdef(NULL, (const texdef_t *)texdef_01128da8);
+    FUN_00457dd0(mins, maxs, n, 0);
+    if (!n)
+        return NULL;
+    FUN_0045a220(n, true);
+    if (dword_011298b0 == 1 || dword_011298b0 == 2)
+        FUN_00475350();
+    Sys_MarkMapModified();
+    (*(unsigned short *)((char *)n + 0x42))++;
+    FUN_004671b0(n, (entity_t *)dword_012334ec->field_08);
+    brush_t *b = FUN_00458440(n, (entity_t *)dword_012334ec);
+    FUN_00459210(b, &selected_brushes);
+    return b;
+}
+
+// 0x0044bb80: Q3Radiant CreateRightClickEntity
+void FUN_0044bb80(CXYWnd *pWnd, const char *name, int x, int y)
+{
+    CRect rect;
+    pWnd->GetClientRect(rect);
+    if (((xyEclass_t *)FUN_00464770(0, name))->field_08 != 0)
+    {
+        brush_t *b = selected_brushes.next;
+        if (b != &selected_brushes && !_stricmp(b->owner->def->eclass->name, "worldspawn"))
+        {
+            Sys_Printf("Can not create a fixed size entity with brushes selected\n");
+            return;
+        }
+    }
+    FUN_004433b0();
+    Undo_GeneralStart("create entity");
+    if (selected_brushes.next == &selected_brushes)
+        CreateEntityBrush(rect.Height() - 1 - y, x, pWnd);
+    CreateEntityFromName(name);
+    Undo_End();
+}
+
 XYWndNode *CXYWnd::FUN_0044bc30(int id)
 {
     for (XYWndNode *node = field_e8.next; node; node = node->next)
@@ -755,6 +1319,23 @@ void CXYWnd::FUN_0044bc50(const char *name, int id)
     while (tail->next)
         tail = tail->next;
     tail->next = new XYWndNode(id, name);
+}
+
+// 0x0044bd30: right-click menu entry creates the entity named by the item
+void CXYWnd::OnEntityCreate(UINT nID)
+{
+    if (!m_mnuDrop.m_hMenu)
+        return;
+    CString strItem;
+    m_mnuDrop.GetMenuString(nID, strItem, MF_BYCOMMAND);
+    const char *name;
+    XYWndNode *node = FUN_0044bc30(nID);
+    if (node)
+        name = node->field_04;
+    else
+        name = strItem;
+    FUN_0044bb80(this, name, m_ptDown.x, m_ptDown.y);
+    dword_0123348c = -1;
 }
 
 void CXYWnd::FUN_0044be20()
@@ -959,7 +1540,6 @@ void Undo_GeneralStart(char *op);
 void Undo_AddBrushList(brush_t *list);
 void FUN_00443f80(brush_t *list);
 void Undo_End();
-void FUN_0046fbe0(int b);
 void FUN_0046f0b0(brush_t *b, int a, int c, int d);
 void FUN_0046ddc0();
 float FUN_00407800(float y, float x);
@@ -972,22 +1552,11 @@ struct XYPlane
 void FUN_0044c620(int a0, int a1, int a2, int a3, XYPlane *planes);
 void FUN_00460fe0(void (*cb)(int, int, int, int, XYPlane *), int x, int y, float *right, float *up, float *origin, float *dir);
 void FUN_004623e0(int buttons, int x, int y, float *origin, float *dir);
-struct XYWorldEntity
-{
-    unsigned char pad[8];
-    void *field_08;
-};
-extern XYWorldEntity *dword_012334ec;
 extern bool g_bCrossHairs;
 extern bool byte_0112993c;
 extern bool byte_0112993d;
-brush_t *FUN_00457ce0(void *owner, void *texdef);
-void FUN_00457dd0(float *mins, float *maxs, brush_t *b, int flag);
-void FUN_0045a220(brush_t *b, int flag);
 void FUN_00475350();
 void Sys_MarkMapModified();
-void FUN_004671b0(brush_t *b, void *entity);
-brush_t *FUN_00458440(brush_t *b, void *owner);
 void FUN_0045b310(brushdef_t *def, float *mins, float *maxs);
 extern unsigned char texdef_01128da8[];
 void Sys_Printf(const char *fmt, ...);
@@ -1308,17 +1877,17 @@ void CXYWnd::NewBrushDrag(int x, int y)
 
     if (selected_brushes.next == &selected_brushes)
     {
-        brush_t *n = FUN_00457ce0(NULL, texdef_01128da8);
+        brushdef_t *n = Brush_CreateFromTexdef(NULL, (const texdef_t *)texdef_01128da8);
         FUN_00457dd0(mins, maxs, n, 0);
         if (!n)
             return;
-        FUN_0045a220(n, 1);
+        FUN_0045a220(n, true);
         if (dword_011298b0 == 1 || dword_011298b0 == 2)
             FUN_00475350();
         Sys_MarkMapModified();
         (*(unsigned short *)((char *)n + 0x42))++;
-        FUN_004671b0(n, dword_012334ec->field_08);
-        FUN_00459210(FUN_00458440(n, dword_012334ec), &selected_brushes);
+        FUN_004671b0(n, (entity_t *)dword_012334ec->field_08);
+        FUN_00459210(FUN_00458440(n, (entity_t *)dword_012334ec), &selected_brushes);
     }
     else
     {
@@ -1480,99 +2049,6 @@ void CXYWnd::XY_MouseMoved(int x, int y, int buttons)
     }
 }
 
-struct xyEclass_t
-{
-    unsigned char pad00[4];
-    char *name;
-    int field_08;
-    unsigned char pad0c[0x18];
-    float color[4];
-    unsigned char pad34[0x124];
-    char *modelName;
-    unsigned char pad15c[4];
-    unsigned flags;
-};
-struct xyEntity_t
-{
-    unsigned char pad00[0x50];
-    xyEclass_t *eclass;
-    xyEclass_t *modelClass;
-    unsigned char pad58[0xc];
-    void *epairs;
-};
-struct entityInst_t
-{
-    entityInst_t *prev;
-    entityInst_t *next;
-    xyEntity_t *def;
-    brush_t brushes;
-};
-struct XYShader
-{
-    unsigned char pad00[4];
-    char *name;
-    unsigned char pad08[1];
-    unsigned char flagsByte9;
-    unsigned char pad0a[6];
-    unsigned flags10;
-    unsigned char pad14[8];
-    unsigned contents;
-    unsigned flags20;
-};
-struct XYFace
-{
-    unsigned char pad00[0x24];
-    XYShader *shader;
-    unsigned char pad28[0x78 - 0x28];
-    int contents;
-    unsigned char pad7c[0xa8 - 0x7c];
-};
-struct xypatch_t
-{
-    unsigned char pad00[0x10];
-    int type;
-};
-struct brushdef_t
-{
-    unsigned char pad00[8];
-    xyEntity_t *owner;
-    unsigned char pad0c[0x14];
-    float mins[3];
-    float maxs[3];
-    int numFaces;
-    XYFace *faces;
-    unsigned char pad40[4];
-    xypatch_t *patch;
-    bool FUN_0044f530(int mask);
-    bool FUN_0044f560(int mask);
-};
-
-// renderer export table, base 0x59c300; only the slots used here are typed
-struct XYRefExport
-{
-    unsigned char pad000[0x11c];
-    void (*DrawText)(const char *text, int font, const float *origin, const float *right, const float *up, const float *color);
-    unsigned char pad120[0x3c];
-    void (*DrawPoints)(int count, int size, const void *verts);
-    void (*AddLines)(int count, int width, const void *verts);
-    void (*DrawTris)(void *material, int a, int indexCount, const unsigned short *indices, int vertCount,
-                     float (*xyzw)[4], float (*normal)[3], const unsigned int *colors, float (*st)[2]);
-    void (*ColorToBytes)(const float *color, unsigned int *out);
-};
-extern XYRefExport re;
-
-struct XYVert
-{
-    float xyz[3];
-    unsigned color;
-};
-extern float region_mins[3];
-extern float region_maxs[3];
-extern float g_colors[32][4];
-extern signed char byte_01129890;
-extern int dword_011298c4;
-extern void *dword_011298c8;
-bool FUN_00453410(const float *a, const float *b);
 
 static int XYAddLine(XYVert *verts, int n, int d1, int d2, int d3, float x0, float y0, float x1, float y1, float z, unsigned color)
 {
@@ -2365,10 +2841,8 @@ extern float color_01129828[4];
 extern float color_01129838[4];
 extern float color_01129858[4];
 extern float color_01129868[4];
-extern void (*FUN_0059c468)(const float *inColor, unsigned int *outColor);
 bool FUN_0045d090(const brushdef_t *b, float *color, const float *defaultColor);
 
-struct GfxPointVertex { float xyz[3]; unsigned char color[4]; };
 int R_Add3DLine(GfxPointVertex *verts, const float *p1, const float *p2, const void *color, int width, int vertCount, int maxVertCount);
 float Vec3Normalize(float *v);
 extern entityInst_t entities;
@@ -2832,6 +3306,76 @@ void FUN_00451c00(brush_t *b, unsigned int *outColor)
     (*FUN_0059c468)(color, outColor);
 }
 
+// 0x00451e00: view axes and the visible world rectangle of the 2D view
+void CXYWnd::FUN_00451e00()
+{
+    float scale = 0.5f / m_fScale;
+    field_a4 = (m_nViewType == YZ);
+    field_a8 = (m_nViewType != XY) + 1;
+    field_ac = 3 - field_a8 - field_a4;
+    float hw = (float)m_nWidth * scale;
+    float hh = (float)m_nHeight * scale;
+    field_b0[0] = m_vOrigin[field_a4] - hw;
+    field_b8[0] = hw + m_vOrigin[field_a4];
+    field_b0[1] = m_vOrigin[field_a8] - hh;
+    field_b8[1] = hh + m_vOrigin[field_a8];
+    FUN_00451eb0();
+}
+
+extern orientation_t g_editorOrientation;
+void OrientationPlaneToLocal(const orientation_t *orient, const float *plane, float *out);
+
+// 0x00451eb0: the two view-axis planes in editor space, for culling brushes
+void CXYWnd::FUN_00451eb0()
+{
+    float planes[2][4] = {};
+    planes[0][field_a4] = 1.0f;
+    planes[1][field_a8] = 1.0f;
+    for (int i = 0; i < 2; i++)
+    {
+        float local[4];
+        OrientationPlaneToLocal(&g_editorOrientation, planes[i], local);
+        field_c0[i][0] = local[field_a4];
+        field_c0[i][1] = local[field_a8];
+        field_d0[i] = local[3] + field_b0[i];
+        field_d8[i] = local[3] + field_b8[i];
+    }
+}
+
+// 0x00451fe0: true when a brush box may touch the visible rectangle
+bool CXYWnd::FUN_00451fe0(brush_t *b)
+{
+    const float *mins = (const float *)((char *)b->def + 0x20);
+    const float *maxs = (const float *)((char *)b->def + 0x2c);
+    for (int i = 0; i < 2; i++)
+    {
+        bool above = true;
+        bool below = true;
+        int k;
+        for (k = 0; k < 4; k++)
+        {
+            float p1 = (k & 1) ? mins[field_a4] : maxs[field_a4];
+            float p2 = (k & 2) ? mins[field_a8] : maxs[field_a8];
+            float d = p1 * field_c0[i][0] + p2 * field_c0[i][1];
+            if (d > field_d0[i])
+            {
+                if (!below)
+                    break;
+                above = false;
+            }
+            if (d < field_d8[i])
+            {
+                if (!above)
+                    break;
+                below = false;
+            }
+        }
+        if (k == 4 && (above || below))
+            return true;
+    }
+    return false;
+}
+
 extern brush_t active_brushes;
 extern unsigned char byte_0109fe64;
 extern int dword_011298b0;
@@ -2845,7 +3389,6 @@ extern void (*FUN_0059c454)(const float *, const float (*)[3], float);
 extern void (*FUN_0059c478)(void);
 extern void (*FUN_0059c47c)(void);
 extern float g_vSelectionColor[4];
-void FUN_00451e00(CXYWnd *wnd, float *bounds);
 void FUN_0040bff0(void);
 void FUN_0040c210(void);
 void FUN_0040c4a0(const float *quad);
@@ -2871,14 +3414,7 @@ void CXYWnd::XY_Draw()
     (*FUN_0059c454)(m_vOrigin, axes, m_fScale);
     XY_DrawGrid();
 
-    float hw = 0.5f / m_fScale * (float)m_nWidth;
-    float hh = 0.5f / m_fScale * (float)m_nHeight;
-    float vis[4];
-    vis[0] = m_vOrigin[nDim1] - hw;
-    vis[2] = hw + m_vOrigin[nDim1];
-    vis[1] = m_vOrigin[nDim2] - hh;
-    vis[3] = hh + m_vOrigin[nDim2];
-    FUN_00451e00(this, vis);
+    FUN_00451e00();
 
     int *frame = (int *)dword_01233b64;
     int lineWidthA = frame[160] ? 3 : 30;
@@ -2887,7 +3423,7 @@ void CXYWnd::XY_Draw()
     for (brush_t *b = active_brushes.next; b != &active_brushes; b = b->next)
     {
         const float *mn = (const float *)((char *)b->def + 0x20);
-        if (mn[nDim1] > vis[2] || mn[nDim2] > vis[3])
+        if (mn[nDim1] > field_b8[0] || mn[nDim2] > field_b8[1])
             continue;
         if (FUN_0044f5d0(b))
             continue;
@@ -2960,7 +3496,7 @@ void CXYWnd::XY_Draw()
     for (brush_t *b = active_brushes.next; b != &active_brushes; b = b->next)
     {
         const float *mn = (const float *)((char *)b->def + 0x20);
-        if (mn[nDim1] > vis[2] || mn[nDim2] > vis[3])
+        if (mn[nDim1] > field_b8[0] || mn[nDim2] > field_b8[1])
             continue;
         xyEntity_t *ent = b->owner->def;
         if ((((char *)ent->eclass)[352] & 0xc0) == 0)
@@ -3283,6 +3819,49 @@ void CXYWnd::Copy()
         Sys_Printf("Unable to register Windows clipboard formats, copy/paste between editors will not be possible");
 }
 
+// 0x00452f50: pastes the clipboard copy into the map
+void Com_BeginParseSession(const char *filename);
+void Com_EndParseSession(void);
+void Com_SetSpaceDelimited(int spaceDelimited);
+void Com_SetParseNegativeNumbers(int negativeNumbers);
+void FUN_004699b0(const char **data, int flags);
+
+void CXYWnd::Paste()
+{
+    CWaitCursor WaitCursor;
+    UINT nClipboard = ::RegisterClipboardFormat("RadiantClippings");
+    if (nClipboard > 0 && OpenClipboard())
+    {
+        if (::IsClipboardFormatAvailable(nClipboard))
+        {
+            HANDLE h = ::GetClipboardData(nClipboard);
+            if (h)
+            {
+                g_Clipboard.SetLength(0);
+                char *cp = reinterpret_cast<char *>(::GlobalLock(h));
+                g_Clipboard.Write(cp + sizeof(long), *reinterpret_cast<long *>(cp));
+                ::GlobalUnlock(h);
+            }
+            ::CloseClipboard();
+        }
+    }
+    if (g_Clipboard.GetLength() > 0)
+    {
+        g_Clipboard.SeekToBegin();
+        long lSize = (long)g_Clipboard.GetLength();
+        char *buf = new char[lSize + 1];
+        g_Clipboard.Read(buf, lSize);
+        buf[lSize] = 0;
+        Com_BeginParseSession("paste from clipboard");
+        Com_SetSpaceDelimited(0);
+        Com_SetParseNegativeNumbers(1);
+        const char *p = buf;
+        FUN_004699b0(&p, 4);
+        Com_EndParseSession();
+        delete[] buf;
+    }
+}
+
 float (&CXYWnd::RotateOrigin())[3]
 {
     return g_vRotateOrigin;
@@ -3291,6 +3870,21 @@ float (&CXYWnd::RotateOrigin())[3]
 float (&CXYWnd::Rotation())[3]
 {
     return g_vRotation;
+}
+
+// 0x00453100: edge scrolling while a drag runs outside the view
+void CXYWnd::OnTimer(UINT nIDEvent)
+{
+    int nDim1 = (m_nViewType == YZ) ? 1 : 0;
+    int nDim2 = (m_nViewType == XY) ? 1 : 2;
+    m_vOrigin[nDim1] -= m_ptDragAdj.x;
+    m_vOrigin[nDim2] += m_ptDragAdj.y;
+    g_nUpdateBits |= 3;
+    m_ptDrag.x = (int)(m_ptDrag.x - m_ptDragAdj.x * m_fScale);
+    m_ptDrag.y = (int)(m_ptDrag.y - m_ptDragAdj.y * m_fScale);
+    m_ptDragTotal.x = (int)(m_ptDragTotal.x - m_ptDragAdj.x * m_fScale);
+    m_ptDragTotal.y = (int)(m_ptDragTotal.y - m_ptDragAdj.y * m_fScale);
+    XY_MouseMoved(m_ptDrag.x, m_nHeight - 1 - m_ptDrag.y, m_nScrollFlags);
 }
 
 void CXYWnd::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)

@@ -2398,3 +2398,6 @@ addr	size	source	symbol	name	tag
 0x0041f5d0	23	src/radiant/MainFrm.cpp	?CheckMenuItem@CMenu@@QAEIII@Z	CMenu::CheckMenuItem	SUPPORTED
 0x0041f630	34	src/radiant/MainFrm.cpp	?LoadMenuA@CMenu@@QAEHI@Z	CMenu::LoadMenuA	SUPPORTED
 0x0041f660	9	src/radiant/MainFrm.cpp	?AfxGetResourceHandle@@YGPAUHINSTANCE__@@XZ	AfxGetResourceHandle	SUPPORTED
+0x00451e00	161	src/radiant/XYWnd.cpp	?FUN_00451e00@CXYWnd@@IAEXXZ	FUN_00451e00	SUPPORTED
+0x0045e070	63	src/radiant/brush.cpp	?FUN_0045e070@@YAXPAUentityList_t@@@Z	FUN_0045e070	SUPPORTED
+0x004741e0	65	src/radiant/select.cpp	?FUN_004741e0@@YAXH@Z	FUN_004741e0	SUPPORTED

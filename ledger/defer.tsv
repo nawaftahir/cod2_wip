@@ -1108,3 +1108,16 @@ addr	agent	date	reason
 0x0041f580	bulk-d6	2026-11-22	FUN_0041f580: not drafted. inline/template shim emitted in this TU (ATL CStringT, MFC inline, idCameraDef/idList/idStr instances) with register-passed arguments; not drafted: no shared header for these types.
 0x0041f5f0	bulk-d6	2026-11-22	FUN_0041f5f0: not drafted. inline/template shim emitted in this TU (ATL CStringT, MFC inline, idCameraDef/idList/idStr instances) with register-passed arguments; not drafted: no shared header for these types.
 0x0041f610	bulk-d6	2026-11-22	FUN_0041f610: not drafted. inline/template shim emitted in this TU (ATL CStringT, MFC inline, idCameraDef/idList/idStr instances) with register-passed arguments; not drafted: no shared header for these types.
+0x00449c90	bulk-e6	2026-11-22	FUN_00449c90: bulk draft: 57%, sizes 841/860, first diff +0x3c
+0x0044ad80	bulk-e6	2026-11-22	CXYWnd::DrawCrosshairs: bulk draft: 29%, sizes 211/211, first diff +0x5; retail uses an LTCG register convention (callers 0x44b2a0 OnPaint etc. unwritten)
+0x0044ae60	bulk-e6	2026-11-22	CXYWnd::DrawClipPoints: bulk draft: 42%, sizes 1223/1086, first diff +0x3; LTCG convention tied to unwritten caller OnPaint 0x44b2a0
+0x0044b380	bulk-e6	2026-11-22	CreateEntityFromName: bulk draft: 59%, sizes 1615/1581, first diff +0x1a
+0x0044b9b0	bulk-e6	2026-11-22	CreateEntityBrush: bulk draft: 41%, sizes 532/450, first diff +0x8; callee 0x44d320 unwritten
+0x0044bb80	bulk-e6	2026-11-22	FUN_0044bb80: bulk draft: 64%, sizes 171/172, first diff +0x6
+0x0044bd30	bulk-e6	2026-11-22	CXYWnd::OnEntityCreate: bulk draft: 28%, sizes 198/228, first diff +0x1c; retail takes this via ecx, ours edx-based shape differs
+0x00451eb0	bulk-e6	2026-11-22	CXYWnd::FUN_00451eb0: bulk draft: 41%, sizes 303/300, first diff +0x6; inlines OrientationPlaneToLocal (q_shared.cpp assert 1557)
+0x00451fe0	bulk-e6	2026-11-22	CXYWnd::FUN_00451fe0: bulk draft: 7%, sizes 228/240, first diff +0x6; caller 0x45b760 unwritten
+0x00452f50	bulk-e6	2026-11-22	CXYWnd::Paste: bulk draft: 74%, sizes 396/397, first diff +0x67
+0x00453100	bulk-e6	2026-11-22	CXYWnd::OnTimer: bulk draft: 81%, sizes 264/265, first diff +0x29
+0x0045a030	bulk-e6	2026-11-22	FUN_0045a030 (ray vs every face): bulk draft: 71%, sizes 283/278, first diff +0x12
+0x0045c950	bulk-e6	2026-11-22	FUN_0045c950 (distance between selected entities): bulk draft: 48%, sizes 177/180, first diff +0x5
