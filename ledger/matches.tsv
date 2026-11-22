@@ -1053,6 +1053,8 @@ addr	size	source	symbol	name	tag
 0x00463e40	75	src/radiant/eclass.cpp	?FUN_00463e40@@YAXPAUeclass_t@@PAPAU1@@Z	FUN_00463e40	SUPPORTED
 0x00463e90	13	src/radiant/eclass.cpp	?FUN_00463e90@@YAXPAUeclass_t@@@Z	FUN_00463e90	SUPPORTED
 0x00464830	251	src/radiant/eclass.cpp	?FUN_00464830@@YA_NPBD@Z	FUN_00464830	UNNAMED
+0x00464af0	13	src/radiant/eclass.cpp	?GetAt@CStringList@@QAEAAV?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@PAU__POSITION@@@Z	CStringList::GetAt	SUPPORTED
+0x00464b00	4	src/radiant/eclass.cpp	?GetCount@CStringList@@QBEHXZ	CStringList::GetCount	SUPPORTED
 0x00464bb0	88	src/radiant/entity.cpp	?ValueForKey@@YAPADAAPAUepair_t@@PBD@Z	ValueForKey	SUPPORTED
 0x00464c10	8	src/radiant/entity.cpp	?ValueForKey@@YAPADPAUentity_t@@PBD@Z	ValueForKey	SUPPORTED
 0x00464c60	25	src/radiant/entity.cpp	?FUN_00464c60@@YAXPAUentityInst_t@@@Z	FUN_00464c60	UNNAMED
