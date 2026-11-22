@@ -895,3 +895,4 @@ addr	agent	date	reason
 0x0046d0b0	bulk-d3	2026-11-20	bulk draft: written, not linked as its own symbol (inlined into its caller)
 0x0046d680	bulk-d3	2026-11-20	bulk draft: 80%, sizes 133/136, first diff +0x3d
 0x0046e0c0	bulk-d3	2026-11-20	bulk draft: 79%, sizes 80/83, first diff +0xb
+0x0049a4f0	claude-d	2026-11-22	bulk draft: 99%, sizes 509/509, first difference at +0x1b2 (best candidate ?initPosition@idSplineList@@QAEXJJ@Z)
