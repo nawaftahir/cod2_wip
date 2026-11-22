@@ -119,7 +119,11 @@ struct qeglobals_t
   HWND field_60;
   unsigned char pad64[0x6c8e8 - 0x64];
   MRUMENU *d_lpMruMenu;
-  unsigned char d_savedinfo[0x6cb74 - 0x6c8ec]; // 0x294 B in total, the exclude flags sit inside it
+  union
+  {
+    unsigned char d_savedinfo[0x6cb74 - 0x6c8ec]; // 0x294 B in total, the exclude flags sit inside it
+    struct { unsigned char pad[0x108]; float colors[32][3]; } sv; // 0x1129708..0x1129888
+  };
   unsigned d_exclude;
   unsigned d_exclude2;
 };
@@ -153,6 +157,10 @@ public:
   afx_msg void OnSysKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
   afx_msg void OnDestroy();
   afx_msg void OnFileExit();
+  CMainFrame();
+  void FUN_004115b0();
+  void FUN_00417170(UINT nType, int cx, int cy);
+  void FUN_00417d30(int nPane, const char *pText);
   void FUN_00417cf0();
   void FUN_00419560();
   void FUN_00419cc0();
@@ -258,6 +266,40 @@ void FUN_00472860(int a, float b);
 void FUN_0046fd50(float *vec, int a);
 bool FUN_0042a7f0(int a, int b, bool c);
 void FUN_00415ef0(const char *name, int axis);
+void FUN_00440fa0();
+BOOL LoadMruInReg(MRUMENU *lpMruMenu, char *lpszKey);
+void PlaceMenuMRUItem(MRUMENU *lpMruMenu, HMENU hMenu, UINT uiItem);
+struct SKeyInfo { char *m_strName; unsigned int m_nVKKey; };
+extern SKeyInfo g_Keys[];
+extern int g_nKeyCount;
+extern int DAT_01128d90;
+void FUN_00470c50(float *mid);
+void SinCosDegrees(float angle, float *sinOut, float *cosOut);
+void AxisClear(float axis[3][3]);
+void FUN_00470ce0(float *origin, float *matrix, int bSnap, int nAxis, float fDeg, bool bFlip);
+void FUN_0046fe50();
+void FUN_0045e0b0(brushdef_t *b);
+extern selbrush_t DAT_010a44dc;
+void FUN_0045f8b0();
+void Undo_AddEntity(entity_t *ent);
+void FUN_0046fb30();
+extern HWND DAT_0109fdb4;
+extern bool DAT_0109fe64;
+extern int DAT_010c4d84;
+extern int DAT_010c2d7c;
+void FUN_00475350();
+bool OnlyPatchesSelected();
+bool AnyPatchesSelected();
+void FUN_0042ec60();
+void FUN_0042edc0();
+void FUN_00435840();
+extern RECT DAT_01234668;
+void FUN_00442e60();
+void FUN_00452f50(CXYWnd *xy);
+void FUN_0046ab20(const char *filename);
+void FUN_0046ad90(const char *filename);
+extern "C" void __fastcall FUN_00419860(CMainFrame *self);
+extern "C" void FUN_0041b190(CMainFrame *self);
 void FUN_004369b0();
 bool FUN_00438ca0();
 void FUN_0046ddc0();
@@ -331,6 +373,20 @@ CMainFrame::~CMainFrame()
 {
 }
 
+CMainFrame::CMainFrame()
+{
+  field_07e5 = false;
+  field_07e6 = false;
+  field_0788 = NULL;
+  field_078c = NULL;
+  field_0790 = NULL;
+  field_0794 = NULL;
+  field_079c = NULL;
+  field_07e0 = NULL;
+  field_07e4 = true;
+  g_pParentWnd = this;
+}
+
 // 0x004114f0
 // Q3Radiant HandlePopup
 void FUN_004114f0(CWnd *pWnd, UINT nID)
@@ -346,6 +402,149 @@ void FUN_004114f0(CWnd *pWnd, UINT nID)
 }
 
 extern "C" void __stdcall FUN_004115a0(int a0, int a1) {  }
+
+// Q3Radiant SetButtonMenuStates (this in eax)
+void CMainFrame::FUN_004115b0()
+{
+#define UNCHECK_EXCLUDE(var, mask, id) if (g_qeglobals.var & (mask)) pMenu->CheckMenuItem(id, MF_BYCOMMAND | MF_UNCHECKED)
+  CMenu *pMenu = GetMenu();
+  if (pMenu)
+  {
+    UNCHECK_EXCLUDE(d_exclude, 0x10, 0x8155);
+    UNCHECK_EXCLUDE(d_exclude, 0x2, 0x80f9);
+    UNCHECK_EXCLUDE(d_exclude, 0x80, 0x8157);
+    UNCHECK_EXCLUDE(d_exclude, 0x10000000, 0x8158);
+    UNCHECK_EXCLUDE(d_exclude, 0x8, 0x8159);
+    UNCHECK_EXCLUDE(d_exclude, 0x2000, 0x815a);
+    UNCHECK_EXCLUDE(d_exclude, 0x20, 0x815b);
+    UNCHECK_EXCLUDE(d_exclude, 0x4, 0x815c);
+    UNCHECK_EXCLUDE(d_exclude, 0x1, 0x815e);
+    UNCHECK_EXCLUDE(d_exclude, 0x40, 0x815f);
+    UNCHECK_EXCLUDE(d_exclude, 0x1000, 0x8160);
+    UNCHECK_EXCLUDE(d_exclude, 0x40000000, 0x8161);
+    UNCHECK_EXCLUDE(d_exclude, 0x800000, 0x8163);
+    UNCHECK_EXCLUDE(d_exclude, 0x8000, 0x8164);
+    UNCHECK_EXCLUDE(d_exclude, 0x8000000, 0x8165);
+    UNCHECK_EXCLUDE(d_exclude, 0x80000000, 0x81b0);
+    UNCHECK_EXCLUDE(d_exclude2, 0x200, 0x81b5);
+    UNCHECK_EXCLUDE(d_exclude2, 0x800, 0x81d4);
+    UNCHECK_EXCLUDE(d_exclude2, 0x1000, 0x81dc);
+    UNCHECK_EXCLUDE(d_exclude2, 0x2000, 0x81d7);
+    UNCHECK_EXCLUDE(d_exclude2, 0x4000, 0x81d9);
+    UNCHECK_EXCLUDE(d_exclude2, 0x8000, 0x81da);
+    UNCHECK_EXCLUDE(d_exclude2, 0x10000, 0x81db);
+    UNCHECK_EXCLUDE(d_exclude, 0x80000, 0x8166);
+    UNCHECK_EXCLUDE(d_exclude, 0x20000000, 0x8167);
+    UNCHECK_EXCLUDE(d_exclude, 0x2000000, 0xc7);
+    UNCHECK_EXCLUDE(d_exclude, 0x4000, 0x8096);
+    UNCHECK_EXCLUDE(d_exclude, 0x20000, 0xd7);
+    UNCHECK_EXCLUDE(d_exclude, 0x1000000, 0xdb);
+    UNCHECK_EXCLUDE(d_exclude, 0x200000, 0xdc);
+    UNCHECK_EXCLUDE(d_exclude, 0x40000, 0xdd);
+    UNCHECK_EXCLUDE(d_exclude, 0x100000, 0xde);
+    UNCHECK_EXCLUDE(d_exclude, 0x10000, 0xdf);
+    UNCHECK_EXCLUDE(d_exclude2, 0x10, 0xcf);
+    UNCHECK_EXCLUDE(d_exclude2, 0x1, 0x815d);
+    UNCHECK_EXCLUDE(d_exclude2, 0x2, 0xc1);
+    UNCHECK_EXCLUDE(d_exclude2, 0x4, 0xc2);
+    UNCHECK_EXCLUDE(d_exclude2, 0x8, 0xcd);
+    UNCHECK_EXCLUDE(d_exclude2, 0x400, 0xe3);
+    UNCHECK_EXCLUDE(d_exclude2, 0x20, 0x8169);
+    UNCHECK_EXCLUDE(d_exclude2, 0x40, 0x8115);
+    UNCHECK_EXCLUDE(d_exclude2, 0x80, 0x80e5);
+    UNCHECK_EXCLUDE(d_exclude2, 0x100, 0x81ae);
+    pMenu->CheckMenuItem(0x8011, MF_BYCOMMAND | (PF(0x1b8) ? MF_CHECKED : MF_UNCHECKED));
+    pMenu->CheckMenuItem(0x8043, MF_BYCOMMAND | (PF(0x244) ? MF_CHECKED : MF_UNCHECKED));
+    pMenu->CheckMenuItem(0x81d5, MF_BYCOMMAND | (PF(0x1bc) ? MF_CHECKED : MF_UNCHECKED));
+    pMenu->CheckMenuItem(0x8031, MF_BYCOMMAND | (PFB(0x2c0) ? MF_CHECKED : MF_UNCHECKED));
+    pMenu->CheckMenuItem(0x8019, MF_BYCOMMAND | (PF(0x248) ? MF_UNCHECKED : MF_CHECKED));
+    CToolBarCtrl *bar = &m_wndToolBar.GetToolBarCtrl();
+    if (bar && bar->m_hWnd)
+    {
+      bar->CheckButton(0x8031, PFB(0x2c0));
+      bar->CheckButton(0x8059, PF(0x2e0));
+      bar->CheckButton(0x805a, PFB(0x2e4));
+      bar->CheckButton(0x8061, PFB(0x2e5));
+      bar->CheckButton(0x8178, PF(0x1d8));
+      bar->CheckButton(0x8183, PF(0x26c));
+      bar->CheckButton(0x8187, PF(0x24c));
+      bar->CheckButton(0x81ab, PF(0x250));
+      bar->CheckButton(0x8184, PF(0x27c));
+      bar->CheckButton(0x8176, PF(0x1d0));
+      bar->CheckButton(0x8191, PF(0x1d4));
+      bar->CheckButton(0x81b6, PF(0x2a8));
+    }
+    int id;
+    switch (PF(0x2d0))
+    {
+    case 10:
+      id = 0x8082;
+      break;
+    case 25:
+      id = 0x8081;
+      break;
+    case 50:
+      id = 0x8080;
+      break;
+    case 200:
+      id = 0x807e;
+      break;
+    default:
+      id = 0x807f;
+      break;
+    }
+    FUN_0041b590(this, id);
+  }
+  if (g_qeglobals.field_20)
+  {
+    FUN_00440fa0();
+    LoadMruInReg(g_qeglobals.d_lpMruMenu, "Software\\iw\\CoD2Radiant\\MRU");
+    PlaceMenuMRUItem(g_qeglobals.d_lpMruMenu, ::GetSubMenu(::GetMenu(m_hWnd), 0), 0x80b7);
+  }
+#undef UNCHECK_EXCLUDE
+}
+
+// Q3Radiant ShowMenuItemKeyBindings: appends the bound key to each menu item text
+void __stdcall FUN_00411de0(HMENU hMenu)
+{
+  char text[0x400];
+  MENUITEMINFO mii;
+  for (int i = 0; i < g_nCommandCount; i++)
+  {
+    memset(&mii, 0, sizeof(mii));
+    mii.cbSize = sizeof(mii);
+    mii.fMask = MIIM_TYPE;
+    mii.dwTypeData = text;
+    mii.cch = sizeof(text);
+    if (GetMenuItemInfo(hMenu, g_Commands[i].m_nCommand, FALSE, &mii) && mii.fType == MFT_STRING)
+    {
+      char *tab = strchr(text, '\t');
+      if (tab)
+        *tab = 0;
+      strcat(text, "\t");
+      if (g_Commands[i].m_nModifiers & RAD_SHIFT)
+        strcat(text, "Shift-");
+      if (g_Commands[i].m_nModifiers & RAD_ALT)
+        strcat(text, "Alt-");
+      if (g_Commands[i].m_nModifiers & RAD_CONTROL)
+        strcat(text, "Ctrl-");
+      int k;
+      for (k = 0; k < g_nKeyCount; k++)
+        if (g_Keys[k].m_nVKKey == g_Commands[i].m_nKey)
+          break;
+      if (k < g_nKeyCount)
+        strcat(text, g_Keys[k].m_strName);
+      else
+        sprintf(&text[strlen(text)], "%c", g_Commands[i].m_nKey);
+      memset(&mii, 0, sizeof(mii));
+      mii.cbSize = sizeof(mii);
+      mii.fMask = MIIM_TYPE;
+      mii.dwTypeData = text;
+      mii.cch = strlen(text);
+      SetMenuItemInfo(hMenu, g_Commands[i].m_nCommand, FALSE, &mii);
+    }
+  }
+}
 
 // 0x00412060: runs a "+Command" argument; returns how many arguments it used
 int FUN_00412060(char **arg)
@@ -1062,6 +1261,12 @@ extern "C" void __stdcall FUN_00415210(CMainFrame *self, int a)
     FUN_00479c00(self->m_hWnd ? (int)self->m_hWnd : 0);
 }
 
+extern "C" void FUN_00415240() { FUN_004416b0((DAT_01128d90 + 1) % 2); }
+
+extern "C" void FUN_00415260() { FUN_004416b0(0); }
+
+extern "C" void FUN_00415270() { FUN_004416b0(1); }
+
 extern "C" void FUN_00415280() { Dvar_SetStringByName("r_textureMode", "nearest"); dword_0123348c |= 1; }
 extern "C" void FUN_004152a0() { Dvar_SetStringByName("r_textureMode", "linear"); dword_0123348c |= 1; }
 extern "C" void FUN_004152c0() { Dvar_SetStringByName("r_textureMode", "bilinear"); dword_0123348c |= 1; }
@@ -1147,6 +1352,18 @@ extern "C" void FUN_00415e20() { DoColor(4); dword_0123348c |= 0xffffffff; }
 extern "C" void FUN_00415e40() { DoColor(3); dword_0123348c |= 0xffffffff; }
 extern "C" void FUN_00415e60() { DoColor(2); dword_0123348c |= 0xffffffff; }
 extern "C" void FUN_00415e80() { DoColor(1); dword_0123348c |= 0xffffffff; }
+extern "C" void FUN_00415ea0()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("arbitrary sided");
+  Undo_AddBrushList(&selected_selbrushes);
+  DAT_012334f5 = false;
+  DAT_012334f6 = false;
+  DialogBox(g_qeglobals.d_hInstance, (LPCSTR)113, g_qeglobals.d_hwndMain, FUN_004766d0);
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
 // 0x00416030
 extern "C" void FUN_00416030() { FUN_00415ef0("flip X", 0); }
 
@@ -1156,11 +1373,78 @@ extern "C" void FUN_00416050() { FUN_00415ef0("flip Y", 1); }
 // 0x00416070
 extern "C" void FUN_00416070() { FUN_00415ef0("flip Z", 2); }
 
+// rotate the selection about X (matrix: -90 degree turn)
+extern "C" void FUN_00416090()
+{
+  float mid[3], matrix[3][3], s, c;
+  FUN_004433b0();
+  Undo_GeneralStart("rotate X");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00470c50(mid);
+  SinCosDegrees(-90.0f, &s, &c);
+  AxisClear(matrix);
+  matrix[1][1] = c;
+  matrix[1][2] = -s;
+  matrix[2][1] = s;
+  matrix[2][2] = c;
+  FUN_00470ce0(mid, matrix[0], 1, 0, -90.0f, false);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+extern "C" void FUN_00416130()
+{
+  float mid[3], matrix[3][3], s, c;
+  FUN_004433b0();
+  Undo_GeneralStart("rotate Y");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00470c50(mid);
+  SinCosDegrees(-90.0f, &s, &c);
+  AxisClear(matrix);
+  matrix[0][0] = c;
+  matrix[0][2] = s;
+  matrix[2][0] = -s;
+  matrix[2][2] = c;
+  FUN_00470ce0(mid, matrix[0], 1, 1, -90.0f, false);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+extern "C" void FUN_004161d0()
+{
+  float mid[3], matrix[3][3], s, c;
+  FUN_004433b0();
+  Undo_GeneralStart("rotate Z");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00470c50(mid);
+  SinCosDegrees(-90.0f, &s, &c);
+  AxisClear(matrix);
+  matrix[0][0] = c;
+  matrix[0][1] = -s;
+  matrix[1][0] = s;
+  matrix[1][1] = c;
+  FUN_00470ce0(mid, matrix[0], 1, 2, -90.0f, false);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
 extern "C" void FUN_00416270() { Map_RemoveRegion(); }
 extern "C" void FUN_00416280() { FUN_004694d0(); }
 extern "C" void FUN_00416290() { FUN_004692a0(); }
 extern "C" void FUN_004162a0() { FUN_00469420(); }
 extern "C" void FUN_004162b0() { FUN_00469350(); }
+extern "C" void FUN_00416420()
+{
+  FUN_0046fe50();
+  for (selbrush_t *b = selected_selbrushes.next; b != &selected_selbrushes; b = b->next)
+    FUN_0045e0b0(b->def);
+  for (selbrush_t *b = DAT_010a44dc.next; b != &DAT_010a44dc; b = b->next)
+    FUN_0045e0b0(b->def);
+}
+
 extern "C" void FUN_00416480() { FUN_004364b0(); }
 extern "C" void FUN_00416490() { FUN_0046dfc0(); }
 // 0x004164a0
@@ -1177,6 +1461,25 @@ extern "C" void FUN_004164c0() { FUN_0046dc40(); }
 extern "C" void FUN_004164d0() { FUN_00471dd0(); }
 extern int DAT_01129934;
 extern int DAT_01129938;
+extern "C" void FUN_004164e0()
+{
+  int count = 0;
+  for (selbrush_t *b = selected_selbrushes.next; b != &selected_selbrushes; b = b->next)
+  {
+    if (++count > 1)
+    {
+      Sys_Printf("Can't hollow more than 1 brush at a time.\n");
+      return;
+    }
+  }
+  FUN_004433b0();
+  Undo_GeneralStart("hollow");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_0045f8b0();
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
 // 0x00416540
 extern "C" void FUN_00416540()
 {
@@ -1201,6 +1504,124 @@ extern "C" void FUN_00416570()
 
 extern "C" void FUN_004165a0() { DAT_01129934 ^= 1; dword_0123348c |= 0xffffffff; }
 extern "C" void FUN_004165c0() { DAT_01129938 ^= 1; dword_0123348c |= 0xffffffff; }
+extern "C" void FUN_004165e0()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("delete");
+  Undo_AddBrushList(&selected_selbrushes);
+  for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+    Undo_AddEntity(b->owner->def);
+  FUN_0046fb30();
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+extern "C" void __fastcall FUN_00416680(CMainFrame *self)
+{
+  if (DAT_0109fdb4)
+  {
+    ::PostMessage(DAT_0109fdb4, WM_COMMAND, IDCANCEL, 0);
+    return;
+  }
+  if (DAT_0109fe5e)
+  {
+    FUN_004171b0(self);
+    return;
+  }
+  if (DAT_0109fe5f)
+  {
+    FUN_00418ec0(self);
+    return;
+  }
+  if (DAT_0109fe64)
+  {
+    FUN_00419860(self);
+    return;
+  }
+  if (DAT_011298b0 == 4 && DAT_010c4d84 > 0)
+  {
+    DAT_010c4d84 = 0;
+    dword_0123348c = -1;
+    return;
+  }
+  FUN_0046fbe0(true);
+  self->field_07a4[2] = " ";
+  self->FUN_00417cf0();
+}
+
+extern "C" void FUN_00416720()
+{
+  if (DAT_011298b0 == 2)
+  {
+    DAT_011298b0 = 0;
+    DAT_011298b4 = 0;
+    dword_0123348c = -1;
+    return;
+  }
+  FUN_00475350();
+  if (DAT_010c2d7c)
+  {
+    int previous = DAT_011298b0;
+    DAT_011298b0 = 2;
+    if (previous == 11)
+    {
+      FUN_0041b190(g_pParentWnd);
+      dword_0123348c = -1;
+      return;
+    }
+    if (previous == 10)
+      FUN_0042beb0();
+  }
+  dword_0123348c = -1;
+}
+
+extern "C" void FUN_00416790()
+{
+  int previous = DAT_011298b0;
+  if (previous != 1 && previous != 4)
+  {
+    if (OnlyPatchesSelected())
+    {
+      FUN_0042ec60();
+      dword_0123348c = -1;
+      return;
+    }
+    if (AnyPatchesSelected())
+    {
+      FUN_0042edc0();
+      dword_0123348c = -1;
+      return;
+    }
+    if (!AnyPatchesSelected())
+    {
+      FUN_00475350();
+      if (DAT_010c2d7c)
+      {
+        previous = DAT_011298b0;
+        DAT_011298b0 = 1;
+        if (previous == 11)
+        {
+          FUN_0041b190(g_pParentWnd);
+          dword_0123348c = -1;
+          return;
+        }
+        if (previous == 10)
+          FUN_0042beb0();
+      }
+    }
+  }
+  else
+  {
+    DAT_011298b0 = 0;
+    if (previous == 11)
+      FUN_0041b190(g_pParentWnd);
+    else if (previous == 10)
+      FUN_0042beb0();
+    DAT_011298b4 = 0;
+  }
+  dword_0123348c = -1;
+}
+
 extern "C" void __fastcall FUN_00416870(CMainFrame *self)
 {
   PF(0x250) ^= 1;
@@ -1320,6 +1741,12 @@ void CMainFrame::FUN_00417150(CCmdUI *pCmdUI)
   pCmdUI->Enable(!field_07e4);
 }
 void DoAbout(void);
+void CMainFrame::FUN_00417170(UINT nType, int cx, int cy)
+{
+  Default();
+  ::GetClientRect(m_hWnd, &DAT_01234668);
+}
+
 extern "C" void FUN_00417190() { DoAbout(); }
 // 0x004171b0
 extern "C" void __fastcall FUN_004171b0(CMainFrame *self)
@@ -1354,12 +1781,36 @@ extern "C" void __fastcall FUN_00417270(CMainFrame *self)
     CAM->angles[0] = 85.0f;
   dword_0123348c |= 1;
 }
+extern "C" void __fastcall FUN_004172c0(CMainFrame *self)
+{
+  if (!FUN_0042a7f0(0, 1, false))
+  {
+    CamView *cam = CAM;
+    cam->origin[0] -= cam->forward[0] * 32.0f;
+    cam->origin[1] -= cam->forward[1] * 32.0f;
+    cam->origin[2] -= cam->forward[2] * 32.0f;
+    dword_0123348c |= dword_01233b64->m_bCamXYUpdate ? 3 : 1;
+  }
+}
+
 extern "C" void __fastcall FUN_00417340(CMainFrame *self)
 {
   CamView *cam = CAM;
   cam->origin[2] -= 32.0f;
   dword_0123348c |= dword_01233b64->m_bCamXYUpdate ? 3 : 1;
 }
+extern "C" void __fastcall FUN_00417380(CMainFrame *self)
+{
+  if (!FUN_0042a7f0(0, -1, false))
+  {
+    CamView *cam = CAM;
+    cam->origin[0] += cam->forward[0] * 32.0f;
+    cam->origin[1] += cam->forward[1] * 32.0f;
+    cam->origin[2] += cam->forward[2] * 32.0f;
+    dword_0123348c |= dword_01233b64->m_bCamXYUpdate ? 3 : 1;
+  }
+}
+
 // 0x00417400
 extern "C" void __fastcall FUN_00417400(CMainFrame *self)
 {
@@ -1416,6 +1867,30 @@ extern "C" void __fastcall FUN_00417600(CMainFrame *self)
 }
 extern int DAT_010bcd28;
 extern "C" void FUN_00417640() { DAT_010bcd28 = !DAT_010bcd28; dword_0123348c |= 0xa; }
+extern "C" void __fastcall FUN_00417660(CMainFrame *self)
+{
+  int nView = PF(0x1b4);
+  int nTextureBar = PF(0x224);
+  dword_01233b64->LoadPrefs();
+  if (dword_01233b64->DoModal() == IDOK)
+  {
+    if (PF(0x1b4) != nView)
+      self->MessageBox("You need to restart CoD2Radiant for the view changes to take place.", NULL, 0);
+    if (self->field_0790)
+      FUN_00442e60();
+    if (nTextureBar != PF(0x224))
+    {
+      self->ShowControlBar(&self->m_wndTextureBar, nTextureBar != 0, TRUE);
+      self->m_wndTextureBar.Invalidate();
+    }
+    CMenu *pMenu = self->GetMenu();
+    if (pMenu)
+      pMenu->CheckMenuItem(0x8019, MF_BYCOMMAND | (PF(0x248) ? 0 : MF_CHECKED));
+    FUN_00435840();
+    dword_0123348c = -1;
+  }
+}
+
 // show or hide one child window
 extern "C" void __fastcall FUN_00417750(CMainFrame *self)
 {
@@ -1493,6 +1968,26 @@ extern "C" void __fastcall FUN_00417840(CMainFrame *self)
     FUN_00444a00();
 }
 
+extern "C" void __fastcall FUN_00417890(CMainFrame *self)
+{
+  PF(0x1b8) = !PF(0x1b8);
+  CMenu *pMenu = self->GetMenu();
+  if (pMenu)
+    pMenu->CheckMenuItem(0x8011, MF_BYCOMMAND | (PF(0x1b8) ? MF_CHECKED : MF_UNCHECKED));
+  dword_01233b64->SavePrefs();
+  self->FUN_00419560();
+}
+
+extern "C" void __fastcall FUN_00417900(CMainFrame *self)
+{
+  PF(0x1bc) = !PF(0x1bc);
+  CMenu *pMenu = self->GetMenu();
+  if (pMenu)
+    pMenu->CheckMenuItem(0x81d5, MF_BYCOMMAND | (PF(0x1bc) ? MF_CHECKED : MF_UNCHECKED));
+  dword_01233b64->SavePrefs();
+  self->FUN_00419560();
+}
+
 // 0x004179e0
 // 0x00417a90
 extern "C" void __fastcall FUN_00417a90(CMainFrame *self)
@@ -1521,6 +2016,16 @@ void CMainFrame::FUN_00417cf0()
       view->m_wndStatusBar.SetPaneText(i, view->m_strStatus[i], TRUE);
   }
 }
+// Q3Radiant SetStatusText
+void CMainFrame::FUN_00417d30(int nPane, const char *pText)
+{
+  if (pText && nPane <= 5 && nPane > 0)
+  {
+    field_07a4[nPane] = pText;
+    FUN_00417cf0();
+  }
+}
+
 extern "C" void FUN_00417e00(unsigned v) { dword_0123348c |= v; }
 extern bool DAT_0109fe5c;
 extern "C" void __fastcall FUN_00417e10(CMainFrame *self)
@@ -1585,6 +2090,471 @@ extern "C" void FUN_004180e0() { DoColor(18); dword_0123348c |= 0xffffffff; }
 extern "C" void FUN_00418100() { DoColor(20); dword_0123348c |= 0xffffffff; }
 extern "C" void FUN_00418120() { DoColor(21); dword_0123348c |= 0xffffffff; }
 extern bool DAT_0109fe5f;
+extern "C" void FUN_00418140()
+{
+  g_qeglobals.sv.colors[0][0] = 0.25f;
+  g_qeglobals.sv.colors[0][1] = 0.25f;
+  g_qeglobals.sv.colors[0][2] = 0.25f;
+  g_qeglobals.sv.colors[1][0] = 1.0f;
+  g_qeglobals.sv.colors[1][1] = 1.0f;
+  g_qeglobals.sv.colors[1][2] = 1.0f;
+  g_qeglobals.sv.colors[2][0] = 1.0f;
+  g_qeglobals.sv.colors[2][1] = 1.0f;
+  g_qeglobals.sv.colors[2][2] = 0.75f;
+  g_qeglobals.sv.colors[3][0] = 0.75f;
+  g_qeglobals.sv.colors[3][1] = 0.75f;
+  g_qeglobals.sv.colors[3][2] = 1.0f;
+  g_qeglobals.sv.colors[4][0] = 0.5f;
+  g_qeglobals.sv.colors[4][1] = 0.5f;
+  g_qeglobals.sv.colors[4][2] = 0.5f;
+  g_qeglobals.sv.colors[5][0] = 1.0f;
+  g_qeglobals.sv.colors[5][1] = 0.25f;
+  g_qeglobals.sv.colors[5][2] = 0.25f;
+  g_qeglobals.sv.colors[6][0] = 0.25f;
+  g_qeglobals.sv.colors[6][1] = 1.0f;
+  g_qeglobals.sv.colors[9][1] = 0.0f;
+  g_qeglobals.sv.colors[9][2] = 0.0f;
+  g_qeglobals.sv.colors[10][0] = 1.0f;
+  g_qeglobals.sv.colors[10][1] = 1.0f;
+  g_qeglobals.sv.colors[10][2] = 0.0f;
+  g_qeglobals.sv.colors[11][0] = 0.0f;
+  g_qeglobals.sv.colors[11][1] = 0.0f;
+  g_qeglobals.sv.colors[11][2] = 1.0f;
+  g_qeglobals.sv.colors[13][1] = 1.0f;
+  g_qeglobals.sv.colors[13][2] = 0.0f;
+  g_qeglobals.sv.colors[14][0] = 0.0f;
+  g_qeglobals.sv.colors[14][1] = 1.0f;
+  g_qeglobals.sv.colors[14][2] = 1.0f;
+  g_qeglobals.sv.colors[15][0] = 0.25f;
+  g_qeglobals.sv.colors[15][1] = 0.25f;
+  g_qeglobals.sv.colors[15][2] = 0.25f;
+  g_qeglobals.sv.colors[16][0] = 0.0f;
+  g_qeglobals.sv.colors[16][1] = 0.0f;
+  g_qeglobals.sv.colors[16][2] = 1.0f;
+  g_qeglobals.sv.colors[17][0] = 1.0f;
+  g_qeglobals.sv.colors[12][0] = 0.0f;
+  g_qeglobals.sv.colors[12][1] = 0.0f;
+  g_qeglobals.sv.colors[12][2] = 0.0f;
+  g_qeglobals.sv.colors[13][0] = 1.0f;
+  g_qeglobals.sv.colors[17][1] = 0.5f;
+  g_qeglobals.sv.colors[17][2] = 0.0f;
+  g_qeglobals.sv.colors[18][0] = 0.75f;
+  g_qeglobals.sv.colors[18][1] = 1.0f;
+  g_qeglobals.sv.colors[18][2] = 0.0f;
+  g_qeglobals.sv.colors[19][0] = 0.6f;
+  g_qeglobals.sv.colors[19][1] = 0.0f;
+  g_qeglobals.sv.colors[19][2] = 1.0f;
+  g_qeglobals.sv.colors[20][0] = 0.1f;
+  g_qeglobals.sv.colors[20][1] = 0.4f;
+  g_qeglobals.sv.colors[20][2] = 1.0f;
+  g_qeglobals.sv.colors[21][0] = 1.0f;
+  g_qeglobals.sv.colors[21][1] = 1.0f;
+  g_qeglobals.sv.colors[21][2] = 0.25f;
+  g_qeglobals.sv.colors[22][0] = 0.25f;
+  g_qeglobals.sv.colors[22][1] = 0.25f;
+  g_qeglobals.sv.colors[22][2] = 0.75f;
+  g_qeglobals.sv.colors[23][0] = 0.75f;
+  g_qeglobals.sv.colors[23][1] = 0.75f;
+  g_qeglobals.sv.colors[23][2] = 1.0f;
+  g_qeglobals.sv.colors[24][0] = 0.75f;
+  g_qeglobals.sv.colors[24][1] = 0.75f;
+  g_qeglobals.sv.colors[24][2] = 0.75f;
+  g_qeglobals.sv.colors[25][0] = 1.0f;
+  g_qeglobals.sv.colors[25][1] = 0.5f;
+  g_qeglobals.sv.colors[25][2] = 0.6f;
+  g_qeglobals.sv.colors[26][0] = 0.0f;
+  g_qeglobals.sv.colors[26][1] = 1.0f;
+  g_qeglobals.sv.colors[26][2] = 0.65f;
+  g_qeglobals.sv.colors[27][0] = 0.0f;
+  g_qeglobals.sv.colors[27][1] = 0.0f;
+  g_qeglobals.sv.colors[27][2] = 1.0f;
+  g_qeglobals.sv.colors[28][0] = 0.85f;
+  g_qeglobals.sv.colors[28][1] = 0.0f;
+  g_qeglobals.sv.colors[28][2] = 0.85f;
+  g_qeglobals.sv.colors[29][0] = 1.0f;
+  g_qeglobals.sv.colors[29][1] = 0.8f;
+  g_qeglobals.sv.colors[29][2] = 0.6f;
+  g_qeglobals.sv.colors[30][0] = 0.0f;
+  g_qeglobals.sv.colors[30][1] = 1.0f;
+  g_qeglobals.sv.colors[30][2] = 0.2f;
+  g_qeglobals.sv.colors[31][0] = 0.17f;
+  g_qeglobals.sv.colors[31][1] = 0.14f;
+  g_qeglobals.sv.colors[31][2] = 1.0f;
+  dword_0123348c = -1;
+}
+
+extern "C" void FUN_00418390()
+{
+  g_qeglobals.sv.colors[0][0] = 0.25f;
+  g_qeglobals.sv.colors[0][1] = 0.25f;
+  g_qeglobals.sv.colors[0][2] = 0.25f;
+  g_qeglobals.sv.colors[1][0] = 1.0f;
+  g_qeglobals.sv.colors[1][1] = 1.0f;
+  g_qeglobals.sv.colors[1][2] = 1.0f;
+  g_qeglobals.sv.colors[2][0] = 1.0f;
+  g_qeglobals.sv.colors[2][1] = 1.0f;
+  g_qeglobals.sv.colors[2][2] = 1.0f;
+  g_qeglobals.sv.colors[3][0] = 1.0f;
+  g_qeglobals.sv.colors[3][1] = 1.0f;
+  g_qeglobals.sv.colors[3][2] = 1.0f;
+  g_qeglobals.sv.colors[4][0] = 0.5f;
+  g_qeglobals.sv.colors[4][1] = 0.5f;
+  g_qeglobals.sv.colors[4][2] = 0.5f;
+  g_qeglobals.sv.colors[5][0] = 1.0f;
+  g_qeglobals.sv.colors[5][1] = 0.25f;
+  g_qeglobals.sv.colors[5][2] = 0.25f;
+  g_qeglobals.sv.colors[6][0] = 0.25f;
+  g_qeglobals.sv.colors[6][1] = 1.0f;
+  g_qeglobals.sv.colors[9][1] = 0.0f;
+  g_qeglobals.sv.colors[9][2] = 0.0f;
+  g_qeglobals.sv.colors[10][0] = 1.0f;
+  g_qeglobals.sv.colors[10][1] = 1.0f;
+  g_qeglobals.sv.colors[10][2] = 0.0f;
+  g_qeglobals.sv.colors[11][0] = 0.0f;
+  g_qeglobals.sv.colors[11][1] = 0.0f;
+  g_qeglobals.sv.colors[11][2] = 1.0f;
+  g_qeglobals.sv.colors[13][1] = 1.0f;
+  g_qeglobals.sv.colors[13][2] = 0.0f;
+  g_qeglobals.sv.colors[14][0] = 0.0f;
+  g_qeglobals.sv.colors[14][1] = 1.0f;
+  g_qeglobals.sv.colors[14][2] = 1.0f;
+  g_qeglobals.sv.colors[15][0] = 0.25f;
+  g_qeglobals.sv.colors[15][1] = 0.25f;
+  g_qeglobals.sv.colors[15][2] = 0.25f;
+  g_qeglobals.sv.colors[16][0] = 0.0f;
+  g_qeglobals.sv.colors[16][1] = 0.0f;
+  g_qeglobals.sv.colors[16][2] = 1.0f;
+  g_qeglobals.sv.colors[17][0] = 1.0f;
+  g_qeglobals.sv.colors[12][0] = 0.0f;
+  g_qeglobals.sv.colors[12][1] = 0.0f;
+  g_qeglobals.sv.colors[12][2] = 0.0f;
+  g_qeglobals.sv.colors[13][0] = 1.0f;
+  g_qeglobals.sv.colors[17][1] = 0.5f;
+  g_qeglobals.sv.colors[17][2] = 0.0f;
+  g_qeglobals.sv.colors[18][0] = 0.75f;
+  g_qeglobals.sv.colors[18][1] = 1.0f;
+  g_qeglobals.sv.colors[18][2] = 0.0f;
+  g_qeglobals.sv.colors[19][0] = 0.6f;
+  g_qeglobals.sv.colors[19][1] = 0.0f;
+  g_qeglobals.sv.colors[19][2] = 1.0f;
+  g_qeglobals.sv.colors[20][0] = 0.4f;
+  g_qeglobals.sv.colors[20][1] = 0.6f;
+  g_qeglobals.sv.colors[20][2] = 1.0f;
+  g_qeglobals.sv.colors[21][0] = 1.0f;
+  g_qeglobals.sv.colors[21][1] = 1.0f;
+  g_qeglobals.sv.colors[21][2] = 0.25f;
+  g_qeglobals.sv.colors[22][0] = 0.25f;
+  g_qeglobals.sv.colors[22][1] = 0.25f;
+  g_qeglobals.sv.colors[22][2] = 0.75f;
+  g_qeglobals.sv.colors[23][0] = 0.75f;
+  g_qeglobals.sv.colors[23][1] = 0.75f;
+  g_qeglobals.sv.colors[23][2] = 1.0f;
+  g_qeglobals.sv.colors[24][0] = 0.75f;
+  g_qeglobals.sv.colors[24][1] = 0.75f;
+  g_qeglobals.sv.colors[24][2] = 0.75f;
+  g_qeglobals.sv.colors[25][0] = 1.0f;
+  g_qeglobals.sv.colors[25][1] = 0.5f;
+  g_qeglobals.sv.colors[25][2] = 0.6f;
+  g_qeglobals.sv.colors[26][0] = 0.0f;
+  g_qeglobals.sv.colors[26][1] = 1.0f;
+  g_qeglobals.sv.colors[29][2] = 0.6f;
+  g_qeglobals.sv.colors[26][2] = 0.65f;
+  g_qeglobals.sv.colors[27][0] = 0.0f;
+  g_qeglobals.sv.colors[27][1] = 0.0f;
+  g_qeglobals.sv.colors[27][2] = 1.0f;
+  g_qeglobals.sv.colors[28][0] = 0.85f;
+  g_qeglobals.sv.colors[28][1] = 0.0f;
+  g_qeglobals.sv.colors[28][2] = 0.85f;
+  g_qeglobals.sv.colors[29][0] = 1.0f;
+  g_qeglobals.sv.colors[29][1] = 0.8f;
+  g_qeglobals.sv.colors[30][0] = 0.0f;
+  g_qeglobals.sv.colors[30][1] = 1.0f;
+  g_qeglobals.sv.colors[30][2] = 0.2f;
+  g_qeglobals.sv.colors[31][0] = 0.17f;
+  g_qeglobals.sv.colors[31][1] = 0.14f;
+  g_qeglobals.sv.colors[31][2] = 1.0f;
+  dword_0123348c = -1;
+}
+
+extern "C" void FUN_004185d0()
+{
+  g_qeglobals.sv.colors[0][0] = 0.25f;
+  g_qeglobals.sv.colors[0][1] = 0.25f;
+  g_qeglobals.sv.colors[0][2] = 0.25f;
+  g_qeglobals.sv.colors[5][1] = 0.25f;
+  g_qeglobals.sv.colors[5][2] = 0.25f;
+  g_qeglobals.sv.colors[6][0] = 0.25f;
+  g_qeglobals.sv.colors[15][0] = 0.25f;
+  g_qeglobals.sv.colors[15][1] = 0.25f;
+  g_qeglobals.sv.colors[15][2] = 0.25f;
+  g_qeglobals.sv.colors[17][1] = 0.7f;
+  g_qeglobals.sv.colors[17][2] = 0.7f;
+  g_qeglobals.sv.colors[18][0] = 0.7f;
+  g_qeglobals.sv.colors[21][2] = 0.25f;
+  g_qeglobals.sv.colors[22][0] = 0.25f;
+  g_qeglobals.sv.colors[22][1] = 0.25f;
+  g_qeglobals.sv.colors[1][0] = 1.0f;
+  g_qeglobals.sv.colors[1][1] = 0.0f;
+  g_qeglobals.sv.colors[1][2] = 0.0f;
+  g_qeglobals.sv.colors[2][0] = 0.0f;
+  g_qeglobals.sv.colors[2][1] = 1.0f;
+  g_qeglobals.sv.colors[2][2] = 0.0f;
+  g_qeglobals.sv.colors[3][0] = 0.0f;
+  g_qeglobals.sv.colors[3][1] = 0.0f;
+  g_qeglobals.sv.colors[3][2] = 1.0f;
+  g_qeglobals.sv.colors[4][0] = 0.3f;
+  g_qeglobals.sv.colors[4][1] = 0.5f;
+  g_qeglobals.sv.colors[4][2] = 0.5f;
+  g_qeglobals.sv.colors[5][0] = 1.0f;
+  g_qeglobals.sv.colors[6][1] = 1.0f;
+  g_qeglobals.sv.colors[9][1] = 0.0f;
+  g_qeglobals.sv.colors[9][2] = 0.0f;
+  g_qeglobals.sv.colors[10][0] = 1.0f;
+  g_qeglobals.sv.colors[10][1] = 1.0f;
+  g_qeglobals.sv.colors[10][2] = 1.0f;
+  g_qeglobals.sv.colors[11][0] = 1.0f;
+  g_qeglobals.sv.colors[11][1] = 1.0f;
+  g_qeglobals.sv.colors[11][2] = 1.0f;
+  g_qeglobals.sv.colors[13][1] = 1.0f;
+  g_qeglobals.sv.colors[13][2] = 0.0f;
+  g_qeglobals.sv.colors[14][0] = 0.0f;
+  g_qeglobals.sv.colors[14][1] = 1.0f;
+  g_qeglobals.sv.colors[14][2] = 1.0f;
+  g_qeglobals.sv.colors[16][0] = 0.0f;
+  g_qeglobals.sv.colors[16][1] = 0.0f;
+  g_qeglobals.sv.colors[16][2] = 1.0f;
+  g_qeglobals.sv.colors[17][0] = 1.0f;
+  g_qeglobals.sv.colors[12][0] = 1.0f;
+  g_qeglobals.sv.colors[12][1] = 1.0f;
+  g_qeglobals.sv.colors[12][2] = 1.0f;
+  g_qeglobals.sv.colors[13][0] = 1.0f;
+  g_qeglobals.sv.colors[18][1] = 1.0f;
+  g_qeglobals.sv.colors[18][2] = 0.0f;
+  g_qeglobals.sv.colors[19][0] = 0.6f;
+  g_qeglobals.sv.colors[19][1] = 0.0f;
+  g_qeglobals.sv.colors[19][2] = 1.0f;
+  g_qeglobals.sv.colors[20][0] = 0.4f;
+  g_qeglobals.sv.colors[20][1] = 0.6f;
+  g_qeglobals.sv.colors[20][2] = 1.0f;
+  g_qeglobals.sv.colors[21][0] = 1.0f;
+  g_qeglobals.sv.colors[21][1] = 1.0f;
+  g_qeglobals.sv.colors[22][2] = 0.75f;
+  g_qeglobals.sv.colors[23][0] = 0.75f;
+  g_qeglobals.sv.colors[23][1] = 0.75f;
+  g_qeglobals.sv.colors[23][2] = 1.0f;
+  g_qeglobals.sv.colors[24][0] = 0.75f;
+  g_qeglobals.sv.colors[24][1] = 0.75f;
+  g_qeglobals.sv.colors[24][2] = 0.75f;
+  g_qeglobals.sv.colors[25][0] = 1.0f;
+  g_qeglobals.sv.colors[25][1] = 0.5f;
+  g_qeglobals.sv.colors[25][2] = 0.6f;
+  g_qeglobals.sv.colors[26][0] = 0.0f;
+  g_qeglobals.sv.colors[26][1] = 1.0f;
+  g_qeglobals.sv.colors[26][2] = 0.65f;
+  g_qeglobals.sv.colors[27][0] = 0.0f;
+  g_qeglobals.sv.colors[29][2] = 0.6f;
+  g_qeglobals.sv.colors[27][1] = 0.0f;
+  g_qeglobals.sv.colors[27][2] = 1.0f;
+  g_qeglobals.sv.colors[28][0] = 0.85f;
+  g_qeglobals.sv.colors[28][1] = 0.0f;
+  g_qeglobals.sv.colors[28][2] = 0.85f;
+  g_qeglobals.sv.colors[29][0] = 1.0f;
+  g_qeglobals.sv.colors[29][1] = 0.8f;
+  g_qeglobals.sv.colors[30][0] = 0.0f;
+  g_qeglobals.sv.colors[30][1] = 1.0f;
+  g_qeglobals.sv.colors[30][2] = 0.2f;
+  g_qeglobals.sv.colors[31][0] = 0.17f;
+  g_qeglobals.sv.colors[31][1] = 0.14f;
+  g_qeglobals.sv.colors[31][2] = 1.0f;
+  dword_0123348c = -1;
+}
+
+extern "C" void FUN_00418820()
+{
+  g_qeglobals.sv.colors[0][0] = 0.25f;
+  g_qeglobals.sv.colors[0][1] = 0.25f;
+  g_qeglobals.sv.colors[0][2] = 0.25f;
+  g_qeglobals.sv.colors[3][1] = 0.25f;
+  g_qeglobals.sv.colors[5][1] = 0.25f;
+  g_qeglobals.sv.colors[5][2] = 0.25f;
+  g_qeglobals.sv.colors[6][0] = 0.25f;
+  g_qeglobals.sv.colors[11][0] = 0.7f;
+  g_qeglobals.sv.colors[15][0] = 0.25f;
+  g_qeglobals.sv.colors[15][1] = 0.25f;
+  g_qeglobals.sv.colors[15][2] = 0.25f;
+  g_qeglobals.sv.colors[17][1] = 0.7f;
+  g_qeglobals.sv.colors[17][2] = 0.7f;
+  g_qeglobals.sv.colors[21][2] = 0.25f;
+  g_qeglobals.sv.colors[22][0] = 0.25f;
+  g_qeglobals.sv.colors[22][1] = 0.25f;
+  g_qeglobals.sv.colors[1][0] = 1.0f;
+  g_qeglobals.sv.colors[1][1] = 0.0f;
+  g_qeglobals.sv.colors[1][2] = 0.0f;
+  g_qeglobals.sv.colors[2][0] = 0.0f;
+  g_qeglobals.sv.colors[2][1] = 1.0f;
+  g_qeglobals.sv.colors[2][2] = 0.0f;
+  g_qeglobals.sv.colors[3][0] = 0.0f;
+  g_qeglobals.sv.colors[3][2] = 1.0f;
+  g_qeglobals.sv.colors[4][0] = 0.0f;
+  g_qeglobals.sv.colors[4][1] = 0.0f;
+  g_qeglobals.sv.colors[4][2] = 0.5f;
+  g_qeglobals.sv.colors[5][0] = 1.0f;
+  g_qeglobals.sv.colors[6][1] = 1.0f;
+  g_qeglobals.sv.colors[9][1] = 0.0f;
+  g_qeglobals.sv.colors[9][2] = 0.0f;
+  g_qeglobals.sv.colors[10][0] = 1.0f;
+  g_qeglobals.sv.colors[10][1] = 1.0f;
+  g_qeglobals.sv.colors[10][2] = 0.2f;
+  g_qeglobals.sv.colors[11][1] = 0.55f;
+  g_qeglobals.sv.colors[11][2] = 1.0f;
+  g_qeglobals.sv.colors[13][1] = 1.0f;
+  g_qeglobals.sv.colors[13][2] = 0.0f;
+  g_qeglobals.sv.colors[14][0] = 0.0f;
+  g_qeglobals.sv.colors[14][1] = 1.0f;
+  g_qeglobals.sv.colors[14][2] = 1.0f;
+  g_qeglobals.sv.colors[16][0] = 0.0f;
+  g_qeglobals.sv.colors[16][1] = 0.0f;
+  g_qeglobals.sv.colors[16][2] = 1.0f;
+  g_qeglobals.sv.colors[17][0] = 1.0f;
+  g_qeglobals.sv.colors[12][0] = 0.5f;
+  g_qeglobals.sv.colors[12][1] = 0.5f;
+  g_qeglobals.sv.colors[12][2] = 0.5f;
+  g_qeglobals.sv.colors[13][0] = 1.0f;
+  g_qeglobals.sv.colors[18][0] = 0.0f;
+  g_qeglobals.sv.colors[18][1] = 1.0f;
+  g_qeglobals.sv.colors[18][2] = 0.0f;
+  g_qeglobals.sv.colors[19][0] = 0.8f;
+  g_qeglobals.sv.colors[19][1] = 0.0f;
+  g_qeglobals.sv.colors[19][2] = 1.0f;
+  g_qeglobals.sv.colors[20][0] = 0.4f;
+  g_qeglobals.sv.colors[20][1] = 0.6f;
+  g_qeglobals.sv.colors[20][2] = 1.0f;
+  g_qeglobals.sv.colors[21][0] = 1.0f;
+  g_qeglobals.sv.colors[21][1] = 1.0f;
+  g_qeglobals.sv.colors[22][2] = 0.75f;
+  g_qeglobals.sv.colors[23][0] = 0.75f;
+  g_qeglobals.sv.colors[23][1] = 0.75f;
+  g_qeglobals.sv.colors[23][2] = 1.0f;
+  g_qeglobals.sv.colors[24][0] = 0.75f;
+  g_qeglobals.sv.colors[24][1] = 0.75f;
+  g_qeglobals.sv.colors[24][2] = 0.75f;
+  g_qeglobals.sv.colors[25][0] = 1.0f;
+  g_qeglobals.sv.colors[25][1] = 0.5f;
+  g_qeglobals.sv.colors[25][2] = 0.6f;
+  g_qeglobals.sv.colors[26][0] = 0.0f;
+  g_qeglobals.sv.colors[26][1] = 1.0f;
+  g_qeglobals.sv.colors[29][2] = 0.6f;
+  g_qeglobals.sv.colors[26][2] = 0.65f;
+  g_qeglobals.sv.colors[27][0] = 0.0f;
+  g_qeglobals.sv.colors[27][1] = 0.0f;
+  g_qeglobals.sv.colors[27][2] = 1.0f;
+  g_qeglobals.sv.colors[28][0] = 0.85f;
+  g_qeglobals.sv.colors[28][1] = 0.0f;
+  g_qeglobals.sv.colors[28][2] = 0.85f;
+  g_qeglobals.sv.colors[29][0] = 1.0f;
+  g_qeglobals.sv.colors[29][1] = 0.8f;
+  g_qeglobals.sv.colors[30][0] = 0.0f;
+  g_qeglobals.sv.colors[30][1] = 1.0f;
+  g_qeglobals.sv.colors[30][2] = 0.2f;
+  g_qeglobals.sv.colors[31][0] = 0.17f;
+  g_qeglobals.sv.colors[31][1] = 0.14f;
+  g_qeglobals.sv.colors[31][2] = 1.0f;
+  dword_0123348c = -1;
+}
+
+extern "C" void FUN_00418a70()
+{
+  g_qeglobals.sv.colors[0][0] = 0.63f;
+  g_qeglobals.sv.colors[0][1] = 0.63f;
+  g_qeglobals.sv.colors[0][2] = 0.63f;
+  g_qeglobals.sv.colors[1][1] = 0.63f;
+  g_qeglobals.sv.colors[1][2] = 0.63f;
+  g_qeglobals.sv.colors[2][0] = 0.63f;
+  g_qeglobals.sv.colors[2][2] = 0.57f;
+  g_qeglobals.sv.colors[3][0] = 0.57f;
+  g_qeglobals.sv.colors[3][1] = 0.57f;
+  g_qeglobals.sv.colors[4][0] = 0.5f;
+  g_qeglobals.sv.colors[4][1] = 0.5f;
+  g_qeglobals.sv.colors[4][2] = 0.5f;
+  g_qeglobals.sv.colors[5][1] = 0.63f;
+  g_qeglobals.sv.colors[5][2] = 0.63f;
+  g_qeglobals.sv.colors[6][0] = 0.63f;
+  g_qeglobals.sv.colors[14][0] = 0.64f;
+  g_qeglobals.sv.colors[15][1] = 0.64f;
+  g_qeglobals.sv.colors[22][0] = 0.64f;
+  g_qeglobals.sv.colors[24][1] = 0.5f;
+  g_qeglobals.sv.colors[24][2] = 0.5f;
+  g_qeglobals.sv.colors[1][0] = 1.0f;
+  g_qeglobals.sv.colors[2][1] = 1.0f;
+  g_qeglobals.sv.colors[3][2] = 1.0f;
+  g_qeglobals.sv.colors[5][0] = 1.0f;
+  g_qeglobals.sv.colors[6][1] = 1.0f;
+  g_qeglobals.sv.colors[9][1] = 0.0f;
+  g_qeglobals.sv.colors[9][2] = 0.0f;
+  g_qeglobals.sv.colors[10][0] = 1.0f;
+  g_qeglobals.sv.colors[10][1] = 1.0f;
+  g_qeglobals.sv.colors[10][2] = 0.0f;
+  g_qeglobals.sv.colors[11][0] = 0.27f;
+  g_qeglobals.sv.colors[11][1] = 0.1f;
+  g_qeglobals.sv.colors[11][2] = 1.0f;
+  g_qeglobals.sv.colors[13][1] = 0.26f;
+  g_qeglobals.sv.colors[13][2] = 1.0f;
+  g_qeglobals.sv.colors[14][1] = 1.0f;
+  g_qeglobals.sv.colors[14][2] = 0.26f;
+  g_qeglobals.sv.colors[15][0] = 1.0f;
+  g_qeglobals.sv.colors[15][2] = 0.25f;
+  g_qeglobals.sv.colors[16][0] = 0.0f;
+  g_qeglobals.sv.colors[16][1] = 0.0f;
+  g_qeglobals.sv.colors[16][2] = 1.0f;
+  g_qeglobals.sv.colors[17][0] = 1.0f;
+  g_qeglobals.sv.colors[12][0] = 0.0f;
+  g_qeglobals.sv.colors[12][1] = 0.02f;
+  g_qeglobals.sv.colors[12][2] = 0.38f;
+  g_qeglobals.sv.colors[13][0] = 1.0f;
+  g_qeglobals.sv.colors[17][1] = 0.0f;
+  g_qeglobals.sv.colors[17][2] = 0.27f;
+  g_qeglobals.sv.colors[18][0] = 0.1f;
+  g_qeglobals.sv.colors[18][1] = 1.0f;
+  g_qeglobals.sv.colors[18][2] = 0.66f;
+  g_qeglobals.sv.colors[19][0] = 0.67f;
+  g_qeglobals.sv.colors[19][1] = 1.0f;
+  g_qeglobals.sv.colors[19][2] = 1.0f;
+  g_qeglobals.sv.colors[20][0] = 0.1f;
+  g_qeglobals.sv.colors[20][1] = 0.4f;
+  g_qeglobals.sv.colors[20][2] = 1.0f;
+  g_qeglobals.sv.colors[21][0] = 1.0f;
+  g_qeglobals.sv.colors[21][1] = 0.26f;
+  g_qeglobals.sv.colors[21][2] = 1.0f;
+  g_qeglobals.sv.colors[22][1] = 0.25f;
+  g_qeglobals.sv.colors[22][2] = 0.75f;
+  g_qeglobals.sv.colors[23][0] = 0.75f;
+  g_qeglobals.sv.colors[23][1] = 0.75f;
+  g_qeglobals.sv.colors[23][2] = 1.0f;
+  g_qeglobals.sv.colors[24][0] = 0.0f;
+  g_qeglobals.sv.colors[25][0] = 1.0f;
+  g_qeglobals.sv.colors[25][1] = 0.79f;
+  g_qeglobals.sv.colors[25][2] = 0.8f;
+  g_qeglobals.sv.colors[29][1] = 0.8f;
+  g_qeglobals.sv.colors[26][0] = 0.1f;
+  g_qeglobals.sv.colors[26][1] = 1.0f;
+  g_qeglobals.sv.colors[26][2] = 0.0f;
+  g_qeglobals.sv.colors[27][0] = 0.27f;
+  g_qeglobals.sv.colors[27][1] = 0.1f;
+  g_qeglobals.sv.colors[27][2] = 1.0f;
+  g_qeglobals.sv.colors[28][0] = 0.88f;
+  g_qeglobals.sv.colors[28][1] = 0.89f;
+  g_qeglobals.sv.colors[28][2] = 1.0f;
+  g_qeglobals.sv.colors[29][0] = 1.0f;
+  g_qeglobals.sv.colors[29][2] = 0.6f;
+  g_qeglobals.sv.colors[30][0] = 0.0f;
+  g_qeglobals.sv.colors[30][1] = 1.0f;
+  g_qeglobals.sv.colors[30][2] = 0.2f;
+  g_qeglobals.sv.colors[31][0] = 0.17f;
+  g_qeglobals.sv.colors[31][1] = 0.14f;
+  g_qeglobals.sv.colors[31][2] = 1.0f;
+  dword_0123348c = -1;
+}
+
 // 0x00418ec0
 extern "C" void __fastcall FUN_00418ec0(CMainFrame *self)
 {
@@ -1653,6 +2623,16 @@ extern "C" void __fastcall FUN_00419000(CMainFrame *self)
     FUN_00452e30(self->field_07e0);
 }
 
+extern "C" void __fastcall FUN_00419020(CMainFrame *self)
+{
+  if (self->field_07e0)
+    FUN_00452f50((CXYWnd *)self->field_07e0);
+  for (selbrush_t *b = selected_selbrushes.next; b != &selected_selbrushes; b = b->next)
+    FUN_0045e0b0(b->def);
+  for (selbrush_t *b = DAT_010a44dc.next; b != &DAT_010a44dc; b = b->next)
+    FUN_0045e0b0(b->def);
+}
+
 extern "C" void FUN_00419080() { Undo_Undo(); }
 extern "C" void FUN_00419090() { Undo_Redo(); }
 extern int DAT_0109fdc4;
@@ -1713,6 +2693,17 @@ extern "C" void FUN_00419200() { FUN_00472860((float)(DAT_010bcd2c * 2), 0); }
 // 0x00419230
 extern "C" void FUN_00419230() { FUN_00472860((float)(-DAT_010bcd2c * 2), 0); }
 
+// grid, texture, rotate and cubic-clip state in status pane 4
+void CMainFrame::FUN_00419560()
+{
+  CString strStatus;
+  char c1 = PF(0x1b8) ? 'M' : ' ';
+  char c2 = PF(0x244) ? 'R' : ' ';
+  char c3 = PF(0x1bc) ? 'L' : ' ';
+  strStatus.Format("G:%i T:%i R:%i C:%i L:%c%c", DAT_010bcd2c, DAT_0112988c, FUN_00449760(), PF(0x2c4), c1, c2, c3);
+  FUN_00417d30(4, strStatus);
+}
+
 // 0x00419660
 extern "C" void __fastcall FUN_00419660(CMainFrame *self) { self->FUN_00419560(); }
 
@@ -1737,6 +2728,68 @@ extern "C" void __fastcall FUN_004196a0(CMainFrame *self)
   ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x802e, flag);
   ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x802f, 0);
   ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x8030, 0);
+}
+
+extern "C" void __fastcall FUN_00419720(CMainFrame *self)
+{
+  if ((DAT_0109fe60 & 1) && (DAT_0109fe60 & 4))
+  {
+    DAT_0109fe60 = 0;
+    ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x802e, 0);
+    ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x802f, 0);
+  }
+  else
+  {
+    DAT_0109fe60 = 5;
+    ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x802e, 0);
+    ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x802f, 1);
+  }
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x8030, 0);
+}
+
+extern "C" void __fastcall FUN_004197b0(CMainFrame *self)
+{
+  if ((DAT_0109fe60 & 1) && (DAT_0109fe60 & 2))
+  {
+    DAT_0109fe60 = 0;
+    ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x802e, 0);
+    ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x802f, 0);
+    ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x8030, 0);
+  }
+  else
+  {
+    DAT_0109fe60 = 3;
+    ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x802e, 0);
+    ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x802f, 0);
+    ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x8030, 1);
+  }
+}
+
+extern "C" void __fastcall FUN_00419860(CMainFrame *self)
+{
+  if (self->field_07e0)
+  {
+    if (DAT_0109fe5e)
+      FUN_004171b0(self);
+    if (DAT_0109fe5f)
+    {
+      DAT_0109fe5f = false;
+      ::RedrawWindow(self->field_07e0->m_hWnd, NULL, NULL, 0x105);
+      ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x802d, 0);
+    }
+    if (DAT_0109fe64)
+    {
+      DAT_0109fe64 = false;
+      ::RedrawWindow(self->field_07e0->m_hWnd, NULL, NULL, 0x105);
+      ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x802d, 0);
+    }
+    else
+    {
+      DAT_0109fe64 = true;
+      ::RedrawWindow(self->field_07e0->m_hWnd, NULL, NULL, 0x105);
+      ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x802d, 1);
+    }
+  }
 }
 
 extern "C" void FUN_00419930() { DoProjectSettings(); }
@@ -1776,6 +2829,17 @@ extern "C" void __fastcall FUN_00419ab0(CMainFrame *self)
   prefs->SavePrefs();
   dword_0123348c |= 1;
   self->FUN_00419560();
+}
+
+extern "C" void __fastcall FUN_00419b00(CMainFrame *self)
+{
+  PFB(0x2c0) ^= 1;
+  CMenu *pMenu = self->GetMenu();
+  if (pMenu)
+    pMenu->CheckMenuItem(0x8031, MF_BYCOMMAND | (PFB(0x2c0) ? MF_CHECKED : MF_UNCHECKED));
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x8031, MAKELONG(PFB(0x2c0) != 0, 0));
+  dword_01233b64->SavePrefs();
+  dword_0123348c |= 1;
 }
 
 // 0x00419b90
@@ -1846,6 +2910,20 @@ extern "C" void __fastcall FUN_00419d40(CMainFrame *self)
   self->FUN_00419560();
 }
 
+extern "C" void __fastcall FUN_00419da0(CMainFrame *self)
+{
+  CFileDialog dlgFile(TRUE, NULL, NULL, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, "Map files (*.map)|*.map||", self);
+  if (dlgFile.DoModal() == IDOK)
+    FUN_0046ab20(dlgFile.GetPathName().GetBuffer(0));
+}
+
+extern "C" void __fastcall FUN_00419e90(CMainFrame *self)
+{
+  CFileDialog dlgFile(FALSE, "map", NULL, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, "Map files (*.map)|*.map||", self);
+  if (dlgFile.DoModal() == IDOK)
+    FUN_0046ad90(dlgFile.GetPathName().GetBuffer(0));
+}
+
 extern "C" void FUN_00419f80() { FUN_0045c950(); }
 extern "C" void FUN_00419f90() { FUN_00437400(); }
 // 0x00419fa0
@@ -1880,6 +2958,15 @@ extern "C" void __fastcall FUN_0041a2f0(CMainFrame *self)
   ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x8054, MAKELONG(PF(0x2c8) == 0, 0));
   dword_01233b64->SavePrefs();
 }
+// opens an extra camera window
+extern "C" void FUN_0041a330()
+{
+  CCamWnd *pCamWnd = new CCamWnd();
+  CRect rect(100, 100, 300, 300);
+  pCamWnd->Create("QCamera", "", WS_OVERLAPPEDWINDOW, rect, CWnd::FromHandle(::GetDesktopWindow()), 12345);
+  pCamWnd->ShowWindow(SW_SHOW);
+}
+
 extern "C" void __fastcall FUN_0041a5c0(CMainFrame *self)
 {
   if (++PF(0x1c8) > 2)
@@ -1914,6 +3001,18 @@ extern "C" void __fastcall FUN_0041a710(CMainFrame *self)
   ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x81b6, MAKELONG(PF(0x2a8) != 0, 0));
   dword_01233b64->SavePrefs();
 }
+extern "C" void __fastcall FUN_0041a750(CMainFrame *self)
+{
+  PF(0x1d8) ^= 1;
+  ::SendMessage(self->m_wndToolBar.m_hWnd, 0x402, 0x8178, MAKELONG(PF(0x1d8) != 0, 0));
+  for (selbrush_t *b = selected_selbrushes.next; b != &selected_selbrushes; b = b->next)
+    FUN_0045e0b0(b->def);
+  for (selbrush_t *b = DAT_010a44dc.next; b != &DAT_010a44dc; b = b->next)
+    FUN_0045e0b0(b->def);
+  dword_01233b64->SavePrefs();
+  dword_0123348c = -1;
+}
+
 extern "C" void __fastcall FUN_0041a7f0(CMainFrame *self)
 {
   PF(0x24c) ^= 1;
@@ -2223,6 +3322,70 @@ extern "C" void FUN_0041b190(CMainFrame *self)
   ::CheckMenuItem(::GetMenu(g_qeglobals.d_hwndMain), 0x8173, DAT_0112993f ? MF_CHECKED : MF_UNCHECKED);
   ::CheckMenuItem(::GetMenu(g_qeglobals.d_hwndMain), 0x8175, DAT_011298b0 == 11 ? MF_CHECKED : MF_UNCHECKED);
 }
+extern "C" void FUN_0041b2c0()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("dense cylinder");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00428e20(0, 0, 0, 0);
+  FUN_004433b0();
+  Undo_GeneralStart("add (2) rows");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00431360(1, 0, 1);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+  FUN_004433b0();
+  Undo_GeneralStart("insert (2) rows");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00431360(1, 0, 0);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+extern "C" void FUN_0041b370()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("very dense cylinder");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00428e20(0, 0, 0, 0);
+  FUN_004433b0();
+  Undo_GeneralStart("add (2) rows");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00431360(1, 0, 1);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+  FUN_004433b0();
+  Undo_GeneralStart("insert (2) rows");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00431360(1, 0, 0);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+  FUN_004433b0();
+  Undo_GeneralStart("add (2) rows");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00431360(1, 0, 1);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+  FUN_004433b0();
+  Undo_GeneralStart("insert (2) rows");
+  Undo_AddBrushList(&selected_selbrushes);
+  FUN_00431360(1, 0, 0);
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+  dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
 // 0x0041b470
 extern "C" void FUN_0041b470()
 {
@@ -2448,6 +3611,18 @@ extern "C" void FUN_0041bc00()
   Undo_AddBrushList(&selected_selbrushes);
   FUN_00428e20(0, 0, 1, 1);
   dword_0123348c = -1;
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+extern "C" void FUN_0041bc50()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("make sphere");
+  Undo_AddBrushList(&selected_selbrushes);
+  DAT_012334f5 = false;
+  DAT_012334f6 = true;
+  DialogBox(g_qeglobals.d_hInstance, (LPCSTR)113, g_qeglobals.d_hwndMain, FUN_004766d0);
   FUN_00443f80(&selected_selbrushes);
   Undo_End();
 }
