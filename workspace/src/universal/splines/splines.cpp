@@ -123,7 +123,7 @@ void debugLine(idVec3_t &color, float x, float y, float z, float x2, float y2, f
 	//idVec3_t to(x2, y2, z2);
 	//D_DebugLine(color, from, to);
 }
-
+*/ static inline void debugLine(idVec3_t &, float, float, float, float, float, float) {}
 
 void idSplineList::addToRenderer() {
 
@@ -137,7 +137,7 @@ void idSplineList::addToRenderer() {
         int i;
         
 	for(i = 0; i < controlPoints.Num(); i++) {
-		VectorCopy(*controlPoints[i], mins);
+		mins = *controlPoints[i];
 		VectorCopy(mins, maxs);
 		mins[0] -= 8;
 		mins[1] += 8;
@@ -182,7 +182,7 @@ void idSplineList::addToRenderer() {
 		}
 	}
 }
-*/
+
 
 void idSplineList::buildSpline() {
 	//int start = Sys_Milliseconds();

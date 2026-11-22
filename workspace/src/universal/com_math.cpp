@@ -1139,6 +1139,23 @@ float vectoyaw( const vec3_t vec )
     return yaw;
 }
 
+vec_t vectosignedyaw( vec3_t vec )
+{
+	float yaw;
+
+	if ( vec[1] == 0.0f && vec[0] == 0.0f )
+	{
+		yaw = 0.0f;
+		return yaw;
+	}
+
+	yaw = (float)atan2( vec[1], vec[0] ) * 180.0f / 3.141592741012573f;
+#line 1134
+	assert(yaw >= -180);
+#line 1135
+	assert(yaw <= 180);
+	return yaw;
+}
 
 float vectopitch( const vec3_t vec )
 {
@@ -3025,6 +3042,84 @@ void YawToAxis( float yaw, vec3_t axis[3] )
 	axis[2][2] = 1.0f;
 	VectorSubtract(vec3_origin, right, axis[1]);
 }
+
+void AxisToAngles( vec3_t axis[3], vec3_t angles )
+{
+	vec3_t right;
+	float a;
+	float fSin;
+	float fCos;
+	float temp;
+	float pitch;
+
+	// first get the pitch and yaw from the forward vector
+	vectoangles( axis[0], angles );
+
+	// now get the roll from the right vector
+	VectorCopy( axis[1], right );
+
+	// get the angle difference between the tmpAxis[2] and axis[2] after they have been reverse-rotated
+	a = (-angles[YAW] * 0.017453292519943295);
+	FastSinCos(a, &fSin, &fCos);
+
+	temp = fCos * right[0] - fSin * right[1];
+	right[1] = fSin * right[0] + fCos * right[1];
+
+	a = -angles[0] * 0.017453292519943295;
+	FastSinCos(a, &fSin, &fCos);
+
+	right[0] = (fSin * right[2]) + (fCos * temp);
+	right[2] = (fCos * right[2]) - (fSin * temp);
+
+	// now find the angles, the PITCH is effectively our ROLL
+	pitch = vectosignedpitch(right);
+
+	if ( right[1] < 0.0 )
+	{
+		angles[ROLL] = pitch + ( pitch < 0.0 ? 180.0f : -180.0f );
+	}
+	else
+	{
+		angles[ROLL] = -pitch;
+	}
+}
+
+void AxisToSignedAngles( const vec3_t axis[3], vec3_t angles )
+{
+	vec3_t right;
+	float a;
+	float fSin;
+	float fCos;
+	float temp;
+	float pitch;
+
+	vectoanglessigned(axis[0], angles);
+	VectorCopy(axis[1], right);
+
+	a = -angles[YAW] * 0.017453292519943295;
+	FastSinCos(a, &fSin, &fCos);
+
+	temp = fCos * right[0] - fSin * right[1];
+	right[1] = fSin * right[0] + fCos * right[1];
+
+	a = -angles[PITCH] * 0.017453292519943295;
+	FastSinCos(a, &fSin, &fCos);
+
+	right[0] = fSin * right[2] + fCos * temp;
+	right[2] = fCos * right[2] - fSin * temp;
+
+	pitch = vectosignedpitch(right);
+
+	if ( right[1] < 0 )
+	{
+		angles[ROLL] = pitch < 0 ? pitch + 180.0f : pitch + -180.0f;
+	}
+	else
+	{
+		angles[ROLL] = -pitch;
+	}
+}
+
 /*
 ==============
 IntersectPlanes
@@ -3071,6 +3166,129 @@ int IntersectPlanes( const float **plane, vec3_t xyz )
 
 
 
+
+void SnapPointToIntersectingPlanes( const float **planes, vec3_t xyz, float snapGrid, float snapEpsilon )
+{
+	float baseError;
+	float snapError;
+	float maxSnapError;
+	float maxBaseError;
+	float rounded;
+	vec3_t snapped;
+	int planeIndex;
+	int axis;
+
+	for ( axis = 0; axis < 3; axis++ )
+	{
+		rounded = Q_rint(xyz[axis] / snapGrid) * snapGrid;
+
+		if ( I_fabs(rounded - xyz[axis]) < snapEpsilon )
+		{
+			snapped[axis] = rounded;
+		}
+		else
+		{
+			snapped[axis] = xyz[axis];
+		}
+	}
+
+	if ( VectorCompare(snapped, xyz) )
+	{
+		return;
+	}
+
+	maxSnapError = 0;
+	maxBaseError = snapEpsilon;
+
+	for ( planeIndex = 0; planeIndex < 3; planeIndex++ )
+	{
+		snapError = I_fabs(DotProduct(planes[planeIndex], snapped) - planes[planeIndex][3]);
+
+		if ( maxSnapError < snapError )
+		{
+			maxSnapError = snapError;
+		}
+
+		baseError = I_fabs(DotProduct(planes[planeIndex], snapped) - planes[planeIndex][3]);
+
+		if ( maxBaseError < baseError )
+		{
+			maxBaseError = baseError;
+		}
+	}
+
+	if ( maxSnapError < maxBaseError )
+	{
+		VectorCopy(snapped, xyz);
+	}
+}
+
+void SnapPointToPlanes( const vec4_t *planes, int planeCount, vec3_t xyz, float snapGrid, float snapEpsilon )
+{
+	float d;
+	float baseError;
+	float snapError;
+	float maxSnapError;
+	float maxBaseError;
+	float rounded;
+	vec3_t snapped;
+	int planeIndex;
+	int axis;
+
+	for ( planeIndex = 0; planeIndex < planeCount; planeIndex++ )
+	{
+		d = DotProduct(xyz, planes[planeIndex]) - planes[planeIndex][3];
+
+		if ( d <= snapEpsilon && -snapEpsilon <= d )
+		{
+			VectorMA(xyz, -d, planes[planeIndex], xyz);
+		}
+	}
+
+	for ( axis = 0; axis < 3; axis++ )
+	{
+		rounded = Q_rint(xyz[axis] / snapGrid) * snapGrid;
+
+		if ( I_fabs(rounded - xyz[axis]) < snapEpsilon )
+		{
+			snapped[axis] = rounded;
+		}
+		else
+		{
+			snapped[axis] = xyz[axis];
+		}
+	}
+
+	if ( VectorCompare(snapped, xyz) )
+	{
+		return;
+	}
+
+	maxSnapError = 0;
+	maxBaseError = snapEpsilon;
+
+	for ( planeIndex = 0; planeIndex < planeCount; planeIndex++ )
+	{
+		snapError = I_fabs(DotProduct(planes[planeIndex], snapped) - planes[planeIndex][3]);
+
+		if ( maxSnapError < snapError )
+		{
+			maxSnapError = snapError;
+		}
+
+		baseError = I_fabs(DotProduct(planes[planeIndex], snapped) - planes[planeIndex][3]);
+
+		if ( maxBaseError < baseError )
+		{
+			maxBaseError = baseError;
+		}
+	}
+
+	if ( maxSnapError < maxBaseError )
+	{
+		VectorCopy(snapped, xyz);
+	}
+}
 
 /*
 ==============
@@ -3172,6 +3390,80 @@ void SetPlaneSignbits( cplane_t *out )
 	}
 
 	out->signbits = bits;
+}
+
+int BoxOnPlaneSide( vec3_t emins, vec3_t emaxs, struct cplane_s *p )
+{
+	float dist1, dist2;
+	int sides;
+
+	// fast axial cases
+	if ( p->type < 3 )
+	{
+		if ( p->dist <= emins[p->type] )
+		{
+			return 1;
+		}
+		if ( p->dist >= emaxs[p->type] )
+		{
+			return 2;
+		}
+		return 3;
+	}
+
+	// general case
+	switch ( p->signbits )
+	{
+	case 0:
+		dist1 = p->normal[0] * emaxs[0] + p->normal[1] * emaxs[1] + p->normal[2] * emaxs[2];
+		dist2 = p->normal[0] * emins[0] + p->normal[1] * emins[1] + p->normal[2] * emins[2];
+		break;
+	case 1:
+		dist1 = p->normal[0] * emins[0] + p->normal[1] * emaxs[1] + p->normal[2] * emaxs[2];
+		dist2 = p->normal[0] * emaxs[0] + p->normal[1] * emins[1] + p->normal[2] * emins[2];
+		break;
+	case 2:
+		dist1 = p->normal[0] * emaxs[0] + p->normal[1] * emins[1] + p->normal[2] * emaxs[2];
+		dist2 = p->normal[0] * emins[0] + p->normal[1] * emaxs[1] + p->normal[2] * emins[2];
+		break;
+	case 3:
+		dist1 = p->normal[0] * emins[0] + p->normal[1] * emins[1] + p->normal[2] * emaxs[2];
+		dist2 = p->normal[0] * emaxs[0] + p->normal[1] * emaxs[1] + p->normal[2] * emins[2];
+		break;
+	case 4:
+		dist1 = p->normal[0] * emaxs[0] + p->normal[1] * emaxs[1] + p->normal[2] * emins[2];
+		dist2 = p->normal[0] * emins[0] + p->normal[1] * emins[1] + p->normal[2] * emaxs[2];
+		break;
+	case 5:
+		dist1 = p->normal[0] * emins[0] + p->normal[1] * emaxs[1] + p->normal[2] * emins[2];
+		dist2 = p->normal[0] * emaxs[0] + p->normal[1] * emins[1] + p->normal[2] * emaxs[2];
+		break;
+	case 6:
+		dist1 = p->normal[0] * emaxs[0] + p->normal[1] * emins[1] + p->normal[2] * emins[2];
+		dist2 = p->normal[0] * emins[0] + p->normal[1] * emaxs[1] + p->normal[2] * emaxs[2];
+		break;
+	case 7:
+		dist1 = p->normal[0] * emins[0] + p->normal[1] * emins[1] + p->normal[2] * emins[2];
+		dist2 = p->normal[0] * emaxs[0] + p->normal[1] * emaxs[1] + p->normal[2] * emaxs[2];
+		break;
+	default:
+		dist1 = dist2 = 0;      // shut up compiler
+		break;
+	}
+
+	sides = 0;
+
+	if ( dist1 >= p->dist )
+	{
+		sides = 1;
+	}
+
+	if ( dist2 < p->dist )
+	{
+		sides |= 2;
+	}
+
+	return sides;
 }
 
 int PointInCylinderArc( const vec3_t pos, float radius, const vec3_t arcOrigin, float thickness, float minYaw, float maxYaw, float halfHeight )
@@ -3564,4 +3856,43 @@ float SnapFloatBits( float f, int tolerance, int bits )
 	}
 
 	return u.f;
+}
+
+float SnapFloatToGrid( float value, float granularity, float epsilon )
+{
+	float snapped;
+	float err;
+
+#line 4018
+	assertMsg((granularity > 0), "(granularity) = %g", granularity);
+#line 4019
+	assertMsg((epsilon > 0), "(epsilon) = %g", epsilon);
+#line 4020
+	do
+	{
+		static bool s_assertDisable;
+		if ( !(epsilon < 0.5f / granularity) && !s_assertDisable )
+		{
+			switch ( FUN_0047d980( va( "%s\n\t%s", "epsilon < 0.5f / granularity", va( "%g, %g", epsilon, granularity ) ), __FILE__, __LINE__, 0, 1 ) )
+			{
+			case 0:
+				DebugBreak();
+				break;
+			case 2:
+				s_assertDisable = true;
+				break;
+			}
+		}
+	} while ( 0 );
+
+	value = SnapFloatBits( value, 4, 12 );
+	snapped = I_fround( value * granularity ) / granularity;
+	err = I_fabs( snapped - value );
+
+	if ( err <= epsilon )
+	{
+		return snapped;
+	}
+
+	return value;
 }

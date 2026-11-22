@@ -2243,3 +2243,4 @@ addr	size	source	symbol	name	tag
 0x0046fbe0	355	src/radiant/select.cpp	?FUN_0046fbe0@@YAX_N@Z	FUN_0046fbe0	SUPPORTED
 0x00471a70	12	src/radiant/select.cpp	?FUN_00471a70@@YAXXZ	FUN_00471a70	SUPPORTED
 0x00471a80	12	src/radiant/select.cpp	?FUN_00471a80@@YAXXZ	FUN_00471a80	SUPPORTED
+0x0049a210	176	src/universal/splines/splines.cpp	?addToRenderer@idSplineList@@QAEXXZ	idSplineList::addToRenderer	SUPPORTED
