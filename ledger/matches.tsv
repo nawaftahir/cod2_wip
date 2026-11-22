@@ -2371,3 +2371,6 @@ addr	size	source	symbol	name	tag
 0x0045e070	63	src/radiant/brush.cpp	?FUN_0045e070@@YAXPAUentityList_t@@@Z	FUN_0045e070	SUPPORTED
 0x004741e0	65	src/radiant/select.cpp	?FUN_004741e0@@YAXH@Z	FUN_004741e0	SUPPORTED
 0x0045dc70	625	src/radiant/brush.cpp	?FUN_0045dc70@@YAHPAUface_t@@PBUorientation_t@@HPBIHHHPAUGfxPointVertex@@@Z	FUN_0045dc70	PINNED
+0x00473940	136	src/radiant/select.cpp	?FindReplaceTextures@@YA_NPBD0_N11@Z	FindReplaceTextures	SUPPORTED
+0x004749a0	451	src/radiant/select.cpp	?FUN_004749a0@@YAXXZ	FUN_004749a0	PINNED
+0x00474b70	451	src/radiant/select.cpp	?FUN_00474b70@@YAXXZ	FUN_00474b70	PINNED

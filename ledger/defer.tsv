@@ -500,9 +500,6 @@ addr	agent	date	reason
 0x0046cf20	lane-a-r23	2026-11-18	QE_CheckAutoSave (396 B, SEH frame): not written. Needs CString COMDAT calls 0x407860/0x402cd0/0x402750 (MFC 7.1 CStringT out of line), 0x46cc60 (694 B) and 0x468910.
 0x00471dd0	lane-a-r23	2026-11-18	Select_ByTargetname-like (972 B): not written. Calls 0x44f630 (2994 B XYWnd) and 0x46d710 (257 B, takes ebx).
 0x00471a90	lane-a-r23	2026-11-18	(818 B): not written. Calls 0x44f630 (2994 B), 0x410f90 (register this=esi dtor helper) and 0x46fbe0.
-0x00472bd0	lane-a-r23	2026-11-18	(1055 B): not written. Callees 0x4325d0, 0x4433b0, 0x45a220, 0x45a830, 0x475350.
-0x004733f0	lane-a-r23	2026-11-18	(1054 B): not written. Callees 0x432430, 0x4433b0, 0x45a220, 0x45a830, 0x475350.
-0x00474230	lane-a-r23	2026-11-18	(782 B): not written. Callees 0x4433b0, 0x45a220, 0x45a830, 0x45ebf0, 0x45ef60, 0x475350.
 0x00448940	lane-f-r24	2026-11-18	FUN_00448940 (shared-edge finder for 0x448a10; f1 stack, f2 ebx, &i,&j stack): best 97%, sizes 207/207, first diff +0x5. Same instructions; retail frame 0x20 with p2 at [ebp-0x1c] and i+1 at [ebp-0x10], ours frame 0x14 ([ebp-0x10]/[ebp-0x14]). Tried loop-local pointers and top-of-function decls (both 97%).
 0x00448a10	lane-f-r24	2026-11-18	FUN_00448a10 (Q3 Winding_TryMerge shape: f1,f2 stack, planenormal eax, keep byte): best 69%, sizes 778/746, first diff +0x20c. Bytes before +0x20c identical (both convexity checks, keep1/keep2). Retail calls Winding_Alloc 0x447f20 (esi=count); our LTCG inlines it (+32 B), then the copy loops shift. Body kept in workspace.
 0x00455e20	lane-f-r24	2026-11-18	FUN_00455e20 (Q3 Brush_Convex shape; b in eax in retail): best 8%, sizes 269/191, first diff +0x5. Ours keeps b on the stack even with its only caller 0x455ee0 built (tried global, static, cached faceCount: all stack). Needs 0x455ee0 to get its retail register convention first (see that row).
@@ -1003,3 +1000,19 @@ addr	agent	date	reason
 0x0045ebf0	bulk-d7	2026-11-22	FUN_45ebf0: bulk draft: 94%, sizes 877/877, first diff +0xa9
 0x0045f240	bulk-d7	2026-11-22	FUN_45f240: bulk draft: 40%, sizes 251/251, first diff +0x5
 0x0045f340	bulk-d7	2026-11-22	FUN_45f340: bulk draft: 30%, sizes 882/855, first diff +0x5. Body kept in workspace/drafts/brush_45f340.cpp: compiled in, it flips matched entity.cpp 0x004656b0, 0x00465780, 0x00467510 (LTCG).
+0x00472860	bulk-d7	2026-11-22	FUN_472860: bulk draft: 59%, sizes 882/870, first diff +0x23
+0x00472bd0	bulk-d7	2026-11-22	FUN_472bd0: bulk draft: 58%, sizes 1041/1055, first diff +0x1e
+0x00472ff0	bulk-d7	2026-11-22	FUN_472ff0: bulk draft: 56%, sizes 981/1012, first diff +0x1e
+0x004733f0	bulk-d7	2026-11-22	FUN_4733f0: bulk draft: 61%, sizes 1042/1054, first diff +0x6
+0x00473810	bulk-d7	2026-11-22	FUN_473810: bulk draft: 39%, sizes 314/301, first diff +0x12
+0x004739d0	bulk-d7	2026-11-22	FUN_4739d0: bulk draft: 31%, sizes 614/658, first diff +0x2a
+0x00473c70	bulk-d7	2026-11-22	FUN_473c70: bulk draft: 50%, sizes 734/725, first diff +0x53
+0x00473f50	bulk-d7	2026-11-22	FUN_473f50: bulk draft: 51%, sizes 613/649, first diff +0x1c
+0x00474230	bulk-d7	2026-11-22	FUN_474230: bulk draft: 68%, sizes 789/782, first diff +0x6
+0x00472360	bulk-d7	2026-11-22	FUN_472360: not drafted (370 B): Maya export, low value; not drafted this pass
+0x004724e0	bulk-d7	2026-11-22	FUN_4724e0: not drafted (698 B): Maya export, low value; not drafted this pass
+0x00475120	bulk-d7	2026-11-22	FUN_475120: not drafted (27 B): inline CDWordArray member, no caller identified
+0x00475140	bulk-d7	2026-11-22	FUN_475140: not drafted (4 B): inline CDWordArray member, no caller identified
+0x00475150	bulk-d7	2026-11-22	FUN_475150: not drafted (21 B): inline CDWordArray member, no caller identified
+0x00474710	bulk-d7	2026-11-22	FUN_474710: bulk draft matches the referee but compiled in it flips matched entity.cpp 0x004656b0, 0x00465780, 0x00467510 (LTCG). Body kept in workspace/drafts/select_474710_474880.cpp.
+0x00474880	bulk-d7	2026-11-22	FUN_474880: bulk draft matches the referee but compiled in it flips matched entity.cpp 0x004656b0, 0x00465780, 0x00467510 (LTCG). Body kept in workspace/drafts/select_474710_474880.cpp.
