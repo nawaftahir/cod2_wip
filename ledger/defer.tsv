@@ -897,3 +897,4 @@ addr	agent	date	reason
 0x0046e0c0	bulk-d3	2026-11-20	bulk draft: 79%, sizes 80/83, first diff +0xb
 0x0049a4f0	claude-d	2026-11-22	bulk draft: 99%, sizes 509/509, first difference at +0x1b2 (best candidate ?initPosition@idSplineList@@QAEXJJ@Z)
 0x004a0550	claude-d	2026-11-22	bulk draft: 46%, sizes 3332/2967, first difference at +0x1d (best candidate ?TestStringClass@@YAXXZ)
+0x0047fed0	claude-d	2026-11-22	bulk draft: 25%, sizes 1236/1194, first difference at +0x5 (?FS_LoadZipFile@@YAPAUiwd_t@@PADPBD@Z)

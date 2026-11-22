@@ -2652,6 +2652,111 @@ int FS_OpenFileForWrite( const char *qpath )
 	return FS_GetHandleAndOpenFile(qpath, ospath, "wb", FS_THREAD_MAIN);
 }
 
+int LittleLongRuntime(int l);
+
+iwd_t *FS_LoadZipFile(char *zipfile, const char *basename)
+{
+	fileInIwd_t *buildBuffer;
+	iwd_t *iwd;
+	unzFile uf;
+	int err;
+	unz_global_info gi;
+	char filename_inzip[MAX_ZPATH];
+	unz_file_info file_info;
+	unsigned long i;
+	int len;
+	long hash;
+	int fs_numHeaderLongs;
+	int *fs_headerLongs;
+	char *namePtr;
+
+	fs_numHeaderLongs = 0;
+
+	uf = unzOpen(zipfile);
+	if ( !uf )
+		return NULL;
+	err = unzGetGlobalInfo(uf, &gi);
+
+	if ( err != UNZ_OK )
+	{
+		return NULL;
+	}
+
+	fs_packFiles += gi.number_entry;
+
+	len = 0;
+	unzGoToFirstFile(uf);
+	for ( i = 0; i < gi.number_entry; i++ )
+	{
+		err = unzGetCurrentFileInfo(uf, &file_info, filename_inzip, sizeof(filename_inzip), NULL, 0, NULL, 0);
+		if ( err != UNZ_OK )
+		{
+			break;
+		}
+		len += strlen(filename_inzip) + 1;
+		unzGoToNextFile(uf);
+	}
+
+	buildBuffer = (fileInIwd_t *)Z_Malloc((gi.number_entry * sizeof(fileInIwd_t)) + len);
+	namePtr = ((char *)buildBuffer) + gi.number_entry * sizeof(fileInIwd_t);
+	fs_headerLongs = (int *)Z_Malloc(gi.number_entry * sizeof(int));
+
+	for ( i = 1; i <= MAX_FILEHASH_SIZE; i <<= 1 )
+	{
+		if ( i > gi.number_entry )
+		{
+			break;
+		}
+	}
+
+	iwd = (iwd_t *)Z_Malloc(sizeof(iwd_t) + i * sizeof(fileInIwd_t *));
+	iwd->hashSize = i;
+	iwd->hashTable = (fileInIwd_t **)(((char *)iwd) + sizeof(iwd_t));
+	for ( i = 0; i < (unsigned long)iwd->hashSize; i++ )
+	{
+		iwd->hashTable[i] = NULL;
+	}
+
+	I_strncpyz(iwd->iwdFilename, zipfile, sizeof(iwd->iwdFilename));
+	I_strncpyz(iwd->iwdBasename, basename, sizeof(iwd->iwdBasename));
+
+	if ( strlen(iwd->iwdBasename) > 4 && !I_stricmp(iwd->iwdBasename + strlen(iwd->iwdBasename) - 4, ".iwd") )
+	{
+		iwd->iwdBasename[strlen(iwd->iwdBasename) - 4] = 0;
+	}
+
+	iwd->handle = uf;
+	iwd->numFiles = gi.number_entry;
+	unzGoToFirstFile(uf);
+
+	for ( i = 0; i < gi.number_entry; i++ )
+	{
+		err = unzGetCurrentFileInfo(uf, &file_info, filename_inzip, sizeof(filename_inzip), NULL, 0, NULL, 0);
+		if ( err != UNZ_OK )
+		{
+			break;
+		}
+		if ( file_info.uncompressed_size > 0 )
+		{
+			fs_headerLongs[fs_numHeaderLongs++] = LittleLongRuntime(file_info.crc);
+		}
+		I_strlwr(filename_inzip);
+		hash = FS_HashFileName(filename_inzip, iwd->hashSize);
+		buildBuffer[i].name = namePtr;
+		strcpy(buildBuffer[i].name, filename_inzip);
+		namePtr += strlen(filename_inzip) + 1;
+		unzGetCurrentFileInfoPosition(uf, &buildBuffer[i].pos);
+		buildBuffer[i].next = iwd->hashTable[hash];
+		iwd->hashTable[hash] = &buildBuffer[i];
+		unzGoToNextFile(uf);
+	}
+
+	Z_Free(fs_headerLongs);
+
+	iwd->buildBuffer = buildBuffer;
+	return iwd;
+}
+
 static int FS_ReturnPath( const char *zname, char *zpath, int *depth )
 {
 	int len, at, newdep;
