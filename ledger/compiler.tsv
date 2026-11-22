@@ -79,3 +79,4 @@ addr	size	source	symbol	name	tag
 0x00411360	33	src/radiant/MainFrm.cpp	??_ECMainFrame@@UAEPAXI@Z	CMainFrame::scalar deleting destructor	AUTO
 0x0041eea0	33	src/radiant/MainFrm.cpp	??_GCMainFrame@@UAEPAXI@Z	CMainFrame::scalar deleting destructor	AUTO
 0x0041f560	19	src/radiant/MainFrm.cpp	?AfxGetMainWnd@@YGPAVCWnd@@XZ	AfxGetMainWnd	AUTO
+0x00425130	30	src/radiant/UNKNOWN_00425080.cpp	??_EStdClientUser@@UAEPAXI@Z	scalar deleting destructor	AUTO
