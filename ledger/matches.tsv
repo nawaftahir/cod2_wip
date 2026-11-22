@@ -484,6 +484,8 @@ addr	size	source	symbol	name	tag
 0x00417750	72	src/radiant/MainFrm.cpp	@FUN_00417750@4	FUN_00417750	UNNAMED
 0x004177a0	72	src/radiant/MainFrm.cpp	@FUN_004177a0@4	FUN_004177a0	UNNAMED
 0x004177f0	66	src/radiant/MainFrm.cpp	@FUN_004177f0@4	FUN_004177f0	UNNAMED
+0x00417890	103	src/radiant/MainFrm.cpp	@FUN_00417890@4	FUN_00417890	UNNAMED
+0x00417900	103	src/radiant/MainFrm.cpp	@FUN_00417900@4	FUN_00417900	UNNAMED
 0x00417cf0	63	src/radiant/MainFrm.cpp	?FUN_00417cf0@CMainFrame@@QAEXXZ	CMainFrame::FUN_00417cf0	UNNAMED
 0x00417d60	157	src/radiant/MainFrm.cpp	?UpdateWindows@CMainFrame@@QAEXH@Z	CMainFrame::UpdateWindows	SUPPORTED
 0x00417e00	7	src/radiant/MainFrm.cpp	_FUN_00417e00	FUN_00417e00	UNNAMED
@@ -518,6 +520,7 @@ addr	size	source	symbol	name	tag
 0x00419950	32	src/radiant/MainFrm.cpp	_FUN_00419950	FUN_00419950	UNNAMED
 0x00419970	5	src/radiant/MainFrm.cpp	_FUN_00419970	FUN_00419970	UNNAMED
 0x00419980	5	src/radiant/MainFrm.cpp	_FUN_00419980	FUN_00419980	UNNAMED
+0x00419b00	144	src/radiant/MainFrm.cpp	@FUN_00419b00@4	FUN_00419b00	UNNAMED
 0x00419ba0	21	src/radiant/MainFrm.cpp	?FUN_00419ba0@CMainFrame@@QAEXPAVCCmdUI@@@Z	FUN_00419ba0	UNNAMED
 0x00419c70	1	src/radiant/MainFrm.cpp	_FUN_00419c70	FUN_00419c70	UNNAMED
 0x00419c80	1	src/radiant/MainFrm.cpp	_FUN_00419c80	FUN_00419c80	UNNAMED

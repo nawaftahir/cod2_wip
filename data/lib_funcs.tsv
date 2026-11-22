@@ -2939,7 +2939,7 @@ addr	size	lib	member	symbol
 0x005005b5	128	nafxcw.lib	INTEL\$NW\winocc.obj	?GetWindowTextA@CWnd@@QBEHPADH@Z
 0x00500635	97	nafxcw.lib	INTEL\$NW\winocc.obj	?GetWindowTextLengthA@CWnd@@QBEHXZ
 0x0050069c	124	nafxcw.lib	INTEL\$NW\winmenu.obj	?afxMapHMENU@@YGPAVCHandleMap@@H@Z
-0x00500718	14	nafxcw.lib	INTEL\$NW\winctrl2.obj	?FromHandle@CImageList@@SGPAV1@PAU_IMAGELIST@@@Z
+0x00500718	14	nafxcw.lib	INTEL\$NW\winmenu.obj	?FromHandle@CMenu@@SGPAV1@PAUHMENU__@@@Z
 0x00500726	26	nafxcw.lib	INTEL\$NW\wincore.obj	?FromHandlePermanent@CWnd@@SGPAV1@PAUHWND__@@@Z
 0x00500740	45	nafxcw.lib	INTEL\$NW\winmenu.obj	?Attach@CMenu@@QAEHPAUHMENU__@@@Z
 0x0050076d	42	nafxcw.lib	INTEL\$NW\winmenu.obj	?Detach@CMenu@@QAEPAUHMENU__@@XZ
