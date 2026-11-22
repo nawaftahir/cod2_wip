@@ -2423,3 +2423,7 @@ addr	size	source	symbol	name	tag
 0x004311a0	448	src/radiant/Pmesh.cpp	?FUN_004311a0@@YAXXZ	FUN_004311a0	PINNED
 0x00431490	220	src/radiant/Pmesh.cpp	?FUN_00431490@@YAXHH@Z	FUN_00431490	SUPPORTED
 0x00432bb0	227	src/radiant/Pmesh.cpp	?FUN_00432bb0@@YAXXZ	FUN_00432bb0	SUPPORTED
+0x0045dc70	625	src/radiant/brush.cpp	?FUN_0045dc70@@YAHPAUface_t@@PBUorientation_t@@HPBIHHHPAUGfxPointVertex@@@Z	FUN_0045dc70	PINNED
+0x00473940	136	src/radiant/select.cpp	?FindReplaceTextures@@YA_NPBD0_N11@Z	FindReplaceTextures	SUPPORTED
+0x004749a0	451	src/radiant/select.cpp	?FUN_004749a0@@YAXXZ	FUN_004749a0	PINNED
+0x00474b70	451	src/radiant/select.cpp	?FUN_00474b70@@YAXXZ	FUN_00474b70	PINNED

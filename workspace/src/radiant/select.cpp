@@ -2,12 +2,21 @@
 #include <afxtempl.h>
 #include <math.h>
 #include "../universal/assertive.h"
+#include "../universal/com_math.h"
+
+struct radmat_t
+{
+    int handle;
+    const char *name;
+};
 
 struct patch_def_t
 {
     int pad[2];
     int contents;
     int surface;
+    unsigned char pad_10[8];
+    radmat_t *mat[2];
 };
 
 struct patch_t
@@ -23,10 +32,20 @@ struct winding_t
     float points[1][3];
 };
 
+struct texdef_t
+{
+    radmat_t *mat;
+    float scale[2];
+    float shift[2];
+    float rotate;
+    float crossterm;
+};
+
 struct face_t
 {
     float planepts[3][3];
-    unsigned char pad0[0x78 - 0x24];
+    texdef_t texdef[2];
+    unsigned char pad0[0x78 - 0x5c];
     int contents;
     int surface;
     unsigned char pad1[0x20];
@@ -42,7 +61,7 @@ struct brushdef_t
     unsigned char pad0[0x20 - 0xc];
     float mins[3];
     float maxs[3];
-    unsigned char pad2[4];
+    int faceCount;
     face_t *faces;
     unsigned char pad1[2];
     short version;
@@ -50,10 +69,11 @@ struct brushdef_t
 };
 
 struct faceInst_t { int field_00, field_04, field_08; };
-struct eclass_t { unsigned char pad_00[8]; int fixedsize; };
+struct eclass_t { int pad_00; const char *name; int fixedsize; };
 struct epair_t;
 struct entity_t { unsigned char pad_00[0x50]; eclass_t *eclass; unsigned char pad_54[0x64 - 0x54]; epair_t *epairs; };
 struct brush_t;
+struct prefab_t;
 struct entityInst_t
 {
     entityInst_t *prev;
@@ -61,6 +81,8 @@ struct entityInst_t
     entity_t *def;
     unsigned char pad_0c[0xc];
     brush_t *ownerNext;
+    unsigned char pad_1c[0x38 - 0x1c];
+    prefab_t *prefab;
     brush_t *ownerHead() { return ownerNext; }
     brush_t *ownerEnd() { return (brush_t *)((char *)this + 0xc); }
 };
@@ -77,6 +99,7 @@ struct brush_t
     short version;
     unsigned char hiddenBrush;
 };
+struct prefab_t { unsigned char pad_00[0xc]; brush_t head; };
 struct trace_t { brush_t *brush; faceInst_t *face; float dist; bool selected; int field_10[3]; };
 
 extern brush_t selected_brushes;
@@ -109,7 +132,7 @@ public:
     CXYWnd *m_pActiveXY;
 };
 class CSelectObject;
-struct qeglobals_t { unsigned char pad_00[0x18]; int d_gridsize; unsigned char pad_1c[0x8070 - 0x1c]; int d_num_move_points; float *d_move_points[4096]; unsigned char pad_c074[0x6cb9c - 0xc074]; int d_select_mode; CSelectObject *selectObject; };
+struct qeglobals_t { unsigned char pad_00[0x18]; int d_gridsize; unsigned char pad_1c[0x5c - 0x1c]; HWND d_hwndStatus; unsigned char pad_60[0x8070 - 0x60]; int d_num_move_points; float *d_move_points[4096]; unsigned char pad_c074[0x6cb84 - 0xc074]; int d_select_count; brush_t *d_select_order[2]; unsigned char pad_6cb90[0x6cb9c - 0x6cb90]; int d_select_mode; CSelectObject *selectObject; };
 extern qeglobals_t g_qeglobals;
 extern "C" void FUN_0041b190(CMainFrame *self);
 void FUN_0042beb0();
@@ -1129,9 +1152,458 @@ void FUN_00472840()
     FUN_00472280(0x100, 0);
 }
 
-void FUN_00473f50();
-void FUN_00473c70(int arg);
+// callees of the texture and entity commands
+struct patchMesh_t;
+struct selbrush_t;
+struct qtexture_s;
+void FUN_004433b0();
+void Undo_GeneralStart(char *operation);
+void Undo_End();
+void Undo_AddBrush(brushdef_t *brush);
+void Undo_AddBrushList(selbrush_t *list);
+void Undo_AddEntity(entity_t *ent);
+void FUN_00443f80(selbrush_t *list);
+void FUN_00443f50(brushdef_t *brush);
+void FUN_004325d0(patchMesh_t *p, int c);
+void FUN_00432430(patchMesh_t *p, float angle);
+void FUN_00432800(patchMesh_t *p, float shiftS, float shiftT);
+void FUN_004326b0(patchMesh_t *p, float scaleS, float scaleT);
+void FUN_0046b070(int);
+void FUN_00468910(const char *name, int flag);
+void FUN_0046b5b0();
+bool FUN_00435760(brushdef_t *b, const char *oldName, char *newName, bool bForce);
+qtexture_s *__fastcall FUN_00440840(char *name);
+void FUN_00459430(brushdef_t *b, face_t *f, radmat_t *mat);
+void FUN_0045ef60(brushdef_t *b, float h, float w);
+void FUN_0045ebf0(face_t *face, float nHeight, float nWidth, bool useSelection);
+bool FUN_00465d80(entity_t *ent, const char *key);
+void FUN_00465bf0(entity_t *e, const char *key, const char *value);
+BOOL FUN_00478090(CString &strKey, CString &strVal);
+char *va(const char *format, ...);
+bool FindReplaceTextures(const char *find, const char *replace, bool selectedOnly, bool force, bool recurse);
+extern int DAT_01128d90;
+extern int DAT_01128d94;
+extern radmat_t *DAT_01128da8;
 extern int dword_0123348c;
+extern int dword_010a4508;
+
+
+// 0x00472860 (870 B): shift the texture of the selected brushes and faces; patches use thousandths
+void FUN_00472860(float x, float y)
+{
+    int selCount = g_SelectedFaces.GetSize();
+    if (selected_brushes.next == &selected_brushes && selCount == 0)
+        return;
+    for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+    {
+        float dx, dy;
+        if (b->patch)
+        {
+            dx = x * 0.001f;
+            dy = y * 0.001f;
+        }
+        else
+        {
+            dx = (float)(int)x;
+            dy = (float)(int)y;
+        }
+        for (int i = 0; i < b->faceCount; i++)
+        {
+            b->def->faces[i].texdef[DAT_01128d94].shift[0] += dx;
+            b->def->faces[i].texdef[DAT_01128d94].shift[1] += dy;
+        }
+        FUN_0045a220(b->def, true);
+        if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
+            FUN_00475350();
+        Sys_MarkMapModified();
+        b->def->version++;
+        if (b->patch)
+        {
+#line 1959
+            assert(b->patch->def == b->def->patch);
+            FUN_00432800((patchMesh_t *)b->patch->def, dx, dy);
+        }
+    }
+    for (int i = 0; i < selCount; i++)
+    {
+        SelFace selFace = g_SelectedFaces[i];
+#line 1969
+        assert(selFace.face == &selFace.brush->faces[selFace.index]);
+        assert(selFace.brush->version == selFace.brush->def->version);
+        face_t *f = &selFace.brush->def->faces[selFace.index];
+        f->texdef[DAT_01128d94].shift[0] += x;
+        f->texdef[DAT_01128d94].shift[1] += y;
+        FUN_0045a220(selFace.brush->def, true);
+        if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
+            FUN_00475350();
+        Sys_MarkMapModified();
+        selFace.brush->def->version++;
+        FUN_0045a830(selFace.brush);
+#line 1978
+        assert(selFace.face == &selFace.brush->faces[selFace.index]);
+        assert(selFace.brush->version == selFace.brush->def->version);
+    }
+    dword_0123348c |= 1;
+}
+
+// 0x00472bd0 (1055 B): mirror the texture of the selection along one axis (0 = x, 1 = y), with undo
+void FUN_00472bd0(int axis)
+{
+    if (selected_brushes.next == &selected_brushes && g_SelectedFaces.GetSize() == 0)
+        return;
+    const char *name;
+    if (axis == 0)
+        name = "flip texture x";
+    else
+    {
+#line 2000
+        assert(axis == 0 || axis == 1);
+        name = "flip texture y";
+    }
+    FUN_004433b0();
+    Undo_GeneralStart((char *)name);
+    Undo_AddBrushList((selbrush_t *)&selected_brushes);
+    for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+    {
+        for (int i = 0; i < b->faceCount; i++)
+        {
+            texdef_t *td = &b->def->faces[i].texdef[DAT_01128d94];
+            td->scale[axis] = -td->scale[axis];
+            td->shift[axis] = 1.0f - td->shift[axis];
+        }
+        FUN_0045a220(b->def, true);
+        if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
+            FUN_00475350();
+        Sys_MarkMapModified();
+        b->def->version++;
+        if (b->patch)
+        {
+#line 2014
+            assert(b->patch->def == b->def->patch);
+            FUN_004325d0((patchMesh_t *)b->patch->def, axis);
+        }
+    }
+    FUN_00443f80((selbrush_t *)&selected_brushes);
+    int selCount = g_SelectedFaces.GetSize();
+    if (selCount > 0)
+    {
+        for (int i = 0; i < selCount; i++)
+        {
+            SelFace selFace = g_SelectedFaces[i];
+#line 2024
+            assert(selFace.face == &selFace.brush->faces[selFace.index]);
+            assert(selFace.brush->version == selFace.brush->def->version);
+            Undo_AddBrush(selFace.brush->def);
+            texdef_t *td = &selFace.brush->def->faces[selFace.index].texdef[DAT_01128d94];
+            td->scale[axis] = -td->scale[axis];
+            FUN_0045a220(selFace.brush->def, true);
+            if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
+                FUN_00475350();
+            Sys_MarkMapModified();
+            selFace.brush->def->version++;
+            FUN_00443f50(selFace.brush->def);
+            FUN_0045a830(selFace.brush);
+#line 2034
+            assert(selFace.face == &selFace.brush->faces[selFace.index]);
+            assert(selFace.brush->version == selFace.brush->def->version);
+        }
+    }
+    Undo_End();
+    dword_0123348c |= 1;
+}
+
+// 0x00472ff0 (1012 B): add to the texture scale of the selection, with undo
+void FUN_00472ff0(int x, int y)
+{
+    if (selected_brushes.next == &selected_brushes && g_SelectedFaces.GetSize() == 0)
+        return;
+    FUN_004433b0();
+    Undo_GeneralStart("scale texture");
+    Undo_AddBrushList((selbrush_t *)&selected_brushes);
+    for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+    {
+        for (int i = 0; i < b->faceCount; i++)
+        {
+            texdef_t *td = &b->def->faces[i].texdef[DAT_01128d94];
+            td->scale[0] += (float)x;
+            td->scale[1] += (float)y;
+        }
+        FUN_0045a220(b->def, true);
+        if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
+            FUN_00475350();
+        Sys_MarkMapModified();
+        b->def->version++;
+        if (b->patch)
+        {
+#line 2069
+            assert(b->patch->def == b->def->patch);
+            FUN_004326b0((patchMesh_t *)b->patch->def, (float)x, (float)y);
+        }
+    }
+    FUN_00443f80((selbrush_t *)&selected_brushes);
+    int selCount = g_SelectedFaces.GetSize();
+    if (selCount > 0)
+    {
+        for (int i = 0; i < selCount; i++)
+        {
+            SelFace selFace = g_SelectedFaces[i];
+#line 2079
+            assert(selFace.face == &selFace.brush->faces[selFace.index]);
+            assert(selFace.brush->version == selFace.brush->def->version);
+            Undo_AddBrush(selFace.brush->def);
+            texdef_t *td = &selFace.brush->def->faces[selFace.index].texdef[DAT_01128d94];
+            td->scale[0] += (float)x;
+            td->scale[1] += (float)y;
+            FUN_0045a220(selFace.brush->def, true);
+            if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
+                FUN_00475350();
+            Sys_MarkMapModified();
+            selFace.brush->def->version++;
+            FUN_00443f50(selFace.brush->def);
+            FUN_0045a830(selFace.brush);
+#line 2090
+            assert(selFace.face == &selFace.brush->faces[selFace.index]);
+            assert(selFace.brush->version == selFace.brush->def->version);
+        }
+    }
+    Undo_End();
+    dword_0123348c |= 1;
+}
+
+// 0x004733f0 (1043 B): rotate the texture of the selection by an angle in degrees, with undo
+void FUN_004733f0(int angle)
+{
+    if (selected_brushes.next == &selected_brushes && g_SelectedFaces.GetSize() == 0)
+        return;
+    FUN_004433b0();
+    Undo_GeneralStart("rotate texture");
+    Undo_AddBrushList((selbrush_t *)&selected_brushes);
+    for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+    {
+        for (int i = 0; i < b->faceCount; i++)
+        {
+            texdef_t *td = &b->def->faces[i].texdef[DAT_01128d94];
+            td->rotate = (float)(I_fround((float)angle + td->rotate) % 360);
+        }
+        FUN_0045a220(b->def, true);
+        if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
+            FUN_00475350();
+        Sys_MarkMapModified();
+        b->def->version++;
+        if (b->patch)
+        {
+#line 2124
+            assert(b->patch->def == b->def->patch);
+            FUN_00432430((patchMesh_t *)b->patch->def, (float)angle);
+        }
+    }
+    FUN_00443f80((selbrush_t *)&selected_brushes);
+    int selCount = g_SelectedFaces.GetSize();
+    if (selCount > 0)
+    {
+        for (int i = 0; i < selCount; i++)
+        {
+            SelFace selFace = g_SelectedFaces[i];
+#line 2133
+            assert(selFace.face == &selFace.brush->faces[selFace.index]);
+            assert(selFace.brush->version == selFace.brush->def->version);
+            Undo_AddBrush(selFace.brush->def);
+            texdef_t *td = &selFace.brush->def->faces[selFace.index].texdef[DAT_01128d94];
+            td->rotate = (float)(I_fround((float)angle + td->rotate) % 360);
+            FUN_0045a220(selFace.brush->def, true);
+            if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
+                FUN_00475350();
+            Sys_MarkMapModified();
+            selFace.brush->def->version++;
+            FUN_00443f50(selFace.brush->def);
+            FUN_0045a830(selFace.brush);
+#line 2143
+            assert(selFace.face == &selFace.brush->faces[selFace.index]);
+            assert(selFace.brush->version == selFace.brush->def->version);
+        }
+    }
+    Undo_End();
+    dword_0123348c |= 1;
+}
+
+// 0x00473810 (301 B): replace one brush's texture (b in ecx, usePrefab in eax in retail)
+bool FindReplaceTexture_Brush(brush_t *b, bool usePrefab, const char *find, const char *replace, bool force)
+{
+    bool found;
+    if (b->owner->prefab && usePrefab)
+    {
+        FUN_0046b070((int)b);
+        found = FindReplaceTextures(find, replace, false, force, usePrefab);
+        if (found)
+            FUN_00468910((const char *)&dword_010a4508, 0);
+        FUN_0046b5b0();
+    }
+    else
+    {
+        found = false;
+        if (b->patch && FUN_00435760(b->def, find, (char *)replace, force))
+            found = true;
+        for (int i = 0; i < b->faceCount; i++)
+        {
+            face_t *f = &b->def->faces[i];
+            if (force || _stricmp(find, f->texdef[DAT_01128d90].mat->name) == 0)
+            {
+                FUN_00459430(b->def, f, (radmat_t *)FUN_00440840((char *)replace));
+                found = true;
+            }
+        }
+    }
+    FUN_0045a220(b->def, true);
+    if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
+        FUN_00475350();
+    Sys_MarkMapModified();
+    dword_0123348c |= 1;
+    b->def->version++;
+    return found;
+}
+
+// 0x00473940 (136 B): replace a texture in the selected or all active brushes
+bool FindReplaceTextures(const char *find, const char *replace, bool selectedOnly, bool force, bool recurse)
+{
+    brush_t *list;
+    if (selectedOnly)
+        list = &selected_brushes;
+    else
+    {
+        list = &active_brushes;
+        FUN_0046fbe0(true);
+    }
+    bool found = false;
+    for (brush_t *b = list->next; b != list; b = b->next)
+        if (FindReplaceTexture_Brush(b, recurse, find, replace, force))
+            found = true;
+    dword_0123348c |= 1;
+    return found;
+}
+
+// 0x004739d0 (658 B): true when a prefab (or a prefab inside it) holds a brush using this material
+int FUN_004739d0(brush_t *b, const char *name)
+{
+    CString unusedA, unusedB;
+    brush_t *head = &b->owner->prefab->head;
+    for (brush_t *pfb = head->next; pfb != head; pfb = pfb->next)
+    {
+        if (FUN_0044f5d0(pfb))
+            continue;
+        if (pfb->patch)
+        {
+#line 2231
+            assert(pfb->patch->def == pfb->def->patch);
+            if (_stricmp(name, pfb->patch->def->mat[DAT_01128d90]->name) == 0)
+                return 1;
+        }
+        else if (pfb->owner->prefab)
+        {
+            if (FUN_004739d0(pfb, name))
+                return 1;
+        }
+        else
+        {
+            for (int i = 0; i < pfb->def->faceCount; i++)
+            {
+                if (_stricmp(name, pfb->def->faces[i].texdef[DAT_01128d90].mat->name) == 0)
+                    return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+// 0x00473c70 (725 B): select every active brush that uses the material of the selected face (or the current texture)
+void FUN_00473c70(int includePrefabs)
+{
+    CString unusedA, unusedB;
+    radmat_t *mat;
+    if (g_SelectedFaces.GetSize() != 0)
+    {
+        SelFace selFace = g_SelectedFaces[0];
+#line 2271
+        assert(selFace.face == &selFace.brush->faces[selFace.index]);
+        assert(selFace.brush->version == selFace.brush->def->version);
+        mat = selFace.brush->def->faces[selFace.index].texdef[DAT_01128d90].mat;
+    }
+    else
+        mat = DAT_01128da8;
+    const char *name = mat->name;
+    FUN_0046fbe0(true);
+    brush_t *next;
+    for (brush_t *b = active_brushes.next; b != &active_brushes; b = next)
+    {
+        next = b->next;
+        if (b->hiddenBrush || FUN_0044f630(b->def))
+            continue;
+        bool match = false;
+        if (b->patch)
+        {
+#line 2286
+            assert(b->patch->def == b->def->patch);
+            match = _stricmp(name, b->patch->def->mat[DAT_01128d90]->name) == 0;
+        }
+        else if (b->owner->prefab && includePrefabs)
+            match = FUN_004739d0(b, name) != 0;
+        else
+        {
+            for (int i = 0; i < b->def->faceCount; i++)
+            {
+                if (_stricmp(name, b->def->faces[i].texdef[DAT_01128d90].mat->name) == 0)
+                {
+                    match = true;
+                    break;
+                }
+            }
+        }
+        if (match)
+        {
+            FUN_004592f0(b);
+            FUN_00459210(b, &selected_brushes);
+        }
+    }
+}
+
+// 0x00473f50 (649 B): select every active brush whose entity has the same class (and key value) as the first selected brush
+void FUN_00473f50()
+{
+    CString strKey, strVal;
+    brush_t *b = selected_brushes.next;
+    if (b->owner != DAT_012334ec)
+    {
+#line 2333
+        assert(b->owner->def == b->def->owner);
+        const char *classname = b->owner->def->eclass->name;
+        bool hasKey = FUN_00478090(strKey, strVal) != 0;
+        Sys_Printf("Selecting all %s(s)\n", classname);
+        FUN_0046fbe0(true);
+        brush_t *next;
+        for (b = active_brushes.next; b != &active_brushes; b = next)
+        {
+            next = b->next;
+            if (b->hiddenBrush || FUN_0044f630(b->def))
+                continue;
+#line 2346
+            assert(b->owner);
+            assert(b->owner->def == b->def->owner);
+            entity_t *ent = b->owner->def;
+            if (_stricmp(ent->eclass->name, classname) == 0)
+            {
+                if (!hasKey || _stricmp(strVal, ValueForKey(ent->epairs, strKey)) == 0)
+                {
+                    FUN_004592f0(b);
+                    FUN_00459210(b, &selected_brushes);
+                }
+            }
+        }
+        dword_0123348c = -1;
+    }
+}
+
+
+extern int dword_0123348c;
+extern int dword_010a4508;
 
 // 0x004741e0: select-all-of-type command, one brush picks by type, several by class
 void FUN_004741e0(int arg)
@@ -1141,6 +1613,51 @@ void FUN_004741e0(int arg)
     else
         FUN_00473c70(arg);
     dword_0123348c = -1;
+}
+
+// 0x00474230 (782 B): fit the texture of the selection to a number of tiles, with undo
+void FUN_00474230(float width, float height, bool flag)
+{
+    if (selected_brushes.next == &selected_brushes && g_SelectedFaces.GetSize() == 0)
+        return;
+    FUN_004433b0();
+    Undo_GeneralStart("Fit texture");
+    Undo_AddBrushList((selbrush_t *)&selected_brushes);
+    for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+    {
+        FUN_0045ef60(b->def, height, width);
+        FUN_0045a220(b->def, true);
+        if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
+            FUN_00475350();
+        Sys_MarkMapModified();
+        b->def->version++;
+    }
+    int selCount = g_SelectedFaces.GetSize();
+    if (selCount > 0)
+    {
+        for (int i = 0; i < selCount; i++)
+        {
+            SelFace selFace = g_SelectedFaces[i];
+#line 2400
+            assert(selFace.face == &selFace.brush->faces[selFace.index]);
+            assert(selFace.brush->version == selFace.brush->def->version);
+            Undo_AddBrush(selFace.brush->def);
+            FUN_0045ebf0(&selFace.brush->def->faces[selFace.index], height, width, flag);
+            FUN_0045a220(selFace.brush->def, true);
+            if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
+                FUN_00475350();
+            Sys_MarkMapModified();
+            selFace.brush->def->version++;
+            FUN_00443f50(selFace.brush->def);
+            FUN_0045a830(selFace.brush);
+#line 2409
+            assert(selFace.face == &selFace.brush->faces[selFace.index]);
+            assert(selFace.brush->version == selFace.brush->def->version);
+        }
+    }
+    FUN_00443f80((selbrush_t *)&selected_brushes);
+    Undo_End();
+    dword_0123348c |= 1;
 }
 
 // Retail one-byte RET bodies verified with MSVC 7.1. Original entry-point ownership/signatures remain provisional.
@@ -1224,6 +1741,66 @@ void Select_Invert()
     }
     g_nUpdateBits = -1;
     Sys_Printf("done.\n");
+}
+
+// 0x004749a0 (451 B): select the first active brush whose targetname matches the target of the selected entity
+void FUN_004749a0()
+{
+    if (g_qeglobals.d_select_count != 1)
+    {
+        SendMessageA(g_qeglobals.d_hwndStatus, SB_SETTEXT, 0, (LPARAM)"Must have 1 entity selected!");
+        MessageBeep(MB_ICONASTERISK);
+        return;
+    }
+#line 2564
+    assert(g_qeglobals.d_select_order[0]);
+    assert(g_qeglobals.d_select_order[0]->owner);
+    assert(g_qeglobals.d_select_order[0]->owner->def);
+    entity_t *ent = g_qeglobals.d_select_order[0]->owner->def;
+    if (!FUN_00465d80(ent, "target"))
+        return;
+    const char *value = ValueForKey(ent->epairs, "target");
+    for (brush_t *b = active_brushes.next; b != &active_brushes; b = b->next)
+    {
+#line 2574
+        assert(b->owner);
+        if (FUN_00465e10(b->owner->def, "targetname", value))
+        {
+            FUN_0046fbe0(true);
+            FUN_0046f0b0(b, true, true, false);
+            return;
+        }
+    }
+}
+
+// 0x00474b70 (451 B): select the first active brush whose target matches the targetname of the selected entity
+void FUN_00474b70()
+{
+    if (g_qeglobals.d_select_count != 1)
+    {
+        SendMessageA(g_qeglobals.d_hwndStatus, SB_SETTEXT, 0, (LPARAM)"Must have 1 entity selected!");
+        MessageBeep(MB_ICONASTERISK);
+        return;
+    }
+#line 2599
+    assert(g_qeglobals.d_select_order[0]);
+    assert(g_qeglobals.d_select_order[0]->owner);
+    assert(g_qeglobals.d_select_order[0]->owner->def);
+    entity_t *ent = g_qeglobals.d_select_order[0]->owner->def;
+    if (!FUN_00465d80(ent, "targetname"))
+        return;
+    const char *value = ValueForKey(ent->epairs, "targetname");
+    for (brush_t *b = active_brushes.next; b != &active_brushes; b = b->next)
+    {
+#line 2609
+        assert(b->owner);
+        if (FUN_00465e10(b->owner->def, "target", value))
+        {
+            FUN_0046fbe0(true);
+            FUN_0046f0b0(b, true, true, false);
+            return;
+        }
+    }
 }
 
 template class CArray<SelFace, const SelFace &>;

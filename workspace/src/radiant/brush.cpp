@@ -8,12 +8,12 @@
 #include "../universal/com_math.h"
 #include "../common/texturevecs.h"
 #define MAX_POINTS_ON_WINDING 64
-struct radmat_t { void *handle; const char *name; int pad_08[3]; int width; int height; };
+struct radmat_t { void *handle; const char *name; int pad_08; int flags; int pad_10; int width; int height; };
 struct texdef_t { radmat_t *radMat; float scale[2]; float shift[2]; float rotate; float crossterm; };
 struct facePlane_t { vec3_t normal; int type; double dist; };
 struct winding_t { int pointCount; vec3_t points[4]; }; struct brushVertex_t { vec3_t xyz; int faceIndex[3]; };
 struct face_t { vec3_t planepts[3]; texdef_t texdef[2]; texdef_t lmTexdef; int contents; int toolFlags; facePlane_t plane; int field_98; int field_9c; winding_t *w; unsigned int color; };
-struct entity_t; struct epair_t; struct patchMesh_t; struct patch_t; struct faceRender_t { void *matHandle; int vertCount; void *vertHandle; };
+struct entity_t; struct epair_t; struct brushdef_t; struct entityList_t { entityList_t *prev; entityList_t *next; brushdef_t *oprev; brushdef_t *onext; }; struct entModel_t { unsigned char pad_00[8]; entityList_t entities; }; struct patchMesh_t; struct patch_t; struct faceRender_t { void *matHandle; int vertCount; void *vertHandle; };
 struct brushdef_t { brushdef_t *oprev; brushdef_t *onext; entity_t *owner; int pad_0c[4]; int refCount; vec3_t mins; vec3_t maxs; int faceCount; face_t *faces; bool modelFailed; char pad_41; short version; patchMesh_t *patch; };
 struct brush_t { brush_t *prev; brush_t *next; entity_t *owner; brush_t *ownerNext; brush_t *ownerPrev; brushdef_t *def; int faceCount; faceRender_t *faces; patch_t *patch; short version; unsigned char field_26; unsigned char pad_27; };
 struct qeglobals_t { unsigned char pad0[0x18]; int d_gridsize; unsigned char pad1[0x6c060]; int activeMaterial; unsigned char pad2[0xaf4]; int d_exclude; unsigned char pad3[0x24]; int d_select_mode; };
@@ -35,7 +35,7 @@ extern bool FUN_00494360(float out[4][4], const vec3_t p0, const vec3_t p1, cons
 extern void Sys_Printf(const char *fmt, ...); extern void Error(const char *error, ...);
 extern int FUN_0045f860(const vec3_t a, const vec3_t b, float eps);
 extern void FUN_00433830(patchMesh_t *p);
-extern void FUN_0045ebf0(face_t *f, int h, int w, int a);
+extern void FUN_0045ebf0(face_t *f, float h, float w, bool a);
 extern void *FUN_004267d0(patchMesh_t *p, int layer, int a, int b);
 extern void FUN_0045a830(brush_t *b);
 extern void FUN_0045a600(brush_t *b);
@@ -62,8 +62,8 @@ int R_Add3DLine(GfxPointVertex *verts, const float *p1, const float *p2, const v
 extern void (*R_AddCmd_Line3D)(int count, int width, const void *verts);
 bool FUN_0045d090(const brushdef_t *b, float *color, const float *defaultColor);
 #include <malloc.h>
-struct eclass_t { eclass_t *next; char *name; int fixedsize; vec3_t mins; vec3_t maxs; float color[4]; unsigned char pad_34[0x160 - 0x34]; int flags_160; };
-struct entity_t { unsigned char pad_00[8]; void *def; brush_t brushes; void *model; char *field_38; unsigned char pad_3c[0x50 - 0x3c]; eclass_t *eclass; int pad_54; vec3_t origin; struct epair_t *epairs; short field_68; };
+struct eclass_t { eclass_t *next; char *name; int fixedsize; vec3_t mins; vec3_t maxs; float color[4]; unsigned char pad_34[0x154 - 0x34]; entModel_t *model; unsigned char pad_158[8]; int flags_160; };
+struct entity_t { unsigned char pad_00[8]; void *def; brush_t brushes; void *model; char *field_38; short field_3c; unsigned char pad_3e[0x12]; eclass_t *eclass; eclass_t *modelClass; vec3_t origin; struct epair_t *epairs; short field_68; };
 extern char *ValueForKey(epair_t *&e, const char *key);
 extern void FUN_00465bf0(entity_t *e, const char *key, const char *value);
 struct patchMesh_t { void *def; };
@@ -109,6 +109,85 @@ extern bool Point_Equal(const vec3_t p1, const vec3_t p2, float epsilon);
 extern void Winding_RemovePoint(winding_t *w, int point);
 extern winding_t *FUN_00448a10(const winding_t *f1, const winding_t *f2, const vec3_t planenormal, bool keep);
 extern bool FUN_004481e0(const winding_t *w1, const winding_t *w2, const vec3_t normal1, const vec3_t normal2, float dist1, float dist2);
+#define MAX_BRUSH_FACES 0x400
+char *Com_Parse(const char **data_p);
+void Com_UngetToken();
+void Warning(const char *error, ...);
+void MatrixTransformVectorCols(const vec3_t in, const vec3_t mat[3], vec3_t out);
+void FUN_0045e1a0(brushdef_t *b, const vec3_t move, bool bSnap);
+void FUN_0045d7f0(brush_t *b, int viewType, int a3, int a4, int a5, int a6, const unsigned int *color, int a8, int a9);
+void VectorRotate(const vec3_t vIn, const vec3_t vRotation, vec3_t out);
+extern int dword_011298d4;
+extern int DAT_011298b4;
+extern int dword_0053d944[], dword_0053d964[];
+extern const char *Com_ParseOnLine(const char **data_p);
+void Com_SetSpaceDelimited(int spaceDelimited);
+void *FUN_00440c10(const char *name, int version);
+brushdef_t *FUN_00431890(const char **data_p, int version, bool bTerrain);
+int FUN_004209a0(const char **data_p, const char *name, const void *table);
+class CXYWnd { public: unsigned char pad_00[0xf4]; int m_nViewType; unsigned char pad_f8[0x74]; void FUN_00451eb0(); bool FUN_00451fe0(brush_t *b); };
+class CCamWnd;
+struct MainFrameXY { unsigned char pad_00[0x78c]; CCamWnd *m_pCam; unsigned char pad_790[0x50]; CXYWnd *m_pActiveXY; };
+bool FUN_00405450(CCamWnd *camera, brush_t *brush);
+void __stdcall FUN_00405380(CCamWnd *camera);
+void FUN_00451c00(brush_t *b, unsigned int *outColor);
+extern const float dword_011297a8[4];
+struct entityInst_t;
+void FUN_00464c20(entityInst_t *inst);
+void FUN_00467a70(entityInst_t *e);
+void FUN_004650b0(entity_t *ent, orientation_t *or);
+extern void (*FUN_0059c490)(void *model);
+bool FUN_00463d60(eclass_t *eclass);
+eclass_t *FUN_00464930(const char *name, entity_t *ent);
+void FUN_00467470(entity_t *e);
+#define STATUS_HWND (*(HWND *)((char *)&g_qeglobals + 0x5c))
+#define QE_TEXDEF (*(texdef_t *)((char *)&g_qeglobals + 0x6c094))
+extern int g_nUpdateBits;
+#define QE_ORIENT (*(orientation_t *)((char *)&g_qeglobals + 0x6cc3c))
+#define BRUSH_ENT(b) ((entity_t *)(b)->owner->def)
+void OrientationConcatenate(const orientation_t *orFirst, const orientation_t *orSecond, orientation_t *out);
+void FUN_00467640(entity_t *ent, float *vec);
+bool FUN_0044f5d0(brush_t *b);
+extern int dword_01129984, dword_01129980;
+void VectorRotateAroundOrigin(const vec3_t point, const vec3_t angles, const vec3_t origin, vec3_t out);
+void FUN_00407c60(vec3_t out, const vec3_t a, const vec3_t b);
+static const float brush_colorGray[4] = { 0.5f, 0.5f, 0.5f, 1.0f };
+extern entity_t *dword_012334ec;
+bool FUN_00465e10(entity_t *e, const char *key, const char *value);
+bool FUN_0044f630(brushdef_t *b);
+extern "C" void FUN_0041b190(CMainFrame *self);
+void FUN_0042beb0();
+extern int dword_01129890;
+extern void (*FUN_0059c480)(void *mat, int mode, int vertCount, void *vertHandle);
+extern void (*FUN_0059c484)(void *mat, int mode, int vertCount, void *vertHandle);
+int FUN_0045d9a0(face_t *face, int viewType, const unsigned int *lineColor, int width, int vertCount, int vertLimit, GfxPointVertex *verts);
+int FUN_0045dc70(face_t *face, const orientation_t *orient, int viewType, const unsigned int *lineColor, int width, int vertCount, int vertLimit, GfxPointVertex *verts);
+extern int dword_01128d90;
+void FUN_0042eaf0(patchMesh_t *p, const float *origin, const float *matrix, bool bSnap);
+void FUN_00470ab0(vec3_t mins, vec3_t maxs);
+extern int dword_01128d94;
+extern float DAT_0109fdfc[3];
+void FUN_0045f6a0(float *out, brush_t *b);
+void SinCosDegrees(float degrees, float *pSin, float *pCos);
+void AxisClear(vec3_t axis[3]);
+void Vec3Rotate(const vec3_t in, const vec3_t mat[3], vec3_t out);
+void FUN_0045f240(brush_t *b, int axis, float angle, bool markDirty, bool useCached);
+void FUN_0045f340(brush_t *b, float *matrix, int a, int axis, float angle, bool flip, float *origin);
+void FUN_0045e070(entityList_t *head);
+// snaps float values within 4 of a 0x1000 boundary of the low mantissa bits (texture scale cleanup)
+static float SnapFloatLowBits(float v)
+{
+    unsigned int bits = *(unsigned int *)&v;
+    unsigned int lo = bits & 0xfff;
+    if (lo > 4)
+    {
+        if (0x1000 - lo <= 4)
+            bits += 0x1000 - lo;
+    }
+    else
+        bits -= lo;
+    return *(float *)&bits;
+}
 #line 37
 brush_t *Brush_Alloc()
 {
@@ -1089,6 +1168,184 @@ void Brush_SetDefaultTexdefs(brushdef_t *b, int skipLayer, float scale)
         Face_SetDefaultTexdefs(&b->faces[i], skipLayer, scale);
 }
 
+// 0x00456ff0 (629 B): texdef of one face layer from the brush text
+#line 1172
+bool FUN_00456ff0(const char **data, texdef_t *td, int version, int layer)
+{
+    assert(td);
+    const char *name;
+    if (version >= 4)
+    {
+        Com_SetSpaceDelimited(1);
+        name = Com_ParseOnLine(data);
+        Com_SetSpaceDelimited(0);
+    }
+    else
+        name = Com_ParseOnLine(data);
+    if (strchr(name, ' '))
+    {
+        Warning("Material name with a space in it! '%s'\n", name);
+        return false;
+    }
+    td->radMat = (radmat_t *)FUN_00440c10(name, version);
+#line 1190
+    assert(td->radMat);
+    const char *tok = Com_ParseOnLine(data);
+    if (version >= 4)
+    {
+        td->scale[0] = (float)atof(tok);
+        td->scale[1] = (float)atof(Com_ParseOnLine(data));
+        td->shift[0] = (float)atof(Com_ParseOnLine(data));
+        td->shift[1] = (float)atof(Com_ParseOnLine(data));
+        td->rotate = (float)atof(Com_ParseOnLine(data));
+        td->crossterm = (float)atof(Com_ParseOnLine(data));
+    }
+    else
+    {
+        td->shift[0] = (float)atol(tok);
+        td->shift[1] = (float)atol(Com_ParseOnLine(data));
+        td->rotate = (float)atol(Com_ParseOnLine(data));
+        td->scale[0] = (float)atof(Com_ParseOnLine(data));
+        td->scale[1] = (float)atof(Com_ParseOnLine(data));
+        td->crossterm = 0;
+        td->scale[0] = SnapFloatLowBits(td->scale[0]);
+        td->scale[1] = SnapFloatLowBits(td->scale[1]);
+    }
+    if (td->scale[0] == 0)
+        td->scale[0] = layer ? 16.0f : 0.25f;
+    if (td->scale[1] == 0)
+        td->scale[1] = layer ? 16.0f : 0.25f;
+    return true;
+}
+
+// 0x00457270 (1900 B): parse one brush (or patch) from the map text
+brushdef_t *FUN_00457270(const char **data, int version)
+{
+    face_t faces[MAX_BRUSH_FACES];
+    int faceCount;
+    int contents, toolFlags;
+    const char *tok;
+    const char *altName;
+    int isCurve;
+    bool isAlt;
+
+    ++dword_011298d4;
+    tok = Com_Parse(data);
+    if (version != 0)
+    {
+        isCurve = _stricmp(tok, "curve");
+        altName = "mesh";
+    }
+    else
+    {
+        isCurve = _stricmp(tok, "patchDef5");
+        altName = "patchTerrainDef3";
+    }
+    isAlt = _stricmp(tok, altName) == 0;
+    if (isCurve == 0 || isAlt)
+    {
+        brushdef_t *patch = FUN_00431890(data, version, isAlt);
+        if (patch)
+        {
+            tok = Com_Parse(data);
+            if (tok[0] && !strcmp(tok, "}"))
+                return patch;
+        }
+        Warning("parsing patch/brush");
+        return NULL;
+    }
+    Com_UngetToken();
+    if (version >= 4)
+    {
+        contents = FUN_004209a0(data, "contents", dword_0053d944);
+        toolFlags = FUN_004209a0(data, "toolFlags", dword_0053d964);
+    }
+    else
+    {
+        contents = 0;
+        toolFlags = 0;
+    }
+    faceCount = 0;
+    for (;;)
+    {
+        tok = Com_Parse(data);
+        if (tok[0] == '}')
+        {
+            brushdef_t *def = BrushDef_Alloc();
+            def->faceCount = faceCount;
+            def->faces = Face_AllocArray(faceCount);
+            memcpy(def->faces, faces, faceCount * sizeof(face_t));
+            return def;
+        }
+        Com_UngetToken();
+        if (faceCount == MAX_BRUSH_FACES)
+        {
+            Warning("too many faces in brush");
+            return NULL;
+        }
+        face_t *f = &faces[faceCount++];
+        f->w = NULL;
+        for (int i = 0; i < 3; i++)
+        {
+            tok = i ? Com_ParseOnLine(data) : Com_Parse(data);
+            if (tok[0] != '(')
+            {
+                Warning("missing '(' parsing brush");
+                return NULL;
+            }
+            for (int j = 0; j < 3; j++)
+                f->planepts[i][j] = (float)atof(Com_ParseOnLine(data));
+            tok = Com_ParseOnLine(data);
+            if (tok[0] != ')')
+            {
+                Warning("missing ')' parsing brush");
+                return NULL;
+            }
+        }
+        if (version < 4)
+        {
+            FUN_0059c468(brush_colorWhite, &f->color);
+            if (!FUN_00456ff0(data, &f->texdef[0], version, 0))
+                return NULL;
+#line 1323
+            brush_assert1(f->texdef[0].radMat);
+            brush_assert1(f->texdef[0].radMat->width);
+            brush_assert1(f->texdef[0].radMat->height);
+            f->texdef[0].shift[0] = -(f->texdef[0].shift[0] * f->texdef[0].scale[0]);
+            f->texdef[0].shift[1] = -(f->texdef[0].shift[1] * f->texdef[0].scale[1]);
+            f->texdef[0].scale[0] = (float)f->texdef[0].radMat->width * f->texdef[0].scale[0];
+            f->texdef[0].scale[1] = (float)f->texdef[0].radMat->height * f->texdef[0].scale[1];
+        }
+        if (version > 3)
+            f->contents = contents;
+        else
+            f->contents = atol(Com_ParseOnLine(data));
+        if (version == 3)
+            f->toolFlags = atol(Com_ParseOnLine(data));
+        else
+        {
+            f->toolFlags = toolFlags;
+            if (version <= 1)
+                Com_ParseOnLine(data);
+        }
+        if (version == 0)
+            Com_ParseOnLine(data);
+        else if (version >= 4)
+        {
+            for (int layer = 0; layer < 2; layer++)
+            {
+                if (!FUN_00456ff0(data, &f->texdef[layer], version, layer))
+                    return NULL;
+            }
+            continue;
+        }
+        int lmScale = atol(Com_ParseOnLine(data));
+        if (lmScale <= 0)
+            lmScale = 16;
+        Face_SetDefaultTexdefs(f, 0, (float)lmScale);
+    }
+}
+
 // RTTI .?AVAbstractFileWrapper@@; the slot 0 name is unknown, it is named after its first body 0x00467df0
 class AbstractFileWrapper
 {
@@ -1333,6 +1590,106 @@ brushdef_t *BrushDef_Create(const vec3_t mins, const vec3_t maxs, eclass_t *ecla
     return def;
 }
 
+// 0x00458670 (1149 B): Q3 Brush_MakeSided, in place on the selected brush def
+void FUN_00458670(int sides)
+{
+    if (sides < 3)
+    {
+        SendMessageA(STATUS_HWND, 0x401, 0, (LPARAM)"Bad sides number");
+        return;
+    }
+    if (sides >= 60)
+    {
+        Sys_Printf("too many sides.\n");
+        return;
+    }
+    brush_t *b = selected_brushes.next;
+    if (b == &selected_brushes || b->next != &selected_brushes)
+    {
+        Sys_Printf("Error: you must have a single brush selected\n");
+        SendMessageA(STATUS_HWND, 0x401, 0, (LPARAM)"Must have a single brush selected");
+        return;
+    }
+    if (((entity_t *)b->owner->def)->eclass->fixedsize)
+    {
+        Sys_Printf("Error: you cannot manipulate fixed size entities\n");
+        SendMessageA(STATUS_HWND, 0x401, 0, (LPARAM)"Must have a single brush selected");
+        return;
+    }
+    brushdef_t *def = b->def;
+    vec3_t mins, maxs, mid;
+    VectorCopy(def->mins, mins);
+    VectorCopy(def->maxs, maxs);
+    CXYWnd *xy = ((MainFrameXY *)g_pParentWnd)->m_pActiveXY;
+    int axis = 2;
+    if (xy)
+    {
+        axis = 0;
+        if (xy->m_nViewType == 1)
+            axis = 1;
+        else if (xy->m_nViewType == 2)
+            axis = 2;
+    }
+    float width = 8;
+    for (int i = 0; i < 3; i++)
+    {
+        mid[i] = (maxs[i] + mins[i]) * 0.5f;
+        if (i == axis)
+            continue;
+        if ((maxs[i] - mins[i]) * 0.5f > width)
+            width = (maxs[i] - mins[i]) * 0.5f;
+    }
+    Face_FreeArray(def->faces, def->faceCount);
+    def->faceCount = sides + 2;
+    def->faces = Face_AllocArray(def->faceCount);
+    unsigned int color;
+    FUN_0059c468(brush_colorWhite, &color);
+    int a1 = (axis + 1) % 3;
+    int a2 = (axis + 2) % 3;
+    face_t *f = def->faces;
+    // top face
+    f->texdef[0] = QE_TEXDEF;
+    f->color = color;
+    f->planepts[2][a1] = mins[a1]; f->planepts[2][a2] = mins[a2]; f->planepts[2][axis] = maxs[axis];
+    f->planepts[1][a1] = maxs[a1]; f->planepts[1][a2] = mins[a2]; f->planepts[1][axis] = maxs[axis];
+    f->planepts[0][a1] = maxs[a1]; f->planepts[0][a2] = maxs[a2]; f->planepts[0][axis] = maxs[axis];
+    // bottom face
+    f++;
+    f->texdef[0] = QE_TEXDEF;
+    f->color = color;
+    f->planepts[0][a1] = mins[a1]; f->planepts[0][a2] = mins[a2]; f->planepts[0][axis] = mins[axis];
+    f->planepts[1][a1] = maxs[a1]; f->planepts[1][a2] = mins[a2]; f->planepts[1][axis] = mins[axis];
+    f->planepts[2][a1] = maxs[a1]; f->planepts[2][a2] = maxs[a2]; f->planepts[2][axis] = mins[axis];
+    // sides
+    float step = 6.2831855f / (float)sides;
+    for (int i = 0; i < sides; i++)
+    {
+        f++;
+        f->texdef[0] = QE_TEXDEF;
+        f->color = color;
+        float ang = (float)i * step;
+        float sv = (float)sin(ang);
+        float cv = (float)cos(ang);
+        f->planepts[0][a1] = (float)floor(mid[a1] + width * cv + 0.5f);
+        f->planepts[0][a2] = (float)floor(mid[a2] + width * sv + 0.5f);
+        f->planepts[0][axis] = mins[axis];
+        f->planepts[1][a1] = f->planepts[0][a1];
+        f->planepts[1][a2] = f->planepts[0][a2];
+        f->planepts[1][axis] = maxs[axis];
+        f->planepts[2][a1] = (float)floor(f->planepts[0][a1] - width * sv + 0.5f);
+        f->planepts[2][a2] = (float)floor(f->planepts[0][a2] + width * cv + 0.5f);
+        f->planepts[2][axis] = maxs[axis];
+    }
+    for (int i = 0; i < def->faceCount; i++)
+        Face_SetDefaultTexdefs(&def->faces[i], 0, 16.0f);
+    FUN_0045a220(def, true);
+    if (g_qeglobals.d_select_mode == 1 || g_qeglobals.d_select_mode == 2)
+        FUN_00475350();
+    Sys_MarkMapModified();
+    def->version++;
+    g_nUpdateBits = -1;
+}
+
 void FUN_00458af0(brushdef_t *def)
 {
 #line 1780
@@ -1438,6 +1795,69 @@ brushdef_t *FUN_00458eb0(brushdef_t *b)
     return n;
 }
 
+
+// 0x00458fa0 (610 B): Q3 Brush_Ray, ray start in eax, dir in ebx
+faceRender_t *FUN_00458fa0(brush_t *b, const float *origin, const float *dir, float *dist, float *outNormal)
+{
+    vec3_t p1, p2;
+    VectorCopy(origin, p1);
+    p2[0] = dir[0] * 262144.0f + p1[0];
+    p2[1] = dir[1] * 262144.0f + p1[1];
+    p2[2] = dir[2] * 262144.0f + p1[2];
+    FUN_0045a830(b);
+    faceRender_t *hit = NULL;
+    for (int i = 0; i < b->faceCount; i++)
+    {
+        const face_t *f = &b->def->faces[i];
+        float d1 = (float)(p1[1] * f->plane.normal[1] + p1[2] * f->plane.normal[2] + p1[0] * f->plane.normal[0] - f->plane.dist);
+        float d2 = (float)(p2[2] * f->plane.normal[2] + p2[1] * f->plane.normal[1] + p2[0] * f->plane.normal[0] - f->plane.dist);
+        if (!(d1 < 0) && d2 >= 0)
+        {
+            *dist = 0;
+            return NULL;
+        }
+        if (d1 > 0 || d2 > 0)
+        {
+            float frac = d1 / (d1 - d2);
+            if (d1 <= 0)
+            {
+                p2[0] = (p2[0] - p1[0]) * frac + p1[0];
+                p2[1] = (p2[1] - p1[1]) * frac + p1[1];
+                p2[2] = (p2[2] - p1[2]) * frac + p1[2];
+            }
+            else
+            {
+                if (outNormal)
+                    VectorCopy(f->plane.normal, outNormal);
+                p1[0] += (p2[0] - p1[0]) * frac;
+                p1[1] += (p2[1] - p1[1]) * frac;
+                p1[2] += (p2[2] - p1[2]) * frac;
+                hit = &b->faces[i];
+            }
+        }
+    }
+    if (hit)
+    {
+        p1[0] -= origin[0];
+        p1[1] -= origin[1];
+        p1[2] -= origin[2];
+        *dist = p1[0] * dir[0] + p1[2] * dir[2] + p1[1] * dir[1];
+        return hit;
+    }
+    *dist = 0;
+    if (b->patch == NULL)
+    {
+        if (b->owner->field_38 == NULL && (b->owner->model == NULL || (*(int *)(dword_01233b64 + 0x2cc) & 0x10000) == 0))
+            return NULL;
+    }
+    if (outNormal)
+    {
+        outNormal[0] = 0;
+        outNormal[1] = 0;
+        outNormal[2] = 1.0f;
+    }
+    return b->faces;
+}
 
 void FUN_00459210(brush_t *b, brush_t *list)
 {
@@ -1651,6 +2071,83 @@ bool FUN_00459aa0(float *f)
 
 
 
+// 0x00459ae0 (1346 B): Q3 Brush_SelectFaceForDragging, adds a face's points to the move list
+void FUN_00459ae0(brushdef_t *b, face_t *f, int shear)
+{
+    if (((entity_t *)b->owner)->eclass->fixedsize)
+        return;
+    int c = 0;
+    for (int i = 0; i < 3; i++)
+        c += FUN_00459aa0(f->planepts[i]);
+    if (c == 0)
+        return;
+    // select all the planes that have the same points
+    for (brush_t *b2 = active_brushes.next; b2 != &active_brushes; b2 = b2->next)
+    {
+        brushdef_t *def2 = b2->def;
+        if (def2 == b)
+            continue;
+        for (int j = 0; j < def2->faceCount; j++)
+        {
+            face_t *f2 = &def2->faces[j];
+            int i;
+            for (i = 0; i < 3; i++)
+            {
+                if (fabs(f2->planepts[i][0] * f->plane.normal[0] + f2->planepts[i][2] * f->plane.normal[2] + f2->planepts[i][1] * f->plane.normal[1] - f->plane.dist) > 0.01)
+                    break;
+            }
+            if (i == 3)
+            {
+                FUN_00459ae0(def2, f2, shear);
+                break;
+            }
+        }
+    }
+    // if shearing, take all the planes adjacent to the selected faces
+    if (!shear)
+        return;
+    for (int j = 0; j < b->faceCount; j++)
+    {
+        face_t *f2 = &b->faces[j];
+        if (f2 == f)
+            continue;
+        winding_t *w = FUN_00455800(b, f2);
+        if (!w)
+            continue;
+        int i;
+        for (i = 0; i < w->pointCount; i++)
+        {
+            float d = (float)(w->points[i][2] * f->plane.normal[2] + w->points[i][0] * f->plane.normal[0] + f->plane.normal[1] * w->points[i][1] - f->plane.dist);
+            if (d > -0.01 && d < 0.01)
+                break;
+        }
+        if (i != w->pointCount)
+        {
+            if (i == 0)
+            {
+                const float *p = w->points[w->pointCount - 1];
+                float d = (float)(p[2] * f->plane.normal[2] + p[1] * f->plane.normal[1] + p[0] * f->plane.normal[0] - f->plane.dist);
+                if (d > -0.01 && d < 0.01)
+                    i = w->pointCount - 1;
+            }
+            FUN_00459aa0(f2->planepts[0]);
+            VectorCopy(w->points[i], f2->planepts[0]);
+            if (++i == w->pointCount)
+                i = 0;
+            // see if the next point is on the plane as well
+            const float *p = w->points[i];
+            float d = (float)(p[2] * f->plane.normal[2] + p[1] * f->plane.normal[1] + f->plane.normal[0] * p[0] - f->plane.dist);
+            if (d > -0.01 && d < 0.01)
+                FUN_00459aa0(f2->planepts[1]);
+            VectorCopy(w->points[i], f2->planepts[1]);
+            if (++i == w->pointCount)
+                i = 0;
+            VectorCopy(w->points[i], f2->planepts[2]);
+        }
+        delete w;
+    }
+}
+
 int FUN_0045a150(brushdef_t *b, const int *indices, const vec3_t xyz, int count, void *maxPtr, void *out)
 {
     int maxPoints = (int)maxPtr;
@@ -1729,6 +2226,47 @@ void FUN_0045a220(brushdef_t *b, bool snap)
 
 
 
+// 0x0045a600 (548 B): rebuild a brush instance's render faces after its def changed
+#line 2432
+void FUN_0045a600(brush_t *b)
+{
+    assert(b);
+    assert(b->version != b->def->version);
+    if (b->faceCount != b->def->faceCount)
+    {
+        if (b->faces)
+            FaceRender_FreeArray(b, b->faces, b->faceCount);
+        b->faceCount = b->def->faceCount;
+        b->faces = FaceRender_AllocArray(b->faceCount);
+    }
+    entity_t *e = BRUSH_ENT(b);
+    const orientation_t *orient;
+    orientation_t combined;
+    if (e->eclass->fixedsize == 0)
+        orient = &QE_ORIENT;
+    else
+    {
+        orientation_t local;
+        vec3_t angles;
+        if (!FUN_00465d80(e, "angles"))
+            angles[0] = angles[1] = angles[2] = 0;
+        else
+            sscanf(ValueForKey(e->epairs, "angles"), "%f %f %f", &angles[0], &angles[1], &angles[2]);
+        AnglesToAxis(angles, local.axis);
+        vec3_t offset;
+        MatrixTransformVectorCols(e->origin, local.axis, offset);
+        VectorSubtract(e->origin, offset, local.origin);
+        OrientationConcatenate(&local, &QE_ORIENT, &combined);
+        orient = &combined;
+    }
+    for (int i = 0; i < b->faceCount; i++)
+    {
+        FaceRender_Free(&b->faces[i]);
+        FUN_00453e90(&b->faces[i], &b->def->faces[i], orient);
+    }
+    b->version = b->def->version;
+}
+
 #line 2483
 void FUN_0045a830(brush_t *b)
 {
@@ -1742,6 +2280,108 @@ void FUN_0045a830(brush_t *b)
     }
 }
 
+
+// 0x0045a920 (1502 B): write one brush as Maya mel
+#line 2501
+void FUN_0045a920(brush_t *b, FILE *file, bool merge, int a3, int a4, float scale)
+{
+    assert(b);
+    assert(b->def);
+    if (FUN_0044f5d0(b))
+        return;
+    if (b->faceCount != b->def->faceCount)
+    {
+        if (b->faces)
+            FaceRender_FreeArray(b, b->faces, b->faceCount);
+        b->faceCount = b->def->faceCount;
+        b->faces = FaceRender_AllocArray(b->faceCount);
+    }
+    entity_t *e = BRUSH_ENT(b);
+    const orientation_t *orient;
+    orientation_t combined;
+    vec3_t angles;
+    if (e->eclass->fixedsize == 0)
+        orient = &QE_ORIENT;
+    else
+    {
+        orientation_t local;
+        FUN_00467640(e, angles);
+        AnglesToAxis(angles, local.axis);
+        vec3_t offset;
+        MatrixTransformVectorCols(BRUSH_ENT(b)->origin, local.axis, offset);
+        VectorSubtract(BRUSH_ENT(b)->origin, offset, local.origin);
+        OrientationConcatenate(&local, &QE_ORIENT, &combined);
+        orient = &combined;
+    }
+    fprintf(file, "\t{\r\n");
+    fprintf(file, "\t\tstring $strPolyInfo[];\r\n");
+    if (merge)
+    {
+        fprintf(file, "\t\tstring $strPolyList[];\r\n");
+        fprintf(file, "\t\tstring $strBrush[];\r\n\r\n");
+    }
+    int written = 0;
+    for (int i = 0; i < b->faceCount; i++)
+    {
+        if (Face_WriteMaya(&b->faces[i], &b->def->faces[i], orient, file, false, scale))
+        {
+            if (merge)
+                fprintf(file, "\t\t$strPolyList[%d] = $strPolyInfo[0];\r\n", written);
+            written++;
+        }
+    }
+    if (BRUSH_ENT(b)->eclass->fixedsize)
+    {
+        // a small arrow marker at the entity origin
+        const float *o = BRUSH_ENT(b)->origin;
+        fprintf(file, "\t\t$strPolyInfo = `polyCreateFacet -ch off -tx 1 -s 1");
+        fprintf(file, " -p %f %f %f", o[0] + 32.0f, o[1], o[2]);
+        fprintf(file, " -p %f %f %f", o[0], o[1], o[2] + 8.0f);
+        fprintf(file, " -p %f %f %f", o[0], o[1] - 8.0f, o[2]);
+        fprintf(file, "`;\r\n");
+        fprintf(file, "\t$strPolyList[size($strPolyList)] = $strPolyInfo[0];\r\n");
+        fprintf(file, "\t\t$strPolyInfo = `polyCreateFacet -ch off -tx 1 -s 1");
+        fprintf(file, " -p %f %f %f", o[0] + 32.0f, o[1], o[2]);
+        fprintf(file, " -p %f %f %f", o[0], o[1] + 8.0f, o[2]);
+        fprintf(file, " -p %f %f %f", o[0], o[1], o[2] + 8.0f);
+        fprintf(file, "`;\r\n");
+        fprintf(file, "\t$strPolyList[size($strPolyList)] = $strPolyInfo[0];\r\n");
+        fprintf(file, "\t\t$strPolyInfo = `polyCreateFacet -ch off -tx 1 -s 1");
+        fprintf(file, " -p %f %f %f", o[0] + 32.0f, o[1], o[2]);
+        fprintf(file, " -p %f %f %f", o[0], o[1], o[2] - 8.0f);
+        fprintf(file, " -p %f %f %f", o[0], o[1] + 8.0f, o[2]);
+        fprintf(file, "`;\r\n");
+        fprintf(file, "\t$strPolyList[size($strPolyList)] = $strPolyInfo[0];\r\n");
+        fprintf(file, "\t\t$strPolyInfo = `polyCreateFacet -ch off -tx 1 -s 1");
+        fprintf(file, " -p %f %f %f", o[0] + 32.0f, o[1], o[2]);
+        fprintf(file, " -p %f %f %f", o[0], o[1] - 8.0f, o[2]);
+        fprintf(file, " -p %f %f %f", o[0], o[1], o[2] - 8.0f);
+        fprintf(file, "`;\r\n");
+        fprintf(file, "\t$strPolyList[size($strPolyList)] = $strPolyInfo[0];\r\n");
+    }
+    if (!merge)
+        fprintf(file, "\t\tparent $strPolyList $strGroups[$iCurGroup];\r\n");
+    else
+    {
+        fprintf(file, "\t\tif (size ($strPolyList) > 1)\r\n");
+        fprintf(file, "\t\t\t$strBrush = `polyUnite -ch 0 ($strPolyList)`;\r\n");
+        fprintf(file, "\t\telse\r\n");
+        fprintf(file, "\t\t\t$strBrush[0] = $strPolyList[0];\r\n");
+        fprintf(file, "\t\tpolyMergeVertex -d 0.01 -ch 0 $strBrush[0];\r\n");
+        fprintf(file, "\t\tparent $strBrush[0] $strGroups[$iCurGroup];\r\n");
+        if (BRUSH_ENT(b)->eclass->fixedsize)
+        {
+            const float *o = BRUSH_ENT(b)->origin;
+            fprintf(file, "\t\tmove -x %f -y %f -z %f (($strBrush[0]) + \".scalePivot\") (($strBrush[0]) + \".rotatePivot\");\r\n", o[0], o[1], o[2]);
+            if (FUN_00465d80(BRUSH_ENT(b), "angles"))
+                fprintf(file, "\t\trotate -os %f %f %f ($strBrush[0]);\r\n", angles[2], angles[0], angles[1]);
+        }
+    }
+    dword_01129984++;
+    fprintf(file, "\t}\r\n");
+    fprintf(file, "\tprogressWindow -edit -s 1;\r\n");
+    fprintf(file, "\tprogressWindow -edit -st \"%d of %d objects\";\r\n", dword_01129984, dword_01129980);
+}
 
 #line 2612
 void FUN_0045af00(brush_t *b)
@@ -1760,6 +2400,80 @@ void FUN_0045af00(brush_t *b)
 }
 
 
+// 0x0045b260 (164 B): rotate every face plane point of a def about origin by Euler angles
+void FUN_0045b260(brushdef_t *b, const float *rot, const float *origin)
+{
+    for (int i = 0; i < b->faceCount; i++)
+    {
+        for (int j = 0; j < 3; j++)
+            VectorRotateAroundOrigin(b->faces[i].planepts[j], rot, origin, b->faces[i].planepts[j]);
+    }
+}
+
+// 0x0045b310 (260 B): build a solid brush from drag corners
+#line 2714
+void FUN_0045b310(brushdef_t *b, const vec3_t mins, const vec3_t maxs)
+{
+    assert(b);
+    assert(b->owner);
+    assert(b->owner->eclass);
+    Brush_InitSolid(b, mins, maxs, b->owner->eclass);
+    FUN_0045a220(b, true);
+    if (g_qeglobals.d_select_mode == 1 || g_qeglobals.d_select_mode == 2)
+        FUN_00475350();
+    b->version++;
+}
+
+// 0x0045b420 (517 B): reload the model of a model brush; true when the brush is usable
+bool FUN_0045b420(brush_t *b)
+{
+    entity_t *owner = b->owner;
+    if (owner->field_3c == BRUSH_ENT(b)->field_68 && (owner->model || owner->field_38))
+    {
+#line 2733
+        assert(!b->def->modelFailed);
+        return true;
+    }
+    if (b->def->modelFailed)
+        return false;
+    b->def->modelFailed = true;
+    FUN_00464c20((entityInst_t *)owner);
+    if (owner->model)
+    {
+        (*FUN_0059c490)(owner->model);
+        owner->model = NULL;
+    }
+#line 2743
+    assert(b->owner->def == b->def->owner);
+    entity_t *ownerDef = b->def->owner;
+    eclass_t *e = ownerDef->modelClass;
+    if (!e)
+    {
+        e = ownerDef->eclass;
+        if (!FUN_00463d60(ownerDef->eclass))
+        {
+            if (ownerDef->eclass->fixedsize == 0)
+                return !b->def->modelFailed;
+            const char *modelName = ValueForKey(ownerDef->epairs, "model");
+#line 2757
+            brush_assert1(modelName);
+            if (modelName[0] == 0)
+                return !b->def->modelFailed;
+            e = FUN_00464930(modelName, ownerDef);
+        }
+        if (!e)
+            return !b->def->modelFailed;
+    }
+#line 2764
+    assert(ownerDef->modelClass == e);
+    FUN_00467470(ownerDef);
+    FUN_00467a70((entityInst_t *)b->owner);
+    if (b->owner->model == NULL && b->owner->field_38 == NULL)
+        return !b->def->modelFailed;
+    b->def->modelFailed = false;
+    return !b->def->modelFailed;
+}
+
 bool FUN_0045b630(brush_t *b)
 {
     for (brush_t *p = selected_brushes.next; p != &selected_brushes; p = p->next)
@@ -1772,6 +2486,52 @@ bool FUN_0045b630(brush_t *b)
 
 
 
+
+// 0x0045b660 (467 B): draw a brush list of one entity under that entity's orientation
+void FUN_0045b660(entityInst_t *e, brush_t *head, int viewType, int a3, int a4, const unsigned int *defaultColor, bool fixedColor)
+{
+    orientation_t saved = QE_ORIENT;
+    orientation_t local;
+    FUN_004650b0((entity_t *)e, &local);
+    OrientationConcatenate(&local, &saved, &QE_ORIENT);
+    CXYWnd *xy = NULL;
+    CCamWnd *cam = NULL;
+    unsigned int color;
+    if (viewType >= 0)
+    {
+        xy = ((MainFrameXY *)g_pParentWnd)->m_pActiveXY;
+        xy->FUN_00451eb0();
+        if (fixedColor)
+            FUN_0059c468(dword_011297a8, &color);
+    }
+    else
+    {
+        cam = ((MainFrameXY *)g_pParentWnd)->m_pCam;
+        FUN_00405380(cam);
+        color = *defaultColor;
+    }
+    for (brush_t *b = head->next; b != head; b = b->next)
+    {
+        if (cam == NULL)
+        {
+#line 2826
+            brush_assert1(xy);
+            if (xy->FUN_00451fe0(b))
+                continue;
+            if (!fixedColor)
+                FUN_00451c00(b, &color);
+        }
+        else if (FUN_00405450(cam, b))
+            continue;
+        if (!FUN_0044f5d0(b))
+            FUN_0045d7f0(b, viewType, 0, a3, 0, a4, &color, 1, fixedColor);
+    }
+    QE_ORIENT = saved;
+    if (cam == NULL)
+        xy->FUN_00451eb0();
+    else
+        FUN_00405380(cam);
+}
 
 void FUN_0045b840(brush_t *b, const vec3_t origin, const vec3_t mins, const vec3_t maxs, int width)
 {
@@ -2014,6 +2774,62 @@ extern int dword_01129888;
 void MatrixTransformVectorCols(const vec3_t in, const vec3_t mat[3], vec3_t out);
 
 
+// 0x0045c420 (647 B): arrow marking the direction of an entity with "angles"; a2 = view type, a3 = packed color pointer
+void FUN_0045c420(brush_t *b, int a2, int a3)
+{
+    int viewType = a2;
+    const unsigned int *colorArg = (const unsigned int *)a3;
+    if (b->owner == NULL || b->owner == dword_012334ec)
+        return;
+#line 3087
+    assert(b->owner->def == b->def->owner);
+    entity_t *e = BRUSH_ENT(b);
+    if (!FUN_00465d80(e, "angles"))
+        return;
+    eclass_t *ec = e->eclass;
+    // the first brush def of the entity at +0xc (list head view not named yet)
+    if (!(ec->fixedsize != 0 || b->def == *(brushdef_t **)((char *)e + 0xc)) || (ec->flags_160 & 0x10) != 0)
+        return;
+    vec3_t angles;
+    FUN_00467640(e, angles);
+    orientation_t orient;
+    AnglesToAxis(angles, orient.axis);
+    FUN_00407c60(orient.origin, ec->mins, ec->maxs);
+    orient.origin[0] = orient.origin[0] + e->origin[0];
+    orient.origin[1] = orient.origin[1] + e->origin[1];
+    orient.origin[2] = orient.origin[2] + e->origin[2];
+    vec3_t base, tip, p3, p4, pos;
+    pos[0] = pos[1] = pos[2] = 0;
+    float len = (b->def->maxs[0] - b->def->mins[0]) * 0.5f;
+    OrientationPosToWorld(&orient, pos, base);
+    pos[0] = len * 1.624f;
+    pos[1] = 0;
+    pos[2] = 0;
+    OrientationPosToWorld(&orient, pos, tip);
+    float x = len * 1.278f;
+    pos[0] = x;
+    pos[1] = len * 0.346f;
+    pos[2] = 0;
+    OrientationPosToWorld(&orient, pos, p3);
+    pos[0] = x;
+    pos[1] = len * -0.346f;
+    pos[2] = 0;
+    OrientationPosToWorld(&orient, pos, p4);
+    unsigned int color;
+    if (viewType != -1)
+        color = *colorArg;
+    else
+        FUN_0059c468(brush_colorGray, &color);
+    GfxPointVertex verts[6];
+    int n = R_Add3DLine(verts, base, tip, &color, 2, 0, 6);
+    n = R_Add3DLine(verts, tip, p3, &color, 2, n, 6);
+    if (viewType == -1)
+        FUN_0059c468(brush_colorWhite, &color);
+    n = R_Add3DLine(verts, tip, p4, &color, 2, n, 6);
+    if (n)
+        R_AddCmd_Line3D(n / 2, 2, verts);
+}
+
 void FUN_0045c6b0()
 {
     char buf[16];
@@ -2095,6 +2911,54 @@ void FUN_0045c950()
         last[0] = cur[0];
         last[1] = cur[1];
     }
+}
+
+// 0x0045ca10 (631 B): add every active brush whose entity has the same value of the selection key
+void FUN_0045ca10()
+{
+    CString value;
+    if (selected_brushes.next == &selected_brushes)
+        return;
+    int mode = g_qeglobals.d_select_mode;
+    g_qeglobals.d_select_mode = 0;
+    if (mode == 11)
+        FUN_0041b190(g_pParentWnd);
+    else if (mode == 10)
+        FUN_0042beb0();
+    DAT_011298b4 = 0;
+    bool found;
+    do
+    {
+        found = false;
+        for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+        {
+#line 3247
+            brush_assert1(b->def->owner == b->owner->def);
+            entity_t *def = b->def->owner;
+            const char *key = *(const char **)(dword_01233b64 + 0x2ec);
+            if (!FUN_00465d80(def, key))
+                continue;
+            value = ValueForKey(def->epairs, key);
+            brush_t *next;
+            for (brush_t *m = active_brushes.next; m != &active_brushes; m = next)
+            {
+                next = m->next;
+                if (m->owner == NULL || m->owner == dword_012334ec || m->field_26 != 0)
+                    continue;
+                if (FUN_0044f630(m->def))
+                    continue;
+#line 3262
+                brush_assert1(m->def->owner == m->owner->def);
+                if (FUN_00465e10((entity_t *)m->owner->def, key, value))
+                {
+                    FUN_004592f0(m);
+                    FUN_00459210(m, &selected_brushes);
+                    found = true;
+                }
+            }
+        }
+    } while (found);
+    g_nUpdateBits = -1;
 }
 
 void FUN_0045cc90(float delta)
@@ -2303,6 +3167,65 @@ extern int DAT_011298b0;
 
 // Q3 Brush_Move shape
 
+// 0x0045d450 (928 B): draw the faces of one brush in the 2D views or as surfaces; a3 = view type
+void FUN_0045d450(brush_t *b, const vec3_t offset, int a3, int a4, int a5, int a6, int a7)
+{
+    GfxPointVertex verts[0x154a];
+#line 3489
+    assert(b->owner->def == b->def->owner);
+    entity_t *e = (entity_t *)b->owner->def;
+    int vertCount = 0;
+    brushdef_t *def = b->def;
+    for (int i = 0; i < def->faceCount; i++)
+    {
+        face_t *f = &def->faces[i];
+        if (f->w == NULL)
+            continue;
+        radmat_t *mat = f->texdef[dword_01128d90].radMat;
+        const char *name = mat->name;
+        faceRender_t *fr = &b->faces[i];
+        if ((dword_01129888 & 0x2000) && (strstr(name, "caulk") || strstr(name, "nodraw_decal")))
+            continue;
+        if ((dword_01129888 & 0x8000000) && strstr(name, "sky"))
+            continue;
+        if (dword_01129888 < 0 && strstr(name, "mantle"))
+            continue;
+        if ((dword_01129890 & 0x200) && strstr(name, "bcs"))
+            continue;
+        if ((dword_01129890 & 0x800) && strstr(name, "escort"))
+            continue;
+        if ((dword_01129890 & 0x1000) && strstr(name, "kill"))
+            continue;
+        if ((dword_01129890 & 0x2000) && strstr(name, "spawner_trigger"))
+            continue;
+        if ((dword_01129890 & 0x4000) && strstr(name, "stopspawn"))
+            continue;
+        if ((dword_01129890 & 0x8000) && strstr(name, "aitrig"))
+            continue;
+        if ((dword_01129890 & 0x10000) && strstr(name, "ambient"))
+            continue;
+        if (*(int *)(dword_01233b64 + 0x1d8) && (mat->flags & 2))
+            continue;
+        if (a5 == 0x1e)
+        {
+            int viewType = def->pad_41 ? -1 : a3;
+            if (e->eclass->fixedsize == 0)
+                vertCount = FUN_0045d9a0(f, viewType, (const unsigned int *)a6, a7, vertCount, 0x154a, verts);
+            else
+                vertCount = FUN_0045dc70(f, (const orientation_t *)offset, viewType, (const unsigned int *)a6, a7, vertCount, 0x154a, verts);
+        }
+        else
+        {
+            void *matHandle = a4 ? (void *)a4 : fr->matHandle;
+            (*FUN_0059c480)(matHandle, a5, fr->vertCount, fr->vertHandle);
+            if (def->pad_41)
+                (*FUN_0059c484)(matHandle, a5, fr->vertCount, fr->vertHandle);
+        }
+    }
+    if (vertCount)
+        R_AddCmd_Line3D(vertCount / 2, a7, verts);
+}
+
 void FUN_0045d7f0(brush_t *b, int viewType, int a3, int a4, int a5, int a6, const unsigned int *color, int a8, int a9)
 {
     if (b->field_26)
@@ -2346,7 +3269,87 @@ void FUN_0045d7f0(brush_t *b, int viewType, int a3, int a4, int a5, int a6, cons
 }
 
 // 0x0045e070: refreshes every brush def of every entity in the list
-struct entityList_t { entityList_t *prev; entityList_t *next; brushdef_t *oprev; brushdef_t *onext; };
+
+// 0x0045d9a0 (709 B): outline of one face as line vertices, skipping faces turned away from the view
+int FUN_0045d9a0(face_t *face, int viewType, const unsigned int *lineColor, int width, int vertCount, int vertLimit, GfxPointVertex *verts)
+{
+#line 3648
+    assert(face);
+    assert(face->w);
+    assert(lineColor);
+    assert(verts);
+    assertMsg((vertLimit > 0), "(vertLimit) = %i", vertLimit);
+    assertMsg((vertCount >= 0 && vertCount <= vertLimit), "(vertCount) = %i", vertCount);
+    vec3_t dir;
+    if (viewType == 2)
+    {
+        OrientationDirToWorld(&QE_ORIENT, face->plane.normal, dir);
+        if (!(dir[2] > 0.0f))
+            return vertCount;
+    }
+    else if (viewType == 1)
+    {
+        OrientationDirToWorld(&QE_ORIENT, face->plane.normal, dir);
+        if (!(dir[1] > 0.0f))
+            return vertCount;
+    }
+    else if (viewType == 0)
+    {
+        OrientationDirToWorld(&QE_ORIENT, face->plane.normal, dir);
+        if (!(dir[0] > 0.0f))
+            return vertCount;
+    }
+    winding_t *w = face->w;
+    const float *prev = w->points[w->pointCount - 1];
+    for (int i = 0; i < w->pointCount; i++)
+    {
+        vertCount = R_Add3DLine(verts, prev, w->points[i], lineColor, width, vertCount, vertLimit);
+        prev = w->points[i];
+    }
+    return vertCount;
+}
+
+// 0x0045dc70 (~700 B): like the outline above but moves each point by the entity orientation first
+int FUN_0045dc70(face_t *face, const orientation_t *orient, int viewType, const unsigned int *lineColor, int width, int vertCount, int vertLimit, GfxPointVertex *verts)
+{
+#line 3689
+    assert(face);
+    assert(lineColor);
+    assert(verts);
+    assert(vertLimit > 0);
+    assertMsg((vertCount >= 0 && vertCount <= vertLimit), "(vertCount) = %i", vertCount);
+    vec3_t dir;
+    if (viewType == 2)
+    {
+        OrientationDirToWorld(orient, face->plane.normal, dir);
+        if (dir[2] <= 0.0f)
+            return vertCount;
+    }
+    else if (viewType == 1)
+    {
+        OrientationDirToWorld(orient, face->plane.normal, dir);
+        if (dir[1] <= 0.0f)
+            return vertCount;
+    }
+    else if (viewType == 0)
+    {
+        OrientationDirToWorld(orient, face->plane.normal, dir);
+        if (dir[0] <= 0.0f)
+            return vertCount;
+    }
+    winding_t *w = face->w;
+    vec3_t prev, cur;
+    OrientationPosToWorld(orient, w->points[w->pointCount - 1], cur);
+    for (int i = 0; i < w->pointCount; i++)
+    {
+        prev[0] = cur[0];
+        prev[1] = cur[1];
+        prev[2] = cur[2];
+        OrientationPosToWorld(orient, w->points[i], cur);
+        vertCount = R_Add3DLine(verts, prev, cur, lineColor, width, vertCount, vertLimit);
+    }
+    return vertCount;
+}
 
 void FUN_0045e070(entityList_t *head)
 {
@@ -2355,6 +3358,35 @@ void FUN_0045e070(entityList_t *head)
         for (brushdef_t *b = e->onext; b != (brushdef_t *)&e->oprev; b = b->onext)
             FUN_0045e0b0(b);
     }
+}
+
+// 0x0045e0b0 (222 B): refresh the "has a transparent face" flag of a brush def, or of the entities inside a model
+void FUN_0045e0b0(brushdef_t *b)
+{
+    if (b->patch)
+        return;
+    if (b->owner->eclass->fixedsize == 0)
+    {
+        b->pad_41 = 0;
+        if (*(int *)(dword_01233b64 + 0x1d8) == 0)
+            return;
+        for (int i = 0; i < b->faceCount; i++)
+        {
+            if (b->faces[i].texdef[dword_01128d90].radMat->flags & 2)
+            {
+                b->pad_41 = 1;
+                return;
+            }
+        }
+        return;
+    }
+    if (!b->owner->modelClass)
+        return;
+#line 3787
+    assert(b->owner->modelClass->model);
+    if (!b->owner->modelClass->model->entities.next)
+        return;
+    FUN_0045e070(&b->owner->modelClass->model->entities);
 }
 
 void FUN_0045e1a0(brushdef_t *b, const vec3_t move, bool bSnap)
@@ -2399,13 +3431,232 @@ void FUN_0045e2c0(brushdef_t *b)
 }
 
 
+// 0x0045e370 (~640 B): Q3 Brush_MakeSidedCone, in place on the selected brush def
+void FUN_0045e370(int sides)
+{
+    if (sides < 3)
+    {
+        SendMessageA(STATUS_HWND, 0x401, 0, (LPARAM)"Bad sideCount number");
+        return;
+    }
+    brush_t *b = selected_brushes.next;
+    if (b == &selected_brushes || b->next != &selected_brushes)
+    {
+        Sys_Printf("Error: you must have a single brush selected\n");
+        SendMessageA(STATUS_HWND, 0x401, 0, (LPARAM)"Must have a single brush selected");
+        return;
+    }
+    if (((entity_t *)b->owner->def)->eclass->fixedsize)
+    {
+        Sys_Printf("Error: you cannot manipulate fixed size entities\n");
+        SendMessageA(STATUS_HWND, 0x401, 0, (LPARAM)"Must have a single brush selected");
+        return;
+    }
+    brushdef_t *def = b->def;
+    vec3_t mins, maxs, mid;
+    VectorCopy(def->mins, mins);
+    VectorCopy(def->maxs, maxs);
+    float width = 8;
+    for (int i = 0; i < 2; i++)
+    {
+        mid[i] = (maxs[i] + mins[i]) * 0.5f;
+        if (maxs[i] - mins[i] > width)
+            width = maxs[i] - mins[i];
+    }
+    width = width / 2;
+    Face_FreeArray(def->faces, def->faceCount);
+    def->faceCount = sides + 1;
+    def->faces = Face_AllocArray(def->faceCount);
+    face_t *f = def->faces;
+    f->texdef[0] = QE_TEXDEF;
+    f->planepts[0][0] = mins[0]; f->planepts[0][1] = mins[1]; f->planepts[0][2] = mins[2];
+    f->planepts[1][0] = maxs[0]; f->planepts[1][1] = mins[1]; f->planepts[1][2] = mins[2];
+    f->planepts[2][0] = maxs[0]; f->planepts[2][1] = maxs[1]; f->planepts[2][2] = mins[2];
+    float step = 6.2831855f / (float)sides;
+    for (int i = 0; i < sides; i++)
+    {
+        f++;
+        f->texdef[0] = QE_TEXDEF;
+        float ang = (float)i * step;
+        float sv = (float)sin(ang);
+        float cv = (float)cos(ang);
+        f->planepts[0][0] = (float)floor(cv * width + mid[0] + 0.5f);
+        f->planepts[0][1] = (float)floor(sv * width + mid[1] + 0.5f);
+        f->planepts[0][2] = mins[2];
+        f->planepts[1][0] = mid[0];
+        f->planepts[1][1] = mid[1];
+        f->planepts[1][2] = maxs[2];
+        f->planepts[2][0] = (float)floor(f->planepts[0][0] - sv * width + 0.5f);
+        f->planepts[2][1] = (float)floor(cv * width + f->planepts[0][1] + 0.5f);
+        f->planepts[2][2] = maxs[2];
+    }
+    for (int i = 0; i < def->faceCount; i++)
+        Face_SetDefaultTexdefs(&def->faces[i], 0, 16.0f);
+    FUN_0045a220(def, true);
+    if (g_qeglobals.d_select_mode == 1 || g_qeglobals.d_select_mode == 2)
+        FUN_00475350();
+    Sys_MarkMapModified();
+    def->version++;
+    g_nUpdateBits = -1;
+}
+
+// 0x0045e670 (~1500 B): Q3 Brush_MakeSidedSphere, in place on the selected brush def
+static void SpherePoint(float *out, float radius, float theta, float phi)
+{
+    out[0] = (float)(cos(phi) * cos(theta) * radius);
+    out[1] = (float)(cos(phi) * sin(theta) * radius);
+    out[2] = (float)(sin(phi) * radius);
+}
+
+void FUN_0045e670(int sides)
+{
+    if (sides < 4)
+    {
+        SendMessageA(STATUS_HWND, 0x401, 0, (LPARAM)"Bad sideCount number");
+        return;
+    }
+    brush_t *b = selected_brushes.next;
+    if (b == &selected_brushes || b->next != &selected_brushes)
+    {
+        Sys_Printf("Error: you must have a single brush selected\n");
+        SendMessageA(STATUS_HWND, 0x401, 0, (LPARAM)"Must have a single brush selected");
+        return;
+    }
+    if (((entity_t *)b->owner->def)->eclass->fixedsize)
+    {
+        Sys_Printf("Error: you cannot manipulate fixed size entities\n");
+        SendMessageA(STATUS_HWND, 0x401, 0, (LPARAM)"Must have a single brush selected");
+        return;
+    }
+    brushdef_t *def = b->def;
+    vec3_t mins, maxs, mid;
+    VectorCopy(def->mins, mins);
+    VectorCopy(def->maxs, maxs);
+    float radius = 8;
+    // retail centres only x and y; mid[2] stays unset like the original
+    for (int i = 0; i < 2; i++)
+    {
+        mid[i] = (maxs[i] + mins[i]) * 0.5f;
+        if (maxs[i] - mins[i] > radius)
+            radius = maxs[i] - mins[i];
+    }
+    radius = radius / 2;
+    Face_FreeArray(def->faces, def->faceCount);
+    def->faceCount = sides * sides;
+    def->faces = Face_AllocArray(def->faceCount);
+    face_t *f = def->faces;
+    float dt = 6.2831855f / (float)sides;
+    float dp = 3.1415927f / (float)sides;
+    for (int i = 0; i <= sides - 1; i++)
+    {
+        for (int j = 0; j <= sides - 2; j++)
+        {
+            float t = (float)i * dt;
+            float p = (float)j * dp - 1.5707964f;
+            f->texdef[0] = QE_TEXDEF;
+            SpherePoint(f->planepts[0], radius, t, p);
+            SpherePoint(f->planepts[1], radius, t, p + dp);
+            SpherePoint(f->planepts[2], radius, t + dt, p + dp);
+            for (int k = 0; k < 3; k++)
+                VectorAdd(f->planepts[k], mid, f->planepts[k]);
+            f++;
+        }
+    }
+    float p = (float)(sides - 1) * dp - 1.5707964f;
+    for (int i = 0; i <= sides - 1; i++)
+    {
+        float t = (float)i * dt;
+        f->texdef[0] = QE_TEXDEF;
+        SpherePoint(f->planepts[0], radius, t, p);
+        SpherePoint(f->planepts[1], radius, t + dt, p + dp);
+        SpherePoint(f->planepts[2], radius, t + dt, p);
+        for (int k = 0; k < 3; k++)
+            VectorAdd(f->planepts[k], mid, f->planepts[k]);
+        f++;
+    }
+    for (int i = 0; i < def->faceCount; i++)
+        Face_SetDefaultTexdefs(&def->faces[i], 0, 16.0f);
+    FUN_0045a220(def, true);
+    if (g_qeglobals.d_select_mode == 1 || g_qeglobals.d_select_mode == 2)
+        FUN_00475350();
+    Sys_MarkMapModified();
+    def->version++;
+    g_nUpdateBits = -1;
+}
+
 float FUN_0045ebc0(float a, float b)
 {
     return a - (float)floor(a / b) * b;
 }
 
 
-void FUN_0045ef60(brushdef_t *b, int h, int w)
+// 0x0045ebf0 (~900 B): Q3 Face_FitTexture; fits the face texture to the bounds of the winding or of the selection
+void FUN_0045ebf0(face_t *face, float nHeight, float nWidth, bool useSelection)
+{
+    if (nHeight < 1.0f)
+        nHeight = 1.0f;
+    if (nWidth < 1.0f)
+        nWidth = 1.0f;
+    vec3_t mins = { 131072.0f, 131072.0f, 131072.0f };
+    vec3_t maxs = { -131072.0f, -131072.0f, -131072.0f };
+    if (useSelection)
+        FUN_00470ab0(mins, maxs);
+    else
+    {
+        winding_t *w = face->w;
+        if (!w)
+            return;
+        for (int i = 0; i < w->pointCount; i++)
+            AddPointToBounds(w->points[i], mins, maxs);
+    }
+    texdef_t *td = &face->texdef[dword_01128d94];
+    float ang = td->rotate * 0.017453292f;
+    float sinv, cosv;
+    FastSinCos(ang, &sinv, &cosv);
+    vec3_t vecs[2];
+    TextureAxisFromPlane(face->plane.normal, vecs[0], vecs[1]);
+    float min_s = DotProduct(mins, vecs[0]);
+    float min_t = DotProduct(mins, vecs[1]);
+    float max_s = DotProduct(maxs, vecs[0]);
+    float max_t = DotProduct(maxs, vecs[1]);
+    float coords[4][2] = { { min_s, min_t }, { max_s, min_t }, { min_s, max_t }, { max_s, max_t } };
+    min_s = min_t = 131072.0f;
+    max_s = max_t = -131072.0f;
+    for (int i = 0; i < 4; i++)
+    {
+        float s = coords[i][0] * cosv - coords[i][1] * sinv;
+        float t = coords[i][0] * sinv + coords[i][1] * cosv;
+        if (i & 1)
+        {
+            if (s > max_s)
+                max_s = s;
+        }
+        else if (s < min_s)
+            min_s = s;
+        if (i < 2)
+        {
+            if (t < min_t)
+                min_t = t;
+        }
+        else if (t > max_t)
+            max_t = t;
+    }
+    float width = max_s - min_s;
+    float height = max_t - min_t;
+    if (width == 0.0f || height == 0.0f)
+    {
+        Sys_Printf("Cannot fit texture - scale would be 0\n");
+        return;
+    }
+    td->scale[0] = -(width / nWidth);
+    td->scale[1] = -(height / nHeight);
+    float ws = nWidth * td->scale[0];
+    td->shift[0] = min_s - (float)floor(min_s / ws) * ws;
+    float hs = nHeight * td->scale[1];
+    td->shift[1] = min_t - (float)floor(min_t / hs) * hs;
+}
+
+void FUN_0045ef60(brushdef_t *b, float h, float w)
 {
     if (b->patch)
     {
@@ -2413,7 +3664,7 @@ void FUN_0045ef60(brushdef_t *b, int h, int w)
         return;
     }
     for (int i = 0; i < b->faceCount; i++)
-        FUN_0045ebf0(&b->faces[i], h, w, 0);
+        FUN_0045ebf0(&b->faces[i], h, w, false);
 }
 
 
@@ -2459,6 +3710,51 @@ void FUN_0045f150(brushdef_t *b)
 
 
 
+
+// 0x0045f240 (251 B): rotate one brush around an axis (0/1/2) by a number of degrees
+void FUN_0045f240(brush_t *b, int axis, float angle, bool markDirty, bool useCached)
+{
+    if (angle == 0.0f)
+        return;
+    vec3_t origin;
+    if (useCached)
+    {
+        origin[0] = DAT_0109fdfc[0];
+        origin[1] = DAT_0109fdfc[1];
+        origin[2] = DAT_0109fdfc[2];
+    }
+    else
+        FUN_0045f6a0(origin, b);
+    angle = -angle;
+    float sinv, cosv;
+    SinCosDegrees(angle, &sinv, &cosv);
+    float m[3][3];
+    AxisClear(m);
+    switch (axis)
+    {
+    case 0:
+        m[1][2] = -sinv;
+        m[2][1] = sinv;
+        m[2][2] = cosv;
+        m[1][1] = cosv;
+        break;
+    case 1:
+        m[2][0] = -sinv;
+        m[0][0] = cosv;
+        m[0][2] = sinv;
+        m[2][2] = cosv;
+        break;
+    case 2:
+        m[0][1] = -sinv;
+        m[0][0] = cosv;
+        m[1][0] = sinv;
+        m[1][1] = cosv;
+        break;
+    }
+    FUN_0045f340(b, &m[0][0], !useCached, axis, angle, false, origin);
+    if (markDirty)
+        g_nUpdateBits = -1;
+}
 
 void FUN_0045f6a0(float *out, brush_t *b)
 {
