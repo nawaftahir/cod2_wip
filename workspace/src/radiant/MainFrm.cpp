@@ -53,7 +53,7 @@ void FUN_0045ca10();
 void FUN_0045c950();
 void FUN_00437400();
 void FUN_00435d20();
-void FUN_00432bb0();
+
 void FUN_00437e50();
 void FUN_00438120();
 void FUN_00438ff0();
@@ -61,7 +61,7 @@ void FUN_004745d0();
 }
 void WXY_Print();
 void Map_RemoveRegion();
-
+void FUN_00432bb0();
 void Undo_Undo();
 void Undo_Redo();
 void QE_CountBrushesAndUpdateStatusBar();
