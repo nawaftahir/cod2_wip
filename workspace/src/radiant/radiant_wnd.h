@@ -8,6 +8,7 @@
 #include "EditWnd.h"
 
 class CXYWnd;
+struct brush_t;
 
 struct CameraState
 {
@@ -151,8 +152,16 @@ public:
     int m_nPressy;
     float m_vPressdelta[3];
     bool m_bPress_selection;
-    // Retail-only storage between the press state and the drop menu.
-    unsigned char field_a1[0x3f];
+    unsigned char pad_a1[3];
+    // Retail view-axis and visible-rectangle state used by the 2D culling.
+    int field_a4;
+    int field_a8;
+    int field_ac;
+    float field_b0[2];
+    float field_b8[2];
+    float field_c0[2][2];
+    float field_d0[2];
+    float field_d8[2];
     CMenu m_mnuDrop;
     XYWndNode field_e8;
     int m_nViewType;
@@ -200,12 +209,15 @@ protected:
     void DrawCameraIcon();
     void DrawZIcon();
     void XY_Draw();
-    bool XY_BoundsCull(const float *mins, const float *maxs);
+    void FUN_00451e00();
+    void FUN_00451eb0();
+    bool FUN_00451fe0(brush_t *b);
     void Clip();
     void SplitClip();
     void PositionView();
     void SetRotateMode(bool bMode);
     void Copy();
+    void Paste();
 
     DECLARE_MESSAGE_MAP()
 };

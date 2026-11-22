@@ -2367,3 +2367,6 @@ addr	size	source	symbol	name	tag
 0x004028a0	16	src/radiant/AdvCurveDlg.cpp	??0CEdit@@QAE@XZ	??0CEdit@@QAE@XZ	SUPPORTED
 0x004028d0	16	src/radiant/AdvCurveDlg.cpp	??0CSliderCtrl@@QAE@XZ	??0CSliderCtrl@@QAE@XZ	SUPPORTED
 0x00476db0	32	src/radiant/win_dlg.cpp	?FUN_00476db0@@YAXXZ	FUN_00476db0	SUPPORTED
+0x00451e00	161	src/radiant/XYWnd.cpp	?FUN_00451e00@CXYWnd@@IAEXXZ	FUN_00451e00	SUPPORTED
+0x0045e070	63	src/radiant/brush.cpp	?FUN_0045e070@@YAXPAUentityList_t@@@Z	FUN_0045e070	SUPPORTED
+0x004741e0	65	src/radiant/select.cpp	?FUN_004741e0@@YAXH@Z	FUN_004741e0	SUPPORTED
