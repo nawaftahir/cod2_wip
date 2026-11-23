@@ -10,3 +10,10 @@ build/
 scratch/
 # game assets stay local
 *.iwd
+radiant/
+.worktrees/
+site/
+client-1.0/
+client-1.3/
+
+gfx/

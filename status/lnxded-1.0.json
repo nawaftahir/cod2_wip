@@ -1,0 +1,1 @@
+{"name": "lnxded-1.0", "binary": "cod2_lnxded_1_0a", "version": "1.0", "anchor": "linux/cod2_lnxded_1_0a", "sha_identical": true, "note": "Done. SHA-256 identical per `make check` in cod2engine/archive/lnxded-1.0 (run outside this CI; byte counts not measured here)."}

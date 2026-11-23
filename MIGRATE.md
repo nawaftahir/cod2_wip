@@ -37,10 +37,13 @@ Check: `git log --oneline -- targets/$T | wc -l` equals the old commit count.
 - `.github/workflows/*` from `targets/$T/` to root `.github/workflows/$T.yml`; add
   `paths: [targets/$T/**, binaries/$T/**]` and `defaults.run.working-directory: targets/$T`
   (docker `-v` mounts become `$PWD/targets/$T`). Branch filters get the `$T/` prefix.
-- Retail anchors to `binaries/$T/<version>/`, add their sha256 to `binaries/SHA256SUMS`.
+- Retail anchors are already in `binaries/`. Point the target's tools there instead of its own copy
+  (radiant: `binaries/CoD2Radiant.exe` -> `../../binaries/radiant/1.0/CoD2Radiant.exe`), then drop the copy.
 - Large generated files to `data/$T/` (LFS patterns in `.gitattributes`).
 
 ## 5. Prove, then cut over
+- The target writes its meter on main (see "Meter contract" in `CLAUDE.md`); radiant already does.
+  Delete any `status/` entry the meter replaces.
 - Target's own gate passes from `targets/$T` (radiant: `tools/ci_gate.py`, meter equals the old one).
 - Push only on "push it". CI green once.
 - Recreate the target's worktrees from `$WIP` (`git worktree add`), fix hard-coded paths.
@@ -48,8 +51,20 @@ Check: `git log --oneline -- targets/$T | wc -l` equals the old commit count.
 - Tick the target below.
 
 ## Status
-- [ ] radiant
-- [ ] client
-- [ ] gfx
-- [ ] research (glm, modtools, codex)
+- [x] radiant (2026-11-04: branch radiant/main, worktree radiant/, gate 813/813)
+- [x] client (2026-11-04: client/1.0/main + client/1.3/main, worktrees client-1.0/ client-1.3/, gates 1,336,591 + 1,503,407)
+- [x] gfx (2026-11-04: source-only history, gfx/main + gfx worktrees, private cod2-gfx-ci package, clean byte/binding gate)
+- [ ] research (glm, codex)
+- [x] assetmgr (2026-11-07: branch assetmgr/main, worktree assetmgr/, gate 891/891, cod2map not imported)
 - [ ] docs (RECON_PLAYBOOK, WHOLEFILE, track AGENTS.md path updates)
+
+## Renderer cutover
+
+The renderer uses a target-root branch rather than placing source on shared
+main. Its old master history and main/Gemini freeze snapshots are preserved
+under gfx/imported/*. The active branch is gfx/main with a separate gfx work
+branch. Public import strips binaries/build outputs; local backups remain.
+The nested workspace/work/src path preserves the tested compiler-visible TU
+paths while src/ stays verified-only. Archived scratch is documentation and
+is not counted as reconstructed source. CI publishes measured meters only
+after both referees, the retention ratchet and source gates pass.
