@@ -34,3 +34,12 @@ int CTexEdit::OnCreate(LPCREATESTRUCT cs)
     SetFont(&m_Font, FALSE);
     return 0;
 }
+
+// Retail 0x0043ef60: push the edit text into the texture window filter.
+void CTexEdit::OnChange()
+{
+    CString strTexture;
+    GetWindowText(strTexture);
+    if (m_pTexWnd)
+        m_pTexWnd->UpdateFilter(strTexture);
+}
