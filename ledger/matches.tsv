@@ -2427,3 +2427,11 @@ addr	size	source	symbol	name	tag
 0x00473940	136	src/radiant/select.cpp	?FindReplaceTextures@@YA_NPBD0_N11@Z	FindReplaceTextures	SUPPORTED
 0x004749a0	451	src/radiant/select.cpp	?FUN_004749a0@@YAXXZ	FUN_004749a0	PINNED
 0x00474b70	451	src/radiant/select.cpp	?FUN_00474b70@@YAXXZ	FUN_00474b70	PINNED
+0x00467dd0	10	src/radiant/entity.cpp	??0NormalFileWrapper@@QAE@PAU_iobuf@@@Z	NormalFileWrapper::NormalFileWrapper	SUPPORTED
+0x00467de0	7	src/radiant/entity.cpp	??0AbstractFileWrapper@@QAE@XZ	AbstractFileWrapper::AbstractFileWrapper	SUPPORTED
+0x00410c40	445	src/radiant/GfxWrapper.cpp	_FUN_00410c40	FUN_00410c40	PINNED
+0x00410540	21	src/radiant/GfxWrapper.cpp	?FUN_00410540@@YAXPAUbrush_t@@0@Z	FUN_00410540	SUPPORTED
+0x00410560	25	src/radiant/GfxWrapper.cpp	?FUN_00410560@@YAXPAUentityInst_t@@0@Z	FUN_00410560	SUPPORTED
+0x00453770	81	src/radiant/ZWnd.cpp	?OnLButtonDown@CZWnd@@IAEXIVCPoint@@@Z	CZWnd::OnLButtonDown	SUPPORTED
+0x004537d0	81	src/radiant/ZWnd.cpp	?OnMButtonDown@CZWnd@@IAEXIVCPoint@@@Z	CZWnd::OnMButtonDown	SUPPORTED
+0x00453830	81	src/radiant/ZWnd.cpp	?OnRButtonDown@CZWnd@@IAEXIVCPoint@@@Z	CZWnd::OnRButtonDown	SUPPORTED

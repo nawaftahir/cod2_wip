@@ -443,3 +443,74 @@ extern "C" void FUN_00410e00()
 		Hunk_Shutdown();
 	}
 }
+
+// the window handles of the editor globals, from offset 0x58 of g_qeglobals
+struct GfxWindows
+{
+	HWND d_hwndCamera;
+	unsigned char pad04[8];
+	HWND d_hwndTexture;
+	HWND d_hwndXY;
+	HWND d_hwndZ;
+};
+extern GfxWindows g_qeglobals;
+extern void *DAT_011298c4;
+extern void *DAT_011298c8;
+extern void *DAT_011298cc;
+extern void *DAT_011298d0;
+void FUN_00489ea0();
+
+// 0x00410c40 (445 B): load the renderer DLL and hand it the editor windows
+extern "C" void FUN_00410c40()
+{
+	int config[11];
+
+	FUN_004105f0();
+	FUN_00489ea0();
+	((void (*)(int *))re.fn[1])(config);
+#line 439
+	assert(g_qeglobals.d_hwndCamera);
+	((void (*)(HWND))re.fn[79])(g_qeglobals.d_hwndCamera);
+#line 442
+	assert(g_qeglobals.d_hwndXY);
+	((void (*)(HWND))re.fn[79])(g_qeglobals.d_hwndXY);
+#line 445
+	assert(g_qeglobals.d_hwndZ);
+	((void (*)(HWND))re.fn[79])(g_qeglobals.d_hwndZ);
+#line 448
+	assert(g_qeglobals.d_hwndTexture);
+	((void (*)(HWND))re.fn[79])(g_qeglobals.d_hwndTexture);
+	DAT_011298c4 = ((void *(*)(const char *, int))re.fn[55])("fonts/qerfont", 7);
+	DAT_011298c8 = ((void *(*)(const char *, int, int))re.fn[4])("white", 3, 0);
+	DAT_011298cc = ((void *(*)(const char *, int, int))re.fn[4])("$opaque", 3, 0);
+	DAT_011298d0 = ((void *(*)(const char *, int, int))re.fn[4])("$additive", 3, 0);
+}
+
+struct brush_t
+{
+	brush_t *prev;
+	brush_t *next;
+};
+
+struct entityInst_t
+{
+	entityInst_t *prev;
+	entityInst_t *next;
+};
+
+void FUN_0045af00(brush_t *b);
+void FUN_00465580(entityInst_t *inst);
+
+// 0x00410540 (21 B)
+void FUN_00410540(brush_t *b, brush_t *end)
+{
+	for (; b != end; b = b->next)
+		FUN_0045af00(b);
+}
+
+// 0x00410560 (25 B)
+void FUN_00410560(entityInst_t *e, entityInst_t *end)
+{
+	for (; e != end; e = e->next)
+		FUN_00465580(e);
+}
