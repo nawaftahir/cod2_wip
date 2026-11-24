@@ -1,4 +1,3 @@
-addr	agent	date	reason
 0x004074f0	lane-d	2026-11-17	CCamWnd::OnSize (msgmap-proven): best 86%, 84/84 B, first diff +0x1d; 3 source forms tried (m_Camera.width args, rect.right args, int locals): retail stores width/height to [esi+0x54/0x58] BEFORE loading re.ResizeWindow (0x59c448) into edx, ours loads edx and tests it first (same bytes, different schedule). Body in src.
 0x004074f0	lane-d	2026-11-17	CCamWnd::OnSize (msgmap-proven): best 86%, 84/84 B, first diff +0x1d; 3 source forms tried (m_Camera.width args, rect.right args, int locals): retail stores width/height to [esi+0x54/0x58] BEFORE loading re.ResizeWindow (0x59c448) into edx, ours loads edx and tests it first (same bytes, different schedule). Body in src.
 0x004074f0	lane-d	2026-11-17	CCamWnd::OnSize (msgmap-proven): best 86%, 84/84 B, first diff +0x1d; 3 source forms tried (m_Camera.width args, rect.right args, int locals): retail stores width/height to [esi+0x54/0x58] BEFORE loading re.ResizeWindow (0x59c448) into edx, ours loads edx and tests it first (same bytes, different schedule). Body in src.
@@ -465,60 +464,43 @@ addr	agent	date	reason
 0x004884a0	lane-d-r41	2026-11-19	SnapPointToIntersectingPlanes verbatim lnxded-1.0 source: 21%, 398/392 (SnapPointToPlanes 60% 974/958 vs 0x488630). Not kept.
 0x00489940	lane-d-r41	2026-11-19	SnapFloatToGrid verbatim lnxded-1.0 source: 13%, 155/471. Not kept.
 0x00497b30	lane-d-r41	2026-11-19	ScaledOrientationPosToWorld verbatim lnxded-1.0 source: 23%, 93/158. Not kept.
-0x00414da0	bulk-f	2026-11-19	bulk draft: 70%, sizes 49/51, first diff +0x2
-0x00414de0	bulk-f	2026-11-19	bulk draft: 50%, sizes 9/10, first diff +0x0
-0x00415100	bulk-f	2026-11-19	bulk draft: 33%, sizes 18/16, first diff +0x0
-0x00415140	bulk-f	2026-11-19	bulk draft: 48%, sizes 119/149, first diff +0x1
-0x004151e0	bulk-f	2026-11-19	bulk draft: 42%, sizes 46/47, first diff +0x0
-0x00415210	bulk-f	2026-11-19	bulk draft: 66%, sizes 39/42, first diff +0x4
-0x00415650	bulk-f	2026-11-19	bulk draft: 33%, sizes 18/16, first diff +0x0
-0x00415660	bulk-f	2026-11-19	bulk draft: 42%, sizes 46/47, first diff +0x0
-0x004156a0	bulk-f	2026-11-19	bulk draft: 56%, sizes 154/166, first diff +0x5
-0x004159e0	bulk-f	2026-11-19	bulk draft: 42%, sizes 46/47, first diff +0x0
-0x00416030	bulk-f	2026-11-19	bulk draft: 55%, sizes 16/18, first diff +0x0
-0x00416050	bulk-f	2026-11-19	bulk draft: 61%, sizes 16/21, first diff +0x0
-0x00416070	bulk-f	2026-11-19	bulk draft: 61%, sizes 16/21, first diff +0x0
-0x00416e90	bulk-f	2026-11-19	bulk draft: 67%, sizes 59/61, first diff +0x0
-0x00416ed0	bulk-f	2026-11-19	bulk draft: 67%, sizes 56/58, first diff +0x0
-0x00416f10	bulk-f	2026-11-19	bulk draft: 68%, sizes 56/58, first diff +0x0
-0x00416f50	bulk-f	2026-11-19	bulk draft: 70%, sizes 56/58, first diff +0x0
-0x00416f90	bulk-f	2026-11-19	bulk draft: 70%, sizes 56/58, first diff +0x0
-0x00416fd0	bulk-f	2026-11-19	bulk draft: 68%, sizes 56/58, first diff +0x0
-0x004170b0	bulk-f	2026-11-19	bulk draft: 40%, sizes 9/15, first diff +0x0
-0x004170c0	bulk-f	2026-11-19	bulk draft: 44%, sizes 12/18, first diff +0x0
-0x004170e0	bulk-f	2026-11-19	bulk draft: 40%, sizes 9/15, first diff +0x0
-0x004170f0	bulk-f	2026-11-19	bulk draft: 22%, sizes 79/71, first diff +0x0
-0x004171b0	bulk-f	2026-11-19	bulk draft: 48%, sizes 114/106, first diff +0x0
-0x00417400	bulk-f	2026-11-19	bulk draft: 35%, sizes 81/80, first diff +0x0
-0x00417450	bulk-f	2026-11-19	bulk draft: 35%, sizes 81/80, first diff +0x0
-0x00417840	bulk-f	2026-11-19	bulk draft: 36%, sizes 73/79, first diff +0x0
-0x00417a90	bulk-f	2026-11-19	bulk draft: 22%, sizes 79/71, first diff +0x0
-0x00417e40	bulk-f	2026-11-19	bulk draft: 65%, sizes 80/89, first diff +0x0
-0x00417ea0	bulk-f	2026-11-19	bulk draft: 88%, sizes 70/67, first diff +0x2
-0x00418ec0	bulk-f	2026-11-19	bulk draft: 49%, sizes 201/203, first diff +0xb
-0x00419000	bulk-f	2026-11-19	bulk draft: 77%, sizes 18/17, first diff +0x1
-0x004190a0	bulk-f	2026-11-19	bulk draft: 14%, sizes 30/56, first diff +0x0
-0x004196a0	bulk-f	2026-11-19	bulk draft: 39%, sizes 113/113, first diff +0x7
-0x00419a60	bulk-f	2026-11-19	bulk draft: 66%, sizes 71/67, first diff +0x0
-0x00419ab0	bulk-f	2026-11-19	bulk draft: 64%, sizes 73/69, first diff +0x0
-0x00419b90	bulk-f	2026-11-19	bulk draft: 50%, sizes 9/10, first diff +0x0
-0x00419d40	bulk-f	2026-11-19	bulk draft: 54%, sizes 87/91, first diff +0x5
-0x0041b070	bulk-f	2026-11-19	bulk draft: 43%, sizes 65/60, first diff +0x0
-0x0041b0b0	bulk-f	2026-11-19	bulk draft: 43%, sizes 65/60, first diff +0x0
-0x0041b640	bulk-f	2026-11-19	bulk draft: 28%, sizes 38/29, first diff +0x0
-0x0041b660	bulk-f	2026-11-19	bulk draft: 28%, sizes 38/29, first diff +0x0
-0x0041b680	bulk-f	2026-11-19	bulk draft: 28%, sizes 38/29, first diff +0x0
-0x0041b6a0	bulk-f	2026-11-19	bulk draft: 28%, sizes 38/29, first diff +0x0
-0x0041b6c0	bulk-f	2026-11-19	bulk draft: 31%, sizes 38/29, first diff +0x0
-0x0041b930	bulk-f	2026-11-19	bulk draft: 44%, sizes 12/18, first diff +0x0
-0x0041b950	bulk-f	2026-11-19	bulk draft: 70%, sizes 48/47, first diff +0x0
-0x0041b980	bulk-f	2026-11-19	bulk draft: 66%, sizes 48/47, first diff +0x0
-0x0041b9b0	bulk-f	2026-11-19	bulk draft: 66%, sizes 48/47, first diff +0x0
-0x0041b9e0	bulk-f	2026-11-19	bulk draft: 70%, sizes 48/47, first diff +0x0
-0x0041ba10	bulk-f	2026-11-19	bulk draft: 66%, sizes 48/47, first diff +0x0
-0x0041ba40	bulk-f	2026-11-19	bulk draft: 72%, sizes 48/47, first diff +0x0
-0x0041bd40	bulk-f	2026-11-19	bulk draft: 48%, sizes 119/149, first diff +0x8
-0x0041c1d0	bulk-f	2026-11-19	bulk draft: 48%, sizes 119/149, first diff +0x1
+0x00414da0	lane-d10	2026-11-24	bulk draft: 70%, sizes 49/51, first diff +0x2 [r2: member+msgmap, 70%, sizes 49/51]
+0x00414de0	lane-d10	2026-11-24	bulk draft: 50%, sizes 9/10, first diff +0x0 [r2: member+msgmap, 50%, sizes 9/10]
+0x00415100	lane-d10	2026-11-24	bulk draft: 33%, sizes 18/16, first diff +0x0 [r2: member+msgmap, 73%, sizes 19/16]
+0x00415140	lane-d10	2026-11-24	bulk draft: 48%, sizes 119/149, first diff +0x1 [r2: member+msgmap, 48%, sizes 115/149]
+0x004151e0	lane-d10	2026-11-24	bulk draft: 42%, sizes 46/47, first diff +0x0 [r2: member+msgmap, 64%, sizes 50/47]
+0x00415210	lane-d10	2026-11-24	bulk draft: 66%, sizes 39/42, first diff +0x4 [r2: member+msgmap, 66%, sizes 39/42]
+0x00415650	lane-d10	2026-11-24	bulk draft: 33%, sizes 18/16, first diff +0x0 [r2: member+msgmap, 73%, sizes 19/16]
+0x00415660	lane-d10	2026-11-24	bulk draft: 42%, sizes 46/47, first diff +0x0 [r2: member+msgmap, 64%, sizes 50/47]
+0x004156a0	lane-d10	2026-11-24	bulk draft: 56%, sizes 154/166, first diff +0x5 [r2: member+msgmap, 57%, sizes 154/166]
+0x004159e0	lane-d10	2026-11-24	bulk draft: 42%, sizes 46/47, first diff +0x0 [r2: member+msgmap, 64%, sizes 50/47]
+0x00416030	lane-d10	2026-11-24	bulk draft: 55%, sizes 16/18, first diff +0x0 [r2: member+msgmap, 55%, sizes 16/18]
+0x00416050	lane-d10	2026-11-24	bulk draft: 61%, sizes 16/21, first diff +0x0 [r2: member+msgmap, 61%, sizes 16/21]
+0x00416070	lane-d10	2026-11-24	bulk draft: 61%, sizes 16/21, first diff +0x0 [r2: member+msgmap, 61%, sizes 16/21]
+0x00416e90	lane-d10	2026-11-24	bulk draft: 67%, sizes 59/61, first diff +0x0 [r2: member+msgmap, 67%, sizes 59/61]
+0x00416ed0	lane-d10	2026-11-24	bulk draft: 67%, sizes 56/58, first diff +0x0 [r2: member+msgmap, 67%, sizes 56/58]
+0x00416f10	lane-d10	2026-11-24	bulk draft: 68%, sizes 56/58, first diff +0x0 [r2: member+msgmap, 68%, sizes 56/58]
+0x00416f50	lane-d10	2026-11-24	bulk draft: 70%, sizes 56/58, first diff +0x0 [r2: member+msgmap, 70%, sizes 56/58]
+0x00416f90	lane-d10	2026-11-24	bulk draft: 70%, sizes 56/58, first diff +0x0 [r2: member+msgmap, 70%, sizes 56/58]
+0x00416fd0	lane-d10	2026-11-24	bulk draft: 68%, sizes 56/58, first diff +0x0 [r2: member+msgmap, 68%, sizes 56/58]
+0x004170f0	lane-d10	2026-11-24	bulk draft: 22%, sizes 79/71, first diff +0x0 [r2: member+msgmap, 40%, sizes 83/71]
+0x004171b0	lane-d10	2026-11-24	bulk draft: 48%, sizes 114/106, first diff +0x0 [r2: member+msgmap, 39%, sizes 119/106]
+0x00417a90	lane-d10	2026-11-24	bulk draft: 22%, sizes 79/71, first diff +0x0 [r2: member+msgmap, 40%, sizes 83/71]
+0x00417e40	lane-d10	2026-11-24	bulk draft: 65%, sizes 80/89, first diff +0x0 [r2: member+msgmap, 65%, sizes 80/89]
+0x00417ea0	lane-d10	2026-11-24	bulk draft: 88%, sizes 70/67, first diff +0x2 [r2: member+msgmap, 90%, sizes 70/67]
+0x00418ec0	lane-d10	2026-11-24	bulk draft: 49%, sizes 201/203, first diff +0xb [r2: member+msgmap, 49%, sizes 201/203]
+0x00419000	lane-d10	2026-11-24	bulk draft: 77%, sizes 18/17, first diff +0x1 [r2: member+msgmap, 83%, sizes 18/17]
+0x004190a0	lane-d10	2026-11-24	bulk draft: 14%, sizes 30/56, first diff +0x0 [r2: member+msgmap, 41%, sizes 45/56]
+0x004196a0	lane-d10	2026-11-24	bulk draft: 39%, sizes 113/113, first diff +0x7 [r2: member+msgmap, 44%, sizes 117/113]
+0x00419b90	lane-d10	2026-11-24	bulk draft: 50%, sizes 9/10, first diff +0x0 [r2: member+msgmap, 50%, sizes 9/10]
+0x0041b950	lane-d10	2026-11-24	bulk draft: 70%, sizes 48/47, first diff +0x0 [r2: member+msgmap, 70%, sizes 48/47]
+0x0041b980	lane-d10	2026-11-24	bulk draft: 66%, sizes 48/47, first diff +0x0 [r2: member+msgmap, 66%, sizes 48/47]
+0x0041b9b0	lane-d10	2026-11-24	bulk draft: 66%, sizes 48/47, first diff +0x0 [r2: member+msgmap, 66%, sizes 48/47]
+0x0041b9e0	lane-d10	2026-11-24	bulk draft: 70%, sizes 48/47, first diff +0x0 [r2: member+msgmap, 70%, sizes 48/47]
+0x0041ba10	lane-d10	2026-11-24	bulk draft: 66%, sizes 48/47, first diff +0x0 [r2: member+msgmap, 66%, sizes 48/47]
+0x0041ba40	lane-d10	2026-11-24	bulk draft: 72%, sizes 48/47, first diff +0x0 [r2: member+msgmap, 72%, sizes 48/47]
+0x0041bd40	lane-d10	2026-11-24	bulk draft: 48%, sizes 119/149, first diff +0x8 [r2: member+msgmap, 48%, sizes 115/149]
+0x0041c1d0	lane-d10	2026-11-24	bulk draft: 48%, sizes 119/149, first diff +0x1 [r2: member+msgmap, 48%, sizes 115/149]
 0x00448060	bulk-d	2026-11-19	Winding_InsertPoint: bulk draft: 83%, sizes 155/153, first diff +0x4b (retail copy loop stores to points[0] every iteration; written literally)
 0x00448100	bulk-d	2026-11-19	FUN_00448100 (Winding_IsTiny shape, edge^2 > 0.04): bulk draft: 18%, sizes 139/134, first diff +0x6
 0x00448550	bulk-d	2026-11-19	FUN_00448550 (Q3 Winding_SplitEpsilon): bulk draft: 96%, sizes 1000/1000, first diff +0x5 (prologue/register convention)
@@ -838,15 +820,15 @@ addr	agent	date	reason
 0x00476aa0	bulk-d5	2026-11-22	win_dlg Maya export dialog proc (572 B): not drafted this pass; CPrefsDlg offset 0x2f0 and Select_ExportToMaya signature not confirmed
 0x004779c0	bulk-e5	2026-11-22	FUN_004779c0 (GetSpawnFlags shape): bulk draft: 69%, sizes 547/467, first diff +0x69. Retail calls FUN_00465bf0 out of line in the single-entity branch and inlines it in the multiple-entities branch; ours inlines both. Adding the body also flips FUN_004656b0, FUN_00467510 and FUN_00465780 (entity.cpp, were MATCH): a new caller of FUN_00465bf0 changes the LTCG register convention of its callee chain. Body saved in workspace/drafts/win_ent_e5_004779c0.cpp.
 0x00477e80	bulk-e5	2026-11-22	FUN_00477e80 (AddProp shape, undo): body matches 100% alone, sizes 243/243, but any new caller of FUN_00465bf0 flips FUN_004656b0, FUN_00467510 and FUN_00465780 (entity.cpp, were MATCH; 4779c0 does the same). Removing the body restores all three. Draft in workspace/drafts/win_ent_d_r14_00477e80.cpp.
-0x004115b0	bulk-d6	2026-11-22	FUN_004115b0: bulk draft: 71%, sizes 1951/2091, first difference at +0x1b. Q3Radiant SetButtonMenuStates (CheckMenuItem chain over d_exclude/d_exclude2). Retail 140 B larger; this in eax in retail.
-0x00411de0	bulk-d6	2026-11-22	FUN_00411de0: bulk draft: 30%, sizes 605/635, first difference at +0x5. menu key-binding text (Q3Radiant CheckMenuItem/GetMenuItemInfo loop over g_Commands/g_Keys). 30% only; control flow differs from retail from +0x5.
+0x004115b0	lane-d10	2026-11-24	FUN_004115b0: bulk draft: 71%, sizes 1951/2091, first difference at +0x1b. Q3Radiant SetButtonMenuStates (CheckMenuItem chain over d_exclude/d_exclude2). Retail 140 B larger; this in eax in retail. [r2: member+msgmap, 71%, sizes 1947/2091]
+0x00411de0	lane-d10	2026-11-24	FUN_00411de0: bulk draft: 30%, sizes 605/635, first difference at +0x5. menu key-binding text (Q3Radiant CheckMenuItem/GetMenuItemInfo loop over g_Commands/g_Keys). 30% only; control flow differs from retail from +0x5. [r2: member+msgmap, 30%, sizes 605/635]
 0x004121e0	bulk-d6	2026-11-22	FUN_004121e0: not drafted. CMainFrame::OnCreate (2215 B, toolbar/status bar creation, 'Arial', 'RadiantToolBars'). Generated decompile exists at refrences/opencod2_radiant_generated MainFrm.cpp but its names are AI-invented, not drafted this round.
 0x00412a90	bulk-d6	2026-11-22	FUN_00412a90: not drafted. creates the 'Commands' toolbar/menu strings (AfxGetStringManager). Generated decompile exists at refrences/opencod2_radiant_generated MainFrm.cpp but its names are AI-invented, not drafted this round.
 0x00414730	bulk-d6	2026-11-22	FUN_00414730: not drafted. CMainFrame::OnSize with six SetPaneInfo percent calls and splitter ratio code. Generated decompile exists at refrences/opencod2_radiant_generated MainFrm.cpp but its names are AI-invented, not drafted this round.
 0x00414ec0	bulk-d6	2026-11-22	FUN_00414ec0: not drafted. 'Console' window show/hide handler. Generated decompile exists at refrences/opencod2_radiant_generated MainFrm.cpp but its names are AI-invented, not drafted this round.
-0x00415240	bulk-d6	2026-11-22	FUN_00415240: bulk draft: 84%, sizes 26/23, first difference at +0x12. toggles via FUN_004416b0 whose argument is in eax in retail (usercall); ours pushes it. Callee 0x4416b0 is a TexWnd draft with a different convention.
-0x00415260	bulk-d6	2026-11-22	FUN_00415260: bulk draft: 44%, sizes 9/7, first difference at +0x0. FUN_004416b0(0): argument in eax in retail (usercall); ours pushes it. Same callee-convention cause as 0x415240.
-0x00415270	bulk-d6	2026-11-22	FUN_00415270: bulk draft: 70%, sizes 9/10, first difference at +0x0. FUN_004416b0(1): argument in eax in retail (usercall); ours pushes it. Same callee-convention cause as 0x415240.
+0x00415240	lane-d10	2026-11-24	FUN_00415240: bulk draft: 84%, sizes 26/23, first difference at +0x12. toggles via FUN_004416b0 whose argument is in eax in retail (usercall); ours pushes it. Callee 0x4416b0 is a TexWnd draft with a different convention. [r2: member+msgmap, 84%, sizes 26/23]
+0x00415260	lane-d10	2026-11-24	FUN_00415260: bulk draft: 44%, sizes 9/7, first difference at +0x0. FUN_004416b0(0): argument in eax in retail (usercall); ours pushes it. Same callee-convention cause as 0x415240. [r2: member+msgmap, 44%, sizes 9/7]
+0x00415270	lane-d10	2026-11-24	FUN_00415270: bulk draft: 70%, sizes 9/10, first difference at +0x0. FUN_004416b0(1): argument in eax in retail (usercall); ours pushes it. Same callee-convention cause as 0x415240. [r2: member+msgmap, 70%, sizes 9/10]
 0x00415390	bulk-d6	2026-11-22	FUN_00415390: not drafted. 'Textures' window toggle (SetFocus). Generated decompile exists at refrences/opencod2_radiant_generated MainFrm.cpp but its names are AI-invented, not drafted this round.
 0x00415750	bulk-d6	2026-11-22	FUN_00415750: not drafted. handler (generated decompile exists). Generated decompile exists at refrences/opencod2_radiant_generated MainFrm.cpp but its names are AI-invented, not drafted this round.
 0x004157f0	bulk-d6	2026-11-22	FUN_004157f0: not drafted. handler (generated decompile exists). Generated decompile exists at refrences/opencod2_radiant_generated MainFrm.cpp but its names are AI-invented, not drafted this round.
@@ -854,27 +836,24 @@ addr	agent	date	reason
 0x00415c20	bulk-d6	2026-11-22	FUN_00415c20: not drafted. 'Light selected' colour dialog handler (CStringT, security cookie). Generated decompile exists at refrences/opencod2_radiant_generated MainFrm.cpp but its names are AI-invented, not drafted this round.
 0x00415ef0	bulk-d6	2026-11-22	FUN_00415ef0: not drafted. Flip X/Y/Z helper (FUN_00415ef0(name, axis)); not drafted this round.
 0x004162c0	bulk-d6	2026-11-22	FUN_004162c0: not drafted. CRotateDlg handler ('arbitrary rotation'). Blocked: the dialog class is defined inside its own .cpp with no shared header, so this handler cannot construct it without a shared-header change (owner review).
-0x00416680	bulk-d6	2026-11-22	FUN_00416680: bulk draft: 75%, sizes 156/154, first difference at +0x0. message handler draft; register use differs from +0x7.
 0x004168c0	bulk-d6	2026-11-22	FUN_004168c0: not drafted.
-0x00417170	bulk-d6	2026-11-22	FUN_00417170: bulk draft: 55%, sizes 23/27, first difference at +0x0. CMainFrame handler taking (nType, cx, cy).
-0x00417660	bulk-d6	2026-11-22	FUN_00417660: bulk draft: 60%, sizes 229/238, first difference at +0x0. message handler draft; differs from +0x2.
+0x00417170	lane-d10	2026-11-24	FUN_00417170: bulk draft: 55%, sizes 23/27, first difference at +0x0. CMainFrame handler taking (nType, cx, cy). [r2: member+msgmap, 55%, sizes 23/27]
+0x00417660	lane-d10	2026-11-24	FUN_00417660: bulk draft: 60%, sizes 229/238, first difference at +0x0. message handler draft; differs from +0x2. [r2: member+msgmap, 61%, sizes 229/238]
 0x00417970	bulk-d6	2026-11-22	FUN_00417970: not drafted. CMapInfo dialog handler. Blocked: the dialog class is defined inside its own .cpp with no shared header, so this handler cannot construct it without a shared-header change (owner review).
 0x004179e0	bulk-d6	2026-11-22	FUN_004179e0: not drafted. dialog class destructor with a CListBox member (+0x70). Blocked: the dialog class is defined inside its own .cpp with no shared header, so this handler cannot construct it without a shared-header change (owner review).
 0x00417a30	bulk-d6	2026-11-22	FUN_00417a30: not drafted. CEntityListDlg handler. Blocked: the dialog class is defined inside its own .cpp with no shared header, so this handler cannot construct it without a shared-header change (owner review).
 0x00417ae0	bulk-d6	2026-11-22	FUN_00417ae0: not drafted. CCommandsDlg handler. Blocked: the dialog class is defined inside its own .cpp with no shared header, so this handler cannot construct it without a shared-header change (owner review).
 0x00417b50	bulk-d6	2026-11-22	FUN_00417b50: not drafted. dialog handler. Blocked: the dialog class is defined inside its own .cpp with no shared header, so this handler cannot construct it without a shared-header change (owner review).
-0x004185d0	bulk-d6	2026-11-22	FUN_004185d0: bulk draft: 82%, sizes 569/581, first difference at +0x4. colour preset: same stores in retail order (genc from the disassembly) but retail loads its float constants into eax/edx/ecx/esi in a different order and reloads some; ours allocates other registers, so size differs.
-0x00418820	bulk-d6	2026-11-22	FUN_00418820: bulk draft: 85%, sizes 582/590, first difference at +0x4. colour preset: same stores in retail order (genc from the disassembly) but retail loads its float constants into eax/edx/ecx/esi in a different order and reloads some; ours allocates other registers, so size differs.
-0x00418a70	bulk-d6	2026-11-22	FUN_00418a70: bulk draft: 79%, sizes 616/637, first difference at +0x1. colour preset: same stores in retail order (genc from the disassembly) but retail loads its float constants into eax/edx/ecx/esi in a different order and reloads some; ours allocates other registers, so size differs.
+0x004185d0	lane-d10	2026-11-24	FUN_004185d0: bulk draft: 82%, sizes 569/581, first difference at +0x4. colour preset: same stores in retail order (genc from the disassembly) but retail loads its float constants into eax/edx/ecx/esi in a different order and reloads some; ours allocates other registers, so size differs. [r2: member+msgmap, 82%, sizes 569/581]
+0x00418820	lane-d10	2026-11-24	FUN_00418820: bulk draft: 85%, sizes 582/590, first difference at +0x4. colour preset: same stores in retail order (genc from the disassembly) but retail loads its float constants into eax/edx/ecx/esi in a different order and reloads some; ours allocates other registers, so size differs. [r2: member+msgmap, 85%, sizes 582/590]
+0x00418a70	lane-d10	2026-11-24	FUN_00418a70: bulk draft: 79%, sizes 616/637, first difference at +0x1. colour preset: same stores in retail order (genc from the disassembly) but retail loads its float constants into eax/edx/ecx/esi in a different order and reloads some; ours allocates other registers, so size differs. [r2: member+msgmap, 79%, sizes 616/637]
 0x00418d40	bulk-d6	2026-11-22	FUN_00418d40: not drafted. CScaleDialog handler ('scale', 'Can only scale patches by zero', 'Cannot scale by a negative value'). Blocked: the dialog class is defined inside its own .cpp with no shared header, so this handler cannot construct it without a shared-header change (owner review).
 0x00418eb0	bulk-d6	2026-11-22	FUN_00418eb0: not drafted. dialog destructor tail jump to CDialog::~CDialog. Blocked: the dialog class is defined inside its own .cpp with no shared header, so this handler cannot construct it without a shared-header change (owner review).
-0x00419020	bulk-d6	2026-11-22	FUN_00419020: bulk draft: 67%, sizes 96/94, first difference at +0x1. loops over selected_selbrushes and the second list calling FUN_0045e0b0(b->def) after FUN_00452f50(xy); retail 94 B, ours 96 B; callee conventions of 0x452f50/0x45e0b0 unmatched.
+0x00419020	lane-d10	2026-11-24	FUN_00419020: bulk draft: 67%, sizes 96/94, first difference at +0x1. loops over selected_selbrushes and the second list calling FUN_0045e0b0(b->def) after FUN_00452f50(xy); retail 94 B, ours 96 B; callee conventions of 0x452f50/0x45e0b0 unmatched. [r2: member+msgmap, 68%, sizes 96/94]
 0x00419260	bulk-d6	2026-11-22	FUN_00419260: not drafted. large handler (765 B); not drafted this round.
-0x00419720	bulk-d6	2026-11-22	FUN_00419720: bulk draft: 31%, sizes 153/140, first difference at +0x8. toolbar button toggle (SendMessage 0x402 id 0x802e/0x802f/0x8030, DAT_0109fe60 flags).
-0x00419860	bulk-d6	2026-11-22	FUN_00419860: bulk draft: 28%, sizes 176/203, first difference at +0x0. toolbar/redraw toggle (RedrawWindow 0x105 on field_07e0, ids 0x802d, DAT_0109fe5e/5f/64).
-0x00419da0	bulk-d6	2026-11-22	FUN_00419da0: bulk draft: 36%, sizes 155/228, first difference at +0x3. Open map dialog: CFileDialog(TRUE,...) then FUN_0046ab20(path). Retail 228 B has the CString temporary and EH frame from GetPathName; ours is smaller (no EH state).
-0x00419e90	bulk-d6	2026-11-22	FUN_00419e90: bulk draft: 36%, sizes 158/233, first difference at +0x3. Save-as dialog: CFileDialog(FALSE,"map",...) then FUN_0046ad90(path). Same CString temporary/EH frame gap as 0x419da0.
-0x0041a330	bulk-d6	2026-11-22	FUN_0041a330: bulk draft: 33%, sizes 121/169, first difference at +0x3. opens an extra camera window (CCamWnd::Create QCamera). Retail 169 B has the new-expression EH frame; ours 121 B.
+0x00419720	lane-d10	2026-11-24	FUN_00419720: bulk draft: 31%, sizes 153/140, first difference at +0x8. toolbar button toggle (SendMessage 0x402 id 0x802e/0x802f/0x8030, DAT_0109fe60 flags). [r2: member+msgmap, 46%, sizes 157/140]
+0x00419860	lane-d10	2026-11-24	FUN_00419860: bulk draft: 28%, sizes 176/203, first difference at +0x0. toolbar/redraw toggle (RedrawWindow 0x105 on field_07e0, ids 0x802d, DAT_0109fe5e/5f/64). [r2: member+msgmap, 66%, sizes 178/203]
+0x00419da0	lane-d10	2026-11-24	FUN_00419da0: bulk draft: 36%, sizes 155/228, first difference at +0x3. Open map dialog: CFileDialog(TRUE,...) then FUN_0046ab20(path). Retail 228 B has the CString temporary and EH frame from GetPathName; ours is smaller (no EH state). [r2: member+msgmap, 71%, sizes 232/228]
 0x0041a3e0	bulk-d6	2026-11-22	FUN_0041a3e0: not drafted. CPatchDensityDlg handler ('make simpe patch mesh'). Blocked: the dialog class is defined inside its own .cpp with no shared header, so this handler cannot construct it without a shared-header change (owner review).
 0x0041a470	bulk-d6	2026-11-22	FUN_0041a470: not drafted. CPatchDensityDlg destructor (two CComboBox members at 0x70/0xc0). Blocked: the dialog class is defined inside its own .cpp with no shared header, so this handler cannot construct it without a shared-header change (owner review).
 0x0041a4d0	bulk-d6	2026-11-22	FUN_0041a4d0: not drafted. CTerrainDensityDlg handler ('make simple terrain mesh'). Blocked: the dialog class is defined inside its own .cpp with no shared header, so this handler cannot construct it without a shared-header change (owner review).
@@ -951,7 +930,6 @@ addr	agent	date	reason
 0x00481990	claude-b	2026-11-16	FS_Shutdown matches 100% standalone but FUN_00408fd0 (UNKNOWN_00408f20) then calls an inlined copy instead of it: LTCG tie, retail callers missing
 0x00481990	lane-d-r41	2026-11-19	FS_ShutdownServerIwdNames/ReferencedIwds verbatim lnxded-1.0 source: 63%, 62/68, first diff +0x0. Not kept.
 0x00448d00	bulk-d	2026-11-19	FUN_00448d00 (Q3 Winding_Plane, edge^2 > 0.25): bulk draft: matches 100%, 916/916 in incremental make try, but flips to 33%, 917/916 on a clean gate (LTCG tie); kept as body
-0x00419560	bulk-d6	2026-11-22	FUN_00419560: bulk draft bytes match, referee: at 0x00415130. CMainFrame::FUN_00419560 as a member matches 244/244 B, but CPrefsDlg::OnOK (0x439e50, PrefsDlg.cpp) calls it through its own extern "C" __fastcall FUN_00419560(CWnd*) declaration, so the callee binding fails if this row is claimed (an extern "C" definition drops the CString EH frame: 170 B, 30%). Needs PrefsDlg.cpp to call the member, owner/other-TU change. Body kept in source.
 0x0044a210	merge	2026-11-22	FUN_0044a210: matched in re-sweep without bulk-e6 XYWnd drafts; with them 87%, sizes 137/136, first diff +0x71
 0x00456f30	bulk-d7	2026-11-22	FUN_456f30: bulk draft: 80%, sizes 122/122, first diff +0x4a
 0x00456ff0	bulk-d7	2026-11-22	FUN_456ff0: bulk draft: 53%, sizes 557/629, first diff +0x5
@@ -1019,3 +997,4 @@ addr	agent	date	reason
 0x00419fc0	lane-d10	2026-11-24	FUN_00419fc0: 64%, sizes 17/14, first diff +0x6. Same cause as 0x419fa0 (FUN_0041a010 usercall callee unwritten); retail is 14 B because dir 0 is passed as xor edx, edx.
 0x00419fd0	lane-d10	2026-11-24	FUN_00419fd0: 88%, sizes 17/17, first diff +0x6. Same cause as 0x419fa0 (FUN_0041a010 usercall callee unwritten).
 0x00419ff0	lane-d10	2026-11-24	FUN_00419ff0: 88%, sizes 17/17, first diff +0x6. Same cause as 0x419fa0 (FUN_0041a010 usercall callee unwritten).
+0x00419560	lane-d10	2026-11-24	FUN_00419560: bulk draft bytes match, referee: at 0x00415130. CMainFrame::FUN_00419560 as a member matches 244/244 B, but CPrefsDlg::OnOK (0x439e50, PrefsDlg.cpp) calls it through its own extern "C" __fastcall FUN_00419560(CWnd*) declaration, so the callee binding fails if this row is claimed (an extern "C" definition drops the CString EH frame: 170 B, 30%). Needs PrefsDlg.cpp to call the member, owner/other-TU change. Body kept in source.
