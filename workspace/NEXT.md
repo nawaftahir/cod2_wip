@@ -235,3 +235,21 @@ PINNED (matched rows, plain C source, no annotation): LTCG does give edx args to
   0x44a210 OriginalButtonDown 136 B, 0x4702d0 957 B, 0x470690 960 B, 0x4209a0 385 B, 0x420b70/0x420b90 20 B each
   (UNKNOWN_00420930.cpp). 0x420930/0x420b30/0x420b50 wait for the stream-in-ebx convention.
 - Near misses with defer evidence: 0x46ff10 97%, 0x470c00 97% (fadd operand order), 0x4718b0 87%, 0x474230 78%.
+
+## 2026-11-25 lane e13: XYWnd/dlgcamera (branch radiant/bulk-e13)
+- 0x452b00 CXYWnd::PositionView MATCH (294 B, protected: mangling IAEXXZ). Form that paid: the point-list block
+  first (`if ((mode == 1||4||5||6||9) && count != 0) {...} else {...}`), count and point array as two separate
+  externs `int dword_010c4d84[]` + `float *dword_010c4d88[]` (a struct view hoists the count into ebx, 33%;
+  plain int/pointer externs unroll the loop, 463 B). select.cpp calls it as a real member through a friend
+  decl: Select_Brush 0x46f0b0 92 -> 95% (left: scheduling at +0x86 and +0x175).
+- DrawLight_Color 95 -> 97% by `float rgb[4], center[3], c[3]` and `sscanf(.., &c[0], &c[1], &c[2])` (an array
+  local changes the slot packer grouping); tail-only diff left.
+- Retail CDlgCamera message map is readable from the binary (AFX_MSGMAP table) and gives handler addresses and
+  ids; dlgcamera.cpp now carries the full map and member stubs (7 one-byte members renamed in matches.tsv).
+- 0x409f90 (99%) is the idStr::EnsureAlloced 0x4a0380 inline-vs-call: the fix is
+  `#pragma auto_inline(off)` on the blank line before `void idStr::EnsureAlloced` in util_str.cpp and `(on)` after
+  its closing brace. NOT applied: the edit was refused by the permission layer in this session; owner to allow it.
+- Same class, 98%: 0x40af90, 0x40bb00, 0x40bb70, 0x40aef0 getActiveTarget and 0x40a3d0: retail pushes two
+  immediate `push 0` for addTarget(NULL, FIXED) (0x49eae0), we emit `xor eax,eax; push eax; push eax`.
+- Tried (1 build, inconclusive: compile hit a C1083 temp-file collision with a parallel build): getActiveTarget
+  `addTarget(0, (positionType)0)` to turn xor/push/push into push 0 x2. Not retried; no source change kept.

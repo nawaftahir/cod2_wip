@@ -20,6 +20,7 @@ extern QEGlobals_t g_qeglobals;
 extern idCameraDef *g_splineList;
 extern int g_nUpdateBits;
 extern int DAT_011298b0;
+extern int DAT_011298b4;
 extern int DAT_010c2d7c;
 class CMainFrame;
 extern CMainFrame *dword_01233488;
@@ -59,11 +60,20 @@ void CDlgCamera::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CDlgCamera, CDialog)
 	ON_BN_CLICKED(1356, OnBtnAddevent)
 	ON_BN_CLICKED(1076, OnBtnAddtarget)
+	ON_BN_CLICKED(1357, FUN_00409de0)
+	ON_CBN_DBLCLK(1352, FUN_00409e00)
 	ON_CBN_SELCHANGE(1352, OnSelchangeComboSplines)
+	ON_LBN_SELCHANGE(1299, FUN_00409f70)
+	ON_LBN_DBLCLK(1299, FUN_00409f80)
 	ON_WM_DESTROY()
 	ON_BN_CLICKED(119, OnApply)
 	ON_COMMAND(ID_FILE_OPEN, OnFileOpen)
 	ON_COMMAND(ID_FILE_SAVE, OnFileSave)
+	ON_BN_CLICKED(122, FUN_0040a9b0)
+	ON_BN_CLICKED(1373, FUN_0040a9c0)
+	ON_BN_CLICKED(1377, FUN_0040a9d0)
+	ON_BN_CLICKED(1370, FUN_0040a9e0)
+	ON_BN_CLICKED(1372, FUN_0040aa10)
 END_MESSAGE_MAP()
 
 void FUN_00409930()
@@ -213,14 +223,57 @@ void CDlgCamera::OnFileSave()
 }
 
 // One-byte RET functions verified against retail; ownership/signatures provisional.
-extern "C" void FUN_00409de0() {}
 extern "C" void FUN_00409df0() {}
-extern "C" void FUN_00409e00() {}
-extern "C" void FUN_00409f70() {}
-extern "C" void FUN_00409f80() {}
-extern "C" void FUN_0040a9b0() {}
-extern "C" void FUN_0040a9c0() {}
-extern "C" void FUN_0040a9d0() {}
+void CDlgCamera::FUN_00409de0() {}
+void CDlgCamera::FUN_00409e00() {}
+void CDlgCamera::FUN_00409f70() {}
+void CDlgCamera::FUN_00409f80() {}
+void CDlgCamera::FUN_0040a9b0() {}
+void CDlgCamera::FUN_0040a9c0() {}
+void CDlgCamera::FUN_0040a9d0() {}
+
+BOOL CDlgCamera::OnInitDialog()
+{
+	CDialog::OnInitDialog();
+	setupFromCamera();
+	return TRUE;
+}
+
+void FUN_0040a3d0()
+{
+	g_dlgCamera.ShowWindow(SW_HIDE);
+	int old = DAT_011298b0;
+	DAT_011298b0 = 0;
+	if (old == 0xb)
+		FUN_0041b190(dword_01233488);
+	else if (old == 0xa)
+		FUN_0042beb0();
+	DAT_011298b4 = 0;
+	g_splineList->stopEdit();
+	g_nUpdateBits = -1;
+}
+
+void CDlgCamera::FUN_0040a9e0()
+{
+	UpdateData(TRUE);
+	int old = DAT_011298b0;
+	DAT_011298b0 = 9;
+	if (old == 0xb)
+		FUN_0041b190(dword_01233488);
+	else if (old == 0xa)
+		FUN_0042beb0();
+}
+
+void CDlgCamera::FUN_0040aa10()
+{
+	UpdateData(TRUE);
+	int old = DAT_011298b0;
+	DAT_011298b0 = 8;
+	if (old == 0xb)
+		FUN_0041b190(dword_01233488);
+	else if (old == 0xa)
+		FUN_0042beb0();
+}
 
 // Additional retail-matched short accessors and returns. Signatures are provisional.
 extern "C" int __fastcall FUN_0040abb0(const int *value) { return *value; }

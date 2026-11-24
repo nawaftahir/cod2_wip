@@ -108,11 +108,15 @@ extern brush_t selected_brushes;
 extern brush_t active_brushes;
 extern int g_nUpdateBits;
 
+void FUN_0046f0b0(brush_t *brush, bool bComplete, bool bStatus, bool bPositionView);
 class CXYWnd
 {
 public:
     unsigned char pad_00[0xf4];
     int m_nViewType;
+protected:
+    friend void FUN_0046f0b0(brush_t *brush, bool bComplete, bool bStatus, bool bPositionView);
+    void PositionView();
 };
 class CMainFrame
 {
@@ -191,7 +195,6 @@ extern int g_nUpdateBits;
 void FUN_004592f0(brush_t *b);
 void FUN_00459210(brush_t *b, brush_t *list);
 void FUN_0045a830(brush_t *b);
-void FUN_00452b00(CXYWnd *xy);
 void FUN_00424b10();
 void FUN_0042f5d0();
 void Brush_Free(brush_t *b);
@@ -526,7 +529,7 @@ void FUN_0046f0b0(brush_t *brush, bool bComplete, bool bStatus, bool bPositionVi
         dword_01233488->SetStatusText(2, strStatus);
     }
     if (bPositionView)
-        FUN_00452b00(dword_01233488->field_0788);
+        dword_01233488->field_0788->PositionView();
 }
 
 // select every face of a brush (a patch brush is moved whole)
