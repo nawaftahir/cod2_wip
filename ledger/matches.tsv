@@ -2487,14 +2487,6 @@ addr	size	source	symbol	name	tag
 0x0049fd00	22	src/universal/splines/splines.cpp	??9@YA_NABVidStr@@0@Z	YA_NABVidStr::9	SUPPORTED
 0x0049fd20	11	src/universal/splines/splines.cpp	??9@YA_NABVidStr@@PBD@Z	YA_NABVidStr::9	SUPPORTED
 0x0049fd30	15	src/universal/splines/splines.cpp	??9@YA_NPBDABVidStr@@@Z	YA_NPBDABVidStr::9	SUPPORTED
-0x00467dd0	10	src/radiant/entity.cpp	??0NormalFileWrapper@@QAE@PAU_iobuf@@@Z	NormalFileWrapper::NormalFileWrapper	SUPPORTED
-0x00467de0	7	src/radiant/entity.cpp	??0AbstractFileWrapper@@QAE@XZ	AbstractFileWrapper::AbstractFileWrapper	SUPPORTED
-0x00410c40	445	src/radiant/GfxWrapper.cpp	_FUN_00410c40	FUN_00410c40	PINNED
-0x00410540	21	src/radiant/GfxWrapper.cpp	?FUN_00410540@@YAXPAUbrush_t@@0@Z	FUN_00410540	SUPPORTED
-0x00410560	25	src/radiant/GfxWrapper.cpp	?FUN_00410560@@YAXPAUentityInst_t@@0@Z	FUN_00410560	SUPPORTED
-0x00453770	81	src/radiant/ZWnd.cpp	?OnLButtonDown@CZWnd@@IAEXIVCPoint@@@Z	CZWnd::OnLButtonDown	SUPPORTED
-0x004537d0	81	src/radiant/ZWnd.cpp	?OnMButtonDown@CZWnd@@IAEXIVCPoint@@@Z	CZWnd::OnMButtonDown	SUPPORTED
-0x00453830	81	src/radiant/ZWnd.cpp	?OnRButtonDown@CZWnd@@IAEXIVCPoint@@@Z	CZWnd::OnRButtonDown	SUPPORTED
 0x00416090	146	src/radiant/MainFrm.cpp	_FUN_00416090	FUN_00416090	UNNAMED
 0x00416130	146	src/radiant/MainFrm.cpp	_FUN_00416130	FUN_00416130	UNNAMED
 0x004161d0	146	src/radiant/MainFrm.cpp	_FUN_004161d0	FUN_004161d0	UNNAMED
