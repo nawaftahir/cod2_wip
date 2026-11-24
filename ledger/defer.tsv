@@ -1132,3 +1132,9 @@ addr	agent	date	reason
 0x0049cca0	lane-d	2026-11-24	idInterpolatedPosition::getPosition: bulk draft: 28%, sizes 427/452, first diff +0x5
 0x0049ce70	lane-d	2026-11-24	idCameraFOV::parse: bulk draft: 47%, sizes 1031/997, first diff +0x3
 0x0049eb60	lane-d	2026-11-24	idSplinePosition::getPosition: bulk draft: 77%, sizes 813/801, first diff +0x5; frame 0x3c vs 0x38, no stack-slot sharing
+0x00493c10	lane-d	2026-11-24	FUN_00493c10 (3x3 LU decompose): bulk draft: 91%, sizes 999/995, first diff +0x5; frame 0x50 vs 0x54, loop tail shape
+0x00494000	lane-d	2026-11-24	FUN_00494000 (LU back-substitute): bulk draft: 13%, sizes 461/495, first diff +0x5; retail unrolls by 4
+0x004941f0	lane-d	2026-11-24	FUN_004941f0 (refinement step): bulk draft: 24%, sizes 124/107, first diff +0x5
+0x00494260	lane-d	2026-11-24	FUN_00494260 (solve and refine): bulk draft: 59%, sizes 242/244, first diff +0x5
+0x00494360	lane-d	2026-11-24	FUN_00494360 (build system from points): bulk draft: 21%, sizes 150/157, first diff +0x3
+0x00494400	lane-d	2026-11-24	FUN_00494400 (solve, assert solver): bulk draft: 61%, sizes 121/121, first diff +0x5
