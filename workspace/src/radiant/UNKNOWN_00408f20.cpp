@@ -18,10 +18,10 @@ extern "C" void FUN_00408f40() {}
 
 // Retail 0x00408fd0 calls the filesystem shutdown and then tail-calls
 // Dvar_Shutdown (the latter is in the accepted dvar.cpp ledger).
-void FS_Shutdown();
+void FS_Shutdown(int closemfp);
 void Dvar_Shutdown();
 extern "C" void FUN_00408fd0()
 {
-    FS_Shutdown();
+    FS_Shutdown(0);
     Dvar_Shutdown();
 }

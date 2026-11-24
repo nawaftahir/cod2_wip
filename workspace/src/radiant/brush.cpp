@@ -36,7 +36,8 @@ extern void Sys_Printf(const char *fmt, ...); extern void Error(const char *erro
 extern int FUN_0045f860(const vec3_t a, const vec3_t b, float eps);
 extern void FUN_00433830(patchMesh_t *p);
 extern void FUN_0045ebf0(face_t *f, float h, float w, bool a);
-extern void *FUN_004267d0(patchMesh_t *p, int layer, int a, int b);
+struct mesh_t;
+extern mesh_t *FUN_004267d0(patchMesh_t *p, int layer, int *x, int *y);
 extern void FUN_0045a830(brush_t *b);
 extern void FUN_0045a600(brush_t *b);
 extern void FUN_0042cc50(patch_t *p);
@@ -820,15 +821,15 @@ void FUN_00455cf0(brushdef_t *in, const face_t *f, brushdef_t **front, brushdef_
     (*FUN_0059c468)(brush_colorWhite, &nf->color);
     FUN_004559f0(b, true, true);
     Brush_RemoveEmptyFaces(b);
-    if (b->faceCount >= 4)
-    {
-        FUN_004671b0(b, in->owner);
-        *back = b;
-    }
-    else
+    if (b->faceCount < 4)
     {
         FUN_00458af0(b);
         *back = NULL;
+    }
+    else
+    {
+        FUN_004671b0(b, in->owner);
+        *back = b;
     }
     b = FUN_00458dc0(in);
     nf = Face_Alloc(b, f);
@@ -1951,7 +1952,7 @@ void FUN_004593c0(brushdef_t *b, face_t *face, const texdef_t *td)
 }
 
 
-#line 2089
+#line 2087
 void FUN_00459430(brushdef_t *b, face_t *f, radmat_t *mat)
 {
     assert(b);
@@ -1962,7 +1963,7 @@ void FUN_00459430(brushdef_t *b, face_t *f, radmat_t *mat)
 }
 
 
-#line 2102
+#line 2100
 void FUN_00459530(brushdef_t *b, face_t *f, const texdef_t *td)
 {
     assert(b);
@@ -1976,7 +1977,7 @@ void FUN_00459530(brushdef_t *b, face_t *f, const texdef_t *td)
 }
 
 
-#line 2116
+#line 2114
 void FUN_004596a0(brushdef_t *b, face_t *f, int scale)
 {
     assert(b);
@@ -1987,8 +1988,8 @@ void FUN_004596a0(brushdef_t *b, face_t *f, int scale)
         FUN_00459920(b, scale);
         return;
     }
-    f->lmTexdef.scale[0] = (float)(f->texdef[1].radMat->width * scale);
-    f->lmTexdef.scale[1] = (float)(f->texdef[1].radMat->height * scale);
+    f->texdef[1].scale[0] = (float)(f->texdef[1].radMat->width * scale);
+    f->texdef[1].scale[1] = (float)(f->texdef[1].radMat->height * scale);
 }
 
 
@@ -2028,9 +2029,9 @@ void FUN_00459920(brushdef_t *b, int scale)
 {
     for (int i = 0; i < b->faceCount; i++)
     {
-        face_t *f = &b->faces[i];
-        f->lmTexdef.scale[0] = (float)(f->texdef[1].radMat->width * scale);
-        f->lmTexdef.scale[1] = (float)(f->texdef[1].radMat->height * scale);
+        texdef_t *td = &b->faces[i].texdef[1];
+        td->scale[0] = (float)(td->radMat->width * scale);
+        td->scale[1] = (float)(td->radMat->height * scale);
     }
     FUN_004559f0(b, true, true);
     if (b->patch)
@@ -2267,7 +2268,7 @@ void FUN_0045a600(brush_t *b)
     b->version = b->def->version;
 }
 
-#line 2483
+#line 2481
 void FUN_0045a830(brush_t *b)
 {
     assert(b);
@@ -2282,7 +2283,7 @@ void FUN_0045a830(brush_t *b)
 
 
 // 0x0045a920 (1502 B): write one brush as Maya mel
-#line 2501
+#line 2499
 void FUN_0045a920(brush_t *b, FILE *file, bool merge, int a3, int a4, float scale)
 {
     assert(b);
@@ -2383,14 +2384,14 @@ void FUN_0045a920(brush_t *b, FILE *file, bool merge, int a3, int a4, float scal
     fprintf(file, "\tprogressWindow -edit -st \"%d of %d objects\";\r\n", dword_01129984, dword_01129980);
 }
 
-#line 2612
+#line 2610
 void FUN_0045af00(brush_t *b)
 {
     assert(b);
     assert(b->def);
     if (b->faces)
     {
-        FaceRender_FreeArray(b, b->faces, b->faceCount);
+        FaceRender_FreeArray(b, b->faces, 0);
         b->faces = NULL;
         b->faceCount = 0;
     }
@@ -2411,7 +2412,7 @@ void FUN_0045b260(brushdef_t *b, const float *rot, const float *origin)
 }
 
 // 0x0045b310 (260 B): build a solid brush from drag corners
-#line 2714
+#line 2712
 void FUN_0045b310(brushdef_t *b, const vec3_t mins, const vec3_t maxs)
 {
     assert(b);
@@ -3420,7 +3421,7 @@ void FUN_0045e1a0(brushdef_t *b, const vec3_t move, bool bSnap)
 
 void FUN_0045e2c0(brushdef_t *b)
 {
-    for (int i = 0; i < b->faceCount; i++)
+    for (int i = 0; i < b->faceCount; i += 2)
     {
         face_t *f = &b->faces[i];
         Sys_Printf("Face %i\n", i);
@@ -3781,7 +3782,7 @@ void FUN_0045f720(brush_t *head)
             void **cache = (void **)((char *)pm + 0x3824);
             if (*cache)
                 free(*cache);
-            void *mesh = FUN_004267d0(pm, brush_layer, 0, 0);
+            mesh_t *mesh = FUN_004267d0(pm, brush_layer, NULL, NULL);
             (*(unsigned short *)((char *)pm + 0x382c))++;
             *cache = mesh;
         }
