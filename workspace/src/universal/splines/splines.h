@@ -250,11 +250,13 @@ public:
 	}
 
 	idVec3_t *getPoint(int index) {
+#line 296
 		assert(index >= 0 && index < controlPoints.Num());
 		return controlPoints[index];
 	}
 
 	idVec3_t *getSegmentPoint(int index) {
+#line 302
 		assert(index >= 0 && index < splinePoints.Num());
 		return splinePoints[index];
 	}
@@ -566,6 +568,7 @@ public:
 	}
 
 	virtual idVec3_t *getPoint(int index) {
+#line 688
 		assert(index >= 0 && index < 2);
 		if (index == 0) {
 			return &startPos;
@@ -641,12 +644,12 @@ public:
 	virtual void start(long t) {
 		idCameraPosition::start(t);
 		target.initPosition(t, time);
+		lastTime = startTime;
+		distSoFar = 0.0;
 		calcVelocity(target.totalDistance());
 	}
 
-	virtual const idVec3_t *getPosition(long t) { 
-		return target.getPosition(t);
-	}
+	virtual const idVec3_t *getPosition(long t);
 
 	//virtual const idVec3_t *getPosition(long t) const { 
 
@@ -685,6 +688,8 @@ public:
 
 protected:
 	idSplineList target;
+	long lastTime;
+	float distSoFar;
 };
 
 class idCameraFOV {
@@ -925,6 +930,7 @@ public:
 	}
 
 	void setActiveTarget(int index) {
+#line 1158
 		assert(index >= 0 && index < targetPositions.Num());
 		activeTarget = index;
 	}

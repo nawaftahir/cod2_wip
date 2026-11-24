@@ -1001,7 +1001,7 @@ addr	agent	date	reason
 0x0041e440	bulk-d6	2026-11-22	FUN_0041e440: not drafted. inline/template shim emitted in this TU (ATL CStringT, MFC inline, idCameraDef/idList/idStr instances) with register-passed arguments; not drafted: no shared header for these types.
 0x0041e4f0	bulk-d6	2026-11-22	FUN_0041e4f0: not drafted. inline/template shim emitted in this TU (ATL CStringT, MFC inline, idCameraDef/idList/idStr instances) with register-passed arguments; not drafted: no shared header for these types.
 0x0041e520	bulk-d6	2026-11-22	FUN_0041e520: not drafted. inline/template shim emitted in this TU (ATL CStringT, MFC inline, idCameraDef/idList/idStr instances) with register-passed arguments; not drafted: no shared header for these types.
-0x0041e540	bulk-d6	2026-11-22	FUN_0041e540: not drafted. inline/template shim emitted in this TU (ATL CStringT, MFC inline, idCameraDef/idList/idStr instances) with register-passed arguments; not drafted: no shared header for these types.
+0x0041e540	claude	2026-11-24	idCameraDef::startNewCamera (Q3 splines.h inline, emitted in MainFrm; callers 41c0e0/41c130/41c180 = startNewCamera(INTERPOLATED/SPLINE/FIXED)). Including splines/q_shared.h+splines.h in MainFrm matches the 3 callers and gets this to 99% (256/256, +0x2a: retail new idSplinePosition 0xc0 B, ours 0xb8), but flips 7 splines.cpp rows + 0x41d5e0 (inline COMDATs bind from MainFrm). Needs the 0xc0 class layout and a COMDAT-ownership fix first.
 0x0041e640	bulk-d6	2026-11-22	FUN_0041e640: not drafted. inline/template shim emitted in this TU (ATL CStringT, MFC inline, idCameraDef/idList/idStr instances) with register-passed arguments; not drafted: no shared header for these types.
 0x0041e6a0	bulk-d6	2026-11-22	FUN_0041e6a0: not drafted. inline/template shim emitted in this TU (ATL CStringT, MFC inline, idCameraDef/idList/idStr instances) with register-passed arguments; not drafted: no shared header for these types.
 0x0041e6d0	bulk-d6	2026-11-22	FUN_0041e6d0: not drafted. inline/template shim emitted in this TU (ATL CStringT, MFC inline, idCameraDef/idList/idStr instances) with register-passed arguments; not drafted: no shared header for these types.
@@ -1157,3 +1157,23 @@ addr	agent	date	reason
 0x004675e0	bulk-e9	2026-11-24	bulk draft DROPPED: 100% MATCH 88/88 B alone, but the body flips protected FUN_004656b0, FUN_00465780 and FUN_00467510 (FUN_00465bf0 caller set); draft in workspace/drafts/entity_master.cpp
 0x00467d00	bulk-e9	2026-11-24	bulk draft DROPPED: 100% MATCH 204/204 B alone, but the body flips protected FUN_004656b0, FUN_00465780 and FUN_00467510 (FUN_00465bf0 caller set); draft in workspace/drafts/entity_master.cpp
 0x00453960	bulk-e9	2026-11-24	bulk draft: 47%, sizes 309/305, first diff +0x32 (Q3 OnMouseMove; retail keeps point.y in edi and the frame pointer in ebx, we swap them)
+0x00499890	lane-d	2026-11-24	idVec3_t::operator==: bulk draft: 26%, sizes 100/152, first diff +0x0; retail uses LTCG register args (esi/edi)
+0x00499d80	lane-d	2026-11-24	idCameraDef::idCameraDef: bulk draft: 77%, sizes 123/129, first diff +0x5b
+0x0049a1a0	lane-d	2026-11-24	startCamera(int,int): bulk draft: 54%, sizes 46/28, first diff +0x6
+0x0049a9c0	lane-d	2026-11-24	idSplineList::getPosition: bulk draft: 73%, sizes 445/452, first diff +0x5
+0x0049bed0	lane-d	2026-11-24	idCameraDef::parse: bulk draft: 34%, sizes 1222/988, first diff +0x18; retail inlines the parse-session buffer handling
+0x0049c2b0	lane-d	2026-11-24	idCameraDef::load: bulk draft: 75%, sizes 126/138, first diff +0x31; retail inlines Com_BeginParseSession/Com_EndParseSession
+0x0049cca0	lane-d	2026-11-24	idInterpolatedPosition::getPosition: bulk draft: 28%, sizes 427/452, first diff +0x5
+0x0049ce70	lane-d	2026-11-24	idCameraFOV::parse: bulk draft: 47%, sizes 1031/997, first diff +0x3
+0x0049eb60	lane-d	2026-11-24	idSplinePosition::getPosition: bulk draft: 77%, sizes 813/801, first diff +0x5; frame 0x3c vs 0x38, no stack-slot sharing
+0x00493c10	lane-d	2026-11-24	FUN_00493c10 (3x3 LU decompose): bulk draft: 91%, sizes 999/995, first diff +0x5; frame 0x50 vs 0x54, loop tail shape
+0x00494000	lane-d	2026-11-24	FUN_00494000 (LU back-substitute): bulk draft: 13%, sizes 461/495, first diff +0x5; retail unrolls by 4
+0x004941f0	lane-d	2026-11-24	FUN_004941f0 (refinement step): bulk draft: 24%, sizes 124/107, first diff +0x5
+0x00494260	lane-d	2026-11-24	FUN_00494260 (solve and refine): bulk draft: 59%, sizes 242/244, first diff +0x5
+0x00494360	lane-d	2026-11-24	FUN_00494360 (build system from points): bulk draft: 21%, sizes 150/157, first diff +0x3
+0x00494400	lane-d	2026-11-24	FUN_00494400 (solve, assert solver): bulk draft: 61%, sizes 121/121, first diff +0x5
+0x0043fbc0	lane-d	2026-11-24	FUN_0043fbc0 (texture matrix to size/shift/rotate): bulk draft: 68%, sizes 1529/1540, first diff +0xc
+0x004988d0	lane-d	2026-11-24	angles_t::toVectors: bulk draft: 54%, sizes 448/368, first diff +0x7
+0x00498a40	lane-d	2026-11-24	angles_t::toForward: bulk draft: 47%, sizes 185/133, first diff +0x7
+0x004a8a10	lane-d	2026-11-24	GetHashCode: bulk draft: 88%, sizes 60/60, first diff +0x1; retail takes len in edx and str in ecx, ours the reverse
+0x004a9ba0	lane-d	2026-11-24	SL_FreeString: bulk draft: 99%, sizes 815/815, first diff +0x8; same register swap on the inlined GetHashCode call

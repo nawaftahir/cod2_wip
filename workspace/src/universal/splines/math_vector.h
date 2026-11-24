@@ -113,8 +113,8 @@ static inline float idSqrt(float x) {
     return x * y1;
 }
 #else
-static inline double idSqrt(double x) {
-    return sqrt(x);
+static inline float idSqrt(float x) {
+    return (float)sqrt(x);
 }
 #endif
 
