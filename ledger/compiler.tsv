@@ -77,6 +77,10 @@ addr	size	source	symbol	name	tag
 0x00402800	15	src/radiant/AdvCurveDlg.cpp	?Attach@?$CSimpleStringT@D$0A@@ATL@@AAEXPAUCStringData@2@@Z	?Attach@?$CSimpleStringT@D$0A@@ATL@@AAEXPAUCStringData@2@@Z	AUTO
 0x00402810	4	src/radiant/AdvCurveDlg.cpp	?data@CStringData@ATL@@QAEPAXXZ	?data@CStringData@ATL@@QAEPAXXZ	AUTO
 0x00411360	33	src/radiant/MainFrm.cpp	??_ECMainFrame@@UAEPAXI@Z	CMainFrame::scalar deleting destructor	AUTO
-0x0041eea0	33	src/radiant/MainFrm.cpp	??_GCMainFrame@@UAEPAXI@Z	CMainFrame::scalar deleting destructor	AUTO
+0x0041eea0	33	src/radiant/MainFrm.cpp	??_GidInterpolatedPosition@@UAEPAXI@Z	idInterpolatedPosition::scalar deleting destructor	AUTO
 0x0041f560	19	src/radiant/MainFrm.cpp	?AfxGetMainWnd@@YGPAVCWnd@@XZ	AfxGetMainWnd	AUTO
 0x00425130	30	src/radiant/UNKNOWN_00425080.cpp	??_EStdClientUser@@UAEPAXI@Z	scalar deleting destructor	AUTO
+0x0041f2d0	111	src/radiant/MainFrm.cpp	??4?$CSimpleStringT@D$0A@@ATL@@QAEAAV01@ABV01@@Z	CSimpleStringT::operator=	AUTO
+0x0041f340	98	src/radiant/MainFrm.cpp	?CloneData@?$CSimpleStringT@D$0A@@ATL@@CAPAUCStringData@2@PAU32@@Z	CSimpleStringT::CloneData	AUTO
+0x0041f3b0	13	src/radiant/MainFrm.cpp	?AddRef@CStringData@ATL@@QAEXXZ	CStringData::AddRef	AUTO
+0x0041f410	16	src/radiant/MainFrm.cpp	??0CFont@@QAE@XZ	CFont::CFont	AUTO

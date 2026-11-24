@@ -69,9 +69,9 @@ struct brushdef_t
 };
 
 struct faceInst_t { int field_00, field_04, field_08; };
-struct eclass_t { int pad_00; const char *name; int fixedsize; };
+struct eclass_t { int pad_00; const char *name; int fixedsize; unsigned char pad_0c[0x148]; int *model; unsigned char pad_158[8]; int nShowFlags; };
 struct epair_t;
-struct entity_t { unsigned char pad_00[0x50]; eclass_t *eclass; unsigned char pad_54[0x64 - 0x54]; epair_t *epairs; };
+struct entity_t { unsigned char pad_00[0x50]; eclass_t *eclass; eclass_t *modelClass; unsigned char pad_58[0x64 - 0x58]; epair_t *epairs; };
 struct brush_t;
 struct prefab_t;
 struct entityInst_t
@@ -81,7 +81,9 @@ struct entityInst_t
     entity_t *def;
     unsigned char pad_0c[0xc];
     brush_t *ownerNext;
-    unsigned char pad_1c[0x38 - 0x1c];
+    unsigned char pad_1c[0x34 - 0x1c];
+    void *modelInst;
+
     prefab_t *prefab;
     brush_t *ownerHead() { return ownerNext; }
     brush_t *ownerEnd() { return (brush_t *)((char *)this + 0xc); }
@@ -195,7 +197,7 @@ void FUN_004678c0(entityInst_t *e);
 int FUN_00477ba0(int iItem, eclass_t *pec);
 void FUN_0041a010(int dir, int grid);
 void FUN_00470a50(float mins[3], float maxs[3]);
-extern trace_t FUN_0046eca0(const float *origin, const float *dir, int flags);
+trace_t FUN_0046eca0(const float *origin, const float *dir, int flags);
 
 // set the drag mode, leaving the old patch modes (mode in esi in retail)
 void FUN_0046e4e0(int mode)
@@ -206,6 +208,239 @@ void FUN_0046e4e0(int mode)
         FUN_0041b190(dword_01233488);
     if (mode != 10 && old == 10)
         FUN_0042beb0();
+}
+
+
+// brush->owner->def->modelClass->model hit test (retail frame 0x50080)
+struct orientation_t { float origin[3]; float axis[3][3]; };
+struct faceRender_t;
+void FUN_004650b0(entity_t *ent, orientation_t *or);
+void OrientationPosToLocal(const orientation_t *or, const float *world, float *local);
+void OrientationDirToLocal(const orientation_t *or, const float *world, float *local);
+bool FUN_00465d80(entity_t *ent, const char *key);
+char *ValueForKey(epair_t *&e, const char *key);
+bool FUN_00436bc0(const float *a, const float *b, const float *c, const float *origin, const float *dir, float *t, float *u, float *v);
+bool FUN_00436dc0(const float *origin, const float *dir, patch_t *patch, float *dist, int a, int b, int c, float *normal);
+faceRender_t *FUN_00458fa0(brush_t *b, const float *origin, const float *dir, float *dist, float *outNormal);
+bool FUN_0045b420(brush_t *b);
+int PlaneFromPoints(float plane[4], const float a[3], const float b[3], const float c[3]);
+void FUN_0046fbe0(bool bDeselectFaces);
+extern int (__cdecl *dword_0059c4a0)(int handle, float (*verts)[3], int maxVerts, unsigned short *indices, int maxIndices);
+void OrientationDirToWorld(const orientation_t *orient, const float *dir, float *out);
+class CPrefsDlg;
+extern CPrefsDlg *dword_01233b64;
+extern entityInst_t *DAT_012334ec;
+void FUN_0046ea90(const float *origin, const float *dir, int flags, trace_t *t, brush_t *list);
+bool FUN_0044f630(brushdef_t *b);
+extern int DAT_01128d90;
+
+bool FUN_0046e520(const float *org, const float *dir, brush_t *brush, float *dist, float *normal)
+{
+    float verts[0x4000][3];
+    unsigned short indices[0x10000];
+    orientation_t orient;
+    float angles[3];
+    float lorg[3], ldir[3], tmp[3];
+    float plane[4];
+    float t;
+
+#line 61
+    assert(brush->owner->def->modelClass);
+    assert(brush->owner->def->modelClass->model);
+    assert(brush->owner->def->modelClass->model[1]);
+    int count = dword_0059c4a0(brush->owner->def->modelClass->model[1], verts, 0x4000, indices, 0x10000);
+    if (count == 0)
+        return true;
+    entity_t *ent = brush->owner->def;
+    if (!FUN_00465d80(ent, "angles"))
+    {
+        angles[0] = 0;
+        angles[1] = 0;
+        angles[2] = 0;
+    }
+    else
+        sscanf(ValueForKey(ent->epairs, "angles"), "%f %f %f", &angles[0], &angles[1], &angles[2]);
+    AngleVectors(angles, orient.axis[0], tmp, orient.axis[2]);
+    orient.origin[0] = ((float *)ent)[22];
+    orient.origin[1] = ((float *)ent)[23];
+    orient.origin[2] = ((float *)ent)[24];
+    orient.axis[1][0] = 0.0f - tmp[0];
+    orient.axis[1][1] = 0.0f - tmp[1];
+    orient.axis[1][2] = 0.0f - tmp[2];
+    OrientationPosToLocal(&orient, org, lorg);
+    char *scaleStr = ValueForKey(brush->owner->def->epairs, "modelscale");
+    if (scaleStr)
+    {
+        float scale = (float)atof(scaleStr);
+        if (scale > 0.0f)
+        {
+            float inv = 1.0f / scale;
+            lorg[0] *= inv;
+            lorg[1] *= inv;
+            lorg[2] *= inv;
+        }
+    }
+    OrientationDirToLocal(&orient, dir, ldir);
+    float best = 3.402823466e+38F;
+    for (int i = 0; i < count; i += 3)
+    {
+        unsigned short *tri = &indices[i];
+        if (FUN_00436bc0(verts[tri[0]], verts[tri[2]], verts[tri[1]], lorg, ldir, &t, 0, 0) && !(best <= t))
+        {
+            if (normal)
+            {
+                PlaneFromPoints(plane, verts[tri[0]], verts[tri[2]], verts[tri[1]]);
+                normal[0] = plane[0];
+                normal[1] = plane[1];
+                normal[2] = plane[2];
+            }
+            best = t;
+        }
+    }
+    if (best == 3.402823466e+38F)
+        return false;
+    *dist = best;
+    return true;
+}
+
+// actor/model/patch aware brush hit test (dir in esi in retail)
+faceInst_t *FUN_0046e930(const float *dir, const float *origin, int flags, brush_t *brush, float *dist, float *normal)
+{
+    orientation_t orient;
+    float ldir[3], lorg[3];
+    trace_t tr;
+
+    faceInst_t *hit = (faceInst_t *)FUN_00458fa0(brush, origin, dir, dist, normal);
+    if (hit)
+    {
+        if (brush->patch)
+        {
+            if (!(flags & 0x100) && !FUN_00436dc0(origin, dir, brush->patch, dist, 0, 0, 0, normal))
+                return NULL;
+            return hit;
+        }
+        entityInst_t *inst = brush->owner;
+        if (!inst->prefab)
+        {
+            if (inst->modelInst && (((int *)dword_01233b64)[179] & 0x10000))
+            {
+                if ((flags & 4) && !_strnicmp(inst->def->eclass->name, "actor", 5))
+                    return hit;
+                return FUN_0046e520(origin, dir, brush, dist, normal) ? hit : NULL;
+            }
+            return hit;
+        }
+        FUN_004650b0(inst->def, &orient);
+        OrientationDirToLocal(&orient, dir, ldir);
+        OrientationPosToLocal(&orient, origin, lorg);
+        tr.dist = 262144.0f;
+        FUN_0046ea90(lorg, ldir, flags, &tr, &inst->prefab->head);
+        if (tr.dist != 262144.0f)
+        {
+            *dist = tr.dist;
+            if (normal)
+                OrientationDirToWorld(&orient, (float *)tr.field_10, normal);
+            return hit;
+        }
+        return NULL;
+    }
+    return hit;
+}
+
+// Q3 Test_Ray list walk (list head in edi in retail)
+void FUN_0046ea90(const float *origin, const float *dir, int flags, trace_t *t, brush_t *list)
+{
+    bool selected = list == &selected_brushes;
+
+    for (brush_t *brush = list->next; brush != list; brush = brush->next)
+    {
+        if ((flags & 4) && brush->owner != DAT_012334ec && !(brush->owner->def->eclass->nShowFlags & 0x10))
+            continue;
+#line 2574 ".\\XYWnd.cpp"
+        assert(brush);
+#line 178 ".\\select.cpp"
+        if (brush->hiddenBrush || FUN_0044f630(brush->def))
+            continue;
+        assert(brush->def->owner == brush->owner->def);
+        eclass_t *ec = brush->owner->def->eclass;
+        if (!(ec->nShowFlags & 0x10) && (((flags >> 8) & 2) && ec->fixedsize || ((flags >> 8) & 4) && FUN_0045b420(brush)))
+            continue;
+        if (brush->patch && (!((int *)dword_01233b64)[178] || (flags & 0x10)))
+            continue;
+        if (((int *)dword_01233b64)[117] && strstr(brush->def->faces[0].texdef[DAT_01128d90].mat->name, "sky"))
+            continue;
+        float dist;
+        float normal[3];
+        faceInst_t *hit = FUN_0046e930(dir, origin, flags, brush, &dist, normal);
+        if (hit && dist > 0.0f && dist < t->dist)
+        {
+            t->field_10[0] = ((int *)normal)[0];
+            t->field_10[1] = ((int *)normal)[1];
+            t->field_10[2] = ((int *)normal)[2];
+            t->face = hit;
+            t->dist = dist;
+            t->brush = brush;
+            t->selected = selected;
+        }
+    }
+}
+
+// Q3 Test_Ray; returns the closest hit (retail returns trace_t through a hidden pointer)
+trace_t FUN_0046eca0(const float *origin, const float *dir, int flags)
+{
+    trace_t t;
+    float dist;
+
+    memset(&t, 0, sizeof(t));
+    t.dist = 262144.0f;
+    if (flags & 0x40)
+    {
+        CPtrArray array;
+        brush_t *pToSelect = (selected_brushes.next == &selected_brushes) ? NULL : selected_brushes.next;
+        FUN_0046fbe0(true);
+        for (brush_t *brush = active_brushes.next; brush != &active_brushes; brush = brush->next)
+        {
+#line 2574 ".\\XYWnd.cpp"
+            assert(brush);
+#line 450 ".\\select.cpp"
+            if (!brush->hiddenBrush && !FUN_0044f630(brush->def) && (!brush->patch || (((int *)dword_01233b64)[178] && !(flags & 0x10))))
+            {
+                if (FUN_0046e930(dir, origin, flags, brush, &dist, NULL))
+                    array.Add(brush);
+            }
+        }
+        if (array.GetSize() > 0)
+        {
+            int i;
+            for (i = 0; i < array.GetSize(); i++)
+            {
+                if (array[i] == pToSelect)
+                    break;
+            }
+            if (i < array.GetSize())
+                pToSelect = (brush_t *)array[i > 0 ? i - 1 : array.GetSize() - 1];
+            else
+                pToSelect = (brush_t *)array[0];
+        }
+        if (pToSelect)
+        {
+            t.field_10[0] = 0;
+            t.field_10[1] = 0;
+            t.field_10[2] = 0x3f800000;
+            t.face = (faceInst_t *)FUN_00458fa0(pToSelect, origin, dir, &dist, (float *)t.field_10);
+            t.dist = dist;
+            t.brush = pToSelect;
+            t.selected = false;
+            return t;
+        }
+    }
+    if (!(flags & 1))
+        FUN_0046ea90(origin, dir, flags, &t, &active_brushes);
+    if (!(flags & 2))
+        FUN_0046ea90(origin, dir, flags, &t, &selected_brushes);
+    if ((flags & 4) && !t.brush)
+        return FUN_0046eca0(origin, dir, flags - 4);
+    return t;
 }
 
 // Q3 Test_Ray retried at the four diagonal 1-unit offsets
@@ -583,6 +818,163 @@ void ExpandBounds(const float addedmins[3], const float addedmaxs[3], float mins
 extern bool DAT_0058fbed;
 void FUN_00452e30(CXYWnd *xy);
 void FUN_00452f50(CXYWnd *xy);
+
+void FUN_0045e0b0(brushdef_t *b);
+void FUN_0045a220(brushdef_t *b, bool snap);
+void FUN_00475350();
+void Sys_MarkMapModified();
+void FUN_00443f50(brushdef_t *brush);
+void FUN_004433b0();
+void Undo_GeneralStart(char *operation);
+void Undo_End();
+void Undo_AddBrush(brushdef_t *brush);
+void FUN_00459530(face_t *f, const texdef_t *td);
+void FUN_004598b0(brushdef_t *b, const texdef_t *td);
+void FUN_004593c0(face_t *f, const texdef_t *td);
+void FUN_004597f0(brushdef_t *b, const texdef_t *td, int flags);
+void FUN_004596a0(face_t *f, int size);
+void FUN_00459920(brushdef_t *b, int size);
+
+// 0x0046ff10 (953 B): set the texture of the selected faces or brushes, with undo
+void FUN_0046ff10(const texdef_t *td, int flags)
+{
+    int selCount = g_SelectedFaces.GetSize();
+    const char *name;
+    if (selCount != 0)
+        name = "set face textures";
+    else if (selected_brushes.next == &selected_brushes)
+        return;
+    else
+        name = "set brush textures";
+    FUN_004433b0();
+    Undo_GeneralStart((char *)name);
+    for (int i = 0; i < selCount; i++)
+    {
+        SelFace selFace = g_SelectedFaces[i];
+        Undo_AddBrush(selFace.brush->def);
+#line 828
+        assert(selFace.face == &selFace.brush->faces[selFace.index]);
+        assert(selFace.brush->version == selFace.brush->def->version);
+        assert(selFace.brush->faceCount == selFace.brush->def->faceCount);
+        FUN_004593c0(&selFace.brush->def->faces[selFace.index], td);
+        FUN_0045a220(selFace.brush->def, true);
+        if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
+            FUN_00475350();
+        Sys_MarkMapModified();
+        selFace.brush->def->version++;
+        FUN_0045e0b0(selFace.brush->def);
+        FUN_00443f50(selFace.brush->def);
+        FUN_0045a830(selFace.brush);
+#line 839
+        assert(selFace.face == &selFace.brush->faces[selFace.index]);
+        assert(selFace.brush->version == selFace.brush->def->version);
+    }
+    for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+    {
+        if (!b->owner->def->eclass->fixedsize)
+        {
+            Undo_AddBrush(b->def);
+            FUN_004597f0(b->def, td, flags);
+            FUN_00443f50(b->def);
+        }
+    }
+    Undo_End();
+    g_nUpdateBits = -1;
+}
+
+// 0x004702d0 (957 B): set the texture mapping mode of the selection, with undo
+void FUN_004702d0(const texdef_t *td)
+{
+    int selCount = g_SelectedFaces.GetSize();
+    const char *name;
+    if (selCount != 0)
+        name = "set face texture mapping";
+    else if (selected_brushes.next == &selected_brushes)
+        return;
+    else
+        name = "set brush texture mapping";
+    FUN_004433b0();
+    Undo_GeneralStart((char *)name);
+    for (int i = 0; i < selCount; i++)
+    {
+        SelFace selFace = g_SelectedFaces[i];
+        Undo_AddBrush(selFace.brush->def);
+#line 875
+        assert(selFace.face == &selFace.brush->faces[selFace.index]);
+        assert(selFace.brush->version == selFace.brush->def->version);
+        assert(selFace.brush->faceCount == selFace.brush->def->faceCount);
+        FUN_00459530(&selFace.brush->def->faces[selFace.index], td);
+        FUN_0045a220(selFace.brush->def, true);
+        if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
+            FUN_00475350();
+        Sys_MarkMapModified();
+        selFace.brush->def->version++;
+        FUN_0045e0b0(selFace.brush->def);
+        FUN_00443f50(selFace.brush->def);
+        FUN_0045a830(selFace.brush);
+#line 886
+        assert(selFace.face == &selFace.brush->faces[selFace.index]);
+        assert(selFace.brush->version == selFace.brush->def->version);
+    }
+    for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+    {
+        if (!b->owner->def->eclass->fixedsize)
+        {
+            Undo_AddBrush(b->def);
+            FUN_004598b0(b->def, td);
+            FUN_00443f50(b->def);
+        }
+    }
+    Undo_End();
+    g_nUpdateBits = -1;
+}
+
+// 0x00470690 (960 B): set the sample size of the selection, with undo
+void FUN_00470690(int size)
+{
+    int selCount = g_SelectedFaces.GetSize();
+    const char *name;
+    if (selCount != 0)
+        name = "set face samplesize";
+    else if (selected_brushes.next == &selected_brushes)
+        return;
+    else
+        name = "set brush samplesize";
+    FUN_004433b0();
+    Undo_GeneralStart((char *)name);
+    for (int i = 0; i < selCount; i++)
+    {
+        SelFace selFace = g_SelectedFaces[i];
+        Undo_AddBrush(selFace.brush->def);
+#line 922
+        assert(selFace.face == &selFace.brush->faces[selFace.index]);
+        assert(selFace.brush->version == selFace.brush->def->version);
+        assert(selFace.brush->faceCount == selFace.brush->def->faceCount);
+        FUN_004596a0(&selFace.brush->def->faces[selFace.index], size);
+        FUN_0045a220(selFace.brush->def, true);
+        if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
+            FUN_00475350();
+        Sys_MarkMapModified();
+        selFace.brush->def->version++;
+        FUN_0045e0b0(selFace.brush->def);
+        FUN_00443f50(selFace.brush->def);
+        FUN_0045a830(selFace.brush);
+#line 933
+        assert(selFace.face == &selFace.brush->faces[selFace.index]);
+        assert(selFace.brush->version == selFace.brush->def->version);
+    }
+    for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+    {
+        if (!b->owner->def->eclass->fixedsize)
+        {
+            Undo_AddBrush(b->def);
+            FUN_00459920(b->def, size);
+            FUN_00443f50(b->def);
+        }
+    }
+    Undo_End();
+    g_nUpdateBits = -1;
+}
 
 // Q3 Select_Clone: copy, paste, nudge by one grid step
 void FUN_0046fe50()
