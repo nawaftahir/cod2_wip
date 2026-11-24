@@ -19,11 +19,12 @@ struct brush_t
     brush_t *next;
     struct entityInst_t *owner;
     brush_t *onext;
-    unsigned char pad10[4];
+    int pad10;
     brushdef_t *def;
-    unsigned char pad18[8];
+    int pad18;
+    int pad1c;
     void *patch;
-    unsigned char pad24[2];
+    short pad24;
     unsigned char hiddenBrush;
 };
 
@@ -3597,27 +3598,30 @@ void CXYWnd::OnSize(UINT nType, int cx, int cy)
 // 0x00452990
 void CXYWnd::Clip()
 {
-    if (!g_bClipMode)
-        return;
-    brush_t saved;
-    saved.next = &saved;
-    FUN_00449c90();
-    bool sw = g_bSwitch;
-    if (m_nViewType == XZ)
-        sw = !sw;
-    if (*(int *)((char *)dword_01233b64 + 0x2d8))
-        sw = !sw;
-    brush_t *pList = sw ? &g_brFrontSplits : &g_brBackSplits;
-    if (pList->next == pList)
-        return;
-    FUN_00449ff0(&saved, pList);
-    CleanList(&g_brFrontSplits);
-    CleanList(&g_brBackSplits);
-    FUN_0046fb30();
-    FUN_00449ff0(&selected_brushes, &saved);
-    SetClipMode(!g_bRogueClipMode);
-    g_bRogueClipMode = false;
-    dword_0123348c = -1;
+    if (g_bClipMode)
+    {
+        brush_t hold;
+        hold.next = &hold;
+        FUN_00449c90();
+        brush_t *pList;
+        if (*(int *)((char *)dword_01233b64 + 0x2d8))
+            pList = ((m_nViewType == XZ) ? g_bSwitch : !g_bSwitch) ? &g_brFrontSplits : &g_brBackSplits;
+        else
+            pList = ((m_nViewType == XZ) ? !g_bSwitch : g_bSwitch) ? &g_brFrontSplits : &g_brBackSplits;
+        if (pList->next != pList)
+        {
+            FUN_00449ff0(&hold, pList);
+            CleanList(&g_brFrontSplits);
+            CleanList(&g_brBackSplits);
+            FUN_0046fb30();
+            FUN_00449ff0(&selected_brushes, &hold);
+            if (RogueClipMode())
+                RetainClipMode(false);
+            else
+                RetainClipMode(true);
+            dword_0123348c = -1;
+        }
+    }
 }
 
 // 0x00452a60
@@ -3631,8 +3635,10 @@ void CXYWnd::SplitClip()
         FUN_00449ff0(&selected_brushes, &g_brBackSplits);
         CleanList(&g_brFrontSplits);
         CleanList(&g_brBackSplits);
-        SetClipMode(g_bRogueClipMode ? false : true);
-        g_bRogueClipMode = false;
+        if (RogueClipMode())
+            RetainClipMode(false);
+        else
+            RetainClipMode(true);
     }
 }
 
@@ -3739,27 +3745,25 @@ bool CXYWnd::ScaleMode()
     return g_bScaleMode;
 }
 
-void FUN_00470c00(float *mid);
+void FUN_00470c00(float mid[3]);
 
 // 0x00452d90
-void CXYWnd::SetRotateMode(bool bMode)
+bool CXYWnd::SetRotateMode(bool bMode)
 {
-    if (!bMode)
-        g_bRotateMode = false;
-    else if (selected_brushes.next == &selected_brushes)
-    {
-        Sys_Printf("Need a brush selected to turn on Mouse Rotation mode\n");
-        g_bRotateMode = false;
-    }
-    else
+    if (bMode && selected_brushes.next != &selected_brushes)
     {
         g_bRotateMode = true;
         FUN_00470c00(g_vRotateOrigin);
-        g_vRotation[0] = 0;
-        g_vRotation[1] = 0;
-        g_vRotation[2] = 0;
+        g_vRotation[0] = g_vRotation[1] = g_vRotation[2] = 0;
+    }
+    else
+    {
+        if (bMode)
+            Sys_Printf("Need a brush selected to turn on Mouse Rotation mode\n");
+        g_bRotateMode = false;
     }
     RedrawWindow(NULL, NULL, RDW_INVALIDATE | RDW_ERASE | RDW_UPDATENOW);
+    return g_bRotateMode;
 }
 
 void CXYWnd::SetScaleMode(bool bMode)
@@ -3841,9 +3845,10 @@ void CXYWnd::Paste()
             {
                 g_Clipboard.SetLength(0);
                 char *cp = reinterpret_cast<char *>(::GlobalLock(h));
-                g_Clipboard.Write(cp + sizeof(long), *reinterpret_cast<long *>(cp));
-                ::GlobalUnlock(h);
+                long n = *reinterpret_cast<long *>(cp);
+                g_Clipboard.Write(cp + sizeof(long), n);
             }
+            ::GlobalUnlock(h);
             ::CloseClipboard();
         }
     }
@@ -3946,11 +3951,19 @@ extern "C" void FUN_004533e0(int *p)
     p[3] = 0;
 }
 
+extern "C" X87_FLOOR_FUNC(FUN_004533f0)
+
 XYWndNode::XYWndNode(int id, const char *name)
 {
     next = NULL;
     field_00 = id;
     field_04 = name;
+}
+
+void FUN_00453530(int *p)
+{
+    p[0] = 0;
+    p[2] = 0;
 }
 
 void CClipPoint::Reset()

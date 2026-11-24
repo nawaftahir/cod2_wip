@@ -264,6 +264,23 @@ TU_STATIC int I_fround(const float x)
 
 /*
 ==============
+X87_FLOOR_FUNC
+==============
+Defines an out-of-line floor helper: fistp rounds to nearest, so x is biased by just under 0.5.
+*/
+#define X87_FLOOR_FUNC(name) \
+	int name(const float x) \
+	{ \
+		const double bias = 0.5 - 1.0 / (1 << 30); \
+		int result; \
+		__asm { fld x } \
+		__asm { fsub bias } \
+		__asm { fistp result } \
+		return result; \
+	}
+
+/*
+==============
 I_square
 ==============
 */

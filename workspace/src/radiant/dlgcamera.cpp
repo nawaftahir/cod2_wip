@@ -67,6 +67,7 @@ BEGIN_MESSAGE_MAP(CDlgCamera, CDialog)
 	ON_LBN_DBLCLK(1299, FUN_00409f80)
 	ON_WM_DESTROY()
 	ON_BN_CLICKED(119, OnApply)
+	ON_WM_HSCROLL()
 	ON_COMMAND(ID_FILE_OPEN, OnFileOpen)
 	ON_COMMAND(ID_FILE_SAVE, OnFileSave)
 	ON_BN_CLICKED(122, FUN_0040a9b0)
@@ -198,6 +199,66 @@ void CDlgCamera::OnApply()
 	g_splineList->setName(m_strName);
 	g_splineList->buildCamera();
 	m_wndSegments.SetScrollRange(0, g_splineList->getTotalTime() * 4.0);
+}
+
+// Camera window fields this file touches (retail: MainFrame +0x78c, camera origin +0x60, angles +0x6c).
+struct CamWndCameraView
+{
+	unsigned char pad_00[0x60];
+	float origin[3];
+	float angles[3];
+};
+struct MainFrameCamView
+{
+	unsigned char pad_00[0x78c];
+	CamWndCameraView *camWnd;
+};
+
+void CDlgCamera::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar *pScrollBar)
+{
+	CDialog::OnHScroll(nSBCode, nPos, pScrollBar);
+	int max = g_splineList->getTotalTime() * 4;
+	if (max == 0)
+	{
+		max = 1;
+	}
+	int n = pScrollBar->GetScrollPos();
+	switch (nSBCode)
+	{
+	case SB_LINEUP:
+		n--;
+		break;
+	case SB_LINEDOWN:
+		n++;
+		break;
+	case SB_PAGEUP:
+		n -= (float)max * 0.10;
+		break;
+	case SB_PAGEDOWN:
+		n += (float)max * 0.10;
+		break;
+	case SB_THUMBPOSITION:
+		n = nPos;
+		break;
+	case SB_THUMBTRACK:
+		n = nPos;
+	}
+	pScrollBar->SetScrollPos(n);
+	if (m_trackCamera)
+	{
+		float p = (float)n / max;
+		p *= g_splineList->getTotalTime() * 1000;
+		g_splineList->startCamera(0);
+		g_splineList->buildCamera();
+		float dir[3];
+		float fov;
+		CamWndCameraView *cam = ((MainFrameCamView *)dword_01233488)->camWnd;
+		g_splineList->getCameraInfo(p, cam->origin, dir, &fov);
+		cam->angles[1] = atan2(dir[1], dir[0]) * 180 / 3.14159;
+		cam->angles[0] = asin(dir[2]) * 180 / 3.14159;
+	}
+	UpdateData(FALSE);
+	g_nUpdateBits |= 3;
 }
 
 void CDlgCamera::OnFileOpen()
