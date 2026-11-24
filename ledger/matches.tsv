@@ -2652,3 +2652,5 @@ addr	size	source	symbol	name	tag
 0x004025f0	11	src/radiant/AdvCurveDlg.cpp	?IsWindowVisible@CWnd@@QBEHXZ	CWnd::IsWindowVisible	SUPPORTED
 0x004026c0	20	src/radiant/AdvCurveDlg.cpp	?GetPos@CSliderCtrl@@QBEHXZ	CSliderCtrl::GetPos	SUPPORTED
 0x00446080	20	src/radiant/VehicleDlg.cpp	?GetRangeMax@CSliderCtrl@@QBEHXZ	CSliderCtrl::GetRangeMax	SUPPORTED
+0x004433b0	476	src/radiant/Undo.cpp	?FUN_004433b0@@YAXXZ	FUN_004433b0	UNNAMED
+0x00443590	615	src/radiant/Undo.cpp	?FUN_00443590@@YAXXZ	FUN_00443590	UNNAMED
