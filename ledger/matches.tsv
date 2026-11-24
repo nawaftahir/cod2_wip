@@ -2661,3 +2661,5 @@ addr	size	source	symbol	name	tag
 0x00446080	20	src/radiant/VehicleDlg.cpp	?GetRangeMax@CSliderCtrl@@QBEHXZ	CSliderCtrl::GetRangeMax	SUPPORTED
 0x004433b0	476	src/radiant/Undo.cpp	?FUN_004433b0@@YAXXZ	FUN_004433b0	UNNAMED
 0x00443590	615	src/radiant/Undo.cpp	?FUN_00443590@@YAXXZ	FUN_00443590	UNNAMED
+0x00429bc0	553	src/radiant/Pmesh.cpp	?FUN_00429bc0@@YA_NPAUpatchMesh_t@@PAH1@Z	FUN_00429bc0	UNNAMED
+0x0042a040	88	src/radiant/Pmesh.cpp	?FUN_0042a040@@YAXPAUpatchMesh_t@@PAUPatchControl@@@Z	FUN_0042a040	UNNAMED
