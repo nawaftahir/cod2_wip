@@ -3,9 +3,20 @@
 #include "radiant_wnd.h"
 #include "PrefsDlg.h"
 #include "FilterSettings.h"
+#include "entityw.h"
+#include "RotateDlg.h"
+#include "MapInfo.h"
+#include "EntityListDlg.h"
+#include "CommandsDlg.h"
+#include "NewProjDlg.h"
+#include "ScaleDialog.h"
+#include "PatchDensityDlg.h"
+#include "TerrainDensityDlg.h"
+#include "DialogThick.h"
 #include "../universal/assertive.h"
 #include <math.h>
 #include <time.h>
+#include <stdio.h>
 
 // Bodies sit in retail address order; FUN_ names and signatures are provisional.
 
@@ -84,10 +95,27 @@ extern int g_nCommandCount;
 BOOL LoadRegistryInfo(const char *pszName, void *pvBuf, long *plSize);
 BOOL SaveMruInReg(MRUMENU *lpMruMenu, char *lpszKey);
 void DeleteMruMenu(MRUMENU *lpMruMenu);
+struct epair_t;
+struct entity_t;
+struct entityInst_t;
+struct brush_t;
 int SaveRegistryInfo(const char *name, void *data, long size);
 void FUN_0046fbe0(bool a);
+void FUN_0046f0b0(brush_t *brush, bool bComplete, bool bStatus, bool bPositionView);
+void FUN_00433b90();
+void FUN_00442140(int pos);
+void FUN_00434110();
 BOOL DoColor(int iIndex);
 char *va(const char *format, ...);
+char *ValueForKey(epair_t *&e, const char *key);
+void FUN_00477e80();
+void Sys_Printf(const char *text, ...);
+extern entity_t *edit_entity;
+void Com_StripExtension(const char *in, char *out);
+extern CString DAT_012345c0;
+BOOL CALLBACK ProjectDlgProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam);
+void FUN_00470d80(float x, float y, float z);
+void FUN_004348e0(int thickness, bool bSeam);
 void FUN_0047a250(HWND hwnd, const char *name);
 void FUN_004426e0(void);
 void FUN_00443590(void);
@@ -95,10 +123,13 @@ void CleanUpEntities(void);
 
 // partial views for the shutdown path; instance and entity lists link through prev/next
 struct entity_t;
-struct entityInst_t { entityInst_t *prev; entityInst_t *next; entity_t *def; };
+struct entityInst_t;
 struct brushdef_t { brushdef_t *oprev; brushdef_t *onext; entity_t *owner; unsigned char pad0c[0x10]; int refCount; };
-struct brush_t { brush_t *prev; brush_t *next; entityInst_t *owner; unsigned char pad0c[8]; brushdef_t *def; unsigned char pad18[14]; bool field_26; };
-struct entity_t { entity_t *prev; entity_t *next; };
+struct brush_t { brush_t *prev; brush_t *next; entityInst_t *owner; brush_t *ownerNext; brush_t *ownerPrev; brushdef_t *def; unsigned char pad18[14]; bool field_26; };
+struct entityInst_t { entityInst_t *prev; entityInst_t *next; entity_t *def; brush_t brushes; };
+struct epair_t;
+struct eclass_t { unsigned char pad00[4]; char *name; unsigned char pad08[0x158]; unsigned flags; };
+struct entity_t { entity_t *prev; entity_t *next; unsigned char pad08[0x48]; eclass_t *eclass; unsigned char pad54[0x10]; epair_t *epairs; };
 void FUN_0041d930(entityInst_t *list, const char *msg);
 void FUN_004678c0(entityInst_t *e);
 void FUN_004661f0(entity_t *e);
@@ -137,131 +168,7 @@ extern CPrefsDlg *dword_01233b64;
 
 typedef char MainFrameSplitSize[(sizeof(CSplitterWnd) == 0xd8) ? 1 : -1];
 
-#include "TextureBar.h"
-
-class CMainFrame : public CFrameWnd
-{
-  DECLARE_DYNAMIC(CMainFrame)
-  DECLARE_MESSAGE_MAP()
-public:
-  virtual BOOL PreCreateWindow(CREATESTRUCT &cs);
-  virtual BOOL PreTranslateMessage(MSG *pMsg);
-  virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
-  virtual LRESULT DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam);
-  virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
-  virtual ~CMainFrame();
-  void RoutineProcessing();
-  void UpdateWindows(int nBits);
-  afx_msg void OnClose();
-  afx_msg void OnTimer(UINT nIDEvent);
-  afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
-  afx_msg void OnSysKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
-  afx_msg void OnDestroy();
-  afx_msg void OnFileExit();
-  CMainFrame();
-  void FUN_004115b0();
-  void FUN_0041b590(int id);
-  void FUN_00414da0();
-  void FUN_00414de0();
-  void FUN_00415100();
-  void FUN_00415140();
-  void FUN_004151e0();
-  void FUN_00415650();
-  void FUN_00415660();
-  void FUN_004156a0();
-  void FUN_004159e0();
-  void FUN_00416030();
-  void FUN_00416050();
-  void FUN_00416070();
-  void FUN_00416680();
-  void FUN_00416e90();
-  void FUN_00416ed0();
-  void FUN_00416f10();
-  void FUN_00416f50();
-  void FUN_00416f90();
-  void FUN_00416fd0();
-  void FUN_004170b0();
-  void FUN_004170c0();
-  void FUN_004170e0();
-  void FUN_004170f0();
-  void FUN_004171b0();
-  void FUN_00417400();
-  void FUN_00417450();
-  void FUN_00417660();
-  void FUN_00417840();
-  void FUN_00417a90();
-  void FUN_00417e40();
-  void FUN_00417ea0();
-  void FUN_004185d0();
-  void FUN_00418820();
-  void FUN_00418a70();
-  void FUN_00418ec0();
-  void FUN_00419000();
-  void FUN_00419020();
-  void FUN_004196a0();
-  void FUN_00419720();
-  void FUN_00419860();
-  void FUN_00419a60();
-  void FUN_00419ab0();
-  void FUN_00419b90();
-  void FUN_00419d40();
-  void FUN_00419da0();
-  void FUN_00419e90();
-  void FUN_00419fa0();
-  void FUN_00419fc0();
-  void FUN_00419fd0();
-  void FUN_00419ff0();
-  void FUN_0041a330();
-  void FUN_0041b070();
-  void FUN_0041b0b0();
-  void FUN_0041b640();
-  void FUN_0041b660();
-  void FUN_0041b680();
-  void FUN_0041b6a0();
-  void FUN_0041b6c0();
-  void FUN_0041b930();
-  void FUN_0041b950();
-  void FUN_0041b980();
-  void FUN_0041b9b0();
-  void FUN_0041b9e0();
-  void FUN_0041ba10();
-  void FUN_0041ba40();
-  void FUN_0041c1d0();
-  void FUN_0041be80();
-  void FUN_00415240();
-  void FUN_00415260();
-  void FUN_00415270();
-  void FUN_00417170(UINT nType, int cx, int cy);
-  void FUN_00417d30(int nPane, const char *pText);
-  void FUN_00417cf0();
-  void FUN_00419560();
-  void FUN_00419cc0();
-  void FUN_004190a0(CCmdUI *pCmdUI);
-  CStatusBar m_wndStatusBar;
-  CLstToolBar m_wndToolBar;
-  CDialogBar m_wndDialogBar;
-  CTextureBar m_wndTextureBar;
-  CSplitterWnd m_wndSplit1;
-  CSplitterWnd m_wndSplit2;
-  CSplitterWnd m_wndSplit3;
-  CXYWnd *field_0788;
-  CCamWnd *field_078c;
-  CTexWnd *field_0790;
-  CZWnd *field_0794;
-  CWnd *field_0798;
-  CEditWnd *field_079c;
-  int field_07a0;
-  CString field_07a4[15];
-  CWnd *field_07e0;
-  bool field_07e4;
-  bool field_07e5;
-  bool field_07e6;
-  virtual BOOL OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext *pContext);
-  // update handlers: the CCmdUI argument is enabled from view state
-  void FUN_00417150(CCmdUI *pCmdUI);
-  void FUN_004190e0(CCmdUI *pCmdUI);
-  void FUN_00419ba0(CCmdUI *pCmdUI);
-};
+#include "MainFrm.h"
 
 typedef char MainFrameBaseSize[(sizeof(CFrameWnd) == 0xd0) ? 1 : -1];
 typedef char MainFrameStatusOffset[(offsetof(CMainFrame, m_wndStatusBar) == 0xd0) ? 1 : -1];
@@ -416,6 +323,9 @@ extern "C" void FUN_00467f00();
 void FUN_00433da0();
 extern bool DAT_0109fe5e;
 extern int DAT_011299a8;
+extern int DAT_0112988c;
+extern HCURSOR DAT_01129e28;
+void FUN_00441600();
 extern float DAT_012334a8;
 extern "C" void __fastcall FUN_00418ec0(CMainFrame *self);
 extern "C" void __fastcall FUN_004171b0(CMainFrame *self);
@@ -436,18 +346,25 @@ extern int DAT_01128da0;
 IMPLEMENT_DYNAMIC(CMainFrame, CFrameWnd)
 
 BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
+  ON_WM_SIZE()
   ON_COMMAND(0xe103, FUN_00414da0)
   ON_COMMAND(0x80b8, FUN_00414de0)
+  ON_COMMAND(0x80f8, FUN_00414ec0)
   ON_COMMAND(0x80bb, FUN_00415100)
   ON_COMMAND(0x80f9, FUN_00415140)
   ON_COMMAND(0x8006, FUN_004151e0)
+  ON_COMMAND(0x80fa, FUN_00415390)
   ON_COMMAND(0x80ba, FUN_00415650)
   ON_COMMAND(0x8004, FUN_00415660)
   ON_COMMAND(0x80e3, FUN_004156a0)
+  ON_COMMAND(0x80e4, FUN_00415750)
   ON_COMMAND(0x8005, FUN_004159e0)
+  ON_COMMAND(0x80ce, FUN_00415b50)
+  ON_COMMAND(0x810c, FUN_00415c20)
   ON_COMMAND(0x80bc, FUN_00416030)
   ON_COMMAND(0x80bd, FUN_00416050)
   ON_COMMAND(0x80be, FUN_00416070)
+  ON_COMMAND(0x8109, FUN_004162c0)
   ON_COMMAND(0x80ea, FUN_00416680)
   ON_COMMAND(0x8112, FUN_00416e90)
   ON_COMMAND(0x8113, FUN_00416ed0)
@@ -464,16 +381,23 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
   ON_COMMAND(0x8122, FUN_00417450)
   ON_COMMAND(0x8010, FUN_00417660)
   ON_COMMAND(0x812e, FUN_00417840)
+  ON_COMMAND(0x8012, FUN_00417970)
+  ON_COMMAND(0x8013, FUN_00417a30)
   ON_COMMAND(0x8015, FUN_00417a90)
+  ON_COMMAND(0x8016, FUN_00417ae0)
+  ON_COMMAND(0x8017, FUN_00417b50)
   ON_COMMAND(0x801b, FUN_00417e40)
   ON_COMMAND(0x801a, FUN_00417ea0)
   ON_COMMAND(0x8027, FUN_004185d0)
   ON_COMMAND(0x8177, FUN_00418820)
   ON_COMMAND(0xd2, FUN_00418a70)
+  ON_COMMAND(0x8029, FUN_00418d40)
   ON_COMMAND(0x802a, FUN_00418ec0)
   ON_COMMAND(0x810f, FUN_00419000)
   ON_COMMAND(0x8110, FUN_00419020)
   ON_UPDATE_COMMAND_UI(0xe12b, FUN_004190a0)
+  ON_COMMAND(0x813b, FUN_00419260)
+  ON_COMMAND(0x813c, FUN_004193e0)
   ON_COMMAND(0x802e, FUN_004196a0)
   ON_COMMAND(0x802f, FUN_00419720)
   ON_COMMAND(0x802d, FUN_00419860)
@@ -488,13 +412,17 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
   ON_COMMAND(0x8050, FUN_00419fd0)
   ON_COMMAND(0x8051, FUN_00419ff0)
   ON_COMMAND(0x8056, FUN_0041a330)
+  ON_COMMAND(0x8058, FUN_0041a3e0)
+  ON_COMMAND(0x80ab, FUN_0041a4d0)
   ON_COMMAND(0x8072, FUN_0041b070)
   ON_COMMAND(0x8068, FUN_0041b0b0)
+  ON_COMMAND(0x8141, FUN_0041b100)
   ON_COMMAND(0x8082, FUN_0041b640)
   ON_COMMAND(0x807f, FUN_0041b660)
   ON_COMMAND(0x807e, FUN_0041b680)
   ON_COMMAND(0x8081, FUN_0041b6a0)
   ON_COMMAND(0x8080, FUN_0041b6c0)
+  ON_COMMAND(0x8088, FUN_0041b720)
   ON_COMMAND(0x8093, FUN_0041b930)
   ON_COMMAND(0x808d, FUN_0041b950)
   ON_COMMAND(0x8090, FUN_0041b980)
@@ -504,9 +432,11 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
   ON_COMMAND(0x8094, FUN_0041ba40)
   ON_COMMAND(0x8150, FUN_0041c1d0)
   ON_COMMAND(0x80ad, FUN_0041be80)
+  ON_WM_MOUSEWHEEL()
   ON_COMMAND(0x81d6, FUN_00415240)
   ON_COMMAND(0x81d0, FUN_00415260)
   ON_COMMAND(0x81d1, FUN_00415270)
+  ON_COMMAND_RANGE(0x8116, 0x811e, FUN_00415a10)
 END_MESSAGE_MAP()
 
 extern "C" int __stdcall FUN_00411230(int a0, int a1) { return 0; }
@@ -1262,6 +1192,62 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext *pContext)
   return TRUE;
 }
 
+// 0x00414730: keep the status panes and the three splitters in proportion on resize
+void CMainFrame::OnSize(UINT nType, int cx, int cy)
+{
+  CFrameWnd::OnSize(nType, cx, cy);
+  CRect rctParent;
+  GetClientRect(rctParent);
+  int nWidth;
+  UINT nID, nStyle;
+  if (m_wndStatusBar.GetSafeHwnd())
+  {
+    m_wndStatusBar.GetPaneInfo(0, nID, nStyle, nWidth);
+    m_wndStatusBar.SetPaneInfo(0, nID, nStyle, (int)(rctParent.Width() * 0.19));
+    m_wndStatusBar.GetPaneInfo(1, nID, nStyle, nWidth);
+    m_wndStatusBar.SetPaneInfo(1, nID, nStyle, (int)(rctParent.Width() * 0.19));
+    m_wndStatusBar.GetPaneInfo(2, nID, nStyle, nWidth);
+    m_wndStatusBar.SetPaneInfo(2, nID, nStyle, (int)(rctParent.Width() * 0.19));
+    m_wndStatusBar.GetPaneInfo(3, nID, nStyle, nWidth);
+    m_wndStatusBar.SetPaneInfo(3, nID, nStyle, (int)(rctParent.Width() * 0.19));
+    m_wndStatusBar.GetPaneInfo(4, nID, nStyle, nWidth);
+    m_wndStatusBar.SetPaneInfo(4, nID, nStyle, (int)(rctParent.Width() * 0.13));
+    m_wndStatusBar.GetPaneInfo(5, nID, nStyle, nWidth);
+    m_wndStatusBar.SetPaneInfo(5, nID, nStyle, (int)(rctParent.Width() * 0.01));
+  }
+  if (nType == SIZE_RESTORED && field_07e6 && DAT_01234668.right - DAT_01234668.left > 0
+    && (field_07a0 == 0 || field_07a0 == 3))
+  {
+    int nCur, nMin;
+    int width = DAT_01234668.right - DAT_01234668.left;
+    int height = DAT_01234668.bottom - DAT_01234668.top;
+    m_wndSplit1.GetRowInfo(0, nCur, nMin);
+    float fRow0 = (float)nCur / height;
+    m_wndSplit1.GetRowInfo(1, nCur, nMin);
+    float fRow1 = (float)nCur / height;
+    m_wndSplit2.GetColumnInfo(0, nCur, nMin);
+    float fCol0 = (float)nCur / width;
+    m_wndSplit2.GetColumnInfo(1, nCur, nMin);
+    float fCol1 = (float)nCur / width;
+    m_wndSplit2.GetColumnInfo(2, nCur, nMin);
+    float fCol2 = (float)nCur / width;
+    m_wndSplit3.GetRowInfo(0, nCur, nMin);
+    float fRow2 = (float)nCur / height;
+    m_wndSplit3.GetRowInfo(1, nCur, nMin);
+    float fRow3 = (float)nCur / height;
+    m_wndSplit1.SetRowInfo(0, (int)(rctParent.Height() * fRow0), 100);
+    m_wndSplit1.SetRowInfo(1, (int)(rctParent.Height() * fRow1), 25);
+    m_wndSplit2.SetColumnInfo(0, (int)(rctParent.Width() * fCol0), field_07a0 == 0 ? 10 : 25);
+    m_wndSplit2.SetColumnInfo(1, (int)(rctParent.Width() * fCol1), 100);
+    m_wndSplit2.SetColumnInfo(2, (int)(rctParent.Width() * fCol2), field_07a0 == 0 ? 25 : 10);
+    m_wndSplit3.SetRowInfo(0, (int)(rctParent.Height() * fRow2), 50);
+    m_wndSplit3.SetRowInfo(1, (int)(rctParent.Height() * fRow3), 50);
+    m_wndSplit1.RecalcLayout();
+    m_wndSplit2.RecalcLayout();
+    m_wndSplit3.RecalcLayout();
+  }
+}
+
 extern "C" void __fastcall FUN_00414c50(CMainFrame *self) { self->field_07e4 = !self->field_07e4; }
 extern "C" void FUN_00414c70() {}
 void CMainFrame::OnFileExit()
@@ -1351,6 +1337,38 @@ extern "C" void FUN_00414ea0() { FUN_004749a0(); dword_0123348c |= 5; }
 // 0x00414eb0
 extern "C" void FUN_00414eb0() { FUN_00474b70(); dword_0123348c |= 5; }
 
+// 0x00414ec0: show or hide the console pane (inspector mode 0x40)
+void CMainFrame::FUN_00414ec0()
+{
+  int style = this->field_07a0;
+  if (style > 0 && style < 3)
+  {
+    if (style == 1)
+    {
+      if (::IsWindowVisible(g_qeglobals.field_4c) && DAT_011299a8 == 0x40)
+      {
+        ::ShowWindow(g_qeglobals.field_4c, SW_HIDE);
+        return;
+      }
+      ::ShowWindow(g_qeglobals.field_4c, SW_SHOWNORMAL);
+      FUN_00477580(0x40);
+    }
+    else
+    {
+      if (DAT_011299a8 == 0x40)
+      {
+        if (::IsWindowVisible(g_qeglobals.field_4c))
+          ::ShowWindow(g_qeglobals.field_4c, SW_HIDE);
+        else
+          ::ShowWindow(g_qeglobals.field_4c, SW_SHOWNORMAL);
+        return;
+      }
+      ::ShowWindow(g_qeglobals.field_4c, SW_SHOWNORMAL);
+      FUN_00477580(0x40);
+    }
+  }
+}
+
 // 0x00415100
 void CMainFrame::FUN_00415100() { FUN_00403610(this->field_078c, 0); }
 
@@ -1419,6 +1437,38 @@ extern "C" void __stdcall FUN_00415320(int nID) { Texture_SetMode(nID); }
 extern "C" void __stdcall FUN_00415330(int nID) { FUN_00441100(nID - 60000); }
 extern "C" void __stdcall FUN_00415350(int nID) { FUN_00441200(nID - 60256); }
 extern "C" void __stdcall FUN_00415370(int nID) { FUN_00441300(nID - 60512); }
+// 0x00415390: show or hide the texture pane (inspector mode 0x10)
+void CMainFrame::FUN_00415390()
+{
+  int style = this->field_07a0;
+  if (style > 0 && style < 3)
+  {
+    if (style == 1)
+    {
+      if (::IsWindowVisible(g_qeglobals.field_4c) && DAT_011299a8 == 0x10)
+      {
+        ::ShowWindow(g_qeglobals.field_4c, SW_HIDE);
+        return;
+      }
+      ::ShowWindow(g_qeglobals.field_4c, SW_SHOWNORMAL);
+      FUN_00477580(0x10);
+    }
+    else
+    {
+      if (DAT_011299a8 == 0x10)
+      {
+        if (::IsWindowVisible(g_qeglobals.field_4c))
+          ::ShowWindow(g_qeglobals.field_4c, SW_HIDE);
+        else
+          ::ShowWindow(g_qeglobals.field_4c, SW_SHOW);
+        return;
+      }
+      ::ShowWindow(g_qeglobals.field_4c, SW_SHOW);
+      FUN_00477580(0x10);
+    }
+  }
+}
+
 // 0x00415650
 void CMainFrame::FUN_00415650() { FUN_00403610(this->field_078c, 1); }
 
@@ -1453,6 +1503,64 @@ void CMainFrame::FUN_004156a0()
   dword_0123348c |= 0x28;
 }
 
+// 0x00415750
+void CMainFrame::FUN_00415750()
+{
+  float scale;
+  CXYWnd *xy = this->field_0788;
+  if (xy && xy->m_bActive)
+  {
+    scale = xy->m_fScale;
+    scale *= 0.8f;
+    if (scale < 0.003125f)
+      scale = 0.003125f;
+    xy->m_fScale = scale;
+    DAT_012334a8 = scale;
+    if (scale != 0.0f)
+      goto done;
+  }
+  scale = DAT_01139e60 * 0.8f;
+  if (scale < 0.003125f)
+    scale = 0.003125f;
+done:
+  DAT_01139e60 = scale;
+  dword_0123348c |= 0x2e;
+}
+
+#include "../universal/com_math.h"
+
+// 0x004157f0: move the camera along its view direction by a wheel step
+void CMainFrame::FUN_004157f0(float step)
+{
+  float delta;
+  float pitch, yaw;
+  float sy, cy, sp, cp;
+
+  if (::GetKeyState(VK_SHIFT) & 0x8000)
+    delta = (float)PF(0x2b8) * 0.7f * step * 0.1f;
+  else if (::GetKeyState(VK_MENU) & 0x8000)
+    delta = (float)PF(0x2b8) * 0.7f * step * 1.6f;
+  else
+    delta = (float)PF(0x2b8) * 0.7f * step * 0.4f;
+  CamView *cam = (CamView *)field_078c;
+  pitch = cam->angles[0];
+  yaw = cam->angles[1];
+  if (::GetKeyState(VK_CONTROL) & 0x8000)
+    pitch = 0.0f;
+  else
+    pitch = -pitch;
+  FastSinCos(yaw * 0.017453292f, &sy, &cy);
+  FastSinCos(pitch * 0.017453292f, &sp, &cp);
+  float dx = cp * cy;
+  float dy = cp * sy;
+  float dz = -sp;
+  delta = -delta;
+  cam->origin[0] += delta * dx;
+  cam->origin[1] += delta * dy;
+  cam->origin[2] += delta * dz;
+  dword_0123348c |= 1;
+}
+
 extern "C" void FUN_00415960()
 {
   DAT_01139e60 *= 1.25f;
@@ -1478,6 +1586,49 @@ void CMainFrame::FUN_004159e0()
   dword_0123348c |= 2;
 }
 
+// Q3Radiant OnGrid1: the grid size menu range 0x8116..0x811e
+void CMainFrame::FUN_00415a10(UINT nID)
+{
+  HMENU hMenu = ::GetMenu(GetSafeHwnd());
+  ::CheckMenuItem(hMenu, 0x8116, MF_BYCOMMAND | MF_UNCHECKED);
+  ::CheckMenuItem(hMenu, 0x8117, MF_BYCOMMAND | MF_UNCHECKED);
+  ::CheckMenuItem(hMenu, 0x8118, MF_BYCOMMAND | MF_UNCHECKED);
+  ::CheckMenuItem(hMenu, 0x8119, MF_BYCOMMAND | MF_UNCHECKED);
+  ::CheckMenuItem(hMenu, 0x811a, MF_BYCOMMAND | MF_UNCHECKED);
+  ::CheckMenuItem(hMenu, 0x811b, MF_BYCOMMAND | MF_UNCHECKED);
+  ::CheckMenuItem(hMenu, 0x811c, MF_BYCOMMAND | MF_UNCHECKED);
+  ::CheckMenuItem(hMenu, 0x811d, MF_BYCOMMAND | MF_UNCHECKED);
+  ::CheckMenuItem(hMenu, 0x811e, MF_BYCOMMAND | MF_UNCHECKED);
+  int shift = DAT_010bcd2c;
+  switch (nID)
+  {
+  case 0x8116: shift = 0; break;
+  case 0x8117: shift = 1; break;
+  case 0x8118: shift = 2; break;
+  case 0x8119: shift = 3; break;
+  case 0x811a: shift = 4; break;
+  case 0x811b: shift = 5; break;
+  case 0x811c: shift = 6; break;
+  case 0x811d: shift = 7; break;
+  case 0x811e: shift = 8; break;
+  }
+  DAT_010bcd2c = 1 << shift;
+  if (PF(0x228))
+    DAT_0112988c = DAT_010bcd2c;
+  FUN_00419560();
+  ::CheckMenuItem(hMenu, nID, MF_BYCOMMAND | MF_CHECKED);
+  dword_0123348c |= 0xa;
+}
+
+// 0x00415b50 (Q3Radiant OnTexturesShowinuse shape): wait cursor, refresh the texture list, redraw the texture window
+void CMainFrame::FUN_00415b50()
+{
+  DAT_01129e28 = ::SetCursor(::LoadCursor(NULL, IDC_WAIT));
+  FUN_00441600();
+  if (this->field_0790)
+    ::RedrawWindow(this->field_0790->m_hWnd, NULL, NULL, RDW_INVALIDATE | RDW_ERASE | RDW_UPDATENOW);
+}
+
 extern "C" void FUN_00415b90() { FUN_0043e440(); }
 extern "C" void FUN_00415ba0() {}
 void DoFind(void);
@@ -1487,6 +1638,48 @@ extern "C" void FUN_00415bd0() { FUN_004763c0(); }
 extern "C" void FUN_00415bf0() { Pointfile_Next(); }
 extern "C" void FUN_00415c00() { Pointfile_Prev(); }
 extern "C" void FUN_00415c10() { WXY_Print(); }
+// 0x00415c20 (Q3Radiant OnMiscSelectentitycolor): pick the entity colour, light entities use the light slot
+void CMainFrame::FUN_00415c20()
+{
+  if (!edit_entity)
+    return;
+  bool bLight = false;
+  for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+  {
+    if (b->owner->def->eclass->flags & 1)
+    {
+      Sys_Printf("Light selected, normalizing _color value.\n");
+      bLight = true;
+      break;
+    }
+  }
+  int index = 5;
+  if (bLight)
+    index = 6;
+#define COLOR_ENTRY(i, j) (*(float *)((char *)g_qeglobals.sv.colors + (i) * 16 + (j) * 4))
+  CString strColor = ValueForKey(edit_entity->epairs, "_color");
+  if (strColor.GetLength() > 0)
+  {
+    float fR, fG, fB;
+    if (sscanf(strColor, "%f %f %f", &fR, &fG, &fB) == 3)
+    {
+      COLOR_ENTRY(index, 0) = fR;
+      COLOR_ENTRY(index, 1) = fG;
+      COLOR_ENTRY(index, 2) = fB;
+      COLOR_ENTRY(index, 3) = 1.0f;
+    }
+  }
+  if (DAT_011299a8 == 0x80 && DoColor(index))
+  {
+    char buffer[100];
+    sprintf(buffer, "%f %f %f", COLOR_ENTRY(index, 0), COLOR_ENTRY(index, 1), COLOR_ENTRY(index, 2));
+    ::SetWindowText(hwndEnt[EntValueField], buffer);
+    ::SetWindowText(hwndEnt[EntKeyField], "_color");
+    FUN_00477e80();
+  }
+  dword_0123348c = -1;
+}
+
 BOOL CALLBACK FUN_00476840(HWND, UINT, WPARAM, LPARAM);
 extern "C" void FUN_00415dd0() { DialogBox(g_qeglobals.d_hInstance, (LPCSTR)217, g_qeglobals.d_hwndMain, FUN_00476840); }
 extern "C" void FUN_00415df0() { FUN_00469950(); }
@@ -1579,6 +1772,18 @@ extern "C" void FUN_00416280() { FUN_004694d0(); }
 extern "C" void FUN_00416290() { FUN_004692a0(); }
 extern "C" void FUN_004162a0() { FUN_00469420(); }
 extern "C" void FUN_004162b0() { FUN_00469350(); }
+// 0x004162c0
+void CMainFrame::FUN_004162c0()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("arbitrary rotation");
+  Undo_AddBrushList(&selected_selbrushes);
+  CRotateDlg dlg;
+  dlg.DoModal();
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
 extern "C" void FUN_00416420()
 {
   FUN_0046fe50();
@@ -2131,7 +2336,22 @@ extern "C" void __fastcall FUN_00417900(CMainFrame *self)
   self->FUN_00419560();
 }
 
-// 0x004179e0
+// 0x00417970
+void CMainFrame::FUN_00417970()
+{
+  CMapInfo dlg;
+  dlg.DoModal();
+}
+
+// 0x004179e0 (not written)
+
+// 0x00417a30
+void CMainFrame::FUN_00417a30()
+{
+  CEntityListDlg dlg;
+  dlg.DoModal();
+}
+
 // 0x00417a90
 void CMainFrame::FUN_00417a90()
 {
@@ -2146,6 +2366,28 @@ void CMainFrame::FUN_00417a90()
       FUN_00452ca0(xy, 2);
     FUN_00452b00(this->field_0788);
     dword_0123348c |= 2;
+  }
+}
+
+// 0x00417ae0
+void CMainFrame::FUN_00417ae0()
+{
+  CCommandsDlg dlg;
+  dlg.DoModal();
+}
+
+// 0x00417b50 (Q3Radiant OnFileNewproject, reduced to the project-name flow)
+void CMainFrame::FUN_00417b50()
+{
+  CNewProjDlg dlg;
+  if (dlg.DoModal() == IDOK && dlg.m_strName.GetLength() > 0)
+  {
+    char buf[0x400];
+    strcpy(buf, dlg.m_strName);
+    Com_StripExtension(buf, buf);
+    strcat(buf, ".prj");
+    DAT_012345c0 = buf;
+    DialogBox(g_qeglobals.d_hInstance, (LPCSTR)153, g_qeglobals.d_hwndMain, ProjectDlgProc);
   }
 }
 
@@ -2698,6 +2940,32 @@ void CMainFrame::FUN_00418a70()
   dword_0123348c = -1;
 }
 
+// 0x00418d40 (Q3Radiant OnSelectionScale)
+void CMainFrame::FUN_00418d40()
+{
+  CScaleDialog dlg;
+  if (dlg.DoModal() == IDOK)
+  {
+    if (dlg.m_fX < 0 || dlg.m_fY < 0 || dlg.m_fZ < 0)
+    {
+      Sys_Printf("Cannot scale by a negative value.\n");
+      return;
+    }
+    if ((dlg.m_fX == 0 || dlg.m_fY == 0 || dlg.m_fZ == 0) && !OnlyPatchesSelected())
+    {
+      Sys_Printf("Can only scale patches by zero.\n");
+      return;
+    }
+    FUN_004433b0();
+    Undo_GeneralStart("scale");
+    Undo_AddBrushList(&selected_selbrushes);
+    FUN_00470d80(dlg.m_fX, dlg.m_fY, dlg.m_fZ);
+    FUN_00443f80(&selected_selbrushes);
+    Undo_End();
+    dword_0123348c = -1;
+  }
+}
+
 // 0x00418ec0
 void CMainFrame::FUN_00418ec0()
 {
@@ -2796,7 +3064,6 @@ void CMainFrame::FUN_004190e0(CCmdUI *pCmdUI)
   pCmdUI->Enable(enable);
 }
 // 0x00419100
-extern int DAT_0112988c;
 extern "C" void __fastcall FUN_00419100(CMainFrame *self)
 {
   if (--DAT_0112988c == 0)
@@ -2835,6 +3102,60 @@ extern "C" void FUN_00419200() { FUN_00472860((float)(DAT_010bcd2c * 2), 0); }
 
 // 0x00419230
 extern "C" void FUN_00419230() { FUN_00472860((float)(-DAT_010bcd2c * 2), 0); }
+
+// the grid menu item that matches the current grid size gets the check mark
+#define CHECK_GRID_ITEM(hMenu) \
+  switch (DAT_010bcd2c) \
+  { \
+  case 1: ::CheckMenuItem(hMenu, 0x8116, MF_BYCOMMAND | MF_CHECKED); break; \
+  case 2: ::CheckMenuItem(hMenu, 0x8117, MF_BYCOMMAND | MF_CHECKED); break; \
+  case 4: ::CheckMenuItem(hMenu, 0x8118, MF_BYCOMMAND | MF_CHECKED); break; \
+  case 8: ::CheckMenuItem(hMenu, 0x8119, MF_BYCOMMAND | MF_CHECKED); break; \
+  case 0x10: ::CheckMenuItem(hMenu, 0x811a, MF_BYCOMMAND | MF_CHECKED); break; \
+  case 0x20: ::CheckMenuItem(hMenu, 0x811b, MF_BYCOMMAND | MF_CHECKED); break; \
+  case 0x40: ::CheckMenuItem(hMenu, 0x811c, MF_BYCOMMAND | MF_CHECKED); break; \
+  case 0x100: ::CheckMenuItem(hMenu, 0x811d, MF_BYCOMMAND | MF_CHECKED); break; \
+  case 0x200: ::CheckMenuItem(hMenu, 0x811e, MF_BYCOMMAND | MF_CHECKED); break; \
+  }
+
+#define UNCHECK_GRID_ITEMS(hMenu) \
+  ::CheckMenuItem(hMenu, 0x8116, MF_BYCOMMAND | MF_UNCHECKED); \
+  ::CheckMenuItem(hMenu, 0x8117, MF_BYCOMMAND | MF_UNCHECKED); \
+  ::CheckMenuItem(hMenu, 0x8118, MF_BYCOMMAND | MF_UNCHECKED); \
+  ::CheckMenuItem(hMenu, 0x8119, MF_BYCOMMAND | MF_UNCHECKED); \
+  ::CheckMenuItem(hMenu, 0x811a, MF_BYCOMMAND | MF_UNCHECKED); \
+  ::CheckMenuItem(hMenu, 0x811b, MF_BYCOMMAND | MF_UNCHECKED); \
+  ::CheckMenuItem(hMenu, 0x811c, MF_BYCOMMAND | MF_UNCHECKED); \
+  ::CheckMenuItem(hMenu, 0x811d, MF_BYCOMMAND | MF_UNCHECKED); \
+  ::CheckMenuItem(hMenu, 0x811e, MF_BYCOMMAND | MF_UNCHECKED)
+
+// 0x00419260: grid size up (the carve also holds 0x004193e0 and both switch tables)
+void CMainFrame::FUN_00419260()
+{
+  if (DAT_010bcd2c < 64)
+  {
+    dword_0123348c |= 0xa;
+    DAT_010bcd2c = DAT_010bcd2c << 1;
+    FUN_00419560();
+    HMENU hMenu = ::GetMenu(GetSafeHwnd());
+    UNCHECK_GRID_ITEMS(hMenu);
+    CHECK_GRID_ITEM(hMenu)
+  }
+}
+
+// 0x004193e0: grid size down
+void CMainFrame::FUN_004193e0()
+{
+  if (DAT_010bcd2c > 1)
+  {
+    dword_0123348c |= 0xa;
+    DAT_010bcd2c = DAT_010bcd2c >> 1;
+    FUN_00419560();
+    HMENU hMenu = ::GetMenu(GetSafeHwnd());
+    UNCHECK_GRID_ITEMS(hMenu);
+    CHECK_GRID_ITEM(hMenu)
+  }
+}
 
 // grid, texture, rotate and cubic-clip state in status pane 4
 void CMainFrame::FUN_00419560()
@@ -3113,6 +3434,30 @@ void CMainFrame::FUN_0041a330()
   CRect rect(100, 100, 300, 300);
   pCamWnd->Create("QCamera", "", WS_OVERLAPPEDWINDOW, rect, CWnd::FromHandle(::GetDesktopWindow()), 12345);
   pCamWnd->ShowWindow(SW_SHOW);
+}
+
+// 0x0041a3e0
+void CMainFrame::FUN_0041a3e0()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("make simpe patch mesh");
+  Undo_AddBrushList(&selected_selbrushes);
+  CPatchDensityDlg dlg;
+  dlg.DoModal();
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+// 0x0041a4d0
+void CMainFrame::FUN_0041a4d0()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("make simple terrain mesh");
+  Undo_AddBrushList(&selected_selbrushes);
+  CTerrainDensityDlg dlg;
+  dlg.DoModal();
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
 }
 
 extern "C" void __fastcall FUN_0041a5c0(CMainFrame *self)
@@ -3458,6 +3803,44 @@ extern bool DAT_0112993e;
 extern bool DAT_0112993f;
 extern int DAT_011298b0;
 
+// 0x0041b100: with a brush of a non-world entity selected, select the entity's next brush
+void CMainFrame::FUN_0041b100()
+{
+  if (DAT_012334ba)
+  {
+    FUN_00433b90();
+    return;
+  }
+  if (DAT_012334b9)
+  {
+    FUN_00434110();
+    return;
+  }
+  brush_t *selected = selected_brushes.next;
+  if (selected != &selected_brushes)
+  {
+    entityInst_t *ent = selected->owner;
+    if (_stricmp(ent->def->eclass->name, "worldspawn"))
+    {
+      FUN_0046fbe0(true);
+      brush_t *next = ent->brushes.ownerNext;
+      while (next != &ent->brushes)
+      {
+        if (selected == next)
+        {
+          next = next->ownerNext;
+          break;
+        }
+        next = next->ownerNext;
+      }
+      if (next == &ent->brushes)
+        next = next->ownerNext;
+      FUN_0046f0b0(next, false, true, false);
+      dword_0123348c = -1;
+    }
+  }
+}
+
 // Sync four toolbar buttons and their menu checks with the mode flags.
 extern "C" void FUN_0041b190(CMainFrame *self)
 {
@@ -3622,6 +4005,22 @@ extern "C" void FUN_0041b6f0() { FUN_00438020(); }
 
 extern "C" void FUN_0041b700() { FUN_00438120(); }
 extern "C" void FUN_0041b710() { FUN_00438ff0(); }
+// 0x0041b720
+void CMainFrame::FUN_0041b720()
+{
+  FUN_004433b0();
+  Undo_GeneralStart("curve thicken");
+  Undo_AddBrushList(&selected_selbrushes);
+  CDialogThick dlg;
+  if (dlg.DoModal() == IDOK)
+  {
+    FUN_004348e0(dlg.m_nAmount, dlg.m_bSeams != 0);
+    dword_0123348c = -1;
+  }
+  FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
 // 0x0041b7f0
 extern "C" void FUN_0041b7f0() { FUN_00434190(1, 1, DAT_01128dc4, DAT_01128dc4); dword_0123348c = -1; }
 
@@ -3950,6 +4349,61 @@ FILTER_TOGGLE(FUN_0041cec0, d_exclude2, 0x8000, 0x81da, 0xb)
 FILTER_TOGGLE(FUN_0041cf20, d_exclude2, 0x10000, 0x81db, 0xb)
 FILTER_TOGGLE(FUN_0041cf80, d_exclude, 0x80000, 0x8166, 0xb)
 FILTER_TOGGLE(FUN_0041cfe0, d_exclude, 0x20000000, 0x8167, 0xb)
+// 0x0041c270: the wheel scrolls the texture pane, dollies the camera or zooms the XY view
+BOOL CMainFrame::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
+{
+  BOOL overTex = FALSE;
+  BOOL overCam = FALSE;
+  CRect r;
+  CPoint cur;
+
+  if (zDelta == 0)
+    return TRUE;
+  if (field_0790)
+  {
+    if (PF(0x1b4) != 1 || (DAT_011299a8 == 0x10 && field_0790 == CWnd::FromHandle(::WindowFromPoint(pt))))
+    {
+      ::GetClientRect(field_0790->m_hWnd, &r);
+      field_0790->ClientToScreen(&r);
+      ::GetCursorPos(&cur);
+      if (cur.x >= r.left && cur.x <= r.right && cur.y >= r.top && cur.y <= r.bottom)
+        overTex = TRUE;
+    }
+  }
+  if (field_078c && PF(0x2e8))
+  {
+    if (PF(0x1b4) != 1 || field_078c == CWnd::FromHandle(::WindowFromPoint(pt)))
+    {
+      ::GetClientRect(field_078c->m_hWnd, &r);
+      field_078c->ClientToScreen(&r);
+      ::GetCursorPos(&pt);
+      if (pt.x >= r.left && pt.x <= r.right && pt.y >= r.top && pt.y <= r.bottom)
+        overCam = TRUE;
+    }
+  }
+  if (overTex)
+  {
+    int step = (r.bottom - r.top) / 2;
+    if (zDelta < 0)
+      step = -step;
+    FUN_00442140(DAT_01128da0 - step);
+    return TRUE;
+  }
+  if (field_078c && overCam)
+  {
+    if (zDelta > 0)
+      FUN_004157f0(-1.0f);
+    else
+      FUN_004157f0(1.0f);
+    return TRUE;
+  }
+  if (zDelta > 0)
+    FUN_004156a0();
+  else
+    FUN_00415750();
+  return TRUE;
+}
+
 extern "C" void __fastcall FUN_0041d040(CMainFrame *self)
 {
   g_qeglobals.d_exclude2 ^= 0x20;

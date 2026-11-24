@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "radiant_wnd.h"
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -166,7 +167,6 @@ struct CamViewProj
 	float origin[3];
 	float angles[3];
 };
-class CXYWnd;
 struct MainFrameXYProj
 {
 	unsigned char pad00[0x788];
@@ -210,8 +210,6 @@ struct prefabLevel_t
 };
 extern prefabLevel_t prefabStack[];
 
-void FUN_00452e30(CXYWnd *xy);
-void FUN_00452f50(CXYWnd *xy);
 void FUN_00452b00(CXYWnd *xy);
 void FUN_00452ca0(CXYWnd *xy, int type);
 void FUN_00458c00(brush_t *b);
@@ -249,7 +247,7 @@ void FUN_00467e10()
 	if (dword_01233488->xyWnd)
 	{
 		DAT_012334f4 = true;
-		FUN_00452e30(dword_01233488->xyWnd);
+		dword_01233488->xyWnd->Copy();
 	}
 }
 
@@ -257,7 +255,7 @@ void FUN_00467e10()
 void FUN_00467e30()
 {
 	if (dword_01233488->xyWnd && DAT_012334f4)
-		FUN_00452f50(dword_01233488->xyWnd);
+		dword_01233488->xyWnd->Paste();
 	DAT_012334f4 = false;
 }
 
@@ -272,7 +270,7 @@ void FUN_00467e60()
 			if (dword_01233488->xyWnd)
 			{
 				DAT_012334f4 = true;
-				FUN_00452e30(dword_01233488->xyWnd);
+				dword_01233488->xyWnd->Copy();
 			}
 		}
 	}
@@ -378,8 +376,8 @@ void FUN_00468030()
 // 0x00468100 (175 B)
 void FUN_00468100()
 {
-	strcpy(currentmap, "unnamed.map");
 	DAT_010a4910 = 0;
+	strcpy(currentmap, "unnamed.map");
 	SetWindowText(dword_010bcd54, currentmap);
 	DAT_010bcd30 = 0;
 	if (!active_brushes.next)
@@ -442,15 +440,6 @@ entity_t *FUN_00466440(const char **data, int version, int flag);
 
 int FUN_004681d0(const char **data)
 {
-	ParseThreadInfo *parse = Com_GetParseThreadInfo();
-	MapParseInfo *pi = &parse->parseInfo[parse->parseInfoNum];
-
-	if (pi->ungetToken)
-	{
-		pi->ungetToken = false;
-		*data = pi->backup_text;
-		pi->lines = pi->backup_lines;
-	}
 	char *token = Com_Parse(data);
 	if (!token[0])
 	{
@@ -503,7 +492,7 @@ extern HWND DAT_010bcd70;
 void AddRegionBrushes();
 void FUN_00466970(entity_t *e, bool use_region, FILE *f);
 
-void FUN_00468910(const char *filename, int use_region)
+void FUN_00468910(const char *filename, bool use_region)
 {
 	char temp[1024];
 	char ro[1024];
@@ -519,26 +508,29 @@ void FUN_00468910(const char *filename, int use_region)
 	DAT_010a4910 = 0;
 	char *p = temp;
 	for (const char *s = filename; *s; s++)
-		*p++ = (*s == '\\') ? '/' : *s;
+	{
+		if (*s == '\\')
+			*p++ = '/';
+		else
+			*p++ = *s;
+	}
 	*p = 0;
 	Sys_Printf("Map_SaveFile: %s\n", filename);
 	f = fopen(filename, "w");
 	if (!f)
 	{
 		FILE *rf = fopen(filename, "r");
-		if (!rf)
+		if (rf)
 		{
-			Sys_Printf("ERROR!!!! Couldn't open %s!\n", filename);
-			return;
+			fclose(rf);
+			strcpy(ro, filename);
+			if (MessageBox(dword_010bcd54, "File is Read-Only! Please make the file writable and retry the save.", "File is Read-Only!", MB_OK) == IDOK)
+			{
+				Sys_Printf("Save of %s canceled.\n", ro);
+				return;
+			}
+			f = fopen(filename, "w");
 		}
-		fclose(rf);
-		strcpy(ro, filename);
-		if (MessageBox(dword_010bcd54, "File is Read-Only! Please make the file writable and retry the save.", "File is Read-Only!", MB_OK) == IDOK)
-		{
-			Sys_Printf("Save of %s canceled.\n", ro);
-			return;
-		}
-		f = fopen(filename, "w");
 		if (!f)
 		{
 			Sys_Printf("ERROR!!!! Couldn't open %s!\n", filename);
@@ -735,7 +727,7 @@ void FUN_00469210()
 }
 
 // 0x004692a0 (172 B)
-void FUN_004692a0()
+extern "C" void FUN_004692a0()
 {
 	Map_RemoveRegion();
 	if (selected_brushes.next == &selected_brushes)
@@ -745,12 +737,12 @@ void FUN_004692a0()
 	}
 	DAT_0109fecc = 1;
 	FUN_00470a50(dword_00591cdc, dword_00591ce8);
-	filtered_brushes.prev = active_brushes.prev;
 	filtered_brushes.next = active_brushes.next;
+	filtered_brushes.prev = active_brushes.prev;
 	filtered_brushes.next->prev = &filtered_brushes;
 	filtered_brushes.prev->next = &filtered_brushes;
-	active_brushes.prev = selected_brushes.prev;
 	active_brushes.next = selected_brushes.next;
+	active_brushes.prev = selected_brushes.prev;
 	active_brushes.next->prev = &active_brushes;
 	active_brushes.prev->next = &active_brushes;
 	selected_brushes.prev = selected_brushes.next = &selected_brushes;
@@ -793,14 +785,17 @@ void FUN_00469420()
 {
 	brush_t *b = selected_brushes.next;
 
-	if (b == &selected_brushes || b->next != &selected_brushes)
+	if (b != &selected_brushes && b->next == &selected_brushes)
+	{
+		if (b->owner->def->eclass->fixedsize)
+		{
+			Sys_Printf("Error: you cannot manipulate fixed size entities\n");
+			return;
+		}
+	}
+	else
 	{
 		Sys_Printf("Error: you must have a single brush selected\n");
-		return;
-	}
-	if (b->owner->def->eclass->fixedsize)
-	{
-		Sys_Printf("Error: you cannot manipulate fixed size entities\n");
 		return;
 	}
 	Map_RemoveRegion();
@@ -820,14 +815,17 @@ void FUN_004694d0()
 {
 	brush_t *b = selected_brushes.next;
 
-	if (b == &selected_brushes || b->next != &selected_brushes)
+	if (b != &selected_brushes && b->next == &selected_brushes)
+	{
+		if (b->owner->def->eclass->fixedsize)
+		{
+			Sys_Printf("Error: you cannot manipulate fixed size entities\n");
+			return;
+		}
+	}
+	else
 	{
 		Sys_Printf("Error: you must have a single brush selected\n");
-		return;
-	}
-	if (b->owner->def->eclass->fixedsize)
-	{
-		Sys_Printf("Error: you cannot manipulate fixed size entities\n");
 		return;
 	}
 	Map_RemoveRegion();

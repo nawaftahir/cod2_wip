@@ -472,7 +472,7 @@ void FUN_0043e400()
 }
 
 // Retail 0x0043e440 (247 B): open the surface inspector, creating it on first use.
-void FUN_0043e440()
+extern "C" void FUN_0043e440()
 {
     surfDlgGlob.field_00 = dword_01233b64->field_1e4 != 0;
     surfDlgGlob.field_01 = dword_01233b64->field_1f0 != 0;

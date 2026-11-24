@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "PrefsDlg.h"
+#include "MainFrm.h"
 
 #define PREF_SECTION      "Prefs"
 #define INTERNAL_SECTION  "Internals"
 
-extern CWnd *g_pParentWnd;
+extern CMainFrame *g_pParentWnd;
 extern unsigned dword_0123348c;
-extern "C" void __fastcall FUN_00419560(CWnd *frame);
 void Undo_SetMaxSize(int size);
 
 CPrefsDlg::CPrefsDlg(CWnd *pParent /*=NULL*/)
@@ -141,7 +141,7 @@ void CPrefsDlg::OnOK()
 	m_nAngleSpeed = (float)m_nMoveSpeed * 0.50;
 	SavePrefs();
 	if (g_pParentWnd)
-		FUN_00419560(g_pParentWnd);
+		g_pParentWnd->FUN_00419560();
 	dword_0123348c = (unsigned)-1;
 	Undo_SetMaxSize(m_nUndoLevels);
 	CDialog::OnOK();
