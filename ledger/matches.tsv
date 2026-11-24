@@ -2657,3 +2657,11 @@ addr	size	source	symbol	name	tag
 0x00446080	20	src/radiant/VehicleDlg.cpp	?GetRangeMax@CSliderCtrl@@QBEHXZ	CSliderCtrl::GetRangeMax	SUPPORTED
 0x004433b0	476	src/radiant/Undo.cpp	?FUN_004433b0@@YAXXZ	FUN_004433b0	UNNAMED
 0x00443590	615	src/radiant/Undo.cpp	?FUN_00443590@@YAXXZ	FUN_00443590	UNNAMED
+0x00479d30	1034	src/radiant/win_main.cpp	?MFCCreate@@YAXXZ	MFCCreate	SUPPORTED
+0x0047a330	106	src/radiant/win_main.cpp	?Sys_UpdateStatusBar@@YAXXZ	Sys_UpdateStatusBar	SUPPORTED
+0x0047a4d0	9	src/radiant/win_qe3.cpp	?Sys_SetCursorPos@@YAXHH@Z	Sys_SetCursorPos	SUPPORTED
+0x0044a210	136	src/radiant/XYWnd.cpp	?OriginalButtonDown@CXYWnd@@IAEXIVCPoint@@@Z	OriginalButtonDown	SUPPORTED
+0x00470690	960	src/radiant/select.cpp	?FUN_00470690@@YAXH@Z	FUN_00470690	PINNED
+0x004209a0	385	src/radiant/UNKNOWN_00420930.cpp	?FUN_004209a0@@YAHPAPBDPBDPBUContentFlag_t@@@Z	FUN_004209a0	HYPOTHESIS
+0x00420b70	20	src/radiant/UNKNOWN_00420930.cpp	?FUN_00420b70@@YAHPAPBD@Z	FUN_00420b70	HYPOTHESIS
+0x00420b90	20	src/radiant/UNKNOWN_00420930.cpp	?FUN_00420b90@@YAHPAPBD@Z	FUN_00420b90	HYPOTHESIS
