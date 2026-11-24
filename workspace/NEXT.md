@@ -251,3 +251,5 @@ PINNED (matched rows, plain C source, no annotation): LTCG does give edx args to
   its closing brace. NOT applied: the edit was refused by the permission layer in this session; owner to allow it.
 - Same class, 98%: 0x40af90, 0x40bb00, 0x40bb70, 0x40aef0 getActiveTarget and 0x40a3d0: retail pushes two
   immediate `push 0` for addTarget(NULL, FIXED) (0x49eae0), we emit `xor eax,eax; push eax; push eax`.
+- Tried (1 build, inconclusive: compile hit a C1083 temp-file collision with a parallel build): getActiveTarget
+  `addTarget(0, (positionType)0)` to turn xor/push/push into push 0 x2. Not retried; no source change kept.
