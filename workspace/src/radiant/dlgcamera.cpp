@@ -10,6 +10,9 @@
 
 struct QEGlobals_t
 {
+	unsigned char pad_00[0x8070];
+	int d_num_move_points;
+	unsigned char pad_8074[0x6cba0 - 0x8074];
 	idPointListInterface *selectObject;
 };
 
@@ -18,7 +21,6 @@ extern idCameraDef *g_splineList;
 extern int g_nUpdateBits;
 extern int DAT_011298b0;
 extern int DAT_010c2d7c;
-extern int DAT_010c4d84;
 class CMainFrame;
 extern CMainFrame *dword_01233488;
 extern "C" void FUN_0041b190(CMainFrame *self);
@@ -122,7 +124,7 @@ void CDlgCamera::OnSelchangeComboSplines()
 	if (mode != 0xa && old == 0xa)
 		FUN_0042beb0();
 	DAT_010c2d7c = 0;
-	DAT_010c4d84 = 0;
+	g_qeglobals.d_num_move_points = 0;
 	int i = m_wndSplines.GetCurSel();
 	if (i > 0)
 	{

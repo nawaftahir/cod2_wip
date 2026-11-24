@@ -96,7 +96,7 @@ struct mesh_t
 extern int DAT_01128d90;
 extern int DAT_01128d94;
 extern float dword_1128DC4;
-extern int DAT_011298b0;
+
 static int g_nFaceCycle = 0;
 
 void BuildTextureVecs(const vec3_t normal, const vec2_t scale, const vec2_t shift, float rotate, float skew, vec4_t texVecs[2]);
@@ -157,18 +157,18 @@ extern brush_t DAT_010a44dc;
 
 //E-DECLS
 // declarations for the bulk-drafted functions (addresses in the names)
-extern int DAT_01128d8c;
-extern float DAT_010f8d8c[][3];
-extern int DAT_010f8d88;
-extern float DAT_010c8d88[][3];
+
+
+
+
 extern int DAT_0123348c;
 extern char DAT_012334b8;
 extern char DAT_0112993e;
 extern char DAT_0112993f;
-extern int DAT_010c2d7c;
-extern float DAT_010bcd7c[][3];
-extern int DAT_010c4d84;
-extern int DAT_010c4d88[];
+
+
+class CSelectObject; struct qeglobals_t { unsigned char pad_00[0x18]; int d_gridsize; unsigned char pad_1c[0x5c - 0x1c]; HWND d_hwndStatus; unsigned char pad_60[0x68 - 0x60]; float d_points[2048][3]; int d_numpoints; unsigned char pad_606c[0x8070 - 0x606c]; int d_num_move_points; float *d_move_points[4096]; float field_c074[16384][3]; int field_3c074; float field_3c078[16384][3]; int field_6c078; unsigned char pad_6c07c[0x6cb84 - 0x6c07c]; int d_select_count; brush_t *d_select_order[2]; unsigned char pad_6cb90[0x6cb9c - 0x6cb90]; int d_select_mode; CSelectObject *selectObject; };
+extern qeglobals_t g_qeglobals;
 extern brush_t DAT_010a44b4;
 int __fastcall FUN_00429df0(void *, int value);
 void FUN_0042a0a0(patchMesh_t *p, PatchControl *c, bool weld);
@@ -254,8 +254,8 @@ void FUN_00432ca0(bool bFlipWidth); bool FUN_00429a00(patchMesh_t *patch, PatchP
 bool FUN_00429a00(patchMesh_t *patch, PatchPair *pPair);
 static inline int IndexOfMovePoint(const void *c)
 {
-    for (int i = 0; i < DAT_010c4d84; i++)
-        if ((const void *)DAT_010c4d88[i] == c)
+    for (int i = 0; i < g_qeglobals.d_num_move_points; i++)
+        if ((const void *)g_qeglobals.d_move_points[i] == c)
             return i;
     return -1;
 }
@@ -761,7 +761,7 @@ void Brush_RebuildBrush(brushdef_t *b, vec3_t vMins, vec3_t vMaxs)
     }
 
     FUN_0045a220(b, true);
-    if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
+    if (g_qeglobals.d_select_mode == 1 || g_qeglobals.d_select_mode == 2)
         FUN_00475350();
     Sys_MarkMapModified();
     b->version++;
@@ -884,7 +884,7 @@ brushdef_t *AddBrushForPatch(patchMesh_t *pm, entity_t *owner)
     {
         FUN_004671b0(b, owner);
         FUN_0045a220(b, true);
-        if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
+        if (g_qeglobals.d_select_mode == 1 || g_qeglobals.d_select_mode == 2)
             FUN_00475350();
         Sys_MarkMapModified();
         b->version++;
@@ -1156,8 +1156,8 @@ void FillPatch(patchMesh_t *p, vec3_t v)
 // Retail 0x00429df0 / 34 B; MSVC 7.1 isolated referee MATCH
 // in run 42071492272. The decompiler names identify two existing
 // global objects: an index count and a contiguous 32-bit table.
-extern int DAT_010c4d84;
-extern int DAT_010c4d88[];
+
+
 
 // Retail 0x004293f0: build a generic patch mesh over the single selected brush.
 brush_t *Patch_GenericMesh(int nWidth, int nHeight, int nOrientation, bool bDeleteSource, bool bOverride)
@@ -1689,9 +1689,9 @@ bool FUN_00429a00(patchMesh_t *patch, PatchPair *pPair)
     PatchControl *pdvFound[2] = { NULL, NULL };
     PatchControl *first = NULL;
     PatchControl *second = NULL;
-    for (int i = 0; i < DAT_010c4d84; i++)
+    for (int i = 0; i < g_qeglobals.d_num_move_points; i++)
     {
-        PatchControl *c = (PatchControl *)DAT_010c4d88[i];
+        PatchControl *c = (PatchControl *)g_qeglobals.d_move_points[i];
         if (c >= &patch->ctrl[0][0] && c <= &patch->ctrl[15][15])
         {
             if (first)
@@ -1725,9 +1725,9 @@ bool FUN_00429a00(patchMesh_t *patch, PatchPair *pPair)
     return false;
 }
 
-class CSelectObject;
-struct qeglobals_t { unsigned char pad_00[0x18]; int d_gridsize; unsigned char pad_1c[0x5c - 0x1c]; HWND d_hwndStatus; unsigned char pad_60[0x8070 - 0x60]; int d_num_move_points; float *d_move_points[4096]; unsigned char pad_c074[0x6cb84 - 0xc074]; int d_select_count; brush_t *d_select_order[2]; unsigned char pad_6cb90[0x6cb9c - 0x6cb90]; int d_select_mode; CSelectObject *selectObject; };
-extern qeglobals_t g_qeglobals;
+
+
+
 
 // Retail 0x00429bc0: the row or column shared by every selected control of a patch.
 bool FUN_00429bc0(patchMesh_t *patch, int *px, int *py)
@@ -1777,9 +1777,9 @@ bool FUN_00429bc0(patchMesh_t *patch, int *px, int *py)
 
 int __fastcall FUN_00429df0(void *, int value)
 {
-    for (int i = 0; i < DAT_010c4d84; ++i)
+    for (int i = 0; i < g_qeglobals.d_num_move_points; ++i)
     {
-        if (value == DAT_010c4d88[i])
+        if (value == (int)g_qeglobals.d_move_points[i])
             return i;
     }
     return -1;
@@ -1790,11 +1790,11 @@ int FUN_00439620(const vec3_t v1, const vec3_t v2);
 // Retail 0x00429e20: index of the point nearest enough to v in the 0x10f8d8c table, or -1.
 int FUN_00429e20(const float *v)
 {
-    for (int i = 0; i < DAT_01128d8c; i++)
+    for (int i = 0; i < g_qeglobals.field_6c078; i++)
     {
-        float dx = DAT_010f8d8c[i][0] - v[0];
-        float dy = DAT_010f8d8c[i][1] - v[1];
-        float dz = DAT_010f8d8c[i][2] - v[2];
+        float dx = g_qeglobals.field_3c078[i][0] - v[0];
+        float dy = g_qeglobals.field_3c078[i][1] - v[1];
+        float dz = g_qeglobals.field_3c078[i][2] - v[2];
         if (dz * dz + dy * dy + dx * dx < 0.01)
             return i;
     }
@@ -1804,11 +1804,11 @@ int FUN_00429e20(const float *v)
 // Retail 0x00429e90: same search over the 0x10c8d88 table.
 int FUN_00429e90(const float *v)
 {
-    for (int i = 0; i < DAT_010f8d88; i++)
+    for (int i = 0; i < g_qeglobals.field_3c074; i++)
     {
-        float dx = DAT_010c8d88[i][0] - v[0];
-        float dy = DAT_010c8d88[i][1] - v[1];
-        float dz = DAT_010c8d88[i][2] - v[2];
+        float dx = g_qeglobals.field_c074[i][0] - v[0];
+        float dy = g_qeglobals.field_c074[i][1] - v[1];
+        float dz = g_qeglobals.field_c074[i][2] - v[2];
         if (dz * dz + dy * dy + dx * dx < 0.01)
             return i;
     }
@@ -1818,9 +1818,9 @@ int FUN_00429e90(const float *v)
 // index of the selected control point at v, or -1
 int FUN_00429f00(const vec3_t v)
 {
-    for (int i = 0; i < DAT_010c4d84; ++i)
+    for (int i = 0; i < g_qeglobals.d_num_move_points; ++i)
     {
-        if (FUN_00439620(v, (const float *)DAT_010c4d88[i]))
+        if (FUN_00439620(v, (const float *)g_qeglobals.d_move_points[i]))
             return i;
     }
     return -1;
@@ -1831,27 +1831,12 @@ void FUN_0042a0a0(patchMesh_t *p, PatchControl *c, bool weld);
 // Retail 0x00429f40: remove the control point equal to v from the selection list.
 void FUN_00429f40(const float *v)
 {
-    for (;;)
+    int i;
+    while ((i = FUN_00429f00(v)) >= 0)
     {
-        int i;
-        for (i = 0; i < DAT_010c4d84; i++)
-        {
-            const float *p = (const float *)DAT_010c4d88[i];
-            int k;
-            for (k = 0; k < 3; k++)
-            {
-                float d = v[k] - p[k];
-                if (d * d > 1.0000001e-06f)
-                    break;
-            }
-            if (k == 3)
-                break;
-        }
-        if (i >= DAT_010c4d84)
-            return;
-        for (; i < DAT_010c4d84 - 1; i++)
-            DAT_010c4d88[i] = DAT_010c4d88[i + 1];
-        DAT_010c4d84--;
+        for (int j = i; j < g_qeglobals.d_num_move_points - 1; j++)
+            g_qeglobals.d_move_points[j] = g_qeglobals.d_move_points[j + 1];
+        g_qeglobals.d_num_move_points--;
     }
 }
 
@@ -1935,7 +1920,7 @@ void FUN_0042a0a0(patchMesh_t *p, PatchControl *pt, bool bWeld)
 void FUN_0042a3a0(patchMesh_t *p, int row, bool bMulti)
 {
     if (!bMulti)
-        DAT_010c4d84 = 0;
+        g_qeglobals.d_num_move_points = 0;
     for (int i = 0; i < p->width; i++)
     {
         if (!(p->ctrl[i][row].flags_34 & 2))
@@ -1947,7 +1932,7 @@ void FUN_0042a3a0(patchMesh_t *p, int row, bool bMulti)
 void FUN_0042a3f0(patchMesh_t *p, int col, bool bMulti)
 {
     if (!bMulti)
-        DAT_010c4d84 = 0;
+        g_qeglobals.d_num_move_points = 0;
     for (int i = 0; i < p->height; i++)
     {
         if (!(p->ctrl[col][i].flags_34 & 2))
@@ -1999,7 +1984,7 @@ void FUN_0042a4b0(patchMesh_t *p, int dx, int dy, bool bMulti)
 // Retail 0x0042a7f0: spread the control selection of every selected patch (curve edit modes 1 and 4).
 bool FUN_0042a7f0(int dx, int dy, bool bMulti)
 {
-    if (DAT_011298b0 != 1 && DAT_011298b0 != 4)
+    if (g_qeglobals.d_select_mode != 1 && g_qeglobals.d_select_mode != 4)
         return false;
     bool done = false;
     for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
@@ -2046,12 +2031,12 @@ void FUN_0042a890(const float *point, bool bMulti, bool bColumn)
                     continue;
                 if (DAT_0112993e)
                 {
-                    DAT_010c4d84 = 0;
+                    g_qeglobals.d_num_move_points = 0;
                     c->flags_34 |= 2;
                 }
                 else if (DAT_0112993f)
                 {
-                    DAT_010c4d84 = 0;
+                    g_qeglobals.d_num_move_points = 0;
                     c->flags_34 &= ~2;
                 }
                 else if (FUN_00429df0(0, (int)c) == -1)
@@ -2062,7 +2047,7 @@ void FUN_0042a890(const float *point, bool bMulti, bool bColumn)
                         return;
                     }
                     if (!bMulti)
-                        DAT_010c4d84 = 0;
+                        g_qeglobals.d_num_move_points = 0;
                     if (!(c->flags_34 & 2))
                         FUN_0042a0a0(p, c, 1);
                     return;
@@ -2097,9 +2082,9 @@ float FUN_0042ab00(const vec2_t p0, const vec2_t p1, const vec2_t p2)
 // Retail 0x0042ab20: move the selected controls by delta and rebuild their patches.
 void FUN_0042ab20(const float *delta)
 {
-    for (int i = 0; i < DAT_010c4d84; i++)
+    for (int i = 0; i < g_qeglobals.d_num_move_points; i++)
     {
-        float *p = (float *)DAT_010c4d88[i];
+        float *p = (float *)g_qeglobals.d_move_points[i];
         p[0] += delta[0];
         p[1] += delta[1];
         p[2] += delta[2];
@@ -2111,16 +2096,16 @@ void FUN_0042ab20(const float *delta)
 #line 2153
         assert( b->patch->def == b->def->patch );
         patchMesh_t *p = b->patch->def;
-        DAT_010c2d7c = 0;
+        g_qeglobals.d_numpoints = 0;
         for (int x = 0; x < p->width; x++)
         {
             for (int y = 0; y < p->height; y++)
             {
-                DAT_010bcd7c[DAT_010c2d7c][0] = p->ctrl[x][y].xyz[0];
-                DAT_010bcd7c[DAT_010c2d7c][1] = p->ctrl[x][y].xyz[1];
-                DAT_010bcd7c[DAT_010c2d7c][2] = p->ctrl[x][y].xyz[2];
-                if (DAT_010c2d7c < 0x7ff)
-                    DAT_010c2d7c++;
+                g_qeglobals.d_points[g_qeglobals.d_numpoints][0] = p->ctrl[x][y].xyz[0];
+                g_qeglobals.d_points[g_qeglobals.d_numpoints][1] = p->ctrl[x][y].xyz[1];
+                g_qeglobals.d_points[g_qeglobals.d_numpoints][2] = p->ctrl[x][y].xyz[2];
+                if (g_qeglobals.d_numpoints < 0x7ff)
+                    g_qeglobals.d_numpoints++;
             }
         }
         FUN_004269d0(p, true);
@@ -2136,9 +2121,9 @@ float FUN_0042ac60(const float *xyz)
     float inner = FUN_00401b80();
     float outer = FUN_00401bd0();
     float best = 3.4028235e38f;
-    for (int i = 0; i < DAT_010c4d84; i++)
+    for (int i = 0; i < g_qeglobals.d_num_move_points; i++)
     {
-        const float *p = (const float *)DAT_010c4d88[i];
+        const float *p = (const float *)g_qeglobals.d_move_points[i];
         float dx = xyz[0] - p[0];
         float dy = xyz[1] - p[1];
         float d = dy * dy + dx * dx;
@@ -3078,7 +3063,7 @@ void FUN_0042eaf0(patchMesh_t *p, const float *origin, const float *matrix, bool
     {
         for (int j = 0; j < p->height; j++)
         {
-            if (DAT_011298b0 == 4 || DAT_012334ba)
+            if (g_qeglobals.d_select_mode == 4 || DAT_012334ba)
             {
                 if (FUN_00429df0(0, (int)&p->ctrl[i][j]) == -1)
                     continue;
@@ -3101,10 +3086,10 @@ void FUN_0042eaf0(patchMesh_t *p, const float *origin, const float *matrix, bool
 // Retail 0x0042ec60: start vertex dragging: remember the position of every control of every selected patch.
 void FUN_0042ec60()
 {
-    DAT_010c2d7c = 0;
-    DAT_010c4d84 = 0;
-    DAT_010f8d88 = 0;
-    DAT_01128d8c = 0;
+    g_qeglobals.d_numpoints = 0;
+    g_qeglobals.d_num_move_points = 0;
+    g_qeglobals.field_3c074 = 0;
+    g_qeglobals.field_6c078 = 0;
     for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
     {
         if (!b->patch)
@@ -3116,16 +3101,16 @@ void FUN_0042ec60()
         {
             for (int h = 0; h < p->height; h++)
             {
-                DAT_010bcd7c[DAT_010c2d7c][0] = p->ctrl[w][h].xyz[0];
-                DAT_010bcd7c[DAT_010c2d7c][1] = p->ctrl[w][h].xyz[1];
-                DAT_010bcd7c[DAT_010c2d7c][2] = p->ctrl[w][h].xyz[2];
-                if (DAT_010c2d7c < 0x7ff)
-                    DAT_010c2d7c++;
+                g_qeglobals.d_points[g_qeglobals.d_numpoints][0] = p->ctrl[w][h].xyz[0];
+                g_qeglobals.d_points[g_qeglobals.d_numpoints][1] = p->ctrl[w][h].xyz[1];
+                g_qeglobals.d_points[g_qeglobals.d_numpoints][2] = p->ctrl[w][h].xyz[2];
+                if (g_qeglobals.d_numpoints < 0x7ff)
+                    g_qeglobals.d_numpoints++;
             }
         }
     }
-    int mode = DAT_011298b0;
-    DAT_011298b0 = 4;
+    int mode = g_qeglobals.d_select_mode;
+    g_qeglobals.d_select_mode = 4;
     if (mode == 11)
         FUN_0041b190(dword_01233488);
     else if (mode == 10)
@@ -3135,10 +3120,10 @@ void FUN_0042ec60()
 // Retail 0x0042edc0: rebuild the drag point lists from the selection and start the current edit mode.
 void FUN_0042edc0()
 {
-    DAT_010c2d7c = 0;
-    DAT_010c4d84 = 0;
-    DAT_010f8d88 = 0;
-    DAT_01128d8c = 0;
+    g_qeglobals.d_numpoints = 0;
+    g_qeglobals.d_num_move_points = 0;
+    g_qeglobals.field_3c074 = 0;
+    g_qeglobals.field_6c078 = 0;
     for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
     {
         if (b->patch)
@@ -3150,13 +3135,13 @@ void FUN_0042edc0()
             {
                 for (int h = 0; h < p->height; h++)
                 {
-                    VectorCopy(p->ctrl[w][h].xyz, DAT_010bcd7c[DAT_010c2d7c]);
-                    if (DAT_010c2d7c < 0x7ff)
-                        DAT_010c2d7c++;
+                    VectorCopy(p->ctrl[w][h].xyz, g_qeglobals.d_points[g_qeglobals.d_numpoints]);
+                    if (g_qeglobals.d_numpoints < 0x7ff)
+                        g_qeglobals.d_numpoints++;
                 }
             }
         }
-        else if (DAT_010f8d88 < 0x4000)
+        else if (g_qeglobals.field_3c074 < 0x4000)
         {
             if (b->owner->field_38)
                 FUN_0042efb0(b);
@@ -3171,8 +3156,8 @@ void FUN_0042edc0()
                 FUN_0042f4f0(b);
         }
     }
-    int mode = DAT_011298b0;
-    DAT_011298b0 = 4;
+    int mode = g_qeglobals.d_select_mode;
+    g_qeglobals.d_select_mode = 4;
     if (mode == 11)
         FUN_0041b190(dword_01233488);
     else if (mode == 10)
@@ -3186,7 +3171,7 @@ int FUN_0042efb0(brush_t *b)
     brush_t *head = &b->owner->field_38->head;
     for (brush_t *c = head->next; c != head; c = c->next)
     {
-        if (DAT_010f8d88 >= 0x4000)
+        if (g_qeglobals.field_3c074 >= 0x4000)
             continue;
         if (c->owner->field_38 && PREFS_INT(0x278))
             added += FUN_0042efb0(c);
@@ -3213,14 +3198,14 @@ int FUN_0042efb0(brush_t *b)
     mat[1][0] = 0.0f - right[0];
     mat[1][1] = 0.0f - right[1];
     mat[1][2] = 0.0f - right[2];
-    for (int i = DAT_010f8d88 - added; i < DAT_010f8d88; i++)
+    for (int i = g_qeglobals.field_3c074 - added; i < g_qeglobals.field_3c074; i++)
     {
         vec3_t out;
-        MatrixTransformVectorCols(DAT_010c8d88[i], mat, out);
+        MatrixTransformVectorCols(g_qeglobals.field_c074[i], mat, out);
         out[0] += e->origin[0];
         out[1] += e->origin[1];
         out[2] += e->origin[2];
-        VectorCopy(out, DAT_010c8d88[i]);
+        VectorCopy(out, g_qeglobals.field_c074[i]);
     }
     return added;
 }
@@ -3236,10 +3221,10 @@ int FUN_0042f1b0(brush_t *b)
     {
         for (int h = 0; h < p->height; h++)
         {
-            if (FUN_00429e90(p->ctrl[w][h].xyz) < 0 && DAT_010f8d88 < 0x4000)
+            if (FUN_00429e90(p->ctrl[w][h].xyz) < 0 && g_qeglobals.field_3c074 < 0x4000)
             {
-                VectorCopy(p->ctrl[w][h].xyz, DAT_010c8d88[DAT_010f8d88]);
-                DAT_010f8d88++;
+                VectorCopy(p->ctrl[w][h].xyz, g_qeglobals.field_c074[g_qeglobals.field_3c074]);
+                g_qeglobals.field_3c074++;
                 added++;
             }
         }
@@ -3274,10 +3259,10 @@ int FUN_0042f2c0(brush_t *b)
         out[0] += e->origin[0];
         out[1] += e->origin[1];
         out[2] += e->origin[2];
-        if (FUN_00429e90(out) < 0 && DAT_010f8d88 < 0x4000)
+        if (FUN_00429e90(out) < 0 && g_qeglobals.field_3c074 < 0x4000)
         {
-            VectorCopy(out, DAT_010c8d88[DAT_010f8d88]);
-            DAT_010f8d88++;
+            VectorCopy(out, g_qeglobals.field_c074[g_qeglobals.field_3c074]);
+            g_qeglobals.field_3c074++;
             added++;
         }
     }
@@ -3294,10 +3279,10 @@ int FUN_0042f4f0(brush_t *b)
         for (int i = 0; i < face->winding->numpoints; i++)
         {
             const float *pt = face->winding->points[i];
-            if (FUN_00429e90(pt) < 0 && DAT_010f8d88 < 0x4000)
+            if (FUN_00429e90(pt) < 0 && g_qeglobals.field_3c074 < 0x4000)
             {
-                VectorCopy(pt, DAT_010c8d88[DAT_010f8d88]);
-                DAT_010f8d88++;
+                VectorCopy(pt, g_qeglobals.field_c074[g_qeglobals.field_3c074]);
+                g_qeglobals.field_3c074++;
                 added++;
             }
         }
@@ -3307,8 +3292,8 @@ int FUN_0042f4f0(brush_t *b)
 
 void FUN_0042f5d0()
 {
-    int mode = DAT_011298b0;
-    DAT_011298b0 = 0;
+    int mode = g_qeglobals.d_select_mode;
+    g_qeglobals.d_select_mode = 0;
     if (mode == 0xb)
         FUN_0041b190(dword_01233488);
     else if (mode == 0xa)
@@ -3429,7 +3414,7 @@ void FUN_0042f840(patchMesh_t *p, const float *center, const float *scale, bool 
     {
         for (int h = 0; h < p->height; h++)
         {
-            if (DAT_011298b0 == 4 && (DAT_010c4d84 <= 0 || FUN_00429df0(0, (int)&p->ctrl[w][h]) == -1))
+            if (g_qeglobals.d_select_mode == 4 && (g_qeglobals.d_num_move_points <= 0 || FUN_00429df0(0, (int)&p->ctrl[w][h]) == -1))
                 continue;
             for (int k = 0; k < 3; k++)
                 p->ctrl[w][h].xyz[k] = (p->ctrl[w][h].xyz[k] - center[k]) * scale[k] + center[k];
@@ -3618,9 +3603,9 @@ void FUN_0042fda0(patchMesh_t *p, int index)
             for (int k = 0; k < 3; k++)
                 p->ctrl[0][j].xyz[k] = p->ctrl[1][j].xyz[k] - p->ctrl[2][j].xyz[k] + p->ctrl[1][j].xyz[k];
             for (int k = 0; k < 3; k++)
-                DAT_010bcd7c[DAT_010c2d7c][k] = p->ctrl[0][j].xyz[k];
-            if (DAT_010c2d7c < 0x7ff)
-                DAT_010c2d7c++;
+                g_qeglobals.d_points[g_qeglobals.d_numpoints][k] = p->ctrl[0][j].xyz[k];
+            if (g_qeglobals.d_numpoints < 0x7ff)
+                g_qeglobals.d_numpoints++;
         }
         p->width++;
     }
@@ -3632,9 +3617,9 @@ void FUN_0042fda0(patchMesh_t *p, int index)
             for (int k = 0; k < 3; k++)
                 p->ctrl[w][j].xyz[k] = p->ctrl[w - 1][j].xyz[k] - p->ctrl[w - 2][j].xyz[k] + p->ctrl[w - 1][j].xyz[k];
             for (int k = 0; k < 3; k++)
-                DAT_010bcd7c[DAT_010c2d7c][k] = p->ctrl[w][j].xyz[k];
-            if (DAT_010c2d7c < 0x7ff)
-                DAT_010c2d7c++;
+                g_qeglobals.d_points[g_qeglobals.d_numpoints][k] = p->ctrl[w][j].xyz[k];
+            if (g_qeglobals.d_numpoints < 0x7ff)
+                g_qeglobals.d_numpoints++;
         }
         p->width++;
     }
@@ -3664,9 +3649,9 @@ void FUN_00430010(patchMesh_t *p, int index)
             for (int k = 0; k < 3; k++)
                 p->ctrl[j][0].xyz[k] = p->ctrl[j][1].xyz[k] - p->ctrl[j][2].xyz[k] + p->ctrl[j][1].xyz[k];
             for (int k = 0; k < 3; k++)
-                DAT_010bcd7c[DAT_010c2d7c][k] = p->ctrl[j][0].xyz[k];
-            if (DAT_010c2d7c < 0x7ff)
-                DAT_010c2d7c++;
+                g_qeglobals.d_points[g_qeglobals.d_numpoints][k] = p->ctrl[j][0].xyz[k];
+            if (g_qeglobals.d_numpoints < 0x7ff)
+                g_qeglobals.d_numpoints++;
         }
         p->height++;
     }
@@ -3678,9 +3663,9 @@ void FUN_00430010(patchMesh_t *p, int index)
             for (int k = 0; k < 3; k++)
                 p->ctrl[j][w].xyz[k] = p->ctrl[j][w - 1].xyz[k] - p->ctrl[j][w - 2].xyz[k] + p->ctrl[j][w - 1].xyz[k];
             for (int k = 0; k < 3; k++)
-                DAT_010bcd7c[DAT_010c2d7c][k] = p->ctrl[j][w].xyz[k];
-            if (DAT_010c2d7c < 0x7ff)
-                DAT_010c2d7c++;
+                g_qeglobals.d_points[g_qeglobals.d_numpoints][k] = p->ctrl[j][w].xyz[k];
+            if (g_qeglobals.d_numpoints < 0x7ff)
+                g_qeglobals.d_numpoints++;
         }
         p->height++;
     }
@@ -3703,11 +3688,11 @@ void FUN_00430220(patchMesh_t *p, int index)
         const float *ps = &prev->st[0][0];
         for (int k = 0; k < 4; k++)
             s[k] = (ps[k] + s[k]) * 0.5f;
-        DAT_010bcd7c[DAT_010c2d7c][0] = c->xyz[0];
-        DAT_010bcd7c[DAT_010c2d7c][1] = c->xyz[1];
-        DAT_010bcd7c[DAT_010c2d7c][2] = c->xyz[2];
-        if (DAT_010c2d7c < 0x7ff)
-            DAT_010c2d7c++;
+        g_qeglobals.d_points[g_qeglobals.d_numpoints][0] = c->xyz[0];
+        g_qeglobals.d_points[g_qeglobals.d_numpoints][1] = c->xyz[1];
+        g_qeglobals.d_points[g_qeglobals.d_numpoints][2] = c->xyz[2];
+        if (g_qeglobals.d_numpoints < 0x7ff)
+            g_qeglobals.d_numpoints++;
     }
     p->width++;
 }
@@ -3778,11 +3763,11 @@ void FUN_00430610(patchMesh_t *p, int index)
         const float *ps = &prev->st[0][0];
         for (int k = 0; k < 4; k++)
             s[k] = (ps[k] + s[k]) * 0.5f;
-        DAT_010bcd7c[DAT_010c2d7c][0] = c->xyz[0];
-        DAT_010bcd7c[DAT_010c2d7c][1] = c->xyz[1];
-        DAT_010bcd7c[DAT_010c2d7c][2] = c->xyz[2];
-        if (DAT_010c2d7c < 0x7ff)
-            DAT_010c2d7c++;
+        g_qeglobals.d_points[g_qeglobals.d_numpoints][0] = c->xyz[0];
+        g_qeglobals.d_points[g_qeglobals.d_numpoints][1] = c->xyz[1];
+        g_qeglobals.d_points[g_qeglobals.d_numpoints][2] = c->xyz[2];
+        if (g_qeglobals.d_numpoints < 0x7ff)
+            g_qeglobals.d_numpoints++;
     }
     p->height++;
 }
@@ -4273,7 +4258,7 @@ void FUN_00432430(patchMesh_t *p, float fAngle)
     {
         for (int j = 0; j < p->height; j++)
         {
-            if (DAT_011298b0 == 4 && (DAT_010c4d84 <= 0 || FUN_00429df0(0, (int)&p->ctrl[i][j]) == -1))
+            if (g_qeglobals.d_select_mode == 4 && (g_qeglobals.d_num_move_points <= 0 || FUN_00429df0(0, (int)&p->ctrl[i][j]) == -1))
                 continue;
             float x = p->ctrl[i][j].st[DAT_01128d94][0];
             float y = p->ctrl[i][j].st[DAT_01128d94][1];
@@ -4301,7 +4286,7 @@ void FUN_00432800(patchMesh_t *p, float fx, float fy)
     {
         for (int j = 0; j < p->height; j++)
         {
-            if (DAT_011298b0 == 4 && (DAT_010c4d84 <= 0 || FUN_00429df0(0, (int)&p->ctrl[i][j]) == -1))
+            if (g_qeglobals.d_select_mode == 4 && (g_qeglobals.d_num_move_points <= 0 || FUN_00429df0(0, (int)&p->ctrl[i][j]) == -1))
                 continue;
             p->ctrl[i][j].st[DAT_01128d94][0] += fx;
             p->ctrl[i][j].st[DAT_01128d94][1] += fy;
@@ -4632,7 +4617,7 @@ void FUN_00433f20()
         Sys_Printf("Patch_SelectBendNormal: Bending of terrain curves not implemented\n");
         return;
     }
-    DAT_010c4d84 = 0;
+    g_qeglobals.d_num_move_points = 0;
     if (DAT_00590a04)
     {
         if (DAT_00590a05)
@@ -4766,10 +4751,10 @@ bool FUN_00434360(const float *planes, bool bRemove)
                     int idx = IndexOfMovePoint(c);
                     if (idx >= 0)
                     {
-                        int n = DAT_010c4d84 - idx;
+                        int n = g_qeglobals.d_num_move_points - idx;
                         if (n - 1 > 0)
-                            memmove(&DAT_010c4d88[idx], &DAT_010c4d88[idx + 1], (n - 1) * 4);
-                        DAT_010c4d84--;
+                            memmove(&g_qeglobals.d_move_points[idx], &g_qeglobals.d_move_points[idx + 1], (n - 1) * 4);
+                        g_qeglobals.d_num_move_points--;
                     }
                 }
                 else if (DAT_0112993e)
@@ -4799,7 +4784,7 @@ void FUN_00434630(const float *planes, bool bAdd)
     bool bRetry = true;
     if (!bAdd || DAT_0112993e || DAT_0112993f)
     {
-        DAT_010c4d84 = 0;
+        g_qeglobals.d_num_move_points = 0;
         bRetry = false;
     }
     DAT_005909f8 = -1;
@@ -4813,9 +4798,9 @@ bool FUN_00434690(const hitplane_t *pl, bool bRemove)
     bool bChanged = false;
     if (DAT_0112993e || DAT_0112993f)
         return false;
-    for (int i = 0; i < DAT_010f8d88; i++)
+    for (int i = 0; i < g_qeglobals.field_3c074; i++)
     {
-        const float *pt = DAT_010c8d88[i];
+        const float *pt = g_qeglobals.field_c074[i];
         int k;
         for (k = 0; k < 4; k++)
             if (!(pl[k].n[0] * pt[0] + pl[k].n[2] * pt[2] + pl[k].n[1] * pt[1] < pl[k].d))
@@ -4826,11 +4811,11 @@ bool FUN_00434690(const hitplane_t *pl, bool bRemove)
         {
             if (FUN_00429e20(pt) < 0)
             {
-                float *dst = DAT_010f8d8c[DAT_01128d8c];
+                float *dst = g_qeglobals.field_3c078[g_qeglobals.field_6c078];
                 dst[0] = pt[0];
                 dst[1] = pt[1];
                 dst[2] = pt[2];
-                DAT_01128d8c++;
+                g_qeglobals.field_6c078++;
                 bChanged = true;
             }
         }
@@ -4841,10 +4826,10 @@ bool FUN_00434690(const hitplane_t *pl, bool bRemove)
             int idx = FUN_00429e20(pt);
             if (idx >= 0)
             {
-                int n = DAT_01128d8c - idx;
+                int n = g_qeglobals.field_6c078 - idx;
                 if (n - 1 > 0)
-                    memmove(DAT_010f8d8c[idx], DAT_010f8d8c[idx + 1], (n - 1) * 12);
-                DAT_01128d8c--;
+                    memmove(g_qeglobals.field_3c078[idx], g_qeglobals.field_3c078[idx + 1], (n - 1) * 12);
+                g_qeglobals.field_6c078--;
             }
         }
     }
@@ -4857,7 +4842,7 @@ void FUN_00434810(const hitplane_t *planes, bool bAdd)
     bool bRetry = true;
     if (!bAdd)
     {
-        DAT_01128d8c = 0;
+        g_qeglobals.field_6c078 = 0;
         bRetry = false;
     }
     DAT_005909f8 = -1;
@@ -5058,7 +5043,7 @@ void FUN_004354b0()
     float saved[1025][3];
     bool bWholeBrushes = false;
     brush_t *b = DAT_010a44b4.next;
-    if (DAT_010c4d84 > 0 && b != &DAT_010a44b4)
+    if (g_qeglobals.d_num_move_points > 0 && b != &DAT_010a44b4)
     {
         brush_t *c = b;
         while (c->patch)
@@ -5095,14 +5080,14 @@ void FUN_004354b0()
         }
         return;
     }
-    if (DAT_010c4d84 > 1025)
+    if (g_qeglobals.d_num_move_points > 1025)
     {
         Sys_Printf("Can only grid snap selected vertices if less than %i selected\n", 1025);
         return;
     }
-    for (int i = 0; i < DAT_010c4d84; i++)
+    for (int i = 0; i < g_qeglobals.d_num_move_points; i++)
     {
-        float *pt = (float *)DAT_010c4d88[i];
+        float *pt = (float *)g_qeglobals.d_move_points[i];
         saved[i][0] = pt[0];
         saved[i][1] = pt[1];
         saved[i][2] = pt[2];
@@ -5221,7 +5206,7 @@ void FUN_00435a80(patchMesh_t *p, int col)
 // Retail 0x00435c00: nudge each selected control point down onto the nearest surface.
 void FUN_00435c00()
 {
-    if (DAT_011298b0 != 1 && DAT_011298b0 != 4)
+    if (g_qeglobals.d_select_mode != 1 && g_qeglobals.d_select_mode != 4)
         return;
     patchMesh_t *p = SinglePatchSelected();
     if (!p)
@@ -5230,9 +5215,9 @@ void FUN_00435c00()
         return;
     }
     float dir[3] = {0.0f, 0.0f, -1.0f};
-    for (int i = 0; i < DAT_010c4d84; i++)
+    for (int i = 0; i < g_qeglobals.d_num_move_points; i++)
     {
-        float *pt = (float *)DAT_010c4d88[i];
+        float *pt = (float *)g_qeglobals.d_move_points[i];
         float org[3] = {pt[0], pt[1], pt[2]};
         trace_t tr = FUN_0046ef10(org, dir, 0x200);
         if (tr.brush)
@@ -5249,7 +5234,7 @@ void FUN_00435c00()
 // Retail 0x00435d20: redistribute the selected control points between selected ends of each row and column.
 void FUN_00435d20()
 {
-    if (DAT_011298b0 != 1 && DAT_011298b0 != 4)
+    if (g_qeglobals.d_select_mode != 1 && g_qeglobals.d_select_mode != 4)
         return;
     patchMesh_t *p = SinglePatchSelected();
     if (!p)
@@ -5283,12 +5268,12 @@ void FUN_00435d20()
 void FUN_00435e40()
 {
     float oldPos[0x1001][3];
-    if (DAT_010c4d84 < 1)
+    if (g_qeglobals.d_num_move_points < 1)
     {
         Sys_Printf("can only connect patch vertices if at least 1 vertices are selected\n");
         return;
     }
-    if ((unsigned)DAT_010c4d84 > 0x1001)
+    if ((unsigned)g_qeglobals.d_num_move_points > 0x1001)
     {
         Sys_Printf("can only connect patch vertices if at most %i vertices are selected\n", 0x1001);
         return;
@@ -5296,17 +5281,17 @@ void FUN_00435e40()
     int tol = PREFS_INT(0x28c);
     float tol2 = (float)(tol * tol);
     int nMerged = 0;
-    if (DAT_010c4d84 > 0)
+    if (g_qeglobals.d_num_move_points > 0)
     {
-        for (int i = 0; i < DAT_010c4d84; i++)
+        for (int i = 0; i < g_qeglobals.d_num_move_points; i++)
         {
             float best = tol2 + 1.0f;
             int idx = -1;
-            for (int k = 0; k < DAT_01128d8c; k++)
+            for (int k = 0; k < g_qeglobals.field_6c078; k++)
             {
-                float *sel = (float *)DAT_010c4d88[i];
-                float dx = DAT_010f8d8c[k][0] - sel[0];
-                float dy = DAT_010f8d8c[k][1] - sel[1];
+                float *sel = (float *)g_qeglobals.d_move_points[i];
+                float dx = g_qeglobals.field_3c078[k][0] - sel[0];
+                float dy = g_qeglobals.field_3c078[k][1] - sel[1];
                 float d = dy * dy + dx * dx;
                 if (!(d > tol2) && d < best)
                 {
@@ -5316,13 +5301,13 @@ void FUN_00435e40()
             }
             if (!(best > tol2))
             {
-                float *sel = (float *)DAT_010c4d88[i];
+                float *sel = (float *)g_qeglobals.d_move_points[i];
                 oldPos[nMerged][0] = sel[0];
                 oldPos[nMerged][1] = sel[1];
                 oldPos[nMerged][2] = sel[2];
-                sel[0] = DAT_010f8d8c[idx][0];
-                sel[1] = DAT_010f8d8c[idx][1];
-                sel[2] = DAT_010f8d8c[idx][2];
+                sel[0] = g_qeglobals.field_3c078[idx][0];
+                sel[1] = g_qeglobals.field_3c078[idx][1];
+                sel[2] = g_qeglobals.field_3c078[idx][2];
                 nMerged++;
             }
         }
@@ -5335,7 +5320,7 @@ void FUN_00435e40()
     }
     else
         Sys_Printf("No vertices are close enough to do Tolerant Weld\n");
-    DAT_010c4d84 = 0;
+    g_qeglobals.d_num_move_points = 0;
     for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
         if (b->patch)
             FUN_004269d0(b->patch->def, true);
@@ -5346,12 +5331,12 @@ void FUN_00435e40()
 void FUN_00436000()
 {
     float oldPos[0x401][3];
-    if (DAT_010c4d84 < 1)
+    if (g_qeglobals.d_num_move_points < 1)
     {
         Sys_Printf("can only connect patch vertices if at least 1 patch vertices are selected\n");
         return;
     }
-    if ((unsigned)DAT_010c4d84 > 0x401)
+    if ((unsigned)g_qeglobals.d_num_move_points > 0x401)
     {
         Sys_Printf("can only connect patch vertices if at most %i vertices are selected\n", 0x401);
         return;
@@ -5360,15 +5345,15 @@ void FUN_00436000()
     int i = 0;
     do
     {
-        float *c = (float *)DAT_010c4d88[i];
+        float *c = (float *)g_qeglobals.d_move_points[i];
         if (!(mask & 1) && !(mask & 2) && !(mask & 4))
         {
             oldPos[i][0] = c[0];
             oldPos[i][1] = c[1];
             oldPos[i][2] = c[2];
-            c[0] = DAT_010f8d8c[0][0];
-            c[1] = DAT_010f8d8c[0][1];
-            c[2] = DAT_010f8d8c[0][2];
+            c[0] = g_qeglobals.field_3c078[0][0];
+            c[1] = g_qeglobals.field_3c078[0][1];
+            c[2] = g_qeglobals.field_3c078[0][2];
         }
         else
         {
@@ -5376,15 +5361,15 @@ void FUN_00436000()
             oldPos[i][1] = c[1];
             oldPos[i][2] = c[2];
             if (!(mask & 1))
-                c[0] = DAT_010f8d8c[0][0];
+                c[0] = g_qeglobals.field_3c078[0][0];
             if (!(mask & 2))
-                c[1] = DAT_010f8d8c[0][1];
+                c[1] = g_qeglobals.field_3c078[0][1];
             if (!(mask & 4))
-                c[2] = DAT_010f8d8c[0][2];
+                c[2] = g_qeglobals.field_3c078[0][2];
         }
-    } while (++i < DAT_010c4d84);
-    DAT_010c4d84 = 0;
-    DAT_01128d8c = 0;
+    } while (++i < g_qeglobals.d_num_move_points);
+    g_qeglobals.d_num_move_points = 0;
+    g_qeglobals.field_6c078 = 0;
     for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
         if (b->patch)
             FUN_004269d0(b->patch->def, true);
@@ -5414,13 +5399,12 @@ void FUN_00436170()
             return;
         }
     }
-    int n = DAT_010c4d84;
-    if (n < 2)
+    if (g_qeglobals.d_num_move_points < 2)
     {
         Sys_Printf("can only connect patch vertices if at least 2 vertices are selected\n");
         return;
     }
-    if ((unsigned)n > 0x1001)
+    if ((unsigned)g_qeglobals.d_num_move_points > 0x1001)
     {
         Sys_Printf("can only connect patch vertices if at most %i vertices are selected\n", 0x1001);
         return;
@@ -5429,23 +5413,24 @@ void FUN_00436170()
     float tol2 = (float)(tol * tol);
     int nMerged = 0;
     float delta[2], d;
-    if (n - 1 > 0)
+    if (g_qeglobals.d_num_move_points - 1 > 0)
     {
-        for (int i = n - 1; i > 0; i--)
+        for (int i = g_qeglobals.d_num_move_points - 1; i > 0; i--)
         {
             int k = i - 1;
             while (k >= 0)
             {
-                float *a = (float *)DAT_010c4d88[k];
-                float *c = (float *)DAT_010c4d88[i];
+                float *a = (float *)g_qeglobals.d_move_points[k];
+                float *c = (float *)g_qeglobals.d_move_points[i];
                 delta[0] = a[0] - c[0];
                 delta[1] = a[1] - c[1];
                 d = delta[1] * delta[1] + delta[0] * delta[0];
                 if (d <= tol2)
                 {
-                    oldPos[i - 1][0] = c[0];
-                    oldPos[i - 1][1] = c[1];
-                    oldPos[i - 1][2] = c[2];
+                    float *o = oldPos[i - 1];
+                    o[0] = c[0];
+                    o[1] = c[1];
+                    o[2] = c[2];
                     c[0] = a[0];
                     c[1] = a[1];
                     c[2] = a[2];
@@ -5463,7 +5448,7 @@ void FUN_00436170()
     }
     else
         Sys_Printf("No vertices are close enough to do Tolerant Weld\n");
-    DAT_010c4d84 = 0;
+    g_qeglobals.d_num_move_points = 0;
     for (brush_t *q = DAT_010a44b4.next; q != &DAT_010a44b4; q = q->next)
         if (q->patch)
             FUN_004269d0(q->patch->def, true);
@@ -5493,7 +5478,7 @@ void FUN_004364b0()
             return;
         }
     }
-    int n = DAT_010c4d84;
+    int n = g_qeglobals.d_num_move_points;
     if (n < 2)
     {
         Sys_Printf("can only splay patch vertices if at least 2 vertices are selected\n");
@@ -5504,12 +5489,12 @@ void FUN_004364b0()
         Sys_Printf("can only splay patch vertices if at most %i vertices are selected\n", 0x401);
         return;
     }
-    float *first = (float *)DAT_010c4d88[0];
+    float *first = (float *)g_qeglobals.d_move_points[0];
     float minX = first[0], minY = first[1];
     float maxX = first[0], maxY = first[1];
     for (int i = n - 1; i > 0; i--)
     {
-        float *pt = (float *)DAT_010c4d88[i];
+        float *pt = (float *)g_qeglobals.d_move_points[i];
         if (!(pt[0] >= minX))
             minX = pt[0];
         if (!(pt[0] <= maxX))
@@ -5524,7 +5509,7 @@ void FUN_004364b0()
     float radius = (float)PREFS_INT(0x298);
     for (int i = 0; i < n; i++)
     {
-        float *pt = (float *)DAT_010c4d88[i];
+        float *pt = (float *)g_qeglobals.d_move_points[i];
         float v[2];
         oldPos[i][0] = pt[0];
         v[0] = pt[0] - cx;
@@ -5532,7 +5517,7 @@ void FUN_004364b0()
         oldPos[i][2] = pt[2];
         v[1] = pt[1] - cy;
         Vec2Normalize(v);
-        pt = (float *)DAT_010c4d88[i];
+        pt = (float *)g_qeglobals.d_move_points[i];
         pt[0] = v[0] * radius + cx;
         pt[1] = v[1] * radius + cy;
     }
@@ -5558,9 +5543,9 @@ void FUN_00436690()
         if (!b->patch)
             return;
     }
-    if (DAT_010c2d7c < 2)
+    if (g_qeglobals.d_numpoints < 2)
         return;
-    DAT_010c2d7c = 0;
+    g_qeglobals.d_numpoints = 0;
     for (b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
     {
         if (!b->patch)
@@ -5572,18 +5557,18 @@ void FUN_00436690()
         {
             for (int y = 0; y < p->height; y++)
             {
-                DAT_010bcd7c[DAT_010c2d7c][0] = p->ctrl[x][y].xyz[0];
-                DAT_010bcd7c[DAT_010c2d7c][1] = p->ctrl[x][y].xyz[1];
-                DAT_010bcd7c[DAT_010c2d7c][2] = p->ctrl[x][y].xyz[2];
-                if (DAT_010c2d7c < 0x7ff)
-                    DAT_010c2d7c++;
+                g_qeglobals.d_points[g_qeglobals.d_numpoints][0] = p->ctrl[x][y].xyz[0];
+                g_qeglobals.d_points[g_qeglobals.d_numpoints][1] = p->ctrl[x][y].xyz[1];
+                g_qeglobals.d_points[g_qeglobals.d_numpoints][2] = p->ctrl[x][y].xyz[2];
+                if (g_qeglobals.d_numpoints < 0x7ff)
+                    g_qeglobals.d_numpoints++;
             }
         }
     }
     int tol = PREFS_INT(0x28c);
     float radiusSq = (float)(tol * tol);
     (*FUN_0059c468)(color, &packed);
-    int n = DAT_010c2d7c - 1;
+    int n = g_qeglobals.d_numpoints - 1;
     bool bAny = false;
     if (n <= 0)
         return;
@@ -5593,12 +5578,12 @@ void FUN_00436690()
     {
         for (int j = i - 1; j >= 0; j--)
         {
-            float dx = DAT_010bcd7c[j][0] - DAT_010bcd7c[i][0];
-            float dy = DAT_010bcd7c[j][1] - DAT_010bcd7c[i][1];
+            float dx = g_qeglobals.d_points[j][0] - g_qeglobals.d_points[i][0];
+            float dy = g_qeglobals.d_points[j][1] - g_qeglobals.d_points[i][1];
             float d = dy * dy + dx * dx;
             if (!(d > radiusSq) && !(d <= 0.1f))
             {
-                count = R_Add3DLine(verts, DAT_010bcd7c[j], DAT_010bcd7c[i], &packed, 1, count, 1362);
+                count = R_Add3DLine(verts, g_qeglobals.d_points[j], g_qeglobals.d_points[i], &packed, 1, count, 1362);
                 lines++;
                 bAny = true;
                 if (lines > 400)
@@ -5630,12 +5615,12 @@ void FUN_004369b0()
                 break;
             b = b->next;
         }
-        if (DAT_01128d8c > 0)
+        if (g_qeglobals.field_6c078 > 0)
         {
             FUN_00436000();
             return;
         }
-        int n = DAT_010c4d84;
+        int n = g_qeglobals.d_num_move_points;
         if (n < 2)
         {
             Sys_Printf("can only connect patch vertices if at least 2 vertices are selected\n");
@@ -5650,8 +5635,8 @@ void FUN_004369b0()
         int i = 1;
         for (;;)
         {
-            float *c = (float *)DAT_010c4d88[i];
-            float *first = (float *)DAT_010c4d88[0];
+            float *c = (float *)g_qeglobals.d_move_points[i];
+            float *first = (float *)g_qeglobals.d_move_points[0];
             if (!(mask & 1) && !(mask & 2) && !(mask & 4))
             {
                 oldPos[i - 1][0] = c[0];
@@ -5673,11 +5658,11 @@ void FUN_004369b0()
                 if (!(mask & 4))
                     c[2] = first[2];
             }
-            if (++i >= DAT_010c4d84)
+            if (++i >= g_qeglobals.d_num_move_points)
                 break;
         }
         b = DAT_010a44b4.next;
-        DAT_010c4d84 = 0;
+        g_qeglobals.d_num_move_points = 0;
         for (; b != &DAT_010a44b4; b = b->next)
             if (b->patch)
                 FUN_004269d0(b->patch->def, true);
@@ -6599,7 +6584,7 @@ void FUN_004325d0(patchMesh_t *p, int c)
     {
         for (int j = 0; j < p->height; j++)
         {
-            if (DAT_011298b0 == 4 && FUN_00429df0(NULL, (int)&p->ctrl[i][j]) == -1)
+            if (g_qeglobals.d_select_mode == 4 && FUN_00429df0(NULL, (int)&p->ctrl[i][j]) == -1)
                 continue;
             float *st = &p->ctrl[i][j].st[DAT_01128d94][c];
             *st = 1.0f - *st;
@@ -6623,7 +6608,7 @@ void FUN_004326b0(patchMesh_t *p, float scaleS, float scaleT)
     {
         for (int j = 0; j < p->height; j++)
         {
-            if (DAT_011298b0 == 4 && FUN_00429df0(NULL, (int)&p->ctrl[i][j]) == -1)
+            if (g_qeglobals.d_select_mode == 4 && FUN_00429df0(NULL, (int)&p->ctrl[i][j]) == -1)
                 continue;
             p->ctrl[i][j].st[DAT_01128d94][0] *= scaleS;
             p->ctrl[i][j].st[DAT_01128d94][1] *= scaleT;

@@ -69,9 +69,9 @@ int FUN_0040bfd0(int vertCount, int width, GfxPointVertex *verts)
     return 0;
 }
 
-extern int DAT_011298b0;
-extern int DAT_010f8d88;
-extern float DAT_010c8d88[][3];
+struct EdgeRef { int from; int to; int pad[2]; };
+struct qeglobals_t { unsigned char pad_00[0x68]; float d_points[2048][3]; int d_numpoints; EdgeRef d_edges[512]; int d_numedges; unsigned char pad_8070[0xc074 - 0x8070]; float field_c074[16384][3]; int field_3c074; unsigned char pad_3c078[0x6cb9c - 0x3c078]; int d_select_mode; };
+extern qeglobals_t g_qeglobals;
 extern const float DAT_0053dc84[4];
 extern const float DAT_0053dca4[4];
 extern void (*FUN_0059c468)(const float *inColor, unsigned int *outColor);
@@ -85,14 +85,14 @@ void FUN_0040bff0()
     unsigned int color;
     int vertCount = 0;
 
-    if (DAT_011298b0 != 4 && DAT_011298b0 != 5)
+    if (g_qeglobals.d_select_mode != 4 && g_qeglobals.d_select_mode != 5)
         return;
     (*FUN_0059c468)(DAT_0053dc84, &color);
-    for (int i = 0; i < DAT_010f8d88; i++)
+    for (int i = 0; i < g_qeglobals.field_3c074; i++)
     {
-        if (FUN_00429e20(DAT_010c8d88[i]) < 0)
+        if (FUN_00429e20(g_qeglobals.field_c074[i]) < 0)
         {
-            OrientationPosToWorld(&g_editorOrientation, DAT_010c8d88[i], verts[vertCount].xyz);
+            OrientationPosToWorld(&g_editorOrientation, g_qeglobals.field_c074[i], verts[vertCount].xyz);
             *(unsigned int *)verts[vertCount].color = color;
             vertCount++;
             if (vertCount == 0x552)
@@ -113,14 +113,14 @@ void FUN_0040c100()
     unsigned int color;
     int vertCount = 0;
 
-    if (DAT_011298b0 != 4 && DAT_011298b0 != 5)
+    if (g_qeglobals.d_select_mode != 4 && g_qeglobals.d_select_mode != 5)
         return;
     (*FUN_0059c468)(DAT_0053dca4, &color);
-    for (int i = 0; i < DAT_010f8d88; i++)
+    for (int i = 0; i < g_qeglobals.field_3c074; i++)
     {
-        if (FUN_00429e20(DAT_010c8d88[i]) >= 0)
+        if (FUN_00429e20(g_qeglobals.field_c074[i]) >= 0)
         {
-            OrientationPosToWorld(&g_editorOrientation, DAT_010c8d88[i], verts[vertCount].xyz);
+            OrientationPosToWorld(&g_editorOrientation, g_qeglobals.field_c074[i], verts[vertCount].xyz);
             *(unsigned int *)verts[vertCount].color = color;
             vertCount++;
             if (vertCount == 0x552)
@@ -180,11 +180,11 @@ void FUN_0040c4a0(float (*xyzw)[4])
     (*FUN_0059c464)(dword_011298c8, 3, 6, indices, 4, xyzw, normals, colors, st);
 }
 
-struct EdgeRef { int from; int to; int pad[2]; };
-extern float DAT_010bcd7c[][3];
-extern int DAT_010c2d7c;
-extern EdgeRef DAT_010c2d80[];
-extern int DAT_010c4d80;
+
+
+
+
+
 extern const float DAT_0053dc74[4];
 extern const float DAT_0053dc94[4];
 extern void *DAT_00597154;
@@ -202,13 +202,13 @@ void FUN_0040c210()
     int vertCount;
 
     FUN_0040c100();
-    if (DAT_011298b0 == 1 || DAT_011298b0 == 0x10 || DAT_011298b0 == 0x11)
+    if (g_qeglobals.d_select_mode == 1 || g_qeglobals.d_select_mode == 0x10 || g_qeglobals.d_select_mode == 0x11)
     {
         (*FUN_0059c468)(DAT_0053dc74, &color);
         vertCount = 0;
-        for (int i = 0; i < DAT_010c2d7c; i++)
+        for (int i = 0; i < g_qeglobals.d_numpoints; i++)
         {
-            OrientationPosToWorld(&g_editorOrientation, DAT_010bcd7c[i], verts[vertCount].xyz);
+            OrientationPosToWorld(&g_editorOrientation, g_qeglobals.d_points[i], verts[vertCount].xyz);
             *(unsigned int *)verts[vertCount].color = color;
             vertCount++;
             if (vertCount == 0x552)
@@ -220,15 +220,15 @@ void FUN_0040c210()
         if (vertCount)
             (*FUN_0059c45c)(vertCount, 4, verts);
     }
-    else if (DAT_011298b0 == 2)
+    else if (g_qeglobals.d_select_mode == 2)
     {
         (*FUN_0059c468)(DAT_0053dc94, &color);
         vertCount = 0;
-        for (int i = 0; i < DAT_010c4d80; i++)
+        for (int i = 0; i < g_qeglobals.d_numedges; i++)
         {
             float mid[3];
-            const float *a = DAT_010bcd7c[DAT_010c2d80[i].from];
-            const float *b = DAT_010bcd7c[DAT_010c2d80[i].to];
+            const float *a = g_qeglobals.d_points[g_qeglobals.d_edges[i].from];
+            const float *b = g_qeglobals.d_points[g_qeglobals.d_edges[i].to];
             mid[0] = (b[0] + a[0]) * 0.5f;
             mid[1] = (b[1] + a[1]) * 0.5f;
             mid[2] = (b[2] + a[2]) * 0.5f;
@@ -244,7 +244,7 @@ void FUN_0040c210()
         if (vertCount)
             (*FUN_0059c45c)(vertCount, 4, verts);
     }
-    FUN_0040c620(DAT_00597154, DAT_011298b0 == 9 || DAT_011298b0 == 8);
+    FUN_0040c620(DAT_00597154, g_qeglobals.d_select_mode == 9 || g_qeglobals.d_select_mode == 8);
     FUN_004501f0();
     FUN_004509a0();
     FUN_00493390();
