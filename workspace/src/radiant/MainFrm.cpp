@@ -262,7 +262,7 @@ void FUN_004354b0();
 void FUN_004353d0();
 void FUN_00428b80();
 void FUN_00474230(float a, float b, int c);
-void FUN_00472860(int a, float b);
+void FUN_00472860(float a, float b);
 void FUN_0046fd50(float *vec, int a);
 bool FUN_0042a7f0(int a, int b, bool c);
 void FUN_00415ef0(const char *name, int axis);
@@ -309,7 +309,7 @@ extern int DAT_010bcd2c;
 extern int DAT_01128dc4;
 
 // 0x00411001
-class idCameraDef { public: void save(const char *filename); };
+class idCameraDef { public: bool load(const char *filename); void save(const char *filename); void buildCamera(); };
 void FUN_00444a00();
 void FUN_00452a60(CWnd *w);
 void FUN_00452e30(CWnd *w);
@@ -323,11 +323,9 @@ void FUN_00434040();
 void FUN_0041b590(CMainFrame *self, int id);
 void FUN_0041b820(CMainFrame *self);
 void FUN_00438020();
-void FUN_0049c2b0(idCameraDef *cam, const char *name);
-void FUN_0049b7a0(idCameraDef *cam);
 extern idCameraDef *DAT_00597154;
 void FUN_00409930();
-int FUN_0041e540(int a, idCameraDef *cam);
+int __fastcall FUN_0041e540(int type, idCameraDef *cam);
 extern int DAT_011298b4;
 bool FUN_0046b550();
 void FUN_0046b5b0();
@@ -360,7 +358,7 @@ extern bool DAT_012334f6;
 
 
 // 0x00411004
-void FUN_00441f80();
+void FUN_00441f80(int y, int x);
 extern int DAT_01128da0;
 
 // 0x00411210
@@ -876,7 +874,7 @@ void __stdcall FUN_004137d0(CMainFrame *self, UINT nChar)
 bool FUN_004138c0(int nChar)
 {
   if (nChar == VK_UP || nChar == VK_LEFT || nChar == VK_RIGHT || nChar == VK_DOWN)
-    return ::GetKeyState(nChar) != 0;
+    return (bool)::GetKeyState(nChar);
   return true;
 }
 
@@ -2855,7 +2853,9 @@ extern "C" void FUN_00419bc0()
   FUN_004433b0();
   Undo_GeneralStart("move up");
   Undo_AddBrushList(&selected_selbrushes);
-  float vec[3] = { 0, 0, (float)-DAT_010bcd2c };
+  float vec[3];
+  vec[0] = vec[1] = 0;
+  vec[2] = (float)-DAT_010bcd2c;
   FUN_0046fd50(vec, 1);
   dword_0123348c |= 0xb;
   FUN_00443f80(&selected_selbrushes);
@@ -2865,7 +2865,9 @@ extern "C" void FUN_00419bc0()
 // 0x00419c30
 extern "C" void FUN_00419c30()
 {
-  float vec[3] = { 0, 0, (float)DAT_010bcd2c };
+  float vec[3];
+  vec[2] = (float)DAT_010bcd2c;
+  vec[0] = vec[1] = 0;
   FUN_0046fd50(vec, 1);
   dword_0123348c |= 0xb;
 }
@@ -2946,7 +2948,8 @@ BOOL CMainFrame::PreTranslateMessage(MSG *pMsg)
 // 0x0041a2b0
 extern "C" void __stdcall FUN_0041a2b0(int axis, float amount)
 {
-  float vec[3] = { 0, 0, 0 };
+  float vec[3];
+  vec[0] = vec[1] = vec[2] = 0;
   vec[axis] = amount;
   FUN_0046fd50(vec, 1);
   dword_0123348c = -1;
@@ -3448,7 +3451,7 @@ void FUN_0041b590(CMainFrame *self, int id)
     ::CheckMenuItem(pMenu->m_hMenu, id, MF_CHECKED);
   }
   dword_01233b64->SavePrefs();
-  FUN_00441f80();
+  FUN_00441f80(16, 16);
   DAT_01128da0 = 0;
   dword_0123348c |= 0x10;
 }
@@ -3674,8 +3677,8 @@ extern "C" void __fastcall FUN_0041bd40(CMainFrame *self)
 // 0x0041be80
 extern "C" void FUN_0041be80()
 {
-  FUN_0049c2b0(DAT_00597154, "maps/test.camera");
-  FUN_0049b7a0(DAT_00597154);
+  DAT_00597154->load("maps/test.camera");
+  DAT_00597154->buildCamera();
 }
 
 // 0x0041bea0

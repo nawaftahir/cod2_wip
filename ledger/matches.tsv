@@ -2509,3 +2509,12 @@ addr	size	source	symbol	name	tag
 0x0041ef30	62	src/radiant/MainFrm.cpp	?addPoint@idInterpolatedPosition@@UAEXMMM@Z	idInterpolatedPosition::addPoint	SUPPORTED
 0x0041ef70	96	src/radiant/MainFrm.cpp	?getPoint@idInterpolatedPosition@@UAEPAVidVec3_t@@H@Z	idInterpolatedPosition::getPoint	SUPPORTED
 0x0041f160	32	src/radiant/MainFrm.cpp	?init@idInterpolatedPosition@@QAEXXZ	idInterpolatedPosition::init	SUPPORTED
+0x004138c0	37	src/radiant/MainFrm.cpp	?FUN_004138c0@@YA_NH@Z	FUN_004138c0	UNNAMED
+0x00419200	39	src/radiant/MainFrm.cpp	_FUN_00419200	FUN_00419200	UNNAMED
+0x00419230	40	src/radiant/MainFrm.cpp	_FUN_00419230	FUN_00419230	UNNAMED
+0x00419bc0	101	src/radiant/MainFrm.cpp	_FUN_00419bc0	FUN_00419bc0	UNNAMED
+0x00419c30	53	src/radiant/MainFrm.cpp	_FUN_00419c30	FUN_00419c30	UNNAMED
+0x0041a2b0	53	src/radiant/MainFrm.cpp	_FUN_0041a2b0@8	FUN_0041a2b0	UNNAMED
+0x0041c0e0	79	src/radiant/MainFrm.cpp	_FUN_0041c0e0	FUN_0041c0e0	UNNAMED
+0x0041c130	79	src/radiant/MainFrm.cpp	_FUN_0041c130	FUN_0041c130	UNNAMED
+0x0041c180	76	src/radiant/MainFrm.cpp	_FUN_0041c180	FUN_0041c180	UNNAMED
