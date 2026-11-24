@@ -212,7 +212,7 @@ void FUN_0047aa30();
 void FUN_00468d10();
 void FUN_0047a8d0();
 void FUN_0047ab50(bool);
-void FUN_00468910(const char *name, int flag);
+void FUN_00468910(const char *name, bool use_region);
 void FUN_004749a0();
 void FUN_00474b70();
 void FUN_00403610(CCamWnd *cam, int a);

@@ -650,7 +650,6 @@
 0x00405640	bulk-e3	2026-11-20	FUN_00405640 light sphere tessellation (asserts 1227/1236 level 1): bulk draft 17%, sizes 1542/1389, NOT committed: the body flips matched RemoveLinearMeshColumnsRows (mesh.cpp, 99% +0x305), so left unwritten
 0x004061f0	bulk-e3	2026-11-19	FUN_004061f0 light sphere draw (assert 1424): bulk draft 53%, sizes 443/448, first diff +0x27; retail takes only the brush (known unused-arg issue)
 0x00468030	bulk-d3	2026-11-20	bulk draft: 76%, sizes 210/203, first diff +0x0
-0x004690d0	bulk-d3	2026-11-20	bulk draft: 67%, sizes 40/37, first diff +0x8
 0x00469420	bulk-d3	2026-11-20	bulk draft: written, not linked as its own symbol (inlined into its caller)
 0x004694d0	bulk-d3	2026-11-20	bulk draft: 78%, sizes 156/150, first diff +0xe
 0x00469950	bulk-d3	2026-11-20	bulk draft: written, not linked as its own symbol (inlined into its caller)
@@ -899,7 +898,7 @@
 0x00482440	claude-f-r11	2026-11-24	Four 27 B float wrappers at 0x482440/60/80/a0 are the C++ math.h inline float overloads (acos x2 via 0x4db9f4, tan x2 via 0x4db934); no retail callers found, so no real caller can be written to emit them out of line. 0x482580 is the fsincos(double) twin of FastSinCos. 0x4826e0/0x482910 are xanim_public.h ConvertQuatToMat / MatrixTransformVectorQuatTrans kept out of line by retail (usercall eax,esi / ebx,edi); our header copies are inline and get folded into callers.
 0x00467f00	bulk-e9	2026-11-24	bulk draft: 55%, sizes 224/225, first diff +0x0
 0x00468260	bulk-e9	2026-11-24	bulk draft: 60%, sizes 372/373, first diff +0x7
-0x00468910	bulk-e9	2026-11-24	bulk draft: 69%, sizes 1031/1022, first diff +0x1a
+0x00468910	bulk-f13	2026-11-24	Map_SaveFile (Q3): 92%, sizes 1013/1022. Fixed: bool use_region decl in 3 TUs, Com_ParseOnLine return, ConvertDOSToUnixName inline, ltime/next block scopes (slots now equal). Open: retail passes f in ebx to unwritten FUN_00466970 (LTCG convention); ours pushes 3 stack args. Needs 0x466970 written first.
 0x00468d10	bulk-e9	2026-11-24	bulk draft DROPPED: 64%, sizes 261/238, first diff +0x90; body flips FUN_00467510 (map-writer trap); draft in workspace/drafts/map_master.cpp
 0x00468e00	bulk-e9	2026-11-24	bulk draft: 74%, sizes 723/705, first diff +0xf
 0x00469740	bulk-e9	2026-11-24	bulk draft: 32%, sizes 491/519, first diff +0x3

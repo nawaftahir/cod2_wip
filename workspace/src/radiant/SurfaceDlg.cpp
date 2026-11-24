@@ -59,7 +59,8 @@ extern CArray<selFace_t, selFace_t &> DAT_012485b4;
 extern int DAT_01128d90;
 extern int DAT_01128d94;
 extern bool DAT_0109fd70;
-extern radMat_t * __fastcall FUN_00440840(const char *name);
+struct qtexture_s;
+extern qtexture_s *__fastcall FUN_00440840(char *name);
 extern void Sys_Printf(const char *fmt, ...);
 void FUN_0045efb0(face_t *f);
 extern void __stdcall FUN_0043cf80(void *dlg);
@@ -666,7 +667,7 @@ extern int dword_011298b8, dword_011298bc, dword_011298c0;
 void FUN_00434190(bool bCap, bool bCycle, float fScaleS, float fScaleT);
 void FUN_00432f60(float scaleS, float scaleT, int mode);
 void FUN_00434290();
-void FUN_00474230(float x, float y, int flag);
+void FUN_00474230(float x, float y, bool flag);
 
 void CSurfaceDlg::FUN_0043e980()
 {
