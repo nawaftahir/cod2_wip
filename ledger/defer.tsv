@@ -850,8 +850,6 @@
 0x0043fbc0	bulk-f14	2026-11-25	FUN_0043fbc0 (texture matrix to size/shift/rotate): best 74%, sizes 1516/1540. Source errors fixed from retail: second ratio block tests texMat[1][r] but divides texMat[0][r] and adds into texMat[0] (PINNED at 0x43ffa0 to 0x43fff0); dot/lenSq1 is one divide expression, dot summed z,y,x; 57.29578f is a float literal. Open: FUN_00489940 (SnapFloatToGrid) is unlinked so ours defers the esp pops that retail does after each call, and locals sit in different frame slots (retail reuses the dead outSize arg slot at [ebp+8])
 0x004988d0	lane-d	2026-11-24	angles_t::toVectors: bulk draft: 54%, sizes 448/368, first diff +0x7
 0x00498a40	lane-d	2026-11-24	angles_t::toForward: bulk draft: 47%, sizes 185/133, first diff +0x7
-0x004a8a10	lane-d	2026-11-24	GetHashCode: bulk draft: 88%, sizes 60/60, first diff +0x1; retail takes len in edx and str in ecx, ours the reverse
-0x004a9ba0	lane-d	2026-11-24	SL_FreeString: bulk draft: 99%, sizes 815/815, first diff +0x8; same register swap on the inlined GetHashCode call
 0x00457bd0	claude-f-r11	2026-11-24	FUN_00457bd0: 260/260 B, 1 real diff: retail stores color at [ecx+edx+0xa4] (offset reg first), ours [edx+ecx+0xa4]; same operand-order tie as 0x0045f860. Source loop is b->faces[i].color = packed; no readable variant tried flips it.
 0x0045f860	claude-f-r11	2026-11-24	FUN_0045f860: 72/72 B, 1 real diff: retail [ecx+esi] (b pointer first), ours [esi+ecx]. Tried hoisting b[i] into a temp: worse (78 B, 27 diffs), reverted.
 0x00460690	claude-f-r11	2026-11-24	FUN_00460690: callee 0x460470 returns true when the winding is still covered; retail returns false in that case and keeps the negated result in a stack byte (ebp frame, 97 B) while ours folds it (72 B). Tried bool temp + inverted test: same 72 B. Blocked on 0x460470 (30%).
@@ -909,8 +907,6 @@
 0x00494400	lane-d	2026-11-24	FUN_00494400 (solve, assert solver): bulk draft: 61%, sizes 121/121, first diff +0x5
 0x004988d0	lane-d	2026-11-24	angles_t::toVectors: bulk draft: 54%, sizes 448/368, first diff +0x7
 0x00498a40	lane-d	2026-11-24	angles_t::toForward: bulk draft: 47%, sizes 185/133, first diff +0x7
-0x004a8a10	lane-d	2026-11-24	GetHashCode: bulk draft: 88%, sizes 60/60, first diff +0x1; retail takes len in edx and str in ecx, ours the reverse
-0x004a9ba0	lane-d	2026-11-24	SL_FreeString: bulk draft: 99%, sizes 815/815, first diff +0x8; same register swap on the inlined GetHashCode call
 0x0040c8f0	claude-e10	2026-11-24	CEntityListDlg::FUN_0040c8f0 (message map ON_COMMAND 2 pinned in .rdata 0x540428): 88%, sizes 104/116, first diff +0x1c; retail keeps the no-selection exit (mov g_nUpdateBits,-1; pop esi; ret) as its own 12 B block, ours shares the tail with the success path. Body in EntityListDlg.cpp
 0x00426480	claude-e10	2026-11-24	Brush_RebuildBrush (Pmesh.cpp, string "Brush_RebuildBrush: backwards"): bulk draft 17%, sizes 1011/762, first diff +0xb; body in Pmesh.cpp. Retail rebuilds the six face planes from a 4x6 plane-point table; ours is bigger (unrolled differently)
 0x0042b790	claude-e10	2026-11-24	FUN_0042b790 twin of 0x0042b6e0 (blend toward g_patchAccumVals): 39%, sizes 113/114, first diff +0x12 (same body as 0x42b6e0, other callback slot); body in Pmesh.cpp
@@ -948,3 +944,4 @@
 0x0040c590	claude-f	2026-11-25	bulk draft: 27%, sizes 105/107, first diff +0x8; retail takes in/out in ecx/eax and the three axis indexes in edi/esi/edx with only scale/width/height on the stack, LTCG convention not reproduced from the callers
 0x004755b0	claude-f	2026-11-25	SelectEdgeByRay: bulk draft: 86%, sizes 473/474, first diff +0x5; retail reserves 0x2c locals and pushes ebx before the loop pointer setup, ours 0x28 and pushes it after the jle
 0x00475790	claude-f	2026-11-25	SelectVertexByRay: bulk draft: 98%, sizes 335/335, first diff +0xa8; retail sums the squares t2,t0,t1 into slots -0x14,-0x1c,-0x18 but ours emits t2,t1,t0; 3 operand orders tried (t2,t0,t1 / t2,t1,t0 / t0,t1,t2), same output
+0x004a9ba0	claude-f	2026-11-25	SL_FreeString: bulk draft: 99%, sizes 815/815, first diff +0x268; GetHashCode now matches (str/len swap fixed by the server-shaped loop); remaining: retail xors table[prev] first, ours loads newEntry first at the final status_next merge; 3 operand/temp forms tried

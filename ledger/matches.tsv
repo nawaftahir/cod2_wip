@@ -2691,3 +2691,4 @@ addr	size	source	symbol	name	tag
 0x00415100	16	src/radiant/MainFrm.cpp	?FUN_00415100@CMainFrame@@QAEXXZ	FUN_00415100	UNNAMED
 0x00415650	16	src/radiant/MainFrm.cpp	?FUN_00415650@CMainFrame@@QAEXXZ	FUN_00415650	UNNAMED
 0x004758e0	435	src/radiant/vertsel.cpp	?FUN_004758e0@@YAXPBM0I@Z	FUN_004758e0	UNNAMED
+0x004a8a10	60	src/script/scr_stringlist.cpp	?GetHashCode@@YAIPBDI@Z	GetHashCode	SUPPORTED
