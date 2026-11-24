@@ -19,6 +19,62 @@ struct SavedInfoView
 };
 extern SavedInfoView g_savedinfo;
 
+struct MRUMENU
+{
+    WORD wNbItemFill;
+    WORD wNbLruShow;
+    WORD wNbLruMenu;
+    WORD wMaxSizeLruItem;
+    WORD wIdMru;
+    LPSTR lpMRU;
+};
+
+// the editor globals: main window at 0x40, MRU menu at 0x6c8e8
+struct qeglobals_t
+{
+    unsigned char pad_00[0x40];
+    HWND d_hwndMain;
+    unsigned char pad_44[0x6c8e8 - 0x44];
+    MRUMENU *d_lpMruMenu;
+};
+extern qeglobals_t g_qeglobals;
+
+bool FUN_0047a890(void);
+void AddNewItem(MRUMENU *lpMruMenu, LPSTR lpItem);
+void DelMenuItem(MRUMENU *lpMruMenu, WORD wItem, BOOL fIDMBased);
+void PlaceMenuMRUItem(MRUMENU *lpMruMenu, HMENU hMenu, UINT uiItem);
+void FUN_004683e0(char *filename);
+
+// Q3 DoMru, with GetMenuItem inlined; retail 0x00479c00
+BOOL DoMru(HWND hWnd, WORD wId)
+{
+    char szFileName[128];
+    OFSTRUCT of;
+    BOOL fExist;
+
+    if (!FUN_0047a890())
+        return 0;
+    {
+        MRUMENU *mru = g_qeglobals.d_lpMruMenu;
+        WORD wItem = (WORD)(wId - mru->wIdMru - 1);
+        if (wItem < mru->wNbItemFill)
+        {
+            strncpy(szFileName, mru->lpMRU + mru->wMaxSizeLruItem * wItem, sizeof(szFileName));
+            szFileName[sizeof(szFileName) - 1] = '\0';
+        }
+    }
+    fExist = OpenFile(szFileName, &of, OF_EXIST) != HFILE_ERROR;
+    if (fExist)
+    {
+        AddNewItem(g_qeglobals.d_lpMruMenu, szFileName);
+        FUN_004683e0(szFileName);
+    }
+    else
+        DelMenuItem(g_qeglobals.d_lpMruMenu, wId, TRUE);
+    PlaceMenuMRUItem(g_qeglobals.d_lpMruMenu, GetSubMenu(GetMenu(hWnd), 0), 0x80b7);
+    return fExist;
+}
+
 // Q3 MFCCreate: load the saved info, fill defaults when its size changed, tick the view menu
 void MFCCreate(void)
 {

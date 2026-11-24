@@ -411,7 +411,6 @@
 0x00415100	lane-d10	2026-11-24	bulk draft: 33%, sizes 18/16, first diff +0x0 [r2: member+msgmap, 73%, sizes 19/16]
 0x00415140	lane-d10	2026-11-24	bulk draft: 48%, sizes 119/149, first diff +0x1 [r2: member+msgmap, 48%, sizes 115/149]
 0x004151e0	lane-d10	2026-11-24	bulk draft: 42%, sizes 46/47, first diff +0x0 [r2: member+msgmap, 64%, sizes 50/47]
-0x00415210	lane-d10	2026-11-24	bulk draft: 66%, sizes 39/42, first diff +0x4 [r2: member+msgmap, 66%, sizes 39/42]
 0x00415650	lane-d10	2026-11-24	bulk draft: 33%, sizes 18/16, first diff +0x0 [r2: member+msgmap, 73%, sizes 19/16]
 0x00415660	lane-d10	2026-11-24	bulk draft: 42%, sizes 46/47, first diff +0x0 [r2: member+msgmap, 64%, sizes 50/47]
 0x004156a0	lane-d10	2026-11-24	bulk draft: 56%, sizes 154/166, first diff +0x5 [r2: member+msgmap, 57%, sizes 154/166]
@@ -957,3 +956,4 @@
 0x00420b30	claude-e12	2026-11-24	FUN_00420b30 (writes contents flags): 77%, 15/18, first diff +0x0. Retail: push eax; mov eax,table; mov ecx,key; call 0x420930; pop ecx with the stream already in ebx from its caller (unwritten); blocked on 0x420930 convention
 0x00420b50	claude-e12	2026-11-24	FUN_00420b50 (writes toolFlags flags): same shape as 0x420b30, 77%, 15/18, first diff +0x0; blocked on 0x420930 convention
 0x004267d0	claude-d13	2026-11-24	FUN_004267d0: the malloc+memcpy branch is q3map CopyMesh(&inMesh) inlined (mesh.cpp 0x420fa0), then FUN_00421150. With CopyMesh + SubdivideMesh/RemoveLinearMeshColumnsRows/SubdivideMeshQuads bound to real names: 93%, sizes 458/455, ebx=height and esi=0x38 now as retail (the reg diff was the unbound callees). Left: frame 0x28 vs 0x24 and PutMeshOnCurve args popped at once (add esp 0x14) instead of retail merged add esp 0x20 = LTCG alignment padding class (fn sits in an 8-aligned subtree in ours, not in retail). Binding SubdivideMesh makes our MainFrm/Pmesh/Undo roots and esp,-8 (56 vs retail 18 in .text), 48 rows flip; RemoveLinear binding alone flips 4269d0/42ea50/434880 (save-order). Draft workspace/drafts/Pmesh_4267d0_copymesh_bound.cpp. Next: c2 level dump (msvc71-c2.md alignment rule) to see which retail edge keeps the 4267d0 subtree at L<7.
+0x00479c00	claude-d14	2026-11-25	DoMru (Q3 Win_main, GetMenuItem inlined): 90%, sizes 290/290, first diff +0x3a: callees AddNewItem/DelMenuItem/PlaceMenuMRUItem/0x4683e0 use register conventions (esi/eax/ecx) until their MRU bodies exist

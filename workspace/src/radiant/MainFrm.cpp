@@ -155,6 +155,7 @@ struct qeglobals_t
     struct { unsigned char pad[0x108]; float colors[32][3]; } sv; // 0x1129708..0x1129888
   };
   unsigned d_exclude;
+  unsigned field_28c;
   unsigned d_exclude2;
 };
 extern qeglobals_t g_qeglobals;
@@ -218,7 +219,7 @@ void FUN_00474b70();
 void FUN_00403610(CCamWnd *cam, int a);
 void FUN_00452ca0(CXYWnd *xy, int type);
 void FUN_00452b00(CXYWnd *xy);
-void FUN_00479c00(int a);
+BOOL DoMru(HWND hWnd, WORD wId);
 struct qtexture_s;
 void FUN_004416b0(qtexture_s *tex);
 void FUN_004433b0();
@@ -434,6 +435,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
   ON_COMMAND(0x81d6, FUN_00415240)
   ON_COMMAND(0x81d0, FUN_00415260)
   ON_COMMAND(0x81d1, FUN_00415270)
+  ON_COMMAND_RANGE(0x1f40, 0x1f49, FUN_00415210)
   ON_COMMAND_RANGE(0x8116, 0x811e, FUN_00415a10)
 END_MESSAGE_MAP()
 
@@ -1411,13 +1413,10 @@ void CMainFrame::FUN_004151e0()
   dword_0123348c |= 2;
 }
 
-// 0x00415210
-extern "C" void __stdcall FUN_00415210(CMainFrame *self, int a)
+// 0x00415210: File menu MRU item (ids 0x1f40..0x1f49)
+void CMainFrame::FUN_00415210(UINT nID)
 {
-  if (self == NULL)
-    FUN_00479c00(a);
-  else
-    FUN_00479c00(self->m_hWnd ? (int)self->m_hWnd : 0);
+  DoMru(GetSafeHwnd(), (WORD)nID);
 }
 
 void CMainFrame::FUN_00415240() { FUN_004416b0((qtexture_s *)((DAT_01128d90 + 1) % 2)); }

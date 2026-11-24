@@ -116,6 +116,7 @@ public:
   void FUN_0041ba40();
   void FUN_0041c1d0();
   void FUN_0041be80();
+  void FUN_00415210(UINT nID);
   void FUN_00415240();
   void FUN_00415260();
   void FUN_00415270();
