@@ -842,14 +842,9 @@ void FUN_0046ff10(const texdef_t *td, int flags)
 {
     int selCount = g_SelectedFaces.GetSize();
     const char *name;
-    if (selCount == 0)
-    {
-        if (selected_brushes.next == &selected_brushes)
-            return;
-        name = "set brush textures";
-    }
-    else
-        name = "set face textures";
+    if (selCount == 0 && selected_brushes.next == &selected_brushes)
+        return;
+    name = selCount ? "set face textures" : "set brush textures";
     FUN_004433b0();
     Undo_GeneralStart((char *)name);
     for (int i = 0; i < selCount; i++)
@@ -861,11 +856,12 @@ void FUN_0046ff10(const texdef_t *td, int flags)
         assert(selFace.brush->version == selFace.brush->def->version);
         assert(selFace.brush->faceCount == selFace.brush->def->faceCount);
         FUN_004593c0(selFace.brush->def, &selFace.brush->def->faces[selFace.index], td);
-        FUN_0045a220(selFace.brush->def, true);
+        brushdef_t *d = selFace.brush->def;
+        FUN_0045a220(d, false);
         if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
             FUN_00475350();
         Sys_MarkMapModified();
-        selFace.brush->def->version++;
+        d->version++;
         FUN_0045e0b0(selFace.brush->def);
         FUN_00443f50(selFace.brush->def);
         FUN_0045a830(selFace.brush);
@@ -891,14 +887,9 @@ void FUN_004702d0(const texdef_t *td)
 {
     int selCount = g_SelectedFaces.GetSize();
     const char *name;
-    if (selCount == 0)
-    {
-        if (selected_brushes.next == &selected_brushes)
-            return;
-        name = "set brush texture mapping";
-    }
-    else
-        name = "set face texture mapping";
+    if (selCount == 0 && selected_brushes.next == &selected_brushes)
+        return;
+    name = selCount ? "set face texture mapping" : "set brush texture mapping";
     FUN_004433b0();
     Undo_GeneralStart((char *)name);
     for (int i = 0; i < selCount; i++)
@@ -910,11 +901,12 @@ void FUN_004702d0(const texdef_t *td)
         assert(selFace.brush->version == selFace.brush->def->version);
         assert(selFace.brush->faceCount == selFace.brush->def->faceCount);
         FUN_00459530(selFace.brush->def, &selFace.brush->def->faces[selFace.index], td);
-        FUN_0045a220(selFace.brush->def, true);
+        brushdef_t *d = selFace.brush->def;
+        FUN_0045a220(d, true);
         if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
             FUN_00475350();
         Sys_MarkMapModified();
-        selFace.brush->def->version++;
+        d->version++;
         FUN_0045e0b0(selFace.brush->def);
         FUN_00443f50(selFace.brush->def);
         FUN_0045a830(selFace.brush);
@@ -940,14 +932,9 @@ void FUN_00470690(int size)
 {
     int selCount = g_SelectedFaces.GetSize();
     const char *name;
-    if (selCount == 0)
-    {
-        if (selected_brushes.next == &selected_brushes)
-            return;
-        name = "set brush samplesize";
-    }
-    else
-        name = "set face samplesize";
+    if (selCount == 0 && selected_brushes.next == &selected_brushes)
+        return;
+    name = selCount ? "set face samplesize" : "set brush samplesize";
     FUN_004433b0();
     Undo_GeneralStart((char *)name);
     for (int i = 0; i < selCount; i++)
@@ -959,11 +946,12 @@ void FUN_00470690(int size)
         assert(selFace.brush->version == selFace.brush->def->version);
         assert(selFace.brush->faceCount == selFace.brush->def->faceCount);
         FUN_004596a0(selFace.brush->def, &selFace.brush->def->faces[selFace.index], size);
-        FUN_0045a220(selFace.brush->def, true);
+        brushdef_t *d = selFace.brush->def;
+        FUN_0045a220(d, true);
         if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
             FUN_00475350();
         Sys_MarkMapModified();
-        selFace.brush->def->version++;
+        d->version++;
         FUN_0045e0b0(selFace.brush->def);
         FUN_00443f50(selFace.brush->def);
         FUN_0045a830(selFace.brush);
@@ -1438,14 +1426,14 @@ void FUN_004718b0(const char *key)
     brush_t *brush, *next;
     const char *val;
 
-    brush = selected_brushes.next;
-    if (brush == &selected_brushes || brush->next != &selected_brushes)
+    brush_t *first = selected_brushes.next;
+    if (first == &selected_brushes || first->next != &selected_brushes)
         return;
-    if (brush->owner == DAT_012334ec)
+    if (first->owner == DAT_012334ec)
         return;
 #line 1410
-    assert(brush->owner->def == brush->def->owner);
-    val = ValueForKey(brush->owner->def->epairs, key);
+    assert(first->owner->def == first->def->owner);
+    val = ValueForKey(first->owner->def->epairs, key);
     Sys_Printf("Selecting %s %s\n", key, val);
     FUN_0046fbe0(true);
     for (brush = active_brushes.next; brush != &active_brushes; brush = next)
@@ -1633,11 +1621,12 @@ void FUN_00472860(float x, float y)
         face_t *f = &selFace.brush->def->faces[selFace.index];
         f->texdef[DAT_01128d94].shift[0] += x;
         f->texdef[DAT_01128d94].shift[1] += y;
-        FUN_0045a220(selFace.brush->def, true);
+        brushdef_t *d = selFace.brush->def;
+        FUN_0045a220(d, true);
         if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
             FUN_00475350();
         Sys_MarkMapModified();
-        selFace.brush->def->version++;
+        d->version++;
         FUN_0045a830(selFace.brush);
 #line 1978
         assert(selFace.face == &selFace.brush->faces[selFace.index]);
@@ -1696,11 +1685,12 @@ void FUN_00472bd0(int axis)
             Undo_AddBrush(selFace.brush->def);
             texdef_t *td = &selFace.brush->def->faces[selFace.index].texdef[DAT_01128d94];
             td->scale[axis] = -td->scale[axis];
-            FUN_0045a220(selFace.brush->def, true);
+            brushdef_t *d = selFace.brush->def;
+            FUN_0045a220(d, true);
             if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
                 FUN_00475350();
             Sys_MarkMapModified();
-            selFace.brush->def->version++;
+            d->version++;
             FUN_00443f50(selFace.brush->def);
             FUN_0045a830(selFace.brush);
 #line 2034
@@ -1754,11 +1744,12 @@ void FUN_00472ff0(int x, int y)
             texdef_t *td = &selFace.brush->def->faces[selFace.index].texdef[DAT_01128d94];
             td->scale[0] += (float)x;
             td->scale[1] += (float)y;
-            FUN_0045a220(selFace.brush->def, true);
+            brushdef_t *d = selFace.brush->def;
+            FUN_0045a220(d, true);
             if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
                 FUN_00475350();
             Sys_MarkMapModified();
-            selFace.brush->def->version++;
+            d->version++;
             FUN_00443f50(selFace.brush->def);
             FUN_0045a830(selFace.brush);
 #line 2090
@@ -1810,11 +1801,12 @@ void FUN_004733f0(int angle)
             Undo_AddBrush(selFace.brush->def);
             texdef_t *td = &selFace.brush->def->faces[selFace.index].texdef[DAT_01128d94];
             td->rotate = (float)(I_fround((float)angle + td->rotate) % 360);
-            FUN_0045a220(selFace.brush->def, true);
+            brushdef_t *d = selFace.brush->def;
+            FUN_0045a220(d, true);
             if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
                 FUN_00475350();
             Sys_MarkMapModified();
-            selFace.brush->def->version++;
+            d->version++;
             FUN_00443f50(selFace.brush->def);
             FUN_0045a830(selFace.brush);
 #line 2143
@@ -2044,11 +2036,12 @@ void FUN_00474230(float width, float height, bool flag)
             assert(selFace.brush->version == selFace.brush->def->version);
             Undo_AddBrush(selFace.brush->def);
             FUN_0045ebf0(&selFace.brush->def->faces[selFace.index], height, width, flag);
-            FUN_0045a220(selFace.brush->def, true);
+            brushdef_t *d = selFace.brush->def;
+            FUN_0045a220(d, true);
             if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
                 FUN_00475350();
             Sys_MarkMapModified();
-            selFace.brush->def->version++;
+            d->version++;
             FUN_00443f50(selFace.brush->def);
             FUN_0045a830(selFace.brush);
 #line 2409
