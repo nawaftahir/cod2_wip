@@ -2688,3 +2688,6 @@ addr	size	source	symbol	name	tag
 0x00464c80	1070	src/radiant/entity.cpp	?FUN_00464c80@@YAXPAUentityInst_t@@PAM1@Z	FUN_00464c80	PINNED
 0x0046cbd0	139	src/radiant/qe3.cpp	?FUN_0046cbd0@@YA_NPBDAAJ@Z	FUN_0046cbd0	UNNAMED
 0x0046d680	136	src/radiant/qe3.cpp	?FUN_0046d680@@YAHPBD@Z	FUN_0046d680	UNNAMED
+0x00415100	16	src/radiant/MainFrm.cpp	?FUN_00415100@CMainFrame@@QAEXXZ	FUN_00415100	UNNAMED
+0x00415650	16	src/radiant/MainFrm.cpp	?FUN_00415650@CMainFrame@@QAEXXZ	FUN_00415650	UNNAMED
+0x004758e0	435	src/radiant/vertsel.cpp	?FUN_004758e0@@YAXPBM0I@Z	FUN_004758e0	UNNAMED
