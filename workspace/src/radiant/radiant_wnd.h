@@ -216,6 +216,7 @@ protected:
     void SplitClip();
     void PositionView();
     void SetRotateMode(bool bMode);
+public:
     void Copy();
     void Paste();
 

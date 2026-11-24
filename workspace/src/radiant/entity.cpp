@@ -352,6 +352,7 @@ void FUN_004656b0(const char *key, entity_t *e, const char *value)
 // 0x004657a0 (373 B)
 void FUN_004657a0(entity_t *e, const char *key)
 {
+	const char *tn;
 	if ((!_stricmp(key, "_color") || !_stricmp(key, "targetname")) && e->eclass->fixedsize)
 	{
 #line 277
@@ -362,7 +363,7 @@ void FUN_004657a0(entity_t *e, const char *key)
 		assert(e->brushes.onext->onext == &e->brushes);
 		if (!_stricmp(key, "_color")
 			|| ((e->eclass->flags & 0x20) && strncmp(e->eclass->unk04, "node_scr", 8)
-				&& strncmp(ValueForKey(e->epairs, "targetname"), "auto", 4)))
+				&& strncmp(tn = ValueForKey(e->epairs, "targetname"), "auto", 4)))
 			FUN_00457bd0(e->brushes.onext);
 	}
 }
