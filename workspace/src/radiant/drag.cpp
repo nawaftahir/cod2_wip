@@ -101,12 +101,15 @@ extern void FUN_004758e0(const float *origin, const float *dir, int buttons);
 extern void FUN_00475790(const float *origin, const float *dir);
 extern void FUN_004755b0(const float *origin, const float *dir);
 extern void FUN_0045a030(brushdef_t *b, const float *origin, const float *dir, bool shear);
-extern void FUN_00459ae0(brushdef_t *b, void *face, bool shear);
+struct face_t;
+struct texdef_t;
+struct radmat_t;
+extern void FUN_00459ae0(brushdef_t *b, face_t *face, int shear);
 extern void FUN_00437730(const float *origin, const float *dir);
 extern bool FUN_004532a0();
 extern bool FUN_00401d30(void *dlg);
 extern bool FUN_00401f70(void *dlg);
-extern bool FUN_00433a20();
+extern bool OnlyPatchesSelected();
 extern bool FUN_0042bd90();
 extern char g_CurveEditDlg[];
 extern void FUN_00434630(bool shift, float *bounds);
@@ -115,11 +118,11 @@ extern void FUN_00471160(const float *mins, const float *maxs, bool inside);
 extern void FUN_004379f0(patchMesh_t *p, void *texdef);
 extern void FUN_00441a40(void *texdef, void *tex);
 extern void FUN_0043e400();
-extern void FUN_00424cf0();
+extern void UpdatePatchInspector();
 extern void FUN_00424b10();
 extern void FUN_004597f0(void *tex, int a, int b, int c);
-extern void FUN_004593c0(brushdef_t *b, void *face, void *tex);
-extern void FUN_00459430(brushdef_t *b, void *face, int tex);
+extern void FUN_004593c0(brushdef_t *b, face_t *face, const texdef_t *tex);
+extern void FUN_00459430(brushdef_t *b, face_t *face, radmat_t *mat);
 extern void FUN_0045a220(brushdef_t *b, bool snap);
 extern void FUN_00475350();
 extern void Sys_MarkMapModified();
@@ -303,13 +306,13 @@ void Drag_Setup(int x, int y, int buttons, const float *xaxis, const float *yaxi
         assert(t.brush->version == t.brush->def->version);
 #line 228
         assert(t.face - t.brush->faces >= 0 && t.face - t.brush->faces < t.brush->faceCount && t.face == &t.brush->faces[t.face - t.brush->faces]);
-        FUN_00459ae0(t.brush->def, (char *)t.brush->def->faces + (t.face - t.brush->faces) * 168, true);
+        FUN_00459ae0(t.brush->def, (face_t *)((char *)t.brush->def->faces + (t.face - t.brush->faces) * 168), true);
     }
     else if (buttons == 13)
     {
         Sys_Printf("Sticky dragging brush\n");
         for (int i = 0; i < t.brush->faceCount; i++)
-            FUN_00459ae0(t.brush->def, (char *)t.brush->def->faces + i * 168, false);
+            FUN_00459ae0(t.brush->def, (face_t *)((char *)t.brush->def->faces + i * 168), false);
     }
     else
         Sys_Printf("Dragging entire selection\n");
@@ -384,7 +387,7 @@ void Drag_Begin(int x, int y, int buttons, const float *xaxis, const float *yaxi
         mode = g_qeglobals.d_select_mode;
         if ((mode == 0 || mode == 10) && FUN_00401d30(g_CurveEditDlg))
         {
-            if ((FUN_00433a20() || selected_brushes.next == &selected_brushes && FUN_00401f70(g_CurveEditDlg)) && FUN_0042bd90())
+            if ((OnlyPatchesSelected() || selected_brushes.next == &selected_brushes && FUN_00401f70(g_CurveEditDlg)) && FUN_0042bd90())
             {
                 mode = g_qeglobals.d_select_mode;
                 g_qeglobals.d_select_mode = 10;
@@ -424,7 +427,7 @@ void Drag_Begin(int x, int y, int buttons, const float *xaxis, const float *yaxi
         assert((t.brush->patch == NULL && t.brush->def->patch == NULL) || (t.brush->patch->def == t.brush->def->patch));
         FUN_00441a40(f + DAT_01128d90 * 28 + 36, 0);
         FUN_0043e400();
-        FUN_00424cf0();
+        UpdatePatchInspector();
         return;
     }
     if (buttons == (texButtons | 8) && !(GetAsyncKeyState(VK_MENU) & 0x8000))
@@ -457,7 +460,7 @@ void Drag_Begin(int x, int y, int buttons, const float *xaxis, const float *yaxi
                     assert(t.face - t.brush->faces >= 0 && t.face - t.brush->faces < t.brush->faceCount && t.face == &t.brush->faces[t.face - t.brush->faces]);
 #line 494
                     assert(t.brush->version == t.brush->def->version);
-                    FUN_004593c0(t.brush->def, (char *)t.brush->def->faces + (t.face - t.brush->faces) * 168, &DAT_01128da8);
+                    FUN_004593c0(t.brush->def, (face_t *)((char *)t.brush->def->faces + (t.face - t.brush->faces) * 168), (const texdef_t *)&DAT_01128da8);
                     FUN_0045a220(t.brush->def, true);
                     if (g_qeglobals.d_select_mode == 1 || g_qeglobals.d_select_mode == 2)
                         FUN_00475350();
@@ -503,7 +506,7 @@ void Drag_Begin(int x, int y, int buttons, const float *xaxis, const float *yaxi
         assert(t.face - t.brush->faces >= 0 && t.face - t.brush->faces < t.brush->faceCount && t.face == &t.brush->faces[t.face - t.brush->faces]);
 #line 525
         assert(t.brush->version == t.brush->def->version);
-        FUN_00459430(t.brush->def, (char *)t.brush->def->faces + (t.face - t.brush->faces) * 168, DAT_01128da8);
+        FUN_00459430(t.brush->def, (face_t *)((char *)t.brush->def->faces + (t.face - t.brush->faces) * 168), (radmat_t *)DAT_01128da8);
         g_nUpdateBits = -1;
         return;
     }

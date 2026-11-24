@@ -152,7 +152,7 @@ void FUN_00467240(brushdef_t *b);
 extern void FUN_00457bd0(brushdef_t *b);
 #define assert1(expr) do { static bool s_assertDisable; if (!(expr) && !s_assertDisable) { switch (FUN_0047d980(#expr, __FILE__, __LINE__, 1, 1)) { case 0: DebugBreak(); break; case 2: s_assertDisable = true; break; } } } while (0)
 extern void (__cdecl *dword_0059c490)(void *);
-extern void FUN_00458c00(brush_t *b);
+extern void Brush_Free(brush_t *b);
 void FUN_004678c0(entityInst_t *e);
 void FUN_004661f0(entity_t *e);
 float Vec3Normalize(vec3_t v);
@@ -972,7 +972,7 @@ void FUN_004678c0(entityInst_t *e)
 	FUN_00464c20(e);
 	FUN_00464c60(e);
 	while (e->brushes.ownerNext != &e->brushes)
-		FUN_00458c00(e->brushes.ownerNext);
+		Brush_Free(e->brushes.ownerNext);
 	e->def->refCount--;
 	if (e->def->refCount == 0)
 		FUN_004661f0(e->def);

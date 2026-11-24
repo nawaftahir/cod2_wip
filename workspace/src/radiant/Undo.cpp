@@ -132,12 +132,12 @@ void FUN_00443860(void);
 void FUN_0041d930(entityInst_t *list, const char *msg);
 void FUN_0041e160(const char *msg);
 void FUN_0046fbe0(bool a);
-void FUN_00458c00(brush_t *b);
+void Brush_Free(brush_t *b);
 void FUN_004671b0(brushdef_t *b, entity_t *owner);
-brush_t *FUN_00458440(brushdef_t *b, entityInst_t *owner);
+brush_t *FUN_00458440(brushdef_t *b, entity_t *owner);
 void FUN_00459210(brush_t *inst, brush_t *list);
 void FUN_0045e0b0(brushdef_t *b);
-void FUN_00467770(entity_t *e, entityInst_t *list, brush_t *brushes);
+entityInst_t *FUN_00467770(entity_t *e, entityInst_t *list, brush_t *brushes);
 void FUN_004678c0(entityInst_t *e);
 void FUN_00467240(brushdef_t *b);
 void Entity_RemoveFromList(entity_t *e);
@@ -623,7 +623,7 @@ void Undo_Undo(void)
 			vassert((b->def->refCount >= 2), "(brushInst->def->refCount) = %i", b->def->refCount);
 			FUN_00467240(b->def);
 			FUN_004431f0(&redo->brushlist, b->def);
-			FUN_00458c00(b);
+			Brush_Free(b);
 #line 705
 			assert1(def->refCount == 1);
 		}
@@ -688,7 +688,7 @@ void Undo_Undo(void)
 		if (inst == &entityInsts)
 			inst = world_entity;
 		FUN_004671b0(brush, inst->def);
-		FUN_00459210(FUN_00458440(brush, inst), &selected_brushes);
+		FUN_00459210(FUN_00458440(brush, (entity_t *)inst), &selected_brushes);
 		brush->redoId = redo->id;
 	}
 	Sys_Printf("%s undone.\n", undo->operation);
@@ -740,7 +740,7 @@ void Undo_Redo(void)
 			FUN_00467240(brushDef);
 			FUN_004431f0(&g_lastundo->brushlist, brushDef);
 			g_undoMemorySize += BrushDef_MemorySize(brushDef);
-			FUN_00458c00(b);
+			Brush_Free(b);
 		}
 		b = pNext;
 	}
@@ -796,7 +796,7 @@ void Undo_Redo(void)
 		while (inst != &entityInsts && inst->def->entityId != brush->ownerId)
 			inst = inst->next;
 		FUN_004671b0(brush, inst == &entityInsts ? world_entity->def : inst->def);
-		FUN_00459210(FUN_00458440(brush, inst), &selected_brushes);
+		FUN_00459210(FUN_00458440(brush, (entity_t *)inst), &selected_brushes);
 	}
 	Undo_End();
 	Sys_Printf("%s redone.\n", redo->operation);

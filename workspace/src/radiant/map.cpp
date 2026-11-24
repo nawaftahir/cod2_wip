@@ -212,7 +212,7 @@ extern prefabLevel_t prefabStack[];
 
 void FUN_00452b00(CXYWnd *xy);
 void FUN_00452ca0(CXYWnd *xy, int type);
-void FUN_00458c00(brush_t *b);
+void Brush_Free(brush_t *b);
 void FUN_004678c0(entityInst_t *e);
 entityInst_t *FUN_00467770(entity_t *entDef, entityInst_t *list, brush_t *brushList);
 void FUN_00465bf0(entity_t *e, const char *key, const char *value);
@@ -322,7 +322,7 @@ extern "C" void FUN_00467f00()
 			((short *)b->def)[0x21]++;
 			if (((int *)b->def)[0xf] == 0)
 			{
-				FUN_00458c00(b);
+				Brush_Free(b);
 				Sys_Printf("Removed degenerate brush\n");
 			}
 			else if (dword_01233b64->checkTiny2)
@@ -331,7 +331,7 @@ extern "C" void FUN_00467f00()
 				n++;
 				if (tiny)
 				{
-					FUN_00458c00(b);
+					Brush_Free(b);
 					Sys_Printf("Removed degenerate brush\n");
 				}
 			}
@@ -362,11 +362,11 @@ entity_t *Map_FindClass(const char *classname)
 void FUN_00468030()
 {
 	while (active_brushes.next != &active_brushes)
-		FUN_00458c00(active_brushes.next);
+		Brush_Free(active_brushes.next);
 	while (selected_brushes.next != &selected_brushes)
-		FUN_00458c00(selected_brushes.next);
+		Brush_Free(selected_brushes.next);
 	while (filtered_brushes.next != &filtered_brushes)
-		FUN_00458c00(filtered_brushes.next);
+		Brush_Free(filtered_brushes.next);
 	while (DAT_010a43d0.next != &DAT_010a43d0)
 		FUN_004678c0(DAT_010a43d0.next);
 #line 157
@@ -490,6 +490,7 @@ int FUN_00468260(entity_t *entList, const char *filename)
 extern int DAT_01129894;
 extern HWND DAT_010bcd70;
 void AddRegionBrushes();
+void ConvertDOSToUnixName(char *dst, const char *src);
 void FUN_00466970(entity_t *e, bool use_region, FILE *f);
 
 void FUN_00468910(const char *filename, bool use_region)
@@ -506,15 +507,7 @@ void FUN_00468910(const char *filename, bool use_region)
 		filename = _strdup(dlg.m_ofn.lpstrFile);
 	}
 	DAT_010a4910 = 0;
-	char *p = temp;
-	for (const char *s = filename; *s; s++)
-	{
-		if (*s == '\\')
-			*p++ = '/';
-		else
-			*p++ = *s;
-	}
-	*p = 0;
+	ConvertDOSToUnixName(temp, filename);
 	Sys_Printf("Map_SaveFile: %s\n", filename);
 	f = fopen(filename, "w");
 	if (!f)
@@ -526,7 +519,7 @@ void FUN_00468910(const char *filename, bool use_region)
 			strcpy(ro, filename);
 			if (MessageBox(dword_010bcd54, "File is Read-Only! Please make the file writable and retry the save.", "File is Read-Only!", MB_OK) == IDOK)
 			{
-				Sys_Printf("Save of %s canceled.\n", ro);
+				Sys_Printf("Save of %s canceled.\n", filename);
 				return;
 			}
 			f = fopen(filename, "w");
@@ -544,37 +537,40 @@ void FUN_00468910(const char *filename, bool use_region)
 	map_assert2(entities.next != &entities);
 	map_assert2(!strcmp( entities.next->eclass->name, "worldspawn" ));
 	int count = 0;
-	for (entity_t *e = entities.next; e != &entities; e = e->next)
+	for (entity_t *e = entities.next; e != &entities;)
 	{
+		entity_t *next = e->next;
 		if (e->brushes.onext != &e->brushes || !strcmp(e->eclass->name, "worldspawn"))
 		{
 			fprintf(f, "// entity %i\n", count++);
 			FUN_00466970(e, use_region, f);
 		}
+		e = next;
 	}
 	fclose(f);
 	if (use_region && DAT_0109fecc)
 	{
 		for (int i = 0; i < 4; i++)
-			FUN_00458c00(DAT_0109febc[i]);
+			Brush_Free(DAT_0109febc[i]);
 	}
 	Sys_Printf("Saved.\n");
 	DAT_010a4908 = 0;
 	if (!strstr(temp, "autosave"))
 		SetWindowText(dword_010bcd54, temp);
-	if (use_region)
-		return;
-	time_t ltime;
-	time(&ltime);
-	MessageBeep(MB_ICONEXCLAMATION);
-	FILE *log = fopen("c:/tstamps.log", "a");
-	if (log)
+	if (!use_region)
 	{
-		fprintf(log, "%s", filename);
-		fclose(log);
-		DAT_01129894 = 0;
+		time_t ltime;
+		time(&ltime);
+		MessageBeep(MB_ICONEXCLAMATION);
+		FILE *log = fopen("c:/tstamps.log", "a");
+		if (log)
+		{
+			fprintf(log, "%s", filename);
+			fclose(log);
+			DAT_01129894 = 0;
+		}
+		SendMessage(DAT_010bcd70, 0x401, 0, (LPARAM)"Saved.\n");
 	}
-	SendMessage(DAT_010bcd70, 0x401, 0, (LPARAM)"Saved.\n");
 }
 
 // 0x00468d10 (238 B)
@@ -603,7 +599,7 @@ struct regionBrush_t
 qtexture_s *__fastcall FUN_00440840(char *name);
 brushdef_t *Brush_CreateFromTexdef(eclass_t *ec, const texdef_t *td);
 void FUN_00457dd0(const float *mins, const float *maxs, brushdef_t *def, int flag);
-brush_t *FUN_00458440(brushdef_t *def, entityInst_t *owner);
+brush_t *FUN_00458440(brushdef_t *def, entity_t *owner);
 void FUN_004671b0(brushdef_t *def, entity_t *owner);
 void Sys_MarkMapModified();
 
@@ -623,24 +619,24 @@ void AddRegionBrushes()
 	r.maxs[1] = dword_00591ce8[1] + 16.0f;
 	brushdef_t *def = Brush_CreateFromTexdef(NULL, &r.td);
 	FUN_00457dd0(r.mins, r.maxs, def, 0);
-	DAT_0109febc[0] = FUN_00458440(def, DAT_012334ec);
+	DAT_0109febc[0] = FUN_00458440(def, (entity_t *)DAT_012334ec);
 	r.mins[0] = dword_00591ce8[0] - 1.0f;
 	r.maxs[0] = dword_00591ce8[0] + 16.0f;
 	def = Brush_CreateFromTexdef(NULL, &r.td);
 	FUN_00457dd0(r.mins, r.maxs, def, 0);
-	DAT_0109febc[1] = FUN_00458440(def, DAT_012334ec);
+	DAT_0109febc[1] = FUN_00458440(def, (entity_t *)DAT_012334ec);
 	r.mins[0] = dword_00591cdc[0] - 16.0f;
 	r.maxs[0] = dword_00591ce8[0] + 16.0f;
 	r.mins[1] = dword_00591cdc[1] - 16.0f;
 	r.maxs[1] = dword_00591cdc[1] + 1.0f;
 	def = Brush_CreateFromTexdef(NULL, &r.td);
 	FUN_00457dd0(r.mins, r.maxs, def, 0);
-	DAT_0109febc[2] = FUN_00458440(def, DAT_012334ec);
+	DAT_0109febc[2] = FUN_00458440(def, (entity_t *)DAT_012334ec);
 	r.mins[1] = dword_00591ce8[1] - 1.0f;
 	r.maxs[1] = dword_00591ce8[1] + 16.0f;
 	def = Brush_CreateFromTexdef(NULL, &r.td);
 	FUN_00457dd0(r.mins, r.maxs, def, 0);
-	DAT_0109febc[3] = FUN_00458440(def, DAT_012334ec);
+	DAT_0109febc[3] = FUN_00458440(def, (entity_t *)DAT_012334ec);
 	for (int i = 0; i < 4; i++)
 	{
 		FUN_00459210(region_sides[i], &selected_brushes);
@@ -663,7 +659,7 @@ void FUN_004690d0()
 	if (DAT_0109fecc)
 	{
 		for (int i = 0; i < 4; i++)
-			FUN_00458c00(DAT_0109febc[i]);
+			Brush_Free(DAT_0109febc[i]);
 	}
 }
 

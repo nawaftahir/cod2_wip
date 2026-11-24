@@ -186,7 +186,7 @@ extern void Sys_Printf(const char *fmt, ...);
 static bool QE_SingleBrush_Pmesh(bool bQuiet = false);
 extern void *DAT_01128da8;
 void FUN_0046fb30();
-void FUN_0046f0b0(brush_t *b, int a, int b2, int c);
+void FUN_0046f0b0(brush_t *b, bool a, bool b2, bool c);
 struct orientation_t { vec3_t origin; vec3_t axis[3]; };
 void OrientationPosToWorld(const orientation_t *orient, const float *pos, float *out);
 extern orientation_t g_editorOrientation;
@@ -318,7 +318,7 @@ bool FUN_004388b0(brush_t *a, brush_t *b);
 bool FUN_00438ca0();
 bool FUN_00465e10(entity_t *e, const char *key, const char *value);
 void FUN_00465bf0(entity_t *e, const char *key, const char *value);
-void FUN_00465c60(epair_t *&e, const char *key);
+void DeleteKey(epair_t *&e, const char *key);
 void FUN_004655f0();
 void FUN_004657a0(entity_t *e, const char *key);
 void FUN_00443fd0(entity_t *e);
@@ -364,8 +364,9 @@ void FUN_00436690();
 void TextureAxisFromPlane(const plane_t *pln, float *xv, float *yv);
 bool FUN_004379f0(patchMesh_t *p, float *out);
 void FUN_00438510(brush_t *pb1, brush_t *pb0, const int *a3, const int *a4, const int *a5);
-void FUN_00458c00(brush_t *b);
-void FUN_004678c0(entity_t *e);
+void Brush_Free(brush_t *b);
+struct entityInst_t;
+void FUN_004678c0(entityInst_t *e);
 void FUN_00432950(patchMesh_t *p);
 bool FUN_00431570(const char **data_p, PatchControl *v, int nTexPairs);
 brushdef_t *FUN_00431890(const char **data_p, int version, bool bTerrain);
@@ -6079,7 +6080,7 @@ void FUN_00438120()
             entity_t *o = n->owner->def;
             if (FUN_00465e10(o, "target", name))
             {
-                FUN_00465c60(*(epair_t **)((char *)o + 0x64), "target");
+                DeleteKey(*(epair_t **)((char *)o + 0x64), "target");
                 FUN_004655f0();
                 FUN_004657a0(o, "target");
             }
@@ -6238,14 +6239,14 @@ void FUN_00438510(brush_t *pb1, brush_t *pb0, const int *a3, const int *a4, cons
     entity_t *owner = pb0->owner;
     if (owner == DAT_012334ec || ((brush_t **)owner)[6] != pb0 || ((brush_t **)owner)[7] != pb0)
     {
-        FUN_00458c00(pb0);
+        Brush_Free(pb0);
         return;
     }
     entity_t *def = owner->def;
     if (!DAT_0109fdcc)
     {
         Sys_Printf("Undo_AddEntity: no last undo.\n");
-        FUN_004678c0(pb0->owner);
+        FUN_004678c0((entityInst_t *)pb0->owner);
         return;
     }
     FUN_00443fd0(def);
@@ -6255,7 +6256,7 @@ void FUN_00438510(brush_t *pb1, brush_t *pb0, const int *a3, const int *a4, cons
         for (brush_t *eb = ((brush_t **)((char *)def + 0xc))[0]; eb != head; eb = eb->next)
             FUN_00443d90(eb);
     }
-    FUN_004678c0(pb0->owner);
+    FUN_004678c0((entityInst_t *)pb0->owner);
 }
 
 // Retail 0x004388b0: weld two selected patches that share one edge. Returns true when welded.

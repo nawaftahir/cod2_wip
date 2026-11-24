@@ -81,7 +81,7 @@ char *COM_Parse(char *data);
 extern int dword_011298b0;
 char *FUN_0046cb10(const char *str);
 void Sys_Printf(const char *fmt, ...);
-void FUN_0045a220(brushdef_t *b, int flag);
+void FUN_0045a220(brushdef_t *b, bool snap);
 void FUN_00475350();
 int FUN_00468260(entity_t *list, const char *path);
 char *ValueForKey(entity_t *ent, const char *key);

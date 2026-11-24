@@ -363,7 +363,8 @@ bool Brush_IsFiltered(brush_t *def)
 extern winding_t *Winding_Clone(const winding_t *w);
 extern int FUN_00448550(const winding_t *in, const float normal[3], double dist, float epsilon, winding_t **front, winding_t **back);
 extern void FUN_00459430(brush_t *b, face_t *f, radmat_t *mat);
-extern void * __fastcall FUN_00440840(const char *name);
+struct qtexture_s;
+extern qtexture_s *__fastcall FUN_00440840(char *name);
 extern void FUN_0047a5b0(const char *fmt, ...);
 bool FUN_00460470(winding_t *w, const plane_t *plane, brush_t *skip, selbrush_t *node, int faceIndex);
 
