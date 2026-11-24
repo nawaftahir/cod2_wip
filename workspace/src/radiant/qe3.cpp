@@ -303,7 +303,7 @@ extern int com_eof;
 extern brush_t active_brushes;
 extern int DAT_010bcd20;
 extern int DAT_010bcd24;
-void FUN_0047a330(void);
+void Sys_UpdateStatusBar(void);
 
 // 0x0046e180 (250 B)
 void QE_CountBrushesAndUpdateStatusBar(void)
@@ -333,7 +333,7 @@ void QE_CountBrushesAndUpdateStatusBar(void)
 	}
 	if (DAT_010bcd24 != s_lastbrushcount || DAT_010bcd20 != s_lastentitycount || !s_didonce)
 	{
-		FUN_0047a330();
+		Sys_UpdateStatusBar();
 		s_lastbrushcount = DAT_010bcd24;
 		s_lastentitycount = DAT_010bcd20;
 		s_didonce = 1;

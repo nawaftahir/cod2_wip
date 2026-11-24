@@ -109,7 +109,7 @@ bool FUN_004131d0(const char *pszName, HWND hwnd);
 eclass_t *FUN_00464770(int a, const char *name);
 entity_t *FUN_00466d80(eclass_t *ec);
 void FUN_0046fbe0(bool a);
-void FUN_0046f0b0(brush_t *b, bool a, bool b2, bool c);
+void FUN_0046f0b0(brush_t *brush, bool bComplete, bool bStatus, bool bPositionView);
 
 int rgIds[EntLast] = {
     0x47f, 0x481, 0x414, 0x416, 0x418, 0x41a, 0x41c, 0x41f, 0x421, 0x423, 0x425,
@@ -482,8 +482,9 @@ void FUN_00477d00()
     else
     {
         edit_entity = selected_brushes.next->owner->def;
+        brush_t *brush = selected_brushes.next;
         FUN_0046fbe0(1);
-        FUN_0046f0b0(selected_brushes.next, 1, 1, 0);
+        FUN_0046f0b0(brush, 1, 1, 0);
     }
     FUN_004777c0();
     g_nUpdateBits = -1;

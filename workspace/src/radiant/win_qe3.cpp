@@ -72,6 +72,11 @@ void Sys_GetCursorPos(int *x, int *y)
     *y = lpPoint.y;
 }
 
+void Sys_SetCursorPos(int x, int y)
+{
+    SetCursorPos(x, y);
+}
+
 void Sys_Beep(void)
 {
     MessageBeep(MB_ICONASTERISK);

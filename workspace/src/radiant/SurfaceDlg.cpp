@@ -560,7 +560,7 @@ void CSurfaceDlg::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 }
 
 void * __stdcall FUN_0043d630(CSurfaceDlg *dlg);
-void FUN_004702d0(void *texdef);
+void FUN_004702d0(const texdef_t *td);
 
 // Retail 0x0043e7d0: apply pending edits.
 void CSurfaceDlg::FUN_0043e7d0()
@@ -570,7 +570,7 @@ void CSurfaceDlg::FUN_0043e7d0()
 		void *tex = FUN_0043d630(this);
 		if (field_71)
 		{
-			FUN_004702d0(tex);
+			FUN_004702d0((const texdef_t *)tex);
 			field_71 = false;
 		}
 		if (field_72)
