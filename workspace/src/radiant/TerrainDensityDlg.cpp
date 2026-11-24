@@ -1,5 +1,6 @@
 #include "stdafx.h"
 
+#include "TerrainDensityDlg.h"
 /* Layout projections verified by retail loads at 0x0043ee1d-0x0043ee29 (same as PatchDensityDlg). */
 class CMainFrame;
 struct CTerrainDensityXYProjection
@@ -16,23 +17,6 @@ extern CMainFrame *g_pParentWnd;
 extern int g_nUpdateBits;
 struct brush_t;
 extern brush_t *FUN_004296f0(int nWidth, int nHeight, int nOrientation, bool bDeleteSource, bool bOverride);
-
-class CTerrainDensityDlg : public CDialog
-{
-public:
-	enum { IDD = 186 };
-	CTerrainDensityDlg(CWnd* pParent = NULL);
-
-	CComboBox m_wndHeight;
-	CComboBox m_wndWidth;
-
-protected:
-	virtual void DoDataExchange(CDataExchange* pDX);
-	virtual BOOL OnInitDialog();
-	virtual void OnOK();
-
-	DECLARE_MESSAGE_MAP()
-};
 
 CTerrainDensityDlg::CTerrainDensityDlg(CWnd* pParent)
 	: CDialog(CTerrainDensityDlg::IDD, pParent)

@@ -23,23 +23,7 @@ extern brush_t *Patch_GenericMesh(int width, int height, int viewType,
 int g_nXLat[7] = {3, 5, 7, 9, 11, 13, 15};
 
 
-class CPatchDensityDlg : public CDialog
-{
-public:
-	enum { IDD = 157 };
-	CPatchDensityDlg(CWnd* pParent = NULL);
-
-	CComboBox m_wndWidth;
-	CComboBox m_wndHeight;
-
-protected:
-	virtual void DoDataExchange(CDataExchange* pDX);
-	virtual BOOL OnInitDialog();
-	// OnOK awaits the real mesh generator.
-	virtual void OnOK();
-
-	DECLARE_MESSAGE_MAP()
-};
+#include "PatchDensityDlg.h"
 
 int s_patchLastWidthSelection;
 int s_patchLastHeightSelection;
