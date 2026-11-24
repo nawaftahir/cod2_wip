@@ -41,9 +41,9 @@ extern qeglobals_t g_qeglobals;
 
 bool FUN_0047a890(void);
 void AddNewItem(MRUMENU *lpMruMenu, LPSTR lpItem);
-void DelMenuItem(MRUMENU *lpMruMenu, WORD wItem, BOOL fIDMBased);
+int DelMenuItem(MRUMENU *lpMruMenu, WORD wItem, BOOL fIDMBased);
 void PlaceMenuMRUItem(MRUMENU *lpMruMenu, HMENU hMenu, UINT uiItem);
-void FUN_004683e0(char *filename);
+void Map_LoadFile(const char *filename);
 
 // Q3 DoMru, with GetMenuItem inlined; retail 0x00479c00
 BOOL DoMru(HWND hWnd, WORD wId)
@@ -67,7 +67,7 @@ BOOL DoMru(HWND hWnd, WORD wId)
     if (fExist)
     {
         AddNewItem(g_qeglobals.d_lpMruMenu, szFileName);
-        FUN_004683e0(szFileName);
+        Map_LoadFile(szFileName);
     }
     else
         DelMenuItem(g_qeglobals.d_lpMruMenu, wId, TRUE);
