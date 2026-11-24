@@ -551,6 +551,7 @@ SCRIPT PARSING
 // this just controls the comment printing, it doesn't actually load a file
 void Com_BeginParseSession( const char *filename );
 void Com_EndParseSession( void );
+void Com_SetSpaceDelimited( qboolean spaceDelimited );
 
 int Com_GetCurrentParseLine( void );
 
@@ -584,6 +585,9 @@ void Com_Parse1DMatrix( const char *(*buf_p), int x, float *m );
 void Com_Parse2DMatrix( const char *(*buf_p), int y, int x, float *m );
 void Com_Parse3DMatrix( const char *(*buf_p), int z, int y, int x, float *m );
 
+int I_stricmp( const char *s1, const char *s2 );
+#define Q_stricmp I_stricmp
+
 //=====================================================================================
 #ifdef __cplusplus
 	extern "C" {
@@ -614,7 +618,6 @@ int Q_isupper( int c );
 int Q_isalpha( int c );
 
 // portable case insensitive compare
-int		Q_stricmp (const char *s1, const char *s2);
 int		Q_strncmp (const char *s1, const char *s2, int n);
 int		Q_stricmpn (const char *s1, const char *s2, int n);
 char	*Q_strlwr( char *s1 );

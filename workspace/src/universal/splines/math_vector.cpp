@@ -65,7 +65,7 @@ float idVec3_t::toPitch( void ) {
 		}
 	} else {
 		forward = ( float )idSqrt( x * x + y * y );
-		pitch = atan2( z, forward ) * 180 / M_PI;
+		pitch = atan2( z, forward ) * 180 / (float)M_PI;
 		if ( pitch < 0 ) {
 			pitch += 360;
 		}
