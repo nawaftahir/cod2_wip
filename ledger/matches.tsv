@@ -2648,3 +2648,7 @@ addr	size	source	symbol	name	tag
 0x0043ec60	23	src/radiant/SurfaceDlg.cpp	?InvalidateRect@CWnd@@QAEXPBUtagRECT@@H@Z	CWnd::InvalidateRect	SUPPORTED
 0x00422ed0	27	src/radiant/mesh.cpp	??ACPtrArray@@QAEAAPAXH@Z	CPtrArray::operator[]	SUPPORTED
 0x0046bb70	34	src/radiant/map.cpp	??A?$CSimpleStringT@D$0A@@ATL@@QBEDH@Z	CSimpleStringT::operator[]	SUPPORTED
+0x004025d0	20	src/radiant/AdvCurveDlg.cpp	?Invalidate@CWnd@@QAEXH@Z	CWnd::Invalidate	SUPPORTED
+0x004025f0	11	src/radiant/AdvCurveDlg.cpp	?IsWindowVisible@CWnd@@QBEHXZ	CWnd::IsWindowVisible	SUPPORTED
+0x004026c0	20	src/radiant/AdvCurveDlg.cpp	?GetPos@CSliderCtrl@@QBEHXZ	CSliderCtrl::GetPos	SUPPORTED
+0x00446080	20	src/radiant/VehicleDlg.cpp	?GetRangeMax@CSliderCtrl@@QBEHXZ	CSliderCtrl::GetRangeMax	SUPPORTED
