@@ -2662,3 +2662,5 @@ addr	size	source	symbol	name	tag
 0x004433b0	476	src/radiant/Undo.cpp	?FUN_004433b0@@YAXXZ	FUN_004433b0	UNNAMED
 0x00443590	615	src/radiant/Undo.cpp	?FUN_00443590@@YAXXZ	FUN_00443590	UNNAMED
 0x004690d0	37	src/radiant/map.cpp	?FUN_004690d0@@YAXXZ	FUN_004690d0	UNNAMED
+0x00419da0	228	src/radiant/MainFrm.cpp	?FUN_00419da0@CMainFrame@@QAEXXZ	CMainFrame::FUN_00419da0	UNNAMED
+0x00478090	170	src/radiant/win_ent.cpp	?FUN_00478090@@YAHAAV?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@0@Z	FUN_00478090	UNNAMED
