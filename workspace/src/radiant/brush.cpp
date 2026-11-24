@@ -51,7 +51,7 @@ extern brushdef_t *FUN_00458dc0(const brushdef_t *b);
 void FUN_00458af0(brushdef_t *def);
 void FUN_00459920(brushdef_t *b, int scale);
 void FUN_0045e0b0(brushdef_t *b);
-void FUN_0042f970(const texdef_t *td, patchMesh_t *p, int a, int c);
+void FUN_0042f970(patchMesh_t *p, const texdef_t *td, bool bApply, bool bKeepLayout);
 void FUN_0042fad0(patchMesh_t *p, int amount);
 #define brush_layer ((&g_qeglobals.activeMaterial)[1])
 void FUN_004671b0(brushdef_t *b, entity_t *owner);
@@ -90,7 +90,7 @@ class CMainFrame { public: unsigned char pad_00[0x2b8]; CTextureBar m_wndTexture
 extern CMainFrame *g_pParentWnd;
 class CPatchDialog : public CDialog { public: void GetPatchInfo(); };
 extern CPatchDialog g_PatchDialog;
-extern int FUN_00434880(patchMesh_t *p);
+extern patchMesh_t *FUN_00434880(const patchMesh_t *p);
 extern void FUN_00467240(brushdef_t *b);
 extern void FUN_004671b0(void *owner, brushdef_t *def);
 int VecNCompareCustomEpsilon(const float *v0, const float *v1, float epsilon, int coordCount);
@@ -1753,8 +1753,8 @@ brushdef_t *FUN_00458dc0(const brushdef_t *b)
 {
     if (b->patch)
     {
-        int p = FUN_00434880(b->patch);
-        brushdef_t *def = *(brushdef_t **)(p + 0x3828);
+        patchMesh_t *p = FUN_00434880(b->patch);
+        brushdef_t *def = *(brushdef_t **)((char *)p + 0x3828);
         FUN_00467240(def);
         return def;
     }
@@ -1773,8 +1773,8 @@ brushdef_t *FUN_00458eb0(brushdef_t *b)
 {
     if (b->patch)
     {
-        int p = FUN_00434880(b->patch);
-        brushdef_t *def = *(brushdef_t **)(p + 0x3828);
+        patchMesh_t *p = FUN_00434880(b->patch);
+        brushdef_t *def = *(brushdef_t **)((char *)p + 0x3828);
         FUN_00467240(def);
         def->owner = b->owner;
         FUN_0045a220(def, true);
@@ -2010,7 +2010,7 @@ void FUN_004597f0(brushdef_t *b, const texdef_t *td, int a, int c, bool flag)
         }
         else
         {
-            FUN_0042f970(td, p, a, c);
+            FUN_0042f970(p, td, a != 0, c != 0);
         }
     }
     FUN_0045e0b0(b);
@@ -2765,8 +2765,8 @@ bool FUN_0045bfc0(brush_t *b, int a2, int a3, int a4, int a5, int width, int a7,
 // ---- 0x45d7f0
 
 extern void FUN_0042e6c0(patch_t *p);
-extern void FUN_0042e7b0(patch_t *p, int a2, int a3);
-extern void FUN_0042e550(patch_t *p, int a2, bool a3);
+extern void FUN_0042e7b0(const unsigned int *color, int width, patch_t *pm);
+extern void FUN_0042e550(int mode, patch_t *pm, void *mat, int bFlag);
 extern void FUN_0045a830(brush_t *b);
 extern void FUN_0045c420(brush_t *b, int a2, int a3);
 extern void FUN_0045d450(brush_t *b, const vec3_t offset, int a3, int a4, int a5, int a6, int a7);
@@ -3236,13 +3236,13 @@ void FUN_0045d7f0(brush_t *b, int viewType, int a3, int a4, int a5, int a6, cons
         if (a6 == 0x1e)
         {
             if (viewType == 2 || viewType == 1 || viewType == 0)
-                FUN_0042e7b0(b->patch, (int)color, a8);
+                FUN_0042e7b0(color, a8, b->patch);
             else
                 FUN_0042e6c0(b->patch);
         }
         else
         {
-            FUN_0042e550(b->patch, a5, a9);
+            FUN_0042e550(a6, b->patch, (void *)a5, a9);
         }
         return;
     }

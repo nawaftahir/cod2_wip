@@ -172,6 +172,7 @@ public:
     CPoint m_ptDragTotal;
     CPoint m_ptDown;
 protected:
+    friend class CMainFrame;
     virtual BOOL PreCreateWindow(CREATESTRUCT &cs);
     afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
     afx_msg void OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS *lpncsp);

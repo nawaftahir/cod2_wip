@@ -61,10 +61,10 @@ extern vec3_t pressdelta;
 extern void Sys_Printf(const char *fmt, ...);
 extern void FUN_00470d80(float x, float y, float z);
 extern void FUN_0046fd50(float *move, int bSnap);
-extern void FUN_0042bf10(const vec3_t move);
+extern void FUN_0042bf10(const float *move);
 extern int FUN_00455ee0(brushdef_t *b, const vec3_t vertex, const vec3_t delta, vec3_t end, bool bSnap);
 extern void FUN_004559f0(brushdef_t *b, bool snap, bool markMap);
-extern bool FUN_0042fb50(patchMesh_t *p, const vec3_t delta, const vec3_t move);
+extern bool FUN_0042fb50(const float *delta, patchMesh_t *p, const float *anchor);
 extern int FUN_00449760();
 extern void FUN_00433f20();
 extern void FUN_00433ed0();
@@ -106,13 +106,13 @@ extern void FUN_00437730(const float *origin, const float *dir);
 extern bool FUN_004532a0();
 extern bool FUN_00401d30(void *dlg);
 extern bool FUN_00401f70(void *dlg);
-extern bool FUN_00433a20();
+extern bool OnlyPatchesSelected();
 extern bool FUN_0042bd90();
 extern char g_CurveEditDlg[];
 extern void FUN_00434630(bool shift, float *bounds);
 extern void FUN_00434810(bool shift);
 extern void FUN_00471160(const float *mins, const float *maxs, bool inside);
-extern void FUN_004379f0(patchMesh_t *p, void *texdef);
+extern bool FUN_004379f0(patchMesh_t *p, float *out);
 extern void FUN_00441a40(void *texdef, void *tex);
 extern void FUN_0043e400();
 extern void FUN_00424cf0();
@@ -384,7 +384,7 @@ void Drag_Begin(int x, int y, int buttons, const float *xaxis, const float *yaxi
         mode = g_qeglobals.d_select_mode;
         if ((mode == 0 || mode == 10) && FUN_00401d30(g_CurveEditDlg))
         {
-            if ((FUN_00433a20() || selected_brushes.next == &selected_brushes && FUN_00401f70(g_CurveEditDlg)) && FUN_0042bd90())
+            if ((OnlyPatchesSelected() || selected_brushes.next == &selected_brushes && FUN_00401f70(g_CurveEditDlg)) && FUN_0042bd90())
             {
                 mode = g_qeglobals.d_select_mode;
                 g_qeglobals.d_select_mode = 10;
@@ -419,7 +419,7 @@ void Drag_Begin(int x, int y, int buttons, const float *xaxis, const float *yaxi
         assert(t.brush->version == t.brush->def->version);
         char *f = (char *)t.brush->def->faces + (t.face - t.brush->faces) * 168;
         if (t.brush->patch)
-            FUN_004379f0(t.brush->def->patch, f + DAT_01128d90 * 28 + 36);
+            FUN_004379f0(t.brush->def->patch, (float *)(f + DAT_01128d90 * 28 + 36));
 #line 430
         assert((t.brush->patch == NULL && t.brush->def->patch == NULL) || (t.brush->patch->def == t.brush->def->patch));
         FUN_00441a40(f + DAT_01128d90 * 28 + 36, 0);
@@ -656,7 +656,7 @@ void MoveSelection(vec3_t move)
                 VectorSubtract(vTemp2, vTemp, vTemp2);
 #line 710
                 assert(b->def->patch == b->patch->def);
-                if (!FUN_0042fb50(b->patch->def, vTemp2, move))
+                if (!FUN_0042fb50(vTemp2, b->patch->def, move))
                 {
                     b = NULL;
                     break;

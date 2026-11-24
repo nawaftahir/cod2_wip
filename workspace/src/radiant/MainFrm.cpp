@@ -39,37 +39,36 @@ bool FUN_00425630(int *);
 extern "C" {
 extern unsigned dword_0123348c;
 extern int dword_010a4508;
-void FUN_00432ca0(int);
-void FUN_004733f0(int);
-void FUN_0046b070(int);
-void FUN_00472bd0(int);
 void FUN_0043e440();
-void FUN_00469950();
-void FUN_004694d0();
 void FUN_004692a0();
-void FUN_00469420();
 void FUN_00469350();
-void FUN_004364b0();
 void FUN_0046dfc0();
 void FUN_0046dc40();
 void FUN_00471dd0();
+void FUN_00471670();
+void FUN_00471a90();
+void FUN_004745d0();
+void FUN_0046b070(int);
+}
+void FUN_00432ca0(bool);
+void FUN_004733f0(int);
+void FUN_00472bd0(int);
+void FUN_00469950();
+void FUN_004694d0();
+void FUN_00469420();
+void FUN_004364b0();
 void FUN_00470ff0();
 void FUN_00471530();
 void FUN_00471270();
 void FUN_004713e0();
-void FUN_00471670();
-void FUN_00471a90();
 void FUN_0045c890();
 void FUN_0045ca10();
 void FUN_0045c950();
 void FUN_00437400();
 void FUN_00435d20();
-
 void FUN_00437e50();
 void FUN_00438120();
 void FUN_00438ff0();
-void FUN_004745d0();
-}
 void WXY_Print();
 void Map_RemoveRegion();
 void FUN_00432bb0();
@@ -220,7 +219,8 @@ void FUN_00403610(CCamWnd *cam, int a);
 void FUN_00452ca0(CXYWnd *xy, int type);
 void FUN_00452b00(CXYWnd *xy);
 void FUN_00479c00(int a);
-void FUN_004416b0(int a);
+struct qtexture_s;
+void FUN_004416b0(qtexture_s *tex);
 void FUN_004433b0();
 void Undo_GeneralStart(char *operation);
 struct selbrush_t { selbrush_t *prev; selbrush_t *next; unsigned char pad08[0x0c]; brushdef_t *def; int field_18; int field_1c; int field_20; };
@@ -231,16 +231,16 @@ extern selbrush_t selected_selbrushes;
 void FUN_004721a0(int a, int b);
 void FUN_00472280(int a, int b);
 void FUN_004718b0(const char *key);
-void FUN_00428e20(int a, int b, int c, int d);
-void FUN_00431360(int a, int b, int c);
+void FUN_00428e20(bool a, bool b, bool c, bool d);
+void FUN_00431360(bool a, bool b, bool c);
 void FUN_004311a0();
 void FUN_00430ff0();
 void FUN_00435c00();
-void FUN_00434190(int a, int b, int c, int d);
+void FUN_00434190(bool a, bool b, float c, float d);
 void FUN_004354b0();
 void FUN_004353d0();
 void FUN_00428b80();
-void FUN_00474230(float a, float b, int c);
+void FUN_00474230(float a, float b, bool c);
 void FUN_00472860(float a, float b);
 void FUN_0046fd50(float *vec, int a);
 bool FUN_0042a7f0(int a, int b, bool c);
@@ -285,13 +285,11 @@ void FUN_0046ddc0();
 void FUN_0045ff30();
 void FUN_00460700();
 extern int DAT_010bcd2c;
-extern int DAT_01128dc4;
+extern float DAT_01128dc4;
 
 // 0x00411001
 class idCameraDef { public: bool load(const char *filename); void save(const char *filename); void buildCamera(); };
 void FUN_00444a00();
-void FUN_00452a60(CWnd *w);
-void FUN_00452e30(CWnd *w);
 void FUN_00439160(int a);
 void FUN_00473f50();
 void FUN_00473c70(int a);
@@ -331,7 +329,7 @@ extern "C" void __fastcall FUN_00418ec0(CMainFrame *self);
 extern "C" void __fastcall FUN_004171b0(CMainFrame *self);
 
 // 0x00411003
-BOOL CALLBACK FUN_004766d0(HWND, UINT, WPARAM, LPARAM);
+BOOL CALLBACK SidesDlgProc(HWND, UINT, WPARAM, LPARAM);
 extern int DAT_0109fe60;
 extern bool DAT_012334f5;
 extern bool DAT_012334f6;
@@ -1422,11 +1420,11 @@ extern "C" void __stdcall FUN_00415210(CMainFrame *self, int a)
     FUN_00479c00(self->m_hWnd ? (int)self->m_hWnd : 0);
 }
 
-void CMainFrame::FUN_00415240() { FUN_004416b0((DAT_01128d90 + 1) % 2); }
+void CMainFrame::FUN_00415240() { FUN_004416b0((qtexture_s *)((DAT_01128d90 + 1) % 2)); }
 
-void CMainFrame::FUN_00415260() { FUN_004416b0(0); }
+void CMainFrame::FUN_00415260() { FUN_004416b0((qtexture_s *)0); }
 
-void CMainFrame::FUN_00415270() { FUN_004416b0(1); }
+void CMainFrame::FUN_00415270() { FUN_004416b0((qtexture_s *)1); }
 
 extern "C" void FUN_00415280() { Dvar_SetStringByName("r_textureMode", "nearest"); dword_0123348c |= 1; }
 extern "C" void FUN_004152a0() { Dvar_SetStringByName("r_textureMode", "linear"); dword_0123348c |= 1; }
@@ -1695,7 +1693,7 @@ extern "C" void FUN_00415ea0()
   Undo_AddBrushList(&selected_selbrushes);
   DAT_012334f5 = false;
   DAT_012334f6 = false;
-  DialogBox(g_qeglobals.d_hInstance, (LPCSTR)113, g_qeglobals.d_hwndMain, FUN_004766d0);
+  DialogBox(g_qeglobals.d_hInstance, (LPCSTR)113, g_qeglobals.d_hwndMain, SidesDlgProc);
   FUN_00443f80(&selected_selbrushes);
   Undo_End();
 }
@@ -2446,7 +2444,7 @@ void CMainFrame::FUN_00417ea0()
     FUN_004433b0();
     Undo_GeneralStart("split selected");
     Undo_AddBrushList(&selected_selbrushes);
-    FUN_00452a60(this->field_07e0);
+    ((CXYWnd *)this->field_07e0)->SplitClip();
     FUN_00443f80(&selected_selbrushes);
     Undo_End();
   }
@@ -3031,7 +3029,7 @@ extern "C" void __fastcall FUN_00418cf0(CMainFrame *self)
 void CMainFrame::FUN_00419000()
 {
   if (this->field_07e0)
-    FUN_00452e30(this->field_07e0);
+    ((CXYWnd *)this->field_07e0)->Copy();
 }
 
 void CMainFrame::FUN_00419020()
@@ -3362,7 +3360,7 @@ extern "C" void FUN_00419ce0()
   Undo_AddBrushList(&selected_selbrushes);
   DAT_012334f5 = true;
   DAT_012334f6 = false;
-  DialogBox(g_qeglobals.d_hInstance, (LPCSTR)113, g_qeglobals.d_hwndMain, FUN_004766d0);
+  DialogBox(g_qeglobals.d_hInstance, (LPCSTR)113, g_qeglobals.d_hwndMain, SidesDlgProc);
   FUN_00443f80(&selected_selbrushes);
   Undo_End();
 }
@@ -4169,7 +4167,7 @@ extern "C" void FUN_0041bc50()
   Undo_AddBrushList(&selected_selbrushes);
   DAT_012334f5 = false;
   DAT_012334f6 = true;
-  DialogBox(g_qeglobals.d_hInstance, (LPCSTR)113, g_qeglobals.d_hwndMain, FUN_004766d0);
+  DialogBox(g_qeglobals.d_hInstance, (LPCSTR)113, g_qeglobals.d_hwndMain, SidesDlgProc);
   FUN_00443f80(&selected_selbrushes);
   Undo_End();
 }
