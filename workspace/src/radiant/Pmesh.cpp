@@ -1725,6 +1725,10 @@ bool FUN_00429a00(patchMesh_t *patch, PatchPair *pPair)
     return false;
 }
 
+class CSelectObject;
+struct qeglobals_t { unsigned char pad_00[0x18]; int d_gridsize; unsigned char pad_1c[0x5c - 0x1c]; HWND d_hwndStatus; unsigned char pad_60[0x8070 - 0x60]; int d_num_move_points; float *d_move_points[4096]; unsigned char pad_c074[0x6cb84 - 0xc074]; int d_select_count; brush_t *d_select_order[2]; unsigned char pad_6cb90[0x6cb9c - 0x6cb90]; int d_select_mode; CSelectObject *selectObject; };
+extern qeglobals_t g_qeglobals;
+
 // Retail 0x00429bc0: the row or column shared by every selected control of a patch.
 bool FUN_00429bc0(patchMesh_t *patch, int *px, int *py)
 {
@@ -1735,9 +1739,9 @@ bool FUN_00429bc0(patchMesh_t *patch, int *px, int *py)
     *px = -1;
     *py = -1;
     bool found = false;
-    for (int i = 0; i < DAT_010c4d84; i++)
+    for (int i = 0; i < g_qeglobals.d_num_move_points; i++)
     {
-        PatchControl *pdv = (PatchControl *)DAT_010c4d88[i];
+        PatchControl *pdv = (PatchControl *)g_qeglobals.d_move_points[i];
         if (pdv < &patch->ctrl[0][0] || pdv > &patch->ctrl[15][15])
             continue;
         int idx = (int)(pdv - &patch->ctrl[0][0]);
@@ -1866,15 +1870,14 @@ bool FUN_00429fe0(patchMesh_t *p, int col)
 // Retail 0x0042a040: add a control to the selection list (front if the patch is the first selected brush's).
 void FUN_0042a040(patchMesh_t *p, PatchControl *c)
 {
-    if (DAT_010c4d84 != 0 && p->cache_3828 == DAT_010a44b4.next->def && DAT_010a44b4.prev != DAT_010a44b4.next)
+    if (g_qeglobals.d_num_move_points != 0 && p->cache_3828 == DAT_010a44b4.next->def && DAT_010a44b4.prev != DAT_010a44b4.next)
     {
-        memmove(&DAT_010c4d88[1], &DAT_010c4d88[0], DAT_010c4d84 * 4);
-        DAT_010c4d88[0] = (int)c;
-        DAT_010c4d84++;
+        memmove(&g_qeglobals.d_move_points[1], &g_qeglobals.d_move_points[0], g_qeglobals.d_num_move_points * 4);
+        g_qeglobals.d_move_points[0] = (float *)c;
+        g_qeglobals.d_num_move_points++;
         return;
     }
-    DAT_010c4d88[DAT_010c4d84] = (int)c;
-    DAT_010c4d84++;
+    g_qeglobals.d_move_points[g_qeglobals.d_num_move_points++] = (float *)c;
 }
 
 // Retail 0x0042a0a0: add a control point to the move list, plus every coincident point of the selected patches.
