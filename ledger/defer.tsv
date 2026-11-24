@@ -896,7 +896,7 @@
 0x004702d0	bulk-e9	2026-11-24	bulk draft: 62%, sizes 946/957, first diff +0x5
 0x00470690	bulk-e9	2026-11-24	bulk draft: 57%, sizes 946/960, first diff +0x5
 0x00466440	bulk-e9	2026-11-24	bulk draft DROPPED: 63%, sizes 1129/1135, first diff +0xa2; body flips FUN_00467510 (map-writer trap); draft in workspace/drafts/entity_master.cpp
-0x00466970	bulk-e9	2026-11-24	bulk draft DROPPED: 50%, sizes 656/649, first diff +0x2a (Map_IsBrushFiltered inlined by us, retail calls it out of line); body flips FUN_00467510; draft in workspace/drafts/entity_master.cpp
+0x00466970	bulk-f14	2026-11-24	bulk draft DROPPED again: 63%, sizes 656/649, first diff +0x2a. Retail inlines Map_IsBrushFiltered everywhere except this one site (only caller 0x466a79); ours inlines it here too; auto_inline(off) would un-inline the matched sites in Map_RemoveRegion/FUN_00469210. Linking the body flips FUN_004656b0, FUN_00467510, FUN_00465780. Camera-origin pointer form fixed up to +0x103. Draft in workspace/drafts/entity_466970_f14.cpp
 0x00467be0	bulk-e9	2026-11-24	bulk draft DROPPED: 85%, sizes 286/286, first diff +0x5 (retail frame 0x48 vs our 0x40); only called by 467d00; draft in workspace/drafts/entity_master.cpp
 0x00463d60	bulk-e9	2026-11-24	bulk draft DROPPED: 94%, sizes 225/221, first diff +0xd2; body flips FUN_00464830 and MapInfo FUN_0041f710; draft in workspace/drafts/eclass_master.cpp
 0x0046d710	bulk-e9	2026-11-24	bulk draft: 67%, sizes 248/257, first diff +0x2e
