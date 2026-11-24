@@ -30,6 +30,7 @@ protected:
 	afx_msg void OnSelchangeComboSplines();
 	afx_msg void OnDestroy();
 	afx_msg void OnApply();
+	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar *pScrollBar);
 	afx_msg void OnFileOpen();
 	afx_msg void OnFileSave();
 	afx_msg void FUN_00409de0();
