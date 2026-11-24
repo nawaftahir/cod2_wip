@@ -2648,3 +2648,5 @@ addr	size	source	symbol	name	tag
 0x0043ec60	23	src/radiant/SurfaceDlg.cpp	?InvalidateRect@CWnd@@QAEXPBUtagRECT@@H@Z	CWnd::InvalidateRect	SUPPORTED
 0x00422ed0	27	src/radiant/mesh.cpp	??ACPtrArray@@QAEAAPAXH@Z	CPtrArray::operator[]	SUPPORTED
 0x0046bb70	34	src/radiant/map.cpp	??A?$CSimpleStringT@D$0A@@ATL@@QBEDH@Z	CSimpleStringT::operator[]	SUPPORTED
+0x004433b0	476	src/radiant/Undo.cpp	?FUN_004433b0@@YAXXZ	FUN_004433b0	UNNAMED
+0x00443590	615	src/radiant/Undo.cpp	?FUN_00443590@@YAXXZ	FUN_00443590	UNNAMED
