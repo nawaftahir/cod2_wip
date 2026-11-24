@@ -1143,3 +1143,37 @@ addr	agent	date	reason
 0x00498a40	lane-d	2026-11-24	angles_t::toForward: bulk draft: 47%, sizes 185/133, first diff +0x7
 0x004a8a10	lane-d	2026-11-24	GetHashCode: bulk draft: 88%, sizes 60/60, first diff +0x1; retail takes len in edx and str in ecx, ours the reverse
 0x004a9ba0	lane-d	2026-11-24	SL_FreeString: bulk draft: 99%, sizes 815/815, first diff +0x8; same register swap on the inlined GetHashCode call
+0x00467f00	bulk-e9	2026-11-24	bulk draft: 55%, sizes 224/225, first diff +0x0
+0x004681d0	bulk-e9	2026-11-24	bulk draft: 26%, sizes 192/134, first diff +0x0
+0x00468260	bulk-e9	2026-11-24	bulk draft: 60%, sizes 372/373, first diff +0x7
+0x00468910	bulk-e9	2026-11-24	bulk draft: 69%, sizes 1031/1022, first diff +0x1a
+0x00468d10	bulk-e9	2026-11-24	bulk draft DROPPED: 64%, sizes 261/238, first diff +0x90; body flips FUN_00467510 (map-writer trap); draft in workspace/drafts/map_master.cpp
+0x00468e00	bulk-e9	2026-11-24	bulk draft: 74%, sizes 723/705, first diff +0xf
+0x004692a0	bulk-e9	2026-11-24	bulk draft: 94%, sizes 169/172, first diff +0x3d
+0x00469740	bulk-e9	2026-11-24	bulk draft: 32%, sizes 491/519, first diff +0x3
+0x0046ab20	bulk-e9	2026-11-24	bulk draft: 54%, sizes 391/385, first diff +0x5
+0x0046b070	bulk-e9	2026-11-24	bulk draft: 53%, sizes 1197/1245, first diff +0x5
+0x0046b5b0	bulk-e9	2026-11-24	bulk draft DROPPED: 86%, sizes 1022/1017, first diff +0x2f4; committing the body flips FUN_00465550 and FUN_0046aee0 (LTCG), draft kept in workspace/drafts/map_master.cpp
+0x0046ba50	bulk-e9	2026-11-24	bulk draft: 77%, sizes 266/282, first diff +0x5c
+0x0046e520	bulk-e9	2026-11-24	bulk draft: 57%, sizes 980/1032, first diff +0x4
+0x0046e930	bulk-e9	2026-11-24	bulk draft: 26%, sizes 348/346, first diff +0x5
+0x0046ea90	bulk-e9	2026-11-24	bulk draft: 53%, sizes 513/513, first diff +0x9
+0x0046eca0	bulk-e9	2026-11-24	bulk draft: 54%, sizes 610/609, first diff +0x1a
+0x0046ff10	bulk-e9	2026-11-24	bulk draft: 65%, sizes 951/953, first diff +0x5
+0x004702d0	bulk-e9	2026-11-24	bulk draft: 62%, sizes 946/957, first diff +0x5
+0x00470690	bulk-e9	2026-11-24	bulk draft: 57%, sizes 946/960, first diff +0x5
+0x00466440	bulk-e9	2026-11-24	bulk draft DROPPED: 63%, sizes 1129/1135, first diff +0xa2; body flips FUN_00467510 (map-writer trap); draft in workspace/drafts/entity_master.cpp
+0x00466970	bulk-e9	2026-11-24	bulk draft DROPPED: 50%, sizes 656/649, first diff +0x2a (Map_IsBrushFiltered inlined by us, retail calls it out of line); body flips FUN_00467510; draft in workspace/drafts/entity_master.cpp
+0x00467be0	bulk-e9	2026-11-24	bulk draft DROPPED: 85%, sizes 286/286, first diff +0x5 (retail frame 0x48 vs our 0x40); only called by 467d00; draft in workspace/drafts/entity_master.cpp
+0x00463d60	bulk-e9	2026-11-24	bulk draft DROPPED: 94%, sizes 225/221, first diff +0xd2; body flips FUN_00464830 and MapInfo FUN_0041f710; draft in workspace/drafts/eclass_master.cpp
+0x0046d710	bulk-e9	2026-11-24	bulk draft: 67%, sizes 248/257, first diff +0x2e
+0x0040bff0	bulk-e9	2026-11-24	bulk draft: 51%, sizes 283/259, first diff +0x2d
+0x0040c100	bulk-e9	2026-11-24	bulk draft: 51%, sizes 283/259, first diff +0x2d
+0x0040c210	bulk-e9	2026-11-24	bulk draft: 60%, sizes 677/644, first diff +0x27
+0x0040c4a0	bulk-e9	2026-11-24	bulk draft: 75%, sizes 226/226, first diff +0x29
+0x004753b0	bulk-e9	2026-11-24	bulk draft: 30%, sizes 581/509, first diff +0x5
+0x004755b0	bulk-e9	2026-11-24	bulk draft: 65%, sizes 472/474, first diff +0x5
+0x00475790	bulk-e9	2026-11-24	bulk draft: 70%, sizes 329/335, first diff +0x25
+0x004675e0	bulk-e9	2026-11-24	bulk draft DROPPED: 100% MATCH 88/88 B alone, but the body flips protected FUN_004656b0, FUN_00465780 and FUN_00467510 (FUN_00465bf0 caller set); draft in workspace/drafts/entity_master.cpp
+0x00467d00	bulk-e9	2026-11-24	bulk draft DROPPED: 100% MATCH 204/204 B alone, but the body flips protected FUN_004656b0, FUN_00465780 and FUN_00467510 (FUN_00465bf0 caller set); draft in workspace/drafts/entity_master.cpp
+0x00453960	bulk-e9	2026-11-24	bulk draft: 47%, sizes 309/305, first diff +0x32 (Q3 OnMouseMove; retail keeps point.y in edi and the frame pointer in ebx, we swap them)

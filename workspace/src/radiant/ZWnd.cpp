@@ -128,6 +128,45 @@ int CZWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	return 0;
 }
 
+void CZWnd::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	SetFocus();
+	SetCapture();
+	CRect rect;
+	GetClientRect(&rect);
+	Z_MouseDown(point.x, rect.Height() - 1 - point.y, nFlags);
+}
+
+void CZWnd::OnMButtonDown(UINT nFlags, CPoint point)
+{
+	SetFocus();
+	SetCapture();
+	CRect rect;
+	GetClientRect(&rect);
+	Z_MouseDown(point.x, rect.Height() - 1 - point.y, nFlags);
+}
+
+void CZWnd::OnRButtonDown(UINT nFlags, CPoint point)
+{
+	SetFocus();
+	SetCapture();
+	CRect rect;
+	GetClientRect(&rect);
+	Z_MouseDown(point.x, rect.Height() - 1 - point.y, nFlags);
+}
+
+void CZWnd::OnMouseMove(UINT nFlags, CPoint point)
+{
+	CRect rect;
+	GetClientRect(&rect);
+	float fz = z.origin[2] + ((rect.Height() - 1 - point.y) - (z.height / 2)) / z.scale;
+	fz = floor(fz / g_qeglobals.d_gridsize + 0.5) * g_qeglobals.d_gridsize;
+	CString strStatus;
+	strStatus.Format("Z:: %.1f", fz);
+	reinterpret_cast<CZWndMainProjection *>(g_pParentWnd)->SetStatusText(1, strStatus);
+	Z_MouseMoved(point.x, rect.Height() - 1 - point.y, nFlags);
+}
+
 void CZWnd::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 	g_pParentWnd->OnKeyDown(nChar, nRepCnt, nFlags);

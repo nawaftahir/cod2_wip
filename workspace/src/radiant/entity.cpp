@@ -1,9 +1,11 @@
 #include <new>
 #include <malloc.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "../universal/assertive.h"
+#include "../universal/com_math.h"
 
 typedef float vec3_t[3];
 
@@ -19,7 +21,7 @@ struct eclass_t
 {
 	unsigned char pad00[4];
 	char *unk04;
-	int unk08;
+	int fixedsize;
 	float mins[3];
 	float maxs[3];
 	unsigned char pad24[0x34 - 0x24];
@@ -153,6 +155,8 @@ extern void (__cdecl *dword_0059c490)(void *);
 extern void FUN_00458c00(brush_t *b);
 void FUN_004678c0(entityInst_t *e);
 void FUN_004661f0(entity_t *e);
+float Vec3Normalize(vec3_t v);
+void AxisToAngles(float axis[3][3], float angles[3]);
 
 // 0x00464bb0 (88 B)
 char *ValueForKey(epair_t *&e, const char *key)
@@ -292,7 +296,7 @@ void FUN_004655f0(entity_t *e, const char *key)
 {
 #line 202
 	assert(e);
-	if (e->eclass && e->eclass->unk08)
+	if (e->eclass && e->eclass->fixedsize)
 	{
 		if (!_stricmp(key, "angles") || !_stricmp(key, "modelscale") || !_stricmp(key, "modelscale_vec"))
 		{
@@ -317,11 +321,11 @@ void FUN_004656a0(entity_t *e)
 // 0x004656b0 (202 B)
 void FUN_004656b0(const char *key, entity_t *e, const char *value)
 {
-	if (!_stricmp(key, "classname") && e->eclass && e->eclass->unk08)
+	if (!_stricmp(key, "classname") && e->eclass && e->eclass->fixedsize)
 	{
 		eclass_t *ec = FUN_00464770(0, value);
 
-		if (ec->unk08)
+		if (ec->fixedsize)
 		{
 			vec3_t mins;
 			vec3_t maxs;
@@ -348,7 +352,7 @@ void FUN_004656b0(const char *key, entity_t *e, const char *value)
 // 0x004657a0 (373 B)
 void FUN_004657a0(entity_t *e, const char *key)
 {
-	if ((!_stricmp(key, "_color") || !_stricmp(key, "targetname")) && e->eclass->unk08)
+	if ((!_stricmp(key, "_color") || !_stricmp(key, "targetname")) && e->eclass->fixedsize)
 	{
 #line 277
 		assert(e->brushes.onext);
@@ -698,8 +702,6 @@ epair_t *FUN_00466400(const char **data, const char *key)
 	return ep;
 }
 
-// 0x00466440 (1135 B)
-
 
 // 0x004668b0 (51 B)
 void FUN_004668b0(const float *a, const float *b, float *out)
@@ -753,8 +755,9 @@ struct brushDef_t;
 bool Map_IsBrushFiltered(brushDef_t *b);
 void FUN_004579e0(brushdef_t *b, AbstractFileWrapper *f);
 
-// 0x00466970 (649 B), FILE in ebx
-
+// 0x00466970 (649 B)
+extern float DAT_00591cdc[3];
+extern float DAT_00591ce8[3];
 
 extern entityInst_t *world_entity;
 extern brush_t selected_brushes;
@@ -883,7 +886,7 @@ void FUN_00467470(entity_t *e)
 // 0x00467510 (200 B)
 void FUN_00467510(entity_t *e)
 {
-	if (e->eclass && e->eclass->unk08 && e->eclass->modelName && *e->eclass->modelName)
+	if (e->eclass && e->eclass->fixedsize && e->eclass->modelName && *e->eclass->modelName)
 	{
 		const char *modelName = ValueForKey(e->epairs, "model");
 #line 1245
@@ -897,9 +900,6 @@ void FUN_00467510(entity_t *e)
 		}
 	}
 }
-
-// 0x004675e0 (88 B), instance in esi, eclass in stack
-
 
 // 0x00467640 (59 B)
 void FUN_00467640(entity_t *ent, float *vec)

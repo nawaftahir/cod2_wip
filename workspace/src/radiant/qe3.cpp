@@ -171,6 +171,47 @@ int FUN_0046d680(const char *file)
 	return 1;
 }
 
+// 0x0046d710 (257 B): link target numbers of a "linkTo" string, at most 5 distinct, -1 terminated
+int FUN_0046d710(int *out, const char *linkTo)
+{
+	bool atStart = true;
+	int count = 0;
+	char *full = (char *)out + 0x84;
+
+	*full = 0;
+	for (unsigned int i = 0; i < strlen(linkTo); i++)
+	{
+#line 411
+		assert(linkTo[i]);
+		if (linkTo[i] == ' ')
+		{
+			atStart = true;
+			continue;
+		}
+		if (!atStart)
+			continue;
+		int id = atol(linkTo + i);
+		int j;
+		for (j = 0; j < count; j++)
+		{
+			if (out[j] == id)
+				break;
+		}
+		if (j < count)
+			continue;
+		out[count++] = id;
+		atStart = false;
+		if (count >= 5)
+		{
+			*full = 1;
+			break;
+		}
+	}
+	out[count] = -1;
+	out[32] = count;
+	return count;
+}
+
 // 0x0046dc40 (382 B)
 extern "C" void FUN_0046dc40(void)
 {
