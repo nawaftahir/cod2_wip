@@ -466,8 +466,12 @@ float FUN_004490a0(const winding_t *w)
 
 void FUN_00449180(const winding_t *w, vec3_t mins, vec3_t maxs)
 {
-    mins[0] = mins[1] = mins[2] = 131072.0f;
-    maxs[0] = maxs[1] = maxs[2] = -131072.0f;
+    mins[0] = 131072.0f;
+    mins[1] = 131072.0f;
+    mins[2] = 131072.0f;
+    maxs[0] = -131072.0f;
+    maxs[1] = -131072.0f;
+    maxs[2] = -131072.0f;
     for (int i = 0; i < w->pointCount; i++)
         AddPointToBounds(w->points[i], mins, maxs);
 }
