@@ -216,7 +216,7 @@ void FUN_0047ab50(bool);
 void FUN_00468910(const char *name, bool use_region);
 void FUN_004749a0();
 void FUN_00474b70();
-void FUN_00403610(CCamWnd *cam, int a);
+void __stdcall FUN_00403610(CCamWnd *cam, int a);
 void FUN_00452ca0(CXYWnd *xy, int type);
 void FUN_00452b00(CXYWnd *xy);
 BOOL DoMru(HWND hWnd, WORD wId);

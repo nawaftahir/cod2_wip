@@ -421,7 +421,7 @@ extern CPrefsDlg *dword_01233b64;
 extern unsigned dword_0123348c;
 extern int dword_0058fbe0;
 
-void FUN_00403610(CCamWnd *cam, int up)
+void __stdcall FUN_00403610(CCamWnd *cam, int up)
 {
     float start[3], dir[3], d, current, bestd;
     brush_t *b;
@@ -429,8 +429,8 @@ void FUN_00403610(CCamWnd *cam, int up)
     start[0] = cam->m_Camera.origin[0];
     start[1] = cam->m_Camera.origin[1];
     start[2] = 131072.0f;
-    dir[0] = 0;
     dir[1] = 0;
+    dir[0] = 0;
     dir[2] = -1;
     current = 131072.0f - (cam->m_Camera.origin[2] - 48.0f);
     bestd = 0;
@@ -440,12 +440,12 @@ void FUN_00403610(CCamWnd *cam, int up)
     {
         if (!FUN_00458fa0(b, start, dir, &d, 0))
             continue;
-        if (up == 0)
+        if (up)
         {
-            if (d > current && d < bestd)
+            if (d < current && d > bestd)
                 bestd = d;
         }
-        else if (d < current && d > bestd)
+        else if (d > current && d < bestd)
             bestd = d;
     }
     if (bestd == 0 || bestd == 262144.0f)
