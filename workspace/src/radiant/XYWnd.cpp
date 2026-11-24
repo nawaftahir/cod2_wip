@@ -3156,17 +3156,17 @@ void DrawLight_Radius(brush_t *b, int width, CXYWnd *wnd, unsigned *color)
 void DrawLight_Color(brush_t *b, CXYWnd *wnd, int width)
 {
     float rgb[4] = { 0.2f, 0.5f, 0.35f, 1.0f };
-    unsigned color;
     float center[3];
-    float r, g, bl;
+    float c[3];
+    unsigned color;
     const char *colorString = ValueForKey(*(epair_t **)((char *)b->owner->def + 100), "_color");
 #line 3435
     assert(colorString);
-    if (sscanf(colorString, "%f %f %f", &r, &g, &bl) == 3)
+    if (sscanf(colorString, "%f %f %f", &c[0], &c[1], &c[2]) == 3)
     {
-        rgb[0] = r;
-        rgb[1] = g;
-        rgb[2] = bl;
+        rgb[0] = c[0];
+        rgb[1] = c[1];
+        rgb[2] = c[2];
     }
     (*FUN_0059c468)(rgb, &color);
     BrushCenter(b, center);
@@ -3642,8 +3642,8 @@ void FUN_00452ae0()
     g_nUpdateBits |= 0x102;
 }
 
-extern int dword_010c4d84;
-extern float **dword_010c4d88;
+extern int dword_010c4d84[];
+extern float *dword_010c4d88[];
 extern CMainFrame *dword_01233488;
 
 // 0x00452b00: centres the view on the camera, the selection or the point list
@@ -3652,31 +3652,31 @@ void CXYWnd::PositionView()
     int nDim1 = (m_nViewType == YZ) ? 1 : 0;
     int nDim2 = (m_nViewType == XY) ? 1 : 2;
     int mode = dword_011298b0;
-    if ((mode != 1 && mode != 4 && mode != 5 && mode != 6 && mode != 9) || dword_010c4d84 == 0)
+    if ((mode == 1 || mode == 4 || mode == 5 || mode == 6 || mode == 9) && dword_010c4d84[0] != 0)
     {
-        void *cam = *(void **)((char *)dword_01233488 + 0x78c);
-        m_vOrigin[nDim1] = ((float *)((char *)cam + 0x60))[nDim1];
-        m_vOrigin[nDim2] = ((float *)((char *)cam + 0x60))[nDim2];
+        m_vOrigin[nDim1] = 0;
+        m_vOrigin[nDim2] = 0;
+        for (int i = 0; i < dword_010c4d84[0]; i++)
+        {
+            m_vOrigin[nDim1] += dword_010c4d88[i][nDim1];
+            m_vOrigin[nDim2] += dword_010c4d88[i][nDim2];
+        }
+        m_vOrigin[nDim1] /= (float)dword_010c4d84[0];
+        m_vOrigin[nDim2] /= (float)dword_010c4d84[0];
+    }
+    else
+    {
+        m_vOrigin[nDim1] = ((float *)(*(char **)((char *)dword_01233488 + 0x78c) + 0x60))[nDim1];
+        m_vOrigin[nDim2] = ((float *)(*(char **)((char *)dword_01233488 + 0x78c) + 0x60))[nDim2];
         for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
         {
             if (b->next == &selected_brushes)
             {
-                const float *m = (const float *)((char *)b->def + 0x20);
-                m_vOrigin[nDim1] = (m[nDim1] + m[nDim1 + 3]) * 0.5f;
-                m_vOrigin[nDim2] = (m[nDim2] + m[nDim2 + 3]) * 0.5f;
+                m_vOrigin[nDim1] = (((float *)((char *)b->def + 0x20))[nDim1 + 3] + ((float *)((char *)b->def + 0x20))[nDim1]) * 0.5f;
+                m_vOrigin[nDim2] = (((float *)((char *)b->def + 0x20))[nDim2 + 3] + ((float *)((char *)b->def + 0x20))[nDim2]) * 0.5f;
             }
         }
-        return;
     }
-    m_vOrigin[nDim1] = 0;
-    m_vOrigin[nDim2] = 0;
-    for (int i = 0; i < dword_010c4d84; i++)
-    {
-        m_vOrigin[nDim1] += dword_010c4d88[i][nDim1];
-        m_vOrigin[nDim2] += dword_010c4d88[i][nDim2];
-    }
-    m_vOrigin[nDim1] /= (float)dword_010c4d84;
-    m_vOrigin[nDim2] /= (float)dword_010c4d84;
 }
 
 void CXYWnd::FUN_00452c30()
