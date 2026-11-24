@@ -72,8 +72,8 @@ void Drag_MouseUp(int buttons);
 void FUN_004623e0(int buttons, int x, int y, float *origin, float *dir);
 int R_Add3DLine(float *p0, float *p1, const unsigned *color, int width, int count, int max, ZVert *verts);
 int FUN_0040bf80(float x0, float y0, float x1, float y1, const unsigned *color, int width, int count, int max, ZVert *verts);
-bool FUN_00458fa0(brush_t *b, float *origin, float *dir, float *t);
-void FUN_0045d090(float *color);
+bool FUN_00458fa0(brush_t *b, float *origin, float *dir, float *t, float *outNormal);
+bool FUN_0045d090(const brushdef_t *b, float *color, const float *defaultColor);
 void OrientationPosToWorldPos(float *orient, float *pos, float *out);
 
 // 0x0047aea0 (41 B)
@@ -325,10 +325,10 @@ void Z_Draw(void)
 		if (def->mins[0] < z.origin[0] && def->maxs[0] > z.origin[0]
 			&& def->mins[1] < z.origin[1] && def->maxs[1] > z.origin[1])
 		{
-			if (FUN_00458fa0(b, hi, dirDown, &tTop))
+			if (FUN_00458fa0(b, hi, dirDown, &tTop, NULL))
 			{
 				tTop = 131072.0f - tTop;
-				if (FUN_00458fa0(b, lo, dirUp, &tBottom))
+				if (FUN_00458fa0(b, lo, dirUp, &tBottom, NULL))
 				{
 					tBottom = tBottom - 131072.0f;
 					assert(b->owner);
@@ -339,7 +339,7 @@ void Z_Draw(void)
 					lightColor[1] = b->owner->def->eclass->color[1];
 					lightColor[2] = b->owner->def->eclass->color[2];
 					lightColor[3] = b->owner->def->eclass->color[3];
-					FUN_0045d090(lightColor);
+					FUN_0045d090(b->def, lightColor, lightColor);
 					re.ColorToBytes(lightColor, &color);
 					linesCount = FUN_0040bf80(0, tBottom, 0, tTop, &color, width, linesCount, 0x552, verts);
 					float fx = (float)xCam;
@@ -368,10 +368,10 @@ void Z_Draw(void)
 			if (def->mins[0] < z.origin[0] && def->maxs[0] > z.origin[0]
 				&& def->mins[1] < z.origin[1] && def->maxs[1] > z.origin[1])
 			{
-				if (FUN_00458fa0(b, hi, dirDown, &tTop))
+				if (FUN_00458fa0(b, hi, dirDown, &tTop, NULL))
 				{
 					tTop = 131072.0f - tTop;
-					if (FUN_00458fa0(b, lo, dirUp, &tBottom))
+					if (FUN_00458fa0(b, lo, dirUp, &tBottom, NULL))
 					{
 						tBottom = tBottom - 131072.0f;
 						assert(b->owner);
@@ -382,7 +382,7 @@ void Z_Draw(void)
 						lightColor[1] = b->owner->def->eclass->color[1];
 						lightColor[2] = b->owner->def->eclass->color[2];
 						lightColor[3] = b->owner->def->eclass->color[3];
-						FUN_0045d090(lightColor);
+						FUN_0045d090(b->def, lightColor, lightColor);
 						re.ColorToBytes(lightColor, &color);
 						linesCount = R_Add3DLine(lo, hi, &color, width, linesCount, 0x552, verts);
 					}

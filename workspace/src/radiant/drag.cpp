@@ -112,15 +112,15 @@ extern bool FUN_00401f70(void *dlg);
 extern bool OnlyPatchesSelected();
 extern bool FUN_0042bd90();
 extern char g_CurveEditDlg[];
-extern void FUN_00434630(bool shift, float *bounds);
-extern void FUN_00434810(bool shift);
+extern void FUN_00434630(const float *planes, bool bAdd);
+extern void FUN_00434810(const void *planes, bool bAdd);
 extern void FUN_00471160(const float *mins, const float *maxs, bool inside);
 extern bool FUN_004379f0(patchMesh_t *p, float *out);
 extern void FUN_00441a40(void *texdef, void *tex);
 extern void FUN_0043e400();
 extern void UpdatePatchInspector();
 extern void FUN_00424b10();
-extern void FUN_004597f0(void *tex, int a, int b, int c);
+extern void FUN_004597f0(brushdef_t *b, void *tex, int a, int c, bool flag);
 extern void FUN_004593c0(brushdef_t *b, face_t *face, const texdef_t *tex);
 extern void FUN_00459430(brushdef_t *b, face_t *face, radmat_t *mat);
 extern void FUN_0045a220(brushdef_t *b, bool snap);
@@ -437,7 +437,7 @@ void Drag_Begin(int x, int y, int buttons, const float *xaxis, const float *yaxi
         {
             if (t.brush->owner->def->eclass->fixedsize == 0)
             {
-                FUN_004597f0(&DAT_01128da8, 1, 1, 0);
+                FUN_004597f0(t.brush->def, &DAT_01128da8, 1, 1, false);
                 g_nUpdateBits = -1;
                 return;
             }
@@ -453,7 +453,7 @@ void Drag_Begin(int x, int y, int buttons, const float *xaxis, const float *yaxi
             if (t.brush->owner->def->eclass->fixedsize == 0)
             {
                 if (t.brush->patch)
-                    FUN_004597f0(&DAT_01128da8, 1, 0, 0);
+                    FUN_004597f0(t.brush->def, &DAT_01128da8, 1, 0, false);
                 else
                 {
 #line 493

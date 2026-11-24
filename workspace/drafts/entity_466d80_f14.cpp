@@ -42,7 +42,7 @@ entity_t *FUN_00466d80(eclass_t *ec)
 		found = true;
 		if (!FUN_00465e10(e, "classname", ec->unk04))
 		{
-			Sys_Printf("Can't change entity type from %s to %s; ungroup first\n", ValueForKey(e, "classname"), ec->unk04);
+			Sys_Printf("Can't change entity type from %s to %s; ungroup first\n", ValueForKey(e->epairs, "classname"), ec->unk04);
 			MessageBeep(MB_ICONASTERISK);
 			return NULL;
 		}
