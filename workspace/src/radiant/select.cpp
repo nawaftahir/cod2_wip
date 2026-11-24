@@ -219,7 +219,7 @@ void OrientationPosToLocal(const orientation_t *or, const float *world, float *l
 void OrientationDirToLocal(const orientation_t *or, const float *world, float *local);
 bool FUN_00465d80(entity_t *ent, const char *key);
 char *ValueForKey(epair_t *&e, const char *key);
-bool FUN_00436bc0(const float *a, const float *b, const float *c, const float *origin, const float *dir, float *t, float *u, float *v);
+bool FUN_00436bc0(const float *tri0, const float *org, int mode, const float *tri1, const float *pt, const float *nrm, float *outT, float *outU, float *outV);
 bool FUN_00436dc0(const float *origin, const float *dir, patch_t *patch, float *dist, int a, int b, int c, float *normal);
 faceRender_t *FUN_00458fa0(brush_t *b, const float *origin, const float *dir, float *dist, float *outNormal);
 bool FUN_0045b420(brush_t *b);
@@ -285,7 +285,7 @@ bool FUN_0046e520(const float *org, const float *dir, brush_t *brush, float *dis
     for (int i = 0; i < count; i += 3)
     {
         unsigned short *tri = &indices[i];
-        if (FUN_00436bc0(verts[tri[0]], verts[tri[2]], verts[tri[1]], lorg, ldir, &t, 0, 0) && !(best <= t))
+        if (FUN_00436bc0(verts[tri[0]], verts[tri[1]], 0, verts[tri[2]], lorg, ldir, &t, 0, 0) && !(best <= t))
         {
             if (normal)
             {
@@ -1009,7 +1009,7 @@ void FUN_0046fb30();
 void FUN_00470c00(float mid[3]);
 void FUN_0045f340(brush_t *b, float *matrix, int a, int c, float d, bool flip, float *origin);
 void FUN_00470c50(float *mid);
-void FUN_0042f840(patch_def_t *p, float *mid, float *scale, int a);
+struct patchMesh_t; void FUN_0042f840(patchMesh_t *p, const float *center, const float *scale, bool bRebuild);
 void FUN_00475350();
 void FUN_0045a220(brushdef_t *b, bool snap);
 bool FUN_0044f5d0(brush_t *b);
@@ -1139,7 +1139,7 @@ void FUN_00470d80(float x, float y, float z)
             scale[2] = z;
 #line 1066
             assert(b->patch->def == b->def->patch);
-            FUN_0042f840(b->def->patch, mid, scale, 1);
+            FUN_0042f840((patchMesh_t *)b->def->patch, mid, scale, true);
         }
     }
 }

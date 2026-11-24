@@ -102,11 +102,11 @@ static int g_nFaceCycle = 0;
 void BuildTextureVecs(const vec3_t normal, const vec2_t scale, const vec2_t shift, float rotate, float skew, vec4_t texVecs[2]);
 void FUN_00421150(mesh_t *m);
 int FUN_00421500(mesh_t *m, vec3_t normal);
-void FUN_00421830(mesh_t m);
+void PutMeshOnCurve(mesh_t m);
 mesh_t *FUN_00421980(mesh_t m, float style, float maxError, int *x, int *y);
 mesh_t *FUN_00422370(mesh_t *m, int *x, int *y);
 mesh_t *FUN_00422900(mesh_t *m, float scale, int maxSize, int *x2, int *y2, int *x1, int *y1);
-void FUN_004546a0(int faceCount, face_t *faces);
+void Face_FreeArray(face_t *faces, int faceCount);
 struct eclass_t;
 struct brush_t;
 struct entity_t;
@@ -186,7 +186,7 @@ extern void Sys_Printf(const char *fmt, ...);
 static bool QE_SingleBrush_Pmesh(bool bQuiet = false);
 extern void *DAT_01128da8;
 void FUN_0046fb30();
-void FUN_0046f0b0(brush_t *b, int a, int b2, int c);
+void FUN_0046f0b0(brush_t *b, bool a, bool b2, bool c);
 struct orientation_t { vec3_t origin; vec3_t axis[3]; };
 void OrientationPosToWorld(const orientation_t *orient, const float *pos, float *out);
 extern orientation_t g_editorOrientation;
@@ -310,19 +310,19 @@ void FUN_004369b0();
 bool FUN_00436dc0(const float *origin, const float *dir, patch_t *pm, float *t, int *y, int *x, int a, int b);
 void FUN_00437730(const float *origin, const float *dir);
 void Undo_AddBrush(brushdef_t *brush);
-struct trace28_t { int hit; int pad4; float dist; unsigned char rest[16]; };
-trace28_t FUN_0046ef10(const float *org, const float *dir, int flags);
+struct trace_t { brush_t *brush; void *face; float dist; bool selected; int field_10[3]; };
+trace_t FUN_0046ef10(const float *org, const float *dir, int flags);
 void FUN_00435c00();
 bool FUN_00466060(const char *classname);
 bool FUN_004388b0(brush_t *a, brush_t *b);
 bool FUN_00438ca0();
 bool FUN_00465e10(entity_t *e, const char *key, const char *value);
 void FUN_00465bf0(entity_t *e, const char *key, const char *value);
-void FUN_00465c60(epair_t *&e, const char *key);
-void FUN_004655f0();
+void DeleteKey(epair_t *&e, const char *key);
+void FUN_004655f0(entity_t *e, const char *key);
 void FUN_004657a0(entity_t *e, const char *key);
 void FUN_00443fd0(entity_t *e);
-void FUN_00443d90(brush_t *b);
+void FUN_00443d90(brushdef_t *b);
 extern entity_t *DAT_012334ec;
 void FUN_00438120();
 void FUN_00437400();
@@ -364,8 +364,8 @@ void FUN_00436690();
 void TextureAxisFromPlane(const plane_t *pln, float *xv, float *yv);
 bool FUN_004379f0(patchMesh_t *p, float *out);
 void FUN_00438510(brush_t *pb1, brush_t *pb0, const int *a3, const int *a4, const int *a5);
-void FUN_00458c00(brush_t *b);
-void FUN_004678c0(entity_t *e);
+void Brush_Free(brush_t *b);
+struct entityInst_t; void FUN_004678c0(entityInst_t *e);
 void FUN_00432950(patchMesh_t *p);
 bool FUN_00431570(const char **data_p, PatchControl *v, int nTexPairs);
 brushdef_t *FUN_00431890(const char **data_p, int version, bool bTerrain);
@@ -374,7 +374,7 @@ extern unsigned char DAT_00592788[];
 extern const void *DAT_0053d944[];
 extern const void *DAT_0053d964[];
 int FUN_004209a0(const char **data_p, const char *name, const void *table);
-void *FUN_00440c10(const char *name, int version);
+struct qtexture_s; qtexture_s *FUN_00440c10(char *name, int version);
 char *Com_Parse(const char **data_p);
 char *Com_ParseOnLine(const char **data_p);
 void Com_UngetToken();
@@ -721,7 +721,7 @@ void Brush_RebuildBrush(brushdef_t *b, vec3_t vMins, vec3_t vMaxs)
         field78 = b->faces->field_78;
         field7c = b->faces->field_7c;
     }
-    FUN_004546a0(b->faceCount, b->faces);
+    Face_FreeArray(b->faces, b->faceCount);
     b->faces = NULL;
 
     for (i = 0; i < 3; i++)
@@ -814,7 +814,7 @@ mesh_t *FUN_004267d0(patchMesh_t *p, int layer, int *x, int *y)
     else
     {
         mesh_t *sub = FUN_00421980(inMesh, (float)p->style_14, 999.0f, x, y);
-        FUN_00421830(*sub);
+        PutMeshOnCurve(*sub);
         FUN_00421150(sub);
         result = FUN_00422370(sub, x, y);
         free(sub);
@@ -1655,7 +1655,8 @@ brush_t *FUN_004296f0(int nWidth, int nHeight, int nOrientation, bool bDeleteSou
         }
         xStep = (int)((float)xStep + xAdj);
     }
-    (&p->image_18)[DAT_01128d90] = DAT_01128da8;
+    void *curMat = DAT_01128da8;
+    (&p->image_18)[DAT_01128d90] = curMat;
     FUN_00427160(p, 0);
     if (p->type_10 & 0x40)
         FUN_00426e80(p, 1, 16.0f);
@@ -5230,8 +5231,8 @@ void FUN_00435c00()
     {
         float *pt = (float *)DAT_010c4d88[i];
         float org[3] = {pt[0], pt[1], pt[2]};
-        trace28_t tr = FUN_0046ef10(org, dir, 0x200);
-        if (tr.hit)
+        trace_t tr = FUN_0046ef10(org, dir, 0x200);
+        if (tr.brush)
         {
             pt[0] = dir[0] * tr.dist + org[0];
             pt[1] = dir[1] * tr.dist + org[1];
@@ -6079,8 +6080,8 @@ void FUN_00438120()
             entity_t *o = n->owner->def;
             if (FUN_00465e10(o, "target", name))
             {
-                FUN_00465c60(*(epair_t **)((char *)o + 0x64), "target");
-                FUN_004655f0();
+                DeleteKey(*(epair_t **)((char *)o + 0x64), "target");
+                FUN_004655f0(o, "target");
                 FUN_004657a0(o, "target");
             }
         }
@@ -6099,7 +6100,7 @@ void FUN_00438120()
             {
                 brush_t *head = &((entity_brushes_proj *)o->field_38)->head;
                 for (brush_t *eb = head->next; eb != head; eb = eb->next)
-                    FUN_00443d90(eb);
+                    FUN_00443d90((brushdef_t *)eb);
             }
         }
         else
@@ -6238,14 +6239,14 @@ void FUN_00438510(brush_t *pb1, brush_t *pb0, const int *a3, const int *a4, cons
     entity_t *owner = pb0->owner;
     if (owner == DAT_012334ec || ((brush_t **)owner)[6] != pb0 || ((brush_t **)owner)[7] != pb0)
     {
-        FUN_00458c00(pb0);
+        Brush_Free(pb0);
         return;
     }
     entity_t *def = owner->def;
     if (!DAT_0109fdcc)
     {
         Sys_Printf("Undo_AddEntity: no last undo.\n");
-        FUN_004678c0(pb0->owner);
+        FUN_004678c0((entityInst_t *)pb0->owner);
         return;
     }
     FUN_00443fd0(def);
@@ -6253,9 +6254,9 @@ void FUN_00438510(brush_t *pb1, brush_t *pb0, const int *a3, const int *a4, cons
     {
         brush_t *head = (brush_t *)((char *)def + 8);
         for (brush_t *eb = ((brush_t **)((char *)def + 0xc))[0]; eb != head; eb = eb->next)
-            FUN_00443d90(eb);
+            FUN_00443d90((brushdef_t *)eb);
     }
-    FUN_004678c0(pb0->owner);
+    FUN_004678c0((entityInst_t *)pb0->owner);
 }
 
 // Retail 0x004388b0: weld two selected patches that share one edge. Returns true when welded.

@@ -39,37 +39,36 @@ bool FUN_00425630(int *);
 extern "C" {
 extern unsigned dword_0123348c;
 extern int dword_010a4508;
-void FUN_00432ca0(int);
-void FUN_004733f0(int);
-void FUN_0046b070(int);
-void FUN_00472bd0(int);
 void FUN_0043e440();
-void FUN_00469950();
-void FUN_004694d0();
 void FUN_004692a0();
-void FUN_00469420();
 void FUN_00469350();
-void FUN_004364b0();
 void FUN_0046dfc0();
 void FUN_0046dc40();
 void FUN_00471dd0();
+void FUN_00471670();
+void FUN_00471a90();
+void FUN_004745d0();
+void FUN_0046b070(int);
+}
+void FUN_00432ca0(bool);
+void FUN_004733f0(int);
+void FUN_00472bd0(int);
+void FUN_00469950();
+void FUN_004694d0();
+void FUN_00469420();
+void FUN_004364b0();
 void FUN_00470ff0();
 void FUN_00471530();
 void FUN_00471270();
 void FUN_004713e0();
-void FUN_00471670();
-void FUN_00471a90();
 void FUN_0045c890();
 void FUN_0045ca10();
 void FUN_0045c950();
 void FUN_00437400();
 void FUN_00435d20();
-
 void FUN_00437e50();
 void FUN_00438120();
 void FUN_00438ff0();
-void FUN_004745d0();
-}
 void WXY_Print();
 void Map_RemoveRegion();
 void FUN_00432bb0();
@@ -232,16 +231,16 @@ extern selbrush_t selected_selbrushes;
 void FUN_004721a0(int a, int b);
 void FUN_00472280(int a, int b);
 void FUN_004718b0(const char *key);
-void FUN_00428e20(int a, int b, int c, int d);
-void FUN_00431360(int a, int b, int c);
+void FUN_00428e20(bool a, bool b, bool c, bool d);
+void FUN_00431360(bool a, bool b, bool c);
 void FUN_004311a0();
 void FUN_00430ff0();
 void FUN_00435c00();
-void FUN_00434190(int a, int b, int c, int d);
+void FUN_00434190(bool a, bool b, float c, float d);
 void FUN_004354b0();
 void FUN_004353d0();
 void FUN_00428b80();
-void FUN_00474230(float a, float b, int c);
+void FUN_00474230(float a, float b, bool c);
 void FUN_00472860(float a, float b);
 void FUN_0046fd50(float *vec, int a);
 bool FUN_0042a7f0(int a, int b, bool c);
@@ -286,7 +285,7 @@ void FUN_0046ddc0();
 void FUN_0045ff30();
 void FUN_00460700();
 extern int DAT_010bcd2c;
-extern int DAT_01128dc4;
+extern float DAT_01128dc4;
 
 // 0x00411001
 class idCameraDef { public: bool load(const char *filename); void save(const char *filename); void buildCamera(); };
@@ -330,7 +329,7 @@ extern "C" void __fastcall FUN_00418ec0(CMainFrame *self);
 extern "C" void __fastcall FUN_004171b0(CMainFrame *self);
 
 // 0x00411003
-BOOL CALLBACK FUN_004766d0(HWND, UINT, WPARAM, LPARAM);
+BOOL CALLBACK SidesDlgProc(HWND, UINT, WPARAM, LPARAM);
 extern int DAT_0109fe60;
 extern bool DAT_012334f5;
 extern bool DAT_012334f6;
@@ -1694,7 +1693,7 @@ extern "C" void FUN_00415ea0()
   Undo_AddBrushList(&selected_selbrushes);
   DAT_012334f5 = false;
   DAT_012334f6 = false;
-  DialogBox(g_qeglobals.d_hInstance, (LPCSTR)113, g_qeglobals.d_hwndMain, FUN_004766d0);
+  DialogBox(g_qeglobals.d_hInstance, (LPCSTR)113, g_qeglobals.d_hwndMain, SidesDlgProc);
   FUN_00443f80(&selected_selbrushes);
   Undo_End();
 }
@@ -3361,7 +3360,7 @@ extern "C" void FUN_00419ce0()
   Undo_AddBrushList(&selected_selbrushes);
   DAT_012334f5 = true;
   DAT_012334f6 = false;
-  DialogBox(g_qeglobals.d_hInstance, (LPCSTR)113, g_qeglobals.d_hwndMain, FUN_004766d0);
+  DialogBox(g_qeglobals.d_hInstance, (LPCSTR)113, g_qeglobals.d_hwndMain, SidesDlgProc);
   FUN_00443f80(&selected_selbrushes);
   Undo_End();
 }
@@ -4168,7 +4167,7 @@ extern "C" void FUN_0041bc50()
   Undo_AddBrushList(&selected_selbrushes);
   DAT_012334f5 = false;
   DAT_012334f6 = true;
-  DialogBox(g_qeglobals.d_hInstance, (LPCSTR)113, g_qeglobals.d_hwndMain, FUN_004766d0);
+  DialogBox(g_qeglobals.d_hInstance, (LPCSTR)113, g_qeglobals.d_hwndMain, SidesDlgProc);
   FUN_00443f80(&selected_selbrushes);
   Undo_End();
 }

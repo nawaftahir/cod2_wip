@@ -2652,4 +2652,6 @@ addr	size	source	symbol	name	tag
 0x0040c600	28	src/radiant/draw.cpp	?Vector4Set@@YAXQAMMMMM@Z	Vector4Set	SUPPORTED
 0x0043ec60	23	src/radiant/SurfaceDlg.cpp	?InvalidateRect@CWnd@@QAEXPBUtagRECT@@H@Z	CWnd::InvalidateRect	SUPPORTED
 0x00422ed0	27	src/radiant/mesh.cpp	??ACPtrArray@@QAEAAPAXH@Z	CPtrArray::operator[]	SUPPORTED
+0x004269d0	167	src/radiant/Pmesh.cpp	?FUN_004269d0@@YAXPAUpatchMesh_t@@_N@Z	FUN_004269d0	UNNAMED
+0x004296f0	771	src/radiant/Pmesh.cpp	?FUN_004296f0@@YAPAUbrush_t@@HHH_N0@Z	FUN_004296f0	UNNAMED
 0x0046bb70	34	src/radiant/map.cpp	??A?$CSimpleStringT@D$0A@@ATL@@QBEDH@Z	CSimpleStringT::operator[]	SUPPORTED
