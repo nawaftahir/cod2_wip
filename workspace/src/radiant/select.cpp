@@ -128,7 +128,9 @@ public:
     }
     CXYWnd *ActiveXY() { return m_pActiveXY; }
 
-    unsigned char pad_00[0x7a4];
+    unsigned char pad_00[0x788];
+    CXYWnd *field_0788;
+    unsigned char pad_78c[0x7a4 - 0x78c];
     CString m_strStatus[6];
     unsigned char pad_7bc[0x7e0 - 0x7bc];
     CXYWnd *m_pActiveXY;
@@ -177,8 +179,8 @@ struct SelArrAccess : CArray<SelFace, const SelFace &>
 };
 
 extern int DAT_01129894;
-extern int DAT_01129898;
-extern brush_t *DAT_0112989c[2];
+struct SelectedHistory_t { int field_00; brush_t *field_04[2]; };
+extern SelectedHistory_t DAT_01129898;
 extern bool DAT_0112993c;
 extern bool DAT_0112993d;
 extern int DAT_01234694;
@@ -490,13 +492,13 @@ void FUN_0046f0b0(brush_t *brush, bool bComplete, bool bStatus, bool bPositionVi
 
 #line 335
     assert(g_SelectedFaces.GetSize() == 0 || brush->patch);
-    if (DAT_01129898 < 2)
-        DAT_0112989c[DAT_01129898] = brush;
-    DAT_01129898++;
+    if (DAT_01129898.field_00 < 2)
+        DAT_01129898.field_04[DAT_01129898.field_00] = brush;
+    DAT_01129898.field_00++;
     e = brush->owner;
 #line 347
     assert(e);
-    if (e != DAT_012334ec && bComplete)
+    if (e != DAT_012334ec && bComplete == true)
     {
         for (b = active_brushes.next; b != &active_brushes; b = next)
         {
@@ -515,16 +517,16 @@ void FUN_0046f0b0(brush_t *brush, bool bComplete, bool bStatus, bool bPositionVi
     }
     if (bStatus)
     {
-        CString strStatus;
         FUN_00470a50(mins, maxs);
         size[0] = maxs[0] - mins[0];
         size[1] = maxs[1] - mins[1];
         size[2] = maxs[2] - mins[2];
+        CString strStatus;
         strStatus.Format("Selection X:: %.1f  Y:: %.1f  Z:: %.1f", size[0], size[1], size[2]);
         dword_01233488->SetStatusText(2, strStatus);
     }
     if (bPositionView)
-        FUN_00452b00(dword_01233488->ActiveXY());
+        FUN_00452b00(dword_01233488->field_0788);
 }
 
 // select every face of a brush (a patch brush is moved whole)
@@ -621,7 +623,7 @@ void FUN_0046f4f0()
             FUN_00459210(b, &active_brushes);
         }
     }
-    DAT_01129898 = 0;
+    DAT_01129898.field_00 = 0;
     if (DAT_01234694)
         FUN_00424b10();
 }
@@ -763,7 +765,7 @@ void FUN_0046fbe0(bool bDeselectFaces)
 {
     FUN_0042f5d0();
     DAT_01129894++;
-    DAT_01129898 = 0;
+    DAT_01129898.field_00 = 0;
     g_qeglobals.d_num_move_points = 0;
     brush_t *b = selected_brushes.next;
     if (bDeselectFaces)
@@ -1265,9 +1267,9 @@ void FUN_00471160(float *mins, float *maxs, bool bSelect)
             continue;
         if (bSelect)
         {
-            if (DAT_01129898 < 2)
-                DAT_0112989c[DAT_01129898] = b;
-            DAT_01129898++;
+            if (DAT_01129898.field_00 < 2)
+                DAT_01129898.field_04[DAT_01129898.field_00] = b;
+            DAT_01129898.field_00++;
             FUN_004592f0(b);
             FUN_00459210(b, &selected_brushes);
         }

@@ -253,7 +253,7 @@ void FUN_00443f80(brush_t *list);
 void FUN_004433b0();
 void Undo_End();
 void FUN_0046fbe0(bool b);
-void FUN_0046f0b0(brush_t *b, int a, int c, int d);
+void FUN_0046f0b0(brush_t *brush, bool bComplete, bool bStatus, bool bPositionView);
 void FUN_00475350();
 brushdef_t *Brush_CreateFromTexdef(eclass_t *eclass, const texdef_t *td);
 void FUN_00457dd0(const vec3_t mins, const vec3_t maxs, brushdef_t *def, int flag);
@@ -1541,7 +1541,7 @@ void Undo_GeneralStart(char *op);
 void Undo_AddBrushList(brush_t *list);
 void FUN_00443f80(brush_t *list);
 void Undo_End();
-void FUN_0046f0b0(brush_t *b, int a, int c, int d);
+void FUN_0046f0b0(brush_t *brush, bool bComplete, bool bStatus, bool bPositionView);
 void FUN_0046ddc0();
 float FUN_00407800(float y, float x);
 struct XYPlane
