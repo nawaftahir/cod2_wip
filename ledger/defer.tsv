@@ -1138,3 +1138,8 @@ addr	agent	date	reason
 0x00494260	lane-d	2026-11-24	FUN_00494260 (solve and refine): bulk draft: 59%, sizes 242/244, first diff +0x5
 0x00494360	lane-d	2026-11-24	FUN_00494360 (build system from points): bulk draft: 21%, sizes 150/157, first diff +0x3
 0x00494400	lane-d	2026-11-24	FUN_00494400 (solve, assert solver): bulk draft: 61%, sizes 121/121, first diff +0x5
+0x0043fbc0	lane-d	2026-11-24	FUN_0043fbc0 (texture matrix to size/shift/rotate): bulk draft: 68%, sizes 1529/1540, first diff +0xc
+0x004988d0	lane-d	2026-11-24	angles_t::toVectors: bulk draft: 54%, sizes 448/368, first diff +0x7
+0x00498a40	lane-d	2026-11-24	angles_t::toForward: bulk draft: 47%, sizes 185/133, first diff +0x7
+0x004a8a10	lane-d	2026-11-24	GetHashCode: bulk draft: 88%, sizes 60/60, first diff +0x1; retail takes len in edx and str in ecx, ours the reverse
+0x004a9ba0	lane-d	2026-11-24	SL_FreeString: bulk draft: 99%, sizes 815/815, first diff +0x8; same register swap on the inlined GetHashCode call
