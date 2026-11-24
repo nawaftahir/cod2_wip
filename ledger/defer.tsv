@@ -646,7 +646,6 @@
 0x00463bf0	bulk-d3	2026-11-20	bulk draft: 63%, sizes 367/357, first diff +0x1a
 0x00464930	bulk-d3	2026-11-20	bulk draft: 99%, sizes 436/436, first diff +0xfd Re-sweep 11-22: eclass_t **head = &g_modelClasses before FUN_00463e40 (ebx/edi mov order) -> 46%, 428/436, worse; reverted.
 0x0046d0b0	bulk-d3	2026-11-20	bulk draft: written, not linked as its own symbol (inlined into its caller)
-0x0046d680	bulk-d3	2026-11-20	bulk draft: 80%, sizes 133/136, first diff +0x3d
 0x0046e0c0	bulk-d3	2026-11-20	bulk draft: 79%, sizes 80/83, first diff +0xb
 0x0049a4f0	claude-d	2026-11-22	bulk draft: 99%, sizes 509/509, first difference at +0x1b2 (best candidate ?initPosition@idSplineList@@QAEXJJ@Z)
 0x004a0550	claude-d	2026-11-22	bulk draft: 46%, sizes 3332/2967, first difference at +0x1d (best candidate ?TestStringClass@@YAXXZ)
@@ -899,7 +898,7 @@
 0x00466970	bulk-f14	2026-11-24	bulk draft DROPPED again: 63%, sizes 656/649, first diff +0x2a. Retail inlines Map_IsBrushFiltered everywhere except this one site (only caller 0x466a79); ours inlines it here too; auto_inline(off) would un-inline the matched sites in Map_RemoveRegion/FUN_00469210. Linking the body flips FUN_004656b0, FUN_00467510, FUN_00465780. Camera-origin pointer form fixed up to +0x103. Draft in workspace/drafts/entity_466970_f14.cpp
 0x00467be0	bulk-e9	2026-11-24	bulk draft DROPPED: 85%, sizes 286/286, first diff +0x5 (retail frame 0x48 vs our 0x40); only called by 467d00; draft in workspace/drafts/entity_master.cpp
 0x00463d60	bulk-e9	2026-11-24	bulk draft DROPPED: 94%, sizes 225/221, first diff +0xd2; body flips FUN_00464830 and MapInfo FUN_0041f710; draft in workspace/drafts/eclass_master.cpp
-0x0046d710	bulk-e9	2026-11-24	bulk draft: 67%, sizes 248/257, first diff +0x2e
+0x0046d710	bulk-f14	2026-11-24	bulk draft: 67%, sizes 248/257. Retail takes out in ebx (mov byte [ebx+0x84],0 at +0x10) with linkTo as the only stack arg and strlen re-evaluated per iteration; ours passes both on the stack. Needs the unwritten caller (0x46d820, 648 B) to fix the register convention
 0x0040bff0	bulk-e9	2026-11-24	bulk draft: 51%, sizes 283/259, first diff +0x2d
 0x0040c100	bulk-e9	2026-11-24	bulk draft: 51%, sizes 283/259, first diff +0x2d
 0x0040c210	bulk-e9	2026-11-24	bulk draft: 60%, sizes 677/644, first diff +0x27
@@ -959,3 +958,6 @@
 0x00419ff0	lane-d10	2026-11-24	FUN_00419ff0: 88%, sizes 17/17, first diff +0x6. Same cause as 0x419fa0 (FUN_0041a010 usercall callee unwritten).
 0x00448020	lane-f-r24	2026-11-18	Winding_RemovePoint (name from its own error string): best 25%, sizes 78/64 on the clean gate (it matched 100% in an incremental make try). Retail out-of-line copy takes w in edi, point in esi and has no direct callers (its use in 0x455ee0 is inlined); ours has no callers either and stays cdecl on a clean build. LTCG tie; defer until 0x455ee0 / drag.cpp land.
 0x00448d00	bulk-d	2026-11-19	FUN_00448d00 (Q3 Winding_Plane, edge^2 > 0.25): bulk draft: matches 100%, 916/916 in incremental make try, but flips to 33%, 917/916 on a clean gate (LTCG tie); kept as body
+
+0x00466d80	bulk-f14	2026-11-24	Entity_Create (Q3 shape, selected-brush entity creation): best 91%, sizes 1059/1059, first diff +0x85 is a jump displacement; real residue: call 4671b0 operand order (+0x16f) and the non-fixedsize loop (retail keeps brush in esi and def in edi across the calls, ours reloads b from [ebp-8]). Layout (found path last), def local and mins/maxs order PINNED; 7 variants tried. Draft in workspace/drafts/entity_466d80_f14.cpp
+0x0046cc60	bulk-f14	2026-11-24	Map_Snapshot (strings "snapshots", "Snapshot save failed.."): best 35%, sizes 691/694. Blockers: retail calls 0x47ad20 with the path in edi (win_qe3, unwritten, lane e), CString += char is the out-of-line 0x464b50 and CString::Format/Find helpers are retail COMDATs (0x409540), ours bind to other CStringT instances. Draft in workspace/drafts/qe3_46cc60_f14.cpp
