@@ -986,4 +986,3 @@
 0x00419fc0	lane-d10	2026-11-24	FUN_00419fc0: 64%, sizes 17/14, first diff +0x6. Same cause as 0x419fa0 (FUN_0041a010 usercall callee unwritten); retail is 14 B because dir 0 is passed as xor edx, edx.
 0x00419fd0	lane-d10	2026-11-24	FUN_00419fd0: 88%, sizes 17/17, first diff +0x6. Same cause as 0x419fa0 (FUN_0041a010 usercall callee unwritten).
 0x00419ff0	lane-d10	2026-11-24	FUN_00419ff0: 88%, sizes 17/17, first diff +0x6. Same cause as 0x419fa0 (FUN_0041a010 usercall callee unwritten).
-0x00419560	lane-d10	2026-11-24	FUN_00419560: bulk draft bytes match, referee: at 0x00415130. CMainFrame::FUN_00419560 as a member matches 244/244 B, but CPrefsDlg::OnOK (0x439e50, PrefsDlg.cpp) calls it through its own extern "C" __fastcall FUN_00419560(CWnd*) declaration, so the callee binding fails if this row is claimed (an extern "C" definition drops the CString EH frame: 170 B, 30%). Needs PrefsDlg.cpp to call the member, owner/other-TU change. Body kept in source.
