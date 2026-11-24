@@ -384,6 +384,7 @@ inline char& idStr::operator[]
 	{
 	// Used for result for invalid indices
 	static char dummy = 0;
+#line 343
    assert ( m_data );
 
    // We don't know if they'll write to it or not
@@ -617,6 +618,7 @@ inline bool operator==
 	)
 
 	{
+#line 525
 	assert( b );
 	if ( !b )
 		{
@@ -632,7 +634,9 @@ inline bool operator==
 	)
 
 	{
+#line 536
 	assert( a );
+#line 585
 	if ( !a )
 		{
 		return false;

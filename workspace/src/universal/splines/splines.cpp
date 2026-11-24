@@ -31,8 +31,6 @@ int FS_ReadFile( const char *qpath, void **buffer );
 void FS_FreeFile( void *buffer );
 int FS_FOpenFileWrite( const char *filename );
 void FS_FCloseFile( int f );
-int I_stricmp( const char *s1, const char *s2 );
-#define Q_stricmp I_stricmp
 
 //#include "../shared/windings.h"
 //#include "../qcommon/qcommon.h"
@@ -360,7 +358,7 @@ const idVec3_t *idSplineList::getPosition(long t) {
 		return &zero;
 	}
 
-	Com_Printf("Time: %d\n", t);
+#line 458
 	assert(splineTime.Num() == splinePoints.Num());
 
 	while (activeSegment < count) {
@@ -738,6 +736,7 @@ bool idCameraDef::load(const char *filename) {
 
 	clear();
 	Com_BeginParseSession( filename );
+	Com_SetSpaceDelimited( qfalse );
 	buf_p = buf;
 	parse(&buf_p);
 	Com_EndParseSession();
@@ -1217,6 +1216,66 @@ void idCameraDef::addTarget(const char *name, idCameraPosition::positionType typ
 			addEvent(idCameraEvent::EVENT_TARGET, name, 0);
 		}
 	}
+}
+
+const idVec3_t *idSplinePosition::getPosition(long t) {
+	static idVec3_t interpolatedPos;
+
+	float velocity = getVelocity(t);
+	float timePassed = t - lastTime;
+	lastTime = t;
+
+	// convert to seconds
+	timePassed /= 1000;
+
+	float distToTravel = timePassed * velocity;
+	distSoFar += distToTravel;
+
+	double xDist;
+	{
+		double tdist = target.totalDistance();
+		xDist = distSoFar / tdist;
+		xDist *= tdist;
+	}
+
+	int count = target.numSegments();
+	double distance = 0.0;
+	double lastDistance1 = 0.0;
+	double lastDistance2 = 0.0;
+	int i;
+	for (i = 1; i < count; i++) {
+		idVec3_t temp = *target.getSegmentPoint(i - 1);
+		temp -= *target.getSegmentPoint(i);
+		distance += temp.Length();
+		if (i & 1) {
+			lastDistance1 = distance;
+		} else {
+			lastDistance2 = distance;
+		}
+		if (distance >= xDist) {
+			break;
+		}
+	}
+
+	if (i >= count - 1) {
+		interpolatedPos = *target.getSegmentPoint(i - 1);
+	} else {
+		if (lastDistance1 > lastDistance2) {
+			double d = lastDistance2;
+			lastDistance2 = lastDistance1;
+			lastDistance1 = d;
+		}
+		idVec3_t temp1 = *target.getSegmentPoint(i - 1);
+		idVec3_t temp2 = *target.getSegmentPoint(i);
+		double percent = (lastDistance2 - xDist) / (lastDistance2 - lastDistance1);
+		idVec3_t v1 = temp2;
+		idVec3_t v2 = temp1;
+		v1 *= (1.0 - percent);
+		v2 *= percent;
+		v1 += v2;
+		interpolatedPos = v1;
+	}
+	return &interpolatedPos;
 }
 
 

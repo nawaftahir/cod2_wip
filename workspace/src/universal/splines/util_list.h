@@ -62,6 +62,7 @@ idList<type>::idList( int )
 */
 template< class type >
 inline idList<type>::idList( int granularity ) {
+#line 45
 	assert( granularity > 0 );
 
 	m_list			= NULL;
@@ -179,6 +180,7 @@ inline void idList<type>::Resize( int size ) {
 	type	*temp;
 	int		i;
 
+#line 171
 	assert( size > 0 );
 
 	if ( size <= 0 ) {
