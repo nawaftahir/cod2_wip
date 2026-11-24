@@ -174,7 +174,7 @@ extern CamWndRefExport re;
 
 class CCamWnd;
 void __stdcall FUN_00405380(CCamWnd *camera);
-bool FUN_00458fa0(brush_t *b, float *origin, float *dir, float *t, int flags);
+faceRender_t *FUN_00458fa0(brush_t *b, const float *origin, const float *dir, float *dist, float *outNormal);
 
 struct plane_t
 {

@@ -356,16 +356,16 @@ void FUN_0046ea90(const float *origin, const float *dir, int flags, trace_t *t, 
 
     for (brush_t *brush = list->next; brush != list; brush = brush->next)
     {
-        if ((flags & 4) && brush->owner != DAT_012334ec && !(brush->owner->def->eclass->nShowFlags & 0x10))
+        if ((flags & 4) && (brush->owner == DAT_012334ec || (brush->owner->def->eclass->nShowFlags & 0x10)))
             continue;
 #line 2574 ".\\XYWnd.cpp"
         assert(brush);
-#line 178 ".\\select.cpp"
+#line 176 ".\\select.cpp"
         if (brush->hiddenBrush || FUN_0044f630(brush->def))
             continue;
         assert(brush->def->owner == brush->owner->def);
         eclass_t *ec = brush->owner->def->eclass;
-        if (!(ec->nShowFlags & 0x10) && (((flags >> 8) & 2) && ec->fixedsize || ((flags >> 8) & 4) && FUN_0045b420(brush)))
+        if (!(ec->nShowFlags & 0x10) && ((flags & 0x200) && ec->fixedsize || (flags & 0x400) && FUN_0045b420(brush)))
             continue;
         if (brush->patch && (!((int *)dword_01233b64)[178] || (flags & 0x10)))
             continue;
@@ -2018,7 +2018,8 @@ void FUN_004741e0(int arg)
 // 0x00474230 (782 B): fit the texture of the selection to a number of tiles, with undo
 void FUN_00474230(float width, float height, bool flag)
 {
-    if (selected_brushes.next == &selected_brushes && g_SelectedFaces.GetSize() == 0)
+    int selCount = g_SelectedFaces.GetSize();
+    if (selected_brushes.next == &selected_brushes && selCount == 0)
         return;
     FUN_004433b0();
     Undo_GeneralStart("Fit texture");
@@ -2026,13 +2027,13 @@ void FUN_00474230(float width, float height, bool flag)
     for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
     {
         FUN_0045ef60(b->def, height, width);
-        FUN_0045a220(b->def, true);
+        brushdef_t *def = b->def;
+        FUN_0045a220(def, true);
         if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
             FUN_00475350();
         Sys_MarkMapModified();
-        b->def->version++;
+        def->version++;
     }
-    int selCount = g_SelectedFaces.GetSize();
     if (selCount > 0)
     {
         for (int i = 0; i < selCount; i++)

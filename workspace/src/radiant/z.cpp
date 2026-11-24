@@ -72,7 +72,8 @@ void Drag_MouseUp(int buttons);
 void FUN_004623e0(int buttons, int x, int y, float *origin, float *dir);
 int R_Add3DLine(float *p0, float *p1, const unsigned *color, int width, int count, int max, ZVert *verts);
 int FUN_0040bf80(float x0, float y0, float x1, float y1, const unsigned *color, int width, int count, int max, ZVert *verts);
-bool FUN_00458fa0(brush_t *b, float *origin, float *dir, float *t);
+struct faceRender_t;
+faceRender_t *FUN_00458fa0(brush_t *b, const float *origin, const float *dir, float *dist, float *outNormal);
 void FUN_0045d090(float *color);
 void OrientationPosToWorldPos(float *orient, float *pos, float *out);
 
@@ -325,10 +326,10 @@ void Z_Draw(void)
 		if (def->mins[0] < z.origin[0] && def->maxs[0] > z.origin[0]
 			&& def->mins[1] < z.origin[1] && def->maxs[1] > z.origin[1])
 		{
-			if (FUN_00458fa0(b, hi, dirDown, &tTop))
+			if (FUN_00458fa0(b, hi, dirDown, &tTop, 0))
 			{
 				tTop = 131072.0f - tTop;
-				if (FUN_00458fa0(b, lo, dirUp, &tBottom))
+				if (FUN_00458fa0(b, lo, dirUp, &tBottom, 0))
 				{
 					tBottom = tBottom - 131072.0f;
 					assert(b->owner);
@@ -368,10 +369,10 @@ void Z_Draw(void)
 			if (def->mins[0] < z.origin[0] && def->maxs[0] > z.origin[0]
 				&& def->mins[1] < z.origin[1] && def->maxs[1] > z.origin[1])
 			{
-				if (FUN_00458fa0(b, hi, dirDown, &tTop))
+				if (FUN_00458fa0(b, hi, dirDown, &tTop, 0))
 				{
 					tTop = 131072.0f - tTop;
-					if (FUN_00458fa0(b, lo, dirUp, &tBottom))
+					if (FUN_00458fa0(b, lo, dirUp, &tBottom, 0))
 					{
 						tBottom = tBottom - 131072.0f;
 						assert(b->owner);
