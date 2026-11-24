@@ -414,7 +414,7 @@ void idStr::EnsureDataWritable
 
    olddata->DelRef ();
    }
-
+#pragma auto_inline(off)
 void idStr::EnsureAlloced (int amount, bool keepold) {
 
 	if ( !m_data ) {
@@ -456,7 +456,7 @@ void idStr::EnsureAlloced (int amount, bool keepold) {
     }
 	m_data->data = newbuffer;
 }
-
+#pragma auto_inline(on)
 void idStr::BackSlashesToSlashes
    (
    void
