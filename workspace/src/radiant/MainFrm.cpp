@@ -220,7 +220,8 @@ void FUN_00403610(CCamWnd *cam, int a);
 void FUN_00452ca0(CXYWnd *xy, int type);
 void FUN_00452b00(CXYWnd *xy);
 void FUN_00479c00(int a);
-void FUN_004416b0(int a);
+struct qtexture_s;
+void FUN_004416b0(qtexture_s *tex);
 void FUN_004433b0();
 void Undo_GeneralStart(char *operation);
 struct selbrush_t { selbrush_t *prev; selbrush_t *next; unsigned char pad08[0x0c]; brushdef_t *def; int field_18; int field_1c; int field_20; };
@@ -290,8 +291,6 @@ extern int DAT_01128dc4;
 // 0x00411001
 class idCameraDef { public: bool load(const char *filename); void save(const char *filename); void buildCamera(); };
 void FUN_00444a00();
-void FUN_00452a60(CWnd *w);
-void FUN_00452e30(CWnd *w);
 void FUN_00439160(int a);
 void FUN_00473f50();
 void FUN_00473c70(int a);
@@ -1422,11 +1421,11 @@ extern "C" void __stdcall FUN_00415210(CMainFrame *self, int a)
     FUN_00479c00(self->m_hWnd ? (int)self->m_hWnd : 0);
 }
 
-void CMainFrame::FUN_00415240() { FUN_004416b0((DAT_01128d90 + 1) % 2); }
+void CMainFrame::FUN_00415240() { FUN_004416b0((qtexture_s *)((DAT_01128d90 + 1) % 2)); }
 
-void CMainFrame::FUN_00415260() { FUN_004416b0(0); }
+void CMainFrame::FUN_00415260() { FUN_004416b0((qtexture_s *)0); }
 
-void CMainFrame::FUN_00415270() { FUN_004416b0(1); }
+void CMainFrame::FUN_00415270() { FUN_004416b0((qtexture_s *)1); }
 
 extern "C" void FUN_00415280() { Dvar_SetStringByName("r_textureMode", "nearest"); dword_0123348c |= 1; }
 extern "C" void FUN_004152a0() { Dvar_SetStringByName("r_textureMode", "linear"); dword_0123348c |= 1; }
@@ -2446,7 +2445,7 @@ void CMainFrame::FUN_00417ea0()
     FUN_004433b0();
     Undo_GeneralStart("split selected");
     Undo_AddBrushList(&selected_selbrushes);
-    FUN_00452a60(this->field_07e0);
+    ((CXYWnd *)this->field_07e0)->SplitClip();
     FUN_00443f80(&selected_selbrushes);
     Undo_End();
   }
@@ -3031,7 +3030,7 @@ extern "C" void __fastcall FUN_00418cf0(CMainFrame *self)
 void CMainFrame::FUN_00419000()
 {
   if (this->field_07e0)
-    FUN_00452e30(this->field_07e0);
+    ((CXYWnd *)this->field_07e0)->Copy();
 }
 
 void CMainFrame::FUN_00419020()

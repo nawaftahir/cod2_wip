@@ -2511,6 +2511,9 @@ addr	size	source	symbol	name	tag
 0x0041f160	32	src/radiant/MainFrm.cpp	?init@idInterpolatedPosition@@QAEXXZ	idInterpolatedPosition::init	SUPPORTED
 0x004138c0	37	src/radiant/MainFrm.cpp	?FUN_004138c0@@YA_NH@Z	FUN_004138c0	UNNAMED
 0x00414ec0	576	src/radiant/MainFrm.cpp	?FUN_00414ec0@CMainFrame@@QAEXXZ	CMainFrame::FUN_00414ec0	UNNAMED
+0x00415240	23	src/radiant/MainFrm.cpp	?FUN_00415240@CMainFrame@@QAEXXZ	CMainFrame::FUN_00415240	UNNAMED
+0x00415260	7	src/radiant/MainFrm.cpp	?FUN_00415260@CMainFrame@@QAEXXZ	CMainFrame::FUN_00415260	UNNAMED
+0x00415270	10	src/radiant/MainFrm.cpp	?FUN_00415270@CMainFrame@@QAEXXZ	CMainFrame::FUN_00415270	UNNAMED
 0x00415390	695	src/radiant/MainFrm.cpp	?FUN_00415390@CMainFrame@@QAEXXZ	CMainFrame::FUN_00415390	UNNAMED
 0x00415750	157	src/radiant/MainFrm.cpp	?FUN_00415750@CMainFrame@@QAEXXZ	CMainFrame::FUN_00415750	UNNAMED
 0x00415c20	423	src/radiant/MainFrm.cpp	?FUN_00415c20@CMainFrame@@QAEXXZ	CMainFrame::FUN_00415c20	UNNAMED
@@ -2533,6 +2536,8 @@ addr	size	source	symbol	name	tag
 0x00417970	109	src/radiant/MainFrm.cpp	?FUN_00417970@CMainFrame@@QAEXXZ	CMainFrame::FUN_00417970	UNNAMED
 0x00417a30	95	src/radiant/MainFrm.cpp	?FUN_00417a30@CMainFrame@@QAEXXZ	CMainFrame::FUN_00417a30	UNNAMED
 0x00417ae0	109	src/radiant/MainFrm.cpp	?FUN_00417ae0@CMainFrame@@QAEXXZ	CMainFrame::FUN_00417ae0	UNNAMED
+0x00417ea0	67	src/radiant/MainFrm.cpp	?FUN_00417ea0@CMainFrame@@QAEXXZ	CMainFrame::FUN_00417ea0	UNNAMED
+0x00419000	17	src/radiant/MainFrm.cpp	?FUN_00419000@CMainFrame@@QAEXXZ	CMainFrame::FUN_00419000	UNNAMED
 0x00419560	244	src/radiant/MainFrm.cpp	?FUN_00419560@CMainFrame@@QAEXXZ	CMainFrame::FUN_00419560	UNNAMED
 0x00419a60	67	src/radiant/MainFrm.cpp	?FUN_00419a60@CMainFrame@@QAEXXZ	FUN_00419a60	UNNAMED
 0x00419ab0	69	src/radiant/MainFrm.cpp	?FUN_00419ab0@CMainFrame@@QAEXXZ	FUN_00419ab0	UNNAMED
