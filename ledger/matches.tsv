@@ -2497,3 +2497,13 @@ addr	size	source	symbol	name	tag
 0x004826a0	63	src/universal/com_files.cpp	?Vec4LengthSq@@YAMQBM@Z	Vec4LengthSq	SUPPORTED
 0x0048efc0	335	src/universal/dvar.cpp	?Dvar_MakeExplicitType@@YAXPAUdvar_s@@PBDEGUDvarValue@@TDvarLimits@@@Z	Dvar_MakeExplicitType	SUPPORTED
 0x004ac9a0	70	src/xanim/xmodel_load_obj.cpp	?XModelLoad@@YAPAUXModel@@PBDP6APAXH@Z1@Z	XModelLoad	SUPPORTED
+0x00455cf0	298	src/radiant/brush.cpp	?FUN_00455cf0@@YAXPAUbrushdef_t@@PBUface_t@@PAPAU1@2@Z	FUN_00455cf0	UNNAMED
+0x00459430	256	src/radiant/brush.cpp	?FUN_00459430@@YAXPAUbrushdef_t@@PAUface_t@@PAUradmat_t@@@Z	FUN_00459430	UNNAMED
+0x00459530	354	src/radiant/brush.cpp	?FUN_00459530@@YAXPAUbrushdef_t@@PAUface_t@@PBUtexdef_t@@@Z	FUN_00459530	UNNAMED
+0x004596a0	322	src/radiant/brush.cpp	?FUN_004596a0@@YAXPAUbrushdef_t@@PAUface_t@@H@Z	FUN_004596a0	UNNAMED
+0x00459920	144	src/radiant/brush.cpp	?FUN_00459920@@YAXPAUbrushdef_t@@H@Z	FUN_00459920	UNNAMED
+0x0045a830	226	src/radiant/brush.cpp	?FUN_0045a830@@YAXPAUbrush_t@@@Z	FUN_0045a830	UNNAMED
+0x0045af00	192	src/radiant/brush.cpp	?FUN_0045af00@@YAXPAUbrush_t@@@Z	FUN_0045af00	UNNAMED
+0x0045b310	260	src/radiant/brush.cpp	?FUN_0045b310@@YAXPAUbrushdef_t@@QBM1@Z	FUN_0045b310	UNNAMED
+0x0045e2c0	171	src/radiant/brush.cpp	?FUN_0045e2c0@@YAXPAUbrushdef_t@@@Z	FUN_0045e2c0	UNNAMED
+0x0045f720	132	src/radiant/brush.cpp	?FUN_0045f720@@YAXPAUbrush_t@@@Z	FUN_0045f720	UNNAMED

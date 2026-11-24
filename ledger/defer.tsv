@@ -703,27 +703,18 @@ addr	agent	date	reason
 0x00454f70	bulk-d	2026-11-19	FUN_00454f70 (gather unique face points): bulk draft: 18%, sizes 200/225, first diff +0x5; shape now calls 0x454f30
 0x00455660	bulk-d	2026-11-19	FUN_00455660 (face winding from verts): bulk draft: 32%, sizes 394/409, first diff +0x5
 0x00455800	bulk-d	2026-11-19	FUN_00455800 (Q3 Brush_MakeFaceWinding): bulk draft: 87%, sizes 331/325, first diff +0x5
-0x00455cf0	bulk-d	2026-11-19	FUN_00455cf0 (Q3 Brush_SplitBrushByFace): bulk draft: 93%, sizes 298/298, first diff +0x60
 0x004579e0	bulk-d	2026-11-19	FUN_004579e0 (Brush_Write shape): bulk draft: 37%, sizes 487/488, first diff +0x6
 0x00458dc0	bulk-d	2026-11-19	FUN_00458dc0 (brush def clone, no windings): bulk draft: 22%, sizes 218/225, first diff +0xf
 0x00458eb0	bulk-d	2026-11-19	FUN_00458eb0 (brush def full clone): bulk draft: 34%, sizes 229/239, first diff +0xe
 0x004593c0	bulk-d	2026-11-19	FUN_004593c0 (set texdef of face layer): bulk draft: 42%, sizes 121/107, first diff +0x25
-0x00459430	bulk-d	2026-11-19	FUN_00459430 (set face radMat, asserts 2089-2091): bulk draft: 98%, sizes 256/256, first diff +0x14 (b/f register convention)
-0x00459530	bulk-d	2026-11-19	FUN_00459530 (set texdef keep material, asserts 2102-2105): bulk draft: 98%, sizes 354/354, first diff +0x14 (register convention)
-0x004596a0	bulk-d	2026-11-19	FUN_004596a0 (lightmap scale of one face, asserts 2116-2118): bulk draft: 98%, sizes 322/322, first diff +0x15 (register convention)
 0x004597f0	bulk-d	2026-11-19	FUN_004597f0 (texdef to all faces + patch update): bulk draft: 52%, sizes 190/191, first diff +0x6
-0x00459920	bulk-d	2026-11-19	FUN_00459920 (lightmap scale all faces): bulk draft: 47%, sizes 144/144, first diff +0xf
 0x00459aa0	bulk-d	2026-11-19	FUN_00459aa0 (add to move-points list at g_qeglobals+0x8070, f in edx): bulk draft: 53%, sizes 56/56, first diff +0x6
 0x0045b840	bulk-d	2026-11-19	FUN_0045b840 (entity bounds box, 27 R_Add3DLine): bulk draft: 20%, sizes 1985/1909, first diff +0x4
 0x0045bfc0	bulk-d	2026-11-19	FUN_0045bfc0 (fixed-size entity model draw): bulk draft: 42%, sizes 1090/1109, first diff +0xf
 0x0045d7f0	bulk-d	2026-11-19	FUN_0045d7f0 (brush draw dispatcher, signature now as CamWnd calls it): bulk draft: 36%, sizes 439/427, first diff +0x7
 0x0045e1a0	bulk-d	2026-11-19	FUN_0045e1a0 (Q3 Brush_Move shape with texture lock): bulk draft: 36%, sizes 315/275, first diff +0x5
-0x0045a830	bulk-d	2026-11-19	FUN_45a830 (Brush_RebuildIfStale shape (asserts 2484-2490)): bulk draft: 99%, sizes 226/226, first diff +0x19
-0x0045af00	bulk-d	2026-11-19	FUN_45af00 (free instance faces (asserts 2613-2614)): bulk draft: 74%, sizes 197/192, first diff +0x1
 0x0045c890	bulk-d	2026-11-19	FUN_45c890 (prune import key on selected brushes (assert line 3189)): bulk draft: 88%, sizes 193/191, first diff +0xf
-0x0045e2c0	bulk-d	2026-11-19	FUN_45e2c0 (print face planepts (Face %i)): bulk draft: 85%, sizes 169/171, first diff +0x10
 0x0045f6a0	bulk-d	2026-11-19	FUN_45f6a0 (brush center with grid snap): bulk draft: 30%, sizes 151/116, first diff +0x5
-0x0045f720	bulk-d	2026-11-19	FUN_45f720 (bump version of brush list (recursive into group)): bulk draft: 51%, sizes 131/132, first diff +0xe
 0x0045f7e0	bulk-d	2026-11-19	FUN_45f7e0 (rebuild stale moved brushes (array 0x12485b8)): bulk draft: 38%, sizes 46/71, first diff +0x0
 0x0045f860	bulk-d	2026-11-19	FUN_45f860 (points equal within epsilon): bulk draft: 98%, sizes 72/72, first diff +0x18
 0x00460440	bulk-d	2026-11-19	FUN_460440 (skip or fixed or not filtered): bulk draft: 12%, sizes 86/33, first diff +0x0; Brush_IsFiltered inlined
@@ -1079,7 +1070,6 @@ addr	agent	date	reason
 0x0045a920	bulk-d7	2026-11-22	FUN_45a920: bulk draft: 53%, sizes 1427/1502, first diff +0x3
 0x0045afc0	bulk-d7	2026-11-22	FUN_45afc0: bulk draft: 29%, sizes 551/664, first diff +0x5. Body kept in workspace/drafts/brush_45afc0.cpp: compiled in, it flips matched GraphGetValueFromFraction 0x004832c0 (LTCG tie).
 0x0045b260	bulk-d7	2026-11-22	FUN_45b260: bulk draft: 26%, sizes 183/164, first diff +0x5
-0x0045b310	bulk-d7	2026-11-22	FUN_45b310: bulk draft: 98%, sizes 260/260, first diff +0x1c
 0x0045b420	bulk-d7	2026-11-22	FUN_45b420: bulk draft: 48%, sizes 540/517, first diff +0x0
 0x0045b660	bulk-d7	2026-11-22	FUN_45b660: bulk draft: 50%, sizes 463/467, first diff +0x5
 0x0045c420	bulk-d7	2026-11-22	FUN_45c420: bulk draft: 37%, sizes 639/647, first diff +0x5
