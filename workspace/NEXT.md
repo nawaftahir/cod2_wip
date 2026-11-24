@@ -211,3 +211,27 @@ PINNED (matched rows, plain C source, no annotation): LTCG does give edx args to
   xyz's use weight (read xyz[] directly in the inner loop instead of through a hoisted pointer).
 - Probe: /tmp-style script = objdump of build/CoD2Radiant.exe, first-read registers of every matched symbol
   (about 40 patterns; ('eax','ecx','edx') FS_BuildOSPath/ReadMapLine, ('edx','eax','ecx') BoxDistSqrdExceeds).
+
+## 2026-11-24 lane e12: select/undo shapes, win_main (branch radiant/bulk-e12)
+- Selection name + early return (PINNED, 0x4702d0 and 0x470690 MATCH after the change): retail tests
+  the face count, then the brush list, then picks the undo name. Write it as
+  `if (selCount == 0 && selected_brushes.next == &selected_brushes) return; name = selCount ? "face" : "brush";`.
+  The nested if/else form lays the blocks out differently (inline jmp, 97%). 0x46ff10 has the same shape
+  (97%, left: ebx saved in the prologue for a hoisted index*12).
+- Hoisted count: `int selCount = g_SelectedFaces.GetSize();` at the top, loop `i < selCount` (0x4702d0,
+  0x470690, 0x46ff10, 0x474230). Same selCount slot position as retail ([ebp-0x10]/[ebp-0xc]).
+- Local def pointer: `brushdef_t *d = selFace.brush->def; FUN_0045a220(d, true); ...; d->version++;` keeps def
+  in esi across Sys_MarkMapModified like retail (0x4702d0, 0x470690). 0x46ff10 passes `false` (push 0 at 0x4700d7).
+- Count+array pair as a struct: DAT_01129898 {field_00, field_04[]} (0x46f0b0 uses it as one object); the
+  Select_Brush body is still 92% and blocked on the unwritten 0x452b00.
+- Straight-line stores for default tables (PINNED, 0x479d30 MFCCreate MATCH): the colour defaults are explicit
+  `colors[k][c] = v;` statements in retail order (k 9 after k 12), not a loop. A loop makes MSVC interleave
+  the stores by register (diff at +0x104). Same file: MFCCreate takes a local CMainFrame; the saved-info
+  struct is 0x294 bytes (MainFrm.cpp has d_exclude2 at +0x28c; the retail MFCCreate view uses +0x290:
+  reconcile when MainFrm is written).
+- MainFrm.cpp leftovers (not touched, out of scope): `void FUN_00479c00(int a);` is wrong (retail passes the
+  id in ecx and the window on the stack, DoMru 0x479c00 blocked on unwritten 0x4683e0); FUN_00415210 body is wrong.
+- MATCH this lane: 0x479d30 MFCCreate 1034 B, 0x47a330 Sys_UpdateStatusBar 106 B, 0x47a4d0 Sys_SetCursorPos 9 B,
+  0x44a210 OriginalButtonDown 136 B, 0x4702d0 957 B, 0x470690 960 B, 0x4209a0 385 B, 0x420b70/0x420b90 20 B each
+  (UNKNOWN_00420930.cpp). 0x420930/0x420b30/0x420b50 wait for the stream-in-ebx convention.
+- Near misses with defer evidence: 0x46ff10 97%, 0x470c00 97% (fadd operand order), 0x4718b0 87%, 0x474230 78%.
