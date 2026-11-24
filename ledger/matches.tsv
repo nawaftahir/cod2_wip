@@ -2682,3 +2682,9 @@ addr	size	source	symbol	name	tag
 0x00452b00	294	src/radiant/XYWnd.cpp	?PositionView@CXYWnd@@IAEXXZ	CXYWnd::PositionView	SUPPORTED
 0x0040a3b0	21	src/radiant/dlgcamera.cpp	?OnInitDialog@CDlgCamera@@MAEHXZ	CDlgCamera::OnInitDialog	SUPPORTED
 0x0040a9e0	48	src/radiant/dlgcamera.cpp	?FUN_0040a9e0@CDlgCamera@@IAEXXZ	FUN_0040a9e0	SUPPORTED
+0x00419da0	228	src/radiant/MainFrm.cpp	?FUN_00419da0@CMainFrame@@QAEXXZ	CMainFrame::FUN_00419da0	UNNAMED
+0x00478090	170	src/radiant/win_ent.cpp	?FUN_00478090@@YAHAAV?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@0@Z	FUN_00478090	UNNAMED
+0x00464170	1526	src/radiant/eclass.cpp	?FUN_00464170@@YAXPAD@Z	FUN_00464170	SUPPORTED
+0x00464c80	1070	src/radiant/entity.cpp	?FUN_00464c80@@YAXPAUentityInst_t@@PAM1@Z	FUN_00464c80	PINNED
+0x0046cbd0	139	src/radiant/qe3.cpp	?FUN_0046cbd0@@YA_NPBDAAJ@Z	FUN_0046cbd0	UNNAMED
+0x0046d680	136	src/radiant/qe3.cpp	?FUN_0046d680@@YAHPBD@Z	FUN_0046d680	UNNAMED

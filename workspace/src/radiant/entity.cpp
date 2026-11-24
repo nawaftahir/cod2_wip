@@ -197,6 +197,88 @@ void FUN_00464c60(entityInst_t *inst)
 	}
 }
 
+// 0x00464c80 (1070 B)
+extern orientation_t g_editorOrientation;
+extern void *(__cdecl *dword_0059c48c)(void *model, const orientation_t *or, float scale);
+extern void (__cdecl *dword_0059c494)(void *inst, const orientation_t *or, float scale);
+extern void (__cdecl *dword_0059c498)(void *inst, float *hi, float *lo);
+void OrientationConcatenate(const orientation_t *first, const orientation_t *second, orientation_t *out);
+void OrientationPosToLocal(const orientation_t *or, const float *pos, float *out);
+
+void FUN_00464c80(entityInst_t *ent, float *mins, float *maxs)
+{
+	vec3_t angles;
+	vec3_t right;
+	orientation_t or;
+	orientation_t world;
+	vec3_t lo;
+	vec3_t hi;
+	vec3_t local;
+	float scale;
+
+#line 66
+	assert(ent);
+	assert(ent->def);
+	assert(ent->def->modelClass);
+	assert(ent->def->modelClass->model);
+	assert(ent->def->modelClass->model->handle);
+	if (FUN_00465d80(ent->def, "angles"))
+		sscanf(ValueForKey(ent->def, "angles"), "%f %f %f", &angles[0], &angles[1], &angles[2]);
+	else
+	{
+		angles[0] = 0;
+		angles[1] = 0;
+		angles[2] = 0;
+	}
+	char *value = ValueForKey(ent->def, "modelscale");
+	if (!value || (scale = (float)atof(value)) <= 0)
+		scale = 1.0f;
+	AngleVectors(angles, or.axis[0], right, or.axis[2]);
+	or.axis[1][0] = 0 - right[0];
+	or.axis[1][1] = 0 - right[1];
+	or.axis[1][2] = 0 - right[2];
+	const float *org = ent->def->origin;
+	or.origin[0] = org[0];
+	or.origin[1] = org[1];
+	or.origin[2] = org[2];
+	OrientationConcatenate(&or, &g_editorOrientation, &world);
+	if (ent->modelInst)
+		dword_0059c494(ent->modelInst, &world, scale);
+	else
+		ent->modelInst = dword_0059c48c(ent->def->modelClass->model->handle, &world, scale);
+#line 95
+	assert((mins == NULL && maxs == NULL) || (mins != NULL && maxs != NULL));
+	if (ent->modelInst && mins && maxs)
+	{
+		dword_0059c498(ent->modelInst, hi, lo);
+		mins[0] = 131072.0f;
+		mins[1] = 131072.0f;
+		mins[2] = 131072.0f;
+		maxs[0] = -131072.0f;
+		maxs[1] = -131072.0f;
+		maxs[2] = -131072.0f;
+		for (int i = 0; i < 8; i++)
+		{
+			right[0] = (i & 1) ? hi[0] : lo[0];
+			right[1] = (i & 2) ? hi[1] : lo[1];
+			right[2] = (i & 4) ? hi[2] : lo[2];
+			OrientationPosToLocal(&g_editorOrientation, right, local);
+			AddPointToBounds(local, mins, maxs);
+		}
+		for (int axis = 0; axis < 3; axis++)
+		{
+#line 111
+			assert(maxs[axis] >= mins[axis]);
+			if (maxs[axis] - mins[axis] <= 8.0f)
+			{
+				float mid = (mins[axis] + maxs[axis]) * 0.5f;
+				maxs[axis] = mid + 4.0f;
+				mins[axis] = mid - 4.0f;
+			}
+		}
+	}
+}
+
 // 0x004650b0 (290 B)
 void FUN_004650b0(entity_t *ent, orientation_t *or)
 {

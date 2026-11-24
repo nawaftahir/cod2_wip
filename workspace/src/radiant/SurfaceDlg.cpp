@@ -267,7 +267,7 @@ extern int g_nUpdateBits;
 void __stdcall FUN_0043d400(CSurfaceDlg *dlg);
 void FUN_00470690(int value);
 void * __stdcall FUN_0043d630(CSurfaceDlg *dlg);
-void FUN_00433910(texdef_t *td, texdef_t *def);
+void FUN_00433910(texdef_t *td);
 
 // Retail 0x0043da00: spin control arrows (Q3Radiant UpdateSpinners(bUp, nID) shape).
 void CSurfaceDlg::FUN_0043da00(int nID, bool bUp)
@@ -302,7 +302,7 @@ void CSurfaceDlg::FUN_0043da00(int nID, bool bUp)
 			field_72 = false;
 			return;
 		}
-		FUN_00433910(&td, pdef);
+		FUN_00433910(&td);
 	}
 	else
 	{

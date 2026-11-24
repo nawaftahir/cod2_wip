@@ -1,4 +1,4 @@
-#include <windows.h>
+#include "stdafx.h"
 #include <stdlib.h>
 #include <string.h>
 #include "../universal/assertive.h"
@@ -134,6 +134,20 @@ char *ValueForKey(epair_t *&e, const char *key);
 void Sys_Printf(const char *text, ...);
 void vectoangles(const vec3_t value1, vec3_t angles);
 
+
+// 0x0046cbd0 (139 B)
+bool FUN_0046cbd0(const char *pBuff, long &lSize)
+{
+	CFile file;
+	if (file.Open(pBuff, CFile::modeRead | CFile::shareDenyNone))
+	{
+		lSize += (long)file.GetLength();
+		file.Close();
+		return true;
+	}
+	return false;
+}
+
 // 0x0046d0b0
 void FUN_0046d0b0(char *out, const char *in, int size)
 {
@@ -161,9 +175,10 @@ int FUN_0046d680(const char *file)
 	fprintf(f, "{\n");
 	for (epair_t *ep = *(epair_t **)((char *)dword_010bcd34 + 0x64); ep; ep = ep->next)
 	{
+		const char *value = ep->value;
 		FUN_004668f0(ep->key, f);
 		fputc(' ', f);
-		FUN_004668f0(ep->value, f);
+		FUN_004668f0(value, f);
 		fputc('\n', f);
 	}
 	fprintf(f, "}\n");
