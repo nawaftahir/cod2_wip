@@ -248,8 +248,8 @@ struct eclass_t;
 void Sys_Printf(const char *fmt, ...);
 void Sys_MarkMapModified();
 void Undo_GeneralStart(char *op);
-void Undo_AddBrushList(brush_t *list);
-void FUN_00443f80(brush_t *list);
+struct selbrush_t; void Undo_AddBrushList(selbrush_t *list);
+void FUN_00443f80(selbrush_t *list);
 void FUN_004433b0();
 void Undo_End();
 void FUN_0046fbe0(bool b);
@@ -1138,7 +1138,7 @@ void CreateEntityFromName(const char *name)
     }
     eclass_t *pecNew = FUN_00464770(0, name);
     xyEclass_t *ec = (xyEclass_t *)pecNew;
-    Undo_AddBrushList(&selected_brushes);
+    Undo_AddBrushList((selbrush_t *)&selected_brushes);
     entityInst_t *petNew = (entityInst_t *)FUN_00466d80(pecNew);
     if (petNew)
     {
@@ -1234,7 +1234,7 @@ void CreateEntityFromName(const char *name)
             }
         }
     }
-    FUN_00443f80(&selected_brushes);
+    FUN_00443f80((selbrush_t *)&selected_brushes);
 }
 
 // 0x0044b9b0: Q3Radiant CreateEntityBrush, a 32 unit placeholder brush at the click
@@ -1538,8 +1538,8 @@ void FUN_0046fd50(float *move, int snap);
 void FUN_0046fe50();
 void FUN_004433b0();
 void Undo_GeneralStart(char *op);
-void Undo_AddBrushList(brush_t *list);
-void FUN_00443f80(brush_t *list);
+struct selbrush_t; void Undo_AddBrushList(selbrush_t *list);
+void FUN_00443f80(selbrush_t *list);
 void Undo_End();
 void FUN_0046f0b0(brush_t *brush, bool bComplete, bool bStatus, bool bPositionView);
 void FUN_0046ddc0();
@@ -1703,7 +1703,7 @@ void CXYWnd::XY_MouseDown(int x, int y, int buttons)
         dword_010bcd2c = save;
         FUN_004433b0();
         Undo_GeneralStart("duplicate");
-        Undo_AddBrushList(&selected_brushes);
+        Undo_AddBrushList((selbrush_t *)&selected_brushes);
         dst[0] = mid[0];
         dst[1] = mid[1];
         dst[2] = mid[2];
@@ -1722,7 +1722,7 @@ void CXYWnd::XY_MouseDown(int x, int y, int buttons)
             FUN_0046f0b0(clone, 1, 0, 0);
             FUN_0046ddc0();
         }
-        FUN_00443f80(&selected_brushes);
+        FUN_00443f80((selbrush_t *)&selected_brushes);
         Undo_End();
         g_nUpdateBits = -1;
         return;

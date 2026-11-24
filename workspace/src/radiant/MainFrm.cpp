@@ -240,7 +240,7 @@ void FUN_00434190(int a, int b, int c, int d);
 void FUN_004354b0();
 void FUN_004353d0();
 void FUN_00428b80();
-void FUN_00474230(float a, float b, int c);
+void FUN_00474230(float a, float b, bool c);
 void FUN_00472860(float a, float b);
 void FUN_0046fd50(float *vec, int a);
 bool FUN_0042a7f0(int a, int b, bool c);
