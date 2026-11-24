@@ -599,7 +599,6 @@
 0x00452930	bulk-e2	2026-11-19	CXYWnd::OnSize: bulk draft: 93%, sizes 94/94, first diff +0x2c. Retail stores m_nWidth/m_nHeight before loading re.ResizeWindow (0x59c448); ours hoists the load.
 0x00452990	bulk-e2	2026-11-19	CXYWnd::Clip: bulk draft: 68%, sizes 199/197, first diff +0x5. FUN_00449c90/0x46fb30 forms unconfirmed; selection of the split list follows retail asm.
 0x00452a60	bulk-e2	2026-11-19	CXYWnd::SplitClip: bulk draft: 76%, sizes 107/126, first diff +0x13.
-0x00452b00	bulk-e2	2026-11-19	CXYWnd::PositionView: bulk draft: 21%, sizes 452/294, first diff +0x4. Retail loop uses the selection/point list differently from the decompile; frame 294 B.
 0x00452d90	bulk-e2	2026-11-19	CXYWnd::SetRotateMode: bulk draft: 69%, sizes 111/110, first diff +0x8.
 0x0046fe50	bulk-d2	2026-11-19	FUN_0046fe50 (Select_Clone): bulk draft: 59%, sizes 166/183, first diff +0x0. retail has no ebp frame; assert at line 793, Copy/Paste/NudgeSelection x2 callees 0x452e30/0x452f50/0x41a010 unwritten.
 0x00470ab0	bulk-d2	2026-11-19	FUN_00470ab0 (selection bounds with face windings): bulk draft: 21%, sizes 305/328, first diff +0x5. mins/maxs in edx/esi in retail; point count read from faces[0].winding as retail does.

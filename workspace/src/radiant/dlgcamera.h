@@ -23,6 +23,7 @@ public:
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
+	virtual BOOL OnInitDialog();
 
 	afx_msg void OnBtnAddevent();
 	afx_msg void OnBtnAddtarget();
@@ -31,6 +32,15 @@ protected:
 	afx_msg void OnApply();
 	afx_msg void OnFileOpen();
 	afx_msg void OnFileSave();
+	afx_msg void FUN_00409de0();
+	afx_msg void FUN_00409e00();
+	afx_msg void FUN_00409f70();
+	afx_msg void FUN_00409f80();
+	afx_msg void FUN_0040a9b0();
+	afx_msg void FUN_0040a9c0();
+	afx_msg void FUN_0040a9d0();
+	afx_msg void FUN_0040a9e0();
+	afx_msg void FUN_0040aa10();
 
 	DECLARE_MESSAGE_MAP()
 };
