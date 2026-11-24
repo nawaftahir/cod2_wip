@@ -97,7 +97,7 @@ extern void FUN_00443f80(selbrush_t *list);
 extern void FUN_0046e4a0(void);
 extern trace_t FUN_0046eca0(const float *origin, const float *dir, int flags);
 extern void FUN_0046f6b0(const float *origin, const float *dir, int flags);
-extern void FUN_004758e0(const float *origin, const float *dir, int buttons);
+extern void FUN_004758e0(const float *origin, const float *dir, unsigned int buttons);
 extern void FUN_00475790(const float *origin, const float *dir);
 extern void FUN_004755b0(const float *origin, const float *dir);
 extern void FUN_0045a030(brushdef_t *b, const float *origin, const float *dir, bool shear);

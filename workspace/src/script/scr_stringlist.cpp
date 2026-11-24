@@ -106,20 +106,24 @@ int SL_ConvertFromString(const char *str)
 unsigned int GetHashCode(const char *str, unsigned int len)
 {
 	unsigned int hash;
+	const char *p;
+	int c;
 
 	if (len < 0x100)
 	{
 		hash = 0;
-		if (len)
+		p = str;
+
+		while (len)
 		{
-			do
-			{
-				hash = hash * 0x1f + *str;
-				++str;
-				--len;
-			} while (len);
-			return hash % (HASH_TABLE_SIZE - 1) + 1;
+			c = *p;
+			hash *= 31;
+			hash += c;
+			p++;
+			len--;
 		}
+
+		return hash % (HASH_TABLE_SIZE - 1) + 1;
 	}
 	else
 	{

@@ -96,14 +96,10 @@ void FUN_0040bff0()
             *(unsigned int *)verts[vertCount].color = color;
             vertCount++;
             if (vertCount == 0x552)
-            {
-                (*FUN_0059c45c)(vertCount, 6, verts);
-                vertCount = 0;
-            }
+                vertCount = FUN_0040be30(vertCount, 6, verts);
         }
     }
-    if (vertCount)
-        (*FUN_0059c45c)(vertCount, 6, verts);
+    FUN_0040be30(vertCount, 6, verts);
 }
 
 // 0x0040c100 (259 B): draw the event points that are near another point
@@ -124,14 +120,68 @@ void FUN_0040c100()
             *(unsigned int *)verts[vertCount].color = color;
             vertCount++;
             if (vertCount == 0x552)
-            {
-                (*FUN_0059c45c)(vertCount, 6, verts);
-                vertCount = 0;
-            }
+                vertCount = FUN_0040be30(vertCount, 6, verts);
         }
     }
-    if (vertCount)
-        (*FUN_0059c45c)(vertCount, 6, verts);
+    FUN_0040be30(vertCount, 6, verts);
+}
+
+extern const float DAT_0053dc74[4];
+extern const float DAT_0053dc94[4];
+extern void *DAT_00597154;
+void FUN_0040c620(void *wnd, bool enable);
+void FUN_004501f0();
+void FUN_004509a0();
+void FUN_00493390();
+void Pointfile_Draw();
+
+// 0x0040c210 (644 B): draw the selected event vertices or edge midpoints, then refresh the views
+void FUN_0040c210()
+{
+    GfxPointVertex verts[0x552];
+    unsigned int color;
+    int vertCount;
+
+    FUN_0040c100();
+    if (g_qeglobals.d_select_mode == 1 || g_qeglobals.d_select_mode == 0x10 || g_qeglobals.d_select_mode == 0x11)
+    {
+        (*FUN_0059c468)(DAT_0053dc74, &color);
+        vertCount = 0;
+        for (int i = 0; i < g_qeglobals.d_numpoints; i++)
+        {
+            OrientationPosToWorld(&g_editorOrientation, g_qeglobals.d_points[i], verts[vertCount].xyz);
+            *(unsigned int *)verts[vertCount].color = color;
+            vertCount++;
+            if (vertCount == 0x552)
+                vertCount = FUN_0040be30(vertCount, 4, verts);
+        }
+        FUN_0040be30(vertCount, 4, verts);
+    }
+    else if (g_qeglobals.d_select_mode == 2)
+    {
+        (*FUN_0059c468)(DAT_0053dc94, &color);
+        vertCount = 0;
+        for (int i = 0; i < g_qeglobals.d_numedges; i++)
+        {
+            float mid[3];
+            const float *a = g_qeglobals.d_points[g_qeglobals.d_edges[i].from];
+            const float *b = g_qeglobals.d_points[g_qeglobals.d_edges[i].to];
+            mid[0] = (b[0] + a[0]) * 0.5f;
+            mid[1] = (b[1] + a[1]) * 0.5f;
+            mid[2] = (b[2] + a[2]) * 0.5f;
+            OrientationPosToWorld(&g_editorOrientation, mid, verts[vertCount].xyz);
+            *(unsigned int *)verts[vertCount].color = color;
+            vertCount++;
+            if (vertCount == 0x552)
+                vertCount = FUN_0040be30(vertCount, 4, verts);
+        }
+        FUN_0040be30(vertCount, 4, verts);
+    }
+    FUN_0040c620(DAT_00597154, g_qeglobals.d_select_mode == 9 || g_qeglobals.d_select_mode == 8);
+    FUN_004501f0();
+    FUN_004509a0();
+    FUN_00493390();
+    Pointfile_Draw();
 }
 
 extern void (*FUN_0059c464)(void *material, int a, unsigned short indexCount, const unsigned short *indices, unsigned short vertCount,
@@ -180,73 +230,12 @@ void FUN_0040c4a0(float (*xyzw)[4])
     (*FUN_0059c464)(dword_011298c8, 3, 6, indices, 4, xyzw, normals, colors, st);
 }
 
-
-
-
-
-
-extern const float DAT_0053dc74[4];
-extern const float DAT_0053dc94[4];
-extern void *DAT_00597154;
-void FUN_0040c620(void *wnd, bool enable);
-void FUN_004501f0();
-void FUN_004509a0();
-void FUN_00493390();
-void Pointfile_Draw();
-
-// 0x0040c210 (644 B): draw the selected event vertices or edge midpoints, then refresh the views
-void FUN_0040c210()
+// 0x0040c590 (107 B): offset a point by half a pixel on two axes when the view size is even
+void FUN_0040c590(const float *in, float *out, int nDim1, int nDim2, int nDim3, float scale, int width, int height)
 {
-    GfxPointVertex verts[0x552];
-    unsigned int color;
-    int vertCount;
-
-    FUN_0040c100();
-    if (g_qeglobals.d_select_mode == 1 || g_qeglobals.d_select_mode == 0x10 || g_qeglobals.d_select_mode == 0x11)
-    {
-        (*FUN_0059c468)(DAT_0053dc74, &color);
-        vertCount = 0;
-        for (int i = 0; i < g_qeglobals.d_numpoints; i++)
-        {
-            OrientationPosToWorld(&g_editorOrientation, g_qeglobals.d_points[i], verts[vertCount].xyz);
-            *(unsigned int *)verts[vertCount].color = color;
-            vertCount++;
-            if (vertCount == 0x552)
-            {
-                (*FUN_0059c45c)(vertCount, 4, verts);
-                vertCount = 0;
-            }
-        }
-        if (vertCount)
-            (*FUN_0059c45c)(vertCount, 4, verts);
-    }
-    else if (g_qeglobals.d_select_mode == 2)
-    {
-        (*FUN_0059c468)(DAT_0053dc94, &color);
-        vertCount = 0;
-        for (int i = 0; i < g_qeglobals.d_numedges; i++)
-        {
-            float mid[3];
-            const float *a = g_qeglobals.d_points[g_qeglobals.d_edges[i].from];
-            const float *b = g_qeglobals.d_points[g_qeglobals.d_edges[i].to];
-            mid[0] = (b[0] + a[0]) * 0.5f;
-            mid[1] = (b[1] + a[1]) * 0.5f;
-            mid[2] = (b[2] + a[2]) * 0.5f;
-            OrientationPosToWorld(&g_editorOrientation, mid, verts[vertCount].xyz);
-            *(unsigned int *)verts[vertCount].color = color;
-            vertCount++;
-            if (vertCount == 0x552)
-            {
-                (*FUN_0059c45c)(vertCount, 4, verts);
-                vertCount = 0;
-            }
-        }
-        if (vertCount)
-            (*FUN_0059c45c)(vertCount, 4, verts);
-    }
-    FUN_0040c620(DAT_00597154, g_qeglobals.d_select_mode == 9 || g_qeglobals.d_select_mode == 8);
-    FUN_004501f0();
-    FUN_004509a0();
-    FUN_00493390();
-    Pointfile_Draw();
+    float xOffset = (width & 1) ? 0.0 : 0.5 / scale;
+    float yOffset = (height & 1) ? 0.0 : 0.5 / scale;
+    out[nDim1] = xOffset + in[nDim1];
+    out[nDim2] = yOffset + in[nDim2];
+    out[nDim3] = in[nDim3];
 }
