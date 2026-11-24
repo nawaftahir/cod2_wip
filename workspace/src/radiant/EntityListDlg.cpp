@@ -15,6 +15,8 @@ protected:
     virtual void DoDataExchange(CDataExchange *pDX);
     virtual BOOL OnInitDialog();
     afx_msg void OnSelchangedTreeEntity(NMHDR *pNMHDR, LRESULT *pResult);
+    afx_msg void FUN_0040c8f0();
+    afx_msg void FUN_0040ccb0(NMHDR *pNMHDR, LRESULT *pResult);
     DECLARE_MESSAGE_MAP()
 };
 
@@ -48,8 +50,30 @@ struct entlist_entity_s
 
 extern entlist_entity_s entities;
 
+/* Entity-owned brush list as read by retail 0x0040c8f0: head at entity +0xc, next link at brush +0xc. */
+struct brush_t;
+struct entlist_brush_t
+{
+    entlist_brush_t *prev;
+    entlist_brush_t *next;
+    entlist_brush_t *oprev;
+    entlist_brush_t *onext;
+};
+struct entlist_owner_t
+{
+    void *prev;
+    void *next;
+    void *pad8;
+    entlist_brush_t brushes;
+};
+extern int g_nUpdateBits;
+void FUN_0046fbe0(bool bDeselectFaces);
+void FUN_0046f0b0(brush_t *brush, bool bComplete, bool bStatus, bool bPositionView);
+
 BEGIN_MESSAGE_MAP(CEntityListDlg, CDialog)
+    ON_COMMAND(2, FUN_0040c8f0)
     ON_NOTIFY(TVN_SELCHANGED, 1022, OnSelchangedTreeEntity)
+    ON_NOTIFY(NM_DBLCLK, 1022, FUN_0040ccb0)
 END_MESSAGE_MAP()
 
 CEntityListDlg::CEntityListDlg(CWnd *pParent)
@@ -121,3 +145,29 @@ void CEntityListDlg::OnSelchangedTreeEntity(NMHDR *pNMHDR, LRESULT *pResult)
 
 // Retail one-byte RET bodies verified with MSVC 7.1. Original entry-point ownership/signatures remain provisional.
 extern "C" void FUN_0040cca0() {}
+
+// Retail 0x0040c8f0: select every brush of the entity chosen in the tree.
+void CEntityListDlg::FUN_0040c8f0()
+{
+    HTREEITEM hItem = m_treeEntity.GetSelectedItem();
+    if (hItem == NULL)
+    {
+        g_nUpdateBits = -1;
+        return;
+    }
+    entlist_owner_t *pEntity = reinterpret_cast<entlist_owner_t *>(m_treeEntity.GetItemData(hItem));
+    if (pEntity != NULL)
+    {
+        FUN_0046fbe0(true);
+        for (entlist_brush_t *b = pEntity->brushes.onext; b != &pEntity->brushes; b = b->onext)
+            FUN_0046f0b0(reinterpret_cast<brush_t *>(b), true, true, true);
+    }
+    g_nUpdateBits = -1;
+}
+
+// Retail 0x0040ccb0: notify handler that runs the selection above.
+void CEntityListDlg::FUN_0040ccb0(NMHDR *pNMHDR, LRESULT *pResult)
+{
+    FUN_0040c8f0();
+    *pResult = 0;
+}

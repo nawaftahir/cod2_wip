@@ -5387,6 +5387,85 @@ void FUN_00436000()
     DAT_0123348c = -1;
 }
 
+// Retail 0x00436170: tolerant weld of the selected control points onto each other.
+void FUN_00436170()
+{
+    float oldPos[0x1000][3];
+    if (DAT_012485bc > 0)
+    {
+        Sys_Printf("can only connect patch vertices if only patches are selected\n");
+        return;
+    }
+    brush_t *b = DAT_010a44b4.next;
+    if (b == &DAT_010a44b4)
+    {
+        Sys_Printf("can only connect patch vertices if only patches are selected\n");
+        return;
+    }
+    for (b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    {
+        if (!b->patch)
+        {
+            Sys_Printf("can only connect patch vertices if only patches are selected\n");
+            return;
+        }
+    }
+    int n = DAT_010c4d84;
+    if (n < 2)
+    {
+        Sys_Printf("can only connect patch vertices if at least 2 vertices are selected\n");
+        return;
+    }
+    if ((unsigned)n > 0x1001)
+    {
+        Sys_Printf("can only connect patch vertices if at most %i vertices are selected\n", 0x1001);
+        return;
+    }
+    int tol = PREFS_INT(0x28c);
+    float tol2 = (float)(tol * tol);
+    int nMerged = 0;
+    float delta[2], d;
+    if (n - 1 > 0)
+    {
+        for (int i = n - 1; i > 0; i--)
+        {
+            int k = i - 1;
+            while (k >= 0)
+            {
+                float *a = (float *)DAT_010c4d88[k];
+                float *c = (float *)DAT_010c4d88[i];
+                delta[0] = a[0] - c[0];
+                delta[1] = a[1] - c[1];
+                d = delta[1] * delta[1] + delta[0] * delta[0];
+                if (d <= tol2)
+                {
+                    oldPos[i - 1][0] = c[0];
+                    oldPos[i - 1][1] = c[1];
+                    oldPos[i - 1][2] = c[2];
+                    c[0] = a[0];
+                    c[1] = a[1];
+                    c[2] = a[2];
+                    nMerged++;
+                }
+                k--;
+            }
+        }
+        if (nMerged == 0)
+            Sys_Printf("No vertices are close enough to do Tolerant Weld\n");
+        else if (nMerged == 1)
+            Sys_Printf("Merged 1 vertex\n");
+        else
+            Sys_Printf("Merged %i vertices\n", nMerged);
+    }
+    else
+        Sys_Printf("No vertices are close enough to do Tolerant Weld\n");
+    DAT_010c4d84 = 0;
+    for (brush_t *q = DAT_010a44b4.next; q != &DAT_010a44b4; q = q->next)
+        if (q->patch)
+            FUN_004269d0(q->patch->def, true);
+    DAT_0123348c = -1;
+}
+
 // Retail 0x004364b0: push the selected patch points out to a circle around their centre.
 void FUN_004364b0()
 {
