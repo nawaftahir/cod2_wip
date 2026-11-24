@@ -6,6 +6,7 @@
 #include "PrefsDlg.h"
 #include "../universal/assertive.h"
 #include "radiant_wnd.h"
+#include "../universal/com_math.h"
 
 #define W_XY 2
 
@@ -929,8 +930,8 @@ void CXYWnd::SetPointMode(bool b)
         g_nPointCount = 0;
 }
 
-extern int (*FUN_0059c440)(void *);
-extern void (*FUN_0059c3ac)(void *);
+extern bool (*FUN_0059c440)(void *);
+extern void (*FUN_0059c3ac)(void);
 extern void (*FUN_0059c3b0)(void);
 extern void (*FUN_0059c444)(void *);
 extern void *dword_010bcd68;
@@ -1071,8 +1072,8 @@ void CXYWnd::OnPaint()
     PAINTSTRUCT ps;
     if (FUN_0059c440 && FUN_0059c440(dword_010bcd68))
     {
-        HDC dc = ::BeginPaint(m_hWnd, &ps);
-        (*FUN_0059c3ac)(CDC::FromHandle(dc));
+        BeginPaint(&ps);
+        (*FUN_0059c3ac)();
         (*FUN_0059c3c4)(7, color_01129718, 1.0f, 0);
         XY_Draw();
         if (byte_012334d8)
@@ -1083,7 +1084,7 @@ void CXYWnd::OnPaint()
         (*FUN_0059c444)(dword_010bcd68);
         if (dword_01233514)
             dword_01147dd4 = dword_01147dd0;
-        ::EndPaint(m_hWnd, &ps);
+        EndPaint(&ps);
     }
 }
 
@@ -2481,7 +2482,8 @@ extern int dword_01128d90;
 extern int dword_01244d74;
 extern CString g_strFilter;
 struct xyEntity_t;
-const char *FUN_00464bb0(void *epairs, const char *key);
+struct epair_t;
+char *ValueForKey(epair_t *&e, const char *key);
 bool FUN_00465e10(xyEntity_t *e, const char *key, const char *value);
 void I_strncpyz(char *dst, const char *src, int size);
 
@@ -2883,7 +2885,7 @@ void ConnectEntitiesByTargetname(void)
         return;
     for (entityInst_t *e = (entityInst_t *)entities.next; e != &entities && n != 0x8000; e = (entityInst_t *)e->next)
     {
-        const char *name = FUN_00464bb0((char *)e->def + 100, "targetname");
+        const char *name = ValueForKey(*(epair_t **)((char *)e->def + 100), "targetname");
         names[n] = name;
         if (*name && e->brushes.onext != &e->brushes)
             named[n++] = e;
@@ -2891,7 +2893,7 @@ void ConnectEntitiesByTargetname(void)
     count = n;
     for (entityInst_t *e = (entityInst_t *)entities.next; e != &entities; e = (entityInst_t *)e->next)
     {
-        const char *target = FUN_00464bb0((char *)e->def + 100, "target");
+        const char *target = ValueForKey(*(epair_t **)((char *)e->def + 100), "target");
 #line 3091
         assert(target);
         if (!*target)
@@ -2978,14 +2980,14 @@ void ConnectEntitiesByScriptLinkName(void)
         return;
     for (entityInst_t *e = (entityInst_t *)entities.next; e != &entities && n != 0x8000; e = (entityInst_t *)e->next)
     {
-        int id = atol(FUN_00464bb0((char *)e->def + 100, "script_linkName"));
+        int id = atol(ValueForKey(*(epair_t **)((char *)e->def + 100), "script_linkName"));
         names[n] = id;
         if (id && e->brushes.onext != &e->brushes)
             named[n++] = e;
     }
     for (entityInst_t *e = (entityInst_t *)entities.next; e != &entities; e = (entityInst_t *)e->next)
     {
-        const char *tokens = FUN_00464bb0((char *)e->def + 100, "script_linkTo");
+        const char *tokens = ValueForKey(*(epair_t **)((char *)e->def + 100), "script_linkTo");
 #line 3214
         assert(tokens);
         if (!*tokens)
@@ -3098,24 +3100,24 @@ void DrawLightRadiusIcon(const float *center, int width, CXYWnd *wnd, float radi
     float a[3], b[3], prev[3], cur[3];
     int n = 0;
 
-    if (wnd->m_nViewType == YZ)
+    switch (wnd->m_nViewType)
     {
+    case YZ:
         a[0] = 0; a[1] = radius; a[2] = 0;
         b[0] = 0; b[1] = 0; b[2] = radius;
-    }
-    else if (wnd->m_nViewType == XZ)
-    {
+        break;
+    case XZ:
         a[0] = radius; a[1] = 0; a[2] = 0;
         b[0] = 0; b[1] = 0; b[2] = radius;
-    }
-    else
-    {
+        break;
+    case XY:
         a[0] = radius; a[1] = 0; a[2] = 0;
         b[0] = 0; b[1] = radius; b[2] = 0;
+        break;
     }
     float step = 6.2831855f / (float)segments;
-    float s = sinf(step);
-    float c = cosf(step);
+    float s, c;
+    FastSinCos(step, &s, &c);
     float sn = 0;
     float cs = 1.0f;
     prev[0] = b[0] + center[0];
@@ -3145,8 +3147,8 @@ void DrawLight_Radius(brush_t *b, int width, CXYWnd *wnd, unsigned *color)
     BrushCenter(b, center);
 #line 3412
     assert(b->owner->def == b->def->owner);
-    atof(FUN_00464bb0((char *)b->owner->def + 100, "light"));
-    float radius = (float)atof(FUN_00464bb0((char *)b->owner->def + 100, "radius"));
+    atof(ValueForKey(*(epair_t **)((char *)b->owner->def + 100), "light"));
+    float radius = (float)atof(ValueForKey(*(epair_t **)((char *)b->owner->def + 100), "radius"));
     DrawLightRadiusIcon(center, width, wnd, radius, 32, color);
 }
 
@@ -3157,7 +3159,7 @@ void DrawLight_Color(brush_t *b, CXYWnd *wnd, int width)
     unsigned color;
     float center[3];
     float r, g, bl;
-    const char *colorString = FUN_00464bb0((char *)b->owner->def + 100, "_color");
+    const char *colorString = ValueForKey(*(epair_t **)((char *)b->owner->def + 100), "_color");
 #line 3435
     assert(colorString);
     if (sscanf(colorString, "%f %f %f", &r, &g, &bl) == 3)
@@ -3170,7 +3172,7 @@ void DrawLight_Color(brush_t *b, CXYWnd *wnd, int width)
     BrushCenter(b, center);
 #line 3443
     assert(b->owner->def == b->def->owner);
-    float radius = (float)atof(FUN_00464bb0((char *)b->owner->def + 100, "radius"));
+    float radius = (float)atof(ValueForKey(*(epair_t **)((char *)b->owner->def + 100), "radius"));
     if (radius != 0.0f)
         DrawLightRadiusIcon(center, width, wnd, radius, 32, &color);
 }
@@ -3216,7 +3218,7 @@ void DrawLight_ConeHeight(brush_t *b, CXYWnd *wnd, int segments, int width)
     float center[3];
 #line 3513
     assert(b->owner->def == b->def->owner);
-    float radius = (float)atof(FUN_00464bb0((char *)b->owner->def + 100, "radius"));
+    float radius = (float)atof(ValueForKey(*(epair_t **)((char *)b->owner->def + 100), "radius"));
     if (radius <= 0.0f)
         return;
     xyEntity_t *def = b->owner->def;
@@ -3225,7 +3227,7 @@ void DrawLight_ConeHeight(brush_t *b, CXYWnd *wnd, int segments, int width)
         height = 32.0f;
     else
     {
-        height = (float)atof(FUN_00464bb0((char *)def + 100, "height"));
+        height = (float)atof(ValueForKey(*(epair_t **)((char *)def + 100), "height"));
         if (!(height > 0.0f))
             height = 80.0f;
     }
@@ -3251,7 +3253,7 @@ void DrawLight_Classname(int nView, brush_t *b, float scale, int color)
         return;
 #line 3567
     assert(b->owner->def == b->def->owner);
-    const char *name = FUN_00464bb0((char *)e->def + 100, "classname");
+    const char *name = ValueForKey(*(epair_t **)((char *)e->def + 100), "classname");
     float pos[3], right[3], up[3];
     int d1 = nView == YZ;
     int d2 = (nView != XY) + 1;
@@ -3501,7 +3503,7 @@ void CXYWnd::XY_Draw()
         xyEntity_t *ent = b->owner->def;
         if ((((char *)ent->eclass)[352] & 0xc0) == 0)
         {
-            const char *name = FUN_00464bb0((char *)ent + 100, "targetname");
+            const char *name = ValueForKey(*(epair_t **)((char *)ent + 100), "targetname");
             if (!memcmp(name, "badplace", 9))
                 DrawLight_Color(b, this, frame[153] != 0 ? 2 : 1);
             if (!memcmp(name, "heading", 8))

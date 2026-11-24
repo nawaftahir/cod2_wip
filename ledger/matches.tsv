@@ -2605,3 +2605,9 @@ addr	size	source	symbol	name	tag
 0x0041b6a0	29	src/radiant/MainFrm.cpp	?FUN_0041b6a0@CMainFrame@@QAEXXZ	FUN_0041b6a0	UNNAMED
 0x0041b6c0	29	src/radiant/MainFrm.cpp	?FUN_0041b6c0@CMainFrame@@QAEXXZ	FUN_0041b6c0	UNNAMED
 0x0041b930	18	src/radiant/MainFrm.cpp	?FUN_0041b930@CMainFrame@@QAEXXZ	FUN_0041b930	UNNAMED
+0x004535b0	30	src/radiant/XYWnd.cpp	??8CPoint@@QBEHUtagPOINT@@@Z	CPoint::operator==	SUPPORTED
+0x00453380	12	src/radiant/XYWnd.cpp	?SeekToBegin@CFile@@QAEXXZ	CFile::SeekToBegin	SUPPORTED
+0x00453390	11	src/radiant/XYWnd.cpp	?OpenClipboard@CWnd@@QAEHXZ	CWnd::OpenClipboard	SUPPORTED
+0x004535a0	13	src/radiant/XYWnd.cpp	?GetCapture@CWnd@@SGPAV1@XZ	CWnd::GetCapture	SUPPORTED
+0x00453580	23	src/radiant/XYWnd.cpp	??0CPoint@@QAE@J@Z	CPoint::CPoint	SUPPORTED
+0x00407d80	7	src/radiant/CamWnd.cpp	?GetCamera@CPointMainFrame@@QAEPAVCPointCamWnd@@XZ	CPointMainFrame::GetCamera	SUPPORTED

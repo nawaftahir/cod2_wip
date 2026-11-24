@@ -828,11 +828,11 @@ void FUN_004433b0();
 void Undo_GeneralStart(char *operation);
 void Undo_End();
 void Undo_AddBrush(brushdef_t *brush);
-void FUN_00459530(face_t *f, const texdef_t *td);
+void FUN_00459530(brushdef_t *b, face_t *f, const texdef_t *td);
 void FUN_004598b0(brushdef_t *b, const texdef_t *td);
-void FUN_004593c0(face_t *f, const texdef_t *td);
-void FUN_004597f0(brushdef_t *b, const texdef_t *td, int flags);
-void FUN_004596a0(face_t *f, int size);
+void FUN_004593c0(brushdef_t *b, face_t *face, const texdef_t *td);
+void FUN_004597f0(brushdef_t *b, const texdef_t *td, int a, int c, bool flag);
+void FUN_004596a0(brushdef_t *b, face_t *f, int scale);
 void FUN_00459920(brushdef_t *b, int size);
 
 // 0x0046ff10 (953 B): set the texture of the selected faces or brushes, with undo
@@ -840,12 +840,14 @@ void FUN_0046ff10(const texdef_t *td, int flags)
 {
     int selCount = g_SelectedFaces.GetSize();
     const char *name;
-    if (selCount != 0)
-        name = "set face textures";
-    else if (selected_brushes.next == &selected_brushes)
-        return;
-    else
+    if (selCount == 0)
+    {
+        if (selected_brushes.next == &selected_brushes)
+            return;
         name = "set brush textures";
+    }
+    else
+        name = "set face textures";
     FUN_004433b0();
     Undo_GeneralStart((char *)name);
     for (int i = 0; i < selCount; i++)
@@ -856,7 +858,7 @@ void FUN_0046ff10(const texdef_t *td, int flags)
         assert(selFace.face == &selFace.brush->faces[selFace.index]);
         assert(selFace.brush->version == selFace.brush->def->version);
         assert(selFace.brush->faceCount == selFace.brush->def->faceCount);
-        FUN_004593c0(&selFace.brush->def->faces[selFace.index], td);
+        FUN_004593c0(selFace.brush->def, &selFace.brush->def->faces[selFace.index], td);
         FUN_0045a220(selFace.brush->def, true);
         if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
             FUN_00475350();
@@ -874,7 +876,7 @@ void FUN_0046ff10(const texdef_t *td, int flags)
         if (!b->owner->def->eclass->fixedsize)
         {
             Undo_AddBrush(b->def);
-            FUN_004597f0(b->def, td, flags);
+            FUN_004597f0(b->def, td, flags, 0, true);
             FUN_00443f50(b->def);
         }
     }
@@ -887,12 +889,14 @@ void FUN_004702d0(const texdef_t *td)
 {
     int selCount = g_SelectedFaces.GetSize();
     const char *name;
-    if (selCount != 0)
-        name = "set face texture mapping";
-    else if (selected_brushes.next == &selected_brushes)
-        return;
-    else
+    if (selCount == 0)
+    {
+        if (selected_brushes.next == &selected_brushes)
+            return;
         name = "set brush texture mapping";
+    }
+    else
+        name = "set face texture mapping";
     FUN_004433b0();
     Undo_GeneralStart((char *)name);
     for (int i = 0; i < selCount; i++)
@@ -903,7 +907,7 @@ void FUN_004702d0(const texdef_t *td)
         assert(selFace.face == &selFace.brush->faces[selFace.index]);
         assert(selFace.brush->version == selFace.brush->def->version);
         assert(selFace.brush->faceCount == selFace.brush->def->faceCount);
-        FUN_00459530(&selFace.brush->def->faces[selFace.index], td);
+        FUN_00459530(selFace.brush->def, &selFace.brush->def->faces[selFace.index], td);
         FUN_0045a220(selFace.brush->def, true);
         if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
             FUN_00475350();
@@ -934,12 +938,14 @@ void FUN_00470690(int size)
 {
     int selCount = g_SelectedFaces.GetSize();
     const char *name;
-    if (selCount != 0)
-        name = "set face samplesize";
-    else if (selected_brushes.next == &selected_brushes)
-        return;
-    else
+    if (selCount == 0)
+    {
+        if (selected_brushes.next == &selected_brushes)
+            return;
         name = "set brush samplesize";
+    }
+    else
+        name = "set face samplesize";
     FUN_004433b0();
     Undo_GeneralStart((char *)name);
     for (int i = 0; i < selCount; i++)
@@ -950,7 +956,7 @@ void FUN_00470690(int size)
         assert(selFace.face == &selFace.brush->faces[selFace.index]);
         assert(selFace.brush->version == selFace.brush->def->version);
         assert(selFace.brush->faceCount == selFace.brush->def->faceCount);
-        FUN_004596a0(&selFace.brush->def->faces[selFace.index], size);
+        FUN_004596a0(selFace.brush->def, &selFace.brush->def->faces[selFace.index], size);
         FUN_0045a220(selFace.brush->def, true);
         if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
             FUN_00475350();
