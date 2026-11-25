@@ -2117,7 +2117,7 @@ void CXYWnd::XY_DrawGrid()
     if (g_qeglobals.d_showgrid)
     {
         int n = 0;
-        if (!(m_fScale <= 0.1f) && !((float)g_qeglobals.d_gridsize * m_fScale < 4.0f) && !FUN_00453410(g_colors[1], g_colors[2]))
+        if (!(m_fScale <= 0.1f) && !((float)g_qeglobals.d_gridsize * m_fScale < 4.0f) && !Vector4Compare(g_colors[1], g_colors[2]))
         {
             re.ColorToBytes(g_colors[2], &color);
             for (x = xb; x < xe; x += (float)g_qeglobals.d_gridsize)
