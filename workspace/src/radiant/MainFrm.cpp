@@ -272,7 +272,7 @@ void FUN_0042ec60();
 void FUN_0042edc0();
 void FUN_00435840();
 extern RECT DAT_01234668;
-void FUN_00452f50(CXYWnd *xy);
+void __stdcall FUN_00452f50(CXYWnd *xy);
 void FUN_0046ab20(const char *filename);
 void FUN_0046ad90(const char *filename);
 extern "C" void __fastcall FUN_00419860(CMainFrame *self);
@@ -2096,16 +2096,15 @@ void CMainFrame::FUN_004171b0()
 {
   if (this->field_07e0)
   {
-    CXYWnd *xy = (CXYWnd *)this->field_07e0;
     if (DAT_0109fe5e)
     {
-      xy->SetClipMode(false);
+      ((CXYWnd *)this->field_07e0)->SetClipMode(false);
       ::SendMessage(this->m_wndToolBar.m_hWnd, 0x402, 0x800f, 0);
       return;
     }
     if (DAT_0109fe5f)
       FUN_00418ec0();
-    xy->SetClipMode(true);
+    ((CXYWnd *)this->field_07e0)->SetClipMode(true);
     ::SendMessage(this->m_wndToolBar.m_hWnd, 0x402, 0x800f, 1);
   }
 }
@@ -3195,18 +3194,20 @@ void CMainFrame::FUN_004196a0()
 
 void CMainFrame::FUN_00419720()
 {
+  int flag;
   if ((DAT_0109fe60 & 1) && (DAT_0109fe60 & 4))
   {
     DAT_0109fe60 = 0;
     ::SendMessage(this->m_wndToolBar.m_hWnd, 0x402, 0x802e, 0);
-    ::SendMessage(this->m_wndToolBar.m_hWnd, 0x402, 0x802f, 0);
+    flag = 0;
   }
   else
   {
-    DAT_0109fe60 = 5;
     ::SendMessage(this->m_wndToolBar.m_hWnd, 0x402, 0x802e, 0);
-    ::SendMessage(this->m_wndToolBar.m_hWnd, 0x402, 0x802f, 1);
+    DAT_0109fe60 = 5;
+    flag = 1;
   }
+  ::SendMessage(this->m_wndToolBar.m_hWnd, 0x402, 0x802f, flag);
   ::SendMessage(this->m_wndToolBar.m_hWnd, 0x402, 0x8030, 0);
 }
 
