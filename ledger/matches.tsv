@@ -2762,3 +2762,6 @@ addr	size	source	symbol	name	tag
 0x00416f90	58	src/radiant/MainFrm.cpp	?FUN_00416f90@CMainFrame@@QAEXXZ	FUN_00416f90	UNNAMED
 0x00416fd0	58	src/radiant/MainFrm.cpp	?FUN_00416fd0@CMainFrame@@QAEXXZ	FUN_00416fd0	UNNAMED
 0x00417170	27	src/radiant/MainFrm.cpp	?OnSizing@CMainFrame@@QAEXIPAUtagRECT@@@Z	CMainFrame::OnSizing	SUPPORTED
+0x00417660	238	src/radiant/MainFrm.cpp	?FUN_00417660@CMainFrame@@QAEXXZ	FUN_00417660	UNNAMED
+0x00417e40	89	src/radiant/MainFrm.cpp	?FUN_00417e40@CMainFrame@@QAEXXZ	FUN_00417e40	UNNAMED
+0x00417b50	366	src/radiant/MainFrm.cpp	?FUN_00417b50@CMainFrame@@QAEXXZ	FUN_00417b50	UNNAMED

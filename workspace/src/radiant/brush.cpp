@@ -2930,29 +2930,28 @@ void FUN_0045ca10()
     do
     {
         found = false;
-        for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+        for (brush_t *brush = selected_brushes.next; brush != &selected_brushes; brush = brush->next)
         {
 #line 3247
-            brush_assert1(b->def->owner == b->owner->def);
-            entity_t *def = b->def->owner;
-            const char *key = *(const char **)(dword_01233b64 + 0x2ec);
-            if (!FUN_00465d80(def, key))
+            assert(brush->def->owner == brush->owner->def);
+            entity_t *def = brush->def->owner;
+            if (!FUN_00465d80(def, *(const char **)(dword_01233b64 + 0x2ec)))
                 continue;
-            value = ValueForKey(def->epairs, key);
+            value = ValueForKey(def->epairs, *(const char **)(dword_01233b64 + 0x2ec));
             brush_t *next;
-            for (brush_t *m = active_brushes.next; m != &active_brushes; m = next)
+            for (brush_t *match = active_brushes.next; match != &active_brushes; match = next)
             {
-                next = m->next;
-                if (m->owner == NULL || m->owner == dword_012334ec || m->field_26 != 0)
+                next = match->next;
+                if (match->owner == NULL || match->owner == dword_012334ec || match->field_26 != 0)
                     continue;
-                if (FUN_0044f630(m->def))
+                if (FUN_0044f630(match->def))
                     continue;
 #line 3262
-                brush_assert1(m->def->owner == m->owner->def);
-                if (FUN_00465e10((entity_t *)m->owner->def, key, value))
+                assert(match->def->owner == match->owner->def);
+                if (FUN_00465e10((entity_t *)match->owner->def, *(const char **)(dword_01233b64 + 0x2ec), value))
                 {
-                    FUN_004592f0(m);
-                    FUN_00459210(m, &selected_brushes);
+                    FUN_004592f0(match);
+                    FUN_00459210(match, &selected_brushes);
                     found = true;
                 }
             }
@@ -3500,12 +3499,15 @@ void FUN_0045e370(int sides)
     g_nUpdateBits = -1;
 }
 
-// 0x0045e670 (~1500 B): Q3 Brush_MakeSidedSphere, in place on the selected brush def
+// 0x0045e670 (1360 B): Q3 Brush_MakeSidedSphere shape, in place on the selected brush def
 static void SpherePoint(float *out, float radius, float theta, float phi)
 {
-    out[0] = (float)(cos(phi) * cos(theta) * radius);
-    out[1] = (float)(cos(phi) * sin(theta) * radius);
-    out[2] = (float)(sin(phi) * radius);
+    float st, ct, sp, cp;
+    FastSinCos(theta, &st, &ct);
+    FastSinCos(phi, &sp, &cp);
+    out[0] = cp * ct * radius;
+    out[1] = cp * st * radius;
+    out[2] = sp * radius;
 }
 
 void FUN_0045e670(int sides)
@@ -3516,27 +3518,21 @@ void FUN_0045e670(int sides)
         return;
     }
     brush_t *b = selected_brushes.next;
-    if (b == &selected_brushes || b->next != &selected_brushes)
+    if (b == &selected_brushes || b->next != &selected_brushes || ((entity_t *)b->owner->def)->eclass->fixedsize)
     {
-        Sys_Printf("Error: you must have a single brush selected\n");
-        SendMessageA(STATUS_HWND, 0x401, 0, (LPARAM)"Must have a single brush selected");
-        return;
-    }
-    if (((entity_t *)b->owner->def)->eclass->fixedsize)
-    {
-        Sys_Printf("Error: you cannot manipulate fixed size entities\n");
+        Sys_Printf(b == &selected_brushes || b->next != &selected_brushes ? "Error: you must have a single brush selected\n" : "Error: you cannot manipulate fixed size entities\n");
         SendMessageA(STATUS_HWND, 0x401, 0, (LPARAM)"Must have a single brush selected");
         return;
     }
     brushdef_t *def = b->def;
-    vec3_t mins, maxs, mid;
-    VectorCopy(def->mins, mins);
-    VectorCopy(def->maxs, maxs);
+    float mins[3] = { def->mins[0], def->mins[1], def->mins[2] };
+    float maxs[3] = { def->maxs[0], def->maxs[1], def->maxs[2] };
+    float mid[3];
     float radius = 8;
     // retail centres only x and y; mid[2] stays unset like the original
     for (int i = 0; i < 2; i++)
     {
-        mid[i] = (maxs[i] + mins[i]) * 0.5f;
+        mid[i] = (maxs[i] + mins[i]) * 0.5;
         if (maxs[i] - mins[i] > radius)
             radius = maxs[i] - mins[i];
     }
@@ -3546,30 +3542,30 @@ void FUN_0045e670(int sides)
     def->faces = Face_AllocArray(def->faceCount);
     face_t *f = def->faces;
     float dt = 6.2831855f / (float)sides;
-    float dp = 3.1415927f / (float)sides;
     for (int i = 0; i <= sides - 1; i++)
     {
         for (int j = 0; j <= sides - 2; j++)
         {
             float t = (float)i * dt;
-            float p = (float)j * dp - 1.5707964f;
+            float t2 = t + dt;
             f->texdef[0] = QE_TEXDEF;
-            SpherePoint(f->planepts[0], radius, t, p);
-            SpherePoint(f->planepts[1], radius, t, p + dp);
-            SpherePoint(f->planepts[2], radius, t + dt, p + dp);
+            SpherePoint(f->planepts[0], radius, t, t);
+            SpherePoint(f->planepts[1], radius, t, t);
+            SpherePoint(f->planepts[2], radius, t2, t2);
             for (int k = 0; k < 3; k++)
                 VectorAdd(f->planepts[k], mid, f->planepts[k]);
             f++;
         }
     }
-    float p = (float)(sides - 1) * dp - 1.5707964f;
     for (int i = 0; i <= sides - 1; i++)
     {
         float t = (float)i * dt;
         f->texdef[0] = QE_TEXDEF;
-        SpherePoint(f->planepts[0], radius, t, p);
-        SpherePoint(f->planepts[1], radius, t + dt, p + dp);
-        SpherePoint(f->planepts[2], radius, t + dt, p);
+        SpherePoint(f->planepts[0], radius, t, t);
+        t += dt;
+        float t2 = t;
+        SpherePoint(f->planepts[1], radius, t, t);
+        SpherePoint(f->planepts[2], radius, t2, t2);
         for (int k = 0; k < 3; k++)
             VectorAdd(f->planepts[k], mid, f->planepts[k]);
         f++;
