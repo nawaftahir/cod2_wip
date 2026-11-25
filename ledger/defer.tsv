@@ -435,8 +435,6 @@
 0x00448550	bulk-d	2026-11-19	FUN_00448550 (Q3 Winding_SplitEpsilon): bulk draft: 96%, sizes 1000/1000, first diff +0x5 (prologue/register convention)
 0x004493c0	bulk-d	2026-11-19	FUN_004493c0 (returns its 2nd stack arg): bulk draft: 0%, sizes 1/5; LTCG drops the unused result in ours
 0x00429a00	claude-e	2026-11-19	bulk draft: 48%, sizes 432/446, first difference at +0x6. Prior: bulk draft: 48%, sizes 432/446, first difference at +0x6
-0x00429e20	claude-e	2026-11-19	bulk draft: 89%, sizes 107/107, first difference at +0x1a. Prior: bulk draft: 89%, sizes 107/107, first difference at +0x1a
-0x00429e90	claude-e	2026-11-19	bulk draft: 89%, sizes 107/107, first difference at +0x1a. Prior: bulk draft: 89%, sizes 107/107, first difference at +0x1a
 0x00429f40	claude-d15	2026-11-25	FUN_00429f40 (remove a point from the move list): 99%, sizes 146/146, first diff +0x32 (reloc-normalised +0x30): only fld [ecx+esi] (retail) vs fld [esi+ecx] (ours), same SIB-order residue as FUN_00439620 (98%, row 0x00439620). Tried 2026-11-25: pointer-walk loop *v1++ - *v2++ in FUN_00439620 (worse: 429f40 and 439620 stop binding). Together with the earlier d=v1[i]-v2[i], -v2[i]+v1[i], swapped params: 4 variants.
 0x0042a440	claude-e	2026-11-19	bulk draft: 31%, sizes 104/103, first difference at +0x3. Prior: bulk draft: 31%, sizes 104/103, first difference at +0x3
 0x0042a4b0	claude-e	2026-11-19	bulk draft: 20%, sizes 763/825, first difference at +0x5. Prior: bulk draft: 20%, sizes 763/825, first difference at +0x5

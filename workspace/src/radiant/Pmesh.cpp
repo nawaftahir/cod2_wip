@@ -1792,9 +1792,10 @@ int FUN_00429e20(const float *v)
 {
     for (int i = 0; i < g_qeglobals.field_6c078; i++)
     {
-        float dx = g_qeglobals.field_3c078[i][0] - v[0];
-        float dy = g_qeglobals.field_3c078[i][1] - v[1];
-        float dz = g_qeglobals.field_3c078[i][2] - v[2];
+        const float *t = g_qeglobals.field_3c078[i];
+        float dx = t[0] - v[0];
+        float dy = t[1] - v[1];
+        float dz = t[2] - v[2];
         if (dz * dz + dy * dy + dx * dx < 0.01)
             return i;
     }
@@ -1806,9 +1807,10 @@ int FUN_00429e90(const float *v)
 {
     for (int i = 0; i < g_qeglobals.field_3c074; i++)
     {
-        float dx = g_qeglobals.field_c074[i][0] - v[0];
-        float dy = g_qeglobals.field_c074[i][1] - v[1];
-        float dz = g_qeglobals.field_c074[i][2] - v[2];
+        const float *t = g_qeglobals.field_c074[i];
+        float dx = t[0] - v[0];
+        float dy = t[1] - v[1];
+        float dz = t[2] - v[2];
         if (dz * dz + dy * dy + dx * dx < 0.01)
             return i;
     }
