@@ -538,6 +538,31 @@ int DObjSkelIsBoneUpToDate(DObj_s *obj, int boneIndex)
 	return ((1 << (boneIndex & 0x1F)) & skel->partBits.skel[boneIndex >> 5]) != 0;
 }
 
+// asserts whose retail text is the field name, not the C++ spelling used here
+#define assertText(cond, text) \
+	do { \
+		static bool s_assertDisable; \
+		if ( !(cond) && !s_assertDisable ) \
+		{ \
+			switch ( FUN_0047d980( text, __FILE__, __LINE__, 0, 1 ) ) \
+			{ \
+			case 0: DebugBreak(); break; \
+			case 2: s_assertDisable = true; break; \
+			} \
+		} \
+	} while ( 0 )
+
+#define ASSERT_CHILD_QUAT_OK() \
+	assert(!IS_NAN((childMat->quat)[0]) && !IS_NAN((childMat->quat)[1]) && !IS_NAN((childMat->quat)[2]) && !IS_NAN((childMat->quat)[3]))
+#define ASSERT_CHILD_TRANS_OK() \
+	assert(!IS_NAN((childMat->trans)[0]) && !IS_NAN((childMat->trans)[1]) && !IS_NAN((childMat->trans)[2]))
+#define ASSERT_ANIM_BIT() \
+	assertText(skel->partBits.anim[boneIndexHigh] & boneIndexLow, "skel->animPartBits[boneIndexHigh] & boneIndexLow")
+#define ASSERT_NOT_IGNORED() \
+	assertText(!(ignorePartBits[boneIndexHigh] & boneIndexLow), "!(ignorePartBits[boneIndexHigh] & boneIndexLow)")
+#define ASSERT_IGNORED() \
+	assertText(ignorePartBits[boneIndexHigh] & boneIndexLow, "ignorePartBits[boneIndexHigh] & boneIndexLow")
+
 int DObjSkelAreBonesUpToDate(const DObj_s *obj, int *partBits)
 {
 	int i;
@@ -556,6 +581,320 @@ int DObjSkelAreBonesUpToDate(const DObj_s *obj, int *partBits)
 	}
 
 	return 1;
+}
+
+void DObjCalcSkel(DObj_s *obj, int *partBits)
+{
+	DSkel_t *skel;
+	DObjAnimMat *sourceMat;
+	DObjAnimMat *childMat;
+	int controlPartBits[4];
+	int ignorePartBits[4];
+	int calcPartBits[4];
+	const int *duplicatePartBits;
+	const unsigned char *pos;
+	int i;
+	int j;
+	int numModels;
+	int boneIndex;
+	int boneIndexHigh;
+	int boneIndexLow;
+	int modelParent;
+	int parentIndex;
+	XModelParts_s *parts;
+	short *quats;
+	float *trans;
+	byte *parentList;
+	char bFinished;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	assert(obj);
+	skel = obj->skel;
+
+	assert(skel);
+	bFinished = 1;
+
+	for ( i = 0; i < 4; ++i )
+	{
+		ignorePartBits[i] = ~partBits[i] | skel->partBits.skel[i];
+
+		if ( ~ignorePartBits[i] )
+			bFinished = 0;
+	}
+
+	if ( bFinished )
+		return;
+
+	if ( !obj->duplicateParts )
+		DObjCreateDuplicateParts(obj);
+
+
+
+
+	assert(obj->duplicateParts);
+	duplicatePartBits = (const int *)SL_ConvertToString(obj->duplicateParts);
+	pos = (const unsigned char *)(duplicatePartBits + 4);
+
+	for ( i = 0; i < 4; ++i )
+	{
+		skel->partBits.skel[i] |= partBits[i];
+		controlPartBits[i] = skel->partBits.control[i] & ~ignorePartBits[i];
+		calcPartBits[i] = controlPartBits[i] | duplicatePartBits[i] | ignorePartBits[i];
+
+		if ( duplicatePartBits[i] & controlPartBits[i] )
+		{
+			DObjDumpInfo(obj);
+
+			for ( boneIndex = 0; boneIndex < obj->numBones; ++boneIndex )
+			{
+				if ( (controlPartBits[boneIndex >> 5] & (1 << (boneIndex & 31))) && (duplicatePartBits[boneIndex >> 5] & (1 << (boneIndex & 31))) )
+					break;
+			}
+
+
+
+
+
+			assertFailMsg(0, va("control/meld conflict on bone %d - see the console log for details", boneIndex));
+		}
+	}
+
+	for ( i = 0; i < 4; ++i )
+		controlPartBits[i] |= ~calcPartBits[i];
+
+	numModels = obj->numModels;
+	sourceMat = &skel->Mat;
+	childMat = sourceMat;
+	boneIndex = 0;
+
+	for ( j = 0; j < numModels; ++j )
+	{
+		parts = obj->models[j]->parts;
+		modelParent = obj->modelParents[j];
+
+		if ( modelParent == UNDEFINED_PART )
+		{
+			for ( i = parts->numRootBones; i; --i )
+			{
+				boneIndexHigh = boneIndex >> 5;
+				boneIndexLow = 1 << (boneIndex & 31);
+
+				if ( controlPartBits[boneIndexHigh] & boneIndexLow )
+				{
+
+
+
+
+
+
+
+					assert(boneIndex != (*pos) - 1);
+
+					ASSERT_NOT_IGNORED();
+					ASSERT_ANIM_BIT();
+
+					DObjCalcTransWeight(childMat);
+
+					ASSERT_CHILD_QUAT_OK();
+					ASSERT_CHILD_TRANS_OK();
+				}
+				else if ( boneIndex == *pos - 1 )
+				{
+					pos += 2;
+
+					if ( ignorePartBits[boneIndexHigh] & boneIndexLow )
+					{
+						if ( skel->partBits.skel[boneIndexHigh] & boneIndexLow )
+						{
+
+
+
+							ASSERT_ANIM_BIT();
+							ASSERT_CHILD_QUAT_OK();
+							ASSERT_CHILD_TRANS_OK();
+						}
+					}
+					else
+					{
+
+						assert(childMat == sourceMat + boneIndex);
+						parentIndex = *(pos - 1) - 1;
+
+						assertText(skel->partBits.skel[parentIndex >> 5] & (1 << (parentIndex & 31)), "skel->skelPartBits[parentIndex >> 5] & (1 << (parentIndex & 31))");
+						assertText(skel->partBits.anim[parentIndex >> 5] & (1 << (parentIndex & 31)), "skel->animPartBits[parentIndex >> 5] & (1 << (parentIndex & 31))");
+						assert(parentIndex < boneIndex);
+
+						*childMat = sourceMat[parentIndex];
+
+
+						ASSERT_CHILD_QUAT_OK();
+						ASSERT_CHILD_TRANS_OK();
+					}
+				}
+				else {
+					ASSERT_IGNORED();
+
+					if ( skel->partBits.skel[boneIndexHigh] & boneIndexLow )
+					{
+						ASSERT_ANIM_BIT();
+						ASSERT_CHILD_QUAT_OK();
+						ASSERT_CHILD_TRANS_OK();
+					}
+				}
+				++childMat;
+				++boneIndex;
+			}
+		}
+		else
+		{
+			for ( i = parts->numRootBones; i; --i )
+			{
+				boneIndexHigh = boneIndex >> 5;
+				boneIndexLow = 1 << (boneIndex & 31);
+				assert(modelParent < boneIndex);
+
+
+				assert(boneIndex != (*pos) - 1);
+
+				if ( controlPartBits[boneIndexHigh] & boneIndexLow )
+				{
+					assert(modelParent < boneIndex);
+					ASSERT_NOT_IGNORED();
+					ASSERT_ANIM_BIT();
+					assertText(skel->partBits.skel[modelParent >> 5] & (1 << (modelParent & 31)), "skel->skelPartBits[modelParent >> 5] & (1 << (modelParent & 31))");
+					assertText(skel->partBits.anim[modelParent >> 5] & (1 << (modelParent & 31)), "skel->animPartBits[modelParent >> 5] & (1 << (modelParent & 31))");
+
+					if ( !(calcPartBits[boneIndexHigh] & boneIndexLow) )
+						QuatMultiplyReverseEquals(childMat->quat, sourceMat[modelParent].quat);
+					else
+						QuatMultiplyEquals(sourceMat[modelParent].quat, childMat->quat);
+
+					ASSERT_CHILD_QUAT_OK();
+					ASSERT_CHILD_TRANS_OK();
+
+					DObjCalcTransWeight(childMat);
+					MatrixTransformVectorQuatTransEquals(childMat->trans, &sourceMat[modelParent]);
+
+					ASSERT_CHILD_TRANS_OK();
+				}
+				else
+				{
+					ASSERT_IGNORED();
+
+					if ( skel->partBits.skel[boneIndexHigh] & boneIndexLow )
+					{
+						ASSERT_ANIM_BIT();
+						ASSERT_CHILD_QUAT_OK();
+						ASSERT_CHILD_TRANS_OK();
+					}
+				}
+
+				++childMat;
+				++boneIndex;
+			}
+		}
+
+		trans = parts->trans;
+		parentList = parts->hierarchy->parentList;
+
+		for ( i = parts->numBones - parts->numRootBones; i; --i, ++childMat, trans += 3, ++parentList, ++boneIndex )
+		{
+			boneIndexHigh = boneIndex >> 5;
+			boneIndexLow = 1 << (boneIndex & 31);
+
+			if ( controlPartBits[boneIndexHigh] & boneIndexLow )
+			{
+
+				assert(boneIndex != (*pos) - 1);
+
+				ASSERT_NOT_IGNORED();
+				ASSERT_ANIM_BIT();
+				assertText(skel->partBits.skel[(boneIndex - (*parentList)) >> 5] & (1 << ((boneIndex - (*parentList)) & 31)), "skel->skelPartBits[(boneIndex - (*parentList)) >> 5] & (1 << ((boneIndex - (*parentList)) & 31))");
+				assertText(skel->partBits.anim[(boneIndex - (*parentList)) >> 5] & (1 << ((boneIndex - (*parentList)) & 31)), "skel->animPartBits[(boneIndex - (*parentList)) >> 5] & (1 << ((boneIndex - (*parentList)) & 31))");
+
+				if ( !(calcPartBits[boneIndexHigh] & boneIndexLow) )
+					QuatMultiplyReverseEquals(childMat->quat, (childMat - *parentList)->quat);
+				else
+					QuatMultiplyEquals((childMat - *parentList)->quat, childMat->quat);
+
+				ASSERT_CHILD_QUAT_OK();
+				ASSERT_CHILD_TRANS_OK();
+
+				DObjCalcTransWeight(childMat);
+				VectorAdd(childMat->trans, trans, childMat->trans);
+				MatrixTransformVectorQuatTransEquals(childMat->trans, (childMat - *parentList));
+
+				ASSERT_CHILD_TRANS_OK();
+			}
+			else if ( boneIndex == *pos - 1 )
+			{
+				pos += 2;
+
+				if ( ignorePartBits[boneIndexHigh] & boneIndexLow )
+				{
+					if ( skel->partBits.skel[boneIndexHigh] & boneIndexLow )
+					{
+
+
+
+						ASSERT_ANIM_BIT();
+						ASSERT_CHILD_QUAT_OK();
+						ASSERT_CHILD_TRANS_OK();
+					}
+				}
+				else
+				{
+
+					assert(childMat == sourceMat + boneIndex);
+					parentIndex = *(pos - 1) - 1;
+
+					assertText(skel->partBits.skel[parentIndex >> 5] & (1 << (parentIndex & 31)), "skel->skelPartBits[parentIndex >> 5] & (1 << (parentIndex & 31))");
+					assertText(skel->partBits.anim[parentIndex >> 5] & (1 << (parentIndex & 31)), "skel->animPartBits[parentIndex >> 5] & (1 << (parentIndex & 31))");
+					assert(parentIndex < boneIndex);
+
+					*childMat = sourceMat[parentIndex];
+
+
+					ASSERT_CHILD_QUAT_OK();
+					ASSERT_CHILD_TRANS_OK();
+				}
+			}
+			else {
+				ASSERT_IGNORED();
+
+				if ( skel->partBits.skel[boneIndexHigh] & boneIndexLow )
+				{
+					ASSERT_ANIM_BIT();
+					ASSERT_CHILD_QUAT_OK();
+					ASSERT_CHILD_TRANS_OK();
+				}
+			}
+
+		}
+	}
+	assert(!(*pos));
+
+	for ( boneIndex = 0; boneIndex < obj->numBones; ++boneIndex )
+	{
+		if ( skel->partBits.anim[boneIndex >> 5] & (1 << (boneIndex & 31)) )
+		{
+
+			assert(!IS_NAN((sourceMat[boneIndex].quat)[0]) && !IS_NAN((sourceMat[boneIndex].quat)[1]) && !IS_NAN((sourceMat[boneIndex].quat)[2]) && !IS_NAN((sourceMat[boneIndex].quat)[3]));
+			assert(!IS_NAN((sourceMat[boneIndex].trans)[0]) && !IS_NAN((sourceMat[boneIndex].trans)[1]) && !IS_NAN((sourceMat[boneIndex].trans)[2]));
+		}
+	}
 }
 
 void DObjSetTree(DObj_s *obj, XAnimTree_s *tree)

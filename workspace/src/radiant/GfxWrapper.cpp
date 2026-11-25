@@ -128,7 +128,6 @@ void FUN_0047a760(const char *fmt, ...);
 void FUN_0047ae50(int level, const char *fmt, ...);
 extern "C" void FUN_00410580();
 extern "C" void FUN_0048a480();
-extern "C" void FUN_004a2700();
 extern "C" void FUN_004a5a60();
 extern "C" bool FUN_00498660();
 extern "C" bool FUN_00498670();
@@ -253,6 +252,7 @@ void DObjCreate(DObjModel_s *dobjModels, unsigned int numModels, XAnimTree_s *tr
 int DObjGetAllocSkelSize(const DObj_s *obj);
 void DObjCreateSkel(DObj_s *obj, DSkel_t *skel, int time);
 void DObjCalcAnim(const DObj_s *obj, int *partBits);
+void DObjCalcSkel(DObj_s *obj, int *partBits);
 DObjAnimMat *DObjGetRotTransArray(const DObj_s *obj);
 void DObjGetMatrixArray(const DObj_s *obj, const int *partBits, DObjSkelMat_s *skelMat);
 int DObjGetMatOffset(const DObj_s *obj, int modelIndex);
@@ -402,7 +402,7 @@ extern "C" void FUN_004105f0()
 	ri.fn[122] = (void *)DObjGetAllocSkelSize;
 	ri.fn[123] = (void *)DObjCreateSkel;
 	ri.fn[124] = (void *)DObjCalcAnim;
-	ri.fn[125] = (void *)FUN_004a2700;
+	ri.fn[125] = (void *)DObjCalcSkel;
 	ri.fn[116] = (void *)DObjGetRotTransArray;
 	ri.fn[136] = (void *)DObjGetMatrixArray;
 	ri.fn[118] = (void *)DObjGetMatOffset;
