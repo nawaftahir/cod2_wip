@@ -1792,9 +1792,10 @@ int FUN_00429e20(const float *v)
 {
     for (int i = 0; i < g_qeglobals.field_6c078; i++)
     {
-        float dx = g_qeglobals.field_3c078[i][0] - v[0];
-        float dy = g_qeglobals.field_3c078[i][1] - v[1];
-        float dz = g_qeglobals.field_3c078[i][2] - v[2];
+        const float *t = g_qeglobals.field_3c078[i];
+        float dx = t[0] - v[0];
+        float dy = t[1] - v[1];
+        float dz = t[2] - v[2];
         if (dz * dz + dy * dy + dx * dx < 0.01)
             return i;
     }
@@ -1806,9 +1807,10 @@ int FUN_00429e90(const float *v)
 {
     for (int i = 0; i < g_qeglobals.field_3c074; i++)
     {
-        float dx = g_qeglobals.field_c074[i][0] - v[0];
-        float dy = g_qeglobals.field_c074[i][1] - v[1];
-        float dz = g_qeglobals.field_c074[i][2] - v[2];
+        const float *t = g_qeglobals.field_c074[i];
+        float dx = t[0] - v[0];
+        float dy = t[1] - v[1];
+        float dz = t[2] - v[2];
         if (dz * dz + dy * dy + dx * dx < 0.01)
             return i;
     }
@@ -5815,7 +5817,7 @@ void FUN_00437400()
 void FUN_00437730(const float *origin, const float *dir)
 {
     float t, bestT = 3.402823466e+38f;
-    int bestY = 0, y, x;
+    int bestY = 0, x, y;
     patchMesh_t *best = NULL;
     int bestX = 0;
     for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
@@ -5837,11 +5839,11 @@ void FUN_00437730(const float *origin, const float *dir)
     Undo_AddBrush((brushdef_t *)best->cache_3828);
     best->ctrl[bestX][bestY].flags_34 ^= 1;
     FUN_004269d0(best, true);
+    brushdef_t *def = (brushdef_t *)best->cache_3828;
     DAT_0123348c = -1;
     undo_proj *u = DAT_0109fdcc;
     if (u && u->field_0c == 0)
     {
-        brushdef_t *def = (brushdef_t *)best->cache_3828;
         *(int *)((char *)def + 0x10) = u->field_08;
         entity_t *e = *(entity_t **)((char *)def + 8);
         if (e->eclass->fixedsize)
