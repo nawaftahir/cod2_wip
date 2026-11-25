@@ -2771,3 +2771,4 @@ addr	size	source	symbol	name	tag
 0x00465ce0	34	src/radiant/entity.cpp	?FUN_00465ce0@@YAXPAUentity_t@@PBD@Z	FUN_00465ce0	SUPPORTED
 0x00467470	153	src/radiant/entity.cpp	?FUN_00467470@@YAXPAUentity_t@@@Z	FUN_00467470	PINNED
 0x0046ff10	953	src/radiant/select.cpp	?FUN_0046ff10@@YAXPBUtexdef_t@@H@Z	FUN_0046ff10	PINNED
+0x0045a600	548	src/radiant/brush.cpp	?FUN_0045a600@@YAXPAUbrush_t@@@Z	FUN_0045a600	UNNAMED

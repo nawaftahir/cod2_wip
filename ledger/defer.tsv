@@ -519,16 +519,15 @@
 0x0045a030	bulk-e6	2026-11-22	FUN_0045a030 (ray vs every face): bulk draft: 71%, sizes 283/278, first diff +0x12
 0x0045c950	bulk-e6	2026-11-22	FUN_0045c950 (distance between selected entities): bulk draft: 48%, sizes 177/180, first diff +0x5
 0x00456f30	bulk-d7	2026-11-22	FUN_456f30: bulk draft: 80%, sizes 122/122, first diff +0x4a || l19 (claude-f): 80%, 122/122. Only diff: retail stores both scale values first and the four zero stores after; ours interleaves the zero stores. Zeros first (35%), no h/w temps (size 74), store h before computing w (26%) are all worse; same shape in Texdef_SetDefault 0x456ed0.
-0x00456ff0	bulk-d7	2026-11-22	FUN_456ff0: bulk draft: 53%, sizes 557/629, first diff +0x5
+0x00456ff0	claude-f	2026-11-25	FUN_456ff0: decl FUN_00440c10 fixed to qtexture_s*(char*,int) in brush.cpp; still bulk draft: 53%, sizes 557/629, rewrite from retail asm next.
 0x00457270	claude-f	2026-11-25	FUN_00457270 (parse brush from map text, 1900 B): bulk draft 1299/1900. Retail has /GS cookie (mov eax,[0x58ea68]) and frame 0x2a01c, asserts are strings f->texdef[0].radMat->size[0]/size[1] (ours width/height), BrushDef alloc is an inline operator new + ctor, atol/atof via FUN_004da216 and _atof; no per-token Warning calls except too many faces / parsing patch/brush. Not worked beyond reading.
 0x00457dd0	bulk-d7	2026-11-22	FUN_457dd0: bulk draft: 24%, sizes 1065/1040, first diff +0xa
 0x00458670	bulk-d7	2026-11-22	FUN_458670: bulk draft: 22%, sizes 1303/1149, first diff +0x5
-0x00458fa0	bulk-d7	2026-11-22	FUN_458fa0: bulk draft: 58%, sizes 611/610, first diff +0x5a
+0x00458fa0	claude-f	2026-11-25	FUN_458fa0 (Brush_Ray): 98%, 610/610 B. Structure matches retail; left: x87 dot-term order (retail y,z,x / z,y,x; source operand order has no effect).
 0x00459ae0	claude-f	2026-11-25	FUN_459ae0 (Q3 Brush_SelectFaceForDragging): 93%, sizes 1346/1346, first diff +0x5. Fixed bool shear param + int-returning inlined 459aa0 (49% -> 93%). Left: frame 0x20 vs 0x18 (retail has an unused 4-byte top slot = alignment padding class, plus b2/j slot order swap), shear-loop dot term order (retail p2,p0 then n1*p1; ours p0 first).
-0x0045a600	bulk-d7	2026-11-22	FUN_45a600: bulk draft: 61%, sizes 532/548, first diff +0x2b
 0x0045afc0	bulk-d7	2026-11-22	FUN_45afc0: bulk draft: 29%, sizes 551/664, first diff +0x5. Body kept in workspace/drafts/brush_45afc0.cpp: compiled in, it flips matched GraphGetValueFromFraction 0x004832c0 (LTCG tie).
 0x0045b260	bulk-d7	2026-11-22	FUN_45b260: bulk draft: 26%, sizes 183/164, first diff +0x5
-0x0045b420	bulk-d7	2026-11-22	FUN_45b420: bulk draft: 48%, sizes 540/517, first diff +0x0
+0x0045b420	claude-f	2026-11-25	FUN_45b420 (model reload): 90%, 515/517 B, first diff +0x1cc. Only residue: callee 0x467470 (unmatched, entity.cpp) takes its arg in eax in retail; ours has no mov eax,esi.
 0x0045b660	bulk-d7	2026-11-22	FUN_45b660: bulk draft: 50%, sizes 463/467, first diff +0x5
 0x0045c420	bulk-d7	2026-11-22	FUN_45c420: bulk draft: 37%, sizes 639/647, first diff +0x5
 0x0045ca10	claude-f	2026-11-25	FUN_0045ca10 (add active brushes with same selection key): 97%, 631/631 B, first diff +0x190. Fixed: asserts 3247/3262 are assert() (push 1,0) not brush_assert1; key read from the global at each use (no local). Left: retail loads key (edx) then value then entity for the FUN_00465e10 call and ecx=def eax=owner in the second assert; ours loads value first and swaps ecx/eax. Tried: key local before the call = 80%.

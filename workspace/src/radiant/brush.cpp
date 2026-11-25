@@ -123,7 +123,7 @@ extern int DAT_011298b4;
 extern int dword_0053d944[], dword_0053d964[];
 extern char *Com_ParseOnLine(const char **data_p);
 void Com_SetSpaceDelimited(int spaceDelimited);
-void *FUN_00440c10(const char *name, int version);
+struct qtexture_s; qtexture_s *FUN_00440c10(char *name, int version);
 brushdef_t *FUN_00431890(const char **data_p, int version, bool bTerrain);
 int FUN_004209a0(const char **data_p, const char *name, const void *table);
 class CXYWnd { public: unsigned char pad_00[0xf4]; int m_nViewType; unsigned char pad_f8[0x74]; void FUN_00451eb0(); bool FUN_00451fe0(brush_t *b); };
@@ -1174,7 +1174,7 @@ void Brush_SetDefaultTexdefs(brushdef_t *b, int skipLayer, float scale)
 bool FUN_00456ff0(const char **data, texdef_t *td, int version, int layer)
 {
     assert(td);
-    const char *name;
+    char *name;
     if (version >= 4)
     {
         Com_SetSpaceDelimited(1);
@@ -1810,54 +1810,53 @@ faceRender_t *FUN_00458fa0(brush_t *b, const float *origin, const float *dir, fl
     for (int i = 0; i < b->faceCount; i++)
     {
         const face_t *f = &b->def->faces[i];
-        float d1 = (float)(p1[1] * f->plane.normal[1] + p1[2] * f->plane.normal[2] + p1[0] * f->plane.normal[0] - f->plane.dist);
-        float d2 = (float)(p2[2] * f->plane.normal[2] + p2[1] * f->plane.normal[1] + p2[0] * f->plane.normal[0] - f->plane.dist);
-        if (!(d1 < 0) && d2 >= 0)
+        float d1 = (float)(p1[0] * f->plane.normal[0] + p1[1] * f->plane.normal[1] + p1[2] * f->plane.normal[2] - f->plane.dist);
+        float d2 = (float)(p2[0] * f->plane.normal[0] + p2[1] * f->plane.normal[1] + p2[2] * f->plane.normal[2] - f->plane.dist);
+        if (d1 >= 0 && d2 >= 0)
         {
             *dist = 0;
             return NULL;
         }
-        if (d1 > 0 || d2 > 0)
+        if (d1 <= 0 && d2 <= 0)
+            continue;
+        float frac = d1 / (d1 - d2);
+        if (d1 > 0)
         {
-            float frac = d1 / (d1 - d2);
-            if (d1 <= 0)
-            {
-                p2[0] = (p2[0] - p1[0]) * frac + p1[0];
-                p2[1] = (p2[1] - p1[1]) * frac + p1[1];
-                p2[2] = (p2[2] - p1[2]) * frac + p1[2];
-            }
-            else
-            {
-                if (outNormal)
-                    VectorCopy(f->plane.normal, outNormal);
-                p1[0] += (p2[0] - p1[0]) * frac;
-                p1[1] += (p2[1] - p1[1]) * frac;
-                p1[2] += (p2[2] - p1[2]) * frac;
-                hit = &b->faces[i];
-            }
+            if (outNormal)
+                VectorCopy(f->plane.normal, outNormal);
+            p1[0] += (p2[0] - p1[0]) * frac;
+            p1[1] += (p2[1] - p1[1]) * frac;
+            p1[2] += (p2[2] - p1[2]) * frac;
+            hit = &b->faces[i];
+        }
+        else
+        {
+            p2[0] = (p2[0] - p1[0]) * frac + p1[0];
+            p2[1] = (p2[1] - p1[1]) * frac + p1[1];
+            p2[2] = (p2[2] - p1[2]) * frac + p1[2];
         }
     }
-    if (hit)
+    if (hit == NULL)
     {
-        p1[0] -= origin[0];
-        p1[1] -= origin[1];
-        p1[2] -= origin[2];
-        *dist = p1[0] * dir[0] + p1[2] * dir[2] + p1[1] * dir[1];
-        return hit;
+        *dist = 0;
+        if (b->patch == NULL)
+        {
+            if (b->owner->field_38 == NULL && (b->owner->model == NULL || (*(int *)(dword_01233b64 + 0x2cc) & 0x10000) == 0))
+                return NULL;
+        }
+        if (outNormal)
+        {
+            outNormal[0] = 0;
+            outNormal[1] = 0;
+            outNormal[2] = 1.0f;
+        }
+        return b->faces;
     }
-    *dist = 0;
-    if (b->patch == NULL)
-    {
-        if (b->owner->field_38 == NULL && (b->owner->model == NULL || (*(int *)(dword_01233b64 + 0x2cc) & 0x10000) == 0))
-            return NULL;
-    }
-    if (outNormal)
-    {
-        outNormal[0] = 0;
-        outNormal[1] = 0;
-        outNormal[2] = 1.0f;
-    }
-    return b->faces;
+    p1[0] -= origin[0];
+    p1[1] -= origin[1];
+    p1[2] -= origin[2];
+    *dist = p1[0] * dir[0] + p1[2] * dir[2] + p1[1] * dir[1];
+    return hit;
 }
 
 void FUN_00459210(brush_t *b, brush_t *list)
@@ -2243,23 +2242,26 @@ void FUN_0045a600(brush_t *b)
     entity_t *e = BRUSH_ENT(b);
     const orientation_t *orient;
     orientation_t combined;
-    if (e->eclass->fixedsize == 0)
-        orient = &QE_ORIENT;
-    else
+    if (e->eclass->fixedsize)
     {
         orientation_t local;
         vec3_t angles;
-        if (!FUN_00465d80(e, "angles"))
-            angles[0] = angles[1] = angles[2] = 0;
-        else
+        if (FUN_00465d80(e, "angles"))
             sscanf(ValueForKey(e->epairs, "angles"), "%f %f %f", &angles[0], &angles[1], &angles[2]);
+        else
+        {
+            angles[0] = 0;
+            angles[1] = 0;
+            angles[2] = 0;
+        }
         AnglesToAxis(angles, local.axis);
-        vec3_t offset;
-        MatrixTransformVectorCols(e->origin, local.axis, offset);
-        VectorSubtract(e->origin, offset, local.origin);
+        MatrixTransformVectorCols(BRUSH_ENT(b)->origin, local.axis, local.origin);
+        VectorSubtract(BRUSH_ENT(b)->origin, local.origin, local.origin);
         OrientationConcatenate(&local, &QE_ORIENT, &combined);
         orient = &combined;
     }
+    else
+        orient = &QE_ORIENT;
     for (int i = 0; i < b->faceCount; i++)
     {
         FaceRender_Free(&b->faces[i]);
@@ -2427,8 +2429,7 @@ void FUN_0045b310(brushdef_t *b, const vec3_t mins, const vec3_t maxs)
 // 0x0045b420 (517 B): reload the model of a model brush; true when the brush is usable
 bool FUN_0045b420(brush_t *b)
 {
-    entity_t *owner = b->owner;
-    if (owner->field_3c == BRUSH_ENT(b)->field_68 && (owner->model || owner->field_38))
+    if (b->owner->field_3c == BRUSH_ENT(b)->field_68 && (b->owner->model || b->owner->field_38))
     {
 #line 2733
         assert(!b->def->modelFailed);
@@ -2437,6 +2438,7 @@ bool FUN_0045b420(brush_t *b)
     if (b->def->modelFailed)
         return false;
     b->def->modelFailed = true;
+    entity_t *owner = b->owner;
     FUN_00464c20((entityInst_t *)owner);
     if (owner->model)
     {
@@ -2449,28 +2451,29 @@ bool FUN_0045b420(brush_t *b)
     eclass_t *e = ownerDef->modelClass;
     if (!e)
     {
-        e = ownerDef->eclass;
-        if (!FUN_00463d60(ownerDef->eclass))
+        if (FUN_00463d60(ownerDef->eclass))
+            e = ownerDef->eclass;
+        else
         {
-            if (ownerDef->eclass->fixedsize == 0)
-                return !b->def->modelFailed;
-            const char *modelName = ValueForKey(ownerDef->epairs, "model");
+            if (ownerDef->eclass->fixedsize)
+            {
+                const char *modelName = ValueForKey(ownerDef->epairs, "model");
 #line 2757
-            brush_assert1(modelName);
-            if (modelName[0] == 0)
-                return !b->def->modelFailed;
-            e = FUN_00464930(modelName, ownerDef);
+                brush_assert1(modelName);
+                if (modelName[0])
+                    e = FUN_00464930(modelName, ownerDef);
+            }
         }
-        if (!e)
-            return !b->def->modelFailed;
     }
+    if (e)
+    {
 #line 2764
-    assert(ownerDef->modelClass == e);
-    FUN_00467470(ownerDef);
-    FUN_00467a70((entityInst_t *)b->owner);
-    if (b->owner->model == NULL && b->owner->field_38 == NULL)
-        return !b->def->modelFailed;
-    b->def->modelFailed = false;
+        assert(ownerDef->modelClass == e);
+        FUN_00467470(ownerDef);
+        FUN_00467a70((entityInst_t *)b->owner);
+        if (b->owner->model || b->owner->field_38)
+            b->def->modelFailed = false;
+    }
     return !b->def->modelFailed;
 }
 
