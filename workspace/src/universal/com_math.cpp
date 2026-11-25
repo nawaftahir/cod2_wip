@@ -3868,22 +3868,7 @@ float SnapFloatToGrid( float value, float granularity, float epsilon )
 #line 4019
 	assertMsg((epsilon > 0), "(epsilon) = %g", epsilon);
 #line 4020
-	do
-	{
-		static bool s_assertDisable;
-		if ( !(epsilon < 0.5f / granularity) && !s_assertDisable )
-		{
-			switch ( FUN_0047d980( va( "%s\n\t%s", "epsilon < 0.5f / granularity", va( "%g, %g", epsilon, granularity ) ), __FILE__, __LINE__, 0, 1 ) )
-			{
-			case 0:
-				DebugBreak();
-				break;
-			case 2:
-				s_assertDisable = true;
-				break;
-			}
-		}
-	} while ( 0 );
+	assertMsg(epsilon < 0.5f / granularity, "%s", va( "%g, %g", epsilon, granularity ));
 
 	value = SnapFloatBits( value, 4, 12 );
 	snapped = I_fround( value * granularity ) / granularity;

@@ -27,7 +27,7 @@ void TextureAxisFromPlane(const vec3_t normal, vec3_t xv, vec3_t yv)
     VectorCopy(baseaxis[bestaxis][1], xv);
     VectorCopy(baseaxis[bestaxis][2], yv);
 }
-float FUN_00489940(float value, float granularity, float epsilon);
+float SnapFloatToGrid(float value, float granularity, float epsilon);
 #define iassert(expr) \
 	do { \
 		static bool s_assertDisable; \
@@ -116,7 +116,7 @@ void FUN_0043fbc0(vec2_t outSize, vec4_t texMat[2], const vec3_t normal, float p
     float crossRaw = (texMat[0][2] * texMat[1][2] + texMat[0][1] * texMat[1][1] + texMat[0][0] * texMat[1][0]) /
                      (texMat[1][0] * texMat[1][0] + texMat[1][1] * texMat[1][1] + texMat[1][2] * texMat[1][2]);
     *outCrossterm = crossRaw;
-    float crossterm = FUN_00489940(crossRaw, 1000.0f, 1e-5f);
+    float crossterm = SnapFloatToGrid(crossRaw, 1000.0f, 1e-5f);
     *outCrossterm = crossterm;
     float negCross = -crossterm;
     texMat[0][0] += negCross * texMat[1][0];
@@ -128,15 +128,15 @@ void FUN_0043fbc0(vec2_t outSize, vec4_t texMat[2], const vec3_t normal, float p
     outSize[1] = 1.0f / (float)sqrt((double)lenSq1);
     if (texMat[1][t] * texMat[0][s] * pvecs[0][s] * pvecs[1][t] < 0.0f)
         outSize[1] = -outSize[1];
-    outSize[0] = FUN_00489940(outSize[0], 8.0f, 0.001f);
-    outSize[1] = FUN_00489940(outSize[1], 8.0f, 0.001f);
+    outSize[0] = SnapFloatToGrid(outSize[0], 8.0f, 0.001f);
+    outSize[1] = SnapFloatToGrid(outSize[1], 8.0f, 0.001f);
     float angle = (float)(atan2((double)(texMat[0][t] * pvecs[0][s]), (double)(texMat[0][s] * pvecs[0][s])) * 57.29578f);
     *outRotate = angle;
-    *outRotate = FUN_00489940(angle, 4.0f, 0.005f);
+    *outRotate = SnapFloatToGrid(angle, 4.0f, 0.005f);
     outShift[0] = -texMat[0][3] * outSize[0];
     outShift[1] = -texMat[1][3] * outSize[1];
-    outShift[0] = FUN_00489940(outShift[0], 8.0f, 0.001f);
-    outShift[1] = FUN_00489940(outShift[1], 8.0f, 0.001f);
+    outShift[0] = SnapFloatToGrid(outShift[0], 8.0f, 0.001f);
+    outShift[1] = SnapFloatToGrid(outShift[1], 8.0f, 0.001f);
 }
 
 void BuildTextureVecs(const vec3_t normal, const vec2_t scale, const vec2_t shift,

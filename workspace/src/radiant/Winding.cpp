@@ -9,7 +9,7 @@
 struct facePlane_t { vec3_t normal; int type; double dist; };
 struct winding_t { int pointCount; vec3_t points[4]; };
 extern void FUN_0047a760(const char *fmt, ...);
-extern float FUN_00489940(float value, float granularity, float tolerance);
+extern float SnapFloatToGrid(float value, float granularity, float epsilon);
 
 bool FUN_00447a50(const facePlane_t *a, const facePlane_t *b, bool flip)
 {
@@ -269,7 +269,7 @@ winding_t *FUN_00448280(winding_t *in, const facePlane_t *split, int keepon)
                 mid[j] = -split->dist;
             else
                 mid[j] = p1[j] + frac * (p2[j] - p1[j]);
-            mid[j] = FUN_00489940(mid[j], 8.0f, 0.01f);
+            mid[j] = SnapFloatToGrid(mid[j], 8.0f, 0.01f);
         }
         VectorCopy(mid, neww->points[neww->pointCount]);
         neww->pointCount++;
