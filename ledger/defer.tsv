@@ -676,3 +676,4 @@
 0x004755b0	claude-f	2026-11-25	SelectEdgeByRay: bulk draft: 86%, sizes 473/474, first diff +0x5; retail reserves 0x2c locals and pushes ebx before the loop pointer setup, ours 0x28 and pushes it after the jle
 0x00475790	claude-f	2026-11-25	SelectVertexByRay: bulk draft: 98%, sizes 335/335, first diff +0xa8; retail sums the squares t2,t0,t1 into slots -0x14,-0x1c,-0x18 but ours emits t2,t1,t0; 3 operand orders tried (t2,t0,t1 / t2,t1,t0 / t0,t1,t2), same output
 0x004a9ba0	claude-f	2026-11-25	SL_FreeString: bulk draft: 99%, sizes 815/815, first diff +0x268; GetHashCode now matches (str/len swap fixed by the server-shaped loop); remaining: retail xors table[prev] first, ours loads newEntry first at the final status_next merge; 3 operand/temp forms tried
+0x00448d00	bulk-d	2026-11-19	FUN_00448d00 (Q3 Winding_Plane, edge^2 > 0.25): bulk draft: matches 100%, 916/916 in incremental make try, but flips to 33%, 917/916 on a clean gate (LTCG tie); kept as body
