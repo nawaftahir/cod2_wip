@@ -289,8 +289,7 @@
 0x00438ff0	claude-e	2026-11-19	bulk draft: 48%, sizes 410/360, first difference at +0x36
 0x0042a0a0	claude-e	2026-11-19	bulk draft: 39%, sizes 804/762, first difference at +0x5
 0x00437730	claude-h17	2026-11-25	FUN_00437730 (turn terrain edge): 99%, 345/345, first diff +0x76: hoisting def before the -1 store fixed the tail; left: bestY/bestX spill swapped (retail spills x to [ebp-0xc], y in esi). Tried: x/y decl swap (no change), bestX before bestY assign (+0x45), bestX decl first (98%), best assigned first (97%).
-0x004275a0	claude-e	2026-11-19	bulk draft: 43%, sizes 2267/2369, first difference at +0x20
-0x00427ef0	claude-e	2026-11-19	bulk draft: 28%, sizes 3230/3216, first difference at +0x22
+0x00427ef0	claude-l23	2026-11-25	bulk draft: 49%, sizes 3176/3216, first diff +0x2f3. nType==3 as if/else gives retail layout (error paths out of line). Residue: x87 operand order of (float)yStep + yAdj in the 3x3 inline block (retail fld yStepf first), then the SRC(i) loads (retail [eax+edi+disp], ours hoists add eax,edi and lea ecx,[ebx+0x24]). Same fix family as 4275a0: SET/SRC as direct VectorCopy, if/else nesting for edge (see Pmesh.cpp 4275a0).
 0x00428b80	claude-e	2026-11-19	bulk draft: 45%, sizes 649/658, first difference at +0x1a
 0x00428e20	claude-e	2026-11-19	bulk draft (one function with row 0x428e70): 3%, sizes 1483/1476 total (retail 80+1396), first diff +0x5
 0x00428e70	claude-e	2026-11-19	bulk draft, written with row 0x428e20 as FUN_00428e20 (Patch_BrushToMesh shape): 1483/1476 B total

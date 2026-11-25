@@ -1229,17 +1229,19 @@ brush_t *Patch_GenericMesh(int nWidth, int nHeight, int nOrientation, bool bDele
 // Retail 0x004275a0: build a cap patch (3x3 or 5x5) over one edge of the patch.
 brush_t *FUN_004275a0(patchMesh_t *pm, bool bByColumn, bool bFirst)
 {
+    int count;
+    int edge;
     brush_t *b;
     bool bSmall;
-    if (pm->width > 9)
-    {
-        b = Patch_GenericMesh(5, 5, 2, false, false);
-        bSmall = false;
-    }
-    else
+    if (pm->width <= 9)
     {
         b = Patch_GenericMesh(3, 3, 2, false, false);
         bSmall = true;
+    }
+    else
+    {
+        b = Patch_GenericMesh(5, 5, 2, false, false);
+        bSmall = false;
     }
     if (!b)
     {
@@ -1249,31 +1251,53 @@ brush_t *FUN_004275a0(patchMesh_t *pm, bool bByColumn, bool bFirst)
 #line 1107
     assert( b->patch->def == b->def->patch );
     patchMesh_t *def = b->patch->def;
-    vec3_t mins = {131072.0f, 131072.0f, 131072.0f};
-    vec3_t maxs = {-131072.0f, -131072.0f, -131072.0f};
+    vec3_t maxs;
+    vec3_t mins;
+    mins[0] = 131072.0f;
+    mins[1] = 131072.0f;
+    mins[2] = 131072.0f;
+    maxs[0] = -131072.0f;
+    maxs[1] = -131072.0f;
+    maxs[2] = -131072.0f;
     def->type_10 |= 0x1000;
-    int count = bByColumn ? pm->width : pm->height;
-    int edge = bFirst ? 0 : (bByColumn ? pm->height : pm->width) - 1;
+    count = bByColumn ? pm->width : pm->height;
+    if (bFirst)
+        edge = 0;
+    else
+    {
+        if (bByColumn)
+            edge = pm->height - 1;
+        else
+            edge = pm->width - 1;
+    }
     FillPatch(def, pm->ctrl[0][edge].xyz);
     for (int i = 0; i < count; i++)
     {
-        const int (*ring)[2] = bSmall ? DAT_0053d9b8 : DAT_0053da30;
-        const float *src = bByColumn ? pm->ctrl[i][edge].xyz : pm->ctrl[edge][i].xyz;
-        float *dst = def->ctrl[ring[i][0]][ring[i][1]].xyz;
-        dst[0] = src[0];
-        dst[1] = src[1];
-        dst[2] = src[2];
-        AddPointToBounds(def->ctrl[ring[i][0]][ring[i][1]].xyz, mins, maxs);
+        if (bSmall)
+        {
+            if (bByColumn)
+                VectorCopy(pm->ctrl[i][edge].xyz, def->ctrl[DAT_0053d9b8[i][0]][DAT_0053d9b8[i][1]].xyz);
+            else
+                VectorCopy(pm->ctrl[edge][i].xyz, def->ctrl[DAT_0053d9b8[i][0]][DAT_0053d9b8[i][1]].xyz);
+            AddPointToBounds(def->ctrl[DAT_0053d9b8[i][0]][DAT_0053d9b8[i][1]].xyz, mins, maxs);
+        }
+        else
+        {
+            if (bByColumn)
+                VectorCopy(pm->ctrl[i][edge].xyz, def->ctrl[DAT_0053da30[i][0]][DAT_0053da30[i][1]].xyz);
+            else
+                VectorCopy(pm->ctrl[edge][i].xyz, def->ctrl[DAT_0053da30[i][0]][DAT_0053da30[i][1]].xyz);
+            AddPointToBounds(def->ctrl[DAT_0053da30[i][0]][DAT_0053da30[i][1]].xyz, mins, maxs);
+        }
     }
     vec3_t mid = {(maxs[0] + mins[0]) * 0.5f, (maxs[1] + mins[1]) * 0.5f, (maxs[2] + mins[2]) * 0.5f};
     int nInner = bSmall ? 1 : 9;
     for (int i = 0; i < nInner; i++)
     {
-        const int (*inner)[2] = bSmall ? DAT_0053dab0 : DAT_0053dab8;
-        float *dst = def->ctrl[inner[i][0]][inner[i][1]].xyz;
-        dst[0] = mid[0];
-        dst[1] = mid[1];
-        dst[2] = mid[2];
+        if (bSmall)
+            VectorCopy(mid, def->ctrl[DAT_0053dab0[i][0]][DAT_0053dab0[i][1]].xyz);
+        else
+            VectorCopy(mid, def->ctrl[DAT_0053dab8[i][0]][DAT_0053dab8[i][1]].xyz);
     }
     if (bFirst)
     {
@@ -1299,7 +1323,11 @@ brush_t *FUN_004275a0(patchMesh_t *pm, bool bByColumn, bool bFirst)
 // Retail 0x00427ef0: build a special cap (bevel, endcap or their inverses) over one edge.
 brush_t *FUN_00427ef0(patchMesh_t *pm, int nType, bool bFirst)
 {
-    brush_t *b = (nType == 3) ? Patch_GenericMesh(5, 3, 2, false, false) : Patch_GenericMesh(3, 3, 2, false, false);
+    brush_t *b;
+    if (nType == 3)
+        b = Patch_GenericMesh(5, 3, 2, false, false);
+    else
+        b = Patch_GenericMesh(3, 3, 2, false, false);
     if (!b)
     {
         Sys_Printf("Unable to cap. Make sure you ungroup before re - capping.");
