@@ -344,7 +344,13 @@ extern int DAT_01128da0;
 IMPLEMENT_DYNAMIC(CMainFrame, CFrameWnd)
 
 BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
+  ON_WM_TIMER()
+  ON_WM_DESTROY()
+  ON_WM_CLOSE()
+  ON_WM_KEYDOWN()
   ON_WM_SIZE()
+  ON_WM_SIZING()
+  ON_WM_SYSKEYDOWN()
   ON_COMMAND(0xe103, FUN_00414da0)
   ON_COMMAND(0x80b8, FUN_00414de0)
   ON_COMMAND(0x80f8, FUN_00414ec0)
@@ -785,7 +791,6 @@ void FUN_00413210(HWND hwnd, const char *pszName)
 void CMainFrame::OnDestroy()
 {
   WINDOWPLACEMENT wp;
-  int info[2];
   CSplitterWnd *split1 = &m_wndSplit1;
   CSplitterWnd *split2 = &m_wndSplit2;
   CSplitterWnd *split3 = &m_wndSplit3;
@@ -814,6 +819,7 @@ void CMainFrame::OnDestroy()
   }
   else
   {
+    int info[2];
     FUN_0047a250(split1->GetSafeHwnd(), "Radiant::Split");
     FUN_0047a250(split2->GetSafeHwnd(), "Radiant::Split2");
     FUN_0047a250(split3->GetSafeHwnd(), "Radiant::Split3");
@@ -1196,10 +1202,10 @@ void CMainFrame::OnSize(UINT nType, int cx, int cy)
   CFrameWnd::OnSize(nType, cx, cy);
   CRect rctParent;
   GetClientRect(rctParent);
-  int nWidth;
-  UINT nID, nStyle;
   if (m_wndStatusBar.GetSafeHwnd())
   {
+    int nWidth;
+    UINT nID, nStyle;
     m_wndStatusBar.GetPaneInfo(0, nID, nStyle, nWidth);
     m_wndStatusBar.SetPaneInfo(0, nID, nStyle, (int)(rctParent.Width() * 0.19));
     m_wndStatusBar.GetPaneInfo(1, nID, nStyle, nWidth);
@@ -2084,7 +2090,7 @@ void CMainFrame::FUN_00417150(CCmdUI *pCmdUI)
   pCmdUI->Enable(!field_07e4);
 }
 void DoAbout(void);
-void CMainFrame::FUN_00417170(UINT nType, int cx, int cy)
+void CMainFrame::OnSizing(UINT nSide, LPRECT pRect)
 {
   Default();
   ::GetClientRect(m_hWnd, &DAT_01234668);
@@ -2941,7 +2947,7 @@ void CMainFrame::FUN_00418d40()
   CScaleDialog dlg;
   if (dlg.DoModal() == IDOK)
   {
-    if (dlg.m_fX < 0 || dlg.m_fY < 0 || dlg.m_fZ < 0)
+    if (dlg.m_fX < 0 || dlg.m_fY < 0 && dlg.m_fZ < 0)
     {
       Sys_Printf("Cannot scale by a negative value.\n");
       return;

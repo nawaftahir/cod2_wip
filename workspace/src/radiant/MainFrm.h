@@ -24,6 +24,7 @@ public:
   afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
   afx_msg void OnSysKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
   afx_msg void OnDestroy();
+  afx_msg void OnSizing(UINT nSide, LPRECT pRect);
   afx_msg void OnFileExit();
   CMainFrame();
   void FUN_004115b0();
@@ -121,7 +122,6 @@ public:
   void FUN_00415240();
   void FUN_00415260();
   void FUN_00415270();
-  void FUN_00417170(UINT nType, int cx, int cy);
   void FUN_00417d30(int nPane, const char *pText);
   void FUN_00417cf0();
   void FUN_00419560();
