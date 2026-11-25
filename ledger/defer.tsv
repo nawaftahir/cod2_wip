@@ -352,7 +352,7 @@
 0x0046fd50	bulk-d2	2026-11-19	FUN_0046fd50 (Select_Move): bulk draft: 42%, sizes 263/252, first diff +0x1a. signature (float*, int) kept to match MainFrm.cpp callers; see drafts/d_r37_select_move.patch for the 92% bSnap-in-ecx form.
 0x00462760	bulk-d2	2026-11-19	FUN_00462760 (Drag_MouseUp): body written (44%, sizes 769/943) but defining it flips CZWnd::On*ButtonUp and CXYWnd::XY_MouseUp (caller arg convention); kept in workspace/drafts/drag_00462760_Drag_MouseUp.cpp.
 0x0046fb30	bulk-d2	2026-11-19	FUN_0046fb30 (Select_Delete): body written (70%, sizes 175/172) but defining it flips FUN_00465550 and FUN_0046aee0 (FUN_004678c0 arg in eax in retail); kept in workspace/drafts/select_0046fb30_Select_Delete.cpp.
-0x0044d7e0	bulk-e2	2026-11-19	CXYWnd::XY_DrawGrid: bulk draft: 15%, sizes 2269/3272, first diff +0x4.
+0x0044d7e0	claude-l24	2026-11-25	CXYWnd::XY_DrawGrid: 15%, sizes ~2380/3272, first diff +0x4. verts[4096] (retail frame 0x100ac), AddLine written inline as a macro (retail has no AddLine call). Retail strength-reduces the line loops into pointer walks (+0x7c setup before the x loop); ours does not, ~900 B short. Retail calls Vector4Compare 0x453410 with ecx/edx; calling the header copy (Vector4Compare) gives that convention but flips tie GraphGetValueFromFraction and drops bytes to 359,977, so the call stays on the FUN_00453410 stand-in decl (unresolved in our build).
 0x0044e4b0	bulk-e2	2026-11-19	CXYWnd::XY_DrawBlockGrid: bulk draft: 19%, sizes 1215/1632, first diff +0x4.
 0x0044eb10	bulk-e2	2026-11-19	CXYWnd::DrawRotateIcon: bulk draft: 7%, sizes 263/903, first diff +0x3.
 0x0044eea0	bulk-e2	2026-11-19	CXYWnd::DrawCameraIcon: bulk draft: 21%, sizes 656/756, first diff +0x5.
@@ -526,7 +526,7 @@
 0x00449c90	bulk-e6	2026-11-22	FUN_00449c90: bulk draft: 57%, sizes 841/860, first diff +0x3c
 0x0044ad80	bulk-e6	2026-11-22	CXYWnd::DrawCrosshairs: bulk draft: 29%, sizes 211/211, first diff +0x5; retail uses an LTCG register convention (callers 0x44b2a0 OnPaint etc. unwritten)
 0x0044ae60	bulk-e6	2026-11-22	CXYWnd::DrawClipPoints: bulk draft: 42%, sizes 1223/1086, first diff +0x3; LTCG convention tied to unwritten caller OnPaint 0x44b2a0
-0x0044b380	bulk-e6	2026-11-22	CreateEntityFromName: bulk draft: 59%, sizes 1615/1581, first diff +0x1a
+0x0044b380	claude-l24	2026-11-25	CreateEntityFromName: 58%, sizes 1587/1581, first diff +0x18 (frame 0x34 vs 0x2c). Branch order fixed: retail inlines the petNew==NULL path (if (!petNew) {..} else {..}). Open: retail keeps pecNew in ebx (+ spill at ebp-0x1c) and b in esi (+ spill ebp-0x14), ours has them swapped (esi/ebx); callee 0x466d80 (FUN_00466d80) still unwritten.
 0x0044b9b0	bulk-e6	2026-11-22	CreateEntityBrush: bulk draft: 41%, sizes 532/450, first diff +0x8; callee 0x44d320 unwritten
 0x0044bb80	bulk-e6	2026-11-22	FUN_0044bb80: bulk draft: 64%, sizes 171/172, first diff +0x6
 0x0044bd30	bulk-e6	2026-11-22	CXYWnd::OnEntityCreate: bulk draft: 28%, sizes 198/228, first diff +0x1c; retail takes this via ecx, ours edx-based shape differs

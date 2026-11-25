@@ -1141,47 +1141,7 @@ void CreateEntityFromName(const char *name)
     xyEclass_t *ec = (xyEclass_t *)pecNew;
     Undo_AddBrushList((selbrush_t *)&selected_brushes);
     entityInst_t *petNew = (entityInst_t *)FUN_00466d80(pecNew);
-    if (petNew)
-    {
-        FUN_00467510((entity_t *)petNew->def);
-        brush_t *b = petNew->brushes.onext;
-#line 1042
-        xy_assert1(b != &petNew->brushes);
-        xy_assert1(b->owner->def == b->def->owner);
-        FUN_0046fbe0(1);
-        FUN_0046f0b0(b, 1, 1, 0);
-        if (FUN_00469740((entity_t *)petNew->def))
-        {
-            CString strExport;
-            FUN_00469690(strExport);
-            FUN_00465bf0((entity_t *)petNew->def, "export", strExport);
-        }
-        if (_stricmp(name, "misc_model") && _stricmp(name, "misc_prefab") && _stricmp(name, "script_model") && _stricmp(name, "script_vehicle"))
-        {
-            if (ec->flags & 0x40)
-            {
-                FUN_00465bf0((entity_t *)petNew->def, "radius", "256");
-                FUN_00465bf0((entity_t *)petNew->def, "height", "128");
-            }
-            else if (ec->flags & 0x80)
-                FUN_00465bf0((entity_t *)petNew->def, "radius", "256");
-            else if (!_stricmp(name, "trigger_multiple") || !_stricmp(name, "trigger_damage") || !_stricmp(name, "trigger_once") ||
-                     !_stricmp(name, "trigger_hurt") || !_stricmp(name, "trigger_lookat") || !_stricmp(name, "trigger_use") ||
-                     !_stricmp(name, "trigger_use_touch"))
-                FUN_00441c50("trigger");
-            else if (!_stricmp(name, "trigger_friendlychain"))
-                FUN_00441c50("aitrig");
-            else if (!_stricmp(name, "info_volume"))
-                FUN_00441c50("volume");
-        }
-        else
-        {
-            FUN_00477580(0x80);
-            PostMessage(dword_010bcd60, WM_COMMAND, 0x50e, 0);
-        }
-        FUN_00444110((entity_t *)petNew->def);
-    }
-    else
+    if (!petNew)
     {
         brush_t *b = selected_brushes.next;
         if (b == &selected_brushes || b->next != &selected_brushes)
@@ -1234,6 +1194,46 @@ void CreateEntityFromName(const char *name)
                 assert(selected_brushes.next->def == nb && selected_brushes.prev->def == nb);
             }
         }
+    }
+    else
+    {
+        FUN_00467510((entity_t *)petNew->def);
+        brush_t *b = petNew->brushes.onext;
+#line 1042
+        xy_assert1(b != &petNew->brushes);
+        xy_assert1(b->owner->def == b->def->owner);
+        FUN_0046fbe0(1);
+        FUN_0046f0b0(b, 1, 1, 0);
+        if (FUN_00469740((entity_t *)petNew->def))
+        {
+            CString strExport;
+            FUN_00469690(strExport);
+            FUN_00465bf0((entity_t *)petNew->def, "export", strExport);
+        }
+        if (_stricmp(name, "misc_model") && _stricmp(name, "misc_prefab") && _stricmp(name, "script_model") && _stricmp(name, "script_vehicle"))
+        {
+            if (ec->flags & 0x40)
+            {
+                FUN_00465bf0((entity_t *)petNew->def, "radius", "256");
+                FUN_00465bf0((entity_t *)petNew->def, "height", "128");
+            }
+            else if (ec->flags & 0x80)
+                FUN_00465bf0((entity_t *)petNew->def, "radius", "256");
+            else if (!_stricmp(name, "trigger_multiple") || !_stricmp(name, "trigger_damage") || !_stricmp(name, "trigger_once") ||
+                     !_stricmp(name, "trigger_hurt") || !_stricmp(name, "trigger_lookat") || !_stricmp(name, "trigger_use") ||
+                     !_stricmp(name, "trigger_use_touch"))
+                FUN_00441c50("trigger");
+            else if (!_stricmp(name, "trigger_friendlychain"))
+                FUN_00441c50("aitrig");
+            else if (!_stricmp(name, "info_volume"))
+                FUN_00441c50("volume");
+        }
+        else
+        {
+            FUN_00477580(0x80);
+            PostMessage(dword_010bcd60, WM_COMMAND, 0x50e, 0);
+        }
+        FUN_00444110((entity_t *)petNew->def);
     }
     FUN_00443f80((selbrush_t *)&selected_brushes);
 }
@@ -2052,7 +2052,7 @@ void CXYWnd::XY_MouseMoved(int x, int y, int buttons)
 }
 
 
-static int XYAddLine(XYVert *verts, int n, int d1, int d2, int d3, float x0, float y0, float x1, float y1, float z, unsigned color)
+static inline int XYAddLine(XYVert *verts, int n, int d1, int d2, int d3, float x0, float y0, float x1, float y1, float z, unsigned color)
 {
     verts[n].xyz[d1] = x0;
     verts[n].xyz[d2] = y0;
@@ -2065,10 +2065,16 @@ static int XYAddLine(XYVert *verts, int n, int d1, int d2, int d3, float x0, flo
     return n + 2;
 }
 
+#define XY_ADDLINE(x0, y0, x1, y1) \
+    do { \
+        verts[n].xyz[nDim1] = (x0); verts[n].xyz[nDim2] = (y0); verts[n].xyz[nDim3] = -131072.0f; verts[n].color = color; n++; \
+        verts[n].xyz[nDim1] = (x1); verts[n].xyz[nDim2] = (y1); verts[n].xyz[nDim3] = -131072.0f; verts[n].color = color; n++; \
+    } while (0)
+
 // 0x0044d7e0: coordinate grid with minor/major lines and labels
 void CXYWnd::XY_DrawGrid()
 {
-    XYVert verts[1024];
+    XYVert verts[4096];
     char text[32];
     unsigned color;
     float x, y;
@@ -2116,18 +2122,18 @@ void CXYWnd::XY_DrawGrid()
             re.ColorToBytes(g_colors[2], &color);
             for (x = xb; x < xe; x += (float)g_qeglobals.d_gridsize)
                 if (((int)x & 63) != 0)
-                    n = XYAddLine(verts, n, nDim1, nDim2, nDim3, x, yb, x, ye, -131072.0f, color);
+                    XY_ADDLINE(x, yb, x, ye);
             for (y = yb; y < ye; y += (float)g_qeglobals.d_gridsize)
                 if (((int)y & 63) != 0)
-                    n = XYAddLine(verts, n, nDim1, nDim2, nDim3, xb, y, xe, y, -131072.0f, color);
+                    XY_ADDLINE(xb, y, xe, y);
         }
         re.ColorToBytes(g_colors[3], &color);
         if (!(xb > xe))
             for (x = xb; x <= xe; x += (float)step)
-                n = XYAddLine(verts, n, nDim1, nDim2, nDim3, x, yb, x, ye, -131072.0f, color);
+                XY_ADDLINE(x, yb, x, ye);
         if (!(yb > ye))
             for (y = yb; y <= ye; y += (float)step)
-                n = XYAddLine(verts, n, nDim1, nDim2, nDim3, xb, y, xe, y, -131072.0f, color);
+                XY_ADDLINE(xb, y, xe, y);
         re.AddLines(n / 2, 1, verts);
     }
 
