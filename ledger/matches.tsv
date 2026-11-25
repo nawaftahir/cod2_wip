@@ -2738,3 +2738,6 @@ addr	size	source	symbol	name	tag
 0x0041ba10	47	src/radiant/MainFrm.cpp	?FUN_0041ba10@CMainFrame@@QAEXXZ	CMainFrame::FUN_0041ba10	UNNAMED
 0x0041ba40	47	src/radiant/MainFrm.cpp	?FUN_0041ba40@CMainFrame@@QAEXXZ	CMainFrame::FUN_0041ba40	UNNAMED
 0x004a1f00	837	src/xanim/dobj.cpp	?DObjGetHierarchyBits@@YAXPAUDObj_s@@HPAH@Z	DObjGetHierarchyBits	PINNED
+0x004293f0	756	src/radiant/Pmesh.cpp	?Patch_GenericMesh@@YAPAUbrush_t@@HHH_N0@Z	Patch_GenericMesh	SUPPORTED
+0x004270e0	115	src/radiant/Pmesh.cpp	?FUN_004270e0@@YAXPAUpatchMesh_t@@@Z	FUN_004270e0	UNNAMED
+0x00434290	196	src/radiant/Pmesh.cpp	?FUN_00434290@@YAXXZ	FUN_00434290	UNNAMED
