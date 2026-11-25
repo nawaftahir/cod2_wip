@@ -2055,7 +2055,7 @@ bool FUN_004599b0(vec3_t p1, vec3_t p2, face_t *f)
 }
 
 
-bool FUN_00459aa0(float *f)
+int FUN_00459aa0(float *f)
 {
     int *count = (int *)((char *)&g_qeglobals + 0x8070);
     float **points = (float **)((char *)&g_qeglobals + 0x8074);
@@ -2073,7 +2073,7 @@ bool FUN_00459aa0(float *f)
 
 
 // 0x00459ae0 (1346 B): Q3 Brush_SelectFaceForDragging, adds a face's points to the move list
-void FUN_00459ae0(brushdef_t *b, face_t *f, int shear)
+void FUN_00459ae0(brushdef_t *b, face_t *f, bool shear)
 {
     if (((entity_t *)b->owner)->eclass->fixedsize)
         return;
@@ -2171,10 +2171,10 @@ int FUN_0045a150(brushdef_t *b, const int *indices, const vec3_t xyz, int count,
     return count + 1;
 }
 
-void FUN_00459ae0(brushdef_t *b, face_t *face, int flag);
+void FUN_00459ae0(brushdef_t *b, face_t *face, bool flag);
 
 // 0x0045a030: clips a ray from a drag point against every face and records the cut face
-void FUN_0045a030(brushdef_t *b, const vec3_t origin, const vec3_t dir, int flag)
+void FUN_0045a030(brushdef_t *b, const vec3_t origin, const vec3_t dir, bool flag)
 {
     for (int i = 0; i < b->faceCount; i++)
     {
@@ -2284,7 +2284,7 @@ void FUN_0045a830(brush_t *b)
 
 // 0x0045a920 (1502 B): write one brush as Maya mel
 #line 2499
-void FUN_0045a920(brush_t *b, FILE *file, bool merge, int a3, int a4, float scale)
+void FUN_0045a920(brush_t *b, FILE *file, bool merge, bool writeUV, int a4, float scale)
 {
     assert(b);
     assert(b->def);
@@ -2301,19 +2301,20 @@ void FUN_0045a920(brush_t *b, FILE *file, bool merge, int a3, int a4, float scal
     const orientation_t *orient;
     orientation_t combined;
     vec3_t angles;
-    if (e->eclass->fixedsize == 0)
-        orient = &QE_ORIENT;
-    else
+    if (e->eclass->fixedsize)
     {
         orientation_t local;
         FUN_00467640(e, angles);
         AnglesToAxis(angles, local.axis);
-        vec3_t offset;
-        MatrixTransformVectorCols(BRUSH_ENT(b)->origin, local.axis, offset);
-        VectorSubtract(BRUSH_ENT(b)->origin, offset, local.origin);
+        MatrixTransformVectorCols(BRUSH_ENT(b)->origin, local.axis, local.origin);
+        VectorSubtract(BRUSH_ENT(b)->origin, local.origin, local.origin);
         OrientationConcatenate(&local, &QE_ORIENT, &combined);
         orient = &combined;
+        writeUV = false;
     }
+    else
+        orient = &QE_ORIENT;
+    int *keep = &a4; // keeps the unused param in the frame (LTCG would drop it)
     fprintf(file, "\t{\r\n");
     fprintf(file, "\t\tstring $strPolyInfo[];\r\n");
     if (merge)
@@ -2324,7 +2325,7 @@ void FUN_0045a920(brush_t *b, FILE *file, bool merge, int a3, int a4, float scal
     int written = 0;
     for (int i = 0; i < b->faceCount; i++)
     {
-        if (Face_WriteMaya(&b->faces[i], &b->def->faces[i], orient, file, false, scale))
+        if (Face_WriteMaya(&b->faces[i], &b->def->faces[i], orient, file, writeUV, scale))
         {
             if (merge)
                 fprintf(file, "\t\t$strPolyList[%d] = $strPolyInfo[0];\r\n", written);
@@ -2334,35 +2335,32 @@ void FUN_0045a920(brush_t *b, FILE *file, bool merge, int a3, int a4, float scal
     if (BRUSH_ENT(b)->eclass->fixedsize)
     {
         // a small arrow marker at the entity origin
-        const float *o = BRUSH_ENT(b)->origin;
         fprintf(file, "\t\t$strPolyInfo = `polyCreateFacet -ch off -tx 1 -s 1");
-        fprintf(file, " -p %f %f %f", o[0] + 32.0f, o[1], o[2]);
-        fprintf(file, " -p %f %f %f", o[0], o[1], o[2] + 8.0f);
-        fprintf(file, " -p %f %f %f", o[0], o[1] - 8.0f, o[2]);
+        fprintf(file, " -p %f %f %f", BRUSH_ENT(b)->origin[0] + 32.0f, BRUSH_ENT(b)->origin[1], BRUSH_ENT(b)->origin[2]);
+        fprintf(file, " -p %f %f %f", BRUSH_ENT(b)->origin[0], BRUSH_ENT(b)->origin[1], BRUSH_ENT(b)->origin[2] + 8.0f);
+        fprintf(file, " -p %f %f %f", BRUSH_ENT(b)->origin[0], BRUSH_ENT(b)->origin[1] - 8.0f, BRUSH_ENT(b)->origin[2]);
         fprintf(file, "`;\r\n");
         fprintf(file, "\t$strPolyList[size($strPolyList)] = $strPolyInfo[0];\r\n");
         fprintf(file, "\t\t$strPolyInfo = `polyCreateFacet -ch off -tx 1 -s 1");
-        fprintf(file, " -p %f %f %f", o[0] + 32.0f, o[1], o[2]);
-        fprintf(file, " -p %f %f %f", o[0], o[1] + 8.0f, o[2]);
-        fprintf(file, " -p %f %f %f", o[0], o[1], o[2] + 8.0f);
+        fprintf(file, " -p %f %f %f", BRUSH_ENT(b)->origin[0] + 32.0f, BRUSH_ENT(b)->origin[1], BRUSH_ENT(b)->origin[2]);
+        fprintf(file, " -p %f %f %f", BRUSH_ENT(b)->origin[0], BRUSH_ENT(b)->origin[1] + 8.0f, BRUSH_ENT(b)->origin[2]);
+        fprintf(file, " -p %f %f %f", BRUSH_ENT(b)->origin[0], BRUSH_ENT(b)->origin[1], BRUSH_ENT(b)->origin[2] + 8.0f);
         fprintf(file, "`;\r\n");
         fprintf(file, "\t$strPolyList[size($strPolyList)] = $strPolyInfo[0];\r\n");
         fprintf(file, "\t\t$strPolyInfo = `polyCreateFacet -ch off -tx 1 -s 1");
-        fprintf(file, " -p %f %f %f", o[0] + 32.0f, o[1], o[2]);
-        fprintf(file, " -p %f %f %f", o[0], o[1], o[2] - 8.0f);
-        fprintf(file, " -p %f %f %f", o[0], o[1] + 8.0f, o[2]);
+        fprintf(file, " -p %f %f %f", BRUSH_ENT(b)->origin[0] + 32.0f, BRUSH_ENT(b)->origin[1], BRUSH_ENT(b)->origin[2]);
+        fprintf(file, " -p %f %f %f", BRUSH_ENT(b)->origin[0], BRUSH_ENT(b)->origin[1], BRUSH_ENT(b)->origin[2] - 8.0f);
+        fprintf(file, " -p %f %f %f", BRUSH_ENT(b)->origin[0], BRUSH_ENT(b)->origin[1] + 8.0f, BRUSH_ENT(b)->origin[2]);
         fprintf(file, "`;\r\n");
         fprintf(file, "\t$strPolyList[size($strPolyList)] = $strPolyInfo[0];\r\n");
         fprintf(file, "\t\t$strPolyInfo = `polyCreateFacet -ch off -tx 1 -s 1");
-        fprintf(file, " -p %f %f %f", o[0] + 32.0f, o[1], o[2]);
-        fprintf(file, " -p %f %f %f", o[0], o[1] - 8.0f, o[2]);
-        fprintf(file, " -p %f %f %f", o[0], o[1], o[2] - 8.0f);
+        fprintf(file, " -p %f %f %f", BRUSH_ENT(b)->origin[0] + 32.0f, BRUSH_ENT(b)->origin[1], BRUSH_ENT(b)->origin[2]);
+        fprintf(file, " -p %f %f %f", BRUSH_ENT(b)->origin[0], BRUSH_ENT(b)->origin[1] - 8.0f, BRUSH_ENT(b)->origin[2]);
+        fprintf(file, " -p %f %f %f", BRUSH_ENT(b)->origin[0], BRUSH_ENT(b)->origin[1], BRUSH_ENT(b)->origin[2] - 8.0f);
         fprintf(file, "`;\r\n");
         fprintf(file, "\t$strPolyList[size($strPolyList)] = $strPolyInfo[0];\r\n");
     }
-    if (!merge)
-        fprintf(file, "\t\tparent $strPolyList $strGroups[$iCurGroup];\r\n");
-    else
+    if (merge)
     {
         fprintf(file, "\t\tif (size ($strPolyList) > 1)\r\n");
         fprintf(file, "\t\t\t$strBrush = `polyUnite -ch 0 ($strPolyList)`;\r\n");
@@ -2372,12 +2370,13 @@ void FUN_0045a920(brush_t *b, FILE *file, bool merge, int a3, int a4, float scal
         fprintf(file, "\t\tparent $strBrush[0] $strGroups[$iCurGroup];\r\n");
         if (BRUSH_ENT(b)->eclass->fixedsize)
         {
-            const float *o = BRUSH_ENT(b)->origin;
-            fprintf(file, "\t\tmove -x %f -y %f -z %f (($strBrush[0]) + \".scalePivot\") (($strBrush[0]) + \".rotatePivot\");\r\n", o[0], o[1], o[2]);
+            fprintf(file, "\t\tmove -x %f -y %f -z %f (($strBrush[0]) + \".scalePivot\") (($strBrush[0]) + \".rotatePivot\");\r\n", BRUSH_ENT(b)->origin[0], BRUSH_ENT(b)->origin[1], BRUSH_ENT(b)->origin[2]);
             if (FUN_00465d80(BRUSH_ENT(b), "angles"))
                 fprintf(file, "\t\trotate -os %f %f %f ($strBrush[0]);\r\n", angles[2], angles[0], angles[1]);
         }
     }
+    else
+        fprintf(file, "\t\tparent $strPolyList $strGroups[$iCurGroup];\r\n");
     dword_01129984++;
     fprintf(file, "\t}\r\n");
     fprintf(file, "\tprogressWindow -edit -s 1;\r\n");

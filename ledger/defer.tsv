@@ -327,7 +327,6 @@
 0x00458dc0	bulk-d	2026-11-19	FUN_00458dc0 (brush def clone, no windings): bulk draft: 22%, sizes 218/225, first diff +0xf
 0x004593c0	bulk-d	2026-11-19	FUN_004593c0 (set texdef of face layer): bulk draft: 42%, sizes 121/107, first diff +0x25
 0x004597f0	bulk-d	2026-11-19	FUN_004597f0 (texdef to all faces + patch update): bulk draft: 52%, sizes 190/191, first diff +0x6
-0x00459aa0	bulk-d	2026-11-19	FUN_00459aa0 (add to move-points list at g_qeglobals+0x8070, f in edx): bulk draft: 53%, sizes 56/56, first diff +0x6
 0x0045e1a0	bulk-d	2026-11-19	FUN_0045e1a0 (Q3 Brush_Move shape with texture lock): bulk draft: 36%, sizes 315/275, first diff +0x5
 0x0045c890	bulk-d	2026-11-19	FUN_45c890 (prune import key on selected brushes (assert line 3189)): bulk draft: 88%, sizes 193/191, first diff +0xf
 0x0045f6a0	bulk-d	2026-11-19	FUN_45f6a0 (brush center with grid snap): bulk draft: 30%, sizes 151/116, first diff +0x5
@@ -541,9 +540,8 @@
 0x00457dd0	bulk-d7	2026-11-22	FUN_457dd0: bulk draft: 24%, sizes 1065/1040, first diff +0xa
 0x00458670	bulk-d7	2026-11-22	FUN_458670: bulk draft: 22%, sizes 1303/1149, first diff +0x5
 0x00458fa0	bulk-d7	2026-11-22	FUN_458fa0: bulk draft: 58%, sizes 611/610, first diff +0x5a
-0x00459ae0	bulk-d7	2026-11-22	FUN_459ae0: bulk draft: 49%, sizes 1346/1346, first diff +0x5
+0x00459ae0	claude-f	2026-11-25	FUN_459ae0 (Q3 Brush_SelectFaceForDragging): 93%, sizes 1346/1346, first diff +0x5. Fixed bool shear param + int-returning inlined 459aa0 (49% -> 93%). Left: frame 0x20 vs 0x18 (retail has an unused 4-byte top slot = alignment padding class, plus b2/j slot order swap), shear-loop dot term order (retail p2,p0 then n1*p1; ours p0 first).
 0x0045a600	bulk-d7	2026-11-22	FUN_45a600: bulk draft: 61%, sizes 532/548, first diff +0x2b
-0x0045a920	bulk-d7	2026-11-22	FUN_45a920: bulk draft: 53%, sizes 1427/1502, first diff +0x3
 0x0045afc0	bulk-d7	2026-11-22	FUN_45afc0: bulk draft: 29%, sizes 551/664, first diff +0x5. Body kept in workspace/drafts/brush_45afc0.cpp: compiled in, it flips matched GraphGetValueFromFraction 0x004832c0 (LTCG tie).
 0x0045b260	bulk-d7	2026-11-22	FUN_45b260: bulk draft: 26%, sizes 183/164, first diff +0x5
 0x0045b420	bulk-d7	2026-11-22	FUN_45b420: bulk draft: 48%, sizes 540/517, first diff +0x0
