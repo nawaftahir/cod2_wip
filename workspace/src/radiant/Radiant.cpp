@@ -74,7 +74,8 @@ BOOL CRadiantApp::InitInstance()
     if (Finder.FindFile(IniPath))
     {
         Finder.FindNextFile();
-        free((void *)m_pszProfileName);
+        const char *oldName = m_pszProfileName;
+        free((void *)oldName);
         m_pszProfileName = FUN_0046cb10(Finder.GetFilePath());
         int i = 0;
         CString key;

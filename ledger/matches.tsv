@@ -2726,3 +2726,14 @@ addr	size	source	symbol	name	tag
 0x0046afc0	172	src/radiant/map.cpp	?FUN_0046afc0@@YAXPAUentityInst_t@@PAUeclass_t@@@Z	FUN_0046afc0	UNNAMED
 0x004650b0	290	src/radiant/entity.cpp	?FUN_004650b0@@YAXPAUentity_t@@PAUorientation_t@@@Z	FUN_004650b0	UNNAMED
 0x00467f00	225	src/radiant/map.cpp	_FUN_00467f00	FUN_00467f00	UNNAMED
+0x004185d0	581	src/radiant/MainFrm.cpp	?FUN_004185d0@CMainFrame@@QAEXXZ	CMainFrame::FUN_004185d0	UNNAMED
+0x00418820	590	src/radiant/MainFrm.cpp	?FUN_00418820@CMainFrame@@QAEXXZ	CMainFrame::FUN_00418820	UNNAMED
+0x00418a70	637	src/radiant/MainFrm.cpp	?FUN_00418a70@CMainFrame@@QAEXXZ	CMainFrame::FUN_00418a70	UNNAMED
+0x004115b0	2091	src/radiant/MainFrm.cpp	?FUN_004115b0@CMainFrame@@QAEXXZ	CMainFrame::FUN_004115b0	UNNAMED
+0x0041b820	265	src/radiant/MainFrm.cpp	?FUN_0041b820@CMainFrame@@QAEXXZ	CMainFrame::FUN_0041b820	UNNAMED
+0x0041b950	47	src/radiant/MainFrm.cpp	?FUN_0041b950@CMainFrame@@QAEXXZ	CMainFrame::FUN_0041b950	UNNAMED
+0x0041b980	47	src/radiant/MainFrm.cpp	?FUN_0041b980@CMainFrame@@QAEXXZ	CMainFrame::FUN_0041b980	UNNAMED
+0x0041b9b0	47	src/radiant/MainFrm.cpp	?FUN_0041b9b0@CMainFrame@@QAEXXZ	CMainFrame::FUN_0041b9b0	UNNAMED
+0x0041b9e0	47	src/radiant/MainFrm.cpp	?FUN_0041b9e0@CMainFrame@@QAEXXZ	CMainFrame::FUN_0041b9e0	UNNAMED
+0x0041ba10	47	src/radiant/MainFrm.cpp	?FUN_0041ba10@CMainFrame@@QAEXXZ	CMainFrame::FUN_0041ba10	UNNAMED
+0x0041ba40	47	src/radiant/MainFrm.cpp	?FUN_0041ba40@CMainFrame@@QAEXXZ	CMainFrame::FUN_0041ba40	UNNAMED
