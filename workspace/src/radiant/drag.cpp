@@ -26,7 +26,7 @@ public:
     int selectPointByRay(float ox, float oy, float oz, float dx, float dy, float dz, bool single);
 };
 struct qeglobals_t { unsigned char pad_00[0x18]; int d_gridsize; unsigned char pad_1c[0x24 - 0x1c]; vec3_t field_24; vec3_t field_30; unsigned char pad_3c[0x5c - 0x3c]; HWND d_hwndStatus; unsigned char pad_60[0x8070 - 0x60]; int d_num_move_points; float *d_move_points[4096]; unsigned char pad_c074[0x6cb9c - 0xc074]; int d_select_mode; CSelectObject *selectObject; };
-class CXYWnd { public: unsigned char pad_00[0x60]; float field_60; unsigned char pad_64[0xf4 - 0x64]; int m_nViewType; void FUN_0044c5c0(int x, int y, float origin[3], float dir[3]); };
+class CXYWnd { public: unsigned char pad_00[0x60]; float field_60; unsigned char pad_64[0xf4 - 0x64]; int m_nViewType; void FUN_0044c5c0(int x, int y, float origin[3], float dir[3]); BOOL AreaSelectOK(); };
 class CMainFrame
 {
 public:
@@ -106,7 +106,6 @@ struct texdef_t;
 struct radmat_t;
 extern void FUN_00459ae0(brushdef_t *b, face_t *face, int shear);
 extern void FUN_00437730(const float *origin, const float *dir);
-extern bool FUN_004532a0();
 extern bool FUN_00401d30(void *dlg);
 extern bool FUN_00401f70(void *dlg);
 extern bool OnlyPatchesSelected();
@@ -231,7 +230,7 @@ void Drag_Setup(int x, int y, int buttons, const float *xaxis, const float *yaxi
     }
 
     g_qeglobals.d_num_move_points = 0;
-    if (DAT_005909f8 != 1 && FUN_004532a0() && buttons == 5 || buttons == 6)
+    if (DAT_005909f8 != 1 && g_pParentWnd->ActiveXY()->AreaSelectOK() && buttons == 5 || buttons == 6)
     {
         if (GetAsyncKeyState(VK_MENU) & 0x8000)
         {
