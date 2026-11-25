@@ -43,7 +43,7 @@ void XModelCalcBasePose(XModelParts_s *modelParts)
 	unsigned char *parentList;
 	DObjAnimMat *quatTrans;
 	int numBones, numRootBones;
-	float *trans, vLenSq;
+	float *trans;
 	short *quats;
 	parentList = modelParts->hierarchy->parentList;
 	numBones = modelParts->numBones;
@@ -70,16 +70,16 @@ void XModelCalcBasePose(XModelParts_s *modelParts)
 		tempQuat[2] = (float)quats[2] * 0.000030518509f;
 		tempQuat[3] = (float)quats[3] * 0.000030518509f;
 		QuatMultiply(tempQuat, quatTrans[-*parentList].quat, quatTrans->quat);
-		vLenSq = Vec4LengthSq(quatTrans->quat);
-		if (vLenSq == 0.0)
-		{
-			quatTrans->quat[3] = 1.0;
-			quatTrans->transWeight = 2.0;
-		}
-		else
-		{
-			quatTrans->transWeight = 2.0 / vLenSq;
-		}
+		DObjCalcTransWeight(quatTrans);
+
+
+
+
+
+
+
+
+
 
 		MatrixTransformVectorQuatTrans(trans, &quatTrans[-*parentList], quatTrans->trans);
 		--numRootBones;
