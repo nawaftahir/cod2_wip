@@ -2707,3 +2707,6 @@ addr	size	source	symbol	name	tag
 0x0047ad20	296	src/radiant/win_qe3.cpp	?FUN_0047ad20@@YA_NPBDAAV?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@1@Z	FUN_0047ad20	UNNAMED
 0x00479560	390	src/radiant/win_main.cpp	?FindReplace@@YAXAAV?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@PBD1@Z	FindReplace	SUPPORTED
 0x00463ea0	712	src/radiant/eclass.cpp	?FUN_00463ea0@@YAXPBDH@Z	FUN_00463ea0	SUPPORTED
+0x0046afc0	172	src/radiant/map.cpp	?FUN_0046afc0@@YAXPAUentityInst_t@@PAUeclass_t@@@Z	FUN_0046afc0	UNNAMED
+0x004650b0	290	src/radiant/entity.cpp	?FUN_004650b0@@YAXPAUentity_t@@PAUorientation_t@@@Z	FUN_004650b0	UNNAMED
+0x00467f00	225	src/radiant/map.cpp	_FUN_00467f00	FUN_00467f00	UNNAMED

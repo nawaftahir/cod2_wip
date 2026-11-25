@@ -416,8 +416,6 @@
 0x00469420	bulk-d3	2026-11-20	bulk draft: written, not linked as its own symbol (inlined into its caller)
 0x004694d0	bulk-d3	2026-11-20	bulk draft: 78%, sizes 156/150, first diff +0xe
 0x00469950	bulk-d3	2026-11-20	bulk draft: written, not linked as its own symbol (inlined into its caller)
-0x0046afc0	bulk-d3	2026-11-20	bulk draft: 95%, sizes 172/172, first diff +0x1c
-0x004650b0	bulk-d3	2026-11-20	bulk draft: 55%, sizes 278/290, first diff +0x6
 0x004651e0	bulk-d3	2026-11-20	bulk draft: 53%, sizes 876/876, first diff +0x9
 0x00465580	bulk-d3	2026-11-20	bulk draft: written, not linked as its own symbol (inlined into its caller)
 0x00463240	bulk-d3	2026-11-20	bulk draft: written, not linked as its own symbol (inlined into its caller)
@@ -623,7 +621,6 @@
 0x004988d0	lane-d	2026-11-24	angles_t::toVectors: bulk draft: 54%, sizes 448/368, first diff +0x7
 0x00498a40	lane-d	2026-11-24	angles_t::toForward: bulk draft: 47%, sizes 185/133, first diff +0x7
 0x00482440	claude-f-r11	2026-11-24	Four 27 B float wrappers at 0x482440/60/80/a0 are the C++ math.h inline float overloads (acos x2 via 0x4db9f4, tan x2 via 0x4db934); no retail callers found, so no real caller can be written to emit them out of line. 0x482580 is the fsincos(double) twin of FastSinCos. 0x4826e0/0x482910 are xanim_public.h ConvertQuatToMat / MatrixTransformVectorQuatTrans kept out of line by retail (usercall eax,esi / ebx,edi); our header copies are inline and get folded into callers.
-0x00467f00	bulk-e9	2026-11-24	bulk draft: 55%, sizes 224/225, first diff +0x0
 0x00468260	bulk-e9	2026-11-24	bulk draft: 60%, sizes 372/373, first diff +0x7
 0x00468910	bulk-f13	2026-11-24	Map_SaveFile (Q3): 92%, sizes 1013/1022. Fixed: bool use_region decl in 3 TUs, Com_ParseOnLine return, ConvertDOSToUnixName inline, ltime/next block scopes (slots now equal). Open: retail passes f in ebx to unwritten FUN_00466970 (LTCG convention); ours pushes 3 stack args. Needs 0x466970 written first.
 0x00468e00	bulk-e9	2026-11-24	bulk draft: 74%, sizes 723/705, first diff +0xf

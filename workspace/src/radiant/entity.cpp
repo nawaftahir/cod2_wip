@@ -297,10 +297,11 @@ void FUN_004650b0(entity_t *ent, orientation_t *or)
 		angles[1] = 0;
 		angles[2] = 0;
 	}
-	AngleVectors(angles, or->axis[0], right, or->axis[2]);
-	or->axis[1][0] = 0 - right[0];
-	or->axis[1][1] = 0 - right[1];
-	or->axis[1][2] = 0 - right[2];
+	float (*axis)[3] = or->axis;
+	AngleVectors(angles, axis[0], right, axis[2]);
+	axis[1][0] = 0 - right[0];
+	axis[1][1] = 0 - right[1];
+	axis[1][2] = 0 - right[2];
 	or->origin[0] = ent->origin[0];
 	or->origin[1] = ent->origin[1];
 	or->origin[2] = ent->origin[2];

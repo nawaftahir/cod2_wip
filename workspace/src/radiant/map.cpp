@@ -95,6 +95,10 @@ struct brushDef_t
 	unsigned char pad0c[0x20 - 0xc];
 	float mins[3];
 	float maxs[3];
+	int faceCount; // 0x38
+	void *faces; // 0x3c
+	unsigned char pad40[2];
+	short version; // 0x42
 };
 
 // from entity.cpp
@@ -311,16 +315,18 @@ extern "C" void FUN_00467f00()
 	DAT_01129e28 = SetCursor(LoadCursor(NULL, IDC_WAIT));
 	int n = 0;
 	brush_t *b = active_brushes.next;
-	if (b)
+	while (b)
 	{
-		while (b != &active_brushes)
+		if (b == &active_brushes)
+			break;
 		{
 			brush_t *next = b->next;
-			FUN_0045a220((brushdef_t *)b->def, false);
+			brushDef_t *def = b->def;
+			FUN_0045a220((brushdef_t *)def, false);
 			if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
 				FUN_00475350();
-			((short *)b->def)[0x21]++;
-			if (((int *)b->def)[0xf] == 0)
+			def->version++;
+			if (b->def->faces == 0)
 			{
 				Brush_Free(b);
 				Sys_Printf("Removed degenerate brush\n");
@@ -336,8 +342,6 @@ extern "C" void FUN_00467f00()
 				}
 			}
 			b = next;
-			if (!b)
-				break;
 		}
 	}
 	if (DAT_01129e28)
@@ -807,30 +811,24 @@ void FUN_00469420()
 }
 
 // 0x004694d0 (150 B)
+static inline void Vec3Copy(const float *in, float *out) { out[0] = in[0]; out[1] = in[1]; out[2] = in[2]; }
 void FUN_004694d0()
 {
 	brush_t *b = selected_brushes.next;
 
-	if (b != &selected_brushes && b->next == &selected_brushes)
-	{
-		if (b->owner->def->eclass->fixedsize)
-		{
-			Sys_Printf("Error: you cannot manipulate fixed size entities\n");
-			return;
-		}
-	}
-	else
+	if (b == &selected_brushes || b->next != &selected_brushes)
 	{
 		Sys_Printf("Error: you must have a single brush selected\n");
 		return;
 	}
+	if (b->owner->def->eclass->fixedsize)
+	{
+		Sys_Printf("Error: you cannot manipulate fixed size entities\n");
+		return;
+	}
 	Map_RemoveRegion();
-	dword_00591cdc[0] = b->def->mins[0];
-	dword_00591cdc[1] = b->def->mins[1];
-	dword_00591cdc[2] = b->def->mins[2];
-	dword_00591ce8[0] = b->def->maxs[0];
-	dword_00591ce8[1] = b->def->maxs[1];
-	dword_00591ce8[2] = b->def->maxs[2];
+	Vec3Copy(b->def->mins, dword_00591cdc);
+	Vec3Copy(b->def->maxs, dword_00591ce8);
 	FUN_0046fb30();
 	FUN_00469210();
 }
@@ -1045,7 +1043,7 @@ void FUN_0046aee0(entityInst_t *begin, entityInst_t *end, entityInst_t *skip, ec
 }
 
 // 0x0046afc0 (172 B), model in edi, skip in ebx
-void FUN_0046afc0(eclass_t *model, entityInst_t *skip)
+void FUN_0046afc0(entityInst_t *skip, eclass_t *model)
 {
 	for (int i = 0; i < DAT_012334f0; i++)
 		FUN_0046aee0(prefabStack[i].instNext, &DAT_010a43d0, skip, model);
@@ -1110,7 +1108,7 @@ void FUN_0046b070(int arg)
 	eclass_t *model = prefabInst->def->modelClass;
 	entity_t *entNext = model->prefab->entNext;
 	entity_t *entPrev = model->prefab->entPrev;
-	FUN_0046afc0(model, prefabInst);
+	FUN_0046afc0(prefabInst, model);
 	if (brush == selected_brushes.next)
 		FUN_0046fbe0(true);
 	FUN_00463560(model);
