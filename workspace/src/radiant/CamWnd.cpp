@@ -1028,6 +1028,7 @@ void __stdcall FUN_00406050(const float *origin, float radius, float height, int
 
 void __stdcall FUN_004061f0(brush_t *brush, CCamWnd *camera)
 {
+    CCamWnd **keep = &camera;
     if (FUN_0044f5d0(brush))
         return;
     float origin[3], color[4];
@@ -1063,13 +1064,15 @@ void __stdcall FUN_004061f0(brush_t *brush, CCamWnd *camera)
 void __stdcall FUN_004063b0(brush_t *brush, CCamWnd *camera)
 {
     assert(brush->owner->def == brush->def->owner);
+    CCamWnd **keep = &camera;
     float radius = (float)atof(ValueForKey(brush->owner->def->epairs, "radius"));
     if (!(radius <= 0))
     {
         float height;
-        if (!(brush->owner->def->eclass->flags & 0x80))
+        entity_t *e = brush->owner->def;
+        if (!(e->eclass->flags & 0x80))
         {
-            height = (float)atof(ValueForKey(brush->owner->def->epairs, "height"));
+            height = (float)atof(ValueForKey(e->epairs, "height"));
             if (height <= 0)
                 height = 80.0f;
         }
@@ -1078,7 +1081,7 @@ void __stdcall FUN_004063b0(brush_t *brush, CCamWnd *camera)
         unsigned int color;
         FUN_00451c00(brush, &color);
         ((unsigned char *)&color)[3] = 0x40;
-        entity_t *e = brush->owner->def;
+        e = brush->owner->def;
         vec3_t origin;
         origin[0] = e->origin[0];
         origin[1] = e->origin[1];
@@ -1093,6 +1096,7 @@ void __stdcall FUN_004063b0(brush_t *brush, CCamWnd *camera)
 void __stdcall FUN_004064f0(brush_t *brush, CCamWnd *camera)
 {
     assert(brush->owner->def == brush->def->owner);
+    CCamWnd **keep = &camera;
     float radius = (float)atof(ValueForKey(brush->owner->def->epairs, "radius"));
     if (!(radius <= 0))
     {
