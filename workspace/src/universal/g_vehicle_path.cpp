@@ -55,26 +55,24 @@ struct vp_eclass_t
 	int fixedsize;
 };
 
-struct epair_t
+struct vp_epairs_t
 {
-	epair_t *next;
-	char *key;
-	char *value;
+	void *first;
 };
 
-struct entity_t
+struct vp_entdef_t
 {
 	unsigned char pad0[0x50];
 	vp_eclass_t *eclass;
 	unsigned char pad1[4];
 	float origin[3];
-	epair_t *epairs;
+	vp_epairs_t epairs;
 };
 
 struct vp_branddef_t
 {
 	unsigned char pad0[8];
-	entity_t *owner;
+	vp_entdef_t *owner;
 };
 
 struct vp_brush_t
@@ -91,13 +89,13 @@ struct vp_entity_t
 {
 	vp_entity_t *prev;
 	vp_entity_t *next;
-	entity_t *def;
+	vp_entdef_t *def;
 	vp_brush_t brushes;
 };
 
-extern char *ValueForKey(epair_t *&e, const char *key);
-extern bool FUN_00465d80(entity_t *def, const char *key);
-extern void GetVectorForKey(entity_t *ent, const char *key, float *vec);
+extern const char *FUN_00464bb0(vp_epairs_t *epairs, const char *key);
+extern bool FUN_00465d80(vp_entdef_t *def, const char *key);
+extern void FUN_00465d50(vp_entdef_t *def, const char *key, vec3_t out);
 extern bool FUN_0044f5d0(vp_brush_t *brush);
 extern void Sys_Printf(const char *fmt, ...);
 
@@ -1074,18 +1072,18 @@ void FUN_00493390()
 		if ( !_stricmp(eclass->name, "info_vehicle_node_rotate") )
 			node->rotated = 1;
 
-		node->targetname = ValueForKey(ent->def->epairs, "targetname");
-		node->target = ValueForKey(ent->def->epairs, "target");
-		node->spawnflags = atoi(ValueForKey(ent->def->epairs, "spawnflags")) & 1;
+		node->targetname = FUN_00464bb0(&ent->def->epairs, "targetname");
+		node->target = FUN_00464bb0(&ent->def->epairs, "target");
+		node->spawnflags = atoi(FUN_00464bb0(&ent->def->epairs, "spawnflags")) & 1;
 
 		if ( node->targetname && *node->targetname )
 		{
-			const char *value = ValueForKey(ent->def->epairs, "speed");
+			const char *value = FUN_00464bb0(&ent->def->epairs, "speed");
 
 			if ( value && *value )
 				node->speed = (float)(atof(value) * 17.6f);
 
-			value = ValueForKey(ent->def->epairs, "lookahead");
+			value = FUN_00464bb0(&ent->def->epairs, "lookahead");
 			if ( value && *value )
 				node->lookahead = (float)atof(value);
 
@@ -1093,14 +1091,14 @@ void FUN_00493390()
 			node->origin[1] = ent->def->origin[1];
 			node->origin[2] = ent->def->origin[2];
 			if ( FUN_00465d80(ent->def, "angles") )
-				GetVectorForKey(ent->def, "angles", node->angles);
+				FUN_00465d50(ent->def, "angles", node->angles);
 			DAT_01154630++;
 		}
 	}
 
 	FUN_004930d0();
 
-	selNode = FUN_004921b0(ValueForKey(brush->owner->def->epairs, "targetname"), brush->owner->def->origin);
+	selNode = FUN_004921b0(FUN_00464bb0(&brush->owner->def->epairs, "targetname"), brush->owner->def->origin);
 	if ( selNode >= 0 )
 	{
 		for ( i = 0; i < DAT_01154630; i++ )

@@ -214,6 +214,7 @@ struct prefabLevel_t
 };
 extern prefabLevel_t prefabStack[];
 
+void FUN_00452b00(CXYWnd *xy);
 void FUN_00452ca0(CXYWnd *xy, int type);
 void Brush_Free(brush_t *b);
 void FUN_004678c0(entityInst_t *e);
