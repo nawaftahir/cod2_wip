@@ -2696,3 +2696,6 @@ addr	size	source	symbol	name	tag
 0x00415650	16	src/radiant/MainFrm.cpp	?FUN_00415650@CMainFrame@@QAEXXZ	FUN_00415650	UNNAMED
 0x004758e0	435	src/radiant/vertsel.cpp	?FUN_004758e0@@YAXPBM0I@Z	FUN_004758e0	UNNAMED
 0x004a8a10	60	src/script/scr_stringlist.cpp	?GetHashCode@@YAIPBDI@Z	GetHashCode	SUPPORTED
+0x00452930	94	src/radiant/XYWnd.cpp	?OnSize@CXYWnd@@IAEXIHH@Z	CXYWnd::OnSize	SUPPORTED
+0x004074f0	84	src/radiant/CamWnd.cpp	?OnSize@CCamWnd@@IAEXIHH@Z	CCamWnd::OnSize	SUPPORTED
+0x00454250	955	src/radiant/brush.cpp	?Face_WriteMaya@@YA_NPBUfaceRender_t@@PBUface_t@@PBUorientation_t@@PAU_iobuf@@_NM@Z	Face_WriteMaya	SUPPORTED

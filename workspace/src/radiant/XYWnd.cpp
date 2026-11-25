@@ -197,19 +197,19 @@ struct brushdef_t
     bool FUN_0044f560(int mask);
 };
 
-// renderer export table, base 0x59c300; only the slots used here are typed
-struct XYRefExport
-{
-    unsigned char pad000[0x11c];
-    void (*DrawText)(const char *text, int font, const float *origin, const float *right, const float *up, const float *color);
-    unsigned char pad120[0x3c];
-    void (*DrawPoints)(int count, int size, const void *verts);
-    void (*AddLines)(int count, int width, const void *verts);
-    void (*DrawTris)(void *material, int a, int indexCount, const unsigned short *indices, int vertCount,
-                     float (*xyzw)[4], float (*normal)[3], const unsigned int *colors, float (*st)[2]);
-    void (*ColorToBytes)(const float *color, unsigned int *out);
-};
-extern XYRefExport re;
+#include "refexport.h"
+
+
+
+
+
+
+
+
+
+
+
+
 
 struct XYVert
 {
@@ -3575,7 +3575,7 @@ void CXYWnd::SetOrigin(float org[3])
     m_vOrigin[2] = org[2];
 }
 
-extern int (*FUN_0059c448)(void *, int, int);
+
 void FUN_00449c90(void);
 void FUN_0046fb30(void);
 extern int dword_0123348c;
@@ -3590,8 +3590,8 @@ void CXYWnd::OnSize(UINT nType, int cx, int cy)
     GetClientRect(rect);
     m_nWidth = rect.Width();
     m_nHeight = rect.Height();
-    if (FUN_0059c448)
-        FUN_0059c448(dword_010bcd68, m_nWidth, m_nHeight);
+    if (re.ResizeWindow)
+        re.ResizeWindow((HWND)dword_010bcd68, m_nWidth, m_nHeight);
     Invalidate(FALSE);
 }
 

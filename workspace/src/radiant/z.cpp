@@ -30,19 +30,19 @@ class CPrefsDlg { public: unsigned char pad_00[0x2b0]; int m_nMouseButtons; };
 class CCamWnd { public: unsigned char pad_00[0x68]; float field_68; };
 class CMainFrame { public: unsigned char pad_00[0x78c]; CCamWnd *m_pCamWnd; };
 
-// renderer export table, base 0x59c300; only the slots used here are typed
-struct ZRefExport
-{
-	unsigned char pad000[0x11c];
-	void (*DrawText)(const char *text, int font, const float *origin, const float *right, const float *up, const float *color);
-	unsigned char pad120[0x34];
-	void (*SetupZ)(const float *origin, const float *axis, float scale);
-	unsigned char pad158[4];
-	void (*AddLines)(int count, int width, const ZVert *verts);
-	unsigned char pad160[4];
-	void (*ColorToBytes)(const float *color, unsigned *out);
-};
-extern ZRefExport re;
+#include "refexport.h"
+
+
+
+
+
+
+
+
+
+
+
+
 
 extern brush_t selected_brushes;
 extern brush_t active_brushes;
