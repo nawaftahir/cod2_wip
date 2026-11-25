@@ -1138,47 +1138,7 @@ void CreateEntityFromName(const char *name)
     xyEclass_t *ec = (xyEclass_t *)pecNew;
     Undo_AddBrushList((selbrush_t *)&selected_brushes);
     entityInst_t *petNew = (entityInst_t *)FUN_00466d80(pecNew);
-    if (petNew)
-    {
-        FUN_00467510((entity_t *)petNew->def);
-        brush_t *b = petNew->brushes.onext;
-#line 1042
-        xy_assert1(b != &petNew->brushes);
-        xy_assert1(b->owner->def == b->def->owner);
-        FUN_0046fbe0(1);
-        FUN_0046f0b0(b, 1, 1, 0);
-        if (FUN_00469740((entity_t *)petNew->def))
-        {
-            CString strExport;
-            FUN_00469690(strExport);
-            FUN_00465bf0((entity_t *)petNew->def, "export", strExport);
-        }
-        if (_stricmp(name, "misc_model") && _stricmp(name, "misc_prefab") && _stricmp(name, "script_model") && _stricmp(name, "script_vehicle"))
-        {
-            if (ec->flags & 0x40)
-            {
-                FUN_00465bf0((entity_t *)petNew->def, "radius", "256");
-                FUN_00465bf0((entity_t *)petNew->def, "height", "128");
-            }
-            else if (ec->flags & 0x80)
-                FUN_00465bf0((entity_t *)petNew->def, "radius", "256");
-            else if (!_stricmp(name, "trigger_multiple") || !_stricmp(name, "trigger_damage") || !_stricmp(name, "trigger_once") ||
-                     !_stricmp(name, "trigger_hurt") || !_stricmp(name, "trigger_lookat") || !_stricmp(name, "trigger_use") ||
-                     !_stricmp(name, "trigger_use_touch"))
-                FUN_00441c50("trigger");
-            else if (!_stricmp(name, "trigger_friendlychain"))
-                FUN_00441c50("aitrig");
-            else if (!_stricmp(name, "info_volume"))
-                FUN_00441c50("volume");
-        }
-        else
-        {
-            FUN_00477580(0x80);
-            PostMessage(dword_010bcd60, WM_COMMAND, 0x50e, 0);
-        }
-        FUN_00444110((entity_t *)petNew->def);
-    }
-    else
+    if (!petNew)
     {
         brush_t *b = selected_brushes.next;
         if (b == &selected_brushes || b->next != &selected_brushes)
@@ -1231,6 +1191,46 @@ void CreateEntityFromName(const char *name)
                 assert(selected_brushes.next->def == nb && selected_brushes.prev->def == nb);
             }
         }
+    }
+    else
+    {
+        FUN_00467510((entity_t *)petNew->def);
+        brush_t *b = petNew->brushes.onext;
+#line 1042
+        xy_assert1(b != &petNew->brushes);
+        xy_assert1(b->owner->def == b->def->owner);
+        FUN_0046fbe0(1);
+        FUN_0046f0b0(b, 1, 1, 0);
+        if (FUN_00469740((entity_t *)petNew->def))
+        {
+            CString strExport;
+            FUN_00469690(strExport);
+            FUN_00465bf0((entity_t *)petNew->def, "export", strExport);
+        }
+        if (_stricmp(name, "misc_model") && _stricmp(name, "misc_prefab") && _stricmp(name, "script_model") && _stricmp(name, "script_vehicle"))
+        {
+            if (ec->flags & 0x40)
+            {
+                FUN_00465bf0((entity_t *)petNew->def, "radius", "256");
+                FUN_00465bf0((entity_t *)petNew->def, "height", "128");
+            }
+            else if (ec->flags & 0x80)
+                FUN_00465bf0((entity_t *)petNew->def, "radius", "256");
+            else if (!_stricmp(name, "trigger_multiple") || !_stricmp(name, "trigger_damage") || !_stricmp(name, "trigger_once") ||
+                     !_stricmp(name, "trigger_hurt") || !_stricmp(name, "trigger_lookat") || !_stricmp(name, "trigger_use") ||
+                     !_stricmp(name, "trigger_use_touch"))
+                FUN_00441c50("trigger");
+            else if (!_stricmp(name, "trigger_friendlychain"))
+                FUN_00441c50("aitrig");
+            else if (!_stricmp(name, "info_volume"))
+                FUN_00441c50("volume");
+        }
+        else
+        {
+            FUN_00477580(0x80);
+            PostMessage(dword_010bcd60, WM_COMMAND, 0x50e, 0);
+        }
+        FUN_00444110((entity_t *)petNew->def);
     }
     FUN_00443f80((selbrush_t *)&selected_brushes);
 }
@@ -2049,7 +2049,7 @@ void CXYWnd::XY_MouseMoved(int x, int y, int buttons)
 }
 
 
-static int XYAddLine(XYVert *verts, int n, int d1, int d2, int d3, float x0, float y0, float x1, float y1, float z, unsigned color)
+static inline int XYAddLine(XYVert *verts, int n, int d1, int d2, int d3, float x0, float y0, float x1, float y1, float z, unsigned color)
 {
     verts[n].xyz[d1] = x0;
     verts[n].xyz[d2] = y0;
@@ -2062,34 +2062,41 @@ static int XYAddLine(XYVert *verts, int n, int d1, int d2, int d3, float x0, flo
     return n + 2;
 }
 
+#define XY_ADDLINE(x0, y0, x1, y1) \
+    do { \
+        verts[n].xyz[nDim1] = (x0); verts[n].xyz[nDim2] = (y0); verts[n].xyz[nDim3] = -131072.0f; verts[n].color = color; n++; \
+        verts[n].xyz[nDim1] = (x1); verts[n].xyz[nDim2] = (y1); verts[n].xyz[nDim3] = -131072.0f; verts[n].color = color; n++; \
+    } while (0)
+
+int R_Add3DLine(GfxPointVertex *verts, const float *p1, const float *p2, const void *color, int width, int vertCount, int maxVertCount);
 // 0x0044d7e0: coordinate grid with minor/major lines and labels
 void CXYWnd::XY_DrawGrid()
 {
-    XYVert verts[1024];
+    XYVert verts[4096];
     char text[32];
     unsigned color;
     float x, y;
 
+    float w = (float)(m_nWidth / 2) / m_fScale;
+    float h = (float)(m_nHeight / 2) / m_fScale;
     int nDim1 = (m_nViewType == YZ) ? 1 : 0;
     int nDim2 = (m_nViewType == XY) ? 1 : 2;
     int nDim3 = 3 - nDim1 - nDim2;
-    float w = (float)(m_nWidth / 2) / m_fScale;
-    float h = (float)(m_nHeight / 2) / m_fScale;
 
     float xb = m_vOrigin[nDim1] - w;
-    if (!(xb >= region_mins[nDim1]))
+    if (xb < region_mins[nDim1])
         xb = region_mins[nDim1];
     xb = (float)floor(xb / 64.0f) * 64.0f;
     float xe = w + m_vOrigin[nDim1];
-    if (!(xe <= region_maxs[nDim1]))
+    if (xe > region_maxs[nDim1])
         xe = region_maxs[nDim1];
     xe = (float)ceil(xe / 64.0f) * 64.0f;
     float yb = m_vOrigin[nDim2] - h;
-    if (!(yb >= region_mins[nDim2]))
+    if (yb < region_mins[nDim2])
         yb = region_mins[nDim2];
     yb = (float)floor(yb / 64.0f) * 64.0f;
     float ye = h + m_vOrigin[nDim2];
-    if (!(ye <= region_maxs[nDim2]))
+    if (ye > region_maxs[nDim2])
         ye = region_maxs[nDim2];
     ye = (float)ceil(ye / 64.0f) * 64.0f;
 
@@ -2108,23 +2115,23 @@ void CXYWnd::XY_DrawGrid()
     if (g_qeglobals.d_showgrid)
     {
         int n = 0;
-        if (!(m_fScale <= 0.1f) && !((float)g_qeglobals.d_gridsize * m_fScale < 4.0f) && !FUN_00453410(g_colors[1], g_colors[2]))
+        if (!(m_fScale <= 0.1f) && !((float)g_qeglobals.d_gridsize * m_fScale < 4.0f) && !Vector4Compare(g_colors[1], g_colors[2]))
         {
             re.ColorToBytes(g_colors[2], &color);
             for (x = xb; x < xe; x += (float)g_qeglobals.d_gridsize)
                 if (((int)x & 63) != 0)
-                    n = XYAddLine(verts, n, nDim1, nDim2, nDim3, x, yb, x, ye, -131072.0f, color);
+                    XY_ADDLINE(x, yb, x, ye);
             for (y = yb; y < ye; y += (float)g_qeglobals.d_gridsize)
                 if (((int)y & 63) != 0)
-                    n = XYAddLine(verts, n, nDim1, nDim2, nDim3, xb, y, xe, y, -131072.0f, color);
+                    XY_ADDLINE(xb, y, xe, y);
         }
         re.ColorToBytes(g_colors[3], &color);
         if (!(xb > xe))
             for (x = xb; x <= xe; x += (float)step)
-                n = XYAddLine(verts, n, nDim1, nDim2, nDim3, x, yb, x, ye, -131072.0f, color);
+                XY_ADDLINE(x, yb, x, ye);
         if (!(yb > ye))
             for (y = yb; y <= ye; y += (float)step)
-                n = XYAddLine(verts, n, nDim1, nDim2, nDim3, xb, y, xe, y, -131072.0f, color);
+                XY_ADDLINE(xb, y, xe, y);
         re.AddLines(n / 2, 1, verts);
     }
 
@@ -2192,50 +2199,67 @@ void CXYWnd::XY_DrawGrid()
 // 0x0044e4b0: 1024-unit block grid with "%i,%i" block labels (Q3 XY_DrawBlockGrid)
 void CXYWnd::XY_DrawBlockGrid()
 {
-    XYVert verts[1024];
+    GfxPointVertex verts[0x552];
     char text[32];
     unsigned color;
     float x, y;
 
+    int w = (int)((float)m_nWidth * (0.5f / m_fScale));
+    int h = (int)((float)m_nHeight * (0.5f / m_fScale));
     int nDim1 = (m_nViewType == YZ) ? 1 : 0;
     int nDim2 = (m_nViewType == XY) ? 1 : 2;
     int nDim3 = 3 - nDim1 - nDim2;
-    int w = (int)((float)m_nWidth * (0.5f / m_fScale));
-    int h = (int)((float)m_nHeight * (0.5f / m_fScale));
 
     float xb = m_vOrigin[nDim1] - (float)w;
-    if (!(xb >= region_mins[nDim1]))
+    if (xb < region_mins[nDim1])
         xb = region_mins[nDim1];
     xb = (float)floor(xb / 1024.0f) * 1024.0f;
     float xe = (float)w + m_vOrigin[nDim1];
-    if (!(xe <= region_maxs[nDim1]))
+    if (xe > region_maxs[nDim1])
         xe = region_maxs[nDim1];
     xe = (float)ceil(xe / 1024.0f) * 1024.0f;
     float yb = m_vOrigin[nDim2] - (float)h;
-    if (!(yb >= region_mins[nDim2]))
+    if (yb < region_mins[nDim2])
         yb = region_mins[nDim2];
     yb = (float)floor(yb / 1024.0f) * 1024.0f;
     float ye = (float)h + m_vOrigin[nDim2];
-    if (!(ye <= region_maxs[nDim2]))
+    if (ye > region_maxs[nDim2])
         ye = region_maxs[nDim2];
     ye = (float)ceil(ye / 1024.0f) * 1024.0f;
 
     re.ColorToBytes(g_colors[7], &color);
+    float p1[3], p2[3];
+    p1[nDim3] = 131072.0f;
+    p2[nDim3] = 131072.0f;
+    p2[nDim2] = ye;
+    p1[nDim2] = yb;
     int n = 0;
     if (xb < xe)
         for (x = xb; x <= xe; x += 1024.0f)
-            n = XYAddLine(verts, n, nDim1, nDim2, nDim3, x, yb, x, ye, 131072.0f, color);
+        {
+            p1[nDim1] = x;
+            p2[nDim1] = x;
+            n = R_Add3DLine(verts, p1, p2, &color, 2, n, 0x552);
+        }
+    p1[nDim1] = xb;
+    p2[nDim1] = xe;
     if (yb < ye)
         for (y = yb; y <= ye; y += 1024.0f)
-            n = XYAddLine(verts, n, nDim1, nDim2, nDim3, xb, y, xe, y, 131072.0f, color);
+        {
+            p1[nDim2] = y;
+            p2[nDim2] = y;
+            n = R_Add3DLine(verts, p1, p2, &color, 2, n, 0x552);
+        }
     if (n)
         re.AddLines(n / 2, 2, verts);
 
-    float right[3] = {0, 0, 0};
-    float up[3] = {0, 0, 0};
-    float pos[3], pos2[3];
+    float right[3], up[3], pos2[3];
+    up[nDim1] = 0;
     right[nDim1] = 1.0f / m_fScale;
+    right[nDim2] = 0;
+    right[nDim3] = 0;
     up[nDim2] = -1.0f / m_fScale;
+    up[nDim3] = 0;
     for (x = xb; x < xe; x += 1024.0f)
     {
         for (y = yb; y < ye; y += 1024.0f)
@@ -2243,13 +2267,13 @@ void CXYWnd::XY_DrawBlockGrid()
             int ybi = (int)(y / 1024.0f - 0.4999999990686774);
             int xbi = (int)(x / 1024.0f - 0.4999999990686774);
             sprintf(text, "%i,%i", xbi, ybi);
-            pos[nDim1] = x + 512.0f;
-            pos[nDim2] = y + 512.0f;
-            pos[nDim3] = 131072.0f;
+            p1[nDim1] = x + 512.0f;
+            p1[nDim2] = y + 512.0f;
+            p1[nDim3] = 131072.0f;
             float ox = (m_nWidth & 1) ? 0.0f : (float)(0.5 / m_fScale);
             float oy = (m_nHeight & 1) ? 0.0f : (float)(0.5 / m_fScale);
-            pos2[nDim1] = ox + pos[nDim1];
-            pos2[nDim2] = oy + pos[nDim2];
+            pos2[nDim1] = ox + p1[nDim1];
+            pos2[nDim2] = oy + p1[nDim2];
             pos2[nDim3] = 131072.0f;
             re.DrawText(text, dword_011298c4, pos2, right, up, g_colors[7]);
         }
@@ -2849,7 +2873,6 @@ extern float color_01129858[4];
 extern float color_01129868[4];
 bool FUN_0045d090(const brushdef_t *b, float *color, const float *defaultColor);
 
-int R_Add3DLine(GfxPointVertex *verts, const float *p1, const float *p2, const void *color, int width, int vertCount, int maxVertCount);
 float Vec3Normalize(float *v);
 extern entityInst_t entities;
 void FUN_0046d710(int *out, const char *s);
