@@ -380,7 +380,6 @@
 0x00450d90	bulk-e2	2026-11-19	DrawConnectionArrow: bulk draft: 19%, sizes 863/1176, first diff +0x5. Retail takes nDim1 in edi and nDim2 in ecx (LTCG); text centering helper 0x40c590 unwritten.
 0x00451230	bulk-e2	2026-11-19	DrawLightRadiusIcon: bulk draft: 20%, sizes 537/563, first diff +0x4.
 0x00451470	bulk-e2	2026-11-19	DrawLight_Radius: bulk draft: 62%, sizes 220/219, first diff +0xe.
-0x00451550	bulk-e2	2026-11-19	DrawLight_Color: bulk draft: 71%, sizes 395/391, first diff +0x26.
 0x004516e0	bulk-e2	2026-11-19	DrawLight_Box: bulk draft: 30%, sizes 575/561, first diff +0x5.
 0x00451920	bulk-e2	2026-11-19	DrawLight_ConeHeight: bulk draft: 45%, sizes 277/275, first diff +0x5.
 0x00451a40	bulk-e2	2026-11-19	DrawLight_Classname: bulk draft: 57%, sizes 447/440, first diff +0x5.

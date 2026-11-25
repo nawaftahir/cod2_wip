@@ -218,6 +218,11 @@ protected:
     void PositionView();
     bool SetRotateMode(bool bMode);
 public:
+    void DrawLightRadiusIcon(const float *center, int width, float radius, int segments, unsigned *color);
+    void DrawLight_Radius(brush_t *b, int width, unsigned *color);
+    void DrawLight_Color(brush_t *b, int width);
+    void DrawLight_Box(const float *center, unsigned *color, int width, float radius, float up, float down, int segments);
+    void DrawLight_ConeHeight(brush_t *b, int width, unsigned *color);
     void Copy();
     void Paste();
 

@@ -3095,13 +3095,13 @@ void DrawConnectionArrow(int nDim1, int nDim2, CXYWnd *wnd, const float *p1, con
 }
 
 // 0x00451230: circle of lines around a light, in the plane the view shows
-void DrawLightRadiusIcon(const float *center, int width, CXYWnd *wnd, float radius, int segments, unsigned *color)
+void CXYWnd::DrawLightRadiusIcon(const float *center, int width, float radius, int segments, unsigned *color)
 {
     GfxPointVertex verts[0x400];
     float a[3], b[3], prev[3], cur[3];
     int n = 0;
 
-    switch (wnd->m_nViewType)
+    switch (m_nViewType)
     {
     case YZ:
         a[0] = 0; a[1] = radius; a[2] = 0;
@@ -3142,7 +3142,7 @@ void DrawLightRadiusIcon(const float *center, int width, CXYWnd *wnd, float radi
 }
 
 // 0x00451470: light radius circle from the "radius" key
-void DrawLight_Radius(brush_t *b, int width, CXYWnd *wnd, unsigned *color)
+void CXYWnd::DrawLight_Radius(brush_t *b, int width, unsigned *color)
 {
     float center[3];
     BrushCenter(b, center);
@@ -3150,11 +3150,11 @@ void DrawLight_Radius(brush_t *b, int width, CXYWnd *wnd, unsigned *color)
     assert(b->owner->def == b->def->owner);
     atof(ValueForKey(*(epair_t **)((char *)b->owner->def + 100), "light"));
     float radius = (float)atof(ValueForKey(*(epair_t **)((char *)b->owner->def + 100), "radius"));
-    DrawLightRadiusIcon(center, width, wnd, radius, 32, color);
+    DrawLightRadiusIcon(center, width, radius, 32, color);
 }
 
 // 0x00451550: light radius circle in the light's own "_color"
-void DrawLight_Color(brush_t *b, CXYWnd *wnd, int width)
+void CXYWnd::DrawLight_Color(brush_t *b, int width)
 {
     float rgb[4] = { 0.2f, 0.5f, 0.35f, 1.0f };
     float center[3];
@@ -3175,20 +3175,20 @@ void DrawLight_Color(brush_t *b, CXYWnd *wnd, int width)
     assert(b->owner->def == b->def->owner);
     float radius = (float)atof(ValueForKey(*(epair_t **)((char *)b->owner->def + 100), "radius"));
     if (radius != 0.0f)
-        DrawLightRadiusIcon(center, width, wnd, radius, 32, &color);
+        DrawLightRadiusIcon(center, width, radius, 32, &color);
 }
 
 // 0x004516e0: box showing the light's extent in the side views
-void DrawLight_Box(const float *center, unsigned *color, int width, CXYWnd *wnd, float radius, float up, float down, int segments)
+void CXYWnd::DrawLight_Box(const float *center, unsigned *color, int width, float radius, float up, float down, int segments)
 {
     GfxPointVertex verts[8];
     float pts[6][3];
     int n = 0;
 #line 3468
-    assert(wnd->m_nViewType == XY || wnd->m_nViewType == XZ || wnd->m_nViewType == YZ);
-    if (wnd->m_nViewType == XY)
+    assert(m_nViewType == XY || m_nViewType == XZ || m_nViewType == YZ);
+    if (m_nViewType == XY)
     {
-        DrawLightRadiusIcon(center, width, wnd, radius, segments, color);
+        DrawLightRadiusIcon(center, width, radius, segments, color);
         return;
     }
     for (int i = 0; i < 6; i++)
@@ -3197,7 +3197,7 @@ void DrawLight_Box(const float *center, unsigned *color, int width, CXYWnd *wnd,
         pts[i][1] = center[1];
         pts[i][2] = center[2];
     }
-    int d = wnd->m_nViewType != XZ;
+    int d = m_nViewType != XZ;
     pts[3][d] -= radius;
     pts[1][d] += radius;
     pts[2][d] += radius;
@@ -3214,7 +3214,7 @@ void DrawLight_Box(const float *center, unsigned *color, int width, CXYWnd *wnd,
 }
 
 // 0x00451920: cone light drawn as a box of the "height" key
-void DrawLight_ConeHeight(brush_t *b, CXYWnd *wnd, int segments, int width)
+void CXYWnd::DrawLight_ConeHeight(brush_t *b, int width, unsigned *color)
 {
     float center[3];
 #line 3513
@@ -3236,8 +3236,7 @@ void DrawLight_ConeHeight(brush_t *b, CXYWnd *wnd, int segments, int width)
     center[0] = org[0];
     center[1] = org[1];
     center[2] = org[2] + ((float *)def->eclass)[5];
-    unsigned color = 0;
-    DrawLight_Box(center, &color, width, wnd, height, 0.0f, 0.0f, segments);
+    DrawLight_Box(center, color, width, radius, 0.0f, height, 32);
 }
 
 // 0x00451a40: classname label next to a light in the side views
@@ -3481,13 +3480,13 @@ void CXYWnd::XY_Draw()
         xyEntity_t *ent = b->owner->def;
         unsigned flags = ent->eclass->flags;
         if (flags & 1)
-            DrawLight_Radius(b, 1, this, &color);
+            DrawLight_Radius(b, 1, &color);
         else if (flags & 0x20)
-            DrawLight_ConeHeight(b, this, (int)this, 1);
+            DrawLight_ConeHeight(b, 1, &color);
         else if (flags & 0xc0)
-            DrawLight_ConeHeight(b, this, (int)this, width);
+            DrawLight_ConeHeight(b, width, &color);
         else
-            DrawLight_Color(b, this, width);
+            DrawLight_Color(b, width);
         if (!anyOrigin)
         {
             if (b->owner->def)
@@ -3506,15 +3505,15 @@ void CXYWnd::XY_Draw()
         {
             const char *name = ValueForKey(*(epair_t **)((char *)ent + 100), "targetname");
             if (!memcmp(name, "badplace", 9))
-                DrawLight_Color(b, this, frame[153] != 0 ? 2 : 1);
+                DrawLight_Color(b, frame[153] != 0 ? 2 : 1);
             if (!memcmp(name, "heading", 8))
-                DrawLight_Color(b, this, frame[153] != 0 ? 2 : 1);
+                DrawLight_Color(b, frame[153] != 0 ? 2 : 1);
         }
         else
         {
             unsigned c4[4];
             FUN_00451c00(b, c4);
-            DrawLight_ConeHeight(b, this, (int)this, 1);
+            DrawLight_ConeHeight(b, 1, c4);
         }
     }
     (*FUN_0059c394)(color_011297b8);
