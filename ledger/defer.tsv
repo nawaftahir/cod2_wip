@@ -223,7 +223,6 @@
 0x004170f0	lane-d10	2026-11-24	bulk draft: 22%, sizes 79/71, first diff +0x0 [r2: member+msgmap, 40%, sizes 83/71]
 0x004171b0	lane-d10	2026-11-24	bulk draft: 48%, sizes 114/106, first diff +0x0 [r2: member+msgmap, 39%, sizes 119/106]
 0x00417a90	lane-d10	2026-11-24	bulk draft: 22%, sizes 79/71, first diff +0x0 [r2: member+msgmap, 40%, sizes 83/71]
-0x00417e40	lane-d10	2026-11-24	bulk draft: 65%, sizes 80/89, first diff +0x0 [r2: member+msgmap, 65%, sizes 80/89]
 0x00418ec0	lane-d10	2026-11-24	bulk draft: 49%, sizes 201/203, first diff +0xb [r2: member+msgmap, 49%, sizes 201/203]
 0x004190a0	lane-d10	2026-11-24	bulk draft: 14%, sizes 30/56, first diff +0x0 [r2: member+msgmap, 41%, sizes 45/56]
 0x004196a0	lane-d10	2026-11-24	bulk draft: 39%, sizes 113/113, first diff +0x7 [r2: member+msgmap, 44%, sizes 117/113]
@@ -459,9 +458,7 @@
 0x00415b50	claude-d11	2026-11-24	FUN_00415b50: absent from data/tu_map.tsv (inside the 0x415a10 row, see that row). Body kept in MainFrm.cpp as CMainFrame::FUN_00415b50 (ON_COMMAND 0x80ce); not referee-checked because make show/verify have no row for it.
 0x00415ef0	bulk-d6	2026-11-22	FUN_00415ef0: not drafted. Flip X/Y/Z helper (FUN_00415ef0(name, axis)); not drafted this round.
 0x004168c0	claude-d11	2026-11-24	FUN_004168c0: not drafted. 'drop selection' handler (ON_COMMAND 0x819f), ~1.5 KB with EH, CString and a random-rotation loop (_rand, SinCosDegrees, AxisClear, FUN_0045f340); no generated decompile exists for it.
-0x00417660	lane-d10	2026-11-24	FUN_00417660: bulk draft: 60%, sizes 229/238, first difference at +0x0. message handler draft; differs from +0x2. [r2: member+msgmap, 61%, sizes 229/238]
 0x004179e0	bulk-d6	2026-11-22	FUN_004179e0: not drafted. dialog class destructor with a CListBox member (+0x70). Blocked: the dialog class is defined inside its own .cpp with no shared header, so this handler cannot construct it without a shared-header change (owner review).
-0x00417b50	claude-d11	2026-11-24	FUN_00417b50: bulk draft: 41%, sizes 317/366, first diff +0x49. New-project handler. Retail inlines Com_StripExtension (Com_GetExtensionSubString plus a copy loop) and the strcpy loop; ours calls Com_StripExtension out of line (LTCG did not inline it).
 0x00418d40	claude-l24	2026-11-25	Scale dialog handler: 83%, sizes 340/364, first diff +0x5c. l24: retail tests x<0 || (y<0 && z<0) (jp skips the z test when y>=0); applied. Remaining: tail layout of the shared message push.
 0x00418eb0	bulk-d6	2026-11-22	FUN_00418eb0: not drafted. dialog destructor tail jump to CDialog::~CDialog. Blocked: the dialog class is defined inside its own .cpp with no shared header, so this handler cannot construct it without a shared-header change (owner review).
 0x00419020	lane-d10	2026-11-24	FUN_00419020: bulk draft: 67%, sizes 96/94, first difference at +0x1. loops over selected_selbrushes and the second list calling FUN_0045e0b0(b->def) after FUN_00452f50(xy); retail 94 B, ours 96 B; callee conventions of 0x452f50/0x45e0b0 unmatched. [r2: member+msgmap, 68%, sizes 96/94]

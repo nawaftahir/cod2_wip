@@ -1384,25 +1384,24 @@ extern "C" void FUN_00415110()
 // 0x00415140
 void CMainFrame::FUN_00415140()
 {
-  HWND window = g_qeglobals.field_4c;
   int style = this->field_07a0;
   if (style != 0 && style != 1 && style != 3)
   {
     if (DAT_011299a8 == 0x80)
     {
-      if (::IsWindowVisible(window))
-        ::ShowWindow(window, SW_HIDE);
+      if (::IsWindowVisible(g_qeglobals.field_4c))
+        ::ShowWindow(g_qeglobals.field_4c, SW_HIDE);
       else
-        ::ShowWindow(window, SW_SHOW);
+        ::ShowWindow(g_qeglobals.field_4c, SW_SHOWNORMAL);
       return;
     }
   }
-  else if (::IsWindowVisible(window) && DAT_011299a8 == 0x80)
+  else if (::IsWindowVisible(g_qeglobals.field_4c) && DAT_011299a8 == 0x80)
   {
-    ::ShowWindow(window, SW_HIDE);
+    ::ShowWindow(g_qeglobals.field_4c, SW_HIDE);
     return;
   }
-  ::ShowWindow(window, SW_SHOW);
+  ::ShowWindow(g_qeglobals.field_4c, SW_SHOWNORMAL);
   FUN_00477580(0x80);
 }
 
@@ -1412,7 +1411,7 @@ void CMainFrame::FUN_004151e0()
   if (this->field_07a0 != 2)
   {
     FUN_00452ca0(this->field_0788, 0);
-    FUN_00452b00(this->field_0788);
+    this->field_0788->PositionView();
   }
   dword_0123348c |= 2;
 }
@@ -1479,7 +1478,7 @@ void CMainFrame::FUN_00415660()
   if (this->field_07a0 != 2)
   {
     FUN_00452ca0(this->field_0788, 2);
-    FUN_00452b00(this->field_0788);
+    this->field_0788->PositionView();
   }
   dword_0123348c |= 2;
 }
@@ -1582,7 +1581,7 @@ void CMainFrame::FUN_004159e0()
   if (this->field_07a0 != 2)
   {
     FUN_00452ca0(this->field_0788, 1);
-    FUN_00452b00(this->field_0788);
+    this->field_0788->PositionView();
   }
   dword_0123348c |= 2;
 }
@@ -2079,7 +2078,7 @@ void CMainFrame::FUN_004170f0()
       FUN_00452ca0(xy, 0);
     else
       FUN_00452ca0(xy, 2);
-    FUN_00452b00(this->field_0788);
+    this->field_0788->PositionView();
     dword_0123348c |= 2;
   }
 }
@@ -2226,10 +2225,13 @@ void CMainFrame::FUN_00417660()
     if (PF(0x1b4) != nView)
       this->MessageBox("You need to restart CoD2Radiant for the view changes to take place.", NULL, 0);
     if (this->field_0790)
-      FUN_00442e60();
+      this->field_0790->UpdatePrefs();
     if (nTextureBar != PF(0x224))
     {
-      this->ShowControlBar(&this->m_wndTextureBar, nTextureBar != 0, TRUE);
+      if (nTextureBar)
+        this->ShowControlBar(&this->m_wndTextureBar, TRUE, TRUE);
+      else
+        this->ShowControlBar(&this->m_wndTextureBar, FALSE, TRUE);
       this->m_wndTextureBar.Invalidate();
     }
     CMenu *pMenu = this->GetMenu();
@@ -2365,7 +2367,7 @@ void CMainFrame::FUN_00417a90()
       FUN_00452ca0(xy, 0);
     else
       FUN_00452ca0(xy, 2);
-    FUN_00452b00(this->field_0788);
+    this->field_0788->PositionView();
     dword_0123348c |= 2;
   }
 }
@@ -2381,15 +2383,16 @@ void CMainFrame::FUN_00417ae0()
 void CMainFrame::FUN_00417b50()
 {
   CNewProjDlg dlg;
-  if (dlg.DoModal() == IDOK && dlg.m_strName.GetLength() > 0)
-  {
-    char buf[0x400];
-    strcpy(buf, dlg.m_strName);
-    Com_StripExtension(buf, buf);
-    strcat(buf, ".prj");
-    DAT_012345c0 = buf;
-    DialogBox(g_qeglobals.d_hInstance, (LPCSTR)153, g_qeglobals.d_hwndMain, ProjectDlgProc);
-  }
+  if (dlg.DoModal() != IDOK)
+    return;
+  if (dlg.m_strName.GetLength() == 0)
+    return;
+  char buf[0x400];
+  strcpy(buf, dlg.m_strName);
+  Com_StripExtension(buf, buf);
+  strcat(buf, ".prj");
+  DAT_012345c0 = buf;
+  DialogBox(g_qeglobals.d_hInstance, (LPCSTR)153, g_qeglobals.d_hwndMain, ProjectDlgProc);
 }
 
 // 0x00417cf0 (63 B), this in ebx
@@ -2430,7 +2433,7 @@ void CMainFrame::FUN_00417e40()
     FUN_004433b0();
     Undo_GeneralStart("clip selected");
     Undo_AddBrushList(&selected_selbrushes);
-    FUN_00452990();
+    ((CXYWnd *)this->field_07e0)->Clip();
     FUN_00443f80(&selected_selbrushes);
     Undo_End();
     return;
@@ -2974,16 +2977,7 @@ void CMainFrame::FUN_00418ec0()
   {
     if (DAT_0109fe5e)
       FUN_004171b0();
-    if (!DAT_0109fe5f)
-    {
-      if (FUN_00452d90(this->field_07e0))
-      {
-        ::SendMessage(this->m_wndToolBar.m_hWnd, 0x402, 0x802a, 1);
-        return;
-      }
-      ::SendMessage(this->m_wndToolBar.m_hWnd, 0x402, 0x802a, 0);
-    }
-    else
+    if (DAT_0109fe5f)
     {
       DAT_0109fe5f = false;
       ::RedrawWindow(this->field_07e0->m_hWnd, NULL, NULL, 0x105);
@@ -2996,6 +2990,15 @@ void CMainFrame::FUN_00418ec0()
           return;
         }
       }
+    }
+    else
+    {
+      if (((CXYWnd *)this->field_07e0)->SetRotateMode(true))
+      {
+        ::SendMessage(this->m_wndToolBar.m_hWnd, 0x402, 0x802a, 1);
+        return;
+      }
+      ::SendMessage(this->m_wndToolBar.m_hWnd, 0x402, 0x802a, 0);
     }
   }
 }
@@ -4212,25 +4215,24 @@ extern "C" void FUN_0041bd30() { Select_Invert(); dword_0123348c |= 0xb; }
 // 0x0041bd40
 extern "C" void __fastcall FUN_0041bd40(CMainFrame *self)
 {
-  HWND window = g_qeglobals.field_4c;
   int style = self->field_07a0;
   if (style != 0 && style != 3)
   {
     if (DAT_011299a8 == 0x800 && style != 1)
     {
-      if (::IsWindowVisible(window))
-        ::ShowWindow(window, SW_HIDE);
+      if (::IsWindowVisible(g_qeglobals.field_4c))
+        ::ShowWindow(g_qeglobals.field_4c, SW_HIDE);
       else
-        ::ShowWindow(window, SW_SHOW);
+        ::ShowWindow(g_qeglobals.field_4c, SW_SHOWNORMAL);
       return;
     }
   }
-  else if (::IsWindowVisible(window) && DAT_011299a8 == 0x800)
+  else if (::IsWindowVisible(g_qeglobals.field_4c) && DAT_011299a8 == 0x800)
   {
-    ::ShowWindow(window, SW_HIDE);
+    ::ShowWindow(g_qeglobals.field_4c, SW_HIDE);
     return;
   }
-  ::ShowWindow(window, SW_SHOW);
+  ::ShowWindow(g_qeglobals.field_4c, SW_SHOWNORMAL);
   FUN_00477580(0x800);
 }
 
@@ -4311,25 +4313,24 @@ extern "C" void FUN_0041c180()
 // 0x0041c1d0
 void CMainFrame::FUN_0041c1d0()
 {
-  HWND window = g_qeglobals.field_4c;
   int style = this->field_07a0;
   if (style != 0 && style != 1 && style != 3)
   {
     if (DAT_011299a8 == 0x2000)
     {
-      if (::IsWindowVisible(window))
-        ::ShowWindow(window, SW_HIDE);
+      if (::IsWindowVisible(g_qeglobals.field_4c))
+        ::ShowWindow(g_qeglobals.field_4c, SW_HIDE);
       else
-        ::ShowWindow(window, SW_SHOW);
+        ::ShowWindow(g_qeglobals.field_4c, SW_SHOWNORMAL);
       return;
     }
   }
-  else if (::IsWindowVisible(window) && DAT_011299a8 == 0x2000)
+  else if (::IsWindowVisible(g_qeglobals.field_4c) && DAT_011299a8 == 0x2000)
   {
-    ::ShowWindow(window, SW_HIDE);
+    ::ShowWindow(g_qeglobals.field_4c, SW_HIDE);
     return;
   }
-  ::ShowWindow(window, SW_SHOW);
+  ::ShowWindow(g_qeglobals.field_4c, SW_SHOWNORMAL);
   FUN_00477580(0x2000);
 }
 
