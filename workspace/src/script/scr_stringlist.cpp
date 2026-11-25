@@ -58,6 +58,8 @@ static RefString *GetRefString(unsigned int stringValue)
 	return (RefString *)SL_GetString(stringValue);
 }
 
+/* retail calls it from SL_TransferRefToUser (0x4a9b00) */
+#pragma auto_inline(off)
 static const char *SL_DebugConvertToString(unsigned int stringValue)
 {
 	RefString *refString;
@@ -69,10 +71,9 @@ static const char *SL_DebugConvertToString(unsigned int stringValue)
 	refString = GetRefString(stringValue);
 	str = refString->str;
 	len = (refString->data - 1) & 0xff;
-	if (str[len])
-		str = "<BINARY>";
-	return str;
+	return str[len] == 0 ? str : "<BINARY>";
 }
+#pragma auto_inline(on)
 
 static int SL_GetRefStringLen(RefString *refString)
 {

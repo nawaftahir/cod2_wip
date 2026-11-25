@@ -2741,3 +2741,5 @@ addr	size	source	symbol	name	tag
 0x004293f0	756	src/radiant/Pmesh.cpp	?Patch_GenericMesh@@YAPAUbrush_t@@HHH_N0@Z	Patch_GenericMesh	SUPPORTED
 0x004270e0	115	src/radiant/Pmesh.cpp	?FUN_004270e0@@YAXPAUpatchMesh_t@@@Z	FUN_004270e0	UNNAMED
 0x00434290	196	src/radiant/Pmesh.cpp	?FUN_00434290@@YAXXZ	FUN_00434290	UNNAMED
+0x004a88c0	40	src/script/scr_stringlist.cpp	?SL_DebugConvertToString@@YAPBDI@Z	SL_DebugConvertToString	SUPPORTED
+0x004a9b00	139	src/script/scr_stringlist.cpp	?SL_TransferRefToUser@@YAXII@Z	SL_TransferRefToUser	SUPPORTED
