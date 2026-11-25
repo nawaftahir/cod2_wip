@@ -483,8 +483,70 @@ void FUN_00463e90(eclass_t *e)
 #include <io.h>
 extern bool g_bBuildList;
 extern CString strDefFile;
-void FUN_00463ea0(const char *path, int flag);
+void FUN_00463ea0(const char *path, int fromPaks);
 void FUN_0046e160(char *dst, const char *src);
+int LoadFile(const char *filename, void **buffer);
+int FS_ReadFile(const char *qpath, void **buffer);
+void FS_FreeFile(void *buffer);
+extern int eclass_found;
+extern eclass_t *eclass_e;
+extern int parsing_single;
+
+// 0x00463ea0: scan one file for /*QUAKED blocks, from disk or from the paks
+void FUN_00463ea0(const char *filename, int fromPaks)
+{
+	int size;
+	char *data;
+	eclass_t *e;
+	int i;
+	char temp[1024];
+
+	FUN_0046e160(temp, filename);
+	if (strstr(temp, "/.#"))
+	{
+		Sys_Printf("IngoringFile: %s\n", temp);
+		return;
+	}
+	Sys_Printf("ScanFile: %s\n", temp);
+	if (fromPaks)
+		size = FS_ReadFile(filename, (void **)&data);
+	else
+		size = LoadFile(filename, (void **)&data);
+	eclass_found = 0;
+	for (i = 0; i < size; i++)
+	{
+		if (!strncmp(data + i, "/*QUAKED", 8))
+		{
+			if (g_bBuildList)
+			{
+				CString strDef = "";
+				int j = i;
+				while (1)
+				{
+					strDef += *(data + j);
+					if (*(data + j) == '/' && *(data + j - 1) == '*')
+						break;
+					j++;
+				}
+				strDef += "\r\n\r\n\r\n";
+				strDefFile += strDef;
+			}
+			e = FUN_00463860(data + i);
+			if (e)
+				FUN_00463e40(e, &eclass);
+			else
+				printf("Error parsing: %s in %s\n", debugname, filename);
+			eclass_e = e;
+			eclass_found = 1;
+			if (parsing_single)
+				break;
+		}
+	}
+	if (fromPaks)
+		FS_FreeFile(data);
+	else
+		free(data);
+}
 
 // 0x00464170
 void FUN_00464170(char *path)
