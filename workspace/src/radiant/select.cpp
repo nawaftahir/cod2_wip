@@ -1049,8 +1049,9 @@ void FUN_00470c00(float mid[3])
 {
     float bounds[2][3];
     FUN_00470a50(bounds[0], bounds[1]);
-    for (int i = 0; i < 3; i++)
-        mid[i] = (bounds[1][i] + bounds[0][i]) * 0.5f;
+    mid[0] = (bounds[0][0] + bounds[1][0]) * 0.5f;
+    mid[1] = (bounds[0][1] + bounds[1][1]) * 0.5f;
+    mid[2] = (bounds[0][2] + bounds[1][2]) * 0.5f;
 }
 
 // middle of the selection snapped to the grid, or the true middle when no-clamp is set

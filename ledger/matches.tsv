@@ -2743,3 +2743,4 @@ addr	size	source	symbol	name	tag
 0x004a88c0	40	src/script/scr_stringlist.cpp	?SL_DebugConvertToString@@YAPBDI@Z	SL_DebugConvertToString	SUPPORTED
 0x004a9b00	139	src/script/scr_stringlist.cpp	?SL_TransferRefToUser@@YAXII@Z	SL_TransferRefToUser	SUPPORTED
 0x00451550	391	src/radiant/XYWnd.cpp	?DrawLight_Color@CXYWnd@@QAEXPAUbrush_t@@H@Z	CXYWnd::DrawLight_Color	SUPPORTED
+0x00470c00	69	src/radiant/select.cpp	?FUN_00470c00@@YAXQAM@Z	FUN_00470c00	SUPPORTED
