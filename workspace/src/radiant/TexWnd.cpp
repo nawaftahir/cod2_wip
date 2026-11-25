@@ -802,7 +802,8 @@ extern int dword_01128dcc;
 extern int dword_01128dd0;
 extern TexCell dword_01128dd4[][16];
 extern unsigned dword_0123348c;
-void FUN_0046ff10(TexDef *tex, int flag);
+struct texdef_t;
+void FUN_0046ff10(const texdef_t *td, int flags);
 void FUN_00442140(int pos);
 
 // 0x00441a40 (517 B), extra in eax, tex on the stack
@@ -827,7 +828,7 @@ void FUN_00441a40(TexExtra *extra, TexDef *tex)
     dword_0123348c |= 0x10;
     CFindTextureDlg::updateTextures(tex->radMat->name);
     if (!CFindTextureDlg::isOpen())
-        FUN_0046ff10(tex, 1);
+        FUN_0046ff10((const texdef_t *)tex, 1);
     TexIter iter;
     FUN_00441750(&iter, dword_011298c4);
     while (FUN_004417f0(&iter))
@@ -926,6 +927,7 @@ class CMainFrame
 {
 public:
     void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
+    BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
     void FUN_00417cf0();
     void SetStatusText(int nPane, const char *pText)
     {
@@ -1161,7 +1163,6 @@ void FUN_004426e0(void)
 // the three methods are CMainFrame functions called through g_pParentWnd.
 void __stdcall FUN_004137d0(CMainFrame *self, UINT nChar);
 struct CTexWndMainProjection {
-    BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
     unsigned char inheritedAndFrameFields[0x7a0];
     int m_nCurrentStyle;
 };
@@ -1233,7 +1234,7 @@ LRESULT CALLBACK FUN_004429f0(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             ReleaseCapture();
         return 0;
     case WM_MOUSEWHEEL:
-        return reinterpret_cast<CTexWndMainProjection *>(g_pParentWnd)->OnMouseWheel(LOWORD(wParam), HIWORD(wParam), CPoint(LOWORD(lParam), HIWORD(lParam)));
+        return g_pParentWnd->OnMouseWheel(LOWORD(wParam), HIWORD(wParam), CPoint(LOWORD(lParam), HIWORD(lParam)));
     }
     return DefWindowProc(hwnd, msg, wParam, lParam);
 }
@@ -1455,7 +1456,7 @@ void CTexWnd::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar *pScrollBar)
 // 0x00443140 (34 B)
 BOOL CTexWnd::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 {
-    return reinterpret_cast<CTexWndMainProjection *>(g_pParentWnd)->OnMouseWheel(nFlags, zDelta, pt);
+    return g_pParentWnd->OnMouseWheel(nFlags, zDelta, pt);
 }
 
 // 0x00443170: window layout style of the main frame

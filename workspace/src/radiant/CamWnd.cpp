@@ -131,6 +131,7 @@ class CMainFrame
 {
 public:
     void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
+    BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
 };
 void __stdcall FUN_004137d0(CMainFrame *self, UINT nChar);
 struct orientation_t { float origin[3]; float axis[3][3]; };
@@ -139,11 +140,6 @@ void OrientationPosToLocal(const orientation_t *orient, const float *pos, float 
 void OrientationDirToLocal(const orientation_t *orient, const float *dir, float *out);
 extern CMainFrame *g_pParentWnd;
 extern HWND dword_010bcd58;
-
-struct CCamWndMainProjection
-{
-    BOOL OnMouseWheel(UINT flags, short delta, CPoint point);
-};
 
 #include "refexport.h"
 
@@ -1448,7 +1444,7 @@ void CCamWnd::OnKeyUp(UINT key, UINT repeat, UINT flags)
 
 BOOL CCamWnd::OnMouseWheel(UINT flags, short delta, CPoint point)
 {
-    return reinterpret_cast<CCamWndMainProjection *>(g_pParentWnd)->OnMouseWheel(flags, delta, point);
+    return g_pParentWnd->OnMouseWheel(flags, delta, point);
 }
 
 void CCamWnd::OnSysKeyDown(UINT key, UINT repeat, UINT flags)

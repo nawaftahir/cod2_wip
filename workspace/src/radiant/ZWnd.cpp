@@ -50,11 +50,11 @@ class CMainFrame
 {
 public:
     void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
+    BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
 };
 void __stdcall FUN_004137d0(CMainFrame *self, UINT nChar);
 struct CZWndMainProjection
 {
-	BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
 	void UpdateStatusBar();
 
 	void SetStatusText(int nPane, const char *pText)
@@ -288,7 +288,7 @@ void CZWnd::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 BOOL CZWnd::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 {
-	return reinterpret_cast<CZWndMainProjection *>(g_pParentWnd)->OnMouseWheel(nFlags, zDelta, pt);
+	return g_pParentWnd->OnMouseWheel(nFlags, zDelta, pt);
 }
 
 void CZWnd::OnSysKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)

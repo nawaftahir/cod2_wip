@@ -551,7 +551,7 @@ SCRIPT PARSING
 // this just controls the comment printing, it doesn't actually load a file
 void Com_BeginParseSession( const char *filename );
 void Com_EndParseSession( void );
-void Com_SetSpaceDelimited( qboolean spaceDelimited );
+void Com_SetSpaceDelimited( int spaceDelimited );
 
 int Com_GetCurrentParseLine( void );
 

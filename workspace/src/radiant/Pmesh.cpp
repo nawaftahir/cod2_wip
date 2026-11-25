@@ -361,7 +361,7 @@ void FUN_00428e20(bool bCone, bool bBevel, bool bEndcap, bool bSquare);
 float FUN_00439600(float f);
 bool FUN_00436bc0(const float *tri0, const float *org, int mode, const float *tri1, const float *pt, const float *nrm, float *outT, float *outU, float *outV);
 void FUN_00436690();
-void TextureAxisFromPlane(const plane_t *pln, float *xv, float *yv);
+void TextureAxisFromPlane(const vec3_t normal, vec3_t xv, vec3_t yv);
 bool FUN_004379f0(patchMesh_t *p, float *out);
 void FUN_00438510(brush_t *pb1, brush_t *pb0, const int *a3, const int *a4, const int *a5);
 void Brush_Free(brush_t *b);
@@ -371,9 +371,10 @@ bool FUN_00431570(const char **data_p, PatchControl *v, int nTexPairs);
 brushdef_t *FUN_00431890(const char **data_p, int version, bool bTerrain);
 extern int DAT_00596d48;
 extern unsigned char DAT_00592788[];
-extern const void *DAT_0053d944[];
-extern const void *DAT_0053d964[];
-int FUN_004209a0(const char **data_p, const char *name, const void *table);
+struct ContentFlag_t { const char *name; int flags; };
+extern ContentFlag_t DAT_0053d944[];
+extern ContentFlag_t DAT_0053d964[];
+int FUN_004209a0(const char **data_p, const char *name, const ContentFlag_t *table);
 struct qtexture_s; qtexture_s *FUN_00440c10(char *name, int version);
 char *Com_Parse(const char **data_p);
 char *Com_ParseOnLine(const char **data_p);
@@ -5910,7 +5911,7 @@ bool FUN_004379f0(patchMesh_t *p, float *out)
         return false;
     if (!FUN_00425d10(p, iy, ix))
         return false;
-    TextureAxisFromPlane(&plane, xv, yv);
+    TextureAxisFromPlane(plane.normal, xv, yv);
     float pa[3], pb[3], ps[3], pt[3];
     for (int k = 0; k < 3; k++)
     {
@@ -6572,8 +6573,10 @@ class AbstractFileWrapper
 public:
     virtual void FUN_00467df0(const char *fmt, ...) = 0;
 };
-void FUN_00420b30(AbstractFileWrapper *f, int contents);
-void FUN_00420b50(AbstractFileWrapper *f, int toolFlags);
+// defined as UNKNOWN_0054ebb0 in UNKNOWN_00420930.cpp
+class UNKNOWN_0054ebb0;
+void FUN_00420b30(UNKNOWN_0054ebb0 *f, int contents);
+void FUN_00420b50(UNKNOWN_0054ebb0 *f, int toolFlags);
 
 // 0x004321c0 (282 B), vert in eax, stream in esi
 void FUN_004321c0(PatchControl *patchVert, AbstractFileWrapper *f, int stCount)
@@ -6598,8 +6601,8 @@ void FUN_004322e0(patchMesh_t *p, AbstractFileWrapper *f)
         f->FUN_00467df0(" {\n  mesh\n  {\n");
     else
         f->FUN_00467df0(" {\n  curve\n  {\n");
-    FUN_00420b30(f, p->field_08);
-    FUN_00420b50(f, p->field_0c);
+    FUN_00420b30((UNKNOWN_0054ebb0 *)f, p->field_08);
+    FUN_00420b50((UNKNOWN_0054ebb0 *)f, p->field_0c);
     f->FUN_00467df0("   %s\n", ((material_t *)p->image_18)->name);
     f->FUN_00467df0("   %s\n", ((material_t *)p->lightmap_1c)->name);
     f->FUN_00467df0("   %i %i %g %i\n", p->width, p->height, p->flag_382f ? p->value_3834 : 0.0f, p->style_14);

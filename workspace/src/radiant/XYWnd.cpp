@@ -72,6 +72,7 @@ class CMainFrame
 {
 public:
     void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
+    BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
     void FUN_00417cf0();
     void SetStatusText(int nPane, const char *pText)
     {
@@ -86,10 +87,6 @@ public:
     CString m_strStatus[6];
 };
 void __stdcall FUN_004137d0(CMainFrame *self, UINT nChar);
-struct CXYWndMainProjection
-{
-    BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
-};
 extern CMainFrame *g_pParentWnd;
 
 // Q3Radiant CClipPoint: one placed point of the clip, point or path tools.
@@ -540,7 +537,7 @@ struct face_t
 };
 extern brush_t active_brushes;
 extern CClipPoint g_Clip1, g_Clip2, g_Clip3;
-struct CPatchDialog : public CDialog { void GetPatchInfo(); };
+class CPatchDialog : public CDialog { public: void GetPatchInfo(); };
 extern CPatchDialog g_PatchDialog;
 qtexture_s * __fastcall FUN_00440840(char *name);
 void FUN_00455cf0(brushdef_t *in, const face_t *f, brushdef_t **front, brushdef_t **back);
@@ -946,7 +943,7 @@ extern int dword_011298c4;
 struct orientation_t;
 extern orientation_t dword_01129950;
 extern float color_011297c8[4];
-extern int FUN_0045d9a0(face_t *f, int a, unsigned *color, int b, int vertCount, int maxCount, GfxPointVertex *verts);
+extern int FUN_0045d9a0(face_t *f, int a, const unsigned *color, int b, int vertCount, int maxCount, GfxPointVertex *verts);
 void FUN_0040c590(const float *in, float *out, int nDim1, int nDim2, int nDim3, float scale, int width, int height);
 void OrientationPosToWorld(const orientation_t *orient, const float *pos, float *out);
 
@@ -1559,7 +1556,7 @@ extern bool byte_0112993c;
 extern bool byte_0112993d;
 void FUN_00475350();
 void Sys_MarkMapModified();
-void FUN_0045b310(brushdef_t *def, float *mins, float *maxs);
+void FUN_0045b310(brushdef_t *def, const vec3_t mins, const vec3_t maxs);
 extern unsigned char texdef_01128da8[];
 void Sys_Printf(const char *fmt, ...);
 struct CMainFrameCamProjection
@@ -3399,7 +3396,7 @@ extern void (*FUN_0059c47c)(void);
 extern float g_vSelectionColor[4];
 void FUN_0040bff0(void);
 void FUN_0040c210(void);
-void FUN_0040c4a0(const float *quad);
+void FUN_0040c4a0(float (*xyzw)[4]);
 void FUN_00436690(void);
 void FUN_0045d7f0(brush_t *b, int view, int a, int b2, int c, int d, const unsigned *color, int width, int flag);
 void FUN_0045f7e0(void);
@@ -3559,7 +3556,7 @@ void CXYWnd::XY_Draw()
         quad[3][nDim2] = p0[nDim2];
         quad[3][nDim3] = 2048.0f;
         quad[3][3] = 1.0f;
-        FUN_0040c4a0(&quad[0][0]);
+        FUN_0040c4a0(quad);
     }
     DrawCameraIcon();
     DrawZIcon();
@@ -3935,7 +3932,7 @@ BOOL CXYWnd::AreaSelectOK()
 
 BOOL CXYWnd::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 {
-    return reinterpret_cast<CXYWndMainProjection *>(g_pParentWnd)->OnMouseWheel(nFlags, zDelta, pt);
+    return g_pParentWnd->OnMouseWheel(nFlags, zDelta, pt);
 }
 
 void CXYWnd::OnSysKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)

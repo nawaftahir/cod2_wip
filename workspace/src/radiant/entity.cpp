@@ -121,7 +121,7 @@ brushdef_t *BrushDef_Create(const vec3_t mins, const vec3_t maxs, eclass_t *ecla
 eclass_t *FUN_00464930(const char *name, entity_t *ent);
 bool FUN_0045b420(brush_t *b);
 void FUN_0045af00(brush_t *b);
-void FUN_0045d240(const brushdef_t *b, const orientation_t *or, float *mins, float *maxs);
+void FUN_0045d240(const brushdef_t *b, const orientation_t *or, vec3_t mins, vec3_t maxs);
 brush_t *FUN_00458440(brushdef_t *def, entity_t *owner);
 void FUN_00459210(brush_t *b, brush_t *list);
 bool FUN_00465d80(entity_t *ent, const char *key);
@@ -140,7 +140,7 @@ extern void FUN_0045a220(brushdef_t *b, bool snap);
 extern void FUN_00457bd0(brushdef_t *b);
 extern void FUN_00475350();
 extern void Sys_MarkMapModified(void);
-extern void FUN_0045b310(brushdef_t *b, const float *mins, const float *maxs);
+extern void FUN_0045b310(brushdef_t *b, const vec3_t mins, const vec3_t maxs);
 extern void AddPointToBounds(const vec3_t v, vec3_t mins, vec3_t maxs);
 void FUN_00467470(entity_t *e);
 void FUN_00467510(entity_t *e);

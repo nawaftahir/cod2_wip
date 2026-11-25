@@ -60,7 +60,7 @@ struct vp_epairs_t
 	void *first;
 };
 
-struct vp_entdef_t
+struct entity_t
 {
 	unsigned char pad0[0x50];
 	vp_eclass_t *eclass;
@@ -72,16 +72,16 @@ struct vp_entdef_t
 struct vp_branddef_t
 {
 	unsigned char pad0[8];
-	vp_entdef_t *owner;
+	entity_t *owner;
 };
 
-struct vp_brush_t
+struct brush_t
 {
-	vp_brush_t *prev;
-	vp_brush_t *next;
+	brush_t *prev;
+	brush_t *next;
 	struct vp_entity_t *owner;
-	vp_brush_t *ownerNext;
-	vp_brush_t *ownerPrev;
+	brush_t *ownerNext;
+	brush_t *ownerPrev;
 	vp_branddef_t *def;
 };
 
@@ -89,14 +89,14 @@ struct vp_entity_t
 {
 	vp_entity_t *prev;
 	vp_entity_t *next;
-	vp_entdef_t *def;
-	vp_brush_t brushes;
+	entity_t *def;
+	brush_t brushes;
 };
 
 extern const char *FUN_00464bb0(vp_epairs_t *epairs, const char *key);
-extern bool FUN_00465d80(vp_entdef_t *def, const char *key);
-extern void FUN_00465d50(vp_entdef_t *def, const char *key, vec3_t out);
-extern bool FUN_0044f5d0(vp_brush_t *brush);
+extern bool FUN_00465d80(entity_t *def, const char *key);
+extern void FUN_00465d50(entity_t *def, const char *key, vec3_t out);
+extern bool FUN_0044f5d0(brush_t *brush);
 extern void Sys_Printf(const char *fmt, ...);
 
 extern void (*Byte4PackPixelColor)(const float *from, void *to);
@@ -104,7 +104,7 @@ extern void (*R_AddCmd_Line3D)(int count, int width, const void *verts);
 extern float DAT_011297a8[4];
 extern vp_prefs_t *DAT_01233b64;
 extern unsigned char DAT_01129888;
-extern vp_brush_t DAT_010a44b4;
+extern brush_t DAT_010a44b4;
 extern vp_entity_t DAT_010a43d0;
 extern unsigned char DAT_0124a4ce;
 extern unsigned char DAT_0124a4cf;
@@ -1026,7 +1026,7 @@ void FUN_004930d0()
 
 void FUN_00493390()
 {
-	vp_brush_t *brush;
+	brush_t *brush;
 	vp_entity_t *ent;
 	vp_eclass_t *eclass;
 	vp_node_t *node;

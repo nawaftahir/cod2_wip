@@ -261,7 +261,7 @@ float FUN_0043ce20()
 }
 
 void * __stdcall FUN_0043d630(CSurfaceDlg *dlg);
-void FUN_0046ff10(void *texdef, int flag);
+void FUN_0046ff10(const texdef_t *td, int flags);
 extern int g_nUpdateBits;
 
 void __stdcall FUN_0043d400(CSurfaceDlg *dlg);

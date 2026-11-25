@@ -100,27 +100,28 @@ extern void FUN_0046f6b0(const float *origin, const float *dir, int flags);
 extern void FUN_004758e0(const float *origin, const float *dir, unsigned int buttons);
 extern void FUN_00475790(const float *origin, const float *dir);
 extern void FUN_004755b0(const float *origin, const float *dir);
-extern void FUN_0045a030(brushdef_t *b, const float *origin, const float *dir, bool shear);
+extern void FUN_0045a030(brushdef_t *b, const vec3_t origin, const vec3_t dir, int flag);
 struct face_t;
 struct texdef_t;
 struct radmat_t;
 extern void FUN_00459ae0(brushdef_t *b, face_t *face, bool shear);
 extern void FUN_00437730(const float *origin, const float *dir);
 extern bool FUN_004532a0();
-extern bool FUN_00401d30(void *dlg);
-extern bool FUN_00401f70(void *dlg);
+struct CAdvCurveEditDlg { bool FUN_00401d30(); bool FUN_00401f70(); };
 extern bool OnlyPatchesSelected();
 extern bool FUN_0042bd90();
-extern char g_CurveEditDlg[];
+extern CAdvCurveEditDlg DAT_01233b68;
 extern void FUN_00434630(const float *planes, bool bAdd);
 extern void FUN_00434810(const void *planes, bool bAdd);
 extern void FUN_00471160(const float *mins, const float *maxs, bool inside);
 extern bool FUN_004379f0(patchMesh_t *p, float *out);
-extern void FUN_00441a40(void *texdef, void *tex);
+struct TexExtra;
+struct TexDef;
+extern void FUN_00441a40(TexExtra *extra, TexDef *tex);
 extern void FUN_0043e400();
 extern void UpdatePatchInspector();
 extern void FUN_00424b10();
-extern void FUN_004597f0(brushdef_t *b, void *tex, int a, int c, bool flag);
+extern void FUN_004597f0(brushdef_t *b, const texdef_t *td, int a, int c, bool flag);
 extern void FUN_004593c0(brushdef_t *b, face_t *face, const texdef_t *tex);
 extern void FUN_00459430(brushdef_t *b, face_t *face, radmat_t *mat);
 extern void FUN_0045a220(brushdef_t *b, bool snap);
@@ -385,9 +386,9 @@ void Drag_Begin(int x, int y, int buttons, const float *xaxis, const float *yaxi
     if ((GetAsyncKeyState(VK_MENU) & 0x8000) && (buttons == 1 || buttons == 2))
     {
         mode = g_qeglobals.d_select_mode;
-        if ((mode == 0 || mode == 10) && FUN_00401d30(g_CurveEditDlg))
+        if ((mode == 0 || mode == 10) && DAT_01233b68.FUN_00401d30())
         {
-            if ((OnlyPatchesSelected() || selected_brushes.next == &selected_brushes && FUN_00401f70(g_CurveEditDlg)) && FUN_0042bd90())
+            if ((OnlyPatchesSelected() || selected_brushes.next == &selected_brushes && DAT_01233b68.FUN_00401f70()) && FUN_0042bd90())
             {
                 mode = g_qeglobals.d_select_mode;
                 g_qeglobals.d_select_mode = 10;
@@ -425,7 +426,7 @@ void Drag_Begin(int x, int y, int buttons, const float *xaxis, const float *yaxi
             FUN_004379f0(t.brush->def->patch, (float *)(f + DAT_01128d90 * 28 + 36));
 #line 430
         assert((t.brush->patch == NULL && t.brush->def->patch == NULL) || (t.brush->patch->def == t.brush->def->patch));
-        FUN_00441a40(f + DAT_01128d90 * 28 + 36, 0);
+        FUN_00441a40((TexExtra *)(f + DAT_01128d90 * 28 + 36), 0);
         FUN_0043e400();
         UpdatePatchInspector();
         return;
@@ -437,7 +438,7 @@ void Drag_Begin(int x, int y, int buttons, const float *xaxis, const float *yaxi
         {
             if (t.brush->owner->def->eclass->fixedsize == 0)
             {
-                FUN_004597f0(t.brush->def, &DAT_01128da8, 1, 1, false);
+                FUN_004597f0(t.brush->def, (const texdef_t *)&DAT_01128da8, 1, 1, false);
                 g_nUpdateBits = -1;
                 return;
             }
@@ -453,7 +454,7 @@ void Drag_Begin(int x, int y, int buttons, const float *xaxis, const float *yaxi
             if (t.brush->owner->def->eclass->fixedsize == 0)
             {
                 if (t.brush->patch)
-                    FUN_004597f0(t.brush->def, &DAT_01128da8, 1, 0, false);
+                    FUN_004597f0(t.brush->def, (const texdef_t *)&DAT_01128da8, 1, 0, false);
                 else
                 {
 #line 493

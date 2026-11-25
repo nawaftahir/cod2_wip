@@ -15,7 +15,7 @@ struct z_t
 };
 extern z_t z;
 
-struct ZVert
+struct GfxPointVertex
 {
 	float xyz[3];
 	unsigned color;
@@ -67,11 +67,12 @@ extern float g_zTextOrient[16];
 extern int g_zAxisInit;
 
 void Sys_GetCursorPos(int *x, int *y);
-void Drag_Begin(int x, int y, int buttons, float *right, float *up, float *origin, float *dir);
+void Drag_Begin(int x, int y, int buttons, const float *xaxis, const float *yaxis, const float *origin, const float *dir,
+                void (*pfnDragRect)(int, int, int, int, float *));
 void Drag_MouseUp(int buttons);
 void FUN_004623e0(int buttons, int x, int y, float *origin, float *dir);
-int R_Add3DLine(float *p0, float *p1, const unsigned *color, int width, int count, int max, ZVert *verts);
-int FUN_0040bf80(float x0, float y0, float x1, float y1, const unsigned *color, int width, int count, int max, ZVert *verts);
+int R_Add3DLine(GfxPointVertex *verts, const float *p1, const float *p2, const void *color, int width, int vertCount, int maxVertCount);
+int FUN_0040bf80(float x0, float y0, float x1, float y1, const void *color, int width, int vertCount, int maxVertCount, GfxPointVertex *verts);
 struct faceRender_t;
 faceRender_t *FUN_00458fa0(brush_t *b, const float *origin, const float *dir, float *dist, float *outNormal);
 bool FUN_0045d090(const brushdef_t *b, float *color, const float *defaultColor);
@@ -123,7 +124,7 @@ void Z_MouseDown(int x, int y, int buttons)
 	if (buttons == MK_LBUTTON || buttons == (MK_LBUTTON | MK_SHIFT) || buttons == MK_MBUTTON
 		|| buttons == (nMouseButton | MK_SHIFT | MK_CONTROL))
 	{
-		Drag_Begin(x, y, buttons, vright, vup, org, dir);
+		Drag_Begin(x, y, buttons, vright, vup, org, dir, 0);
 		return;
 	}
 	if (buttons == (MK_CONTROL | nMouseButton) || buttons == (MK_CONTROL | MK_LBUTTON))
@@ -181,7 +182,7 @@ void Z_MouseMoved(int x, int y, int buttons)
 // 0x0047b180
 void Z_DrawGrid(void)
 {
-	ZVert verts[0x552];
+	GfxPointVertex verts[0x552];
 	char text[32];
 	unsigned color;
 
@@ -212,7 +213,7 @@ void Z_DrawGrid(void)
 		p1[0] = (float)w;
 		p1[1] = zg;
 		p1[2] = 0;
-		count = R_Add3DLine(p0, p1, &color, 1, count, 0x552, verts);
+		count = R_Add3DLine(verts, p0, p1, &color, 1, count, 0x552);
 	}
 
 	if (d_showgrid)
@@ -232,7 +233,7 @@ void Z_DrawGrid(void)
 					p1[0] = (float)w;
 					p1[1] = zg;
 					p1[2] = 0;
-					count = R_Add3DLine(p0, p1, &color, 1, count, 0x552, verts);
+					count = R_Add3DLine(verts, p0, p1, &color, 1, count, 0x552);
 				}
 			}
 		}
@@ -254,7 +255,7 @@ void Z_DrawGrid(void)
 // 0x0047b6c0
 void ZDrawCameraIcon(void)
 {
-	ZVert verts[16];
+	GfxPointVertex verts[16];
 	unsigned color;
 	float p0[3], p1[3];
 	int xCam = z.width / 4;
@@ -266,21 +267,21 @@ void ZDrawCameraIcon(void)
 	p0[2] = 0;
 	p1[2] = 0;
 	p0[0] = nx; p0[1] = y; p1[0] = 0; p1[1] = y + 8.0f;
-	int n = R_Add3DLine(p0, p1, &color, 1, 0, 16, verts);
+	int n = R_Add3DLine(verts, p0, p1, &color, 1, 0, 16);
 	p0[0] = xc; p0[1] = y; p1[0] = 0; p1[1] = y + 8.0f;
-	n = R_Add3DLine(p0, p1, &color, 1, n, 16, verts);
+	n = R_Add3DLine(verts, p0, p1, &color, 1, n, 16);
 	p0[0] = xc; p0[1] = y; p1[0] = 0; p1[1] = y - 8.0f;
-	n = R_Add3DLine(p0, p1, &color, 1, n, 16, verts);
+	n = R_Add3DLine(verts, p0, p1, &color, 1, n, 16);
 	p0[0] = nx; p0[1] = y; p1[0] = 0; p1[1] = y - 8.0f;
-	n = R_Add3DLine(p0, p1, &color, 1, n, 16, verts);
+	n = R_Add3DLine(verts, p0, p1, &color, 1, n, 16);
 	p0[0] = nx; p0[1] = y; p1[0] = xc; p1[1] = y;
-	n = R_Add3DLine(p0, p1, &color, 1, n, 16, verts);
+	n = R_Add3DLine(verts, p0, p1, &color, 1, n, 16);
 	p0[0] = xc; p0[1] = y; p1[0] = xc; p1[1] = y - 48.0f;
-	n = R_Add3DLine(p0, p1, &color, 1, n, 16, verts);
+	n = R_Add3DLine(verts, p0, p1, &color, 1, n, 16);
 	p0[0] = nx; p0[1] = y - 48.0f; p1[0] = xc; p1[1] = y - 48.0f;
-	n = R_Add3DLine(p0, p1, &color, 1, n, 16, verts);
+	n = R_Add3DLine(verts, p0, p1, &color, 1, n, 16);
 	p0[0] = nx; p0[1] = y - 48.0f; p1[0] = nx; p1[1] = y;
-	n = R_Add3DLine(p0, p1, &color, 1, n, 16, verts);
+	n = R_Add3DLine(verts, p0, p1, &color, 1, n, 16);
 	assert(n == 16);
 	if (n)
 		re.AddLines(n / 2, 1, verts);
@@ -289,8 +290,8 @@ void ZDrawCameraIcon(void)
 // 0x0047ba90
 void Z_Draw(void)
 {
-	ZVert verts[0x552];
-	ZVert boxVerts[0x552];
+	GfxPointVertex verts[0x552];
+	GfxPointVertex boxVerts[0x552];
 	unsigned color;
 	unsigned cameraColor;
 	float origin[3];
@@ -385,7 +386,7 @@ void Z_Draw(void)
 						lightColor[3] = b->owner->def->eclass->color[3];
 						FUN_0045d090(b->def, lightColor, lightColor);
 						re.ColorToBytes(lightColor, &color);
-						linesCount = R_Add3DLine(lo, hi, &color, width, linesCount, 0x552, verts);
+						linesCount = R_Add3DLine(verts, lo, hi, &color, width, linesCount, 0x552);
 					}
 				}
 			}
