@@ -250,7 +250,7 @@
 0x0041ba40	lane-d10	2026-11-24	bulk draft: 72%, sizes 48/47, first diff +0x0 [r2: member+msgmap, 72%, sizes 48/47]
 0x0041bd40	lane-d10	2026-11-24	bulk draft: 48%, sizes 119/149, first diff +0x8 [r2: member+msgmap, 48%, sizes 115/149]
 0x0041c1d0	lane-d10	2026-11-24	bulk draft: 48%, sizes 119/149, first diff +0x1 [r2: member+msgmap, 48%, sizes 115/149]
-0x00448550	bulk-d	2026-11-19	FUN_00448550 (Q3 Winding_SplitEpsilon): bulk draft: 96%, sizes 1000/1000, first diff +0x5 (prologue/register convention)
+0x00448550	claude-h18	2026-11-25	FUN_00448550 (Winding_Clip shape): 99%, 1000/1000, first diff +0x2d5: 68-entry arrays + separate counts stores + pointCount=0 before *front fixed frame and stores; left: split fraction lives in a dead param slot in retail, dists[i] copy in [ebp-4]. Tried fraction into epsilon param (97%).
 0x004493c0	bulk-d	2026-11-19	FUN_004493c0 (returns its 2nd stack arg): bulk draft: 0%, sizes 1/5; LTCG drops the unused result in ours
 0x00429a00	claude-e	2026-11-19	bulk draft: 48%, sizes 432/446, first difference at +0x6. Prior: bulk draft: 48%, sizes 432/446, first difference at +0x6
 0x00429f40	claude-d15	2026-11-25	FUN_00429f40 (remove a point from the move list): 99%, sizes 146/146, first diff +0x32 (reloc-normalised +0x30): only fld [ecx+esi] (retail) vs fld [esi+ecx] (ours), same SIB-order residue as FUN_00439620 (98%, row 0x00439620). Tried 2026-11-25: pointer-walk loop *v1++ - *v2++ in FUN_00439620 (worse: 429f40 and 439620 stop binding). Together with the earlier d=v1[i]-v2[i], -v2[i]+v1[i], swapped params: 4 variants.

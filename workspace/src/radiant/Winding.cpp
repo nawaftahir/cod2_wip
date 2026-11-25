@@ -282,8 +282,8 @@ winding_t *FUN_00448280(winding_t *in, const facePlane_t *split, int keepon)
 
 int FUN_00448550(const winding_t *in, const vec3_t normal, double dist, float epsilon, winding_t **front, winding_t **back)
 {
-    float dists[69];
-    int sides[69];
+    float dists[68];
+    int sides[68];
     int counts[3];
     float dot;
     int i, j;
@@ -292,7 +292,9 @@ int FUN_00448550(const winding_t *in, const vec3_t normal, double dist, float ep
     winding_t *f, *b;
     int maxpts;
 
-    counts[0] = counts[1] = counts[2] = 0;
+    counts[0] = 0;
+    counts[1] = 0;
+    counts[2] = 0;
     for (i = 0; i < in->pointCount; i++) {
         dot = DotProduct(in->points[i], normal) - dist;
         dists[i] = dot;
@@ -316,10 +318,12 @@ int FUN_00448550(const winding_t *in, const vec3_t normal, double dist, float ep
         return 0;
     }
     maxpts = in->pointCount + 4;
-    *front = f = Winding_Alloc(maxpts);
+    f = Winding_Alloc(maxpts);
     f->pointCount = 0;
-    *back = b = Winding_Alloc(maxpts);
+    *front = f;
+    b = Winding_Alloc(maxpts);
     b->pointCount = 0;
+    *back = b;
     for (i = 0; i < in->pointCount; i++) {
         p1 = in->points[i];
         if (sides[i] == 2) {
