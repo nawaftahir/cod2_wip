@@ -1261,7 +1261,15 @@ brush_t *FUN_004275a0(patchMesh_t *pm, bool bByColumn, bool bFirst)
     maxs[2] = -131072.0f;
     def->type_10 |= 0x1000;
     count = bByColumn ? pm->width : pm->height;
-    edge = bFirst ? 0 : (bByColumn ? pm->height : pm->width) - 1;
+    if (bFirst)
+        edge = 0;
+    else
+    {
+        if (bByColumn)
+            edge = pm->height - 1;
+        else
+            edge = pm->width - 1;
+    }
     FillPatch(def, pm->ctrl[0][edge].xyz);
     for (int i = 0; i < count; i++)
     {
@@ -1286,11 +1294,10 @@ brush_t *FUN_004275a0(patchMesh_t *pm, bool bByColumn, bool bFirst)
     int nInner = bSmall ? 1 : 9;
     for (int i = 0; i < nInner; i++)
     {
-        const int (*inner)[2] = bSmall ? DAT_0053dab0 : DAT_0053dab8;
-        float *dst = def->ctrl[inner[i][0]][inner[i][1]].xyz;
-        dst[0] = mid[0];
-        dst[1] = mid[1];
-        dst[2] = mid[2];
+        if (bSmall)
+            VectorCopy(mid, def->ctrl[DAT_0053dab0[i][0]][DAT_0053dab0[i][1]].xyz);
+        else
+            VectorCopy(mid, def->ctrl[DAT_0053dab8[i][0]][DAT_0053dab8[i][1]].xyz);
     }
     if (bFirst)
     {
