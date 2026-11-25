@@ -2805,16 +2805,12 @@ bool FUN_0044f630(brushdef_t *b)
     if (g_strFilter.GetLength() > 0)
     {
         char *tok = strtok(buf, ",;");
-        while (tok)
-        {
+        if (tok)
             while (*tok == ' ')
                 tok++;
-            if (!strstr(tok, ":"))
-            {
-                if (strstr(b->owner->eclass->name, tok))
-                    return true;
-            }
-            else
+        while (tok)
+        {
+            if (strstr(tok, ":"))
             {
                 I_strncpyz(token, tok, sizeof(token));
                 char *colon = strstr(token, ":");
@@ -2824,6 +2820,11 @@ bool FUN_0044f630(brushdef_t *b)
                     if (FUN_00465e10(b->owner, token, colon))
                         return true;
                 }
+            }
+            else
+            {
+                if (strstr(b->owner->eclass->name, tok))
+                    return true;
             }
             tok = strtok(NULL, ",;");
         }

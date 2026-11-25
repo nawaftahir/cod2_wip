@@ -357,7 +357,7 @@
 0x0044eb10	bulk-e2	2026-11-19	CXYWnd::DrawRotateIcon: bulk draft: 7%, sizes 263/903, first diff +0x3.
 0x0044eea0	bulk-e2	2026-11-19	CXYWnd::DrawCameraIcon: bulk draft: 21%, sizes 656/756, first diff +0x5.
 0x0044f1a0	bulk-e2	2026-11-19	CXYWnd::DrawZIcon: bulk draft: 13%, sizes 531/906, first diff +0x5.
-0x0044f630	claude-l24	2026-11-25	FUN_0044f630 (Brush_IsFiltered): 79%, sizes 2987/2994. Fixed: entity_t name (callee 0x465e10 now binds, register convention), 0x28000000 test inverted, 0x44f560 kept out of line (auto_inline off; retail calls it at +0x70c), owner/eclass/classname locals as retail spills. Open: strtok loop wants the colon branch inline (if(strstr(tok,":")) first) and spill order of owner/eclass at +0x725.
+0x0044f630	claude-l24	2026-11-25	FUN_0044f630 (Brush_IsFiltered): 84%, sizes 2995/2994. Fixed: entity_t name (callee 0x465e10 binds, register convention), 0x28000000 test inverted, 0x44f560 kept out of line (auto_inline off; retail calls it at +0x70c), colon branch first and space skip only before the strtok loop. Open: first diff +0x5 (frame 0x814 vs 0x810): retail also spills b->owner at ebp-0x810 and eclass at ebp-0x814 (+0x725/+0x74b), ours hoists eclass before the world compare and rematerialises owner; lazy assignment form tried (77%, 2979). Last return (flags>>2)&1 is and al,1 in retail, and eax,1 ours.
 0x004501f0	bulk-e2	2026-11-19	ConnectEntitiesByTargetname: bulk draft: 36%, sizes 1938/1958, first diff +0x4.
 0x004509a0	bulk-e2	2026-11-19	ConnectEntitiesByScriptLinkName: bulk draft: 42%, sizes 1001/994, first diff +0x4.
 0x00450d90	bulk-e2	2026-11-19	DrawConnectionArrow: bulk draft: 19%, sizes 863/1176, first diff +0x5. Retail takes nDim1 in edi and nDim2 in ecx (LTCG); text centering helper 0x40c590 unwritten.
