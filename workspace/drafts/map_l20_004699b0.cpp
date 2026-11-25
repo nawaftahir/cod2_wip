@@ -1,4 +1,4 @@
-// l20 draft, 51% (4764/4448 B). Kept out of the build: in-tree it flips FUN_004656b0/465780/467510 (gate 3 failures, game bytes 359,364).
+// l22: 56% (4601/4448 B) with dword_011298d4 = 0 and map.SetAt (retail inline SetString, strlen of value). l20 draft, 51% (4764/4448 B). Kept out of the build: in-tree it flips FUN_004656b0/465780/467510 (gate 3 failures, game bytes 359,364).
 // Insert in map.cpp between FUN_00469950 and FUN_0046ab20, replacing the 'void FUN_004699b0(const char **data, int flags);' forward declaration.
 // 0x004699b0 (4448 B): import a map buffer; renumbers script links, makes target names unique
 #define MAX_LINKS 4096
@@ -21,6 +21,7 @@ void UniqueTargetName(CString &name);
 bool FUN_0045b420(brush_t *b);
 int FUN_0046d710(int *out, const char *linkTo);
 extern bool DAT_0058fbed;
+extern int dword_011298d4;
 char *va(const char *format, ...);
 
 void FUN_004699b0(const char **data, int version)
@@ -40,6 +41,7 @@ void FUN_004699b0(const char **data, int version)
 	FUN_0046fbe0(true);
 	FUN_004433b0();
 	Undo_GeneralStart("import buffer");
+	dword_011298d4 = 0;
 	for (brush_t *b = active_brushes.next; b != &active_brushes; b = b->next)
 	{
 		entity_t *ent = b->owner->def;
@@ -145,7 +147,7 @@ void FUN_004699b0(const char **data, int version)
 						if (!map.Lookup(str, strUnique))
 						{
 							UniqueTargetName(strUnique);
-							map[str] = strUnique;
+							map.SetAt(str, strUnique);
 						}
 						strTarget = strUnique;
 						if (!strncmp(str, "auto", 4))
@@ -174,7 +176,7 @@ void FUN_004699b0(const char **data, int version)
 						if (!map.Lookup(str, strUnique))
 						{
 							UniqueTargetName(strUnique);
-							map[str] = strUnique;
+							map.SetAt(str, strUnique);
 						}
 						if (strncmp(str, "auto", 4))
 						{
