@@ -212,13 +212,11 @@ struct PatchView { char pad[0x70]; int org[3]; };
 void FUN_0047aa30();
 void FUN_00468d10();
 void FUN_0047a8d0();
-void FUN_0047ab50(bool);
+void SaveAsDialog(bool);
 void FUN_00468910(const char *name, bool use_region);
 void FUN_004749a0();
 void FUN_00474b70();
 void __stdcall FUN_00403610(CCamWnd *cam, int a);
-void FUN_00452ca0(CXYWnd *xy, int type);
-void FUN_00452b00(CXYWnd *xy);
 BOOL DoMru(HWND hWnd, WORD wId);
 struct qtexture_s;
 void FUN_004416b0(qtexture_s *tex);
@@ -274,7 +272,6 @@ void FUN_0042ec60();
 void FUN_0042edc0();
 void FUN_00435840();
 extern RECT DAT_01234668;
-void FUN_00442e60();
 void FUN_00452f50(CXYWnd *xy);
 void FUN_0046ab20(const char *filename);
 void FUN_0046ad90(const char *filename);
@@ -315,8 +312,6 @@ void FUN_004114f0(CWnd *pWnd, UINT nID);
 
 // 0x00411002
 void FUN_00477580(int a);
-bool FUN_00452d90(CWnd *w);
-void FUN_00452990();
 extern "C" void FUN_00467f00();
 void FUN_00433da0();
 extern bool DAT_0109fe5e;
@@ -1309,13 +1304,13 @@ extern "C" void FUN_00414d90() {}
 void CMainFrame::FUN_00414da0()
 {
   if (!strcmp((const char *)&dword_010a4508, "unnamed.map"))
-    FUN_0047ab50(false);
+    SaveAsDialog(false);
   else
     FUN_00468910((const char *)&dword_010a4508, 0);
 }
 
 // 0x00414de0
-void CMainFrame::FUN_00414de0() { FUN_0047ab50(false); }
+void CMainFrame::FUN_00414de0() { SaveAsDialog(false); }
 
 extern "C" void FUN_00414df0() { FUN_00425260(&dword_010a4508); }
 extern "C" void FUN_00414e00() { FUN_00425500(&dword_010a4508); }
@@ -1410,7 +1405,7 @@ void CMainFrame::FUN_004151e0()
 {
   if (this->field_07a0 != 2)
   {
-    FUN_00452ca0(this->field_0788, 0);
+    this->field_0788->SetViewType(0);
     this->field_0788->PositionView();
   }
   dword_0123348c |= 2;
@@ -1477,7 +1472,7 @@ void CMainFrame::FUN_00415660()
 {
   if (this->field_07a0 != 2)
   {
-    FUN_00452ca0(this->field_0788, 2);
+    this->field_0788->SetViewType(2);
     this->field_0788->PositionView();
   }
   dword_0123348c |= 2;
@@ -1580,7 +1575,7 @@ void CMainFrame::FUN_004159e0()
 {
   if (this->field_07a0 != 2)
   {
-    FUN_00452ca0(this->field_0788, 1);
+    this->field_0788->SetViewType(1);
     this->field_0788->PositionView();
   }
   dword_0123348c |= 2;
@@ -2073,11 +2068,11 @@ void CMainFrame::FUN_004170f0()
   {
     CXYWnd *xy = this->field_0788;
     if (xy->m_nViewType == 2)
-      FUN_00452ca0(xy, 1);
+      xy->SetViewType(1);
     else if (xy->m_nViewType == 1)
-      FUN_00452ca0(xy, 0);
+      xy->SetViewType(0);
     else
-      FUN_00452ca0(xy, 2);
+      xy->SetViewType(2);
     this->field_0788->PositionView();
     dword_0123348c |= 2;
   }
@@ -2362,11 +2357,11 @@ void CMainFrame::FUN_00417a90()
   {
     CXYWnd *xy = this->field_0788;
     if (xy->m_nViewType == 2)
-      FUN_00452ca0(xy, 1);
+      xy->SetViewType(1);
     else if (xy->m_nViewType == 1)
-      FUN_00452ca0(xy, 0);
+      xy->SetViewType(0);
     else
-      FUN_00452ca0(xy, 2);
+      xy->SetViewType(2);
     this->field_0788->PositionView();
     dword_0123348c |= 2;
   }
@@ -3311,7 +3306,7 @@ extern "C" void __fastcall FUN_00419b00(CMainFrame *self)
 }
 
 // 0x00419b90
-void CMainFrame::FUN_00419b90() { FUN_0047ab50(true); }
+void CMainFrame::FUN_00419b90() { SaveAsDialog(true); }
 
 void CMainFrame::FUN_00419ba0(CCmdUI *pCmdUI)
 {

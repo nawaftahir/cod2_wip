@@ -210,23 +210,15 @@
 0x00488c70	lane-d-r41	2026-11-19	BoxOnPlaneSide verbatim lnxded-1.0 source: 20%, 580/652, first diff +0x0. Not kept.
 0x004884a0	lane-d-r41	2026-11-19	SnapPointToIntersectingPlanes verbatim lnxded-1.0 source: 21%, 398/392 (SnapPointToPlanes 60% 974/958 vs 0x488630). Not kept.
 0x00497b30	lane-d-r41	2026-11-19	ScaledOrientationPosToWorld verbatim lnxded-1.0 source: 23%, 93/158. Not kept.
-0x00414da0	lane-d10	2026-11-24	bulk draft: 70%, sizes 49/51, first diff +0x2 [r2: member+msgmap, 70%, sizes 49/51]
-0x00414de0	lane-d10	2026-11-24	bulk draft: 50%, sizes 9/10, first diff +0x0 [r2: member+msgmap, 50%, sizes 9/10]
 0x00415140	lane-d10	2026-11-24	bulk draft: 48%, sizes 119/149, first diff +0x1 [r2: member+msgmap, 48%, sizes 115/149]
-0x004151e0	lane-d10	2026-11-24	bulk draft: 42%, sizes 46/47, first diff +0x0 [r2: member+msgmap, 64%, sizes 50/47]
-0x00415660	lane-d10	2026-11-24	bulk draft: 42%, sizes 46/47, first diff +0x0 [r2: member+msgmap, 64%, sizes 50/47]
 0x004156a0	lane-d10	2026-11-24	bulk draft: 56%, sizes 154/166, first diff +0x5 [r2: member+msgmap, 57%, sizes 154/166]
-0x004159e0	lane-d10	2026-11-24	bulk draft: 42%, sizes 46/47, first diff +0x0 [r2: member+msgmap, 64%, sizes 50/47]
 0x00416030	lane-d10	2026-11-24	bulk draft: 55%, sizes 16/18, first diff +0x0 [r2: member+msgmap, 55%, sizes 16/18]
 0x00416050	lane-d10	2026-11-24	bulk draft: 61%, sizes 16/21, first diff +0x0 [r2: member+msgmap, 61%, sizes 16/21]
 0x00416070	lane-d10	2026-11-24	bulk draft: 61%, sizes 16/21, first diff +0x0 [r2: member+msgmap, 61%, sizes 16/21]
-0x004170f0	lane-d10	2026-11-24	bulk draft: 22%, sizes 79/71, first diff +0x0 [r2: member+msgmap, 40%, sizes 83/71]
 0x004171b0	lane-d10	2026-11-24	bulk draft: 48%, sizes 114/106, first diff +0x0 [r2: member+msgmap, 39%, sizes 119/106]
-0x00417a90	lane-d10	2026-11-24	bulk draft: 22%, sizes 79/71, first diff +0x0 [r2: member+msgmap, 40%, sizes 83/71]
 0x00418ec0	lane-d10	2026-11-24	bulk draft: 49%, sizes 201/203, first diff +0xb [r2: member+msgmap, 49%, sizes 201/203]
 0x004190a0	lane-d10	2026-11-24	bulk draft: 14%, sizes 30/56, first diff +0x0 [r2: member+msgmap, 41%, sizes 45/56]
 0x004196a0	lane-d10	2026-11-24	bulk draft: 39%, sizes 113/113, first diff +0x7 [r2: member+msgmap, 44%, sizes 117/113]
-0x00419b90	lane-d10	2026-11-24	bulk draft: 50%, sizes 9/10, first diff +0x0 [r2: member+msgmap, 50%, sizes 9/10]
 0x0041bd40	lane-d10	2026-11-24	bulk draft: 48%, sizes 119/149, first diff +0x8 [r2: member+msgmap, 48%, sizes 115/149]
 0x0041c1d0	lane-d10	2026-11-24	bulk draft: 48%, sizes 119/149, first diff +0x1 [r2: member+msgmap, 48%, sizes 115/149]
 0x00448550	claude-h18	2026-11-25	FUN_00448550 (Winding_Clip shape): 99%, 1000/1000, first diff +0x2d5: 68-entry arrays + separate counts stores + pointCount=0 before *front fixed frame and stores; left: split fraction lives in a dead param slot in retail, dists[i] copy in [ebp-4]. Tried fraction into epsilon param (97%). || l19 (claude-f): 5 more tries, still 99% first diff +0x2d5: second-float-var frac (frame +4), dot=dists[i];dot=dot/(dot-dists[i+1]) (97%), dot declared last (99% same). Retail puts the dists[i] copy at [ebp-4] and the fraction temp in the dead back param slot [ebp+0x20]; ours swaps the two.
