@@ -28,6 +28,7 @@ public:
   CMainFrame();
   void FUN_004115b0();
   void FUN_0041b590(int id);
+  void FUN_0041b820();
   void FUN_00414da0();
   void FUN_00414de0();
   void FUN_00415100();

@@ -2707,3 +2707,14 @@ addr	size	source	symbol	name	tag
 0x0047ad20	296	src/radiant/win_qe3.cpp	?FUN_0047ad20@@YA_NPBDAAV?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@1@Z	FUN_0047ad20	UNNAMED
 0x00479560	390	src/radiant/win_main.cpp	?FindReplace@@YAXAAV?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@PBD1@Z	FindReplace	SUPPORTED
 0x00463ea0	712	src/radiant/eclass.cpp	?FUN_00463ea0@@YAXPBDH@Z	FUN_00463ea0	SUPPORTED
+0x004185d0	581	src/radiant/MainFrm.cpp	?FUN_004185d0@CMainFrame@@QAEXXZ	CMainFrame::FUN_004185d0	UNNAMED
+0x00418820	590	src/radiant/MainFrm.cpp	?FUN_00418820@CMainFrame@@QAEXXZ	CMainFrame::FUN_00418820	UNNAMED
+0x00418a70	637	src/radiant/MainFrm.cpp	?FUN_00418a70@CMainFrame@@QAEXXZ	CMainFrame::FUN_00418a70	UNNAMED
+0x004115b0	2091	src/radiant/MainFrm.cpp	?FUN_004115b0@CMainFrame@@QAEXXZ	CMainFrame::FUN_004115b0	UNNAMED
+0x0041b820	265	src/radiant/MainFrm.cpp	?FUN_0041b820@CMainFrame@@QAEXXZ	CMainFrame::FUN_0041b820	UNNAMED
+0x0041b950	47	src/radiant/MainFrm.cpp	?FUN_0041b950@CMainFrame@@QAEXXZ	CMainFrame::FUN_0041b950	UNNAMED
+0x0041b980	47	src/radiant/MainFrm.cpp	?FUN_0041b980@CMainFrame@@QAEXXZ	CMainFrame::FUN_0041b980	UNNAMED
+0x0041b9b0	47	src/radiant/MainFrm.cpp	?FUN_0041b9b0@CMainFrame@@QAEXXZ	CMainFrame::FUN_0041b9b0	UNNAMED
+0x0041b9e0	47	src/radiant/MainFrm.cpp	?FUN_0041b9e0@CMainFrame@@QAEXXZ	CMainFrame::FUN_0041b9e0	UNNAMED
+0x0041ba10	47	src/radiant/MainFrm.cpp	?FUN_0041ba10@CMainFrame@@QAEXXZ	CMainFrame::FUN_0041ba10	UNNAMED
+0x0041ba40	47	src/radiant/MainFrm.cpp	?FUN_0041ba40@CMainFrame@@QAEXXZ	CMainFrame::FUN_0041ba40	UNNAMED

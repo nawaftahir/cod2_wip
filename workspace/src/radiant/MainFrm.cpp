@@ -298,7 +298,6 @@ void FUN_0045e2c0(brushdef_t *b);
 void FUN_0041a010(int dir, int grid);
 void FUN_00433ad0();
 void FUN_00434040();
-void FUN_0041b820(CMainFrame *self);
 void FUN_00438020();
 extern idCameraDef *DAT_00597154;
 void FUN_00409930();
@@ -531,21 +530,20 @@ void CMainFrame::FUN_004115b0()
     pMenu->CheckMenuItem(0x81d5, MF_BYCOMMAND | (PF(0x1bc) ? MF_CHECKED : MF_UNCHECKED));
     pMenu->CheckMenuItem(0x8031, MF_BYCOMMAND | (PFB(0x2c0) ? MF_CHECKED : MF_UNCHECKED));
     pMenu->CheckMenuItem(0x8019, MF_BYCOMMAND | (PF(0x248) ? MF_UNCHECKED : MF_CHECKED));
-    CToolBarCtrl *bar = &m_wndToolBar.GetToolBarCtrl();
-    if (bar && bar->m_hWnd)
+    if (m_wndToolBar.GetSafeHwnd())
     {
-      bar->CheckButton(0x8031, PFB(0x2c0));
-      bar->CheckButton(0x8059, PF(0x2e0));
-      bar->CheckButton(0x805a, PFB(0x2e4));
-      bar->CheckButton(0x8061, PFB(0x2e5));
-      bar->CheckButton(0x8178, PF(0x1d8));
-      bar->CheckButton(0x8183, PF(0x26c));
-      bar->CheckButton(0x8187, PF(0x24c));
-      bar->CheckButton(0x81ab, PF(0x250));
-      bar->CheckButton(0x8184, PF(0x27c));
-      bar->CheckButton(0x8176, PF(0x1d0));
-      bar->CheckButton(0x8191, PF(0x1d4));
-      bar->CheckButton(0x81b6, PF(0x2a8));
+      m_wndToolBar.GetToolBarCtrl().CheckButton(0x8031, PFB(0x2c0) ? TRUE : FALSE);
+      m_wndToolBar.GetToolBarCtrl().CheckButton(0x8059, PF(0x2e0) ? TRUE : FALSE);
+      m_wndToolBar.GetToolBarCtrl().CheckButton(0x805a, PFB(0x2e4) ? TRUE : FALSE);
+      m_wndToolBar.GetToolBarCtrl().CheckButton(0x8061, PFB(0x2e5) ? TRUE : FALSE);
+      m_wndToolBar.GetToolBarCtrl().CheckButton(0x8178, PF(0x1d8) ? TRUE : FALSE);
+      m_wndToolBar.GetToolBarCtrl().CheckButton(0x8183, PF(0x26c) ? TRUE : FALSE);
+      m_wndToolBar.GetToolBarCtrl().CheckButton(0x8187, PF(0x24c) ? TRUE : FALSE);
+      m_wndToolBar.GetToolBarCtrl().CheckButton(0x81ab, PF(0x250) ? TRUE : FALSE);
+      m_wndToolBar.GetToolBarCtrl().CheckButton(0x8184, PF(0x27c) ? TRUE : FALSE);
+      m_wndToolBar.GetToolBarCtrl().CheckButton(0x8176, PF(0x1d0) ? TRUE : FALSE);
+      m_wndToolBar.GetToolBarCtrl().CheckButton(0x8191, PF(0x1d4) ? TRUE : FALSE);
+      m_wndToolBar.GetToolBarCtrl().CheckButton(0x81b6, PF(0x2a8) ? TRUE : FALSE);
     }
     int id;
     switch (PF(0x2d0))
@@ -572,7 +570,7 @@ void CMainFrame::FUN_004115b0()
   {
     FUN_00440fa0();
     LoadMruInReg(g_qeglobals.d_lpMruMenu, "Software\\iw\\CoD2Radiant\\MRU");
-    PlaceMenuMRUItem(g_qeglobals.d_lpMruMenu, ::GetSubMenu(::GetMenu(m_hWnd), 0), 0x80b7);
+    PlaceMenuMRUItem(g_qeglobals.d_lpMruMenu, ::GetSubMenu(::GetMenu(GetSafeHwnd()), 0), 0x80b7);
   }
 #undef UNCHECK_EXCLUDE
 }
@@ -2663,18 +2661,6 @@ void CMainFrame::FUN_004185d0()
   g_qeglobals.sv.colors[0][0] = 0.25f;
   g_qeglobals.sv.colors[0][1] = 0.25f;
   g_qeglobals.sv.colors[0][2] = 0.25f;
-  g_qeglobals.sv.colors[5][1] = 0.25f;
-  g_qeglobals.sv.colors[5][2] = 0.25f;
-  g_qeglobals.sv.colors[6][0] = 0.25f;
-  g_qeglobals.sv.colors[15][0] = 0.25f;
-  g_qeglobals.sv.colors[15][1] = 0.25f;
-  g_qeglobals.sv.colors[15][2] = 0.25f;
-  g_qeglobals.sv.colors[17][1] = 0.7f;
-  g_qeglobals.sv.colors[17][2] = 0.7f;
-  g_qeglobals.sv.colors[18][0] = 0.7f;
-  g_qeglobals.sv.colors[21][2] = 0.25f;
-  g_qeglobals.sv.colors[22][0] = 0.25f;
-  g_qeglobals.sv.colors[22][1] = 0.25f;
   g_qeglobals.sv.colors[1][0] = 1.0f;
   g_qeglobals.sv.colors[1][1] = 0.0f;
   g_qeglobals.sv.colors[1][2] = 0.0f;
@@ -2688,6 +2674,9 @@ void CMainFrame::FUN_004185d0()
   g_qeglobals.sv.colors[4][1] = 0.5f;
   g_qeglobals.sv.colors[4][2] = 0.5f;
   g_qeglobals.sv.colors[5][0] = 1.0f;
+  g_qeglobals.sv.colors[5][1] = 0.25f;
+  g_qeglobals.sv.colors[5][2] = 0.25f;
+  g_qeglobals.sv.colors[6][0] = 0.25f;
   g_qeglobals.sv.colors[6][1] = 1.0f;
   g_qeglobals.sv.colors[9][1] = 0.0f;
   g_qeglobals.sv.colors[9][2] = 0.0f;
@@ -2702,6 +2691,9 @@ void CMainFrame::FUN_004185d0()
   g_qeglobals.sv.colors[14][0] = 0.0f;
   g_qeglobals.sv.colors[14][1] = 1.0f;
   g_qeglobals.sv.colors[14][2] = 1.0f;
+  g_qeglobals.sv.colors[15][0] = 0.25f;
+  g_qeglobals.sv.colors[15][1] = 0.25f;
+  g_qeglobals.sv.colors[15][2] = 0.25f;
   g_qeglobals.sv.colors[16][0] = 0.0f;
   g_qeglobals.sv.colors[16][1] = 0.0f;
   g_qeglobals.sv.colors[16][2] = 1.0f;
@@ -2710,6 +2702,9 @@ void CMainFrame::FUN_004185d0()
   g_qeglobals.sv.colors[12][1] = 1.0f;
   g_qeglobals.sv.colors[12][2] = 1.0f;
   g_qeglobals.sv.colors[13][0] = 1.0f;
+  g_qeglobals.sv.colors[17][1] = 0.7f;
+  g_qeglobals.sv.colors[17][2] = 0.7f;
+  g_qeglobals.sv.colors[18][0] = 0.7f;
   g_qeglobals.sv.colors[18][1] = 1.0f;
   g_qeglobals.sv.colors[18][2] = 0.0f;
   g_qeglobals.sv.colors[19][0] = 0.6f;
@@ -2720,6 +2715,9 @@ void CMainFrame::FUN_004185d0()
   g_qeglobals.sv.colors[20][2] = 1.0f;
   g_qeglobals.sv.colors[21][0] = 1.0f;
   g_qeglobals.sv.colors[21][1] = 1.0f;
+  g_qeglobals.sv.colors[21][2] = 0.25f;
+  g_qeglobals.sv.colors[22][0] = 0.25f;
+  g_qeglobals.sv.colors[22][1] = 0.25f;
   g_qeglobals.sv.colors[22][2] = 0.75f;
   g_qeglobals.sv.colors[23][0] = 0.75f;
   g_qeglobals.sv.colors[23][1] = 0.75f;
@@ -2734,7 +2732,6 @@ void CMainFrame::FUN_004185d0()
   g_qeglobals.sv.colors[26][1] = 1.0f;
   g_qeglobals.sv.colors[26][2] = 0.65f;
   g_qeglobals.sv.colors[27][0] = 0.0f;
-  g_qeglobals.sv.colors[29][2] = 0.6f;
   g_qeglobals.sv.colors[27][1] = 0.0f;
   g_qeglobals.sv.colors[27][2] = 1.0f;
   g_qeglobals.sv.colors[28][0] = 0.85f;
@@ -2742,6 +2739,7 @@ void CMainFrame::FUN_004185d0()
   g_qeglobals.sv.colors[28][2] = 0.85f;
   g_qeglobals.sv.colors[29][0] = 1.0f;
   g_qeglobals.sv.colors[29][1] = 0.8f;
+  g_qeglobals.sv.colors[29][2] = 0.6f;
   g_qeglobals.sv.colors[30][0] = 0.0f;
   g_qeglobals.sv.colors[30][1] = 1.0f;
   g_qeglobals.sv.colors[30][2] = 0.2f;
@@ -2756,19 +2754,6 @@ void CMainFrame::FUN_00418820()
   g_qeglobals.sv.colors[0][0] = 0.25f;
   g_qeglobals.sv.colors[0][1] = 0.25f;
   g_qeglobals.sv.colors[0][2] = 0.25f;
-  g_qeglobals.sv.colors[3][1] = 0.25f;
-  g_qeglobals.sv.colors[5][1] = 0.25f;
-  g_qeglobals.sv.colors[5][2] = 0.25f;
-  g_qeglobals.sv.colors[6][0] = 0.25f;
-  g_qeglobals.sv.colors[11][0] = 0.7f;
-  g_qeglobals.sv.colors[15][0] = 0.25f;
-  g_qeglobals.sv.colors[15][1] = 0.25f;
-  g_qeglobals.sv.colors[15][2] = 0.25f;
-  g_qeglobals.sv.colors[17][1] = 0.7f;
-  g_qeglobals.sv.colors[17][2] = 0.7f;
-  g_qeglobals.sv.colors[21][2] = 0.25f;
-  g_qeglobals.sv.colors[22][0] = 0.25f;
-  g_qeglobals.sv.colors[22][1] = 0.25f;
   g_qeglobals.sv.colors[1][0] = 1.0f;
   g_qeglobals.sv.colors[1][1] = 0.0f;
   g_qeglobals.sv.colors[1][2] = 0.0f;
@@ -2776,17 +2761,22 @@ void CMainFrame::FUN_00418820()
   g_qeglobals.sv.colors[2][1] = 1.0f;
   g_qeglobals.sv.colors[2][2] = 0.0f;
   g_qeglobals.sv.colors[3][0] = 0.0f;
+  g_qeglobals.sv.colors[3][1] = 0.25f;
   g_qeglobals.sv.colors[3][2] = 1.0f;
   g_qeglobals.sv.colors[4][0] = 0.0f;
   g_qeglobals.sv.colors[4][1] = 0.0f;
   g_qeglobals.sv.colors[4][2] = 0.5f;
   g_qeglobals.sv.colors[5][0] = 1.0f;
+  g_qeglobals.sv.colors[5][1] = 0.25f;
+  g_qeglobals.sv.colors[5][2] = 0.25f;
+  g_qeglobals.sv.colors[6][0] = 0.25f;
   g_qeglobals.sv.colors[6][1] = 1.0f;
   g_qeglobals.sv.colors[9][1] = 0.0f;
   g_qeglobals.sv.colors[9][2] = 0.0f;
   g_qeglobals.sv.colors[10][0] = 1.0f;
   g_qeglobals.sv.colors[10][1] = 1.0f;
   g_qeglobals.sv.colors[10][2] = 0.2f;
+  g_qeglobals.sv.colors[11][0] = 0.7f;
   g_qeglobals.sv.colors[11][1] = 0.55f;
   g_qeglobals.sv.colors[11][2] = 1.0f;
   g_qeglobals.sv.colors[13][1] = 1.0f;
@@ -2794,6 +2784,9 @@ void CMainFrame::FUN_00418820()
   g_qeglobals.sv.colors[14][0] = 0.0f;
   g_qeglobals.sv.colors[14][1] = 1.0f;
   g_qeglobals.sv.colors[14][2] = 1.0f;
+  g_qeglobals.sv.colors[15][0] = 0.25f;
+  g_qeglobals.sv.colors[15][1] = 0.25f;
+  g_qeglobals.sv.colors[15][2] = 0.25f;
   g_qeglobals.sv.colors[16][0] = 0.0f;
   g_qeglobals.sv.colors[16][1] = 0.0f;
   g_qeglobals.sv.colors[16][2] = 1.0f;
@@ -2802,6 +2795,8 @@ void CMainFrame::FUN_00418820()
   g_qeglobals.sv.colors[12][1] = 0.5f;
   g_qeglobals.sv.colors[12][2] = 0.5f;
   g_qeglobals.sv.colors[13][0] = 1.0f;
+  g_qeglobals.sv.colors[17][1] = 0.7f;
+  g_qeglobals.sv.colors[17][2] = 0.7f;
   g_qeglobals.sv.colors[18][0] = 0.0f;
   g_qeglobals.sv.colors[18][1] = 1.0f;
   g_qeglobals.sv.colors[18][2] = 0.0f;
@@ -2813,6 +2808,9 @@ void CMainFrame::FUN_00418820()
   g_qeglobals.sv.colors[20][2] = 1.0f;
   g_qeglobals.sv.colors[21][0] = 1.0f;
   g_qeglobals.sv.colors[21][1] = 1.0f;
+  g_qeglobals.sv.colors[21][2] = 0.25f;
+  g_qeglobals.sv.colors[22][0] = 0.25f;
+  g_qeglobals.sv.colors[22][1] = 0.25f;
   g_qeglobals.sv.colors[22][2] = 0.75f;
   g_qeglobals.sv.colors[23][0] = 0.75f;
   g_qeglobals.sv.colors[23][1] = 0.75f;
@@ -2825,7 +2823,6 @@ void CMainFrame::FUN_00418820()
   g_qeglobals.sv.colors[25][2] = 0.6f;
   g_qeglobals.sv.colors[26][0] = 0.0f;
   g_qeglobals.sv.colors[26][1] = 1.0f;
-  g_qeglobals.sv.colors[29][2] = 0.6f;
   g_qeglobals.sv.colors[26][2] = 0.65f;
   g_qeglobals.sv.colors[27][0] = 0.0f;
   g_qeglobals.sv.colors[27][1] = 0.0f;
@@ -2835,6 +2832,7 @@ void CMainFrame::FUN_00418820()
   g_qeglobals.sv.colors[28][2] = 0.85f;
   g_qeglobals.sv.colors[29][0] = 1.0f;
   g_qeglobals.sv.colors[29][1] = 0.8f;
+  g_qeglobals.sv.colors[29][2] = 0.6f;
   g_qeglobals.sv.colors[30][0] = 0.0f;
   g_qeglobals.sv.colors[30][1] = 1.0f;
   g_qeglobals.sv.colors[30][2] = 0.2f;
@@ -2849,27 +2847,22 @@ void CMainFrame::FUN_00418a70()
   g_qeglobals.sv.colors[0][0] = 0.63f;
   g_qeglobals.sv.colors[0][1] = 0.63f;
   g_qeglobals.sv.colors[0][2] = 0.63f;
+  g_qeglobals.sv.colors[1][0] = 1.0f;
   g_qeglobals.sv.colors[1][1] = 0.63f;
   g_qeglobals.sv.colors[1][2] = 0.63f;
   g_qeglobals.sv.colors[2][0] = 0.63f;
+  g_qeglobals.sv.colors[2][1] = 1.0f;
   g_qeglobals.sv.colors[2][2] = 0.57f;
   g_qeglobals.sv.colors[3][0] = 0.57f;
   g_qeglobals.sv.colors[3][1] = 0.57f;
+  g_qeglobals.sv.colors[3][2] = 1.0f;
   g_qeglobals.sv.colors[4][0] = 0.5f;
   g_qeglobals.sv.colors[4][1] = 0.5f;
   g_qeglobals.sv.colors[4][2] = 0.5f;
+  g_qeglobals.sv.colors[5][0] = 1.0f;
   g_qeglobals.sv.colors[5][1] = 0.63f;
   g_qeglobals.sv.colors[5][2] = 0.63f;
   g_qeglobals.sv.colors[6][0] = 0.63f;
-  g_qeglobals.sv.colors[14][0] = 0.64f;
-  g_qeglobals.sv.colors[15][1] = 0.64f;
-  g_qeglobals.sv.colors[22][0] = 0.64f;
-  g_qeglobals.sv.colors[24][1] = 0.5f;
-  g_qeglobals.sv.colors[24][2] = 0.5f;
-  g_qeglobals.sv.colors[1][0] = 1.0f;
-  g_qeglobals.sv.colors[2][1] = 1.0f;
-  g_qeglobals.sv.colors[3][2] = 1.0f;
-  g_qeglobals.sv.colors[5][0] = 1.0f;
   g_qeglobals.sv.colors[6][1] = 1.0f;
   g_qeglobals.sv.colors[9][1] = 0.0f;
   g_qeglobals.sv.colors[9][2] = 0.0f;
@@ -2881,9 +2874,11 @@ void CMainFrame::FUN_00418a70()
   g_qeglobals.sv.colors[11][2] = 1.0f;
   g_qeglobals.sv.colors[13][1] = 0.26f;
   g_qeglobals.sv.colors[13][2] = 1.0f;
+  g_qeglobals.sv.colors[14][0] = 0.64f;
   g_qeglobals.sv.colors[14][1] = 1.0f;
   g_qeglobals.sv.colors[14][2] = 0.26f;
   g_qeglobals.sv.colors[15][0] = 1.0f;
+  g_qeglobals.sv.colors[15][1] = 0.64f;
   g_qeglobals.sv.colors[15][2] = 0.25f;
   g_qeglobals.sv.colors[16][0] = 0.0f;
   g_qeglobals.sv.colors[16][1] = 0.0f;
@@ -2907,16 +2902,18 @@ void CMainFrame::FUN_00418a70()
   g_qeglobals.sv.colors[21][0] = 1.0f;
   g_qeglobals.sv.colors[21][1] = 0.26f;
   g_qeglobals.sv.colors[21][2] = 1.0f;
+  g_qeglobals.sv.colors[22][0] = 0.64f;
   g_qeglobals.sv.colors[22][1] = 0.25f;
   g_qeglobals.sv.colors[22][2] = 0.75f;
   g_qeglobals.sv.colors[23][0] = 0.75f;
   g_qeglobals.sv.colors[23][1] = 0.75f;
   g_qeglobals.sv.colors[23][2] = 1.0f;
   g_qeglobals.sv.colors[24][0] = 0.0f;
+  g_qeglobals.sv.colors[24][1] = 0.5f;
+  g_qeglobals.sv.colors[24][2] = 0.5f;
   g_qeglobals.sv.colors[25][0] = 1.0f;
   g_qeglobals.sv.colors[25][1] = 0.79f;
   g_qeglobals.sv.colors[25][2] = 0.8f;
-  g_qeglobals.sv.colors[29][1] = 0.8f;
   g_qeglobals.sv.colors[26][0] = 0.1f;
   g_qeglobals.sv.colors[26][1] = 1.0f;
   g_qeglobals.sv.colors[26][2] = 0.0f;
@@ -2927,6 +2924,7 @@ void CMainFrame::FUN_00418a70()
   g_qeglobals.sv.colors[28][1] = 0.89f;
   g_qeglobals.sv.colors[28][2] = 1.0f;
   g_qeglobals.sv.colors[29][0] = 1.0f;
+  g_qeglobals.sv.colors[29][1] = 0.8f;
   g_qeglobals.sv.colors[29][2] = 0.6f;
   g_qeglobals.sv.colors[30][0] = 0.0f;
   g_qeglobals.sv.colors[30][1] = 1.0f;
@@ -4024,6 +4022,21 @@ extern "C" void FUN_0041b7f0() { FUN_00434190(1, 1, DAT_01128dc4, DAT_01128dc4);
 // 0x0041b810
 extern "C" void FUN_0041b810() { FUN_004353d0(); dword_0123348c = -1; }
 
+// 0x0041b820
+void CMainFrame::FUN_0041b820()
+{
+  CMenu *pMenu = GetMenu();
+  if (pMenu)
+  {
+    pMenu->CheckMenuItem(0x808d, MF_BYCOMMAND | (PF(0x2cc) == 0x1000 ? MF_CHECKED : MF_UNCHECKED));
+    pMenu->CheckMenuItem(0x8094, MF_BYCOMMAND | (PF(0x2cc) == 0x10001 ? MF_CHECKED : MF_UNCHECKED));
+    pMenu->CheckMenuItem(0x808f, MF_BYCOMMAND | (PF(0x2cc) == 0x101 ? MF_CHECKED : MF_UNCHECKED));
+    pMenu->CheckMenuItem(0x8090, MF_BYCOMMAND | (PF(0x2cc) == 0x110 ? MF_CHECKED : MF_UNCHECKED));
+    pMenu->CheckMenuItem(0x8091, MF_BYCOMMAND | (PF(0x2cc) == 0x10010 ? MF_CHECKED : MF_UNCHECKED));
+    pMenu->CheckMenuItem(0x8092, MF_BYCOMMAND | (PF(0x2cc) == 0x11010 ? MF_CHECKED : MF_UNCHECKED));
+  }
+}
+
 // 0x0041b930
 void CMainFrame::FUN_0041b930() { FUN_004114f0(this, 160); }
 
@@ -4031,7 +4044,7 @@ void CMainFrame::FUN_0041b930() { FUN_004114f0(this, 160); }
 void CMainFrame::FUN_0041b950()
 {
   PF(0x2cc) = 0x1000;
-  FUN_0041b820(this);
+  FUN_0041b820();
   dword_01233b64->SavePrefs();
   dword_0123348c = -1;
 }
@@ -4040,7 +4053,7 @@ void CMainFrame::FUN_0041b950()
 void CMainFrame::FUN_0041b980()
 {
   PF(0x2cc) = 0x110;
-  FUN_0041b820(this);
+  FUN_0041b820();
   dword_01233b64->SavePrefs();
   dword_0123348c = -1;
 }
@@ -4049,7 +4062,7 @@ void CMainFrame::FUN_0041b980()
 void CMainFrame::FUN_0041b9b0()
 {
   PF(0x2cc) = 0x101;
-  FUN_0041b820(this);
+  FUN_0041b820();
   dword_01233b64->SavePrefs();
   dword_0123348c = -1;
 }
@@ -4058,7 +4071,7 @@ void CMainFrame::FUN_0041b9b0()
 void CMainFrame::FUN_0041b9e0()
 {
   PF(0x2cc) = 0x10010;
-  FUN_0041b820(this);
+  FUN_0041b820();
   dword_01233b64->SavePrefs();
   dword_0123348c = -1;
 }
@@ -4067,7 +4080,7 @@ void CMainFrame::FUN_0041b9e0()
 void CMainFrame::FUN_0041ba10()
 {
   PF(0x2cc) = 0x11010;
-  FUN_0041b820(this);
+  FUN_0041b820();
   dword_01233b64->SavePrefs();
   dword_0123348c = -1;
 }
@@ -4076,7 +4089,7 @@ void CMainFrame::FUN_0041ba10()
 void CMainFrame::FUN_0041ba40()
 {
   PF(0x2cc) = 0x10001;
-  FUN_0041b820(this);
+  FUN_0041b820();
   dword_01233b64->SavePrefs();
   dword_0123348c = -1;
 }
