@@ -104,7 +104,7 @@ extern void FUN_0045a030(brushdef_t *b, const float *origin, const float *dir, b
 struct face_t;
 struct texdef_t;
 struct radmat_t;
-extern void FUN_00459ae0(brushdef_t *b, face_t *face, int shear);
+extern void FUN_00459ae0(brushdef_t *b, face_t *face, bool shear);
 extern void FUN_00437730(const float *origin, const float *dir);
 extern bool FUN_004532a0();
 extern bool FUN_00401d30(void *dlg);

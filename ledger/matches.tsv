@@ -2752,3 +2752,5 @@ addr	size	source	symbol	name	tag
 0x00453100	265	src/radiant/XYWnd.cpp	?OnTimer@CXYWnd@@IAEXI@Z	CXYWnd::OnTimer	SUPPORTED
 0x004064f0	283	src/radiant/CamWnd.cpp	?FUN_004064f0@@YGXPAUbrush_t@@PAVCCamWnd@@@Z	FUN_004064f0	UNNAMED
 0x0046d710	257	src/radiant/qe3.cpp	?FUN_0046d710@@YAXPAHPBD@Z	FUN_0046d710	UNNAMED
+0x00459aa0	56	src/radiant/brush.cpp	?FUN_00459aa0@@YAHPAM@Z	FUN_00459aa0	UNNAMED
+0x0045a920	1502	src/radiant/brush.cpp	?FUN_0045a920@@YAXPAUbrush_t@@PAU_iobuf@@_N2HM@Z	FUN_0045a920	UNNAMED
