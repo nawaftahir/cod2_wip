@@ -1457,3 +1457,21 @@ BOOL CTexWnd::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 {
     return reinterpret_cast<CTexWndMainProjection *>(g_pParentWnd)->OnMouseWheel(nFlags, zDelta, pt);
 }
+
+// 0x00443170: window layout style of the main frame
+int FUN_00443170(CTexWndMainProjection *frame)
+{
+    return frame->m_nCurrentStyle;
+}
+
+// 0x004431a0
+struct TexWndField50
+{
+    unsigned char pad00[0x50];
+    int field50;
+};
+
+void FUN_004431a0(int value, TexWndField50 *p)
+{
+    p->field50 = value;
+}

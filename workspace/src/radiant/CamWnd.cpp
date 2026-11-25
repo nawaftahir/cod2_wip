@@ -1453,3 +1453,63 @@ void CCamWnd::OnSysKeyDown(UINT key, UINT repeat, UINT flags)
 }
 
 extern "C" void FUN_004077c0() {}
+
+// 0x004077d0: four words stored in a row
+struct CamWords4
+{
+    float v[4];
+    void FUN_004077d0(float a, float b, float c, float d);
+};
+
+void CamWords4::FUN_004077d0(float a, float b, float c, float d)
+{
+    v[0] = a;
+    v[1] = b;
+    v[2] = c;
+    v[3] = d;
+}
+
+// 0x00407ba0
+extern "C" int FUN_00407ba0() { return 3; }
+
+// 0x00407c90: two components of start + scale * dir
+void FUN_00407c90(float scale, const float *start, const float *dir, float *out)
+{
+    out[0] = scale * dir[0] + start[0];
+    out[1] = scale * dir[1] + start[1];
+}
+
+// 0x00407d10, 0x00407d30, 0x00407d50: vector helpers kept out of line
+void FUN_00407d10(const float *a, const float *b, float *out)
+{
+    out[0] = a[0] + b[0];
+    out[1] = a[1] + b[1];
+    out[2] = a[2] + b[2];
+}
+
+void FUN_00407d30(const float *a, const float *b, float *out)
+{
+    out[0] = a[0] - b[0];
+    out[1] = a[1] - b[1];
+    out[2] = a[2] - b[2];
+}
+
+float FUN_00407d50(const float *a, const float *b)
+{
+    return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+}
+
+// 0x00407d70
+char *FUN_00407d70(char *p) { return p + 0x54; }
+
+// 0x00407e80, 0x00407e90
+int FUN_00407e80(char *p) { return *(int *)(p + 0xf4); }
+char FUN_00407e90(char *p) { return p[0x18]; }
+
+// 0x00407f40
+void FUN_00407f40(const float *src, float *dst)
+{
+    dst[0] = src[0];
+    dst[1] = src[1];
+    dst[2] = src[2];
+}
