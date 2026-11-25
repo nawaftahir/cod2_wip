@@ -2710,7 +2710,6 @@ addr	size	source	symbol	name	tag
 0x004ab710	998	src/xanim/xmodel_load_obj.cpp	?XModelLoadCollData@@YAXPAPBEPAUXModel@@P6APAXH@ZPBD@Z	XModelLoadCollData	SUPPORTED
 0x00452930	94	src/radiant/XYWnd.cpp	?OnSize@CXYWnd@@IAEXIHH@Z	CXYWnd::OnSize	SUPPORTED
 0x004074f0	84	src/radiant/CamWnd.cpp	?OnSize@CCamWnd@@IAEXIHH@Z	CCamWnd::OnSize	SUPPORTED
-0x00454250	955	src/radiant/brush.cpp	?Face_WriteMaya@@YA_NPBUfaceRender_t@@PBUface_t@@PBUorientation_t@@PAU_iobuf@@_NM@Z	Face_WriteMaya	SUPPORTED
 0x004077d0	30	src/radiant/CamWnd.cpp	?FUN_004077d0@CamWords4@@QAEXMMMM@Z	FUN_004077d0	UNNAMED
 0x00407ba0	6	src/radiant/CamWnd.cpp	_FUN_00407ba0	FUN_00407ba0	UNNAMED
 0x00407c90	26	src/radiant/CamWnd.cpp	?FUN_00407c90@@YAXMPBM0PAM@Z	FUN_00407c90	UNNAMED

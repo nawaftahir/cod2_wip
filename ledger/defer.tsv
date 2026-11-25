@@ -664,3 +664,4 @@
 0x00407f20	bulk-g18	2026-11-25	FUN_00407f20 (mov eax,ecx; ret): bytes equal CPoint::CPoint() but as a plain function LTCG folds it to a bare ret; needs a real caller to keep the ecx convention
 0x0041e830	bulk-g18	2026-11-25	idSplinePosition::addPoint(x,y,z): MATCH alone (symbol ?addPoint@idSplinePosition@@UAEXMMM@Z, 29 B) but in the full build LTCG inlines idSplineList::addPoint into it (12 B) and 0x41e850 grows to 101 B; an inline tie that re-rolls with symbol count. Retail keeps 0x41e850 out of line (ebx = this).
 0x0041e850	bulk-g18	2026-11-25	idSplineList::addPoint(x,y,z): see 0x41e830, 101/97 B in the full build
+0x00454250	claude	2026-11-26	Face_WriteMaya: LTCG tie, matched on lane e17 clean build, 99% (955/955, +0x358) after merging l18/m18/i18/f17/k18. Re-check each gate; candidate for the tie list.
