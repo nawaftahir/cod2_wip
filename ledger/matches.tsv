@@ -2771,3 +2771,4 @@ addr	size	source	symbol	name	tag
 0x00417a90	71	src/radiant/MainFrm.cpp	?FUN_00417a90@CMainFrame@@QAEXXZ	FUN_00417a90	UNNAMED
 0x00419020	94	src/radiant/MainFrm.cpp	?FUN_00419020@CMainFrame@@QAEXXZ	FUN_00419020	UNNAMED
 0x004171b0	106	src/radiant/MainFrm.cpp	?FUN_004171b0@CMainFrame@@QAEXXZ	FUN_004171b0	UNNAMED
+0x00419860	203	src/radiant/MainFrm.cpp	?FUN_00419860@CMainFrame@@QAEXXZ	FUN_00419860	UNNAMED

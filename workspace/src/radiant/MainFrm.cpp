@@ -2975,7 +2975,7 @@ void CMainFrame::FUN_00418ec0()
     {
       DAT_0109fe5f = false;
       ::RedrawWindow(this->field_07e0->m_hWnd, NULL, NULL, 0x105);
-      ::SendMessage(this->m_wndToolBar.m_hWnd, 0x402, 0x802a, 0);
+      this->m_wndToolBar.SendMessage(0x402, 0x802a, 0);
       for (selbrush_t *b = selected_selbrushes.next; b != &selected_selbrushes; b = b->next)
       {
         if (b->field_20 == 0)
@@ -2989,10 +2989,10 @@ void CMainFrame::FUN_00418ec0()
     {
       if (((CXYWnd *)this->field_07e0)->SetRotateMode(true))
       {
-        ::SendMessage(this->m_wndToolBar.m_hWnd, 0x402, 0x802a, 1);
+        this->m_wndToolBar.SendMessage(0x402, 0x802a, 1);
         return;
       }
-      ::SendMessage(this->m_wndToolBar.m_hWnd, 0x402, 0x802a, 0);
+      this->m_wndToolBar.SendMessage(0x402, 0x802a, 0);
     }
   }
 }
@@ -3187,9 +3187,9 @@ void CMainFrame::FUN_004196a0()
     DAT_0109fe60 = 6;
     flag = 1;
   }
-  ::SendMessage(this->m_wndToolBar.m_hWnd, 0x402, 0x802e, flag);
-  ::SendMessage(this->m_wndToolBar.m_hWnd, 0x402, 0x802f, 0);
-  ::SendMessage(this->m_wndToolBar.m_hWnd, 0x402, 0x8030, 0);
+  this->m_wndToolBar.SendMessage(0x402, 0x802e, flag);
+  this->m_wndToolBar.SendMessage(0x402, 0x802f, 0);
+  this->m_wndToolBar.SendMessage(0x402, 0x8030, 0);
 }
 
 void CMainFrame::FUN_00419720()
@@ -3198,17 +3198,17 @@ void CMainFrame::FUN_00419720()
   if ((DAT_0109fe60 & 1) && (DAT_0109fe60 & 4))
   {
     DAT_0109fe60 = 0;
-    ::SendMessage(this->m_wndToolBar.m_hWnd, 0x402, 0x802e, 0);
+    this->m_wndToolBar.SendMessage(0x402, 0x802e, 0);
     flag = 0;
   }
   else
   {
-    ::SendMessage(this->m_wndToolBar.m_hWnd, 0x402, 0x802e, 0);
+    this->m_wndToolBar.SendMessage(0x402, 0x802e, 0);
     DAT_0109fe60 = 5;
     flag = 1;
   }
-  ::SendMessage(this->m_wndToolBar.m_hWnd, 0x402, 0x802f, flag);
-  ::SendMessage(this->m_wndToolBar.m_hWnd, 0x402, 0x8030, 0);
+  this->m_wndToolBar.SendMessage(0x402, 0x802f, flag);
+  this->m_wndToolBar.SendMessage(0x402, 0x8030, 0);
 }
 
 extern "C" void __fastcall FUN_004197b0(CMainFrame *self)
@@ -3238,20 +3238,20 @@ void CMainFrame::FUN_00419860()
     if (DAT_0109fe5f)
     {
       DAT_0109fe5f = false;
-      ::RedrawWindow(this->field_07e0->m_hWnd, NULL, NULL, 0x105);
-      ::SendMessage(this->m_wndToolBar.m_hWnd, 0x402, 0x802d, 0);
+      this->field_07e0->RedrawWindow(NULL, NULL, 0x105);
+      this->m_wndToolBar.SendMessage(0x402, 0x802d, 0);
     }
     if (DAT_0109fe64)
     {
       DAT_0109fe64 = false;
-      ::RedrawWindow(this->field_07e0->m_hWnd, NULL, NULL, 0x105);
-      ::SendMessage(this->m_wndToolBar.m_hWnd, 0x402, 0x802d, 0);
+      this->field_07e0->RedrawWindow(NULL, NULL, 0x105);
+      this->m_wndToolBar.SendMessage(0x402, 0x802d, 0);
     }
     else
     {
       DAT_0109fe64 = true;
-      ::RedrawWindow(this->field_07e0->m_hWnd, NULL, NULL, 0x105);
-      ::SendMessage(this->m_wndToolBar.m_hWnd, 0x402, 0x802d, 1);
+      this->field_07e0->RedrawWindow(NULL, NULL, 0x105);
+      this->m_wndToolBar.SendMessage(0x402, 0x802d, 1);
     }
   }
 }
