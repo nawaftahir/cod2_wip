@@ -22,7 +22,7 @@ static bool FUN_00493c10( double ( *a )[3], int *pivot )
 {
 	double scale[3];
 	int i, j, k, imax;
-	double big, sum, tmp;
+	double big, sum, tmp, inv;
 
 	for ( i = 0; i < 3; i++ )
 	{
@@ -39,7 +39,7 @@ static bool FUN_00493c10( double ( *a )[3], int *pivot )
 	}
 
 	imax = 0;
-	for ( j = 0; j < 3; j++ )
+	for ( j = 0; ; j++ )
 	{
 		for ( i = 0; i < j; i++ )
 		{
@@ -72,9 +72,9 @@ static bool FUN_00493c10( double ( *a )[3], int *pivot )
 		{
 			for ( k = 0; k < 3; k++ )
 			{
-				tmp = a[imax][k];
+				double t = a[imax][k];
 				a[imax][k] = a[j][k];
-				a[j][k] = tmp;
+				a[j][k] = t;
 			}
 			scale[imax] = scale[j];
 		}
@@ -83,12 +83,10 @@ static bool FUN_00493c10( double ( *a )[3], int *pivot )
 		if ( j == 2 )
 			return true;
 
-		tmp = 1.0 / a[j][j];
+		inv = 1.0 / a[j][j];
 		for ( i = j + 1; i < 3; i++ )
-			a[i][j] *= tmp;
+			a[i][j] *= inv;
 	}
-
-	return true;
 }
 
 /* solves lu * x = b in place */

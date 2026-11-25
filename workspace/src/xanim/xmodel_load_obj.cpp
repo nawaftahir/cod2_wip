@@ -331,9 +331,9 @@ void XModelLoadCollData(const unsigned char **pos, XModel *model, void *(*AllocC
 		surf->maxs[2] = XModelDataReadFloat(pos) + 0.001f;
 		surf->boneIdx = XModelDataReadInt(pos);
 		surf->contents = XModelDataReadInt(pos) & 0xDFFFFFFB;
-		surf->surfFlags = XModelDataReadInt(pos);
-		assert(!surf->contents || (surf->boneIdx >= 0));
 
+		assert(!surf->contents || (surf->boneIdx >= 0));
+		surf->surfFlags = XModelDataReadInt(pos);
 		model->contents |= surf->contents;
 	}
 }
