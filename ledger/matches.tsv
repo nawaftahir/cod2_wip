@@ -2708,3 +2708,6 @@ addr	size	source	symbol	name	tag
 0x00479560	390	src/radiant/win_main.cpp	?FindReplace@@YAXAAV?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@PBD1@Z	FindReplace	SUPPORTED
 0x00463ea0	712	src/radiant/eclass.cpp	?FUN_00463ea0@@YAXPBDH@Z	FUN_00463ea0	SUPPORTED
 0x004ab710	998	src/xanim/xmodel_load_obj.cpp	?XModelLoadCollData@@YAXPAPBEPAUXModel@@P6APAXH@ZPBD@Z	XModelLoadCollData	SUPPORTED
+0x00452930	94	src/radiant/XYWnd.cpp	?OnSize@CXYWnd@@IAEXIHH@Z	CXYWnd::OnSize	SUPPORTED
+0x004074f0	84	src/radiant/CamWnd.cpp	?OnSize@CCamWnd@@IAEXIHH@Z	CCamWnd::OnSize	SUPPORTED
+0x00454250	955	src/radiant/brush.cpp	?Face_WriteMaya@@YA_NPBUfaceRender_t@@PBUface_t@@PBUorientation_t@@PAU_iobuf@@_NM@Z	Face_WriteMaya	SUPPORTED

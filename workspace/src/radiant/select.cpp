@@ -183,8 +183,8 @@ struct SelArrAccess : CArray<SelFace, const SelFace &>
 };
 
 extern int DAT_01129894;
-struct SelectedHistory_t { int field_00; brush_t *field_04[2]; };
-extern SelectedHistory_t DAT_01129898;
+
+
 extern bool DAT_0112993c;
 extern bool DAT_0112993d;
 extern int DAT_01234694;
@@ -495,9 +495,9 @@ void FUN_0046f0b0(brush_t *brush, bool bComplete, bool bStatus, bool bPositionVi
 
 #line 335
     assert(g_SelectedFaces.GetSize() == 0 || brush->patch);
-    if (DAT_01129898.field_00 < 2)
-        DAT_01129898.field_04[DAT_01129898.field_00] = brush;
-    DAT_01129898.field_00++;
+    if (g_qeglobals.d_select_count < 2)
+        g_qeglobals.d_select_order[g_qeglobals.d_select_count] = brush;
+    g_qeglobals.d_select_count++;
     e = brush->owner;
 #line 347
     assert(e);
@@ -626,7 +626,7 @@ void FUN_0046f4f0()
             FUN_00459210(b, &active_brushes);
         }
     }
-    DAT_01129898.field_00 = 0;
+    g_qeglobals.d_select_count = 0;
     if (DAT_01234694)
         FUN_00424b10();
 }
@@ -768,7 +768,7 @@ void FUN_0046fbe0(bool bDeselectFaces)
 {
     FUN_0042f5d0();
     DAT_01129894++;
-    DAT_01129898.field_00 = 0;
+    g_qeglobals.d_select_count = 0;
     g_qeglobals.d_num_move_points = 0;
     brush_t *b = selected_brushes.next;
     if (bDeselectFaces)
@@ -1258,9 +1258,9 @@ void FUN_00471160(float *mins, float *maxs, bool bSelect)
             continue;
         if (bSelect)
         {
-            if (DAT_01129898.field_00 < 2)
-                DAT_01129898.field_04[DAT_01129898.field_00] = b;
-            DAT_01129898.field_00++;
+            if (g_qeglobals.d_select_count < 2)
+                g_qeglobals.d_select_order[g_qeglobals.d_select_count] = b;
+            g_qeglobals.d_select_count++;
             FUN_004592f0(b);
             FUN_00459210(b, &selected_brushes);
         }

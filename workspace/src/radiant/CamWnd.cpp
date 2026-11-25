@@ -145,32 +145,32 @@ struct CCamWndMainProjection
     BOOL OnMouseWheel(UINT flags, short delta, CPoint point);
 };
 
-// renderer export table, base 0x59c300; only the slots used here are typed
-struct CamWndRefExport
-{
-    unsigned char pad000[0x94];
-    void (*field_94)(const float *color);
-    unsigned char pad098[0x14];
-    void (*field_ac)();
-    void (*field_b0)();
-    unsigned char pad0b4[0x10];
-    void (*field_c4)(int a, const float *color, float b, int c);
-    unsigned char pad0c8[0x78];
-    bool (*field_140)(HWND window);
-    void (*field_144)(HWND window);
-    void (*ResizeWindow)(HWND window, int width, int height);
-    unsigned char pad14c[0xc];
-    void (*SetupCamera)(const float *origin, float (*axis)[3], float fovX, float fovY);
-    unsigned char pad15c[4];
-    void (*AddLines)(int count, int width, const GfxPointVertex *verts);
-    void (*DrawTris)(void *material, int a, int indexCount, const unsigned short *indices, int vertCount,
-                     float (*xyzw)[4], float (*normal)[3], const unsigned int *colors, float (*st)[2]);
-    void (*ColorToBytes)(const float *color, unsigned int *out);
-    unsigned char pad16c[0xc];
-    void (*BeginBrushes)();
-    void (*EndBrushes)();
-};
-extern CamWndRefExport re;
+#include "refexport.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class CCamWnd;
 void __stdcall FUN_00405380(CCamWnd *camera);
@@ -281,7 +281,7 @@ void __stdcall FUN_00406610(CCamWnd *camera);
 void CCamWnd::OnPaint()
 {
     PAINTSTRUCT ps;
-    if (re.field_140 && re.field_140(dword_010bcd58))
+    if (re.BeginWindow && re.BeginWindow(dword_010bcd58))
     {
         BeginPaint(&ps);
         dword_01233464 = NULL;
@@ -296,11 +296,11 @@ void CCamWnd::OnPaint()
             if (!state)
                 dword_01233464 = &DAT_0109fe30;
         }
-        re.field_ac();
-        re.field_c4(7, color_01129748, 1.0f, 0);
+        re.BeginScene();
+        re.ClearScreen(7, color_01129748, 1.0f, 0);
         FUN_00406610(this);
-        re.field_b0();
-        re.field_144(dword_010bcd58);
+        re.EndScene();
+        re.EndWindow(dword_010bcd58);
         if (dword_01233514)
             dword_01147dd4 = dword_01147dd0;
         EndPaint(&ps);
@@ -1304,7 +1304,7 @@ void __stdcall FUN_00406610(CCamWnd *camera)
 
     if (!dword_01129934)
     {
-        re.field_c4(6, colorBlack, 1.0f, 0);
+        re.ClearScreen(6, colorBlack, 1.0f, 0);
         re.ColorToBytes(colorWhite, &color);
         re.BeginBrushes();
         for (brush = list->next; brush != list; brush = brush->next)

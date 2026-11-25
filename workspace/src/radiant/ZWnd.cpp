@@ -33,18 +33,18 @@ struct ZWndGlobals_t
 	ZWndSavedInfo_t d_savedinfo;
 };
 
-struct ZWndRefExport_t
-{
-	void *pad0[43];
-	void (*BeginScene)();
-	void (*EndScene)();
-	void *pad1[4];
-	void (*ClearScreen)(int mask, const float *color, float depth, int stencil);
-	void *pad2[30];
-	bool (*BeginWindow)(HWND hwnd);
-	void (*EndWindow)(HWND hwnd);
-	void (*ResizeWindow)(HWND hwnd, int width, int height);
-};
+#include "refexport.h"
+
+
+
+
+
+
+
+
+
+
+
 
 class CMainFrame
 {
@@ -72,7 +72,7 @@ struct CZWndMainProjection
 
 extern z_t z;
 extern ZWndGlobals_t g_qeglobals;
-extern ZWndRefExport_t re;
+
 extern CMainFrame *g_pParentWnd;
 
 extern int g_hunkTempSyncEnabled;

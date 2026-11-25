@@ -272,7 +272,7 @@ bool Face_WriteMaya(const faceRender_t *face, const face_t *def, const orientati
 }
 
 
-#line 87
+#line 85
 void FUN_00453e90(faceRender_t *face, const face_t *def, const orientation_t *orient)
 {
     assert(face);
@@ -2228,7 +2228,7 @@ void FUN_0045a220(brushdef_t *b, bool snap)
 
 
 // 0x0045a600 (548 B): rebuild a brush instance's render faces after its def changed
-#line 2432
+#line 2430
 void FUN_0045a600(brush_t *b)
 {
     assert(b);
