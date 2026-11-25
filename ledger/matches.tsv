@@ -2737,3 +2737,4 @@ addr	size	source	symbol	name	tag
 0x0041b9e0	47	src/radiant/MainFrm.cpp	?FUN_0041b9e0@CMainFrame@@QAEXXZ	CMainFrame::FUN_0041b9e0	UNNAMED
 0x0041ba10	47	src/radiant/MainFrm.cpp	?FUN_0041ba10@CMainFrame@@QAEXXZ	CMainFrame::FUN_0041ba10	UNNAMED
 0x0041ba40	47	src/radiant/MainFrm.cpp	?FUN_0041ba40@CMainFrame@@QAEXXZ	CMainFrame::FUN_0041ba40	UNNAMED
+0x004a1f00	837	src/xanim/dobj.cpp	?DObjGetHierarchyBits@@YAXPAUDObj_s@@HPAH@Z	DObjGetHierarchyBits	PINNED
