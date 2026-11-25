@@ -128,7 +128,6 @@ void FUN_0047a760(const char *fmt, ...);
 void FUN_0047ae50(int level, const char *fmt, ...);
 extern "C" void FUN_00410580();
 extern "C" void FUN_0048a480();
-extern "C" void FUN_004a2250();
 extern "C" void FUN_004a2700();
 extern "C" void FUN_004a5a60();
 extern "C" bool FUN_00498660();
@@ -262,6 +261,7 @@ void DObjGetBoneInfo(const DObj_s *obj, XBoneInfo **boneInfo);
 int DObjGetModelLodForDist(const DObj_s *obj, int modelIndex, float dist);
 float DObjGetMaxLodOutDist(const DObj_s *obj);
 void DObjSetModel(DObj_s *obj, XModel *model);
+void DObjCompleteHierarchyBits(DObj_s *obj, int *partBits);
 
 extern "C" void FUN_004105f0()
 {
@@ -410,7 +410,7 @@ extern "C" void FUN_004105f0()
 	ri.fn[127] = (void *)DObjGetBoneInfo;
 	ri.fn[128] = (void *)DObjGetModelLodForDist;
 	ri.fn[129] = (void *)DObjGetMaxLodOutDist;
-	ri.fn[130] = (void *)FUN_004a2250;
+	ri.fn[130] = (void *)DObjCompleteHierarchyBits;
 	ri.fn[131] = (void *)DObjSetModel;
 	ri.fn[132] = (void *)FUN_00410400;
 	ri.fn[133] = (void *)FUN_00410450;

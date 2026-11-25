@@ -13,6 +13,7 @@ void SL_RemoveRefToStringOfLen(unsigned int stringValue, unsigned int len);
 
 int SL_IsLowercaseString(unsigned int stringValue);
 int FUN_004a1890(const DObj_s *obj, unsigned int name);
+unsigned int SL_FindString(const char *str);
 
 static unsigned int g_empty = 0;
 
@@ -191,21 +192,21 @@ int FUN_004a1890(const DObj_s *obj, unsigned int name)
 #line 255
 void DObjCreateDuplicateParts(DObj_s *obj)
 {
-	int boneCount;
-	int numBones;
 	XModel *model;
+	unsigned short *name;
+	int numBones;
+	int boneCount;
 	int boneIndex;
 	int localBoneIndex;
 	int boneIter;
 	XBoneHierarchy *hierarchy;
-	unsigned short *name;
 	byte *duplicateParts;
-	int len;
-	bool bRootMeld;
 	int index;
-	int parentIndex;
 	XModelParts *modelParts;
-	byte duplicatePartBits[0x444];
+	int len;
+	int parentIndex;
+	bool bRootMeld;
+	int duplicatePartBits[0x111];
 
 #line 259
 	assert(!obj->duplicateParts);
@@ -216,7 +217,7 @@ void DObjCreateDuplicateParts(DObj_s *obj)
 #line 263
 	assert((DOBJ_MAX_PART_BITS * sizeof( int ) + obj->numBones * 2 * sizeof( unsigned char ) + 1) <= sizeof( duplicatePartBits ));
 
-	duplicateParts = &duplicatePartBits[16];
+	duplicateParts = (byte *)&duplicatePartBits[4];
 	memset(duplicatePartBits, 0, 16);
 	len = 0;
 	numBones = obj->models[0]->parts->numBones;
@@ -228,9 +229,9 @@ void DObjCreateDuplicateParts(DObj_s *obj)
 		if ( obj->modelParents[boneCount] == 0xFF )
 		{
 			modelParts = model->parts;
+			boneIter = modelParts->numBones;
 			hierarchy = modelParts->hierarchy;
 			name = hierarchy->names;
-			boneIter = modelParts->numBones;
 			bRootMeld = 0;
 			boneIndex = -1;
 
@@ -259,7 +260,7 @@ void DObjCreateDuplicateParts(DObj_s *obj)
 
 					index = numBones + localBoneIndex;
 					duplicateParts[len] = index + 1;
-					((int *)duplicatePartBits)[index >> 5] |= 1 << (index & 0x1F);
+					duplicatePartBits[index >> 5] |= 1 << (index & 0x1F);
 #line 306
 					assert(duplicateParts[len]);
 					duplicateParts[++len] = parentIndex + 1;
@@ -284,7 +285,7 @@ void DObjCreateDuplicateParts(DObj_s *obj)
 
 	if ( !g_empty )
 	{
-		byte emptyBits[17];
+		int emptyBits[5];
 
 		memset(emptyBits, 0, sizeof(emptyBits));
 		g_empty = SL_GetStringOfLen((const char *)emptyBits, 0, 17, 12);
@@ -358,14 +359,14 @@ void DObjGetHierarchyBits(DObj_s *obj, int boneIndex, int *partBits)
 	for ( parentList = parts->hierarchy->parentList; ; )
 	{
 		localBoneIndex = boneIndex - startIndex[j];
-#line 406
-		assert(localBoneIndex >= 0);
 
 		while ( 1 )
 		{
+#line 406
+			assert(localBoneIndex >= 0);
 			partBits[boneIndex >> 5] |= 1 << (boneIndex & 0x1F);
 
-			if ( (byte)(((byte)(duplicatePartBits[boneIndex >> 5] >> (boneIndex & 0x1F)) ^ 1) & 1) )
+			if ( !(duplicatePartBits[boneIndex >> 5] & (1 << (boneIndex & 0x1F))) )
 			{
 				newBoneIndex = localBoneIndex - parts->numRootBones;
 
@@ -395,16 +396,17 @@ void DObjGetHierarchyBits(DObj_s *obj, int boneIndex, int *partBits)
 				}
 			}
 
-			localBoneIndex = boneIndex - startIndex[--j];
-#line 444
-			assert(j >= 0);
-
-			if ( localBoneIndex >= 0 )
+			do
 			{
-				parts = obj->models[j]->parts;
-				parentList = parts->hierarchy->parentList;
-				break;
+				--j;
+#line 444
+				assert(j >= 0);
+				localBoneIndex = boneIndex - startIndex[j];
 			}
+			while ( localBoneIndex < 0 );
+
+			parts = obj->models[j]->parts;
+			parentList = parts->hierarchy->parentList;
 		}
 	}
 }
@@ -424,14 +426,15 @@ void DObjCompleteHierarchyBits(DObj_s *obj, int *partBits)
 	int startIndex[8];
 	const int *duplicatePartBits;
 	int boneIndex;
+	XModel **model;
 
 #line 479
 	assert(obj);
 #line 480
 	assert(obj->numBones > 0);
 
-	boneIndex = obj->numBones - 1;
 	numModels = obj->numModels;
+	boneIndex = obj->numBones - 1;
 #line 485
 	assert(numModels > 0);
 
@@ -458,69 +461,67 @@ void DObjCompleteHierarchyBits(DObj_s *obj, int *partBits)
 #line 507
 		assert(j != numModels);
 	}
-
+	model = &obj->models[j];
 	parentList = parts->hierarchy->parentList;
 
 	while ( 1 )
 	{
-		localBoneIndex = boneIndex - startIndex[j];
-
-		if ( localBoneIndex < 0 )
+		while ( 1 )
 		{
-			--j;
+			localBoneIndex = boneIndex - startIndex[j];
 
-			if ( j < 0 )
-				return;
+			if ( localBoneIndex < 0 )
+				break;
 
-			parts = obj->models[j]->parts;
-			parentList = parts->hierarchy->parentList;
-			continue;
-		}
-
-		if ( (byte)(((byte)(partBits[boneIndex >> 5] >> (boneIndex & 0x1F)) ^ 1) & 1) )
-		{
-			--boneIndex;
-			continue;
-		}
-
-		if ( (byte)(((byte)(duplicatePartBits[boneIndex >> 5] >> (boneIndex & 0x1F)) ^ 1) & 1) )
-		{
-			newBoneIndex = localBoneIndex - parts->numRootBones;
-
-			if ( newBoneIndex >= 0 )
+			if ( partBits[boneIndex >> 5] & (1 << (boneIndex & 0x1F)) )
 			{
-				newBoneIndex = boneIndex - parentList[newBoneIndex];
-			}
-			else
-			{
-				newBoneIndex = obj->modelParents[j];
-
-				if ( newBoneIndex == 255 )
+				if ( !(duplicatePartBits[boneIndex >> 5] & (1 << (boneIndex & 0x1F))) )
 				{
-					--boneIndex;
-					continue;
+					newBoneIndex = localBoneIndex - parts->numRootBones;
+
+					if ( newBoneIndex < 0 )
+					{
+						newBoneIndex = obj->modelParents[j];
+
+						if ( newBoneIndex == 255 )
+						{
+							--boneIndex;
+							continue;
+						}
+					}
+					else
+					{
+						newBoneIndex = boneIndex - parentList[newBoneIndex];
+					}
 				}
-			}
-		}
-		else
-		{
-			for ( pos = duplicateParts; ; pos += 2 )
-			{
+				else
+				{
+					for ( pos = duplicateParts; ; pos += 2 )
+					{
 #line 558
-				assert(*pos);
+						assert(*pos);
 
-				if ( boneIndex == *pos - 1 )
-				{
+						if ( boneIndex == *pos - 1 )
+							break;
+					}
+
 					newBoneIndex = pos[1] - 1;
-					break;
 				}
-			}
-		}
 
 #line 568
-		assert((unsigned)newBoneIndex < obj->numBones);
-		partBits[newBoneIndex >> 5] |= 1 << (newBoneIndex & 0x1F);
-		--boneIndex;
+				assert((unsigned)newBoneIndex < obj->numBones);
+				partBits[newBoneIndex >> 5] |= 1 << (newBoneIndex & 0x1F);
+			}
+
+			--boneIndex;
+		}
+
+		if ( --j < 0 )
+			return;
+
+		--model;
+		parts = (*model)->parts;
+		parentList = parts->hierarchy->parentList;
 	}
 }
 
@@ -625,6 +626,112 @@ void DObjSetBounds(DObj_s *obj)
 	VectorCopy(dobjmins, obj->mins);
 	VectorCopy(dobjmaxs, obj->maxs);
 }
+
+void DObjCreate(DObjModel_s *dobjModels, unsigned int numModels, XAnimTree_s *tree, DObj *obj, unsigned int entnum)
+{
+	int boneIndex;
+	int newNumModels;
+	int j;
+	int index;
+	int numBones;
+	int totalBones;
+	unsigned int name;
+	const char *parentName;
+	XModel *model;
+
+#line 1025
+	assert(dobjModels);
+#line 1026
+	assert(numModels > 0);
+#line 1027
+	assert((unsigned)numModels <= DOBJ_MAX_SUBMODELS);
+#line 1030
+	assert(obj);
+
+	obj->skel = 0;
+	obj->timeStamp = 0;
+	obj->duplicateParts = 0;
+	obj->ignoreCollision = 0;
+
+	DObjSetTree(obj, tree);
+
+	if ( tree )
+		tree->entnum = entnum;
+
+	newNumModels = 0;
+	boneIndex = 0;
+
+	for ( newNumModels = 0; (unsigned int)newNumModels < numModels; ++newNumModels, ++dobjModels )
+	{
+		model = dobjModels->model;
+
+		obj->models[newNumModels] = model;
+		obj->matOffset[newNumModels] = boneIndex;
+		obj->modelParents[newNumModels] = UNDEFINED_PART;
+
+		if ( dobjModels->ignoreCollision )
+			obj->ignoreCollision |= 1 << newNumModels;
+
+		if ( newNumModels )
+		{
+			numBones = model->parts->numBones;
+#line 1064
+			assert(numBones);
+#line 1065
+			assert(numBones < DOBJ_MAX_PARTS);
+
+			parentName = dobjModels->boneName;
+
+			if ( parentName && parentName[0] )
+			{
+				name = SL_FindString(parentName);
+
+				if ( name )
+				{
+					for ( j = 0; j < newNumModels; ++j )
+					{
+						index = XModelGetBoneIndex(obj->models[j], name);
+
+						if ( index >= 0 )
+						{
+							obj->modelParents[newNumModels] = obj->matOffset[j] + index;
+							goto setmodel;
+						}
+					}
+				}
+
+				Com_Printf("WARNING: Part '%s' not found in model '%s' or any of its descendants\n", parentName, obj->models[0]->name);
+#line 1086
+				assert(obj->modelParents[newNumModels] == UNDEFINED_PART);
+			}
+		}
+setmodel:
+		if ( model )
+		{
+			totalBones = boneIndex + model->parts->numBones;
+
+			if ( totalBones >= DOBJ_MAX_PARTS )
+			{
+				Com_Error(ERR_DROP, "dobj for xmodel '%s' has more than %d bones", obj->models[0]->name, DOBJ_MAX_PARTS - 1);
+				break;
+			}
+
+			boneIndex = totalBones;
+		}
+	}
+
+#line 1103
+	assert(newNumModels == (unsigned char)newNumModels);
+	obj->numModels = newNumModels;
+#line 1105
+	assert(boneIndex == (unsigned char)boneIndex);
+	obj->numBones = boneIndex;
+#line 1108
+	assert(newNumModels > 0);
+
+	DObjSetBounds(obj);
+}
+
 
 void DObjClone(const DObj_s *from, XAnimTree_s *tree, DObj_s *obj)
 {
