@@ -1553,7 +1553,7 @@ struct XYPlane
 };
 void FUN_0044c620(int a0, int a1, int a2, int a3, XYPlane *planes);
 void FUN_00460fe0(void (*cb)(int, int, int, int, XYPlane *), int x, int y, float *right, float *up, float *origin, float *dir);
-void FUN_004623e0(int buttons, int x, int y, float *origin, float *dir);
+void Drag_MouseMoved(int x, int y, int buttons, float *origin, float *dir);
 extern bool g_bCrossHairs;
 extern bool byte_0112993c;
 extern bool byte_0112993d;
@@ -1905,6 +1905,11 @@ void CXYWnd::NewBrushDrag(int x, int y)
     g_nUpdateBits |= 3;
 }
 
+static bool AltDown()
+{
+    return (unsigned)GetAsyncKeyState(VK_MENU) >> 15 & 1;
+}
+
 // 0x0044d320: Q3Radiant CXYWnd::XY_MouseMoved.
 void CXYWnd::XY_MouseMoved(int x, int y, int buttons)
 {
@@ -1928,20 +1933,20 @@ void CXYWnd::XY_MouseMoved(int x, int y, int buttons)
         return;
     }
 
-    if (!(m_nButtonstate & MK_LBUTTON) && (m_nButtonstate != (MK_RBUTTON | MK_SHIFT) || !(GetAsyncKeyState(VK_MENU) & 0x8000)))
+    if (!(m_nButtonstate & MK_LBUTTON) && (m_nButtonstate != (MK_RBUTTON | MK_SHIFT) || !AltDown()))
     {
-        int nMouseButton = dword_01233b64->m_nMouseButtons == 2 ? MK_RBUTTON : MK_MBUTTON;
-        CMainFrameCamProjection *frame = reinterpret_cast<CMainFrameCamProjection *>(g_pParentWnd);
-
-        if (dword_011298b0 == 10 && m_nButtonstate == MK_RBUTTON && (GetAsyncKeyState(VK_MENU) & 0x8000))
+        if (dword_011298b0 == 10 && m_nButtonstate == MK_RBUTTON && AltDown())
         {
             FUN_0044c5c0(x, y, origin, dir);
-            FUN_004623e0(buttons, x, y, origin, dir);
+            Drag_MouseMoved(x, y, buttons, origin, dir);
             g_nUpdateBits |= 0x10c;
             return;
         }
 
-        if (m_nButtonstate == (MK_CONTROL | nMouseButton) && !(GetAsyncKeyState(VK_MENU) & 0x8000))
+        int nMouseButton = dword_01233b64->m_nMouseButtons == 2 ? MK_RBUTTON : MK_MBUTTON;
+        CMainFrameCamProjection *frame = reinterpret_cast<CMainFrameCamProjection *>(g_pParentWnd);
+
+        if (m_nButtonstate == (MK_CONTROL | nMouseButton) && !AltDown())
         {
             SnapToPoint(x, y, point);
             VectorCopyXY(point, frame->m_pCamWnd->m_Camera.origin);
@@ -1969,17 +1974,18 @@ void CXYWnd::XY_MouseMoved(int x, int y, int buttons)
             {
                 dword_01139e54[0] = point[0];
                 dword_01139e54[1] = point[1];
+                g_nUpdateBits |= 0xc;
+                return;
             }
-            else if (m_nViewType == YZ)
+            if (m_nViewType == YZ)
             {
                 dword_01139e54[0] = point[1];
                 dword_01139e54[1] = point[2];
+                g_nUpdateBits |= 0xc;
+                return;
             }
-            else
-            {
-                dword_01139e54[0] = point[0];
-                dword_01139e54[1] = point[2];
-            }
+            dword_01139e54[0] = point[0];
+            dword_01139e54[1] = point[2];
             g_nUpdateBits |= 0xc;
             return;
         }
@@ -2005,14 +2011,13 @@ void CXYWnd::XY_MouseMoved(int x, int y, int buttons)
 
         if (m_nButtonstate == MK_RBUTTON)
         {
-            int cx, cy;
-            Sys_GetCursorPos(&cx, &cy);
-            if (cx != m_ptCursor.x || cy != m_ptCursor.y)
+            Sys_GetCursorPos(&x, &y);
+            if (x != m_ptCursor.x || y != m_ptCursor.y)
             {
                 int nDim1 = (m_nViewType == YZ) ? 1 : 0;
                 int nDim2 = (m_nViewType == XY) ? 1 : 2;
-                m_vOrigin[nDim1] -= (cx - m_ptCursor.x) / m_fScale;
-                m_vOrigin[nDim2] += (cy - m_ptCursor.y) / m_fScale;
+                m_vOrigin[nDim1] -= (x - m_ptCursor.x) / m_fScale;
+                m_vOrigin[nDim2] += (y - m_ptCursor.y) / m_fScale;
                 SetCursorPos(m_ptCursor.x, m_ptCursor.y);
                 ::ShowCursor(FALSE);
                 g_nUpdateBits |= 6;
@@ -2024,31 +2029,26 @@ void CXYWnd::XY_MouseMoved(int x, int y, int buttons)
     if (!byte_0112993c && !byte_0112993d)
     {
         FUN_0044c5c0(x, y, origin, dir);
-        FUN_004623e0(buttons, x, y, origin, dir);
+        Drag_MouseMoved(x, y, buttons, origin, dir);
         g_nUpdateBits |= 0x10c;
         return;
     }
-    switch (dword_011298b0)
+    if (dword_011298b0 == 14 || dword_011298b0 == 15 || dword_011298b0 == 16 || dword_011298b0 == 17)
     {
-    case 14:
-    case 15:
-    case 16:
-    case 17:
         byte_0112993c = false;
         byte_0112993d = false;
-        break;
-    default:
-        if (buttons != 5 && buttons != 13)
-        {
-            if (buttons != 9 || !(GetAsyncKeyState(VK_MENU) & 0x8000))
-            {
-                byte_0112993c = false;
-                byte_0112993d = false;
-                return;
-            }
-        }
-        XY_MouseDown(x, y, buttons);
+        return;
     }
+    if (buttons != 5 && buttons != 13)
+    {
+        if (buttons != 9 || !AltDown())
+        {
+            byte_0112993c = false;
+            byte_0112993d = false;
+            return;
+        }
+    }
+    XY_MouseDown(x, y, buttons);
 }
 
 

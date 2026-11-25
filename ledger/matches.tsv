@@ -2749,3 +2749,4 @@ addr	size	source	symbol	name	tag
 0x0041e440	175	src/radiant/MainFrm.cpp	?Resize@?$idList@PAVidVec3_t@@@@QAEXH@Z	idList<idVec3_t *>::Resize	SUPPORTED
 0x0041e950	142	src/radiant/MainFrm.cpp	??A?$idList@PAVidVec3_t@@@@QAEAAPAVidVec3_t@@H@Z	idList<idVec3_t *>::operator[]	SUPPORTED
 0x00489940	471	src/universal/com_math.cpp	?SnapFloatToGrid@@YAMMMM@Z	SnapFloatToGrid	SUPPORTED
+0x00453100	265	src/radiant/XYWnd.cpp	?OnTimer@CXYWnd@@IAEXI@Z	CXYWnd::OnTimer	SUPPORTED
