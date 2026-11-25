@@ -2698,3 +2698,4 @@ addr	size	source	symbol	name	tag
 0x004a8a10	60	src/script/scr_stringlist.cpp	?GetHashCode@@YAIPBDI@Z	GetHashCode	SUPPORTED
 0x00419560	244	src/radiant/MainFrm.cpp	?FUN_00419560@CMainFrame@@QAEXXZ	CMainFrame::FUN_00419560	UNNAMED
 0x0042bf10	51	src/radiant/Pmesh.cpp	?FUN_0042bf10@@YAXPBM@Z	FUN_0042bf10	UNNAMED
+0x00448d00	916	src/radiant/Winding.cpp	?FUN_00448d00@@YAXPBUwinding_t@@QAMPAN@Z	FUN_00448d00	UNNAMED
