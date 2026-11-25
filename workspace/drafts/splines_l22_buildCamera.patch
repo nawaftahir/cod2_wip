@@ -1,0 +1,97 @@
+diff --git a/workspace/src/universal/splines/splines.cpp b/workspace/src/universal/splines/splines.cpp
+index b8d5eee6..af6961f6 100644
+--- a/workspace/src/universal/splines/splines.cpp
++++ b/workspace/src/universal/splines/splines.cpp
+@@ -654,7 +654,7 @@ bool idCameraDef::waitEvent(int index) {
+ #define NUM_CCELERATION_SEGS 10
+ #define CELL_AMT 5
+ 
+-void idCameraDef::buildCamera() {
++void __stdcall idCameraDef::buildCamera() {
+ 	int i;
+ 	//int lastSwitch = 0;
+ 	idList<float> waits;
+@@ -674,7 +674,48 @@ void idCameraDef::buildCamera() {
+ 			}
+ 			case idCameraEvent::EVENT_WAIT : {
+ 				waits.Append(atof(events[i]->getParam()));
++				int start = events[i]->getTime() - 1000;
++				if (start < 0) {
++					start = 0;
++				}
++				float speed = cameraPosition->getBaseVelocity();
++				float step = speed / (float)((events[i]->getTime() - start) / 10);
++				int j;
++				for (j = start; j <= events[i]->getTime() - 10; j += 10) {
++					cameraPosition->velocities.Append(new idVelocity(j, 10, speed));
++					speed -= step;
++				}
+ 				cameraPosition->addVelocity(events[i]->getTime(), atof(events[i]->getParam()) * 1000, 0);
++				speed = 0;
++				int end = (int)(events[i]->getTime() + atof(events[i]->getParam()) * 1000);
++				int last = end + 1000;
++				for (j = end; j <= last; j += 10) {
++					cameraPosition->velocities.Append(new idVelocity(j, 10, speed));
++					speed += step;
++				}
++				break;
++			}
++			case 13 : {
++				float step = cameraPosition->getBaseVelocity() / 100;
++				float speed = 0;
++				int j;
++				for (j = 0; j <= 1000; j += 10) {
++					cameraPosition->velocities.Append(new idVelocity(j, 10, speed));
++					speed += step;
++					if (speed > cameraPosition->getBaseVelocity()) {
++						speed = cameraPosition->getBaseVelocity();
++					}
++				}
++				int first = (int)(totalTime * 1000 - 1000);
++				int last = first + 1000;
++				speed = cameraPosition->getBaseVelocity();
++				for (j = first; j < last; j += 10) {
++					speed -= step;
++					if (speed < 0) {
++						speed = 0;
++					}
++					cameraPosition->velocities.Append(new idVelocity(j, 10, speed));
++				}
+ 				break;
+ 			}
+ 			case idCameraEvent::EVENT_TARGETWAIT : {
+diff --git a/workspace/src/universal/splines/splines.h b/workspace/src/universal/splines/splines.h
+index de9a849f..240b6018 100644
+--- a/workspace/src/universal/splines/splines.h
++++ b/workspace/src/universal/splines/splines.h
+@@ -357,7 +357,10 @@ struct idVelocity {
+ 
+ // can either be a look at or origin position for a camera
+ // 
++class idCameraDef;
++
+ class idCameraPosition : public idPointListInterface {
++	friend class idCameraDef;
+ public:
+ 	
+ 	// retail vtable 0x53fa4c: slot 8, called by clear and startCamera
+@@ -425,6 +428,10 @@ public:
+ 		return baseVelocity;
+ 	}
+ 
++	float getBaseVelocity() {
++		return baseVelocity;
++	}
++
+ 	void addVelocity(long start, long duration, float speed) {
+ 		velocities.Append(new idVelocity(start, duration, speed));
+ 	}
+@@ -881,7 +888,7 @@ public:
+ 	bool load(const char *filename);
+ 	void save(const char *filename);
+ 
+-	void buildCamera();
++	void __stdcall buildCamera();
+ 
+ 	//idSplineList *getcameraPosition() {
+ 	//	return &cameraPosition;
