@@ -2849,7 +2849,7 @@ bool FUN_0045d090(const brushdef_t *b, float *color, const float *defaultColor);
 int R_Add3DLine(GfxPointVertex *verts, const float *p1, const float *p2, const void *color, int width, int vertCount, int maxVertCount);
 float Vec3Normalize(float *v);
 extern entityInst_t entities;
-int FUN_0046d710(int *out, const char *s);
+void FUN_0046d710(int *out, const char *s);
 
 static void BrushCenter(const brush_t *b, float *c)
 {
@@ -2973,7 +2973,7 @@ void ConnectEntitiesByScriptLinkName(void)
     entityInst_t *named[0x8000];
     GfxPointVertex verts[0x552];
     unsigned color;
-    int linkTo[32];
+    int linkTo[34];
     int n = 0;
     int numLines = 0;
 
@@ -2998,7 +2998,7 @@ void ConnectEntitiesByScriptLinkName(void)
             continue;
         if (FUN_0044f5d0(b))
             continue;
-        int numLinks = FUN_0046d710(linkTo, tokens);
+        FUN_0046d710(linkTo, tokens); int numLinks = linkTo[32];
         for (int i = 0; i < n; i++)
         {
             int j = 0;
