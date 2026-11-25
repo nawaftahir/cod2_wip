@@ -2723,3 +2723,6 @@ addr	size	source	symbol	name	tag
 0x00407f40	17	src/radiant/CamWnd.cpp	?FUN_00407f40@@YAXPBMPAM@Z	FUN_00407f40	UNNAMED
 0x00443170	7	src/radiant/TexWnd.cpp	?FUN_00443170@@YAHPAUCTexWndMainProjection@@@Z	FUN_00443170	UNNAMED
 0x004431a0	4	src/radiant/TexWnd.cpp	?FUN_004431a0@@YAXHPAUTexWndField50@@@Z	FUN_004431a0	UNNAMED
+0x0046afc0	172	src/radiant/map.cpp	?FUN_0046afc0@@YAXPAUentityInst_t@@PAUeclass_t@@@Z	FUN_0046afc0	UNNAMED
+0x004650b0	290	src/radiant/entity.cpp	?FUN_004650b0@@YAXPAUentity_t@@PAUorientation_t@@@Z	FUN_004650b0	UNNAMED
+0x00467f00	225	src/radiant/map.cpp	_FUN_00467f00	FUN_00467f00	UNNAMED
