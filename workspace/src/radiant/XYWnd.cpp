@@ -140,7 +140,7 @@ struct xyEclass_t
     unsigned char pad15c[4];
     unsigned flags;
 };
-struct xyEntity_t
+struct entity_t
 {
     unsigned char pad00[0x50];
     xyEclass_t *eclass;
@@ -152,7 +152,7 @@ struct entityInst_t
 {
     entityInst_t *prev;
     entityInst_t *next;
-    xyEntity_t *def;
+    entity_t *def;
     brush_t brushes;
 };
 struct XYShader
@@ -185,7 +185,7 @@ struct xypatch_t
 struct brushdef_t
 {
     unsigned char pad00[8];
-    xyEntity_t *owner;
+    entity_t *owner;
     unsigned char pad0c[0x14];
     float mins[3];
     float maxs[3];
@@ -2442,7 +2442,8 @@ bool brushdef_t::FUN_0044f530(int mask)
     return true;
 }
 
-// 0x0044f560: any face has a content flag in the mask
+// 0x0044f560: any face has a content flag in the mask (retail calls it at 0x44fd30 in 0x44f630)
+#pragma auto_inline(off)
 bool brushdef_t::FUN_0044f560(int mask)
 {
     for (int i = 0; i < numFaces; i++)
@@ -2452,6 +2453,7 @@ bool brushdef_t::FUN_0044f560(int mask)
     }
     return false;
 }
+#pragma auto_inline(on)
 
 // 0x0044f590: any face has a surface flag byte in the mask
 bool FUN_0044f590(brushdef_t *b, int flag)
@@ -2478,14 +2480,14 @@ bool FUN_0044f5d0(brush_t *b)
 extern int g_filterFlags;
 extern int g_filterFlags2;
 extern entityInst_t *g_pWorldEntity;
-bool FUN_00465d80(xyEntity_t *e, const char *key);
+bool FUN_00465d80(entity_t *e, const char *key);
 extern int dword_01128d90;
 extern int dword_01244d74;
 extern CString g_strFilter;
-struct xyEntity_t;
+struct entity_t;
 struct epair_t;
 char *ValueForKey(epair_t *&e, const char *key);
-bool FUN_00465e10(xyEntity_t *e, const char *key, const char *value);
+bool FUN_00465e10(entity_t *e, const char *key, const char *value);
 void I_strncpyz(char *dst, const char *src, int size);
 
 static bool AllFacesNameContain(brushdef_t *d, const char *s)
@@ -2700,7 +2702,7 @@ bool FUN_0044f630(brushdef_t *b)
     {
         if (b->owner == g_pWorldEntity->def || !strncmp(b->owner->eclass->name, "func_group", 10))
         {
-            if (b->faces[0].contents & 0x28000000)
+            if (!(b->faces[0].contents & 0x28000000))
                 return true;
         }
     }
@@ -2724,7 +2726,10 @@ bool FUN_0044f630(brushdef_t *b)
         if (b->FUN_0044f560(0x80000000))
             return true;
     }
-    if (b->owner == g_pWorldEntity->def || !strcmp(b->owner->eclass->name, "func_group"))
+    entity_t *owner = b->owner;
+    xyEclass_t *ec = owner->eclass;
+    const char *cname = ec->name;
+    if (owner == g_pWorldEntity->def || !strcmp(cname, "func_group"))
     {
         if ((g_filterFlags & 0x10) && !(b->faces[0].contents & 0x8000000) && !b->patch && !strstr(name, "portal"))
             return true;
@@ -2732,20 +2737,20 @@ bool FUN_0044f630(brushdef_t *b)
     }
     if (g_filterFlags & 2)
     {
-        if (strcmp(b->owner->eclass->name, "func_group") && strcmp(b->owner->eclass->name, "light"))
+        if (strcmp(cname, "func_group") && strcmp(cname, "light"))
             return true;
     }
     if (g_filterFlags & 0x40000000)
     {
-        if (strcmp(b->owner->eclass->name, "func_group") && strcmp(b->owner->eclass->name, "misc_model") && strcmp(b->owner->eclass->name, "misc_prefab"))
+        if (strcmp(cname, "func_group") && strcmp(cname, "misc_model") && strcmp(cname, "misc_prefab"))
         {
-            if (b->owner->modelClass || b->owner->eclass->modelName || FUN_00465d80(b->owner, "model"))
+            if (owner->modelClass || ec->modelName || FUN_00465d80(owner, "model"))
                 return true;
         }
     }
     if (g_filterFlags & 0x10000)
     {
-        if (!strncmp(b->owner->eclass->name, "ammo", 4) || !strncmp(b->owner->eclass->name, "item", 4))
+        if (!strncmp(cname, "ammo", 4) || !strncmp(b->owner->eclass->name, "item", 4))
             return true;
     }
     if (g_filterFlags & 0x40000)
@@ -2800,16 +2805,12 @@ bool FUN_0044f630(brushdef_t *b)
     if (g_strFilter.GetLength() > 0)
     {
         char *tok = strtok(buf, ",;");
-        while (tok)
-        {
+        if (tok)
             while (*tok == ' ')
                 tok++;
-            if (!strstr(tok, ":"))
-            {
-                if (strstr(b->owner->eclass->name, tok))
-                    return true;
-            }
-            else
+        while (tok)
+        {
+            if (strstr(tok, ":"))
             {
                 I_strncpyz(token, tok, sizeof(token));
                 char *colon = strstr(token, ":");
@@ -2819,6 +2820,11 @@ bool FUN_0044f630(brushdef_t *b)
                     if (FUN_00465e10(b->owner, token, colon))
                         return true;
                 }
+            }
+            else
+            {
+                if (strstr(b->owner->eclass->name, tok))
+                    return true;
             }
             tok = strtok(NULL, ",;");
         }
@@ -3222,7 +3228,7 @@ void CXYWnd::DrawLight_ConeHeight(brush_t *b, int width, unsigned *color)
     float radius = (float)atof(ValueForKey(*(epair_t **)((char *)b->owner->def + 100), "radius"));
     if (radius <= 0.0f)
         return;
-    xyEntity_t *def = b->owner->def;
+    entity_t *def = b->owner->def;
     float height;
     if ((signed char)((char *)def->eclass)[352] < 0)
         height = 32.0f;
@@ -3477,7 +3483,7 @@ void CXYWnd::XY_Draw()
         FUN_0045d7f0(b, m_nViewType, lineWidthA, 30, lineWidthB, 30, &color, width, 0);
         DrawLight_Classname(m_nViewType, b, m_fScale, (int)col);
         assert(b->owner->def == b->def->owner);
-        xyEntity_t *ent = b->owner->def;
+        entity_t *ent = b->owner->def;
         unsigned flags = ent->eclass->flags;
         if (flags & 1)
             DrawLight_Radius(b, 1, &color);
@@ -3500,7 +3506,7 @@ void CXYWnd::XY_Draw()
         const float *mn = (const float *)((char *)b->def + 0x20);
         if (mn[nDim1] > field_b8[0] || mn[nDim2] > field_b8[1])
             continue;
-        xyEntity_t *ent = b->owner->def;
+        entity_t *ent = b->owner->def;
         if ((((char *)ent->eclass)[352] & 0xc0) == 0)
         {
             const char *name = ValueForKey(*(epair_t **)((char *)ent + 100), "targetname");
