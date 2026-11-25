@@ -1,4 +1,4 @@
-0x00409690	lane-c-r15	2026-11-18	FUN_00409690 (CDialogInfo show text): 67%, 73/66 B with ebp frame and stack arg; retail has text in esi. 88% only with a fake if(text) guard (not retail), extern C, no-Create and reorder variants no better. Needs its other retail callers written. Draft: workspace/drafts/DialogInfo_c_r15_00409690.cpp.
+0x00409690	lane-c-r15	2026-11-18	FUN_00409690 (CDialogInfo show text): 67%, 73/66 B with ebp frame and stack arg; retail has text in esi. 88% only with a fake if(text) guard (not retail), extern C, no-Create and reorder variants no better. Needs its other retail callers written. Draft: workspace/drafts/DialogInfo_c_r15_00409690.cpp. | l19: body structurally equal (Create vcall +0x134, SetWindowText, ShowWindow 5, tail jmp SetFocus), still stack arg 67% 73/66; extern C vs C++ caller decl no change
 0x00409ce0	lane-d	2026-11-18	CDlgCamera::OnBtnAddtarget (Q3 + msgmap id 1076 pfn): 91%, 248/248 B, first diff +0x45; retail calls addTarget with both args on the stack, our LTCG passes type in eax (addTarget 0x49eae0 gets a custom convention in ours); rest is regalloc of the CString release
 0x00409e10	lane-d	2026-11-18	CDlgCamera::OnSelchangeComboSplines (Q3 + msgmap CBN_SELCHANGE 1352): 78%, 345/345 B, first diff +0x51; vtable offsets now right (startEdit +0x48); retail stores d_numpoints/d_num_move_points before loading m_wndSplines hwnd, and calls addTarget(0,0) with pushes (same addTarget convention issue)
 0x00409f90	lane-d	2026-11-18	CDlgCamera::setupFromCamera (Q3 body, retail 4.0 scroll factor + startEdit): 47%, 1153/1044 B, first diff +0x1b; retail calls idStr::EnsureAlloced 0x4a0380 out of line for the local idStr, our LTCG inlines it (new strdata + copy); rest of body lines up
@@ -285,7 +285,7 @@
 0x00434690	claude-e	2026-11-19	bulk draft: 45%, sizes 391/381, first difference at +0x5
 0x00434810	claude-e	2026-11-19	bulk draft: 62%, sizes 61/64, first difference at +0x2
 0x00435760	claude-e	2026-11-19	bulk draft: 50%, sizes 214/220, first difference at +0x3
-0x00435900	claude-e	2026-11-19	bulk draft: 18%, sizes 355/373, first difference at +0x5
+0x00435900	claude-e	2026-11-19	bulk draft: 18%, sizes 355/373, first difference at +0x5 | l19: draft had a wrong skip-after-second (removed: 369/373 B, 16%); if-order flip + indexed access no change. Retail p in edi, row on stack, reloads [ebp+8] per iter; blocked on 435d20 caller convention
 0x00435a80	claude-e	2026-11-19	bulk draft: 14%, sizes 356/379, first difference at +0x5
 0x00435d20	claude-e	2026-11-19	bulk draft: 80%, sizes 280/278, first difference at +0x5
 0x00435e40	claude-d15	2026-11-25	FUN_00435e40: 36%, sizes 491/445, first diff +0x4; sole caller 0x4369b0 (unwritten): retail frame/convention cannot be judged until the caller exists. No change this round.
