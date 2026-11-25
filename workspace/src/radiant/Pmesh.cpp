@@ -255,7 +255,7 @@ bool FUN_00429a00(patchMesh_t *patch, PatchPair *pPair);
 static inline int IndexOfMovePoint(const void *c)
 {
     for (int i = 0; i < g_qeglobals.d_num_move_points; i++)
-        if ((const void *)g_qeglobals.d_move_points[i] == c)
+        if (c == (const void *)g_qeglobals.d_move_points[i])
             return i;
     return -1;
 }
@@ -1040,9 +1040,9 @@ void FUN_004270e0(patchMesh_t *p)
 {
     int layer = DAT_01128d94;
     if (p->type_10 & 0x40)
-        FUN_00426e80(p, layer, 16.0f);
+        FUN_00426e80(p, DAT_01128d94, 16.0f);
     else
-        FUN_00426f20(p, layer, 16.0f);
+        FUN_00426f20(p, DAT_01128d94, 16.0f);
     if (layer == 1)
     {
         p->flag_382f = 1;
@@ -1203,7 +1203,7 @@ brush_t *Patch_GenericMesh(int nWidth, int nHeight, int nOrientation, bool bDele
         }
         xStep = (int)((float)xStep + xAdj);
     }
-    (&p->image_18)[DAT_01128d90] = DAT_01128da8;
+    void *curMat = DAT_01128da8; (&p->image_18)[DAT_01128d90] = curMat;
     FUN_00427160(p, 0);
     if (p->type_10 & 0x40)
         FUN_00426e80(p, 1, 16.0f);
@@ -4558,9 +4558,7 @@ void FUN_00433da0()
 {
     if (!DAT_012334ba)
         return;
-    if (DAT_005909fc >= 3)
-        FUN_00433ad0();
-    else
+    if (DAT_005909fc < 3)
     {
         DAT_005909fc++;
         FUN_00409690(DAT_00590a08[DAT_005909fc]);
@@ -4581,6 +4579,8 @@ void FUN_00433da0()
             return;
         }
     }
+    else
+        FUN_00433ad0();
     DAT_0123348c = -1;
 }
 
@@ -4703,10 +4703,10 @@ void FUN_00434190(bool bCap, bool bCycle, float fScaleS, float fScaleT)
 // Retail 0x00434290: lightmap texturing on every selected patch, as one undo step.
 void FUN_00434290()
 {
-    brush_t *b = DAT_010a44b4.next;
-    while (b != &DAT_010a44b4 && !b->patch)
-        b = b->next;
-    if (b == &DAT_010a44b4)
+    brush_t *b; bool any = false;
+    for (b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+        if (b->patch) { any = true; break; }
+    if (!any)
         return;
     FUN_004433b0();
     Undo_GeneralStart("Patch lightmap texturing");
