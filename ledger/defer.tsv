@@ -337,7 +337,7 @@
 0x0044a2f0	bulk-e2	2026-11-19	CXYWnd::OnMouseMove: bulk draft: 45%, sizes 2246/2250, first diff +0x6. Frame differs (retail and esp,-8 root); callees XY_MouseMoved/XY_ToPoint conventions.
 0x0044c620	bulk-e2	2026-11-19	FUN_0044c620 (drag plane callback): bulk draft: 23%, sizes 261/633, first diff +0x5. Retail is 633 B (loop over 4 planes with per-plane cross products inline); ours calls PlaneFromEdge.
 0x0044c8a0	bulk-e2	2026-11-19	XY_MouseDown: bulk draft: 43%, sizes 1622/1668, first diff +0x4. Callees FUN_00470c50 etc. unwritten (register-arg LTCG forms), retail uses and esp,-8 frame.
-0x0044d320	bulk-e2	2026-11-19	XY_MouseMoved: bulk draft: 41%, sizes 1184/1210, first diff +0x4. Callees unwritten (FUN_004623e0, FUN_00407800 forms).
+0x0044d320	claude-l22	2026-11-25	CXYWnd::XY_MouseMoved (this in eax, 3 stack args now; x/y address-taken by Sys_GetCursorPos): 50%, sizes 1211/1210, first diff +0x8. Retail has `and esp,-8` + sub 0x1c (aligning-root class, no source lever); also retail keeps the shared Drag_MouseMoved call tail in the mode-10 block, ours in the LBUTTON block. Callee FUN_00407800 (atan2) still unwritten.
 0x0047aed0	bulk-e2	2026-11-19	FUN_0047aed0 (z pick ray): bulk draft: 45%, sizes 120/128, first diff +0x4. Retail passes y in eax, origin in ecx, dir in edi (LTCG regs from callers Z_MouseDown/Z_MouseMoved).
 0x0047af50	bulk-e2	2026-11-19	Z_MouseDown: bulk draft: 65%, sizes 216/222, first diff +0x5. Callee Drag_Begin FUN_00460fe0 unwritten (eax=callback, edx=buttons, ecx=dir).
 0x0047b040	bulk-e2	2026-11-19	Z_MouseMoved: bulk draft: 45%, sizes 300/312, first diff +0x4. FUN_004623e0 and FUN_0047aed0 register forms unwritten/unmatched.
@@ -534,7 +534,6 @@
 0x00451eb0	bulk-e6	2026-11-22	CXYWnd::FUN_00451eb0: bulk draft: 41%, sizes 303/300, first diff +0x6; inlines OrientationPlaneToLocal (q_shared.cpp assert 1557)
 0x00451fe0	bulk-e6	2026-11-22	CXYWnd::FUN_00451fe0: bulk draft: 7%, sizes 228/240, first diff +0x6; caller 0x45b760 unwritten
 0x00452f50	claude-e14	2026-11-25	CXYWnd::Paste: 97%, 397/397 B, first diff +0x11c. Q3 shape (GlobalUnlock outside if(h), long n local) matched up to the Com_SetParseNegativeNumbers inline; retail schedules lea ecx,[ebp+8] before the parse-info add eax, ours after it; scheduling tie, no source lever found.
-0x00453100	claude-e14	2026-11-25	CXYWnd::OnTimer: 81%, 264/265 B, first diff +0x29. Retail loads g_nUpdateBits late (after the first fld); ours hoists mov edi,[bits]/or edi,3 before it. Tried moving the bits statement between the two origin updates and after them: no change.
 0x0045a030	bulk-e6	2026-11-22	FUN_0045a030 (ray vs every face): bulk draft: 71%, sizes 283/278, first diff +0x12
 0x0045c950	bulk-e6	2026-11-22	FUN_0045c950 (distance between selected entities): bulk draft: 48%, sizes 177/180, first diff +0x5
 0x00456f30	bulk-d7	2026-11-22	FUN_456f30: bulk draft: 80%, sizes 122/122, first diff +0x4a || l19 (claude-f): 80%, 122/122. Only diff: retail stores both scale values first and the four zero stores after; ours interleaves the zero stores. Zeros first (35%), no h/w temps (size 74), store h before computing w (26%) are all worse; same shape in Texdef_SetDefault 0x456ed0.
