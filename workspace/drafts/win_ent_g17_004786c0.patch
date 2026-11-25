@@ -1,0 +1,80 @@
+diff --git a/workspace/src/radiant/win_ent.cpp b/workspace/src/radiant/win_ent.cpp
+index 74637ad0..3f850fd4 100644
+--- a/workspace/src/radiant/win_ent.cpp
++++ b/workspace/src/radiant/win_ent.cpp
+@@ -44,13 +44,22 @@ struct eclass_t
+     char flagnames[8][0x20];
+ };
+ 
++struct entityBrush_t
++{
++    unsigned char pad00[0x40];
++    unsigned char modelFailed;
++};
++
+ struct entity_t
+ {
+-    unsigned char pad00[0x50];
++    unsigned char pad00[0x0c];
++    entityBrush_t *onext;
++    unsigned char pad10[0x40];
+     eclass_t *eclass;
+-    unsigned char pad54[4];
++    void *md3Class;
+     float origin[3];
+     epair_t *epairs;
++    unsigned short field68;
+ };
+ 
+ struct entityInst_t
+@@ -70,6 +79,8 @@ extern brush_t selected_brushes;
+ extern entityInst_t *world_entity;
+ extern entity_t *edit_entity;
+ extern int multiple_entities;
++extern entity_t *DAT_010bcd34;
++void ConvertDOSToUnixName(char *dst, const char *src);
+ extern int g_nUpdateBits;
+ char *ValueForKey(epair_t *&e, const char *key);
+ char *TranslateString(const char *string);
+@@ -663,3 +674,41 @@ void FUN_00478220(int iWidth, int iHeight)
+     SendMessage(dword_010bcd60, WM_SETREDRAW, 1, 0);
+ #undef MOVE
+ }
++
++// 0x004786c0: file dialog below the project path <key>, result goes to the key/value fields
++void FUN_004786c0(const char *subdir, const char *key, const char *filter, bool bStrip)
++{
++    CString strBasePath = ValueForKey(DAT_010bcd34->epairs, key);
++    if (strBasePath.GetLength() > 0 && strBasePath.GetAt(strBasePath.GetLength() - 1) != '\\')
++        strBasePath += '\\';
++    CString strPath(strBasePath);
++    strPath += subdir;
++
++    CFileDialog dlgFile(TRUE, NULL, NULL, OFN_OVERWRITEPROMPT, filter, (CWnd *)dword_01233488);
++    dlgFile.m_ofn.lpstrInitialDir = strPath;
++    if (dlgFile.DoModal() == IDOK)
++    {
++        SendMessage(hwndEnt[EntKeyField], WM_SETTEXT, 0, (LPARAM) "model");
++        CString str(dlgFile.GetPathName().GetBuffer(0));
++        str.MakeLower();
++        strBasePath.MakeLower();
++        ConvertDOSToUnixName(str.GetBuffer(0), str.GetBuffer(0));
++        ConvertDOSToUnixName(strBasePath.GetBuffer(0), strBasePath.GetBuffer(0));
++        if (str.Find(strBasePath) == 0)
++        {
++            str = str.Mid(str.GetLength() - strBasePath.GetLength());
++            if (bStrip)
++            {
++                int n = str.Find("/");
++                if (n != 0)
++                    str = str.Mid(str.GetLength() - n - 1);
++            }
++        }
++        SendMessage(hwndEnt[EntValueField], WM_SETTEXT, 0, (LPARAM)str.GetBuffer(0));
++        FUN_00477e80();
++        edit_entity->field68++;
++        edit_entity->md3Class = NULL;
++        edit_entity->onext->modelFailed = 0;
++        (*(CWnd **)(dword_01233488 + 0x788))->SetFocus();
++    }
++}

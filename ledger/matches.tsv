@@ -2703,3 +2703,7 @@ addr	size	source	symbol	name	tag
 0x0042bf10	51	src/radiant/Pmesh.cpp	?FUN_0042bf10@@YAXPBM@Z	FUN_0042bf10	UNNAMED
 0x00429e20	107	src/radiant/Pmesh.cpp	?FUN_00429e20@@YAHPBM@Z	FUN_00429e20	UNNAMED
 0x00429e90	107	src/radiant/Pmesh.cpp	?FUN_00429e90@@YAHPBM@Z	FUN_00429e90	UNNAMED
+0x0047ab50	408	src/radiant/win_qe3.cpp	?SaveAsDialog@@YAX_N@Z	SaveAsDialog	SUPPORTED
+0x0047ad20	296	src/radiant/win_qe3.cpp	?FUN_0047ad20@@YA_NPBDAAV?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@1@Z	FUN_0047ad20	UNNAMED
+0x00479560	390	src/radiant/win_main.cpp	?FindReplace@@YAXAAV?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@PBD1@Z	FindReplace	SUPPORTED
+0x00463ea0	712	src/radiant/eclass.cpp	?FUN_00463ea0@@YAXPBDH@Z	FUN_00463ea0	SUPPORTED
