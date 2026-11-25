@@ -491,7 +491,7 @@
 0x00438430	claude-e	2026-11-19	bulk draft: 10%, sizes 146/133, first difference at +0x3
 0x00438ff0	claude-e	2026-11-19	bulk draft: 48%, sizes 410/360, first difference at +0x36
 0x0042a0a0	claude-e	2026-11-19	bulk draft: 39%, sizes 804/762, first difference at +0x5
-0x00437730	claude-e	2026-11-19	bulk draft: 94%, sizes 345/345, first difference at +0x76
+0x00437730	claude-h17	2026-11-25	FUN_00437730 (turn terrain edge): 99%, 345/345, first diff +0x76: hoisting def before the -1 store fixed the tail; left: bestY/bestX spill swapped (retail spills x to [ebp-0xc], y in esi). Tried: x/y decl swap (no change), bestX before bestY assign (+0x45), bestX decl first (98%), best assigned first (97%).
 0x004275a0	claude-e	2026-11-19	bulk draft: 43%, sizes 2267/2369, first difference at +0x20
 0x00427ef0	claude-e	2026-11-19	bulk draft: 28%, sizes 3230/3216, first difference at +0x22
 0x00428b80	claude-e	2026-11-19	bulk draft: 45%, sizes 649/658, first difference at +0x1a
