@@ -727,6 +727,8 @@ addr	size	source	symbol	name	tag
 0x004274b0	131	src/radiant/Pmesh.cpp	?Patch_CapTexture@@YAXPAUpatchMesh_t@@_NMM@Z	Patch_CapTexture	SUPPORTED
 0x00427540	83	src/radiant/Pmesh.cpp	?FillPatch@@YAXPAUpatchMesh_t@@QAM@Z	FillPatch	SUPPORTED
 0x004275a0	2369	src/radiant/Pmesh.cpp	?FUN_004275a0@@YAPAUbrush_t@@PAUpatchMesh_t@@_N1@Z	FUN_004275a0	UNNAMED
+0x00437e50	458	src/radiant/Pmesh.cpp	?FUN_00437e50@@YAXXZ	FUN_00437e50	UNNAMED
+0x00431570	789	src/radiant/Pmesh.cpp	?FUN_00431570@@YA_NPAPBDPAUPatchControl@@H@Z	FUN_00431570	UNNAMED
 0x00429df0	34	src/radiant/Pmesh.cpp	?FUN_00429df0@@YIHPAXH@Z	FUN_00429df0	UNNAMED
 0x0042a3a0	67	src/radiant/Pmesh.cpp	?FUN_0042a3a0@@YAXPAUpatchMesh_t@@H_N@Z	FUN_0042a3a0	SUPPORTED
 0x0042a3f0	69	src/radiant/Pmesh.cpp	?FUN_0042a3f0@@YAXPAUpatchMesh_t@@H_N@Z	FUN_0042a3f0	SUPPORTED
