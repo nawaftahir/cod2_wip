@@ -267,7 +267,6 @@
 0x004a88c0	claude-d	2026-11-16	SL_DebugConvertToString: best 92%; first diff +0x1e (retail 'mov eax,ecx; je; mov eax,<BINARY>', ours loads <BINARY> via ecx); 4 source variants tried; also ours inlines it into SL_TransferRefToUser, retail calls it.
 0x004a8b80	claude-d	2026-11-16	SL_FindStringOfLen: best 48%, sizes 924/887; first diff +0xd; written from CoD2rev + retail asserts, loop/xor shape differs; needs a closer look.
 0x004a9080	claude-d	2026-11-16	SL_GetStringOfLen: best 54%, sizes 2133/2104; first diff +0x4c; draft in scr_stringlist.cpp; tail merge of the three alloc paths differs.
-0x004a9a40	claude-d	2026-11-16	SL_ConvertToLowercase: best 31%, sizes 258/190; ours inlines SL_RemoveRefToString, retail calls 0x4a9ed0 and uses esi/edi params.
 0x004a9b00	claude-d	2026-11-16	SL_TransferRefToUser: best 52%, sizes 176/139; ours inlines SL_DebugConvertToString into the assert, retail calls 0x4a88c0.
 0x004aa1e0	claude-d	2026-11-16	SL_ShutdownSystem: best 51%, sizes 268/275; retail takes user in ebx and counts the table loop down from 0x3fff, ours uses a pointer end compare.
 0x004aa300	claude-d	2026-11-16	Scr_ShutdownGameStrings: best 46%; blocked on SL_ShutdownSystem 0x4aa1e0 (retail passes user in ebx).
@@ -625,7 +624,6 @@
 0x00464930	bulk-d3	2026-11-20	bulk draft: 99%, sizes 436/436, first diff +0xfd Re-sweep 11-22: eclass_t **head = &g_modelClasses before FUN_00463e40 (ebx/edi mov order) -> 46%, 428/436, worse; reverted.
 0x0046d0b0	bulk-d3	2026-11-20	bulk draft: written, not linked as its own symbol (inlined into its caller)
 0x0046e0c0	bulk-d3	2026-11-20	bulk draft: 79%, sizes 80/83, first diff +0xb
-0x0049a4f0	claude-d	2026-11-22	bulk draft: 99%, sizes 509/509, first difference at +0x1b2 (best candidate ?initPosition@idSplineList@@QAEXJJ@Z)
 0x004a0550	claude-d	2026-11-22	bulk draft: 46%, sizes 3332/2967, first difference at +0x1d (best candidate ?TestStringClass@@YAXXZ)
 0x0047fed0	claude-d	2026-11-22	bulk draft: 25%, sizes 1236/1194, first difference at +0x5 (?FS_LoadZipFile@@YAPAUiwd_t@@PADPBD@Z)
 0x00491c80	claude-d	2026-11-22	bulk draft: 74%, sizes 347/341, first difference at +0x5 (?FUN_00491c80@@YAXPBM0H@Z)
@@ -832,10 +830,8 @@
 0x00499890	lane-d	2026-11-24	idVec3_t::operator==: bulk draft: 26%, sizes 100/152, first diff +0x0; retail uses LTCG register args (esi/edi)
 0x00499d80	lane-d	2026-11-24	idCameraDef::idCameraDef: bulk draft: 77%, sizes 123/129, first diff +0x5b
 0x0049a1a0	lane-d	2026-11-24	startCamera(int,int): bulk draft: 54%, sizes 46/28, first diff +0x6
-0x0049a9c0	lane-d	2026-11-24	idSplineList::getPosition: bulk draft: 73%, sizes 445/452, first diff +0x5
 0x0049bed0	lane-d	2026-11-24	idCameraDef::parse: bulk draft: 34%, sizes 1222/988, first diff +0x18; retail inlines the parse-session buffer handling
 0x0049c2b0	lane-d	2026-11-24	idCameraDef::load: bulk draft: 75%, sizes 126/138, first diff +0x31; retail inlines Com_BeginParseSession/Com_EndParseSession
-0x0049cca0	lane-d	2026-11-24	idInterpolatedPosition::getPosition: bulk draft: 28%, sizes 427/452, first diff +0x5
 0x0049ce70	lane-d	2026-11-24	idCameraFOV::parse: bulk draft: 47%, sizes 1031/997, first diff +0x3
 0x0049eb60	lane-d	2026-11-24	idSplinePosition::getPosition: bulk draft: 77%, sizes 813/801, first diff +0x5; frame 0x3c vs 0x38, no stack-slot sharing
 0x00493c10	lane-d	2026-11-24	FUN_00493c10 (3x3 LU decompose): bulk draft: 91%, sizes 999/995, first diff +0x5; frame 0x50 vs 0x54, loop tail shape
@@ -889,10 +885,8 @@
 0x00499890	lane-d	2026-11-24	idVec3_t::operator==: bulk draft: 26%, sizes 100/152, first diff +0x0; retail uses LTCG register args (esi/edi)
 0x00499d80	lane-d	2026-11-24	idCameraDef::idCameraDef: bulk draft: 77%, sizes 123/129, first diff +0x5b
 0x0049a1a0	lane-d	2026-11-24	startCamera(int,int): bulk draft: 54%, sizes 46/28, first diff +0x6
-0x0049a9c0	lane-d	2026-11-24	idSplineList::getPosition: bulk draft: 73%, sizes 445/452, first diff +0x5
 0x0049bed0	lane-d	2026-11-24	idCameraDef::parse: bulk draft: 34%, sizes 1222/988, first diff +0x18; retail inlines the parse-session buffer handling
 0x0049c2b0	lane-d	2026-11-24	idCameraDef::load: bulk draft: 75%, sizes 126/138, first diff +0x31; retail inlines Com_BeginParseSession/Com_EndParseSession
-0x0049cca0	lane-d	2026-11-24	idInterpolatedPosition::getPosition: bulk draft: 28%, sizes 427/452, first diff +0x5
 0x0049ce70	lane-d	2026-11-24	idCameraFOV::parse: bulk draft: 47%, sizes 1031/997, first diff +0x3
 0x0049eb60	lane-d	2026-11-24	idSplinePosition::getPosition: bulk draft: 77%, sizes 813/801, first diff +0x5; frame 0x3c vs 0x38, no stack-slot sharing
 0x00493c10	lane-d	2026-11-24	FUN_00493c10 (3x3 LU decompose): bulk draft: 91%, sizes 999/995, first diff +0x5; frame 0x50 vs 0x54, loop tail shape
@@ -944,3 +938,7 @@
 0x004755b0	claude-f	2026-11-25	SelectEdgeByRay: bulk draft: 86%, sizes 473/474, first diff +0x5; retail reserves 0x2c locals and pushes ebx before the loop pointer setup, ours 0x28 and pushes it after the jle
 0x00475790	claude-f	2026-11-25	SelectVertexByRay: bulk draft: 98%, sizes 335/335, first diff +0xa8; retail sums the squares t2,t0,t1 into slots -0x14,-0x1c,-0x18 but ours emits t2,t1,t0; 3 operand orders tried (t2,t0,t1 / t2,t1,t0 / t0,t1,t2), same output
 0x004a9ba0	claude-f	2026-11-25	SL_FreeString: bulk draft: 99%, sizes 815/815, first diff +0x268; GetHashCode now matches (str/len swap fixed by the server-shaped loop); remaining: retail xors table[prev] first, ours loads newEntry first at the final status_next merge; 3 operand/temp forms tried
+0x00463bf0	claude-f17	2026-11-25	FUN_00463bf0 (eclass model list): bytes 100% after swapping the branch to if (flags & 0x10) FUN_004633d0 else FUN_00463310 (retail first call 0x4633d0), referee reports CALLEE only: retail calls 0x4f8201 which data/lib_funcs.tsv names ??0CObList@@QAE@H@Z, but it sits in the list_s.obj range (0x4f81e3 FindIndex, 0x4f8201 ctor, 0x4f82ff dtor between CStringList::RemoveAll/AddHead), so it is the byte-identical CStringList ctor; ours calls ??0CStringList@@QAE@H@Z. Needs the lib_funcs name fixed by the owner (data/ review).
+0x004a8b80	claude-f17	2026-11-25	SL_FindStringOfLen: 98%, 887/887, first diff +0x56: server shape (int byteLen local, head branch nested) fixed the structure (75% to 98%); left: hash in esi and byteLen in edi in retail, swapped in ours. Tried: declaration order, unsigned byteLen, byteLen hoisted above the head test (95%).
+0x0049eb60	claude-f17	2026-11-25	idSplinePosition::getPosition: 95%, 801/801, first diff +0x75: temp1/temp2 scaled in place (no v1/v2 copies) fixed the frame; left: double slot order (retail distance -0x10, lastDistance2 -0x1c, lastDistance1 -0x24; ours lastDistance2 -0x10, distance -0x18). Tried: swap block operand order, declaration order.
+0x0049ab90	claude-f17	2026-11-25	idSplineList::parse: 99%, 1001/1001, only the three exit-tail jump targets differ (retail empty-token break goes to the first tail, first } to the third, second } to the second; ours the reverse). Tried: while(token[0]) form (80%).

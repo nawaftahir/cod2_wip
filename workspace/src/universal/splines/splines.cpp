@@ -281,6 +281,83 @@ float idSplineList::totalDistance() {
 	return dist;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void idSplineList::initPosition(long bt, long totalTime) {
 
 	if (dirty) {
@@ -313,6 +390,25 @@ void idSplineList::initPosition(long bt, long totalTime) {
 	assert(splineTime.Num() == splinePoints.Num());
 	activeSegment = 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -358,7 +454,7 @@ const idVec3_t *idSplineList::getPosition(long t) {
 		return &zero;
 	}
 
-#line 458
+
 	assert(splineTime.Num() == splinePoints.Num());
 
 	while (activeSegment < count) {
@@ -370,8 +466,8 @@ const idVec3_t *idSplineList::getPosition(long t) {
 				// pick two bounding points
 				idVec3_t v1 = *splinePoints[activeSegment-1];
 				idVec3_t v2 = *splinePoints[activeSegment+1];
-				v2 *= (1.0 - percent);
-				v1 *= percent;
+				v2 *= (1.0f - (float)percent);
+				v1 *= (float)percent;
 				v2 += v1;
 				interpolatedPos = v2;
 				return &interpolatedPos;
@@ -878,6 +974,7 @@ const char *idCameraPosition::positionStr[] = {
 const idVec3_t *idInterpolatedPosition::getPosition(long t) { 
 	static idVec3_t interpolatedPos;
 
+	float percent = 0;
 	float velocity = getVelocity(t);
 	float timePassed = t - lastTime;
 	lastTime = t;
@@ -892,7 +989,9 @@ const idVec3_t *idInterpolatedPosition::getPosition(long t) {
 	float distance = temp.Length();
 
 	distSoFar += distToTravel;
-	float percent = (float)(distSoFar) / distance;
+	if (distance != 0.0) {
+		percent = distSoFar / distance;
+	}
 
 	if (percent > 1.0) {
 		percent = 1.0;
@@ -905,7 +1004,7 @@ const idVec3_t *idInterpolatedPosition::getPosition(long t) {
 
 	idVec3_t v1 = startPos;
 	idVec3_t v2 = endPos;
-	v1 *= (1.0 - percent);
+	v1 *= (1.0f - percent);
 	v2 *= percent;
 	v1 += v2;
 	interpolatedPos = v1;
@@ -1268,12 +1367,10 @@ const idVec3_t *idSplinePosition::getPosition(long t) {
 		idVec3_t temp1 = *target.getSegmentPoint(i - 1);
 		idVec3_t temp2 = *target.getSegmentPoint(i);
 		double percent = (lastDistance2 - xDist) / (lastDistance2 - lastDistance1);
-		idVec3_t v1 = temp2;
-		idVec3_t v2 = temp1;
-		v1 *= (1.0 - percent);
-		v2 *= percent;
-		v1 += v2;
-		interpolatedPos = v1;
+		temp2 *= (1.0 - percent);
+		temp1 *= percent;
+		temp2 += temp1;
+		interpolatedPos = temp2;
 	}
 	return &interpolatedPos;
 }

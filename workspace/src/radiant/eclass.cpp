@@ -431,10 +431,10 @@ void FUN_00463bf0(eclass_t *e)
 	entitymodel_t *model = e->model;
 	for (int i = 0; i < list.GetCount(); i++)
 	{
-		if (!(e->flags & 0x10))
-			FUN_00463310((const char *)list.GetAt(list.FindIndex(i)), &model);
-		else
+		if (e->flags & 0x10)
 			FUN_004633d0((const char *)list.GetAt(list.FindIndex(i)), &model);
+		else
+			FUN_00463310((const char *)list.GetAt(list.FindIndex(i)), &model);
 		model->next = new entitymodel_t;
 		model = model->next;
 		memset(model, 0, sizeof(entitymodel_t));

@@ -179,61 +179,67 @@ void SL_Shutdown()
 
 unsigned int SL_FindStringOfLen(const char *str, unsigned int len)
 {
-	unsigned int stringValue, newIndex, hash, prev;
+	HashEntry *entry;
+	unsigned int prev;
+	HashEntry *newEntry;
 	RefString *refStr;
-	HashEntry *newEntry, *entry;
+	unsigned int hash;
+	unsigned int newIndex;
+	int byteLen;
+	unsigned int stringValue;
 
 #line 324
 	assert(str);
 	hash = GetHashCode(str, len);
 	entry = &scrStringGlob.hashTable[hash];
 
-	if ((entry->status_next & HASH_STAT_MASK) != HASH_STAT_HEAD)
-		return 0;
-
-	refStr = GetRefString(entry->prev);
-
-	if (refStr->byteLen == (unsigned char)len && !memcmp(refStr->str, str, len))
+	if ((entry->status_next & HASH_STAT_MASK) == HASH_STAT_HEAD)
 	{
-#line 341
-		assert((entry->status_next & HASH_STAT_MASK) != HASH_STAT_FREE);
-		stringValue = entry->str;
-#line 344
-		assert(refStr->str == SL_ConvertToString(stringValue));
-		return stringValue;
-	}
+		byteLen = (unsigned char)len;
+		refStr = GetRefString(entry->prev);
 
-	prev = hash;
-	newIndex = entry->status_next & HASH_NEXT_MASK;
-
-	for (newEntry = &scrStringGlob.hashTable[newIndex]; newEntry != entry; newEntry = &scrStringGlob.hashTable[newIndex])
-	{
-#line 358
-		assert((newEntry->status_next & HASH_STAT_MASK) == HASH_STAT_MOVABLE);
-		refStr = GetRefString(newEntry->prev);
-
-		if (refStr->byteLen == (unsigned char)len && !memcmp(refStr->str, str, len))
+		if (refStr->byteLen == byteLen && !memcmp(refStr->str, str, len))
 		{
-			scrStringGlob.hashTable[prev].status_next = scrStringGlob.hashTable[prev].status_next & HASH_STAT_MASK | newEntry->status_next & HASH_NEXT_MASK;
-			newEntry->status_next = newEntry->status_next & HASH_STAT_MASK | entry->status_next & HASH_NEXT_MASK;
-
-			entry->status_next = entry->status_next & HASH_STAT_MASK | newIndex;
-			stringValue = newEntry->str;
-
-			newEntry->prev = entry->prev;
-			entry->str = stringValue;
-
-#line 371
-			assert((newEntry->status_next & HASH_STAT_MASK) != HASH_STAT_FREE);
+#line 341
 			assert((entry->status_next & HASH_STAT_MASK) != HASH_STAT_FREE);
-#line 374
+			stringValue = entry->str;
+#line 344
 			assert(refStr->str == SL_ConvertToString(stringValue));
-
 			return stringValue;
 		}
 
-		prev = newIndex;
-		newIndex = newEntry->status_next & HASH_NEXT_MASK;
+		prev = hash;
+		newIndex = entry->status_next & HASH_NEXT_MASK;
+
+		for (newEntry = &scrStringGlob.hashTable[newIndex]; newEntry != entry; newEntry = &scrStringGlob.hashTable[newIndex])
+		{
+#line 358
+			assert((newEntry->status_next & HASH_STAT_MASK) == HASH_STAT_MOVABLE);
+			refStr = GetRefString(newEntry->prev);
+
+			if (refStr->byteLen == byteLen && !memcmp(refStr->str, str, len))
+			{
+				scrStringGlob.hashTable[prev].status_next = scrStringGlob.hashTable[prev].status_next & HASH_STAT_MASK | newEntry->status_next & HASH_NEXT_MASK;
+				newEntry->status_next = newEntry->status_next & HASH_STAT_MASK | entry->status_next & HASH_NEXT_MASK;
+
+				entry->status_next = entry->status_next & HASH_STAT_MASK | newIndex;
+				stringValue = newEntry->str;
+
+				newEntry->prev = entry->prev;
+				entry->str = stringValue;
+
+#line 371
+				assert((newEntry->status_next & HASH_STAT_MASK) != HASH_STAT_FREE);
+				assert((entry->status_next & HASH_STAT_MASK) != HASH_STAT_FREE);
+#line 374
+				assert(refStr->str == SL_ConvertToString(stringValue));
+
+				return stringValue;
+			}
+
+			prev = newIndex;
+			newIndex = newEntry->status_next & HASH_NEXT_MASK;
+		}
 	}
 
 	return 0;
