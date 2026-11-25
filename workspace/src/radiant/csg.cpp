@@ -365,7 +365,6 @@ extern int FUN_00448550(const winding_t *in, const float normal[3], double dist,
 extern void FUN_00459430(brush_t *b, face_t *f, radmat_t *mat);
 struct qtexture_s;
 extern qtexture_s *__fastcall FUN_00440840(char *name);
-extern void FUN_0047a5b0(const char *fmt, ...);
 bool FUN_00460470(winding_t *w, const plane_t *plane, brush_t *skip, selbrush_t *node, int faceIndex);
 
 bool FUN_00460440(brush_t *skip, brush_t *b)
