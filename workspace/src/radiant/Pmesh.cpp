@@ -562,7 +562,7 @@ void Patch_MeshNormals(patchMesh_t *in)
     }
 }
 
-bool FUN_00425d10(patchMesh_t *p, int outX[3], int outY[3])
+bool FUN_00425d10(patchMesh_t *p, int outY[3], int outX[3])
 {
     struct CornerPt
     {
@@ -590,8 +590,8 @@ bool FUN_00425d10(patchMesh_t *p, int outX[3], int outY[3])
             outY[j] = tris[i][j].y;
         }
         vec3_t d1, d2, normal;
-        VectorSubtract(p->ctrl[outX[1]][outY[1]].xyz, p->ctrl[outX[0]][outY[0]].xyz, d1);
-        VectorSubtract(p->ctrl[outX[2]][outY[2]].xyz, p->ctrl[outX[0]][outY[0]].xyz, d2);
+        VectorSubtract(p->ctrl[outX[0]][outY[0]].xyz, p->ctrl[outX[1]][outY[1]].xyz, d1);
+        VectorSubtract(p->ctrl[outX[2]][outY[2]].xyz, p->ctrl[outX[1]][outY[1]].xyz, d2);
         Vec3Cross(d1, d2, normal);
         if (VectorLengthSquared(normal) > 0.001f)
             return true;
@@ -4133,26 +4133,27 @@ bool FUN_00431570(const char **data_p, PatchControl *v, int nTexPairs)
 {
 #line 4664
     assert( v );
-    if (strcmp(Com_Parse(data_p), "v"))
+    const char *t0 = Com_Parse(data_p);
+    if (strcmp(t0, "v"))
         return false;
     v->xyz[0] = (float)atof(Com_ParseOnLine(data_p));
     v->xyz[1] = (float)atof(Com_ParseOnLine(data_p));
     v->xyz[2] = (float)atof(Com_ParseOnLine(data_p));
     const char *tok = Com_Parse(data_p);
-    if (strcmp(tok, "c"))
-    {
-        v->color_28[2] = 0xff;
-        v->color_28[1] = 0xff;
-        v->color_28[0] = 0xff;
-        v->color_28[3] = 0xff;
-    }
-    else
+    if (!strcmp(tok, "c"))
     {
         v->color_28[2] = atol(Com_ParseOnLine(data_p));
         v->color_28[1] = atol(Com_ParseOnLine(data_p));
         v->color_28[0] = atol(Com_ParseOnLine(data_p));
         v->color_28[3] = atol(Com_ParseOnLine(data_p));
         tok = Com_Parse(data_p);
+    }
+    else
+    {
+        v->color_28[2] = 0xff;
+        v->color_28[1] = 0xff;
+        v->color_28[0] = 0xff;
+        v->color_28[3] = 0xff;
     }
     if (strcmp(tok, "t"))
         return false;
@@ -4161,13 +4162,14 @@ bool FUN_00431570(const char **data_p, PatchControl *v, int nTexPairs)
         v->st[i][0] = (float)atof(Com_ParseOnLine(data_p)) * 0.0009765625f;
         v->st[i][1] = (float)atof(Com_ParseOnLine(data_p)) * 0.0009765625f;
     }
-    if (strcmp(Com_Parse(data_p), "f"))
+    const char *t1 = Com_Parse(data_p);
+    if (!strcmp(t1, "f"))
     {
-        v->flags_34 = 0;
-        Com_UngetToken();
+        v->flags_34 = atol(Com_ParseOnLine(data_p));
         return true;
     }
-    v->flags_34 = atol(Com_ParseOnLine(data_p));
+    v->flags_34 = 0;
+    Com_UngetToken();
     return true;
 }
 
@@ -5906,7 +5908,7 @@ bool FUN_004379f0(patchMesh_t *p, float *out)
     float xv[3], yv[3];
     if (!FUN_00425f40(p, &plane))
         return false;
-    if (!FUN_00425d10(p, ix, iy))
+    if (!FUN_00425d10(p, iy, ix))
         return false;
     TextureAxisFromPlane(&plane, xv, yv);
     float pa[3], pb[3], ps[3], pt[3];
@@ -5978,7 +5980,16 @@ void FUN_00437e50()
             continue;
         if (!FUN_00429a00(p, &pair))
             continue;
-        if (pair.x[0] != pair.x[1])
+        if (pair.x[0] == pair.x[1])
+        {
+            if (pair.y[0] == pair.y[1] + 1)
+                FUN_00430610(p, pair.y[0]);
+            else if (pair.y[1] == pair.y[0] + 1)
+                FUN_00430610(p, pair.y[1]);
+            else
+                Sys_Printf("vertices must be adjacent to insert a row or column\n");
+        }
+        else
         {
 #line 7467
             assert( pair.y[0] == pair.y[1] );
@@ -5989,12 +6000,6 @@ void FUN_00437e50()
             else
                 Sys_Printf("vertices must be adjacent to insert a row or column\n");
         }
-        else if (pair.y[0] == pair.y[1] + 1)
-            FUN_00430610(p, pair.y[0]);
-        else if (pair.y[1] == pair.y[0] + 1)
-            FUN_00430610(p, pair.y[1]);
-        else
-            Sys_Printf("vertices must be adjacent to insert a row or column\n");
         bUpdate = true;
         if (p->cache_3824)
             free(p->cache_3824);
