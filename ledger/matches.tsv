@@ -2700,7 +2700,6 @@ addr	size	source	symbol	name	tag
 0x0049a4f0	509	src/universal/splines/splines.cpp	?initPosition@idSplineList@@QAEXJJ@Z	idSplineList::initPosition	SUPPORTED
 0x0049a9c0	452	src/universal/splines/splines.cpp	?getPosition@idSplineList@@QAEPBVidVec3_t@@J@Z	idSplineList::getPosition	SUPPORTED
 0x0049cca0	452	src/universal/splines/splines.cpp	?getPosition@idInterpolatedPosition@@UAEPBVidVec3_t@@J@Z	idInterpolatedPosition::getPosition	SUPPORTED
-0x00419560	244	src/radiant/MainFrm.cpp	?FUN_00419560@CMainFrame@@QAEXXZ	CMainFrame::FUN_00419560	UNNAMED
 0x0042bf10	51	src/radiant/Pmesh.cpp	?FUN_0042bf10@@YAXPBM@Z	FUN_0042bf10	UNNAMED
 0x00448d00	916	src/radiant/Winding.cpp	?FUN_00448d00@@YAXPBUwinding_t@@QAMPAN@Z	FUN_00448d00	UNNAMED
 0x00429e20	107	src/radiant/Pmesh.cpp	?FUN_00429e20@@YAHPBM@Z	FUN_00429e20	UNNAMED
