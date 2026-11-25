@@ -3,20 +3,25 @@
 #include <time.h>
 #include "../universal/assertive.h"
 
+struct entity_t
+{
+    unsigned char pad00[0x64];
+    struct epair_t *epairs;
+};
+struct MRUMENU;
+
+// retail: project entity at +0x20, d_hwndMain +0x40, d_hwndCamera +0x44, d_hwndEdit +0x48, MRU menu +0x6c8e8
 struct QEGlobals_t
 {
-    int d_showgrid;
-    int d_gridsize;
-    int d_num_entities;
-    void *d_project_entity;
-    float d_new_brush_bottom_z;
-    float d_new_brush_top_z;
+    unsigned char pad00[0x20];
+    entity_t *d_project_entity;
+    unsigned char pad24[0x3c - 0x24];
     HINSTANCE d_hInstance;
-    HGLRC d_hglrcBase;
-    HDC d_hdcBase;
     HWND d_hwndMain;
     HWND d_hwndCamera;
     HWND d_hwndEdit;
+    unsigned char pad4c[0x6c8e8 - 0x4c];
+    MRUMENU *d_lpMruMenu;
 };
 extern QEGlobals_t g_qeglobals;
 
@@ -26,6 +31,13 @@ void ConvertDOSToUnixName(char *dst, const char *src);
 void Sys_Printf(const char *text, ...);
 void Error(const char *error, ...);
 
+char *ValueForKey(entity_t *ent, const char *key);
+void AddNewItem(MRUMENU *lpMruMenu, LPSTR lpItem);
+void PlaceMenuMRUItem(MRUMENU *lpMruMenu, HMENU hMenu, UINT uiItem);
+void Map_LoadFile(const char *filename);
+void FUN_00468910(const char *filename, bool use_region);
+int QE_LoadProject(const char *projectfile);
+void DefaultExtension(char *path, const char *extension);
 bool FUN_0046ba10(void);
 void FUN_0046b9b0(void);
 
@@ -215,6 +227,98 @@ bool FUN_0047a890(void)
     return true;
 }
 
+static char szFileTitle[260];
+static char szFile[260];
+static char szDirName[MAX_PATH];
+static OPENFILENAME ofn;
+static char szFilter[260] = "Map file (*.map, *.reg)\0*.map\0*.reg\0\0";
+static char szProjectFilter[260] = "CoD2Radiant project (*.prj)\0*.prj\0\0";
+
+// Q3Radiant WIN_QE3.CPP OpenDialog shape, retail adds the lpstrDefExt
+void OpenDialog(void)
+{
+    strcpy(szDirName, ValueForKey(g_qeglobals.d_project_entity, "mapspath"));
+    if (strlen(szDirName) == 0)
+    {
+        strcpy(szDirName, ValueForKey(g_qeglobals.d_project_entity, "basepath"));
+        strcat(szDirName, "\\main\\maps");
+    }
+    szFile[0] = '\0';
+    ofn.lStructSize = sizeof(OPENFILENAME);
+    ofn.hwndOwner = g_qeglobals.d_hwndCamera;
+    ofn.lpstrFilter = szFilter;
+    ofn.lpstrDefExt = "map";
+    ofn.nFilterIndex = 1;
+    ofn.lpstrFile = szFile;
+    ofn.nMaxFile = sizeof(szFile);
+    ofn.lpstrFileTitle = szFileTitle;
+    ofn.nMaxFileTitle = sizeof(szFileTitle);
+    ofn.lpstrInitialDir = szDirName;
+    ofn.Flags = OFN_SHOWHELP | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+    if (!GetOpenFileName(&ofn))
+        return;
+    AddNewItem(g_qeglobals.d_lpMruMenu, ofn.lpstrFile);
+    PlaceMenuMRUItem(g_qeglobals.d_lpMruMenu, GetSubMenu(GetMenu(g_qeglobals.d_hwndMain), 0), 0x80b7);
+    Map_LoadFile(ofn.lpstrFile);
+}
+
+// Q3Radiant WIN_QE3.CPP ProjectDialog shape
+void ProjectDialog(void)
+{
+    strcpy(szDirName, ValueForKey(g_qeglobals.d_project_entity, "basepath"));
+    strcat(szDirName, "\\main\\scripts");
+    szFile[0] = '\0';
+    ofn.lStructSize = sizeof(OPENFILENAME);
+    ofn.hwndOwner = g_qeglobals.d_hwndCamera;
+    ofn.lpstrFilter = szProjectFilter;
+    ofn.nFilterIndex = 1;
+    ofn.lpstrFile = szFile;
+    ofn.nMaxFile = sizeof(szFile);
+    ofn.lpstrFileTitle = szFileTitle;
+    ofn.nMaxFileTitle = sizeof(szFileTitle);
+    ofn.lpstrInitialDir = szDirName;
+    ofn.Flags = OFN_SHOWHELP | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+    if (!GetOpenFileName(&ofn))
+        return;
+    PlaceMenuMRUItem(g_qeglobals.d_lpMruMenu, GetSubMenu(GetMenu(g_qeglobals.d_hwndMain), 0), 0x80b7);
+    if (!QE_LoadProject(ofn.lpstrFile))
+        Error("Couldn't load project file");
+}
+
+// Q3Radiant WIN_QE3.CPP SaveAsDialog shape, retail uses the same mapspath/basepath fallback as OpenDialog
+void SaveAsDialog(bool bRegion)
+{
+    strcpy(szDirName, ValueForKey(g_qeglobals.d_project_entity, "mapspath"));
+    if (strlen(szDirName) == 0)
+    {
+        strcpy(szDirName, ValueForKey(g_qeglobals.d_project_entity, "basepath"));
+        strcat(szDirName, "\\main\\maps");
+    }
+    szFile[0] = '\0';
+    ofn.lStructSize = sizeof(OPENFILENAME);
+    ofn.hwndOwner = g_qeglobals.d_hwndCamera;
+    ofn.lpstrFilter = szFilter;
+    ofn.nFilterIndex = 1;
+    ofn.lpstrFile = szFile;
+    ofn.nMaxFile = sizeof(szFile);
+    ofn.lpstrFileTitle = szFileTitle;
+    ofn.nMaxFileTitle = sizeof(szFileTitle);
+    ofn.lpstrInitialDir = szDirName;
+    ofn.Flags = OFN_SHOWHELP | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_OVERWRITEPROMPT;
+    if (!GetSaveFileName(&ofn))
+        return;
+    if (bRegion)
+        DefaultExtension(ofn.lpstrFile, ".reg");
+    else
+    {
+        DefaultExtension(ofn.lpstrFile, ".map");
+        strcpy(currentmap, ofn.lpstrFile);
+        AddNewItem(g_qeglobals.d_lpMruMenu, ofn.lpstrFile);
+        PlaceMenuMRUItem(g_qeglobals.d_lpMruMenu, GetSubMenu(GetMenu(g_qeglobals.d_hwndMain), 0), 0x80b7);
+    }
+    FUN_00468910(ofn.lpstrFile, bRegion);
+}
+
 void AddSlash(CString &strPath)
 {
     if (strPath.GetLength() > 0)
@@ -226,3 +330,18 @@ void AddSlash(CString &strPath)
     }
 }
 
+
+// splits a path at the last backslash; called by Map_Snapshot (0x46cc60) with the path in edi
+bool FUN_0047ad20(const char *path, CString &dir, CString &file)
+{
+    CString str(path);
+    int n = str.ReverseFind('\\');
+    if (n >= 0)
+    {
+        dir = str.Left(n + 1);
+        file = str.Right(str.GetLength() - n - 1);
+    }
+    else
+        file = path;
+    return true;
+}

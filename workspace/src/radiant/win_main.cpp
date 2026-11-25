@@ -45,6 +45,22 @@ int DelMenuItem(MRUMENU *lpMruMenu, WORD wItem, BOOL fIDMBased);
 void PlaceMenuMRUItem(MRUMENU *lpMruMenu, HMENU hMenu, UINT uiItem);
 void Map_LoadFile(const char *filename);
 
+// Q3 Win_main.cpp FindReplace, retail 0x00479560
+void FindReplace(CString &strContents, const char *pTag, const char *pValue)
+{
+    if (strcmp(pTag, pValue) == 0)
+        return;
+    for (int nPos = strContents.Find(pTag); nPos >= 0; nPos = strContents.Find(pTag))
+    {
+        int nRightLen = strContents.GetLength() - strlen(pTag) - nPos;
+        CString strLeft = strContents.Left(nPos);
+        CString strRight = strContents.Right(nRightLen);
+        strLeft += pValue;
+        strLeft += strRight;
+        strContents = strLeft;
+    }
+}
+
 // Q3 DoMru, with GetMenuItem inlined; retail 0x00479c00
 BOOL DoMru(HWND hWnd, WORD wId)
 {
