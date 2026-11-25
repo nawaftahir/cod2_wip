@@ -1474,7 +1474,7 @@ void FUN_00471a80()
 }
 
 
-static void FUN_004721a0(int clear, int set)
+void FUN_004721a0(int clear, int set)
 {
     for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
     {
@@ -1494,7 +1494,7 @@ static void FUN_004721a0(int clear, int set)
     g_nUpdateBits = -1;
 }
 
-static void FUN_00472280(int clear, int set)
+void FUN_00472280(int clear, int set)
 {
     for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
     {
