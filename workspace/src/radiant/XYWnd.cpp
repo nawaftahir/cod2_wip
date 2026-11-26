@@ -2064,15 +2064,15 @@ static inline int XYAddLine(XYVert *verts, int n, int d1, int d2, int d3, float 
 
 #define XY_ADDLINE(x0, y0, x1, y1) \
     do { \
-        verts[n].xyz[nDim1] = (x0); verts[n].xyz[nDim2] = (y0); verts[n].xyz[nDim3] = -131072.0f; verts[n].color = color; n++; \
-        verts[n].xyz[nDim1] = (x1); verts[n].xyz[nDim2] = (y1); verts[n].xyz[nDim3] = -131072.0f; verts[n].color = color; n++; \
+        verts[n].xyz[nDim1] = (x0); verts[n].xyz[nDim2] = (y0); verts[n].xyz[nDim3] = -131072.0f; *(unsigned *)verts[n].color = color; n++; \
+        verts[n].xyz[nDim1] = (x1); verts[n].xyz[nDim2] = (y1); verts[n].xyz[nDim3] = -131072.0f; *(unsigned *)verts[n].color = color; n++; \
     } while (0)
 
 int R_Add3DLine(GfxPointVertex *verts, const float *p1, const float *p2, const void *color, int width, int vertCount, int maxVertCount);
 // 0x0044d7e0: coordinate grid with minor/major lines and labels
 void CXYWnd::XY_DrawGrid()
 {
-    XYVert verts[4096];
+    GfxPointVertex verts[4096];
     char text[32];
     unsigned color;
     float x, y;
@@ -2101,21 +2101,20 @@ void CXYWnd::XY_DrawGrid()
     ye = (float)ceil(ye / 64.0f) * 64.0f;
 
     int step = (int)(6.4 / m_fScale);
-    if (step >= 64)
+    if (step < 64)
+        step = 64;
+    else
     {
         int s = 1;
-        do
+        while (s < step)
             s <<= 1;
-        while (s < step);
         step = s;
     }
-    else
-        step = 64;
 
     if (g_qeglobals.d_showgrid)
     {
         int n = 0;
-        if (!(m_fScale <= 0.1f) && !((float)g_qeglobals.d_gridsize * m_fScale < 4.0f) && !Vector4Compare(g_colors[1], g_colors[2]))
+        if (m_fScale > 0.1f && (float)g_qeglobals.d_gridsize * m_fScale >= 4.0f && !Vector4Compare(g_colors[1], g_colors[2]))
         {
             re.ColorToBytes(g_colors[2], &color);
             for (x = xb; x < xe; x += (float)g_qeglobals.d_gridsize)
@@ -2126,12 +2125,10 @@ void CXYWnd::XY_DrawGrid()
                     XY_ADDLINE(xb, y, xe, y);
         }
         re.ColorToBytes(g_colors[3], &color);
-        if (!(xb > xe))
-            for (x = xb; x <= xe; x += (float)step)
-                XY_ADDLINE(x, yb, x, ye);
-        if (!(yb > ye))
-            for (y = yb; y <= ye; y += (float)step)
-                XY_ADDLINE(xb, y, xe, y);
+        for (x = xb; x <= xe; x += (float)step)
+            XY_ADDLINE(x, yb, x, ye);
+        for (y = yb; y <= ye; y += (float)step)
+            XY_ADDLINE(xb, y, xe, y);
         re.AddLines(n / 2, 1, verts);
     }
 
@@ -2234,22 +2231,20 @@ void CXYWnd::XY_DrawBlockGrid()
     p2[nDim2] = ye;
     p1[nDim2] = yb;
     int n = 0;
-    if (xb < xe)
-        for (x = xb; x <= xe; x += 1024.0f)
-        {
-            p1[nDim1] = x;
-            p2[nDim1] = x;
-            n = R_Add3DLine(verts, p1, p2, &color, 2, n, 0x552);
-        }
+    for (x = xb; x <= xe; x += 1024.0f)
+    {
+        p1[nDim1] = x;
+        p2[nDim1] = x;
+        n = R_Add3DLine(verts, p1, p2, &color, 2, n, 0x552);
+    }
     p1[nDim1] = xb;
     p2[nDim1] = xe;
-    if (yb < ye)
-        for (y = yb; y <= ye; y += 1024.0f)
-        {
-            p1[nDim2] = y;
-            p2[nDim2] = y;
-            n = R_Add3DLine(verts, p1, p2, &color, 2, n, 0x552);
-        }
+    for (y = yb; y <= ye; y += 1024.0f)
+    {
+        p1[nDim2] = y;
+        p2[nDim2] = y;
+        n = R_Add3DLine(verts, p1, p2, &color, 2, n, 0x552);
+    }
     if (n)
         re.AddLines(n / 2, 2, verts);
 
@@ -2264,8 +2259,8 @@ void CXYWnd::XY_DrawBlockGrid()
     {
         for (y = yb; y < ye; y += 1024.0f)
         {
-            int ybi = (int)(y / 1024.0f - 0.4999999990686774);
-            int xbi = (int)(x / 1024.0f - 0.4999999990686774);
+            int ybi = (int)floor(y / 1024.0f);
+            int xbi = (int)floor(x / 1024.0f);
             sprintf(text, "%i,%i", xbi, ybi);
             p1[nDim1] = x + 512.0f;
             p1[nDim2] = y + 512.0f;
@@ -2283,141 +2278,146 @@ void CXYWnd::XY_DrawBlockGrid()
 extern float g_vRotateOrigin[3];
 extern float color_0053dc94[4];
 
-static void XYDrawQuad(const float *c, const float *a, const float *b, unsigned color)
-{
-    float xyzw[4][4];
-    float normal[4][3];
-    float st[4][2];
-    unsigned colors[4];
-    unsigned short indices[6] = {1, 0, 2, 2, 0, 3};
-    xyzw[0][0] = c[0] - b[0] - 0.0f;
-    xyzw[0][1] = c[1] - b[1] - a[0];
-    xyzw[0][2] = c[2] - 0.0f - a[1];
-    xyzw[1][0] = c[0] + b[0] - 0.0f;
-    xyzw[1][1] = c[1] + b[1] - a[0];
-    xyzw[1][2] = c[2] + 0.0f - a[1];
-    xyzw[2][0] = c[0] + b[0] + 0.0f;
-    xyzw[2][1] = c[1] + b[1] + a[0];
-    xyzw[2][2] = c[2] + 0.0f + a[1];
-    xyzw[3][0] = c[0] - b[0] + 0.0f;
-    xyzw[3][1] = c[1] - b[1] + a[0];
-    xyzw[3][2] = c[2] + 0.0f + a[1];
-    for (int i = 0; i < 4; i++)
-    {
-        xyzw[i][3] = 1.0f;
-        normal[i][0] = 0;
-        normal[i][1] = 0;
-        normal[i][2] = 1.0f;
-        st[i][0] = 0;
-        st[i][1] = 0;
-        colors[i] = color;
-    }
-    re.DrawTris(dword_011298c8, 3, 6, indices, 4, xyzw, normal, colors, st);
-}
-
 // 0x0044eb10: small quad and point at the rotate origin
 void CXYWnd::DrawRotateIcon()
 {
     float fillColor[4] = {0.8f, 0.1f, 0.9f, 0.25f};
     float pointColor[4] = {1.0f, 0.2f, 1.0f, 1.0f};
-    float c[3], a[2], b[2];
+    vec3_t c, a, b;
     unsigned color;
-    XYVert point;
+    GfxPointVertex point;
 
-    if (m_nViewType != XY)
-    {
-        a[0] = 0;
-        if (m_nViewType != YZ)
-        {
-            c[2] = g_vRotateOrigin[2];
-            c[0] = g_vRotateOrigin[0];
-            c[1] = 131072.0f;
-            a[1] = 4.0f;
-            b[0] = 4.0f;
-            b[1] = 0;
-        }
-        else
-        {
-            c[1] = g_vRotateOrigin[1];
-            c[0] = 131072.0f;
-            c[2] = g_vRotateOrigin[2];
-            a[1] = 4.0f;
-            b[0] = 0;
-            b[1] = 4.0f;
-        }
-    }
-    else
+    if (m_nViewType == XY)
     {
         c[0] = g_vRotateOrigin[0];
         c[1] = g_vRotateOrigin[1];
         c[2] = 131072.0f;
-        a[0] = 4.0f;
-        a[1] = 0;
-        b[0] = 4.0f;
-        b[1] = 0;
+        VectorSet(a, 0.0f, 4.0f, 0.0f);
+        VectorSet(b, 4.0f, 0.0f, 0.0f);
+    }
+    else if (m_nViewType == YZ)
+    {
+        c[0] = 131072.0f;
+        c[1] = g_vRotateOrigin[1];
+        c[2] = g_vRotateOrigin[2];
+        VectorSet(a, 0.0f, 0.0f, 4.0f);
+        VectorSet(b, 0.0f, 4.0f, 0.0f);
+    }
+    else
+    {
+        c[0] = g_vRotateOrigin[0];
+        c[1] = 131072.0f;
+        c[2] = g_vRotateOrigin[2];
+        VectorSet(a, 0.0f, 0.0f, 4.0f);
+        VectorSet(b, 4.0f, 0.0f, 0.0f);
     }
     re.ColorToBytes(fillColor, &color);
-    XYDrawQuad(c, a, b, color);
-    point.xyz[0] = c[0];
-    point.xyz[1] = c[1];
-    point.xyz[2] = c[2];
-    re.ColorToBytes(pointColor, &point.color);
+    {
+        float xyzw[4][4];
+        float normal[4][3];
+        float st[4][2];
+        unsigned char colors[4][4];
+        unsigned short indices[6];
+        vec3_t p;
+
+        VectorSubtract(c, b, p);
+        VectorSubtract(p, a, p);
+        VectorCopy(p, xyzw[0]);
+        xyzw[0][3] = 1.0f;
+        VectorSet(normal[0], 0.0f, 0.0f, 1.0f);
+        st[0][0] = 0.0f;
+        st[0][1] = 0.0f;
+        *(unsigned *)colors[0] = color;
+
+        VectorAdd(c, b, p);
+        VectorSubtract(p, a, p);
+        VectorCopy(p, xyzw[1]);
+        xyzw[1][3] = 1.0f;
+        VectorSet(normal[1], 0.0f, 0.0f, 1.0f);
+        st[1][0] = 0.0f;
+        st[1][1] = 0.0f;
+        *(unsigned *)colors[1] = color;
+
+        VectorAdd(c, b, p);
+        VectorAdd(p, a, p);
+        VectorCopy(p, xyzw[2]);
+        xyzw[2][3] = 1.0f;
+        VectorSet(normal[2], 0.0f, 0.0f, 1.0f);
+        st[2][0] = 0.0f;
+        st[2][1] = 0.0f;
+        *(unsigned *)colors[2] = color;
+
+        VectorSubtract(c, b, p);
+        VectorAdd(p, a, p);
+        VectorCopy(p, xyzw[3]);
+        xyzw[3][3] = 1.0f;
+        VectorSet(normal[3], 0.0f, 0.0f, 1.0f);
+        st[3][0] = 0.0f;
+        st[3][1] = 0.0f;
+        *(unsigned *)colors[3] = color;
+
+        indices[0] = 1;
+        indices[1] = 0;
+        indices[2] = 2;
+        indices[3] = 2;
+        indices[4] = 0;
+        indices[5] = 3;
+        re.DrawTris(dword_011298c8, 3, 6, indices, 4, xyzw, normal, (const unsigned int *)colors, st);
+    }
+    VectorCopy(c, point.xyz);
+    re.ColorToBytes(pointColor, point.color);
     re.DrawPoints(1, 1, &point);
 }
 
 // 0x0044eea0: camera position marker with view direction
 void CXYWnd::DrawCameraIcon()
 {
-    XYVert verts[14];
+    GfxPointVertex verts[14];
     unsigned color;
     int d1, d2;
-    float angle;
-    CCamWnd *cam = reinterpret_cast<CMainFrameCamProjection *>(g_pParentWnd)->m_pCamWnd;
+    vec3_t org;
+    CCamWnd *cam;
+    float rad = (((m_nViewType == XY)
+        ? (d1 = 0, d2 = 1, cam = reinterpret_cast<CMainFrameCamProjection *>(g_pParentWnd)->m_pCamWnd, cam->m_Camera.angles[1])
+        : (m_nViewType == YZ)
+            ? (d1 = 1, d2 = 2, cam = reinterpret_cast<CMainFrameCamProjection *>(g_pParentWnd)->m_pCamWnd, cam->m_Camera.angles[0])
+            : (d1 = 0, d2 = 2, cam = reinterpret_cast<CMainFrameCamProjection *>(g_pParentWnd)->m_pCamWnd, cam->m_Camera.angles[0]))
+        + 45.0f) * 0.017453292f;
+    VectorCopy(cam->m_Camera.origin, org);
+    org[3 - d1 - d2] = 131072.0f;
+    float s, cs;
+    FastSinCos(rad, &s, &cs);
 
-    if (m_nViewType != XY)
-    {
-        angle = cam->m_Camera.angles[0];
-        d1 = (m_nViewType == YZ) ? 1 : 0;
-        d2 = 2;
-    }
-    else
-    {
-        angle = cam->m_Camera.angles[1];
-        d1 = 0;
-        d2 = 1;
-    }
-    float p[3];
-    p[0] = cam->m_Camera.origin[0];
-    p[1] = cam->m_Camera.origin[1];
-    p[2] = cam->m_Camera.origin[2];
-    float a = (angle + 45.0f) * 0.017453292f;
-    p[3 - d1 - d2] = 131072.0f;
-    float s = sin(a);
-    float cs = cos(a);
-
-    for (int i = 0; i < 14; i++)
-    {
-        verts[i].xyz[0] = p[0];
-        verts[i].xyz[1] = p[1];
-        verts[i].xyz[2] = p[2];
-    }
+    VectorCopy(org, verts[0].xyz);
     verts[0].xyz[d1] -= 16.0f;
+    VectorCopy(org, verts[1].xyz);
     verts[1].xyz[d2] += 8.0f;
-    verts[2] = verts[1];
+    VectorCopy(verts[1].xyz, verts[2].xyz);
+    VectorCopy(org, verts[3].xyz);
     verts[3].xyz[d1] += 16.0f;
-    verts[4] = verts[3];
+    VectorCopy(verts[3].xyz, verts[4].xyz);
+    VectorCopy(org, verts[5].xyz);
     verts[5].xyz[d2] -= 8.0f;
-    verts[6] = verts[5];
+    VectorCopy(verts[5].xyz, verts[6].xyz);
+    VectorCopy(org, verts[7].xyz);
     verts[7].xyz[d1] -= 16.0f;
-    verts[8] = verts[7];
-    verts[9] = verts[3];
-    verts[10].xyz[d1] += cs * 48.0f;
-    verts[10].xyz[d2] += s * 48.0f;
-    verts[12].xyz[d1] += s * 48.0f;
-    verts[12].xyz[d2] -= cs * 48.0f;
+    VectorCopy(verts[7].xyz, verts[8].xyz);
+    VectorCopy(verts[3].xyz, verts[9].xyz);
+
+    float cs48 = cs * 48.0f;
+    float sn48 = s * 48.0f;
+    VectorCopy(org, verts[10].xyz);
+    verts[10].xyz[d1] += cs48;
+    verts[10].xyz[d2] += sn48;
+    VectorCopy(org, verts[11].xyz);
+    VectorCopy(org, verts[12].xyz);
+    verts[12].xyz[d1] += sn48;
+    verts[12].xyz[d2] -= cs48;
+    VectorCopy(org, verts[13].xyz);
+
     re.ColorToBytes(color_0053dc94, &color);
     for (int i = 0; i < 14; i++)
-        verts[i].color = color;
+        *(unsigned *)verts[i].color = color;
     re.AddLines(7, 1, verts);
 }
 
@@ -2428,27 +2428,68 @@ void CXYWnd::DrawZIcon()
         return;
     float x = dword_01139e54[0];
     float y = dword_01139e54[1];
-    unsigned color;
-    float c[3] = {x, y, 131072.0f};
-    float a[2] = {8.0f, 8.0f};
-    float b[2] = {8.0f, 8.0f};
-    XYVert verts[14];
+    unsigned char color[4];
+    float xyzw[4][4];
+    float normal[4][3];
+    float st[4][2];
+    unsigned char colors[4][4];
+    unsigned short indices[6];
+    GfxPointVertex verts[14];
 
-    re.ColorToBytes(color_0053dc94, &color);
-    XYDrawQuad(c, a, b, color);
-    float xn = x - 8.0f, xp = x + 8.0f, yn = y - 8.0f, yp = y + 8.0f;
-    int n = 0;
-    n = XYAddLine(verts, n, 0, 1, 2, xn, yn, xp, yn, 131072.0f, color);
-    n = XYAddLine(verts, n, 0, 1, 2, xp, yn, xp, yp, 131072.0f, color);
-    n = XYAddLine(verts, n, 0, 1, 2, xp, yp, xn, yp, 131072.0f, color);
-    n = XYAddLine(verts, n, 0, 1, 2, xn, yp, xn, yn, 131072.0f, color);
-    xn = x - 4.0f;
-    xp = x + 4.0f;
-    yn = y - 4.0f;
-    yp = y + 4.0f;
-    n = XYAddLine(verts, n, 0, 1, 2, xn, yp, xp, yp, 131072.0f, color);
-    n = XYAddLine(verts, n, 0, 1, 2, xp, yp, xn, yn, 131072.0f, color);
-    n = XYAddLine(verts, n, 0, 1, 2, xn, yn, xp, yn, 131072.0f, color);
+    re.ColorToBytes(color_0053dc94, color);
+    color[3] = 0x40;
+
+    float x0 = x - 8.0f;
+    float y0 = y - 8.0f;
+    float x1 = x + 8.0f;
+    float y1 = y + 8.0f;
+
+    xyzw[0][0] = x0; xyzw[0][1] = y0; xyzw[0][2] = 131072.0f; xyzw[0][3] = 1.0f;
+    VectorSet(normal[0], 0.0f, 0.0f, 1.0f);
+    st[0][0] = 0.0f; st[0][1] = 0.0f;
+    *(unsigned *)colors[0] = *(unsigned *)color;
+
+    xyzw[1][0] = x1; xyzw[1][1] = y0; xyzw[1][2] = 131072.0f; xyzw[1][3] = 1.0f;
+    VectorSet(normal[1], 0.0f, 0.0f, 1.0f);
+    st[1][0] = 1.0f; st[1][1] = 0.0f;
+    *(unsigned *)colors[1] = *(unsigned *)color;
+
+    xyzw[2][0] = x1; xyzw[2][1] = y1; xyzw[2][2] = 131072.0f; xyzw[2][3] = 1.0f;
+    VectorSet(normal[2], 0.0f, 0.0f, 1.0f);
+    st[2][0] = 1.0f; st[2][1] = 1.0f;
+    *(unsigned *)colors[2] = *(unsigned *)color;
+
+    xyzw[3][0] = x0; xyzw[3][1] = y1; xyzw[3][2] = 131072.0f; xyzw[3][3] = 1.0f;
+    VectorSet(normal[3], 0.0f, 0.0f, 1.0f);
+    st[3][0] = 0.0f; st[3][1] = 1.0f;
+    *(unsigned *)colors[3] = *(unsigned *)color;
+
+    indices[0] = 1;
+    indices[1] = 0;
+    indices[2] = 2;
+    indices[3] = 2;
+    indices[4] = 0;
+    indices[5] = 3;
+    re.DrawTris(dword_011298c8, 3, 6, indices, 4, xyzw, normal, (const unsigned int *)colors, st);
+
+    VectorSet(verts[0].xyz, x0, y0, 131072.0f);
+    VectorSet(verts[1].xyz, x1, y0, 131072.0f);
+    VectorSet(verts[2].xyz, x1, y0, 131072.0f);
+    VectorSet(verts[3].xyz, x1, y1, 131072.0f);
+    VectorSet(verts[4].xyz, x1, y1, 131072.0f);
+    VectorSet(verts[5].xyz, x0, y1, 131072.0f);
+    VectorSet(verts[6].xyz, x0, y1, 131072.0f);
+    VectorSet(verts[7].xyz, x0, y0, 131072.0f);
+    VectorSet(verts[8].xyz, x - 4.0f, y + 4.0f, 131072.0f);
+    VectorSet(verts[9].xyz, x + 4.0f, y + 4.0f, 131072.0f);
+    VectorSet(verts[10].xyz, x + 4.0f, y + 4.0f, 131072.0f);
+    VectorSet(verts[11].xyz, x - 4.0f, y - 4.0f, 131072.0f);
+    VectorSet(verts[12].xyz, x - 4.0f, y - 4.0f, 131072.0f);
+    VectorSet(verts[13].xyz, x + 4.0f, y - 4.0f, 131072.0f);
+
+    re.ColorToBytes(color_0053dc94, color);
+    for (int i = 0; i < 14; i++)
+        *(unsigned *)verts[i].color = *(unsigned *)color;
     re.AddLines(7, 1, verts);
 }
 
@@ -2498,8 +2539,8 @@ bool FUN_0044f5d0(brush_t *b)
     return FUN_0044f630(b->def);
 }
 
-extern int g_filterFlags;
-extern int g_filterFlags2;
+extern unsigned int g_filterFlags;
+extern unsigned int g_filterFlags2;
 extern entityInst_t *g_pWorldEntity;
 bool FUN_00465d80(entity_t *e, const char *key);
 extern int dword_01128d90;
@@ -2556,7 +2597,7 @@ bool FUN_0044f630(brushdef_t *b)
         if (all)
             return true;
     }
-    if (g_filterFlags < 0)
+    if (g_filterFlags & 0x80000000)
     {
         bool all = true;
         for (i = 0; i < b->numFaces; i++)
@@ -2748,9 +2789,7 @@ bool FUN_0044f630(brushdef_t *b)
             return true;
     }
     entity_t *owner = b->owner;
-    xyEclass_t *ec = owner->eclass;
-    const char *cname = ec->name;
-    if (owner == g_pWorldEntity->def || !strcmp(cname, "func_group"))
+    if (owner == g_pWorldEntity->def || !strcmp(owner->eclass->name, "func_group"))
     {
         if ((g_filterFlags & 0x10) && !(b->faces[0].contents & 0x8000000) && !b->patch && !strstr(name, "portal"))
             return true;
@@ -2758,20 +2797,20 @@ bool FUN_0044f630(brushdef_t *b)
     }
     if (g_filterFlags & 2)
     {
-        if (strcmp(cname, "func_group") && strcmp(cname, "light"))
+        if (strcmp(owner->eclass->name, "func_group") && strcmp(owner->eclass->name, "light"))
             return true;
     }
     if (g_filterFlags & 0x40000000)
     {
-        if (strcmp(cname, "func_group") && strcmp(cname, "misc_model") && strcmp(cname, "misc_prefab"))
+        if (strcmp(owner->eclass->name, "func_group") && strcmp(owner->eclass->name, "misc_model") && strcmp(owner->eclass->name, "misc_prefab"))
         {
-            if (owner->modelClass || ec->modelName || FUN_00465d80(owner, "model"))
+            if (owner->modelClass || owner->eclass->modelName || FUN_00465d80(owner, "model"))
                 return true;
         }
     }
     if (g_filterFlags & 0x10000)
     {
-        if (!strncmp(cname, "ammo", 4) || !strncmp(b->owner->eclass->name, "item", 4))
+        if (!strncmp(owner->eclass->name, "ammo", 4) || !strncmp(b->owner->eclass->name, "item", 4))
             return true;
     }
     if (g_filterFlags & 0x40000)
@@ -2856,7 +2895,7 @@ bool FUN_0044f630(brushdef_t *b)
             return b->owner->eclass->flags & 1;
     }
     if (g_filterFlags & 4)
-        return (b->owner->eclass->flags >> 2) & 1;
+        return (b->owner->eclass->flags & 4) ? true : false;
     return false;
 }
 
@@ -3124,58 +3163,57 @@ void DrawConnectionArrow(int nDim1, int nDim2, CXYWnd *wnd, const float *p1, con
 void CXYWnd::DrawLightRadiusIcon(const float *center, int width, float radius, int segments, unsigned *color)
 {
     GfxPointVertex verts[0x400];
-    float a[3], b[3], prev[3], cur[3];
-    int n = 0;
+    vec3_t axis[2], prev, cur;
 
     switch (m_nViewType)
     {
     case YZ:
-        a[0] = 0; a[1] = radius; a[2] = 0;
-        b[0] = 0; b[1] = 0; b[2] = radius;
+        axis[0][0] = 0; axis[0][1] = radius; axis[0][2] = 0;
+        axis[1][0] = 0; axis[1][1] = 0; axis[1][2] = radius;
         break;
     case XZ:
-        a[0] = radius; a[1] = 0; a[2] = 0;
-        b[0] = 0; b[1] = 0; b[2] = radius;
+        axis[0][0] = radius; axis[0][1] = 0; axis[0][2] = 0;
+        axis[1][0] = 0; axis[1][1] = 0; axis[1][2] = radius;
         break;
     case XY:
-        a[0] = radius; a[1] = 0; a[2] = 0;
-        b[0] = 0; b[1] = radius; b[2] = 0;
+        axis[0][0] = radius; axis[0][1] = 0; axis[0][2] = 0;
+        axis[1][0] = 0; axis[1][1] = radius; axis[1][2] = 0;
         break;
     }
     float step = 6.2831855f / (float)segments;
     float s, c;
     FastSinCos(step, &s, &c);
-    float sn = 0;
+    float sn = 0.0f;
     float cs = 1.0f;
-    prev[0] = b[0] + center[0];
-    prev[1] = b[1] + center[1];
-    prev[2] = b[2] + center[2];
+    int n = 0;
+    VectorAdd(axis[1], center, cur);
     for (int i = 0; i < segments; i++)
     {
+        VectorCopy(cur, prev);
         float ns = cs * s + sn * c;
         cs = cs * c - sn * s;
         sn = ns;
-        cur[0] = a[0] * sn + center[0] + b[0] * cs;
-        cur[1] = a[1] * sn + center[1] + b[1] * cs;
-        cur[2] = a[2] * sn + center[2] + b[2] * cs;
+        cur[0] = axis[0][0] * sn + center[0];
+        cur[1] = axis[0][1] * sn + center[1];
+        cur[2] = axis[0][2] * sn + center[2];
+        cur[0] += axis[1][0] * cs;
+        cur[1] += axis[1][1] * cs;
+        cur[2] += axis[1][2] * cs;
         n = R_Add3DLine(verts, prev, cur, color, width, n, 0x400);
-        prev[0] = cur[0];
-        prev[1] = cur[1];
-        prev[2] = cur[2];
     }
     if (n)
         re.AddLines(n / 2, width, verts);
 }
 
 // 0x00451470: light radius circle from the "radius" key
-void CXYWnd::DrawLight_Radius(brush_t *b, int width, unsigned *color)
+void CXYWnd::DrawLight_Radius(brush_t *brush, int width, unsigned *color)
 {
-    float center[3];
-    BrushCenter(b, center);
+    vec3_t center;
+    Vec3Avg(brush->def->mins, brush->def->maxs, center);
 #line 3412
-    assert(b->owner->def == b->def->owner);
-    atof(ValueForKey(*(epair_t **)((char *)b->owner->def + 100), "light"));
-    float radius = (float)atof(ValueForKey(*(epair_t **)((char *)b->owner->def + 100), "radius"));
+    assert(brush->owner->def == brush->def->owner);
+    atof(ValueForKey(*(epair_t **)((char *)brush->owner->def + 100), "light"));
+    float radius = (float)atof(ValueForKey(*(epair_t **)((char *)brush->owner->def + 100), "radius"));
     DrawLightRadiusIcon(center, width, radius, 32, color);
 }
 
@@ -3208,7 +3246,7 @@ void CXYWnd::DrawLight_Color(brush_t *b, int width)
 void CXYWnd::DrawLight_Box(const float *center, unsigned *color, int width, float radius, float up, float down, int segments)
 {
     GfxPointVertex verts[8];
-    float pts[6][3];
+    vec3_t p0, p1, p2, p3;
     int n = 0;
 #line 3468
     assert(m_nViewType == XY || m_nViewType == XZ || m_nViewType == YZ);
@@ -3217,83 +3255,80 @@ void CXYWnd::DrawLight_Box(const float *center, unsigned *color, int width, floa
         DrawLightRadiusIcon(center, width, radius, segments, color);
         return;
     }
-    for (int i = 0; i < 6; i++)
-    {
-        pts[i][0] = center[0];
-        pts[i][1] = center[1];
-        pts[i][2] = center[2];
-    }
-    int d = m_nViewType != XZ;
-    pts[3][d] -= radius;
-    pts[1][d] += radius;
-    pts[2][d] += radius;
-    pts[0][d] -= radius;
-    pts[5][2] += down;
-    pts[1][2] += down;
-    pts[4][2] += up;
-    pts[0][2] += up;
-    n = R_Add3DLine(verts, pts[0], pts[3], color, width, n, 8);
-    n = R_Add3DLine(verts, pts[2], pts[1], color, width, n, 8);
-    n = R_Add3DLine(verts, pts[4], pts[5], color, width, n, 8);
+    VectorCopy(center, p0);
+    VectorCopy(center, p2);
+    VectorCopy(center, p1);
+    VectorCopy(center, p3);
+    int d = (m_nViewType != XZ);
+    p0[d] -= radius;
+    p2[d] += radius;
+    p1[d] += radius;
+    p3[d] -= radius;
+    p0[2] += down;
+    p2[2] += down;
+    p1[2] += up;
+    p3[2] += up;
+    n = R_Add3DLine(verts, p0, p2, color, width, n, 8);
+    n = R_Add3DLine(verts, p2, p1, color, width, n, 8);
+    n = R_Add3DLine(verts, p1, p3, color, width, n, 8);
+    n = R_Add3DLine(verts, p3, p0, color, width, n, 8);
     if (n)
         re.AddLines(n / 2, width, verts);
 }
 
 // 0x00451920: cone light drawn as a box of the "height" key
-void CXYWnd::DrawLight_ConeHeight(brush_t *b, int width, unsigned *color)
+void CXYWnd::DrawLight_ConeHeight(brush_t *brush, int width, unsigned *color)
 {
-    float center[3];
+    vec3_t center;
 #line 3513
-    assert(b->owner->def == b->def->owner);
-    float radius = (float)atof(ValueForKey(*(epair_t **)((char *)b->owner->def + 100), "radius"));
+    assert(brush->owner->def == brush->def->owner);
+    float radius = (float)atof(ValueForKey(*(epair_t **)((char *)brush->owner->def + 100), "radius"));
     if (radius <= 0.0f)
         return;
-    entity_t *def = b->owner->def;
     float height;
-    if ((signed char)((char *)def->eclass)[352] < 0)
-        height = 32.0f;
-    else
+    if (!(brush->owner->def->eclass->flags & 0x80))
     {
-        height = (float)atof(ValueForKey(*(epair_t **)((char *)def + 100), "height"));
-        if (!(height > 0.0f))
+        height = (float)atof(ValueForKey(*(epair_t **)((char *)brush->owner->def + 100), "height"));
+        if (height <= 0.0f)
             height = 80.0f;
     }
-    const float *org = (const float *)((char *)def + 0x58);
-    center[0] = org[0];
-    center[1] = org[1];
-    center[2] = org[2] + ((float *)def->eclass)[5];
+    else
+    {
+        height = 32.0f;
+    }
+    VectorCopy((const float *)((char *)brush->owner->def + 0x58), center);
+    center[2] += brush->owner->def->eclass->mins[2];
     DrawLight_Box(center, color, width, radius, 0.0f, height, 32);
 }
 
 // 0x00451a40: classname label next to a light in the side views
-void DrawLight_Classname(int nView, brush_t *b, float scale, int color)
+void DrawLight_Classname(brush_t *b, int nView, float scale, const float *color)
 {
 #line 3552
     assert(nView == XY || nView == XZ || nView == YZ);
-    if ((*(unsigned char *)0x1129890 & 0x20) || !b->owner || b->owner == (entityInst_t *)&entities)
+    if ((*(unsigned char *)0x1129890 & 0x20) || !b->owner || b->owner == (entityInst_t *)dword_012334ec)
         return;
 #line 3563
     assert(b->owner->def == b->def->owner);
-    entityInst_t *e = b->owner;
-    if (b != e->brushes.onext)
+    if (b->def != *(brushdef_t **)((char *)b->owner->def + 0xc))
         return;
 #line 3567
     assert(b->owner->def == b->def->owner);
-    const char *name = ValueForKey(*(epair_t **)((char *)e->def + 100), "classname");
-    float pos[3], right[3], up[3];
+    const char *name = ValueForKey(*(epair_t **)((char *)b->owner->def + 100), "classname");
+    vec3_t pos2, pos, right, up;
     int d1 = nView == YZ;
     int d2 = (nView != XY) + 1;
     int d3 = 3 - d2 - d1;
-    pos[d1] = ((const float *)((char *)b->def + 0x20))[d1] + 4.0f;
-    pos[d2] = ((const float *)((char *)b->def + 0x20))[d2] + 4.0f;
-    pos[d3] = 2048.0f;
+    pos[d1] = b->def->mins[d1] + 4.0f;
+    pos[d2] = b->def->mins[d2] + 4.0f;
+    pos[d3] = 131072.0f;
     right[d1] = 1.0f / scale;
     right[d2] = 0;
     right[d3] = 0;
     up[d1] = 0;
     up[d2] = -1.0f / scale;
     up[d3] = 0;
-    re.DrawText(name, dword_011298c4, pos, right, up, (const float *)color);
+    re.DrawText(name, dword_011298c4, pos2, right, up, color);
 }
 
 #define Vector4Copy(a, b) ((b)[0] = (a)[0], (b)[1] = (a)[1], (b)[2] = (a)[2], (b)[3] = (a)[3])
@@ -3458,7 +3493,7 @@ void CXYWnd::XY_Draw()
         unsigned color[4];
         FUN_00451c00(b, color);
         FUN_0045d7f0(b, m_nViewType, lineWidthA, 30, lineWidthB, 30, color, 1, 0);
-        DrawLight_Classname(m_nViewType, b, m_fScale, (int)g_colors[2]);
+        DrawLight_Classname(b, m_nViewType, m_fScale, g_colors[2]);
     }
     FUN_0040bff0();
     (*FUN_0059c47c)();
@@ -3501,7 +3536,7 @@ void CXYWnd::XY_Draw()
     {
         int width = frame[153] != 0 ? 2 : 1;
         FUN_0045d7f0(b, m_nViewType, lineWidthA, 30, lineWidthB, 30, &color, width, 0);
-        DrawLight_Classname(m_nViewType, b, m_fScale, (int)col);
+        DrawLight_Classname(b, m_nViewType, m_fScale, col);
         assert(b->owner->def == b->def->owner);
         entity_t *ent = b->owner->def;
         unsigned flags = ent->eclass->flags;

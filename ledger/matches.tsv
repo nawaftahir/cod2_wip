@@ -2783,3 +2783,7 @@ addr	size	source	symbol	name	tag
 0x00419020	94	src/radiant/MainFrm.cpp	?FUN_00419020@CMainFrame@@QAEXXZ	FUN_00419020	UNNAMED
 0x004171b0	106	src/radiant/MainFrm.cpp	?FUN_004171b0@CMainFrame@@QAEXXZ	FUN_004171b0	UNNAMED
 0x00419860	203	src/radiant/MainFrm.cpp	?FUN_00419860@CMainFrame@@QAEXXZ	FUN_00419860	UNNAMED
+0x00451470	219	src/radiant/XYWnd.cpp	?DrawLight_Radius@CXYWnd@@QAEXPAUbrush_t@@HPAI@Z	CXYWnd::DrawLight_Radius	SUPPORTED
+0x004516e0	561	src/radiant/XYWnd.cpp	?DrawLight_Box@CXYWnd@@QAEXPBMPAIHMMMH@Z	CXYWnd::DrawLight_Box	SUPPORTED
+0x00451920	275	src/radiant/XYWnd.cpp	?DrawLight_ConeHeight@CXYWnd@@QAEXPAUbrush_t@@HPAI@Z	CXYWnd::DrawLight_ConeHeight	SUPPORTED
+0x00451a40	440	src/radiant/XYWnd.cpp	?DrawLight_Classname@@YAXPAUbrush_t@@HMPBM@Z	DrawLight_Classname	SUPPORTED

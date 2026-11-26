@@ -339,10 +339,6 @@
 0x004509a0	bulk-e2	2026-11-19	ConnectEntitiesByScriptLinkName: bulk draft: 42%, sizes 1001/994, first diff +0x4.
 0x00450d90	bulk-e2	2026-11-19	DrawConnectionArrow: bulk draft: 19%, sizes 863/1176, first diff +0x5. Retail takes nDim1 in edi and nDim2 in ecx (LTCG); text centering helper 0x40c590 unwritten.
 0x00451230	bulk-e2	2026-11-19	DrawLightRadiusIcon: bulk draft: 20%, sizes 537/563, first diff +0x4.
-0x00451470	bulk-e2	2026-11-19	DrawLight_Radius: bulk draft: 62%, sizes 220/219, first diff +0xe.
-0x004516e0	bulk-e2	2026-11-19	DrawLight_Box: bulk draft: 30%, sizes 575/561, first diff +0x5.
-0x00451920	bulk-e2	2026-11-19	DrawLight_ConeHeight: bulk draft: 45%, sizes 277/275, first diff +0x5.
-0x00451a40	bulk-e2	2026-11-19	DrawLight_Classname: bulk draft: 57%, sizes 447/440, first diff +0x5.
 0x0046fe50	bulk-d2	2026-11-19	FUN_0046fe50 (Select_Clone): bulk draft: 59%, sizes 166/183, first diff +0x0. retail has no ebp frame; assert at line 793, Copy/Paste/NudgeSelection x2 callees 0x452e30/0x452f50/0x41a010 unwritten.
 0x00470ab0	bulk-d2	2026-11-19	FUN_00470ab0 (selection bounds with face windings): bulk draft: 21%, sizes 305/328, first diff +0x5. mins/maxs in edx/esi in retail; point count read from faces[0].winding as retail does.
 0x00470ce0	bulk-d2	2026-11-19	FUN_00470ce0 (Select_ApplyMatrix loop): bulk draft: 50%, sizes 64/65, first diff +0x3. origin in eax and flip in ebx in retail; callee Brush_Rotate 0x45f340 unwritten.
