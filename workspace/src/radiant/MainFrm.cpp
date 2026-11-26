@@ -210,7 +210,7 @@ struct PatchView { char pad[0x70]; int org[3]; };
 
 // 0x00411000
 void FUN_0047aa30();
-void FUN_00468d10();
+void Map_New(void);
 void FUN_0047a8d0();
 void SaveAsDialog(bool);
 void FUN_00468910(const char *name, bool use_region);
@@ -1276,7 +1276,7 @@ extern "C" void FUN_00414ce0()
       return;
   }
   FUN_0046b9b0();
-  FUN_00468d10();
+  Map_New();
 }
 
 // 0x00414d20
