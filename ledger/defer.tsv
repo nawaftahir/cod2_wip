@@ -219,7 +219,6 @@
 0x0041c1d0	lane-d10	2026-11-24	bulk draft: 48%, sizes 119/149, first diff +0x1 [r2: member+msgmap, 48%, sizes 115/149]
 0x00448550	claude-h18	2026-11-25	FUN_00448550 (Winding_Clip shape): 99%, 1000/1000, first diff +0x2d5: 68-entry arrays + separate counts stores + pointCount=0 before *front fixed frame and stores; left: split fraction lives in a dead param slot in retail, dists[i] copy in [ebp-4]. Tried fraction into epsilon param (97%). || l19 (claude-f): 5 more tries, still 99% first diff +0x2d5: second-float-var frac (frame +4), dot=dists[i];dot=dot/(dot-dists[i+1]) (97%), dot declared last (99% same). Retail puts the dists[i] copy at [ebp-4] and the fraction temp in the dead back param slot [ebp+0x20]; ours swaps the two.
 0x004493c0	bulk-d	2026-11-19	FUN_004493c0 (returns its 2nd stack arg): bulk draft: 0%, sizes 1/5; LTCG drops the unused result in ours
-0x00429a00	claude-e	2026-11-19	bulk draft: 48%, sizes 432/446, first difference at +0x6. Prior: bulk draft: 48%, sizes 432/446, first difference at +0x6
 0x00429f40	claude-d15	2026-11-25	FUN_00429f40 (remove a point from the move list): 99%, sizes 146/146, first diff +0x32 (reloc-normalised +0x30): only fld [ecx+esi] (retail) vs fld [esi+ecx] (ours), same SIB-order residue as FUN_00439620 (98%, row 0x00439620). Tried 2026-11-25: pointer-walk loop *v1++ - *v2++ in FUN_00439620 (worse: 429f40 and 439620 stop binding). Together with the earlier d=v1[i]-v2[i], -v2[i]+v1[i], swapped params: 4 variants.
 0x0042a440	claude-e	2026-11-19	bulk draft: 31%, sizes 104/103, first difference at +0x3. Prior: bulk draft: 31%, sizes 104/103, first difference at +0x3
 0x0042a4b0	claude-e	2026-11-19	bulk draft: 20%, sizes 763/825, first difference at +0x5. Prior: bulk draft: 20%, sizes 763/825, first difference at +0x5
@@ -257,7 +256,6 @@
 0x00439560	claude-e	2026-11-19	bulk draft: 21%, sizes 28/27, first difference at +0x0. Prior: bulk draft: 21%, sizes 28/27, first difference at +0x0
 0x00439580	claude-e	2026-11-19	bulk draft: 21%, sizes 28/27, first difference at +0x0. Prior: bulk draft: 21%, sizes 28/27, first difference at +0x0
 0x0042ae30	claude-e	2026-11-19	bulk draft: 49%, sizes 146/149, first difference at +0x14
-0x0042bde0	claude-e	2026-11-19	bulk draft: 74%, sizes 209/206, first difference at +0xe
 0x00433da0	claude-e	2026-11-19	bulk draft: 77%, sizes 136/134, first difference at +0xb
 0x00434630	claude-e	2026-11-19	bulk draft: 65%, sizes 79/82, first difference at +0x2
 0x00434690	claude-e	2026-11-19	bulk draft: 45%, sizes 391/381, first difference at +0x5
@@ -276,12 +274,10 @@
 0x0042a0a0	claude-e	2026-11-19	bulk draft: 39%, sizes 804/762, first difference at +0x5
 0x00437730	claude-h17	2026-11-25	FUN_00437730 (turn terrain edge): 99%, 345/345, first diff +0x76: hoisting def before the -1 store fixed the tail; left: bestY/bestX spill swapped (retail spills x to [ebp-0xc], y in esi). Tried: x/y decl swap (no change), bestX before bestY assign (+0x45), bestX decl first (98%), best assigned first (97%).
 0x00427ef0	claude-l23	2026-11-25	bulk draft: 49%, sizes 3176/3216, first diff +0x2f3. nType==3 as if/else gives retail layout (error paths out of line). Residue: x87 operand order of (float)yStep + yAdj in the 3x3 inline block (retail fld yStepf first), then the SRC(i) loads (retail [eax+edi+disp], ours hoists add eax,edi and lea ecx,[ebx+0x24]). Same fix family as 4275a0: SET/SRC as direct VectorCopy, if/else nesting for edge (see Pmesh.cpp 4275a0).
-0x00428b80	claude-e	2026-11-19	bulk draft: 45%, sizes 649/658, first difference at +0x1a
 0x00428e20	claude-e	2026-11-19	bulk draft (one function with row 0x428e70): 3%, sizes 1483/1476 total (retail 80+1396), first diff +0x5
 0x00428e70	claude-e	2026-11-19	bulk draft, written with row 0x428e20 as FUN_00428e20 (Patch_BrushToMesh shape): 1483/1476 B total
 0x0042d270	claude-e	2026-11-19	bulk draft: 37%, sizes 610/752, first difference at +0x3
 0x0042d720	claude-e	2026-11-19	NOT WRITTEN: 2922 B debug draw of a patch (0x5958 stack frame); oc body is mislabelled Maya export, needs a careful read
-0x0042f970	claude-e	2026-11-19	bulk draft: 57%, sizes 337/337, first difference at +0x5
 0x0042fb50	claude-e	2026-11-19	bulk draft: 38%, sizes 557/592, first difference at +0x5
 0x00431890	claude-e	2026-11-19	bulk draft: 44%, sizes 2454/2341, first difference at +0xdd
 0x00432f60	claude-e	2026-11-19	bulk draft: 12%, sizes 1169/2241, first diff +0x5 (retail unrolls the three modes; ours shares loops)

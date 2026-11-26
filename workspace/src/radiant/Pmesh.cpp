@@ -40,8 +40,8 @@ struct texdef_t
 struct plane_t
 {
     vec3_t normal;
-    int type;
     double dist;
+    int type;
 };
 
 struct winding_t
@@ -58,7 +58,6 @@ struct face_t
     int field_78;
     int field_7c;
     plane_t plane;
-    unsigned char field_98[8];
     winding_t *w;
     int field_a4;
 };
@@ -170,6 +169,7 @@ extern char DAT_0112993f;
 class CSelectObject; struct qeglobals_t { unsigned char pad_00[0x18]; int d_gridsize; unsigned char pad_1c[0x5c - 0x1c]; HWND d_hwndStatus; unsigned char pad_60[0x68 - 0x60]; float d_points[2048][3]; int d_numpoints; unsigned char pad_606c[0x8070 - 0x606c]; int d_num_move_points; float *d_move_points[4096]; float field_c074[16384][3]; int field_3c074; float field_3c078[16384][3]; int field_6c078; unsigned char pad_6c07c[0x6cb84 - 0x6c07c]; int d_select_count; brush_t *d_select_order[2]; unsigned char pad_6cb90[0x6cb9c - 0x6cb90]; int d_select_mode; CSelectObject *selectObject; };
 extern qeglobals_t g_qeglobals;
 extern brush_t DAT_010a44b4;
+extern brush_t selected_brushes;
 int __fastcall FUN_00429df0(void *, int value);
 void FUN_0042a0a0(patchMesh_t *p, PatchControl *c, bool weld);
 void FUN_0042a3a0(patchMesh_t *p, int row, bool bMulti);
@@ -1338,89 +1338,83 @@ brush_t *FUN_00427ef0(patchMesh_t *pm, int nType, bool bFirst)
     assert( b->patch->def == b->def->patch );
     patchMesh_t *def = b->patch->def;
     def->type_10 |= 0x1000;
-    int edge = bFirst ? 0 : pm->height - 1;
+    int edge;
+    if (bFirst)
+        edge = 0;
+    else
+        edge = pm->height - 1;
     vec3_t mins, maxs;
     Patch_CalcBounds(pm, mins, maxs, false);
-#define SRC(i) (pm->ctrl[i][edge].xyz)
-#define SET(x, y, v) (def->ctrl[x][y].xyz[0] = (v)[0], def->ctrl[x][y].xyz[1] = (v)[1], def->ctrl[x][y].xyz[2] = (v)[2])
-    bool bFlip;
     if (nType == 2)
     {
-        SET(0, 0, SRC(0));
-        SET(0, 2, SRC(2));
-        SET(0, 1, SRC(1));
-        SET(2, 2, SRC(1));
-        SET(1, 0, SRC(1));
-        SET(1, 1, SRC(1));
-        SET(1, 2, SRC(1));
-        SET(2, 0, SRC(1));
-        SET(2, 1, SRC(1));
-        bFlip = false;
+        VectorCopy(pm->ctrl[0][edge].xyz, def->ctrl[0][0].xyz);
+        VectorCopy(pm->ctrl[2][edge].xyz, def->ctrl[0][2].xyz);
+        VectorCopy(pm->ctrl[1][edge].xyz, def->ctrl[0][1].xyz);
+        VectorCopy(pm->ctrl[1][edge].xyz, def->ctrl[2][2].xyz);
+        VectorCopy(pm->ctrl[1][edge].xyz, def->ctrl[1][0].xyz);
+        VectorCopy(pm->ctrl[1][edge].xyz, def->ctrl[1][1].xyz);
+        VectorCopy(pm->ctrl[1][edge].xyz, def->ctrl[1][2].xyz);
+        VectorCopy(pm->ctrl[1][edge].xyz, def->ctrl[2][0].xyz);
+        VectorCopy(pm->ctrl[1][edge].xyz, def->ctrl[2][1].xyz);
     }
     else if (nType == 0)
     {
-        SET(0, 0, SRC(2));
-        SET(0, 1, SRC(1));
-        SET(0, 2, SRC(0));
+        VectorCopy(pm->ctrl[2][edge].xyz, def->ctrl[0][0].xyz);
+        VectorCopy(pm->ctrl[1][edge].xyz, def->ctrl[0][1].xyz);
+        VectorCopy(pm->ctrl[0][edge].xyz, def->ctrl[0][2].xyz);
         vec3_t d;
-        d[0] = SRC(0)[0] - SRC(1)[0] + SRC(2)[0];
-        d[1] = SRC(0)[1] - SRC(1)[1] + SRC(2)[1];
-        d[2] = SRC(0)[2] - SRC(1)[2] + SRC(2)[2];
-        SET(2, 2, d);
-        SET(1, 0, d);
-        SET(1, 1, d);
-        SET(1, 2, d);
-        SET(2, 0, d);
-        SET(2, 1, d);
-        bFlip = true;
+        VectorSubtract(pm->ctrl[0][edge].xyz, pm->ctrl[1][edge].xyz, d);
+        VectorAdd(d, pm->ctrl[2][edge].xyz, d);
+        VectorCopy(d, def->ctrl[2][2].xyz);
+        VectorCopy(d, def->ctrl[1][0].xyz);
+        VectorCopy(d, def->ctrl[1][1].xyz);
+        VectorCopy(d, def->ctrl[1][2].xyz);
+        VectorCopy(d, def->ctrl[2][0].xyz);
+        VectorCopy(d, def->ctrl[2][1].xyz);
     }
     else if (nType == 1)
     {
         vec3_t mid;
-        mid[0] = (SRC(4)[0] + SRC(0)[0]) * 0.5f;
-        mid[1] = (SRC(4)[1] + SRC(0)[1]) * 0.5f;
-        mid[2] = (SRC(4)[2] + SRC(0)[2]) * 0.5f;
-        SET(0, 0, SRC(0));
-        SET(1, 0, mid);
-        SET(2, 0, SRC(4));
-        SET(0, 2, SRC(2));
-        SET(1, 2, SRC(2));
-        SET(2, 2, SRC(2));
-        SET(1, 1, SRC(2));
-        SET(0, 1, SRC(1));
-        SET(2, 1, SRC(3));
-        bFlip = false;
+        Vec3Avg(pm->ctrl[4][edge].xyz, pm->ctrl[0][edge].xyz, mid);
+        VectorCopy(pm->ctrl[0][edge].xyz, def->ctrl[0][0].xyz);
+        VectorCopy(mid, def->ctrl[1][0].xyz);
+        VectorCopy(pm->ctrl[4][edge].xyz, def->ctrl[2][0].xyz);
+        VectorCopy(pm->ctrl[2][edge].xyz, def->ctrl[0][2].xyz);
+        VectorCopy(pm->ctrl[2][edge].xyz, def->ctrl[1][2].xyz);
+        VectorCopy(pm->ctrl[2][edge].xyz, def->ctrl[2][2].xyz);
+        VectorCopy(pm->ctrl[2][edge].xyz, def->ctrl[1][1].xyz);
+        VectorCopy(pm->ctrl[1][edge].xyz, def->ctrl[0][1].xyz);
+        VectorCopy(pm->ctrl[3][edge].xyz, def->ctrl[2][1].xyz);
     }
     else
     {
-        SET(0, 0, SRC(0));
-        SET(1, 0, SRC(1));
-        SET(2, 0, SRC(2));
-        SET(3, 0, SRC(3));
-        SET(4, 0, SRC(4));
-        SET(0, 1, SRC(1));
-        SET(1, 1, SRC(1));
-        SET(2, 1, SRC(2));
-        SET(3, 1, SRC(3));
-        SET(4, 1, SRC(3));
-        SET(0, 2, SRC(1));
-        SET(1, 2, SRC(1));
-        SET(2, 2, SRC(2));
-        SET(3, 2, SRC(3));
-        SET(4, 2, SRC(3));
-        bFlip = (nType == 3);
+        VectorCopy(pm->ctrl[0][edge].xyz, def->ctrl[0][0].xyz);
+        VectorCopy(pm->ctrl[1][edge].xyz, def->ctrl[1][0].xyz);
+        VectorCopy(pm->ctrl[2][edge].xyz, def->ctrl[2][0].xyz);
+        VectorCopy(pm->ctrl[3][edge].xyz, def->ctrl[3][0].xyz);
+        VectorCopy(pm->ctrl[4][edge].xyz, def->ctrl[4][0].xyz);
+        VectorCopy(pm->ctrl[1][edge].xyz, def->ctrl[0][1].xyz);
+        VectorCopy(pm->ctrl[1][edge].xyz, def->ctrl[1][1].xyz);
+        VectorCopy(pm->ctrl[2][edge].xyz, def->ctrl[2][1].xyz);
+        VectorCopy(pm->ctrl[3][edge].xyz, def->ctrl[3][1].xyz);
+        VectorCopy(pm->ctrl[3][edge].xyz, def->ctrl[4][1].xyz);
+        VectorCopy(pm->ctrl[1][edge].xyz, def->ctrl[0][2].xyz);
+        VectorCopy(pm->ctrl[1][edge].xyz, def->ctrl[1][2].xyz);
+        VectorCopy(pm->ctrl[2][edge].xyz, def->ctrl[2][2].xyz);
+        VectorCopy(pm->ctrl[3][edge].xyz, def->ctrl[3][2].xyz);
+        VectorCopy(pm->ctrl[3][edge].xyz, def->ctrl[4][2].xyz);
     }
-#undef SET
-#undef SRC
+    bool bFlip = (nType == 0 || nType == 3);
     if (bFirst == bFlip)
     {
+        PatchControl tmp;
         for (int x = 0; x < def->width; x++)
         {
             for (int r = 0; r < def->height / 2; r++)
             {
-                PatchControl tmp = def->ctrl[x][def->height - 1 - r];
-                def->ctrl[x][def->height - 1 - r] = def->ctrl[x][r];
-                def->ctrl[x][r] = tmp;
+                memcpy(&tmp, &def->ctrl[x][def->height - 1 - r], sizeof(PatchControl));
+                memcpy(&def->ctrl[x][def->height - 1 - r], &def->ctrl[x][r], sizeof(PatchControl));
+                memcpy(&def->ctrl[x][r], &tmp, sizeof(PatchControl));
             }
         }
     }
@@ -1436,37 +1430,36 @@ brush_t *FUN_00427ef0(patchMesh_t *pm, int nType, bool bFirst)
 // Retail 0x00428b80: cap the selected patch, or ask for a special cap when no edge is closed.
 void FUN_00428b80()
 {
-    if (!QE_SingleBrush_Pmesh() || !DAT_010a44b4.next->patch)
+    if (!QE_SingleBrush_Pmesh() || !selected_brushes.next->patch)
     {
         Sys_Printf("Cannot cap multiple selection. Please select a single patch.\n");
         return;
     }
-    brush_t *pb = DAT_010a44b4.next;
+    brush_t *pb = selected_brushes.next;
+    int n = 0;
 #line 1314
     assert( pb->patch->def == pb->def->patch );
     patchMesh_t *def = pb->patch->def;
-    brush_t *caps[4] = {NULL, NULL, NULL, NULL};
-    int n = 0;
-    int w = def->width, h = def->height;
-    if (FUN_00439620(def->ctrl[0][0].xyz, def->ctrl[w - 1][0].xyz))
+    brush_t *caps[4];
+    if (FUN_00439620(def->ctrl[0][0].xyz, def->ctrl[def->width - 1][0].xyz))
     {
         brush_t *c = FUN_004275a0(def, true, false);
         if (c)
             caps[n++] = c;
     }
-    if (FUN_00439620(def->ctrl[0][h - 1].xyz, def->ctrl[w - 1][h - 1].xyz))
+    if (FUN_00439620(def->ctrl[0][def->height - 1].xyz, def->ctrl[def->width - 1][def->height - 1].xyz))
     {
         brush_t *c = FUN_004275a0(def, true, true);
         if (c)
             caps[n++] = c;
     }
-    if (FUN_00439620(def->ctrl[0][0].xyz, def->ctrl[0][h - 1].xyz))
+    if (FUN_00439620(def->ctrl[0][0].xyz, def->ctrl[0][def->height - 1].xyz))
     {
         brush_t *c = FUN_004275a0(def, false, false);
         if (c)
             caps[n++] = c;
     }
-    if (FUN_00439620(def->ctrl[w - 1][0].xyz, def->ctrl[w - 1][h - 1].xyz))
+    if (FUN_00439620(def->ctrl[def->width - 1][0].xyz, def->ctrl[def->width - 1][def->height - 1].xyz))
     {
         brush_t *c = FUN_004275a0(def, false, true);
         if (c)
@@ -1482,20 +1475,23 @@ void FUN_00428b80()
             n = 2;
         }
     }
-    while (n > 0)
+    if (n > 0)
     {
-        brush_t *c = caps[--n];
-        if (c)
-            FUN_0046f0b0(c, 1, 1, 0);
-    }
-    if (pb->owner == DAT_012334ec)
-    {
-        eclass_t *ec = FUN_00464770(0, "func_group");
-        if (ec)
+        while (n > 0)
         {
-            entity_t *e = FUN_00466d80(ec);
-            FUN_00465bf0(e->def, "type", "patchCapped");
-            FUN_00444110(e->def);
+            brush_t *c = caps[--n];
+            if (c)
+                FUN_0046f0b0(c, 1, 1, 0);
+        }
+        if (pb->owner == DAT_012334ec)
+        {
+            eclass_t *ec = FUN_00464770(0, "func_group");
+            if (ec)
+            {
+                entity_t *e = FUN_00466d80(ec);
+                FUN_00465bf0(e->def, "type", "patchCapped");
+                FUN_00444110(e->def);
+            }
         }
     }
 }
@@ -1715,30 +1711,23 @@ bool FUN_00429a00(patchMesh_t *patch, PatchPair *pPair)
     assert( patch );
 #line 1699
     assert( pPair );
-    PatchControl *pdvFound[2] = { NULL, NULL };
-    PatchControl *first = NULL;
-    PatchControl *second = NULL;
+    PatchControl *pdvFound[2];
+    pdvFound[0] = NULL;
+    pdvFound[1] = NULL;
     for (int i = 0; i < g_qeglobals.d_num_move_points; i++)
     {
         PatchControl *c = (PatchControl *)g_qeglobals.d_move_points[i];
         if (c >= &patch->ctrl[0][0] && c <= &patch->ctrl[15][15])
         {
-            if (first)
-            {
-                if (second)
-                {
-                    pdvFound[0] = first;
-                    return false;
-                }
+            if (!pdvFound[0])
+                pdvFound[0] = c;
+            else if (!pdvFound[1])
                 pdvFound[1] = c;
-                second = c;
-            }
             else
-                first = c;
+                return false;
         }
     }
-    pdvFound[0] = first;
-    if (!second)
+    if (!pdvFound[1])
         return false;
     for (int i = 0; i < 2; i++)
     {
@@ -2189,6 +2178,7 @@ float FUN_0042ad80(const float *xyz, const float *point, float inner, float oute
 
 extern HWND g_hwndCheck_01234004;
 extern brush_t DAT_010a44b4;
+extern brush_t selected_brushes;
 void FUN_0042ae30(patchMesh_t *patch, float offset);
 
 // Retail 0x0042ae30: raise every unlocked control point by its falloff weight times delta.
@@ -2574,11 +2564,12 @@ bool FUN_0042bde0(brush_t *list)
         if (b->patch->def->field_382e)
         {
             b->def->patch->field_382e = 0;
+            brushdef_t *def = b->def;
             undo_proj *u = DAT_0109fdcc;
             if (u && u->field_0c == 0)
             {
-                *(int *)((char *)b->def + 0x10) = u->field_08;
-                entity_t *e = *(entity_t **)((char *)b->def + 8);
+                *(int *)((char *)def + 0x10) = u->field_08;
+                entity_t *e = *(entity_t **)((char *)def + 8);
                 if (e->eclass->fixedsize)
                     *(int *)((char *)e + 0x6c) = u->field_08;
             }
@@ -5166,35 +5157,31 @@ void FUN_00435900(patchMesh_t *p, int row)
     vec3_t first, second;
     for (int j = 0; j < p->height; j++)
     {
-        PatchControl *c = &p->ctrl[row][j];
-        if (IndexOfMovePoint(c) == -1)
-            continue;
-        if (bSecond)
+        if (IndexOfMovePoint(&p->ctrl[row][j]) == -1)
             continue;
         if (bFirst)
         {
-            VectorCopy(c->xyz, second);
+            VectorCopy(p->ctrl[row][j].xyz, second);
             bSecond = true;
             iSecond = j;
         }
         else
         {
-            VectorCopy(c->xyz, first);
-            iFirst = j;
+            VectorCopy(p->ctrl[row][j].xyz, first);
             bFirst = true;
+            iFirst = j;
         }
     }
     if (!bFirst || !bSecond)
         return;
     for (int j = 0; j < p->height; j++)
     {
-        PatchControl *c = &p->ctrl[row][j];
-        if (IndexOfMovePoint(c) == -1 || (c->flags_34 & 2))
+        if (IndexOfMovePoint(&p->ctrl[row][j]) == -1 || (p->ctrl[row][j].flags_34 & 2))
             continue;
         float t = (float)(j - iFirst) / (float)(iSecond - iFirst);
-        c->xyz[0] = (1.0f - t) * first[0] + second[0] * t;
-        c->xyz[1] = (1.0f - t) * first[1] + second[1] * t;
-        c->xyz[2] = (1.0f - t) * first[2] + second[2] * t;
+        p->ctrl[row][j].xyz[0] = (1.0f - t) * first[0] + second[0] * t;
+        p->ctrl[row][j].xyz[1] = (1.0f - t) * first[1] + second[1] * t;
+        p->ctrl[row][j].xyz[2] = (1.0f - t) * first[2] + second[2] * t;
     }
 }
 

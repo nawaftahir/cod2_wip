@@ -2783,3 +2783,7 @@ addr	size	source	symbol	name	tag
 0x00419020	94	src/radiant/MainFrm.cpp	?FUN_00419020@CMainFrame@@QAEXXZ	FUN_00419020	UNNAMED
 0x004171b0	106	src/radiant/MainFrm.cpp	?FUN_004171b0@CMainFrame@@QAEXXZ	FUN_004171b0	UNNAMED
 0x00419860	203	src/radiant/MainFrm.cpp	?FUN_00419860@CMainFrame@@QAEXXZ	FUN_00419860	UNNAMED
+0x00428b80	658	src/radiant/Pmesh.cpp	?FUN_00428b80@@YAXXZ	FUN_00428b80	UNNAMED
+0x00429a00	446	src/radiant/Pmesh.cpp	?FUN_00429a00@@YA_NPAUpatchMesh_t@@PAUPatchPair@@@Z	FUN_00429a00	UNNAMED
+0x0042bde0	206	src/radiant/Pmesh.cpp	?FUN_0042bde0@@YA_NPAUbrush_t@@@Z	FUN_0042bde0	UNNAMED
+0x0042f970	337	src/radiant/Pmesh.cpp	?FUN_0042f970@@YAXPAUpatchMesh_t@@PBUtexdef_t@@_N2@Z	FUN_0042f970	UNNAMED
