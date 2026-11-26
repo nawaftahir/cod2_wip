@@ -306,7 +306,6 @@
 0x004593c0	bulk-d	2026-11-19	FUN_004593c0 (set texdef of face layer): bulk draft: 42%, sizes 121/107, first diff +0x25
 0x004597f0	bulk-d	2026-11-19	FUN_004597f0 (texdef to all faces + patch update): bulk draft: 52%, sizes 190/191, first diff +0x6
 0x0045e1a0	bulk-d	2026-11-19	FUN_0045e1a0 (Q3 Brush_Move shape with texture lock): bulk draft: 36%, sizes 315/275, first diff +0x5
-0x0045c890	bulk-d	2026-11-19	FUN_45c890 (prune import key on selected brushes (assert line 3189)): bulk draft: 88%, sizes 193/191, first diff +0xf
 0x0045f6a0	bulk-d	2026-11-19	FUN_45f6a0 (brush center with grid snap): bulk draft: 30%, sizes 151/116, first diff +0x5
 0x0045f7e0	bulk-d	2026-11-19	FUN_45f7e0 (rebuild stale moved brushes (array 0x12485b8)): bulk draft: 38%, sizes 46/71, first diff +0x0
 0x0044a030	bulk-e2	2026-11-19	CXYWnd::OnRButtonDown: bulk draft: 34%, sizes 148/149, first diff +0x5. Body in workspace XYWnd.cpp (Q3 shape plus CoD2 alt-drag path).
@@ -521,7 +520,6 @@
 0x0045c420	bulk-d7	2026-11-22	FUN_45c420: bulk draft: 37%, sizes 639/647, first diff +0x5
 0x0045ca10	claude-f	2026-11-25	FUN_0045ca10 (add active brushes with same selection key): 97%, 631/631 B, first diff +0x190. Fixed: asserts 3247/3262 are assert() (push 1,0) not brush_assert1; key read from the global at each use (no local). Left: retail loads key (edx) then value then entity for the FUN_00465e10 call and ecx=def eax=owner in the second assert; ours loads value first and swaps ecx/eax. Tried: key local before the call = 80%.
 0x0045d450	bulk-d7	2026-11-22	FUN_45d450: bulk draft: 46%, sizes 898/928, first diff +0x4
-0x0045d9a0	bulk-d7	2026-11-22	FUN_45d9a0: bulk draft: 83%, sizes 685/709, first diff +0x8
 0x0045e0b0	bulk-d7	2026-11-22	FUN_45e0b0: bulk draft: 41%, sizes 225/228, first diff +0xc
 0x0045e370	bulk-d7	2026-11-22	FUN_45e370: bulk draft: 32%, sizes 823/765, first diff +0x5
 0x0045e670	claude-f	2026-11-25	FUN_0045e670 (sided sphere, 1360 B): 16% lockstep, 1548/1360 B. Retail is NOT the Q3 lat/long sphere: both args of every polar point are the same angle (t,t),(t,t),(t+dt,t+dt); second ring (t,t),(t+dt,t+dt),(t+dt,t+dt); only dt exists (no dp); inner loop runs sides-1 times; uses FastSinCos (fsincos helper with address-taken temps). Body rewritten to that. Left: the centre/radius loop is a real 2-iteration loop in retail (ecx*4 index into mins/maxs/mid) but ours unrolls it; error tails (push str; jmp shared Sys_Printf call) not merged; stack slot packing.
