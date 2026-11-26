@@ -1076,7 +1076,7 @@ addr	size	source	symbol	name	tag
 0x00464c10	8	src/radiant/entity.cpp	?ValueForKey@@YAPADPAUentity_t@@PBD@Z	ValueForKey	SUPPORTED
 0x00464c60	25	src/radiant/entity.cpp	?FUN_00464c60@@YAXPAUentityInst_t@@@Z	FUN_00464c60	UNNAMED
 0x004656a0	5	src/radiant/entity.cpp	?FUN_004656a0@@YAXPAUentity_t@@@Z	FUN_004656a0	UNNAMED
-0x004656b0	202	src/radiant/entity.cpp	?FUN_004656b0@@YAXPBDPAUentity_t@@0@Z	FUN_004656b0	UNNAMED
+0x004656b0	202	src/radiant/entity.cpp	?FUN_004656b0@@YAXPAUentity_t@@PBD1@Z	FUN_004656b0	UNNAMED
 0x00465920	328	src/radiant/entity.cpp	?FUN_00465920@@YAXPAUentity_t@@PBD@Z	FUN_00465920	PINNED
 0x00465a70	111	src/radiant/entity.cpp	?FUN_00465a70@@YAXPAUentity_t@@PBD@Z	FUN_00465a70	SUPPORTED
 0x00465ae0	111	src/radiant/entity.cpp	?FUN_00465ae0@@YAXPAUentity_t@@PBD@Z	FUN_00465ae0	SUPPORTED
@@ -2804,3 +2804,11 @@ addr	size	source	symbol	name	tag
 0x0041bd40	149	src/radiant/MainFrm.cpp	@FUN_0041bd40@4	FUN_0041bd40	UNNAMED
 0x0041c1d0	149	src/radiant/MainFrm.cpp	?FUN_0041c1d0@CMainFrame@@QAEXXZ	CMainFrame::FUN_0041c1d0	UNNAMED
 0x0041e520	25	src/radiant/MainFrm.cpp	?WindowFromPoint@CWnd@@SGPAV1@UtagPOINT@@@Z	CWnd::WindowFromPoint	SUPPORTED
+0x00463d60	221	src/radiant/eclass.cpp	?FUN_00463d60@@YA_NPAUeclass_t@@@Z	FUN_00463d60	UNNAMED
+0x00465bf0	111	src/radiant/entity.cpp	?FUN_00465bf0@@YAXPAUentity_t@@PBD1@Z	FUN_00465bf0	UNNAMED
+0x004675e0	88	src/radiant/entity.cpp	?FUN_004675e0@@YAXPAUeclass_t@@PAUbrushdef_t@@@Z	FUN_004675e0	UNNAMED
+0x00467d00	204	src/radiant/entity.cpp	?FUN_00467d00@@YAXPAUentity_t@@PBM@Z	FUN_00467d00	UNNAMED
+0x00468d10	238	src/radiant/map.cpp	?Map_New@@YAXXZ	Map_New	SUPPORTED
+0x0046dab0	389	src/radiant/qe3.cpp	?FUN_0046dab0@@YA_NPAUentity_t@@0@Z	FUN_0046dab0	UNNAMED
+0x00477e80	243	src/radiant/win_ent.cpp	?FUN_00477e80@@YAXXZ	FUN_00477e80	UNNAMED
+0x00477f80	261	src/radiant/win_ent.cpp	?FUN_00477f80@@YAXXZ	FUN_00477f80	UNNAMED

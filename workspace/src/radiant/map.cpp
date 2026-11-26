@@ -440,7 +440,7 @@ void Com_EndParseSession();
 void Com_SetSpaceDelimited(int spaceDelimited);
 void Com_SetParseNegativeNumbers(int negativeNumbers);
 int LoadFile(const char *filename, void **buffer);
-entity_t *FUN_00466440(const char **data, int version, int flag);
+entity_t *FUN_00466440(const char **data, int version, bool flag);
 
 int FUN_004681d0(const char **data)
 {
@@ -478,7 +478,7 @@ int FUN_00468260(entity_t *entList, const char *filename)
 		{
 			if (version < 4)
 				Com_SetSpaceDelimited(1);
-			while (entity_t *e = FUN_00466440(&data, version, 0))
+			while (entity_t *e = FUN_00466440(&data, version, false))
 			{
 				count++;
 				Entity_AddToList(e, entList);
@@ -581,6 +581,43 @@ void FUN_00468910(const char *filename, bool use_region)
 void FUN_00467e60();
 void FUN_00468100();
 extern int DAT_0123348c;
+
+static inline void Map_VectorClear(float *v)
+{
+	v[0] = 0;
+	v[1] = 0;
+	v[2] = 0;
+}
+
+static inline void Map_VectorCopy(const float *a, float *b)
+{
+	b[0] = a[0];
+	b[1] = a[1];
+	b[2] = a[2];
+}
+
+void Map_New(void)
+{
+	Sys_Printf("Map_New\n");
+	FUN_00467e60();
+	FUN_00468100();
+	entity_t *world = new entity_t;
+	memset(world, 0, sizeof(*world));
+	world->brushes.onext = &world->brushes;
+	world->brushes.oprev = &world->brushes;
+	FUN_00465bf0(world, "classname", "worldspawn");
+	world->eclass = FUN_00464770(1, "worldspawn");
+	Entity_AddToList(world, &entities);
+	DAT_012334ec = FUN_00467770(world, &DAT_010a43d0, &active_brushes);
+	dword_01233488->cam->angles[1] = 0;
+	dword_01233488->cam->angles[0] = 0;
+	Map_VectorClear(dword_01233488->cam->origin);
+	dword_01233488->cam->origin[2] = 48.0f;
+	Map_VectorClear(dword_01233488->xy->origin);
+	FUN_00467e30();
+	DAT_010a4908 = 0;
+	g_nUpdateBits = -1;
+}
 
 // 0x00468e00 (705 B)
 #define region_sides DAT_0109febc
@@ -1203,6 +1240,9 @@ void FUN_0046b070(int arg)
 
 // 0x0046b550 (96 B)
 extern int prefabStackLevel;
+#define entityInsts DAT_010a43d0
+bool FUN_0045b420(brush_t *b);
+struct CXYWndAccessor : public CXYWnd { void CallPositionView() { PositionView(); } };
 bool FUN_0046b550(void)
 {
 #line 1491
@@ -1210,9 +1250,57 @@ bool FUN_0046b550(void)
 	return prefabStackLevel > 0;
 }
 
+
+
 // 0x0046b5b0 (1017 B)
-#define entityInsts DAT_010a43d0
-bool FUN_0045b420(brush_t *b);
+void FUN_0046b5b0()
+{
+	map_assert1(prefabStackLevel > 0);
+	FUN_0041d5e0(&active_brushes, va("%s - active_brushes", "before leaving prefab"));
+	FUN_0041d5e0(&selected_brushes, va("%s - active_brushes", "before leaving prefab"));
+	FUN_0041d930(&entityInsts, "before leaving prefab");
+	FUN_0046fbe0(true);
+	FUN_00468030();
+	prefabLevel_t *lv = &prefabStack[--DAT_012334f0];
+	entities.next = lv->entNext;
+	entities.prev = lv->entPrev;
+
+
+
+	map_assert1(entities.next->prev == &entities);
+	map_assert1(entities.prev->next == &entities);
+	entityInsts.next = lv->instNext;
+	entityInsts.prev = lv->instPrev;
+
+	map_assert1(entityInsts.next->prev == &entityInsts);
+	map_assert1(entityInsts.prev->next == &entityInsts);
+	DAT_012334ec = entityInsts.next;
+	active_brushes.next = lv->activeNext;
+	active_brushes.prev = lv->activePrev;
+
+	map_assert1(active_brushes.next->prev == &active_brushes);
+	map_assert1(active_brushes.prev->next == &active_brushes);
+	if (lv->selNext && lv->selPrev)
+	{
+		selected_brushes.next = lv->selNext;
+		selected_brushes.prev = lv->selPrev;
+	}
+	strcpy(currentmap, lv->name);
+	DAT_010a4908 = lv->dirty;
+	FUN_0045b420(lv->prefabInst);
+	Map_VectorCopy(lv->camAngles, dword_01233488->cam->angles);
+	Map_VectorCopy(lv->camOrigin, dword_01233488->cam->origin);
+	((CXYWndAccessor *)dword_01233488->xy)->CallPositionView();
+	Map_VectorCopy(lv->xyOrigin, dword_01233488->xy->origin);
+	dword_01233488->xy->scale = lv->xyScale;
+	((CXYWnd *)dword_01233488->xy)->SetViewType(lv->xyViewType);
+	FUN_00443590();
+	DAT_0123348c = -1;
+	SetWindowText(dword_010bcd54, currentmap);
+	FUN_0041d5e0(&active_brushes, va("%s - active_brushes", "after leaving prefab"));
+	FUN_0041d5e0(&selected_brushes, va("%s - active_brushes", "after leaving prefab"));
+	FUN_0041d930(&entityInsts, "after leaving prefab");
+}
 
 // 0x0046b9b0 (91 B)
 void FUN_0046b9b0()

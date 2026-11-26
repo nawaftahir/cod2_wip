@@ -2141,6 +2141,58 @@ void Select_Invert()
     Sys_Printf("done.\n");
 }
 
+
+
+
+
+
+
+
+
+
+
+// 0x00474710 (367 B): set one component of the angles key of the selected entities
+void FUN_00474710(float value, int axis)
+{
+    FUN_004433b0();
+    Undo_GeneralStart("set entity angles");
+    for (brush_t *brush = selected_brushes.next; brush != &selected_brushes; brush = brush->next)
+    {
+        assert(brush->owner->def == brush->def->owner);
+        entity_t *ent = brush->owner->def;
+        if (ent->eclass->fixedsize)
+        {
+            Undo_AddEntity(ent);
+            float angles[3];
+            if (FUN_00465d80(ent, "angles"))
+                sscanf(ValueForKey(ent->epairs, "angles"), "%f %f %f", &angles[0], &angles[1], &angles[2]);
+            else
+                angles[0] = angles[1] = angles[2] = 0;
+            angles[axis] = value;
+            FUN_00465bf0(ent, "angles", va("%g %g %g", angles[0], angles[1], angles[2]));
+        }
+    }
+    Undo_End();
+}
+
+// 0x00474880 (286 B): set the angles key of the selected entities
+void FUN_00474880(const float *angles)
+{
+    FUN_004433b0();
+    Undo_GeneralStart("set entity angles");
+    for (brush_t *brush = selected_brushes.next; brush != &selected_brushes; brush = brush->next)
+    {
+        assert(brush->owner->def == brush->def->owner);
+        entity_t *ent = brush->owner->def;
+        if (ent->eclass->fixedsize)
+        {
+            Undo_AddEntity(ent);
+            FUN_00465bf0(ent, "angles", va("%g %g %g", angles[0], angles[1], angles[2]));
+        }
+    }
+    Undo_End();
+}
+
 // 0x004749a0 (451 B): select the first active brush whose targetname matches the target of the selected entity
 void FUN_004749a0()
 {

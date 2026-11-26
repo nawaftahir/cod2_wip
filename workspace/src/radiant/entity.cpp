@@ -114,7 +114,7 @@ char *Com_Parse(const char **data_p);
 char *Com_ParseOnLine(const char **data_p);
 void Radiant_Error(const char *fmt, ...);
 void Warning(const char *error, ...);
-brushdef_t *FUN_00457270(const char *token, const char **data);
+brushdef_t *FUN_00457270(const char **data, int version);
 void FUN_0045b260(brushdef_t *b, const float *rot, const float *origin);
 struct texdef_t;
 brushdef_t *BrushDef_Create(const vec3_t mins, const vec3_t maxs, eclass_t *eclass, const texdef_t *td);
@@ -402,7 +402,7 @@ void FUN_004656a0(entity_t *e)
 }
 
 // 0x004656b0 (202 B)
-void FUN_004656b0(const char *key, entity_t *e, const char *value)
+void FUN_004656b0(entity_t *e, const char *key, const char *value)
 {
 	if (!_stricmp(key, "classname") && e->eclass && e->eclass->fixedsize)
 	{
@@ -546,7 +546,7 @@ void FUN_00465bf0(entity_t *e, const char *key, const char *value)
 	{
 		FUN_00465b50(e->epairs, key, value);
 		FUN_004655f0(e, key);
-		FUN_004656b0(key, e, value);
+		FUN_004656b0(e, key, value);
 		if (!_stricmp(key, "model"))
 			FUN_00467510(e);
 		FUN_004657a0(e, key);
@@ -786,6 +786,139 @@ epair_t *FUN_00466400(const char **data, const char *key)
 	return ep;
 }
 
+// 0x00466440 (1135 B)
+entity_t *FUN_00466440(const char **data, int version, bool flag)
+{
+	char *token = Com_Parse(data);
+	if (!token[0])
+		return NULL;
+	if (strcmp(token, "{"))
+		FUN_0047a760("ParseEntity: { not found");
+
+	entity_t *ent = new entity_t;
+	memset(ent, 0, sizeof(entity_t));
+	ent->entityId = DAT_00591cd8++;
+	ent->brushes.oprev = &ent->brushes;
+	ent->brushes.onext = &ent->brushes;
+	epair_t **epNextPtr = &ent->epairs;
+
+	for (;;)
+	{
+		token = Com_Parse(data);
+		if (!token[0])
+		{
+			Warning("ParseEntity: EOF without closing brace");
+			return NULL;
+		}
+		if (!strcmp(token, "}"))
+			break;
+		if (!strcmp(token, "{"))
+		{
+			brushdef_t *b = FUN_00457270(data, version);
+			if (!b)
+				break;
+			FUN_004671b0(b, ent);
+		}
+		else
+		{
+			epair_t *ep = new epair_t;
+			ep->next = NULL;
+			ep->key = FUN_0046cb10(token);
+			ep->value = FUN_0046cb10(Com_ParseOnLine(data));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			assert1(epNextPtr);
+			assert1(ep->next == NULL);
+			*epNextPtr = ep;
+			epNextPtr = &ep->next;
+		}
+	}
+
+	if (!strcmp(ValueForKey(ent->epairs, "classname"), "group_info") || flag)
+		return ent;
+
+	bool hasBrushes = ent->brushes.onext != &ent->brushes;
+	GetVectorForKey(ent, "origin", ent->origin);
+	eclass_t *ec = FUN_00464770(hasBrushes, ValueForKey(ent->epairs, "classname"));
+	ent->eclass = ec;
+	if (!ec->fixedsize)
+	{
+		if (ent->brushes.onext == &ent->brushes)
+			printf("Warning: Brush entity with no brushes\n");
+		return ent;
+	}
+	if (ent->brushes.onext != &ent->brushes)
+	{
+		printf("Warning: Fixed size entity with brushes\n");
+		ent->brushes.oprev = &ent->brushes;
+		ent->brushes.onext = &ent->brushes;
+	}
+	FUN_00467510(ent);
+
+	float mins[3], maxs[3], angles[3];
+	mins[0] = ec->mins[0] + ent->origin[0];
+	mins[1] = ec->mins[1] + ent->origin[1];
+	mins[2] = ec->mins[2] + ent->origin[2];
+	maxs[0] = ec->maxs[0] + ent->origin[0];
+	maxs[1] = ec->maxs[1] + ent->origin[1];
+	maxs[2] = ec->maxs[2] + ent->origin[2];
+	angles[0] = 0;
+	angles[1] = 0;
+	angles[2] = 0;
+	if (ec->flags & 8)
+	{
+		char *modelName = ValueForKey(ent->epairs, "model");
+
+
+
+
+
+
+
+
+
+
+
+		assert(modelName);
+		if (modelName[0])
+		{
+			FUN_00467640(ent, angles);
+			FUN_00464930(modelName, ent);
+		}
+	}
+	brushdef_t *b = BrushDef_Create(mins, maxs, ec, (const texdef_t *)ec->texdef);
+	if (angles[0] != 0 || angles[1] != 0 || angles[2] != 0)
+	{
+		float rot[3];
+		rot[1] = angles[0];
+		rot[0] = angles[2];
+		rot[2] = angles[1];
+		FUN_0045b260(b, rot, ent->origin);
+	}
+	FUN_004671b0(b, ent);
+	return ent;
+}
 
 // 0x004668b0 (51 B)
 void FUN_004668b0(const float *a, const float *b, float *out)
@@ -985,6 +1118,18 @@ void FUN_00467510(entity_t *e)
 	}
 }
 
+// 0x004675e0 (88 B)
+void FUN_004675e0(eclass_t *ec, brushdef_t *def)
+{
+	if (def->owner->eclass && def->owner->eclass->fixedsize && def->owner->eclass->modelName && *def->owner->eclass->modelName)
+	{
+		FUN_00465bf0(def->owner, "model", ec->modelName);
+		def->owner->version++;
+		def->owner->modelClass = NULL;
+		def->owner->brushes.onext->modelFailed = 0;
+	}
+}
+
 // 0x00467640 (59 B)
 void FUN_00467640(entity_t *ent, float *vec)
 {
@@ -1083,4 +1228,39 @@ void FUN_00467a70(entityInst_t *e)
 	assert(e->brushes.ownerNext->def && e->brushes.ownerNext->def->refCount >= 2);
 	FUN_0045b310(e->brushes.ownerNext->def, mins, maxs);
 	e->version = e->def->version;
+}
+
+// 0x00467be0 (286 B): turn the angles so the forward axis lies in the plane of the given normal
+void FUN_00467be0(const float *normal, float *angles)
+{
+	float axis[3][3];
+	float cp, cy, sy, sp;
+	FastSinCos(angles[1] * 0.017453292f, &sy, &cy);
+	FastSinCos(angles[0] * 0.017453292f, &sp, &cp);
+	axis[0][0] = cp * cy; axis[0][1] = cp * sy; axis[0][2] = -sp;
+	float d = axis[0][2] * normal[2] + axis[0][1] * normal[1] + axis[0][0] * normal[0];
+	float neg = -d;
+	axis[0][0] = neg * normal[0] + axis[0][0]; axis[0][1] = neg * normal[1] + axis[0][1]; axis[0][2] = neg * normal[2] + axis[0][2];
+	Vec3Normalize(axis[0]);
+	axis[1][0] = axis[0][2] * normal[1] - axis[0][1] * normal[2]; axis[1][1] = axis[0][0] * normal[2] - axis[0][2] * normal[0]; axis[1][2] = axis[0][1] * normal[0] - axis[0][0] * normal[1];
+	Vec3Normalize(axis[1]);
+	axis[2][0] = normal[0]; axis[2][1] = normal[1]; axis[2][2] = normal[2];
+	AxisToAngles(axis, angles);
+}
+// 0x00467d00 (204 B): store the "angles" key of a fixed-size entity turned to the normal
+void FUN_00467d00(entity_t *e, const float *normal)
+{
+	float angles[3];
+
+	assert(e->eclass->fixedsize);
+	if (FUN_00465d80(e, "angles"))
+		sscanf(ValueForKey(e->epairs, "angles"), "%f %f %f", &angles[0], &angles[1], &angles[2]);
+	else
+	{
+		angles[0] = 0;
+		angles[1] = 0;
+		angles[2] = 0;
+	}
+	FUN_00467be0(normal, angles);
+	FUN_00465bf0(e, "angles", va("%g %g %g", angles[0], angles[1], angles[2]));
 }

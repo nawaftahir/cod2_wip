@@ -444,7 +444,51 @@ void FUN_00463bf0(eclass_t *e)
 	e->modelpath = 0;
 }
 
-// 0x00463d60
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x00463d60 (221 B)
+bool FUN_00463d60(eclass_t *e)
+{
+	assert(e);
+	if (e->modelpath)
+	{
+		FUN_00463bf0(e);
+		eclass_assert1(e->modelpath == NULL);
+	}
+	if (!e->model)
+		return false;
+	if (e->model->handle && !XModelBad((XModel *)e->model->handle))
+		return true;
+	return e->model->entities.next != NULL ? true : false;
+}
 
 
 // 0x00463e40

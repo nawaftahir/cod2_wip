@@ -225,6 +225,58 @@ next:;
 	out[32] = count;
 }
 
+// 0x0046d820 and 0x0046dab0 keep script_linkName/script_linkTo ids in this list (5 links at most)
+struct LinkList
+{
+	int id[32];
+	int size;
+	bool full;
+};
+extern char *va(const char *format, ...);
+void FUN_00465bf0(entity_t *e, const char *key, const char *value);
+bool FUN_0046dab0(entity_t *src, entity_t *dst);
+
+// 0x0046dab0 (389 B): drop the link from src to dst, true when it existed
+bool FUN_0046dab0(entity_t *src, entity_t *dst)
+{
+	LinkList links;
+	int kept[32];
+	int keptCount;
+	char buf[32];
+	int i;
+
+	const char *linkTo = ValueForKey(src, "script_linkTo");
+	if (!linkTo || !*linkTo)
+		return false;
+	const char *name = ValueForKey(dst, "script_linkName");
+	if (!name || !*name)
+		return false;
+	int id = atol(name);
+	FUN_0046d710(links.id, linkTo);
+	for (i = 0; i < links.size; i++)
+	{
+		if (links.id[i] != id)
+			continue;
+		keptCount = 0;
+		for (i = 0; i < links.size; i++)
+		{
+			if (links.id[i] != id)
+				kept[keptCount++] = links.id[i];
+		}
+		if (keptCount == 0)
+		{
+			FUN_00465bf0(src, "script_linkTo", "");
+			return true;
+		}
+		sprintf(buf, "%i", kept[0]);
+		for (i = 1; i < keptCount; i++)
+			strcat(buf, va(" %i", kept[i]));
+		FUN_00465bf0(src, "script_linkTo", buf);
+		return true;
+	}
+	return false;
+}
+
 // 0x0046dc40 (382 B)
 extern "C" void FUN_0046dc40(void)
 {
