@@ -2789,3 +2789,7 @@ addr	size	source	symbol	name	tag
 0x00429a00	446	src/radiant/Pmesh.cpp	?FUN_00429a00@@YA_NPAUpatchMesh_t@@PAUPatchPair@@@Z	FUN_00429a00	UNNAMED
 0x0042bde0	206	src/radiant/Pmesh.cpp	?FUN_0042bde0@@YA_NPAUbrush_t@@@Z	FUN_0042bde0	UNNAMED
 0x0042f970	337	src/radiant/Pmesh.cpp	?FUN_0042f970@@YAXPAUpatchMesh_t@@PBUtexdef_t@@_N2@Z	FUN_0042f970	UNNAMED
+0x00451470	219	src/radiant/XYWnd.cpp	?DrawLight_Radius@CXYWnd@@QAEXPAUbrush_t@@HPAI@Z	CXYWnd::DrawLight_Radius	SUPPORTED
+0x004516e0	561	src/radiant/XYWnd.cpp	?DrawLight_Box@CXYWnd@@QAEXPBMPAIHMMMH@Z	CXYWnd::DrawLight_Box	SUPPORTED
+0x00451920	275	src/radiant/XYWnd.cpp	?DrawLight_ConeHeight@CXYWnd@@QAEXPAUbrush_t@@HPAI@Z	CXYWnd::DrawLight_ConeHeight	SUPPORTED
+0x00451a40	440	src/radiant/XYWnd.cpp	?DrawLight_Classname@@YAXPAUbrush_t@@HMPBM@Z	DrawLight_Classname	SUPPORTED
