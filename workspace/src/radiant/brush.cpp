@@ -8,11 +8,11 @@
 #include "../universal/com_math.h"
 #include "../common/texturevecs.h"
 #define MAX_POINTS_ON_WINDING 64
-struct radmat_t { void *handle; const char *name; int pad_08; int flags; int pad_10; int width; int height; };
+struct radmat_t { void *handle; const char *name; int pad_08; int flags; int pad_10; int size[2]; };
 struct texdef_t { radmat_t *radMat; float scale[2]; float shift[2]; float rotate; float crossterm; };
 struct facePlane_t { vec3_t normal; int type; double dist; };
 struct winding_t { int pointCount; vec3_t points[4]; }; struct brushVertex_t { vec3_t xyz; int faceIndex[3]; };
-struct face_t { vec3_t planepts[3]; texdef_t texdef[2]; texdef_t lmTexdef; int contents; int toolFlags; facePlane_t plane; int field_98; int field_9c; winding_t *w; unsigned int color; };
+struct face_t { vec3_t planepts[3]; texdef_t texdef[2]; texdef_t lmTexdef; int contents; int toolFlags; facePlane_t plane; unsigned char field_98[8]; winding_t *w; unsigned int color; };
 struct entity_t; struct epair_t; struct brushdef_t; struct entityList_t { entityList_t *prev; entityList_t *next; brushdef_t *oprev; brushdef_t *onext; }; struct entModel_t { unsigned char pad_00[8]; entityList_t entities; }; struct patchMesh_t; struct patch_t; struct faceRender_t { void *matHandle; int vertCount; void *vertHandle; };
 struct brushdef_t { brushdef_t *oprev; brushdef_t *onext; entity_t *owner; int pad_0c[4]; int refCount; vec3_t mins; vec3_t maxs; int faceCount; face_t *faces; bool modelFailed; char pad_41; short version; patchMesh_t *patch; };
 struct brush_t { brush_t *prev; brush_t *next; entity_t *owner; brush_t *ownerNext; brush_t *ownerPrev; brushdef_t *def; int faceCount; faceRender_t *faces; patch_t *patch; short version; unsigned char field_26; unsigned char pad_27; };
@@ -120,12 +120,13 @@ void FUN_0045d7f0(brush_t *b, int viewType, int a3, int a4, int a5, int a6, cons
 void VectorRotate(const vec3_t vIn, const vec3_t vRotation, vec3_t out);
 extern int dword_011298d4;
 extern int DAT_011298b4;
-extern int dword_0053d944[], dword_0053d964[];
+struct ContentFlag_t;
+extern ContentFlag_t dword_0053d944[], dword_0053d964[];
 extern char *Com_ParseOnLine(const char **data_p);
 void Com_SetSpaceDelimited(int spaceDelimited);
 struct qtexture_s; qtexture_s *FUN_00440c10(char *name, int version);
 brushdef_t *FUN_00431890(const char **data_p, int version, bool bTerrain);
-int FUN_004209a0(const char **data_p, const char *name, const void *table);
+int FUN_004209a0(const char **parsePtr, const char *keyword, const ContentFlag_t *table);
 class CXYWnd { public: unsigned char pad_00[0xf4]; int m_nViewType; unsigned char pad_f8[0x74]; void FUN_00451eb0(); bool FUN_00451fe0(brush_t *b); };
 class CCamWnd;
 struct MainFrameXY { unsigned char pad_00[0x78c]; CCamWnd *m_pCam; unsigned char pad_790[0x50]; CXYWnd *m_pActiveXY; };
@@ -176,17 +177,14 @@ void FUN_0045f240(brush_t *b, int axis, float angle, bool markDirty, bool useCac
 void FUN_0045f340(brush_t *b, float *matrix, int a, int axis, float angle, bool flip, float *origin);
 void FUN_0045e070(entityList_t *head);
 // snaps float values within 4 of a 0x1000 boundary of the low mantissa bits (texture scale cleanup)
-static float SnapFloatLowBits(float v)
+static inline float SnapFloatLowBits(float v)
 {
-    unsigned int bits = *(unsigned int *)&v;
-    unsigned int lo = bits & 0xfff;
-    if (lo > 4)
-    {
-        if (0x1000 - lo <= 4)
-            bits += 0x1000 - lo;
-    }
-    else
+    int bits = *(int *)&v;
+    int lo = bits & 0xfff;
+    if (lo <= 4)
         bits -= lo;
+    else if (0x1000 - lo <= 4)
+        bits += 0x1000 - lo;
     return *(float *)&bits;
 }
 #line 37
@@ -1144,8 +1142,8 @@ void Texdef_SetDefault(texdef_t *td, int layer, float scale)
 {
     radmat_t *mat = (radmat_t *)FUN_00440840(layer == 1 ? "lightmap_gray" : "case");
     td->radMat = mat;
-    float h = (float)mat->height * scale;
-    float w = (float)mat->width * scale;
+    float h = (float)mat->size[1] * scale;
+    float w = (float)mat->size[0] * scale;
     td->scale[1] = h;
     td->scale[0] = w;
     td->shift[0] = 0;
@@ -1170,19 +1168,19 @@ void Brush_SetDefaultTexdefs(brushdef_t *b, int skipLayer, float scale)
 }
 
 // 0x00456ff0 (629 B): texdef of one face layer from the brush text
-#line 1172
 bool FUN_00456ff0(const char **data, texdef_t *td, int version, int layer)
 {
+#line 1172
     assert(td);
     char *name;
-    if (version >= 4)
+    if (version < 4)
+        name = Com_ParseOnLine(data);
+    else
     {
         Com_SetSpaceDelimited(1);
         name = Com_ParseOnLine(data);
         Com_SetSpaceDelimited(0);
     }
-    else
-        name = Com_ParseOnLine(data);
     if (strchr(name, ' '))
     {
         Warning("Material name with a space in it! '%s'\n", name);
@@ -1192,7 +1190,35 @@ bool FUN_00456ff0(const char **data, texdef_t *td, int version, int layer)
 #line 1190
     assert(td->radMat);
     const char *tok = Com_ParseOnLine(data);
-    if (version >= 4)
+    if (version < 4)
+    {
+        td->shift[0] = (float)atoi(tok);
+        td->shift[1] = (float)atoi(Com_ParseOnLine(data));
+        td->rotate = (float)atoi(Com_ParseOnLine(data));
+        td->scale[0] = (float)atof(Com_ParseOnLine(data));
+        float s1 = (float)atof(Com_ParseOnLine(data));
+        td->scale[1] = s1;
+        td->crossterm = 0;
+        {
+            int bits = *(int *)&td->scale[0];
+            int lo = bits & 0xfff;
+            if (lo <= 4)
+                bits -= lo;
+            else if (0x1000 - lo <= 4)
+                bits += 0x1000 - lo;
+            *(int *)&td->scale[0] = bits;
+        }
+        {
+            int bits = *(int *)&s1;
+            int lo = bits & 0xfff;
+            if (lo <= 4)
+                bits -= lo;
+            else if (0x1000 - lo <= 4)
+                bits += 0x1000 - lo;
+            *(int *)&td->scale[1] = bits;
+        }
+    }
+    else
     {
         td->scale[0] = (float)atof(tok);
         td->scale[1] = (float)atof(Com_ParseOnLine(data));
@@ -1201,21 +1227,10 @@ bool FUN_00456ff0(const char **data, texdef_t *td, int version, int layer)
         td->rotate = (float)atof(Com_ParseOnLine(data));
         td->crossterm = (float)atof(Com_ParseOnLine(data));
     }
-    else
-    {
-        td->shift[0] = (float)atol(tok);
-        td->shift[1] = (float)atol(Com_ParseOnLine(data));
-        td->rotate = (float)atol(Com_ParseOnLine(data));
-        td->scale[0] = (float)atof(Com_ParseOnLine(data));
-        td->scale[1] = (float)atof(Com_ParseOnLine(data));
-        td->crossterm = 0;
-        td->scale[0] = SnapFloatLowBits(td->scale[0]);
-        td->scale[1] = SnapFloatLowBits(td->scale[1]);
-    }
     if (td->scale[0] == 0)
-        td->scale[0] = layer ? 16.0f : 0.25f;
+        td->scale[0] = (layer == 0) ? 0.25f : 16.0f;
     if (td->scale[1] == 0)
-        td->scale[1] = layer ? 16.0f : 0.25f;
+        td->scale[1] = (layer == 0) ? 0.25f : 16.0f;
     return true;
 }
 
@@ -1226,24 +1241,21 @@ brushdef_t *FUN_00457270(const char **data, int version)
     int faceCount;
     int contents, toolFlags;
     const char *tok;
-    const char *altName;
-    int isCurve;
-    bool isAlt;
+    bool isCurve, isAlt;
 
     ++dword_011298d4;
     tok = Com_Parse(data);
-    if (version != 0)
+    if (version == 0)
     {
-        isCurve = _stricmp(tok, "curve");
-        altName = "mesh";
+        isCurve = _stricmp(tok, "patchDef5") == 0;
+        isAlt = _stricmp(tok, "patchTerrainDef3") == 0;
     }
     else
     {
-        isCurve = _stricmp(tok, "patchDef5");
-        altName = "patchTerrainDef3";
+        isCurve = _stricmp(tok, "curve") == 0;
+        isAlt = _stricmp(tok, "mesh") == 0;
     }
-    isAlt = _stricmp(tok, altName) == 0;
-    if (isCurve == 0 || isAlt)
+    if (isCurve || isAlt)
     {
         brushdef_t *patch = FUN_00431890(data, version, isAlt);
         if (patch)
@@ -1256,15 +1268,15 @@ brushdef_t *FUN_00457270(const char **data, int version)
         return NULL;
     }
     Com_UngetToken();
-    if (version >= 4)
-    {
-        contents = FUN_004209a0(data, "contents", dword_0053d944);
-        toolFlags = FUN_004209a0(data, "toolFlags", dword_0053d964);
-    }
-    else
+    if (version < 4)
     {
         contents = 0;
         toolFlags = 0;
+    }
+    else
+    {
+        contents = FUN_004209a0(data, "contents", dword_0053d944);
+        toolFlags = FUN_004209a0(data, "toolFlags", dword_0053d964);
     }
     faceCount = 0;
     for (;;)
@@ -1288,7 +1300,10 @@ brushdef_t *FUN_00457270(const char **data, int version)
         f->w = NULL;
         for (int i = 0; i < 3; i++)
         {
-            tok = i ? Com_ParseOnLine(data) : Com_Parse(data);
+            if (i == 0)
+                tok = Com_Parse(data);
+            else
+                tok = Com_ParseOnLine(data);
             if (tok[0] != '(')
             {
                 Warning("missing '(' parsing brush");
@@ -1310,40 +1325,40 @@ brushdef_t *FUN_00457270(const char **data, int version)
                 return NULL;
 #line 1323
             brush_assert1(f->texdef[0].radMat);
-            brush_assert1(f->texdef[0].radMat->width);
-            brush_assert1(f->texdef[0].radMat->height);
-            f->texdef[0].shift[0] = -(f->texdef[0].shift[0] * f->texdef[0].scale[0]);
-            f->texdef[0].shift[1] = -(f->texdef[0].shift[1] * f->texdef[0].scale[1]);
-            f->texdef[0].scale[0] = (float)f->texdef[0].radMat->width * f->texdef[0].scale[0];
-            f->texdef[0].scale[1] = (float)f->texdef[0].radMat->height * f->texdef[0].scale[1];
+            brush_assert1(f->texdef[0].radMat->size[0]);
+            brush_assert1(f->texdef[0].radMat->size[1]);
+            f->texdef[0].shift[0] = -f->texdef[0].scale[0] * f->texdef[0].shift[0];
+            f->texdef[0].shift[1] = -f->texdef[0].scale[1] * f->texdef[0].shift[1];
+            f->texdef[0].scale[0] = (float)f->texdef[0].radMat->size[0] * f->texdef[0].scale[0];
+            f->texdef[0].scale[1] = (float)f->texdef[0].radMat->size[1] * f->texdef[0].scale[1];
         }
-        if (version > 3)
+        if (version <= 3)
+            f->contents = atoi(Com_ParseOnLine(data));
+        else
             f->contents = contents;
-        else
-            f->contents = atol(Com_ParseOnLine(data));
         if (version == 3)
-            f->toolFlags = atol(Com_ParseOnLine(data));
+            f->toolFlags = atoi(Com_ParseOnLine(data));
         else
-        {
             f->toolFlags = toolFlags;
-            if (version <= 1)
-                Com_ParseOnLine(data);
-        }
+        if (version <= 1)
+            Com_ParseOnLine(data);
         if (version == 0)
             Com_ParseOnLine(data);
-        else if (version >= 4)
+        if (version < 4)
+        {
+            int lmScale = atoi(Com_ParseOnLine(data));
+            if (lmScale <= 0)
+                lmScale = 16;
+            Face_SetDefaultTexdefs(f, 0, (float)lmScale);
+        }
+        else
         {
             for (int layer = 0; layer < 2; layer++)
             {
                 if (!FUN_00456ff0(data, &f->texdef[layer], version, layer))
                     return NULL;
             }
-            continue;
         }
-        int lmScale = atol(Com_ParseOnLine(data));
-        if (lmScale <= 0)
-            lmScale = 16;
-        Face_SetDefaultTexdefs(f, 0, (float)lmScale);
     }
 }
 
@@ -1802,16 +1817,14 @@ faceRender_t *FUN_00458fa0(brush_t *b, const float *origin, const float *dir, fl
 {
     vec3_t p1, p2;
     VectorCopy(origin, p1);
-    p2[0] = dir[0] * 262144.0f + p1[0];
-    p2[1] = dir[1] * 262144.0f + p1[1];
-    p2[2] = dir[2] * 262144.0f + p1[2];
+    VectorMA(p1, 262144.0f, dir, p2);
     FUN_0045a830(b);
     faceRender_t *hit = NULL;
     for (int i = 0; i < b->faceCount; i++)
     {
         const face_t *f = &b->def->faces[i];
-        float d1 = (float)(p1[0] * f->plane.normal[0] + p1[1] * f->plane.normal[1] + p1[2] * f->plane.normal[2] - f->plane.dist);
-        float d2 = (float)(p2[0] * f->plane.normal[0] + p2[1] * f->plane.normal[1] + p2[2] * f->plane.normal[2] - f->plane.dist);
+        float d1 = (float)(DotProduct(f->plane.normal, p1) - f->plane.dist);
+        float d2 = (float)(DotProduct(p2, f->plane.normal) - f->plane.dist);
         if (d1 >= 0 && d2 >= 0)
         {
             *dist = 0;
@@ -1824,16 +1837,12 @@ faceRender_t *FUN_00458fa0(brush_t *b, const float *origin, const float *dir, fl
         {
             if (outNormal)
                 VectorCopy(f->plane.normal, outNormal);
-            p1[0] += (p2[0] - p1[0]) * frac;
-            p1[1] += (p2[1] - p1[1]) * frac;
-            p1[2] += (p2[2] - p1[2]) * frac;
+            Vec3LerpFrom(p1, p2, frac, p1);
             hit = &b->faces[i];
         }
         else
         {
-            p2[0] = (p2[0] - p1[0]) * frac + p1[0];
-            p2[1] = (p2[1] - p1[1]) * frac + p1[1];
-            p2[2] = (p2[2] - p1[2]) * frac + p1[2];
+            Vec3LerpFrom(p1, p2, frac, p2);
         }
     }
     if (hit == NULL)
@@ -1852,10 +1861,8 @@ faceRender_t *FUN_00458fa0(brush_t *b, const float *origin, const float *dir, fl
         }
         return b->faces;
     }
-    p1[0] -= origin[0];
-    p1[1] -= origin[1];
-    p1[2] -= origin[2];
-    *dist = p1[0] * dir[0] + p1[2] * dir[2] + p1[1] * dir[1];
+    VectorSubtract(p1, origin, p1);
+    *dist = DotProduct(p1, dir);
     return hit;
 }
 
@@ -1987,8 +1994,8 @@ void FUN_004596a0(brushdef_t *b, face_t *f, int scale)
         FUN_00459920(b, scale);
         return;
     }
-    f->texdef[1].scale[0] = (float)(f->texdef[1].radMat->width * scale);
-    f->texdef[1].scale[1] = (float)(f->texdef[1].radMat->height * scale);
+    f->texdef[1].scale[0] = (float)(f->texdef[1].radMat->size[0] * scale);
+    f->texdef[1].scale[1] = (float)(f->texdef[1].radMat->size[1] * scale);
 }
 
 
@@ -2029,8 +2036,8 @@ void FUN_00459920(brushdef_t *b, int scale)
     for (int i = 0; i < b->faceCount; i++)
     {
         texdef_t *td = &b->faces[i].texdef[1];
-        td->scale[0] = (float)(td->radMat->width * scale);
-        td->scale[1] = (float)(td->radMat->height * scale);
+        td->scale[0] = (float)(td->radMat->size[0] * scale);
+        td->scale[1] = (float)(td->radMat->size[1] * scale);
     }
     FUN_004559f0(b, true, true);
     if (b->patch)
@@ -2951,7 +2958,8 @@ void FUN_0045ca10()
                     continue;
 #line 3262
                 assert(match->def->owner == match->owner->def);
-                if (FUN_00465e10((entity_t *)match->owner->def, *(const char **)(dword_01233b64 + 0x2ec), value))
+                const char *val = value;
+                if (FUN_00465e10((entity_t *)match->owner->def, *(const char **)(dword_01233b64 + 0x2ec), val))
                 {
                     FUN_004592f0(match);
                     FUN_00459210(match, &selected_brushes);
@@ -3286,27 +3294,27 @@ int FUN_0045d9a0(face_t *face, int viewType, const unsigned int *lineColor, int 
     if (viewType == 2)
     {
         OrientationDirToWorld(&QE_ORIENT, face->plane.normal, dir);
-        if (!(dir[2] > 0.0f))
+        if (dir[2] <= 0.0f)
             return vertCount;
     }
     else if (viewType == 1)
     {
         OrientationDirToWorld(&QE_ORIENT, face->plane.normal, dir);
-        if (!(dir[1] > 0.0f))
+        if (dir[1] <= 0.0f)
             return vertCount;
     }
     else if (viewType == 0)
     {
         OrientationDirToWorld(&QE_ORIENT, face->plane.normal, dir);
-        if (!(dir[0] > 0.0f))
+        if (dir[0] <= 0.0f)
             return vertCount;
     }
     winding_t *w = face->w;
-    const float *prev = w->points[w->pointCount - 1];
+    int prev = w->pointCount - 1;
     for (int i = 0; i < w->pointCount; i++)
     {
-        vertCount = R_Add3DLine(verts, prev, w->points[i], lineColor, width, vertCount, vertLimit);
-        prev = w->points[i];
+        vertCount = R_Add3DLine(verts, w->points[prev], w->points[i], lineColor, width, vertCount, vertLimit);
+        prev = i;
     }
     return vertCount;
 }
