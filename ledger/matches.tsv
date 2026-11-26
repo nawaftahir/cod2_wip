@@ -2783,3 +2783,14 @@ addr	size	source	symbol	name	tag
 0x00419020	94	src/radiant/MainFrm.cpp	?FUN_00419020@CMainFrame@@QAEXXZ	FUN_00419020	UNNAMED
 0x004171b0	106	src/radiant/MainFrm.cpp	?FUN_004171b0@CMainFrame@@QAEXXZ	FUN_004171b0	UNNAMED
 0x00419860	203	src/radiant/MainFrm.cpp	?FUN_00419860@CMainFrame@@QAEXXZ	FUN_00419860	UNNAMED
+0x00415140	149	src/radiant/MainFrm.cpp	?FUN_00415140@CMainFrame@@QAEXXZ	CMainFrame::FUN_00415140	UNNAMED
+0x004156a0	166	src/radiant/MainFrm.cpp	?FUN_004156a0@CMainFrame@@QAEXXZ	CMainFrame::FUN_004156a0	UNNAMED
+0x004179e0	74	src/radiant/MainFrm.cpp	??1CMapInfo@@UAE@XZ	CMapInfo::~CMapInfo	SUPPORTED
+0x00418d40	364	src/radiant/MainFrm.cpp	?FUN_00418d40@CMainFrame@@QAEXXZ	CMainFrame::FUN_00418d40	UNNAMED
+0x00418eb0	5	src/radiant/MainFrm.cpp	??1CScaleDialog@@UAE@XZ	CScaleDialog::~CScaleDialog	SUPPORTED
+0x004190a0	56	src/radiant/MainFrm.cpp	?FUN_004190a0@CMainFrame@@QAEXPAVCCmdUI@@@Z	CMainFrame::FUN_004190a0	UNNAMED
+0x004196a0	113	src/radiant/MainFrm.cpp	?FUN_004196a0@CMainFrame@@QAEXXZ	CMainFrame::FUN_004196a0	UNNAMED
+0x00419720	140	src/radiant/MainFrm.cpp	?FUN_00419720@CMainFrame@@QAEXXZ	CMainFrame::FUN_00419720	UNNAMED
+0x0041bd40	149	src/radiant/MainFrm.cpp	@FUN_0041bd40@4	FUN_0041bd40	UNNAMED
+0x0041c1d0	149	src/radiant/MainFrm.cpp	?FUN_0041c1d0@CMainFrame@@QAEXXZ	CMainFrame::FUN_0041c1d0	UNNAMED
+0x0041e520	25	src/radiant/MainFrm.cpp	?WindowFromPoint@CWnd@@SGPAV1@UtagPOINT@@@Z	CWnd::WindowFromPoint	SUPPORTED

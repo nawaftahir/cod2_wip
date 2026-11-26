@@ -1379,8 +1379,17 @@ extern "C" void FUN_00415110()
 // 0x00415140
 void CMainFrame::FUN_00415140()
 {
-  int style = this->field_07a0;
-  if (style != 0 && style != 1 && style != 3)
+  if (this->field_07a0 == 0 || this->field_07a0 == 1 || this->field_07a0 == 3)
+  {
+    if (::IsWindowVisible(g_qeglobals.field_4c) && DAT_011299a8 == 0x80)
+      ::ShowWindow(g_qeglobals.field_4c, SW_HIDE);
+    else
+    {
+      ::ShowWindow(g_qeglobals.field_4c, SW_SHOWNORMAL);
+      FUN_00477580(0x80);
+    }
+  }
+  else
   {
     if (DAT_011299a8 == 0x80)
     {
@@ -1388,16 +1397,13 @@ void CMainFrame::FUN_00415140()
         ::ShowWindow(g_qeglobals.field_4c, SW_HIDE);
       else
         ::ShowWindow(g_qeglobals.field_4c, SW_SHOWNORMAL);
-      return;
+    }
+    else
+    {
+      ::ShowWindow(g_qeglobals.field_4c, SW_SHOWNORMAL);
+      FUN_00477580(0x80);
     }
   }
-  else if (::IsWindowVisible(g_qeglobals.field_4c) && DAT_011299a8 == 0x80)
-  {
-    ::ShowWindow(g_qeglobals.field_4c, SW_HIDE);
-    return;
-  }
-  ::ShowWindow(g_qeglobals.field_4c, SW_SHOWNORMAL);
-  FUN_00477580(0x80);
 }
 
 // 0x004151e0
@@ -1480,16 +1486,17 @@ void CMainFrame::FUN_00415660()
 
 extern "C" void FUN_00415690() {}
 extern float DAT_01139e60;
+static inline float XYScale(CXYWnd *w) { return w->m_fScale; }
+static inline void XYSetScale(CXYWnd *w, float f) { w->m_fScale = f; }
 // 0x004156a0
 void CMainFrame::FUN_004156a0()
 {
-  CXYWnd *xy = this->field_0788;
-  if (xy && xy->m_bActive)
+  if (this->field_0788 && this->field_0788->m_bActive)
   {
-    xy->m_fScale *= 1.25f;
-    if (xy->m_fScale > 160.0f)
-      xy->m_fScale = 160.0f;
-    DAT_012334a8 = this->field_0788->m_fScale;
+    XYSetScale(this->field_0788, XYScale(this->field_0788) * 1.25f);
+    if (XYScale(this->field_0788) > 160.0f)
+      XYSetScale(this->field_0788, 160.0f);
+    DAT_012334a8 = XYScale(this->field_0788);
   }
   DAT_01139e60 *= 1.25f;
   dword_0123348c |= 6;
@@ -1527,32 +1534,34 @@ done:
 // 0x004157f0: move the camera along its view direction by a wheel step
 void CMainFrame::FUN_004157f0(float step)
 {
-  float delta;
-  float pitch, yaw;
+  float angles[3];
+  float forward[3];
   float sy, cy, sp, cp;
 
   if (::GetKeyState(VK_SHIFT) & 0x8000)
-    delta = (float)PF(0x2b8) * 0.7f * step * 0.1f;
+    step = (float)((double)((float)PF(0x2b8) * 0.7f) * (double)step * (double)0.1f);
   else if (::GetKeyState(VK_MENU) & 0x8000)
-    delta = (float)PF(0x2b8) * 0.7f * step * 1.6f;
+    step = (float)((double)((float)PF(0x2b8) * 0.7f) * (double)step * (double)1.6f);
   else
-    delta = (float)PF(0x2b8) * 0.7f * step * 0.4f;
-  CamView *cam = (CamView *)field_078c;
-  pitch = cam->angles[0];
-  yaw = cam->angles[1];
+    step = (float)((double)((float)PF(0x2b8) * 0.7f) * (double)step * (double)0.4f);
+  float *camAngles = field_078c->m_Camera.angles;
+  angles[0] = camAngles[0];
+  angles[1] = camAngles[1];
+  angles[2] = camAngles[2];
   if (::GetKeyState(VK_CONTROL) & 0x8000)
-    pitch = 0.0f;
+    angles[0] = 0.0f;
   else
-    pitch = -pitch;
-  FastSinCos(yaw * 0.017453292f, &sy, &cy);
-  FastSinCos(pitch * 0.017453292f, &sp, &cp);
-  float dx = cp * cy;
-  float dy = cp * sy;
-  float dz = -sp;
-  delta = -delta;
-  cam->origin[0] += delta * dx;
-  cam->origin[1] += delta * dy;
-  cam->origin[2] += delta * dz;
+    angles[0] = -angles[0];
+  FastSinCos(angles[1] * 0.017453292f, &sy, &cy);
+  FastSinCos(angles[0] * 0.017453292f, &sp, &cp);
+  forward[0] = cp * cy;
+  forward[1] = cp * sy;
+  forward[2] = -sp;
+  step = -step;
+  CCamWnd *cam = field_078c;
+  cam->m_Camera.origin[0] = cam->m_Camera.origin[0] + step * forward[0];
+  cam->m_Camera.origin[1] = cam->m_Camera.origin[1] + forward[1] * step;
+  cam->m_Camera.origin[2] = cam->m_Camera.origin[2] + forward[2] * step;
   dword_0123348c |= 1;
 }
 
@@ -2961,6 +2970,7 @@ void CMainFrame::FUN_00418d40()
     FUN_00443f80(&selected_selbrushes);
     Undo_End();
     dword_0123348c = -1;
+    return;
   }
 }
 
@@ -2971,10 +2981,11 @@ void CMainFrame::FUN_00418ec0()
   {
     if (DAT_0109fe5e)
       FUN_004171b0();
-    if (DAT_0109fe5f)
+    bool rot = DAT_0109fe5f;
+    CXYWnd *xy = (CXYWnd *)this->field_07e0;
+    if (rot)
     {
-      DAT_0109fe5f = false;
-      ::RedrawWindow(this->field_07e0->m_hWnd, NULL, NULL, 0x105);
+      xy->SetRotateMode(false);
       this->m_wndToolBar.SendMessage(0x402, 0x802a, 0);
       for (selbrush_t *b = selected_selbrushes.next; b != &selected_selbrushes; b = b->next)
       {
@@ -2987,7 +2998,7 @@ void CMainFrame::FUN_00418ec0()
     }
     else
     {
-      if (((CXYWnd *)this->field_07e0)->SetRotateMode(true))
+      if (xy->SetRotateMode(true))
       {
         this->m_wndToolBar.SendMessage(0x402, 0x802a, 1);
         return;
@@ -3048,12 +3059,10 @@ extern int DAT_0109fdc4;
 // 0x004190a0
 struct Dat109fdcc { unsigned char pad00[0xc]; int field_0c; };
 extern Dat109fdcc *DAT_0109fdcc;
+int Undo_UndoAvailable(void);
 void CMainFrame::FUN_004190a0(CCmdUI *pCmdUI)
 {
-  if (DAT_0109fdcc && DAT_0109fdcc->field_0c)
-    pCmdUI->Enable(TRUE);
-  else
-    pCmdUI->Enable(FALSE);
+  pCmdUI->Enable((unsigned char)Undo_UndoAvailable());
 }
 
 void CMainFrame::FUN_004190e0(CCmdUI *pCmdUI)
@@ -3176,39 +3185,38 @@ void DoProjectSettings(void);
 // 0x004196a0
 void CMainFrame::FUN_004196a0()
 {
-  int flag;
   if ((DAT_0109fe60 & 2) && (DAT_0109fe60 & 4))
   {
     DAT_0109fe60 = 0;
-    flag = 0;
+    this->m_wndToolBar.SendMessage(0x402, 0x802e, 0);
+    this->m_wndToolBar.SendMessage(0x402, 0x802f, 0);
+    this->m_wndToolBar.SendMessage(0x402, 0x8030, 0);
   }
   else
   {
     DAT_0109fe60 = 6;
-    flag = 1;
+    this->m_wndToolBar.SendMessage(0x402, 0x802e, 1);
+    this->m_wndToolBar.SendMessage(0x402, 0x802f, 0);
+    this->m_wndToolBar.SendMessage(0x402, 0x8030, 0);
   }
-  this->m_wndToolBar.SendMessage(0x402, 0x802e, flag);
-  this->m_wndToolBar.SendMessage(0x402, 0x802f, 0);
-  this->m_wndToolBar.SendMessage(0x402, 0x8030, 0);
 }
 
 void CMainFrame::FUN_00419720()
 {
-  int flag;
   if ((DAT_0109fe60 & 1) && (DAT_0109fe60 & 4))
   {
     DAT_0109fe60 = 0;
     this->m_wndToolBar.SendMessage(0x402, 0x802e, 0);
-    flag = 0;
+    this->m_wndToolBar.SendMessage(0x402, 0x802f, 0);
+    this->m_wndToolBar.SendMessage(0x402, 0x8030, 0);
   }
   else
   {
-    this->m_wndToolBar.SendMessage(0x402, 0x802e, 0);
     DAT_0109fe60 = 5;
-    flag = 1;
+    this->m_wndToolBar.SendMessage(0x402, 0x802e, 0);
+    this->m_wndToolBar.SendMessage(0x402, 0x802f, 1);
+    this->m_wndToolBar.SendMessage(0x402, 0x8030, 0);
   }
-  this->m_wndToolBar.SendMessage(0x402, 0x802f, flag);
-  this->m_wndToolBar.SendMessage(0x402, 0x8030, 0);
 }
 
 extern "C" void __fastcall FUN_004197b0(CMainFrame *self)
@@ -4211,25 +4219,31 @@ extern "C" void FUN_0041bd30() { Select_Invert(); dword_0123348c |= 0xb; }
 // 0x0041bd40
 extern "C" void __fastcall FUN_0041bd40(CMainFrame *self)
 {
-  int style = self->field_07a0;
-  if (style != 0 && style != 3)
+  if (self->field_07a0 == 0 || self->field_07a0 == 3)
   {
-    if (DAT_011299a8 == 0x800 && style != 1)
+    if (::IsWindowVisible(g_qeglobals.field_4c) && DAT_011299a8 == 0x800)
+      ::ShowWindow(g_qeglobals.field_4c, SW_HIDE);
+    else
+    {
+      ::ShowWindow(g_qeglobals.field_4c, SW_SHOWNORMAL);
+      FUN_00477580(0x800);
+    }
+  }
+  else
+  {
+    if (DAT_011299a8 == 0x800 && self->field_07a0 != 1)
     {
       if (::IsWindowVisible(g_qeglobals.field_4c))
         ::ShowWindow(g_qeglobals.field_4c, SW_HIDE);
       else
         ::ShowWindow(g_qeglobals.field_4c, SW_SHOWNORMAL);
-      return;
+    }
+    else
+    {
+      ::ShowWindow(g_qeglobals.field_4c, SW_SHOWNORMAL);
+      FUN_00477580(0x800);
     }
   }
-  else if (::IsWindowVisible(g_qeglobals.field_4c) && DAT_011299a8 == 0x800)
-  {
-    ::ShowWindow(g_qeglobals.field_4c, SW_HIDE);
-    return;
-  }
-  ::ShowWindow(g_qeglobals.field_4c, SW_SHOWNORMAL);
-  FUN_00477580(0x800);
 }
 
 // 0x0041be80
@@ -4309,8 +4323,17 @@ extern "C" void FUN_0041c180()
 // 0x0041c1d0
 void CMainFrame::FUN_0041c1d0()
 {
-  int style = this->field_07a0;
-  if (style != 0 && style != 1 && style != 3)
+  if (this->field_07a0 == 0 || this->field_07a0 == 1 || this->field_07a0 == 3)
+  {
+    if (::IsWindowVisible(g_qeglobals.field_4c) && DAT_011299a8 == 0x2000)
+      ::ShowWindow(g_qeglobals.field_4c, SW_HIDE);
+    else
+    {
+      ::ShowWindow(g_qeglobals.field_4c, SW_SHOWNORMAL);
+      FUN_00477580(0x2000);
+    }
+  }
+  else
   {
     if (DAT_011299a8 == 0x2000)
     {
@@ -4318,16 +4341,13 @@ void CMainFrame::FUN_0041c1d0()
         ::ShowWindow(g_qeglobals.field_4c, SW_HIDE);
       else
         ::ShowWindow(g_qeglobals.field_4c, SW_SHOWNORMAL);
-      return;
+    }
+    else
+    {
+      ::ShowWindow(g_qeglobals.field_4c, SW_SHOWNORMAL);
+      FUN_00477580(0x2000);
     }
   }
-  else if (::IsWindowVisible(g_qeglobals.field_4c) && DAT_011299a8 == 0x2000)
-  {
-    ::ShowWindow(g_qeglobals.field_4c, SW_HIDE);
-    return;
-  }
-  ::ShowWindow(g_qeglobals.field_4c, SW_SHOWNORMAL);
-  FUN_00477580(0x2000);
 }
 
 FILTER_TOGGLE(FUN_0041c440, d_exclude, 0x10, 0x8155, 0xb)
@@ -4374,9 +4394,9 @@ BOOL CMainFrame::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
     return TRUE;
   if (field_0790)
   {
-    if (PF(0x1b4) != 1 || (DAT_011299a8 == 0x10 && field_0790 == CWnd::FromHandle(::WindowFromPoint(pt))))
+    if (PF(0x1b4) != 1 || (DAT_011299a8 == 0x10 && field_0790 == CWnd::WindowFromPoint(pt)))
     {
-      ::GetClientRect(field_0790->m_hWnd, &r);
+      field_0790->GetClientRect(&r);
       field_0790->ClientToScreen(&r);
       ::GetCursorPos(&cur);
       if (cur.x >= r.left && cur.x <= r.right && cur.y >= r.top && cur.y <= r.bottom)
@@ -4385,9 +4405,9 @@ BOOL CMainFrame::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
   }
   if (field_078c && PF(0x2e8))
   {
-    if (PF(0x1b4) != 1 || field_078c == CWnd::FromHandle(::WindowFromPoint(pt)))
+    if (PF(0x1b4) != 1 || field_078c == CWnd::WindowFromPoint(pt))
     {
-      ::GetClientRect(field_078c->m_hWnd, &r);
+      field_078c->GetClientRect(&r);
       field_078c->ClientToScreen(&r);
       ::GetCursorPos(&pt);
       if (pt.x >= r.left && pt.x <= r.right && pt.y >= r.top && pt.y <= r.bottom)
