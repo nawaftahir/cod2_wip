@@ -734,3 +734,41 @@ void FUN_00478220(int iWidth, int iHeight)
     SendMessage(dword_010bcd60, WM_SETREDRAW, 1, 0);
 #undef MOVE
 }
+
+// 0x004786c0: file dialog below the project path <key>, result goes to the key/value fields
+void FUN_004786c0(const char *subdir, const char *key, const char *filter, bool bStrip)
+{
+    CString strBasePath = ValueForKey(DAT_010bcd34->epairs, key);
+    if (strBasePath.GetLength() > 0 && strBasePath.GetAt(strBasePath.GetLength() - 1) != '\\')
+        strBasePath += '\\';
+    CString strPath(strBasePath);
+    strPath += subdir;
+
+    CFileDialog dlgFile(TRUE, NULL, NULL, OFN_OVERWRITEPROMPT, filter, (CWnd *)dword_01233488);
+    dlgFile.m_ofn.lpstrInitialDir = strPath;
+    if (dlgFile.DoModal() == IDOK)
+    {
+        SendMessage(hwndEnt[EntKeyField], WM_SETTEXT, 0, (LPARAM) "model");
+        CString str(dlgFile.GetPathName().GetBuffer(0));
+        str.MakeLower();
+        strBasePath.MakeLower();
+        ConvertDOSToUnixName(str.GetBuffer(0), str.GetBuffer(0));
+        ConvertDOSToUnixName(strBasePath.GetBuffer(0), strBasePath.GetBuffer(0));
+        if (str.Find(strBasePath) == 0)
+        {
+            str = str.Mid(str.GetLength() - strBasePath.GetLength());
+            if (bStrip)
+            {
+                int n = str.Find("/");
+                if (n != 0)
+                    str = str.Mid(str.GetLength() - n - 1);
+            }
+        }
+        SendMessage(hwndEnt[EntValueField], WM_SETTEXT, 0, (LPARAM)str.GetBuffer(0));
+        FUN_00477e80();
+        edit_entity->field68++;
+        edit_entity->md3Class = NULL;
+        edit_entity->onext->modelFailed = 0;
+        (*(CWnd **)(dword_01233488 + 0x788))->SetFocus();
+    }
+}

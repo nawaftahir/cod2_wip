@@ -854,7 +854,7 @@ addr	size	lib	member	symbol
 0x004d32c7	57	nafxcw.lib	INTEL\$NW\filefind.obj	?IsDots@CFileFind@@UBEHXZ
 0x004d3300	36	nafxcw.lib	INTEL\$NW\filefind.obj	??0CFileFind@@QAE@XZ
 0x004d3324	56	nafxcw.lib	INTEL\$NW\filefind.obj	??1CFileFind@@UAE@XZ
-0x004d335c	27	nafxcw.lib	INTEL\$NW\inet.obj	?GetServerName@CInternetConnection@@QBE?AV?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@XZ
+0x004d335c	27	nafxcw.lib	INTEL\$NW\filefind.obj	?GetRoot@CFileFind@@UBE?AV?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@XZ
 0x004d3377	28	nafxcw.lib	INTEL\$NW\except.obj	??_GCMemoryException@@UAEPAXI@Z
 0x004d3393	248	nafxcw.lib	INTEL\$NW\filefind.obj	?FindFile@CFileFind@@UAEHPBDK@Z
 0x004d348b	145	nafxcw.lib	INTEL\$NW\filefind.obj	?GetFileTitle@CFileFind@@UBE?AV?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@XZ
@@ -2282,7 +2282,7 @@ addr	size	lib	member	symbol
 0x004f3b09	28	nafxcw.lib	INTEL\$NW\except.obj	??_GCMemoryException@@UAEPAXI@Z
 0x004f3b25	41	nafxcw.lib	INTEL\$NW\except.obj	?InitString@CSimpleException@@QAEXXZ
 0x004f3b4e	80	nafxcw.lib	INTEL\$NW\except.obj	?GetErrorMessage@CSimpleException@@UAEHPADIPAI@Z
-0x004f3bf0	4	nafxcw.lib	INTEL\$NW\dlgprop.obj	?GetPSP@CPropertyPage@@QBEABU_PROPSHEETPAGEA@@XZ
+0x004f3bf0	4	nafxcw.lib	INTEL\$NW\dlgfile.obj	?GetOFN@CFileDialog@@QAEAAUtagOFNA@@XZ
 0x004f3bf4	234	nafxcw.lib	INTEL\$NW\dlgfile.obj	?DoModal@CFileDialog@@UAEHXZ
 0x004f3cde	30	nafxcw.lib	INTEL\$NW\dlgfile.obj	?SetTemplate@CFileDialog@@QAEXPBD0@Z
 0x004f3d0a	40	nafxcw.lib	INTEL\$NW\dlgfile.obj	?SetControlText@CFileDialog@@QAEXHPBD@Z

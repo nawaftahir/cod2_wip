@@ -1149,6 +1149,7 @@ addr	size	source	symbol	name	tag
 0x0043b6a0	6	src/radiant/Radiant.cpp	?GetMessageMap@CRadiantApp@@MBEPBUAFX_MSGMAP@@XZ	CRadiantApp::GetMessageMap	SUPPORTED
 0x0043b6b0	18	src/radiant/Radiant.cpp	??0CRadiantApp@@QAE@XZ	CRadiantApp::CRadiantApp	SUPPORTED
 0x0043b700	5	src/radiant/Radiant.cpp	??1CRadiantApp@@UAE@XZ	CRadiantApp::~CRadiantApp	SUPPORTED
+0x0043b710	1676	src/radiant/Radiant.cpp	?InitInstance@CRadiantApp@@UAEHXZ	CRadiantApp::InitInstance	SUPPORTED
 0x0043bda0	70	src/radiant/Radiant.cpp	?ExitInstance@CRadiantApp@@UAEHXZ	CRadiantApp::ExitInstance	SUPPORTED
 0x0043bdf0	36	src/radiant/Radiant.cpp	?OnIdle@CRadiantApp@@UAEHJ@Z	CRadiantApp::OnIdle	SUPPORTED
 0x0043be20	33	src/radiant/Radiant.cpp	?OnHelp@CRadiantApp@@IAEXXZ	CRadiantApp::OnHelp	SUPPORTED
@@ -1871,6 +1872,7 @@ addr	size	source	symbol	name	tag
 0x00478140	175	src/radiant/win_ent.cpp	?FUN_00478140@@YAXXZ	FUN_00478140	UNNAMED
 0x004781f0	38	src/radiant/win_ent.cpp	?FUN_004781f0@@YAXPAUHWND__@@HHHH0H@Z	FUN_004781f0	UNNAMED
 0x00478220	1178	src/radiant/win_ent.cpp	?FUN_00478220@@YAXHH@Z	FUN_00478220	UNNAMED
+0x004786c0	1139	src/radiant/win_ent.cpp	?FUN_004786c0@@YAXPBD00_N@Z	FUN_004786c0	UNNAMED
 0x00479560	390	src/radiant/win_main.cpp	?FindReplace@@YAXAAV?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@PBD1@Z	FindReplace	SUPPORTED
 0x004796f0	94	src/radiant/win_main.cpp	?CreateObject@CMyColorDialog@@SGPAVCObject@@XZ	CMyColorDialog::CreateObject	SUPPORTED
 0x00479750	6	src/radiant/win_main.cpp	?GetRuntimeClass@CMyColorDialog@@UBEPAUCRuntimeClass@@XZ	CMyColorDialog::GetRuntimeClass	SUPPORTED
