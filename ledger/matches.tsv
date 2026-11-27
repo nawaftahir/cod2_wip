@@ -2828,3 +2828,4 @@ addr	size	source	symbol	name	tag
 0x0049ab90	1001	src/universal/splines/splines.cpp	?parse@idSplineList@@QAEXPAPBD@Z	idSplineList::parse	SUPPORTED
 0x0049c2b0	138	src/universal/splines/splines.cpp	?load@idCameraDef@@QAE_NPBD@Z	idCameraDef::load	SUPPORTED
 0x0049eb60	801	src/universal/splines/splines.cpp	?getPosition@idSplinePosition@@UAEPBVidVec3_t@@J@Z	idSplinePosition::getPosition	SUPPORTED
+0x00454250	955	src/radiant/brush.cpp	?Face_WriteMaya@@YA_NPBUfaceRender_t@@PBUface_t@@PBUorientation_t@@PAU_iobuf@@_NM@Z	Face_WriteMaya	SUPPORTED
