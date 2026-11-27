@@ -487,39 +487,41 @@ void idSplineList::parse(const char *(*text)  ) {
 		token = Com_Parse( text );
 	
 		if ( !token[0] ) {
-			break;
+			dirty = true;
+			return;
 		}
-		if ( !Q_stricmp (token, "}") ) {
-			break;
-		}
+		if ( Q_stricmp (token, "}") ) {
+			do {
+				// if token is not a brace, it is a key for a key/value pair
+				if ( !token[0] || !Q_stricmp (token, "(") || !Q_stricmp(token, "}")) {
+					break;
+				}
 
-		do {
-			// if token is not a brace, it is a key for a key/value pair
-			if ( !token[0] || !Q_stricmp (token, "(") || !Q_stricmp(token, "}")) {
-				break;
+				Com_UngetToken();
+				idStr key = Com_ParseOnLine(text);
+				const char *token = Com_Parse(text);
+				if (Q_stricmp(key.c_str(), "granularity") == 0) {
+					granularity = atof(token);
+				} else if (Q_stricmp(key.c_str(), "name") == 0) {
+					name = token;
+				}
+				token = Com_Parse(text);
+
+			} while (1);
+
+			if ( !Q_stricmp (token, "}") ) {
+				dirty = true;
+				return;
 			}
 
 			Com_UngetToken();
-			idStr key = Com_ParseOnLine(text);
-			const char *token = Com_Parse(text);
-			if (Q_stricmp(key.c_str(), "granularity") == 0) {
-				granularity = atof(token);
-			} else if (Q_stricmp(key.c_str(), "name") == 0) {
-				name = token;
-			}
-			token = Com_Parse(text);
-
-		} while (1);
-
-		if ( !Q_stricmp (token, "}") ) {
+			// read the control point
+			idVec3_t point;
+			Com_Parse1DMatrix( text, 3, point );
+			addPoint(point.x, point.y, point.z);
+		} else {
 			break;
 		}
-
-		Com_UngetToken();
-		// read the control point
-		idVec3_t point;
-		Com_Parse1DMatrix( text, 3, point );
-		addPoint(point.x, point.y, point.z);
 	} while (1);
  
 	//Com_UngetToken();
@@ -1330,17 +1332,14 @@ const idVec3_t *idSplinePosition::getPosition(long t) {
 	float distToTravel = timePassed * velocity;
 	distSoFar += distToTravel;
 
-	double xDist;
-	{
-		double tdist = target.totalDistance();
-		xDist = distSoFar / tdist;
-		xDist *= tdist;
-	}
+	double distance = target.totalDistance();
+	double xDist = distSoFar / distance;
+	xDist *= distance;
 
 	int count = target.numSegments();
-	double distance = 0.0;
-	double lastDistance1 = 0.0;
+	distance = 0.0;
 	double lastDistance2 = 0.0;
+	double lastDistance1 = 0.0;
 	int i;
 	for (i = 1; i < count; i++) {
 		idVec3_t temp = *target.getSegmentPoint(i - 1);

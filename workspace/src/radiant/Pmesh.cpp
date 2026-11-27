@@ -1412,9 +1412,10 @@ brush_t *FUN_00427ef0(patchMesh_t *pm, int nType, bool bFirst)
         {
             for (int r = 0; r < def->height / 2; r++)
             {
-                memcpy(&tmp, &def->ctrl[x][def->height - 1 - r], sizeof(PatchControl));
-                memcpy(&def->ctrl[x][def->height - 1 - r], &def->ctrl[x][r], sizeof(PatchControl));
-                memcpy(&def->ctrl[x][r], &tmp, sizeof(PatchControl));
+                int h = def->height - r;
+                tmp = def->ctrl[x][h - 1];
+                def->ctrl[x][h - 1] = def->ctrl[x][r];
+                def->ctrl[x][r] = tmp;
             }
         }
     }

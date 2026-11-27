@@ -344,14 +344,14 @@ int FUN_00448550(const winding_t *in, const vec3_t normal, double dist, float ep
         if (sides[i + 1] == 2 || sides[i + 1] == sides[i])
             continue;
         p2 = in->points[(i + 1) % in->pointCount];
-        dot = dists[i] / (dists[i] - dists[i + 1]);
+        float frac = dists[i] / (dists[i] - dists[i + 1]);
         for (j = 0; j < 3; j++) {
             if (normal[j] == 1)
                 mid[j] = dist;
             else if (normal[j] == -1)
                 mid[j] = -dist;
             else
-                mid[j] = p1[j] + (p2[j] - p1[j]) * dot;
+                mid[j] = p1[j] + (p2[j] - p1[j]) * frac;
         }
         VectorCopy(mid, f->points[f->pointCount]);
         f->pointCount++;

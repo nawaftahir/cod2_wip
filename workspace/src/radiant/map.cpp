@@ -1292,7 +1292,8 @@ void FUN_0046b5b0()
 	Map_VectorCopy(lv->camOrigin, dword_01233488->cam->origin);
 	((CXYWndAccessor *)dword_01233488->xy)->CallPositionView();
 	Map_VectorCopy(lv->xyOrigin, dword_01233488->xy->origin);
-	dword_01233488->xy->scale = lv->xyScale;
+	float scale = lv->xyScale;
+	dword_01233488->xy->scale = scale;
 	((CXYWnd *)dword_01233488->xy)->SetViewType(lv->xyViewType);
 	FUN_00443590();
 	DAT_0123348c = -1;

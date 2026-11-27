@@ -51,24 +51,21 @@ class CMainFrame
 public:
     void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
     BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
+    void FUN_00417cf0();
+
+    void SetStatusText(int nPane, const char *pText)
+    {
+        if (pText && nPane <= 5 && nPane > 0)
+        {
+            m_strStatus[nPane] = pText;
+            FUN_00417cf0();
+        }
+    }
+
+    unsigned char pad[0x7a4];
+    CString m_strStatus[6];
 };
 void __stdcall FUN_004137d0(CMainFrame *self, UINT nChar);
-struct CZWndMainProjection
-{
-	void UpdateStatusBar();
-
-	void SetStatusText(int nPane, const char *pText)
-	{
-		if (pText && nPane <= 5 && nPane > 0)
-		{
-			m_strStatus[nPane] = pText;
-			UpdateStatusBar();
-		}
-	}
-
-	unsigned char pad[0x7a4];
-	CString m_strStatus[6];
-};
 
 extern z_t z;
 extern ZWndGlobals_t g_qeglobals;
@@ -163,7 +160,7 @@ void CZWnd::OnMouseMove(UINT nFlags, CPoint point)
 	fz = floor(fz / g_qeglobals.d_gridsize + 0.5) * g_qeglobals.d_gridsize;
 	CString strStatus;
 	strStatus.Format("Z:: %.1f", fz);
-	reinterpret_cast<CZWndMainProjection *>(g_pParentWnd)->SetStatusText(1, strStatus);
+	g_pParentWnd->SetStatusText(1, strStatus);
 	Z_MouseMoved(point.x, rect.Height() - 1 - point.y, nFlags);
 }
 
