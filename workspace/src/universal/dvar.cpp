@@ -1389,8 +1389,8 @@ static void Dvar_UpdateResetValue(dvar_t *dvar, DvarValue value)
 }
 
 
-
-
+#undef DVAR_CHANGEABLE_RESET
+#define DVAR_CHANGEABLE_RESET (1 << 9)
 
 
 void Dvar_ChangeResetValue(dvar_t *dvar, DvarValue value)
@@ -1477,8 +1477,8 @@ static void Dvar_MakeExplicitType(dvar_t *dvar, const char *dvarName, unsigned c
 
 
 
-
-
+#undef DVAR_CHANGEABLE_RESET
+#define DVAR_CHANGEABLE_RESET (1 << 12)
 
 
 
@@ -1504,10 +1504,8 @@ static DvarValue Dvar_GetReinterpretedResetValue(dvar_t *dvar, DvarValue value, 
 static void Dvar_ReinterpretDvar(dvar_t *dvar, const char *dvarName, unsigned char type, unsigned short flags, DvarValue value, DvarLimits domain)
 {
 	DvarValue resetValue;
-
+	if ( (dvar->flags & DVAR_EXTERNAL) && !(flags & DVAR_EXTERNAL) ) {
 	assertMsg( ((dvar->flags & ((1 << 12) | (1 << 13) | (1 << 14))) == (1 << 14)), "(dvar->flags) = %i", dvar->flags );
-	if ( (dvar->flags & DVAR_EXTERNAL) && !(flags & DVAR_EXTERNAL) )
-	{
 		resetValue = Dvar_GetReinterpretedResetValue(dvar, value, type, flags, domain);
 		Dvar_PerformUnregistration(dvar);
 		Dvar_FreeNameString(dvar->name);
@@ -1557,40 +1555,42 @@ void Dvar_ClearLatchedValue(dvar_t *dvar)
 
 
 
+
+
 void Dvar_Reregister(dvar_t *dvar, const char *dvarName, unsigned char type, unsigned short flags, DvarValue resetValue, DvarLimits domain)
 {
 	assert( dvar );
 	assert( dvarName );
-	assertMsg( dvar->type == type || (dvar->flags & DVAR_SYS_EXTERNAL), "%s", va("%s: %i != %i", dvar->name, dvar->type, type) );
+	assertMsg( dvar->type == type || (dvar->flags & DVAR_SYS_EXTERNAL), "%s", va("%s: %i != %i", dvarName, dvar->type, type) );
 	if ( (dvar->flags ^ flags) & (DVAR_CHANGEABLE_RESET | 0x2000 | DVAR_EXTERNAL) )
 	{
 		Dvar_ReinterpretDvar(dvar, dvarName, type, flags, resetValue, domain);
 		Dvar_UpdateRegistration(dvar, dvarName, type, flags, resetValue, domain);
 	}
 
-	if ( dvar->flags & DVAR_EXTERNAL )
+	if ( (dvar->flags & DVAR_EXTERNAL) && dvar->type != type )
 	{
-		if ( dvar->type != type )
-			Dvar_MakeExplicitType(dvar, dvarName, type, flags, resetValue, domain);
-	}
-	else if ( !(flags & DVAR_CHANGEABLE_RESET) )
-	{		if ( dvar->type != DVAR_TYPE_STRING && dvar->reset.string != resetValue.string )
-			assertMsg( dvar->type == DVAR_TYPE_STRING, "%s", va("dvar %s, type %i", dvar->name, dvar->type) );
-		else
-		{
+#undef DVAR_CHANGEABLE_RESET
+#define DVAR_CHANGEABLE_RESET (1 << 9)
+#undef DVAR_SAVED
+#define DVAR_SAVED (1 << 10)
 
-			assertMsg( dvar->type == type, "%s", dvar->name );
-			assertMsg( (dvar->flags & (DVAR_CHANGEABLE_RESET|DVAR_SAVED|DVAR_AUTOEXEC)) || Dvar_ValuesEqual( type, dvar->reset, resetValue ), "%s", va("dvar %s, %s != %s", dvar->name, Dvar_ValueToString(dvar, resetValue), Dvar_DisplayableResetValue(dvar)) );
-		}
+		assertMsg( dvar->type == DVAR_TYPE_STRING, "%s", va("dvar %s, type %i", dvar->name, dvar->type) );
+		Dvar_MakeExplicitType(dvar, dvarName, type, flags, resetValue, domain);
 	}
 
+	assertMsg( dvar->type == type, "%s", dvarName );
+	assertMsg( (dvar->flags & (DVAR_CHANGEABLE_RESET|DVAR_SAVED|DVAR_AUTOEXEC)) || Dvar_ValuesEqual( type, dvar->reset, resetValue ), "%s", va("dvar %s, %s != %s", dvarName, Dvar_DisplayableResetValue(dvar), Dvar_ValueToString(dvar, resetValue)) );
+#undef DVAR_CHANGEABLE_RESET
+#define DVAR_CHANGEABLE_RESET (1 << 12)
+#undef DVAR_SAVED
+#define DVAR_SAVED (1 << 9)
 	dvar->flags |= flags;
 	if ( (dvar->flags & DVAR_CHEAT) && dvar_cheats && !dvar_cheats->current.boolean )
 	{
 		Dvar_SetVariant(dvar, dvar->reset, DVAR_SOURCE_INTERNAL);
 		Dvar_SetLatchedValue(dvar, dvar->reset);
 	}
-
 	if ( dvar->flags & DVAR_LATCH )
 		Dvar_MakeLatchedValueCurrent(dvar);
 }
@@ -1807,7 +1807,7 @@ dvar_t *Dvar_RegisterEnum(const char *dvarName, const char **valueList, int defa
 	dvarDomain.enumeration.strings = valueList;
 	for ( dvarDomain.enumeration.stringCount = 0; valueList[dvarDomain.enumeration.stringCount]; dvarDomain.enumeration.stringCount++ )
 		;
-	assertMsg( defaultIndex >= 0 && defaultIndex < dvarDomain.enumeration.stringCount || defaultIndex == 0, "%s", va("%s %i %i", dvarName, defaultIndex, dvarDomain.enumeration.stringCount) );
+	assertMsg( defaultIndex >= 0 && defaultIndex < dvarDomain.enumeration.stringCount || defaultIndex == 0, "%s", dvarName );
 	return Dvar_RegisterVariant(dvarName, DVAR_TYPE_ENUM, flags, dvarValue, dvarDomain);
 }
 

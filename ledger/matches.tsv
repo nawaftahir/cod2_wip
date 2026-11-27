@@ -1900,6 +1900,7 @@ addr	size	source	symbol	name	tag
 0x004799d0	17	src/radiant/win_main.cpp	?DoModal@CMyColorDialog@@UAEHXZ	CMyColorDialog::DoModal	SUPPORTED
 0x004799f0	3	src/radiant/win_main.cpp	?DoDataExchange@CMyColorDialog@@UAEXPAVCDataExchange@@@Z	CMyColorDialog::DoDataExchange	SUPPORTED
 0x00479a00	6	src/radiant/win_main.cpp	?GetMessageMap@CMyColorDialog@@MBEPBUAFX_MSGMAP@@XZ	CMyColorDialog::GetMessageMap	SUPPORTED
+0x00479ab0	336	src/radiant/win_main.cpp	?DoColor@@YAHH@Z	DoColor	SUPPORTED
 0x00479c00	290	src/radiant/win_main.cpp	?DoMru@@YAHPAUHWND__@@G@Z	DoMru	SUPPORTED
 0x00479d30	1034	src/radiant/win_main.cpp	?MFCCreate@@YAXXZ	MFCCreate	SUPPORTED
 0x0047a140	141	src/radiant/win_main.cpp	?SaveRegistryInfo@@YAHPBDPAXJ@Z	SaveRegistryInfo	SUPPORTED
@@ -2315,12 +2316,15 @@ addr	size	source	symbol	name	tag
 0x0048eaf0	374	src/universal/dvar.cpp	?Dvar_ClearFlags@@YAXPBUdvar_s@@H@Z	Dvar_ClearFlags	PINNED
 0x0048ec70	115	src/universal/dvar.cpp	?Dvar_ClearFlagsFromAll@@YAXH@Z	Dvar_ClearFlagsFromAll	SUPPORTED
 0x0048ecf0	220	src/universal/dvar.cpp	?Dvar_UpdateResetValue@@YAXPAUdvar_s@@UDvarValue@@@Z	Dvar_UpdateResetValue	PINNED
+0x0048edd0	251	src/universal/dvar.cpp	?Dvar_ChangeResetValue@@YAXPAUdvar_s@@UDvarValue@@@Z	Dvar_ChangeResetValue	SUPPORTED
 0x0048eed0	232	src/universal/dvar.cpp	?Dvar_UpdateValue@@YAXPAUdvar_s@@UDvarValue@@@Z	Dvar_UpdateValue	PINNED
 0x0048efc0	335	src/universal/dvar.cpp	?Dvar_MakeExplicitType@@YAXPAUdvar_s@@PBDEGUDvarValue@@TDvarLimits@@@Z	Dvar_MakeExplicitType	SUPPORTED
 0x0048f110	50	src/universal/dvar.cpp	?Dvar_GetReinterpretedResetValue@@YA?AUDvarValue@@PAUdvar_s@@U1@EGTDvarLimits@@@Z	Dvar_GetReinterpretedResetValue	PINNED
+0x0048f150	237	src/universal/dvar.cpp	?Dvar_ReinterpretDvar@@YAXPAUdvar_s@@PBDEGUDvarValue@@TDvarLimits@@@Z	Dvar_ReinterpretDvar	SUPPORTED
 0x0048f240	44	src/universal/dvar.cpp	?Dvar_UpdateRegistration@@YAXPAUdvar_s@@PBDEGUDvarValue@@TDvarLimits@@@Z	Dvar_UpdateRegistration	PINNED
 0x0048f270	15	src/universal/dvar.cpp	?Dvar_MakeLatchedValueCurrent@@YAXPAUdvar_s@@@Z	Dvar_MakeLatchedValueCurrent	SUPPORTED
 0x0048f280	36	src/universal/dvar.cpp	?Dvar_ClearLatchedValue@@YAXPAUdvar_s@@@Z	Dvar_ClearLatchedValue	SUPPORTED
+0x0048f2b0	805	src/universal/dvar.cpp	?Dvar_Reregister@@YAXPAUdvar_s@@PBDEGUDvarValue@@TDvarLimits@@@Z	Dvar_Reregister	SUPPORTED
 0x0048f5e0	476	src/universal/dvar.cpp	?Dvar_RegisterNew@@YAPAUdvar_s@@PBDEGUDvarValue@@TDvarLimits@@@Z	Dvar_RegisterNew	SUPPORTED
 0x0048f7c0	314	src/universal/dvar.cpp	?Dvar_RegisterVariant@@YAPAUdvar_s@@PBDEGUDvarValue@@TDvarLimits@@@Z	Dvar_RegisterVariant	PINNED
 0x0048f900	36	src/universal/dvar.cpp	?Dvar_RegisterBool@@YAPAUdvar_s@@PBD_NG@Z	Dvar_RegisterBool	SUPPORTED
@@ -2330,6 +2334,7 @@ addr	size	source	symbol	name	tag
 0x0048f9d0	58	src/universal/dvar.cpp	?Dvar_RegisterVec3@@YAPAUdvar_s@@PBDMMMMMG@Z	Dvar_RegisterVec3	SUPPORTED
 0x0048fa10	64	src/universal/dvar.cpp	?Dvar_RegisterVec4@@YAPAUdvar_s@@PBDMMMMMMG@Z	Dvar_RegisterVec4	SUPPORTED
 0x0048fa50	277	src/universal/dvar.cpp	?Dvar_RegisterString@@YAPAUdvar_s@@PBD0G@Z	Dvar_RegisterString	PINNED
+0x0048fb70	275	src/universal/dvar.cpp	?Dvar_RegisterEnum@@YAPAUdvar_s@@PBDPAPBDHG@Z	Dvar_RegisterEnum	SUPPORTED
 0x0048fc90	478	src/universal/dvar.cpp	?Dvar_RegisterColor@@YAPAUdvar_s@@PBDMMMMG@Z	Dvar_RegisterColor	SUPPORTED
 0x0048fe70	297	src/universal/dvar.cpp	?Dvar_SetBoolFromSource@@YAXPAUdvar_s@@_NW4DvarSetSource@@@Z	Dvar_SetBoolFromSource	PINNED
 0x0048ffa0	310	src/universal/dvar.cpp	?Dvar_SetIntFromSource@@YAXPAUdvar_s@@HW4DvarSetSource@@@Z	Dvar_SetIntFromSource	PINNED

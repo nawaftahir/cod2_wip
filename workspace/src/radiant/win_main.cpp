@@ -342,15 +342,17 @@ extern float DAT_01129708[][4];
 extern unsigned dword_0123348c;
 
 BOOL DoColor(int iIndex) {
-     COLORREF cr = RGB((int)(DAT_01129708[iIndex][0] * 255), (int)(DAT_01129708[iIndex][1] * 255),
-                       (int)(DAT_01129708[iIndex][2] * 255));
-     CMyColorDialog dlg(cr, CC_FULLOPEN | CC_RGBINIT);
+     int r = (int)(DAT_01129708[iIndex][0] * 255);
+     int g = (int)(DAT_01129708[iIndex][1] * 255);
+     int b = (int)(DAT_01129708[iIndex][2] * 255);
+     CMyColorDialog dlg(RGB(r, g, b), CC_FULLOPEN | CC_RGBINIT);
      if (dlg.DoModal() != IDOK) return FALSE;
-     DAT_01129708[iIndex][0] = GetRValue(dlg.GetColor()) * (1.0f / 255.0f);
+     COLORREF clr = dlg.GetColor();
+     DAT_01129708[iIndex][0] = GetRValue(clr) * (1.0f / 255.0f);
+     DAT_01129708[iIndex][1] = GetGValue(clr) * (1.0f / 255.0f);
+     DAT_01129708[iIndex][2] = GetBValue(clr) * (1.0f / 255.0f);
      DAT_01129708[iIndex][3] = 1.0f;
-     dword_0123348c |= 0xffffffff;
-     DAT_01129708[iIndex][1] = GetGValue(dlg.GetColor()) * (1.0f / 255.0f);
-     DAT_01129708[iIndex][2] = GetBValue(dlg.GetColor()) * (1.0f / 255.0f);
+     dword_0123348c = 0xffffffff;
      return TRUE;
 }
 
