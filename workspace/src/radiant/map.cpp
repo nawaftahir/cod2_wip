@@ -220,7 +220,7 @@ void Brush_Free(brush_t *b);
 void FUN_004678c0(entityInst_t *e);
 entityInst_t *FUN_00467770(entity_t *entDef, entityInst_t *list, brush_t *brushList);
 void FUN_00465bf0(entity_t *e, const char *key, const char *value);
-eclass_t *FUN_00464770(int a, const char *name);
+eclass_t *FUN_00464770(const char *name, int a);
 void Entity_AddToList(entity_t *e, entity_t *list);
 void FUN_004634f0(void);
 void FUN_00470a50(float mins[3], float maxs[3]);
@@ -489,6 +489,121 @@ int FUN_00468260(entity_t *entList, const char *filename)
 	free(buf);
 	return count;
 }
+struct mapTex_t { unsigned char pad00[8]; unsigned char field08; unsigned char pad09[0x1b]; mapTex_t *next; };
+extern mapTex_t *dword_01244d70;
+extern int dword_011298d4;
+bool FUN_0046b550(void);
+void FUN_00468100(void);
+void FUN_00467e60(void);
+void FUN_00467f00(void);
+void FUN_00441600(void);
+bool FUN_0045b420(brush_t *b);
+void FUN_0045e0b0(brushDef_t *b);
+void FUN_0041e160(const char *msg);
+void Map_New(void);
+void ConvertDOSToUnixName(char *dst, const char *src);
+#define map_assert1_txt(expr, text) do { static bool s_assertDisable; if (!(expr) && !s_assertDisable) { switch (FUN_0047d980(text, __FILE__, __LINE__, 0, 1)) { case 0: DebugBreak(); break; case 2: s_assertDisable = true; break; } } } while (0)
+void Map_LoadFile(const char *filename)
+{
+	char temp[1024];
+	float origin[3];
+	DAT_01129e28 = SetCursor(LoadCursor(NULL, IDC_WAIT));
+	FUN_00467e60();
+	FUN_0046fbe0(true);
+	ConvertDOSToUnixName(temp, filename);
+	Sys_Printf("Map_LoadFile: %s\n", temp);
+	map_assert1_txt(!FUN_0046b550(), "!Map_EditingPrefab()");
+	FUN_00468100();
+	for (mapTex_t *p = dword_01244d70; p; p = p->next)
+		p->field08 = 0;
+	dword_011298d4 = 0;
+	strcpy(currentmap, filename);
+	DAT_010bcd30 = FUN_00468260(&entities, filename);
+
+
+	map_assert2(DAT_012334ec == NULL);
+	entity_t *next;
+	for (entity_t *e = entities.next; e != &entities; e = next)
+	{
+		next = e->next;
+		entityInst_t *inst = FUN_00467770(e, &DAT_010a43d0, &active_brushes);
+		if (!strcmp(ValueForKey(e->epairs, "classname"), "worldspawn"))
+		{
+			if (DAT_012334ec)
+			{
+				Sys_Printf("WARNING: multiple worldspawn\n");
+				FUN_004678c0(inst);
+			}
+			else
+			{
+				DAT_012334ec = inst;
+			}
+		}
+		else if (e->eclass->nShowFlags & ECLASS_PREFAB)
+		{
+			brush_t *first = (brush_t *)inst->field18;
+			if (first != (brush_t *)inst->pad0c)
+				FUN_0045b420(first);
+		}
+	}
+	if (!DAT_012334ec)
+	{
+		Sys_Printf("No worldspawn in map.\n");
+		Map_New();
+		return;
+	}
+
+
+	map_assert2(DAT_010a43d0.next == DAT_012334ec);
+	Sys_Printf("--- LoadMapFile ---\n");
+	Sys_Printf("%s\n", temp);
+	Sys_Printf("%5i brushes\n", dword_011298d4);
+	Sys_Printf("%5i entities\n", DAT_010bcd30);
+	Sys_Printf("Map_BuildAllDisplayLists\n");
+	FUN_00467f00();
+	entity_t *ent = FUN_004681b0();
+	dword_01233488->cam->angles[0] = 0;
+	if (ent)
+	{
+		sscanf(ValueForKey(ent->epairs, "origin"), "%f %f %f", &origin[0], &origin[1], &origin[2]);
+		origin[2] += 60.0f;
+		dword_01233488->cam->origin[0] = origin[0];
+		dword_01233488->cam->origin[1] = origin[1];
+		dword_01233488->cam->origin[2] = origin[2];
+		dword_01233488->xy->origin[0] = origin[0];
+		dword_01233488->xy->origin[1] = origin[1];
+		dword_01233488->xy->origin[2] = origin[2];
+		float *angles = dword_01233488->cam->angles;
+		sscanf(ValueForKey(ent->epairs, "angles"), "%f %f %f", &angles[0], &angles[1], &angles[2]);
+	}
+	else
+	{
+		dword_01233488->cam->angles[1] = 0;
+		dword_01233488->cam->origin[0] = 0;
+		dword_01233488->cam->origin[1] = 0;
+		dword_01233488->cam->origin[2] = 0;
+		dword_01233488->xy->origin[0] = 0;
+		dword_01233488->xy->origin[1] = 0;
+		dword_01233488->xy->origin[2] = 0;
+	}
+	Map_RemoveRegion();
+	FUN_00441600();
+	DAT_010a4908 = 0;
+	SetWindowText(dword_010bcd54, temp);
+	FUN_00467e30();
+	if (DAT_01129e28)
+	{
+		SetCursor(DAT_01129e28);
+		DAT_01129e28 = NULL;
+	}
+	brush_t *b;
+	for (b = selected_brushes.next; b != &selected_brushes; b = b->next)
+		FUN_0045e0b0(b->def);
+	for (b = active_brushes.next; b != &active_brushes; b = b->next)
+		FUN_0045e0b0(b->def);
+	FUN_0041e160("loaded map");
+	g_nUpdateBits = -1;
+}
 
 // 0x00468910 (1022 B)
 extern int DAT_01129894;
@@ -572,6 +687,7 @@ void FUN_00468910(const char *filename, bool use_region)
 			fprintf(log, "%s", filename);
 			fclose(log);
 			DAT_01129894 = 0;
+			fclose(log);
 		}
 		SendMessage(DAT_010bcd70, 0x401, 0, (LPARAM)"Saved.\n");
 	}
@@ -606,7 +722,7 @@ void Map_New(void)
 	world->brushes.onext = &world->brushes;
 	world->brushes.oprev = &world->brushes;
 	FUN_00465bf0(world, "classname", "worldspawn");
-	world->eclass = FUN_00464770(1, "worldspawn");
+	world->eclass = FUN_00464770("worldspawn", 1);
 	Entity_AddToList(world, &entities);
 	DAT_012334ec = FUN_00467770(world, &DAT_010a43d0, &active_brushes);
 	dword_01233488->cam->angles[1] = 0;
@@ -641,7 +757,7 @@ qtexture_s *__fastcall FUN_00440840(char *name);
 brushdef_t *Brush_CreateFromTexdef(eclass_t *ec, const texdef_t *td);
 void FUN_00457dd0(const float *mins, const float *maxs, brushdef_t *def, int flag);
 brush_t *FUN_00458440(brushdef_t *def, entity_t *owner);
-void FUN_004671b0(brushdef_t *def, entity_t *owner);
+void FUN_004671b0(entity_t *owner, brushdef_t *def);
 void Sys_MarkMapModified();
 
 void AddRegionBrushes()
@@ -681,7 +797,7 @@ void AddRegionBrushes()
 	for (int i = 0; i < 4; i++)
 	{
 		FUN_00459210(region_sides[i], &selected_brushes);
-		FUN_004671b0((brushdef_t *)region_sides[i]->def, world_entity->def);
+		FUN_004671b0(world_entity->def, (brushdef_t *)region_sides[i]->def);
 		FUN_0045a220((brushdef_t *)region_sides[i]->def, true);
 		if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
 			FUN_00475350();
@@ -1238,18 +1354,19 @@ void FUN_0046b070(int arg)
 	FUN_0041d930(&DAT_010a43d0, "after entering prefab");
 }
 
-// 0x0046b550 (96 B)
+// 0x0046b550 (96 B); retail 0x0046845e calls FUN_0046b550
 extern int prefabStackLevel;
 #define entityInsts DAT_010a43d0
 bool FUN_0045b420(brush_t *b);
 struct CXYWndAccessor : public CXYWnd { void CallPositionView() { PositionView(); } };
+#pragma auto_inline(off)
 bool FUN_0046b550(void)
 {
 #line 1491
 	map_assert1(prefabStackLevel >= 0);
 	return prefabStackLevel > 0;
 }
-
+#pragma auto_inline(on)
 
 
 // 0x0046b5b0 (1017 B)

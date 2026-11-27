@@ -240,11 +240,9 @@ float FUN_0048b730( float x, float y )
 	return y - x >= 0.0f ? x : y;
 }
 
-int FUN_0048b760(const float *v1, const float *v2)
+bool FUN_0048b760(const float *v1, const float *v2)
 {
-	if (v1[0] == v2[0] && v1[1] == v2[1])
-		return 1;
-	return 0;
+	return v1[0] == v2[0] && v1[1] == v2[1];
 }
 
 void FUN_0048b790(const float *in, float *out)

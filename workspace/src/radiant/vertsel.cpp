@@ -184,7 +184,7 @@ void SelectEdgeByRay(vec3_t org, vec3_t dir)
         temp[0] = mid[0] - temp[0];
         temp[1] = mid[1] - temp[1];
         temp[2] = mid[2] - temp[2];
-        d = temp[2] * temp[2] + temp[0] * temp[0] + temp[1] * temp[1];
+        d = temp[2] * temp[2] + temp[1] * temp[1] + temp[0] * temp[0];
         d = (float)sqrt(d);
         if (d < bestd)
         {
@@ -229,7 +229,7 @@ void SelectVertexByRay(vec3_t org, vec3_t dir)
         temp[0] = p[0] - temp[0];
         temp[1] = p[1] - temp[1];
         temp[2] = p[2] - temp[2];
-        d = temp[2] * temp[2] + temp[0] * temp[0] + temp[1] * temp[1];
+        d = temp[0] * temp[0] + temp[1] * temp[1] + temp[2] * temp[2];
         d = (float)sqrt(d);
         if (d < bestd)
         {

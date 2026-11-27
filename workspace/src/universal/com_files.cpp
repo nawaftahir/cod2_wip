@@ -1696,19 +1696,24 @@ int FS_SeekInternal( int f, int offset, int origin )
 
 	file = FS_FileForHandle(f);
 
+	int seekOrigin;
 	switch ( origin )
 	{
 	case FS_SEEK_CUR:
-		return FileWrapper_Seek(file, offset, SEEK_CUR);
+		seekOrigin = SEEK_CUR;
+		break;
 	case FS_SEEK_END:
-		return FileWrapper_Seek(file, offset, SEEK_END);
+		seekOrigin = SEEK_END;
+		break;
 	case FS_SEEK_SET:
-		return FileWrapper_Seek(file, offset, SEEK_SET);
+		seekOrigin = SEEK_SET;
+		break;
 	default:
 #line 2060
 		assertFail(0, "Bad origin %i in FS_Seek", origin);
 		return 0;
 	}
+	return fseek(file, offset, seekOrigin);
 }
 
 int FS_ReadFile(const char* qpath, void** buffer)
@@ -3963,7 +3968,7 @@ static bool FS_RegisterDvars()
 	fs_useOldAssets = Dvar_RegisterBool("fs_useOldAssets", false, DVAR_CHANGEABLE_RESET);
 	fs_gameDirVar = Dvar_RegisterString("fs_game", "", DVAR_SERVERINFO | DVAR_SYSTEMINFO | DVAR_INIT | DVAR_CHANGEABLE_RESET);
 	fs_ignoreLocalized = Dvar_RegisterBool("fs_ignoreLocalized", false, DVAR_LATCH | DVAR_CHEAT | DVAR_CHANGEABLE_RESET);
-	fs_homepath = Dvar_RegisterString("fs_homepath", fs_basepath->current.string, DVAR_INIT | DVAR_CHANGEABLE_RESET);
+	fs_homepath = Dvar_RegisterString("fs_homepath", fs_basepath->reset.string, DVAR_INIT | DVAR_CHANGEABLE_RESET);
 
 	return true;
 }

@@ -44,13 +44,22 @@ struct eclass_t
     char flagnames[8][0x20];
 };
 
+struct entityBrush_t
+{
+    unsigned char pad00[0x40];
+    unsigned char modelFailed;
+};
+
 struct entity_t
 {
-    unsigned char pad00[0x50];
+    unsigned char pad00[0x0c];
+    entityBrush_t *onext;
+    unsigned char pad10[0x40];
     eclass_t *eclass;
-    unsigned char pad54[4];
+    void *md3Class;
     float origin[3];
     epair_t *epairs;
+    unsigned short field68;
 };
 
 struct entityInst_t
@@ -70,6 +79,8 @@ extern brush_t selected_brushes;
 extern entityInst_t *world_entity;
 extern entity_t *edit_entity;
 extern int multiple_entities;
+extern entity_t *DAT_010bcd34;
+void ConvertDOSToUnixName(char *dst, const char *src);
 extern int g_nUpdateBits;
 char *ValueForKey(epair_t *&e, const char *key);
 char *TranslateString(const char *string);
@@ -106,7 +117,7 @@ extern int dword_0112999c;
 extern int rgIds[EntLast];
 void FUN_004781f0(HWND e, int x, int y, int w, int h, HWND hwndPlacement, int swp);
 bool FUN_004131d0(const char *pszName, HWND hwnd);
-eclass_t *FUN_00464770(int a, const char *name);
+eclass_t *FUN_00464770(const char *name, int a);
 entity_t *FUN_00466d80(eclass_t *ec);
 void FUN_0046fbe0(bool a);
 void FUN_0046f0b0(brush_t *brush, bool bComplete, bool bStatus, bool bPositionView);
@@ -398,6 +409,37 @@ void FUN_00477960()
         SendMessage(hwndEnt[EntCheck1 + i], BM_SETCHECK, (flags & (1 << i)) != 0, 0);
 }
 
+// 0x004779c0 (467 B)
+void FUN_004779c0()
+{
+    char sz[32];
+    int f = 0;
+
+    for (int i = 0; i < 12; i++)
+    {
+        int v = SendMessage(hwndEnt[EntCheck1 + i], BM_GETCHECK, 0, 0);
+        f |= v << i;
+    }
+    sprintf(sz, "%i", f);
+    FUN_004433b0();
+    Undo_GeneralStart("set spawnflags");
+    if (multiple_entities)
+    {
+        for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+        {
+            Undo_AddEntity(b->owner->def);
+            FUN_00465bf0(b->owner->def, "spawnflags", sz);
+        }
+    }
+    else
+    {
+        Undo_AddEntity(edit_entity);
+        FUN_00465bf0(edit_entity, "spawnflags", sz);
+    }
+    FUN_004777c0();
+    Undo_End();
+}
+
 // Q3Radiant Win_ent.cpp UpdateSel shape
 int FUN_00477ba0(int iItem, eclass_t *pec)
 {
@@ -470,7 +512,7 @@ void FUN_00477d00()
         MessageBox(dword_010bcd54, "Can't create an entity with worldspawn.", "info", 0);
         return;
     }
-    eclass_t *pecNew = FUN_00464770(0, sz);
+    eclass_t *pecNew = FUN_00464770(sz, 0);
     entity_t *petNew = FUN_00466d80(pecNew);
     if (petNew == NULL)
     {

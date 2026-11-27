@@ -256,7 +256,7 @@ void FUN_00475350();
 brushdef_t *Brush_CreateFromTexdef(eclass_t *eclass, const texdef_t *td);
 void FUN_00457dd0(const vec3_t mins, const vec3_t maxs, brushdef_t *def, int flag);
 void FUN_0045a220(brushdef_t *b, bool snap);
-void FUN_004671b0(brushdef_t *b, entity_t *owner);
+void FUN_004671b0(entity_t *owner, brushdef_t *b);
 brush_t *FUN_00458440(brushdef_t *def, entity_t *owner);
 
 IMPLEMENT_DYNCREATE(CXYWnd, CWnd)
@@ -1111,7 +1111,7 @@ void CXYWnd::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 struct entity_t;
 struct texdef_t;
-eclass_t *FUN_00464770(int hasBrushes, const char *name);
+eclass_t *FUN_00464770(const char *name, int hasBrushes);
 entity_t *FUN_00466d80(eclass_t *ec);
 void FUN_00467510(entity_t *e);
 void FUN_00465bf0(entity_t *e, const char *key, const char *value);
@@ -1134,7 +1134,7 @@ void CreateEntityFromName(const char *name)
         MessageBox(dword_010bcd54, "Can't create an entity with worldspawn.", "info", 0);
         return;
     }
-    eclass_t *pecNew = FUN_00464770(0, name);
+    eclass_t *pecNew = FUN_00464770(name, 0);
     xyEclass_t *ec = (xyEclass_t *)pecNew;
     Undo_AddBrushList((selbrush_t *)&selected_brushes);
     entityInst_t *petNew = (entityInst_t *)FUN_00466d80(pecNew);
@@ -1167,7 +1167,7 @@ void CreateEntityFromName(const char *name)
                 owner->def->eclass = ec;
                 FUN_00465bf0((entity_t *)owner->def, "classname", name);
                 brushdef_t *nb = BrushDef_Create(mins, maxs, pecNew, (const texdef_t *)((char *)ec + 0x34));
-                FUN_004671b0(nb, (entity_t *)owner);
+                FUN_004671b0((entity_t *)owner, nb);
                 if (FUN_00469740((entity_t *)b->owner->def))
                 {
                     CString strExport;
@@ -1266,7 +1266,7 @@ brush_t *CreateEntityBrush(int height, int x, CXYWnd *pWnd)
         FUN_00475350();
     Sys_MarkMapModified();
     (*(unsigned short *)((char *)n + 0x42))++;
-    FUN_004671b0(n, (entity_t *)dword_012334ec->field_08);
+    FUN_004671b0((entity_t *)dword_012334ec->field_08, n);
     brush_t *b = FUN_00458440(n, (entity_t *)dword_012334ec);
     FUN_00459210(b, &selected_brushes);
     return b;
@@ -1277,7 +1277,7 @@ void FUN_0044bb80(CXYWnd *pWnd, const char *name, int x, int y)
 {
     CRect rect;
     pWnd->GetClientRect(rect);
-    if (((xyEclass_t *)FUN_00464770(0, name))->field_08 != 0)
+    if (((xyEclass_t *)FUN_00464770(name, 0))->field_08 != 0)
     {
         brush_t *b = selected_brushes.next;
         if (b != &selected_brushes && !_stricmp(b->owner->def->eclass->name, "worldspawn"))
@@ -1874,7 +1874,11 @@ void CXYWnd::NewBrushDrag(int x, int y)
         }
     }
 
-    if (selected_brushes.next == &selected_brushes)
+    if (selected_brushes.next != &selected_brushes)
+    {
+        FUN_0045b310(selected_brushes.next->def, mins, maxs);
+    }
+    else
     {
         brushdef_t *n = Brush_CreateFromTexdef(NULL, (const texdef_t *)texdef_01128da8);
         FUN_00457dd0(mins, maxs, n, 0);
@@ -1885,12 +1889,8 @@ void CXYWnd::NewBrushDrag(int x, int y)
             FUN_00475350();
         Sys_MarkMapModified();
         (*(unsigned short *)((char *)n + 0x42))++;
-        FUN_004671b0(n, (entity_t *)dword_012334ec->field_08);
+        FUN_004671b0((entity_t *)dword_012334ec->field_08, n);
         FUN_00459210(FUN_00458440(n, (entity_t *)dword_012334ec), &selected_brushes);
-    }
-    else
-    {
-        FUN_0045b310(selected_brushes.next->def, mins, maxs);
     }
 
     float vSize[3];
@@ -2800,8 +2800,7 @@ bool FUN_0044f630(brushdef_t *b)
         if (b->FUN_0044f560(0x80000000))
             return true;
     }
-    entity_t *owner = b->owner;
-    if (owner == g_pWorldEntity->def || !strcmp(owner->eclass->name, "func_group"))
+    if (b->owner == g_pWorldEntity->def || !strcmp(b->owner->eclass->name, "func_group"))
     {
         if ((g_filterFlags & 0x10) && !(b->faces[0].contents & 0x8000000) && !b->patch && !strstr(name, "portal"))
             return true;
@@ -2809,20 +2808,20 @@ bool FUN_0044f630(brushdef_t *b)
     }
     if (g_filterFlags & 2)
     {
-        if (strcmp(owner->eclass->name, "func_group") && strcmp(owner->eclass->name, "light"))
+        if (strcmp(b->owner->eclass->name, "func_group") && strcmp(b->owner->eclass->name, "light"))
             return true;
     }
     if (g_filterFlags & 0x40000000)
     {
-        if (strcmp(owner->eclass->name, "func_group") && strcmp(owner->eclass->name, "misc_model") && strcmp(owner->eclass->name, "misc_prefab"))
+        if (strcmp(b->owner->eclass->name, "func_group") && strcmp(b->owner->eclass->name, "misc_model") && strcmp(b->owner->eclass->name, "misc_prefab"))
         {
-            if (owner->modelClass || owner->eclass->modelName || FUN_00465d80(owner, "model"))
+            if (b->owner->modelClass || b->owner->eclass->modelName || FUN_00465d80(b->owner, "model"))
                 return true;
         }
     }
     if (g_filterFlags & 0x10000)
     {
-        if (!strncmp(owner->eclass->name, "ammo", 4) || !strncmp(b->owner->eclass->name, "item", 4))
+        if (!strncmp(b->owner->eclass->name, "ammo", 4) || !strncmp(b->owner->eclass->name, "item", 4))
             return true;
     }
     if (g_filterFlags & 0x40000)
@@ -3175,7 +3174,7 @@ void DrawConnectionArrow(int nDim1, int nDim2, CXYWnd *wnd, const float *p1, con
 void CXYWnd::DrawLightRadiusIcon(const float *center, int width, float radius, int segments, unsigned *color)
 {
     GfxPointVertex verts[0x400];
-    vec3_t axis0, axis1, prev, cur;
+    vec3_t prev, cur, axis0, axis1;
 
     switch (m_nViewType)
     {
@@ -3927,10 +3926,10 @@ void CXYWnd::Paste()
         char *buf = new char[lSize + 1];
         g_Clipboard.Read(buf, lSize);
         buf[lSize] = 0;
+        const char *p = buf;
         Com_BeginParseSession("paste from clipboard");
         Com_SetSpaceDelimited(0);
         Com_SetParseNegativeNumbers(1);
-        const char *p = buf;
         FUN_004699b0(&p, 4);
         Com_EndParseSession();
         delete[] buf;

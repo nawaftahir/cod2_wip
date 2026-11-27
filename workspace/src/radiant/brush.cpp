@@ -54,7 +54,7 @@ void FUN_0045e0b0(brushdef_t *b);
 void FUN_0042f970(patchMesh_t *p, const texdef_t *td, bool bApply, bool bKeepLayout);
 void FUN_0042fad0(patchMesh_t *p, int amount);
 #define brush_layer ((&g_qeglobals.activeMaterial)[1])
-void FUN_004671b0(brushdef_t *b, entity_t *owner);
+void FUN_004671b0(entity_t *owner, brushdef_t *b);
 extern brush_t selected_brushes;
 extern brush_t active_brushes;
 extern entity_t *world_entity;
@@ -826,7 +826,7 @@ void FUN_00455cf0(brushdef_t *in, const face_t *f, brushdef_t **front, brushdef_
     }
     else
     {
-        FUN_004671b0(b, in->owner);
+        FUN_004671b0(in->owner, b);
         *back = b;
     }
     b = FUN_00458dc0(in);
@@ -844,7 +844,7 @@ void FUN_00455cf0(brushdef_t *in, const face_t *f, brushdef_t **front, brushdef_
         *front = NULL;
         return;
     }
-    FUN_004671b0(b, in->owner);
+    FUN_004671b0(in->owner, b);
     *front = b;
 }
 
@@ -1327,8 +1327,8 @@ brushdef_t *FUN_00457270(const char **data, int version)
             brush_assert1(f->texdef[0].radMat);
             brush_assert1(f->texdef[0].radMat->size[0]);
             brush_assert1(f->texdef[0].radMat->size[1]);
-            f->texdef[0].shift[0] = -f->texdef[0].scale[0] * f->texdef[0].shift[0];
-            f->texdef[0].shift[1] = -f->texdef[0].scale[1] * f->texdef[0].shift[1];
+            f->texdef[0].shift[0] = -(f->texdef[0].shift[0] * f->texdef[0].scale[0]);
+            f->texdef[0].shift[1] = -(f->texdef[0].shift[1] * f->texdef[0].scale[1]);
             f->texdef[0].scale[0] = (float)f->texdef[0].radMat->size[0] * f->texdef[0].scale[0];
             f->texdef[0].scale[1] = (float)f->texdef[0].radMat->size[1] * f->texdef[0].scale[1];
         }
@@ -1823,7 +1823,7 @@ faceRender_t *FUN_00458fa0(brush_t *b, const float *origin, const float *dir, fl
     for (int i = 0; i < b->faceCount; i++)
     {
         const face_t *f = &b->def->faces[i];
-        float d1 = (float)(DotProduct(f->plane.normal, p1) - f->plane.dist);
+        float d1 = (float)(p1[0] * f->plane.normal[0] + p1[2] * f->plane.normal[2] + p1[1] * f->plane.normal[1] - f->plane.dist);
         float d2 = (float)(DotProduct(p2, f->plane.normal) - f->plane.dist);
         if (d1 >= 0 && d2 >= 0)
         {
@@ -2081,10 +2081,12 @@ int FUN_00459aa0(float *f)
 // 0x00459ae0 (1346 B): Q3 Brush_SelectFaceForDragging, adds a face's points to the move list
 void FUN_00459ae0(brushdef_t *b, face_t *f, bool shear)
 {
+    int i, j;
+    float d;
     if (((entity_t *)b->owner)->eclass->fixedsize)
         return;
     int c = 0;
-    for (int i = 0; i < 3; i++)
+    for (i = 0; i < 3; i++)
         c += FUN_00459aa0(f->planepts[i]);
     if (c == 0)
         return;
@@ -2094,13 +2096,12 @@ void FUN_00459ae0(brushdef_t *b, face_t *f, bool shear)
         brushdef_t *def2 = b2->def;
         if (def2 == b)
             continue;
-        for (int j = 0; j < def2->faceCount; j++)
+        for (j = 0; j < def2->faceCount; j++)
         {
             face_t *f2 = &def2->faces[j];
-            int i;
             for (i = 0; i < 3; i++)
             {
-                if (fabs(f2->planepts[i][0] * f->plane.normal[0] + f2->planepts[i][2] * f->plane.normal[2] + f2->planepts[i][1] * f->plane.normal[1] - f->plane.dist) > 0.01)
+                if (fabs(f2->planepts[i][0] * f->plane.normal[0] + f2->planepts[i][2] * f->plane.normal[2] + f->plane.normal[1] * f2->planepts[i][1] - f->plane.dist) > 0.01)
                     break;
             }
             if (i == 3)
@@ -2113,7 +2114,7 @@ void FUN_00459ae0(brushdef_t *b, face_t *f, bool shear)
     // if shearing, take all the planes adjacent to the selected faces
     if (!shear)
         return;
-    for (int j = 0; j < b->faceCount; j++)
+    for (j = 0; j < b->faceCount; j++)
     {
         face_t *f2 = &b->faces[j];
         if (f2 == f)
@@ -2121,10 +2122,9 @@ void FUN_00459ae0(brushdef_t *b, face_t *f, bool shear)
         winding_t *w = FUN_00455800(b, f2);
         if (!w)
             continue;
-        int i;
         for (i = 0; i < w->pointCount; i++)
         {
-            float d = (float)(w->points[i][2] * f->plane.normal[2] + w->points[i][0] * f->plane.normal[0] + f->plane.normal[1] * w->points[i][1] - f->plane.dist);
+            d = (float)(w->points[i][2] * f->plane.normal[2] + (w->points[i][0] * f->plane.normal[0] + f->plane.normal[1] * w->points[i][1]) - f->plane.dist);
             if (d > -0.01 && d < 0.01)
                 break;
         }
@@ -2133,7 +2133,7 @@ void FUN_00459ae0(brushdef_t *b, face_t *f, bool shear)
             if (i == 0)
             {
                 const float *p = w->points[w->pointCount - 1];
-                float d = (float)(p[2] * f->plane.normal[2] + p[1] * f->plane.normal[1] + p[0] * f->plane.normal[0] - f->plane.dist);
+                d = (float)(p[2] * f->plane.normal[2] + (p[0] * f->plane.normal[0] + f->plane.normal[1] * p[1]) - f->plane.dist);
                 if (d > -0.01 && d < 0.01)
                     i = w->pointCount - 1;
             }
@@ -2143,7 +2143,7 @@ void FUN_00459ae0(brushdef_t *b, face_t *f, bool shear)
                 i = 0;
             // see if the next point is on the plane as well
             const float *p = w->points[i];
-            float d = (float)(p[2] * f->plane.normal[2] + p[1] * f->plane.normal[1] + f->plane.normal[0] * p[0] - f->plane.dist);
+            d = (float)(p[2] * f->plane.normal[2] + p[1] * f->plane.normal[1] + p[0] * f->plane.normal[0] - f->plane.dist);
             if (d > -0.01 && d < 0.01)
                 FUN_00459aa0(f2->planepts[1]);
             VectorCopy(w->points[i], f2->planepts[1]);
@@ -3617,9 +3617,8 @@ void FUN_0045ebf0(face_t *face, float nHeight, float nWidth, bool useSelection)
             AddPointToBounds(w->points[i], mins, maxs);
     }
     texdef_t *td = &face->texdef[dword_01128d94];
-    float ang = td->rotate * 0.017453292f;
     float sinv, cosv;
-    FastSinCos(ang, &sinv, &cosv);
+    FastSinCos(td->rotate * 0.017453292f, &sinv, &cosv);
     vec3_t vecs[2];
     TextureAxisFromPlane(face->plane.normal, vecs[0], vecs[1]);
     float min_s = DotProduct(mins, vecs[0]);

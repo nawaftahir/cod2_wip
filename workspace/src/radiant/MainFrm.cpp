@@ -42,14 +42,14 @@ extern int dword_010a4508;
 void FUN_0043e440();
 void FUN_004692a0();
 void FUN_00469350();
-void FUN_0046dfc0();
 void FUN_0046dc40();
-void FUN_00471dd0();
-void FUN_00471670();
-void FUN_00471a90();
 void FUN_004745d0();
 void FUN_0046b070(int);
 }
+void FUN_0046dfc0();
+void FUN_00471dd0();
+void FUN_00471670();
+void FUN_00471a90();
 void FUN_00432ca0(bool);
 void FUN_004733f0(int);
 void FUN_00472bd0(int);
@@ -209,9 +209,9 @@ struct PatchView { char pad[0x70]; int org[3]; };
 #define PFB(off) (*(bool *)((char *)dword_01233b64 + (off)))
 
 // 0x00411000
-void FUN_0047aa30();
+void ProjectDialog();
 void Map_New(void);
-void FUN_0047a8d0();
+void OpenDialog();
 void SaveAsDialog(bool);
 void FUN_00468910(const char *name, bool use_region);
 void FUN_004749a0();
@@ -292,7 +292,6 @@ void FUN_00439160(int a);
 void FUN_00473f50();
 void FUN_00473c70(int a);
 void FUN_0045e2c0(brushdef_t *b);
-void FUN_0041a010(int dir, int grid);
 void FUN_00433ad0();
 void FUN_00434040();
 void FUN_00438020();
@@ -1264,7 +1263,7 @@ extern "C" void FUN_00414ca0()
       return;
   }
   FUN_0046b9b0();
-  FUN_0047aa30();
+  ProjectDialog();
 }
 
 // 0x00414ce0
@@ -1288,7 +1287,7 @@ extern "C" void FUN_00414d20()
       return;
   }
   FUN_0046b9b0();
-  FUN_0047a8d0();
+  OpenDialog();
 }
 
 extern "C" void FUN_00414d60()
@@ -2319,7 +2318,7 @@ void CMainFrame::FUN_00417840()
     }
   }
   else
-    FUN_00444a00();
+    Undo_Redo();
 }
 
 extern "C" void __fastcall FUN_00417890(CMainFrame *self)
@@ -2981,9 +2980,8 @@ void CMainFrame::FUN_00418ec0()
   {
     if (DAT_0109fe5e)
       FUN_004171b0();
-    bool rot = DAT_0109fe5f;
     CXYWnd *xy = (CXYWnd *)this->field_07e0;
-    if (rot)
+    if (DAT_0109fe5f)
     {
       xy->SetRotateMode(false);
       this->m_wndToolBar.SendMessage(0x402, 0x802a, 0);
@@ -3413,6 +3411,95 @@ void CMainFrame::FUN_00419fd0() { FUN_0041a010(2, DAT_010bcd2c); }
 
 // 0x00419ff0
 void CMainFrame::FUN_00419ff0() { FUN_0041a010(1, DAT_010bcd2c); }
+
+extern float DAT_0109fdf0[3];
+void FUN_00470ef0(int axis, float deg, bool bUpdate, bool bMouse);
+
+// 0x0041a010 (652 B): NudgeSelection
+void CMainFrame::FUN_0041a010(int nDirection, int nAmount)
+{
+  if (DAT_0109fe5f)
+  {
+    int nAxis = 0;
+    if (((CXYWnd *)field_07e0)->m_nViewType == 2)
+    {
+      nAxis = 2;
+    }
+    else if (((CXYWnd *)g_pParentWnd->field_07e0)->m_nViewType == 1)
+    {
+      nAxis = 1;
+      nAmount = -nAmount;
+    }
+
+    if (nDirection == 2 || nDirection == 3)
+    {
+      nAmount = -nAmount;
+    }
+
+    float fDeg = (float)-nAmount;
+    float fAdj = (float)nAmount;
+
+    DAT_0109fdf0[nAxis] += fAdj;
+    CString strStatus;
+    strStatus.Format("Rotation x:: %.1f  y:: %.1f  z:: %.1f", DAT_0109fdf0[0], DAT_0109fdf0[1], DAT_0109fdf0[2]);
+    g_pParentWnd->FUN_00417d30(2, strStatus);
+    FUN_00470ef0(nAxis, fDeg, false, true);
+    dword_0123348c = -1;
+  }
+  else if (DAT_0109fe64)
+  {
+    if (nDirection == 0 || nDirection == 3)
+    {
+      nAmount = -nAmount;
+    }
+    float v[3];
+    v[0] = v[1] = v[2] = 1.0f;
+    if (nAmount > 0)
+    {
+      v[0] = 1.1f;
+      v[1] = 1.1f;
+      v[2] = 1.1f;
+    }
+    else
+    {
+      v[0] = 0.9f;
+      v[1] = 0.9f;
+      v[2] = 0.9f;
+    }
+
+    FUN_00470d80((DAT_0109fe60 & 1) ? v[0] : 1.0,
+                 (DAT_0109fe60 & 2) ? v[1] : 1.0,
+                 (DAT_0109fe60 & 4) ? v[2] : 1.0);
+    dword_0123348c = -1;
+  }
+  else
+  {
+    int nDim;
+    if (nDirection == 0)
+    {
+      nDim = ((CXYWnd *)field_07e0)->m_nViewType == 0 ? 1 : 0;
+      nAmount = -nAmount;
+    }
+    else if (nDirection == 1)
+    {
+      nDim = ((CXYWnd *)field_07e0)->m_nViewType == 2 ? 1 : 2;
+    }
+    else if (nDirection == 2)
+    {
+      nDim = ((CXYWnd *)field_07e0)->m_nViewType == 0 ? 1 : 0;
+    }
+    else
+    {
+      nDim = ((CXYWnd *)field_07e0)->m_nViewType == 2 ? 1 : 2;
+      nAmount = -nAmount;
+    }
+    float vec[3];
+    vec[0] = vec[1] = vec[2] = 0;
+    vec[nDim] = (float)nAmount;
+    FUN_0046fd50(vec, 1);
+    dword_0123348c = -1;
+  }
+}
 
 BOOL CMainFrame::PreTranslateMessage(MSG *pMsg)
 {
@@ -3973,6 +4060,7 @@ extern "C" void FUN_0041b540()
   Undo_End();
 }
 
+void FUN_00441420();
 // 0x0041b590
 void CMainFrame::FUN_0041b590(int id)
 {
@@ -3987,8 +4075,7 @@ void CMainFrame::FUN_0041b590(int id)
     ::CheckMenuItem(pMenu->m_hMenu, id, MF_CHECKED);
   }
   dword_01233b64->SavePrefs();
-  FUN_00441f80(16, 16);
-  DAT_01128da0 = 0;
+  FUN_00441420();
   dword_0123348c |= 0x10;
 }
 

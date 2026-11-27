@@ -16,6 +16,24 @@ void Com_Printf(const char *format, ...)
 }
 extern "C" void FUN_00408f40() {}
 
+void Swap_Init(void);
+void Dvar_Init();
+void Dvar_SetStringByName(const char *dvarName, const char *value);
+void FS_InitFilesystem();
+
+void FUN_00408f50(const char *basepath, const char *game, const char *basegame)
+{
+    Swap_Init();
+    Dvar_Init();
+    if (basepath)
+        Dvar_SetStringByName("fs_basepath", basepath);
+    if (basegame)
+        Dvar_SetStringByName("fs_basegame", basegame);
+    if (game)
+        Dvar_SetStringByName("fs_game", game);
+    FS_InitFilesystem();
+}
+
 // Retail 0x00408fd0 calls the filesystem shutdown and then tail-calls
 // Dvar_Shutdown (the latter is in the accepted dvar.cpp ledger).
 void FS_Shutdown(int closemfp);

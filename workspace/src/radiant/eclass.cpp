@@ -88,7 +88,7 @@ char *ValueForKey(entity_t *ent, const char *key);
 extern entity_t *dword_010bcd34;
 qtexture_s *__fastcall FUN_00440840(char *name);
 bool FUN_00463d60(eclass_t *e);
-eclass_t *FUN_00464770(int hasBrushes, const char *name);
+eclass_t *FUN_00464770(const char *name, int hasBrushes);
 #define Eclass_hasModel FUN_00463d60
 
 void FUN_004661f0(entity_t *e);
@@ -719,7 +719,7 @@ void FUN_00464170(char *path)
 }
 
 // 0x00464770
-eclass_t *FUN_00464770(int hasBrushes, const char *name)
+eclass_t *FUN_00464770(const char *name, int hasBrushes)
 {
 	eclass_t *e;
 	char init[1024];
@@ -782,7 +782,7 @@ eclass_t *FUN_00464930(const char *name, entity_t *ent)
 	e->modelpath = FUN_0046cb10(name);
 	e->flags |= ent->eclass->flags & 0x10;
 	e->color[0] = e->color[2] = 0.85f;
-	eclass_t *base = FUN_00464770(0, name);
+	eclass_t *base = FUN_00464770(name, 0);
 	e->mins[0] = base->mins[0];
 	e->mins[1] = base->mins[1];
 	e->mins[2] = base->mins[2];

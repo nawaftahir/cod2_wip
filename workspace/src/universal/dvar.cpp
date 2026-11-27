@@ -824,7 +824,7 @@ void Dvar_PrintDomain(unsigned char type, DvarLimits domain)
 	Com_Printf("  %s\n", Dvar_DomainToString(type, domain, domainBuffer, sizeof(domainBuffer)));
 }
 #pragma auto_inline(on)
-int FUN_0048b760(const float *v1, const float *v2);
+bool FUN_0048b760(const float *v1, const float *v2);
 
 static bool Dvar_ValuesEqual(unsigned char type, DvarValue val0, DvarValue val1)
 {
