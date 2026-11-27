@@ -2377,12 +2377,29 @@ void CXYWnd::DrawCameraIcon()
     int d1, d2;
     vec3_t org;
     CCamWnd *cam;
-    float rad = (((m_nViewType == XY)
-        ? (d1 = 0, d2 = 1, cam = reinterpret_cast<CMainFrameCamProjection *>(g_pParentWnd)->m_pCamWnd, cam->m_Camera.angles[1])
-        : (m_nViewType == YZ)
-            ? (d1 = 1, d2 = 2, cam = reinterpret_cast<CMainFrameCamProjection *>(g_pParentWnd)->m_pCamWnd, cam->m_Camera.angles[0])
-            : (d1 = 0, d2 = 2, cam = reinterpret_cast<CMainFrameCamProjection *>(g_pParentWnd)->m_pCamWnd, cam->m_Camera.angles[0]))
-        + 45.0f) * 0.017453292f;
+    float a;
+    if (m_nViewType == XY)
+    {
+        d1 = 0;
+        d2 = 1;
+        cam = reinterpret_cast<CMainFrameCamProjection *>(g_pParentWnd)->m_pCamWnd;
+        a = cam->m_Camera.angles[1];
+    }
+    else if (m_nViewType == YZ)
+    {
+        d1 = 1;
+        d2 = 2;
+        cam = reinterpret_cast<CMainFrameCamProjection *>(g_pParentWnd)->m_pCamWnd;
+        a = cam->m_Camera.angles[0];
+    }
+    else
+    {
+        d1 = 0;
+        d2 = 2;
+        cam = reinterpret_cast<CMainFrameCamProjection *>(g_pParentWnd)->m_pCamWnd;
+        a = cam->m_Camera.angles[0];
+    }
+    float rad = (a + 45.0f) * 0.017453292f;
     VectorCopy(cam->m_Camera.origin, org);
     org[3 - d1 - d2] = 131072.0f;
     float s, cs;
@@ -2439,29 +2456,24 @@ void CXYWnd::DrawZIcon()
     re.ColorToBytes(color_0053dc94, color);
     color[3] = 0x40;
 
-    float x0 = x - 8.0f;
-    float y0 = y - 8.0f;
-    float x1 = x + 8.0f;
-    float y1 = y + 8.0f;
-
-    xyzw[0][0] = x0; xyzw[0][1] = y0; xyzw[0][2] = 131072.0f; xyzw[0][3] = 1.0f;
-    VectorSet(normal[0], 0.0f, 0.0f, 1.0f);
+    xyzw[0][0] = x - 8.0f; xyzw[0][1] = y - 8.0f; xyzw[0][2] = 131072.0f; xyzw[0][3] = 1.0f;
     st[0][0] = 0.0f; st[0][1] = 0.0f;
+    VectorSet(normal[0], 0.0f, 0.0f, 1.0f);
     *(unsigned *)colors[0] = *(unsigned *)color;
 
-    xyzw[1][0] = x1; xyzw[1][1] = y0; xyzw[1][2] = 131072.0f; xyzw[1][3] = 1.0f;
-    VectorSet(normal[1], 0.0f, 0.0f, 1.0f);
+    xyzw[1][0] = x + 8.0f; xyzw[1][1] = y - 8.0f; xyzw[1][2] = 131072.0f; xyzw[1][3] = 1.0f;
     st[1][0] = 1.0f; st[1][1] = 0.0f;
+    VectorSet(normal[1], 0.0f, 0.0f, 1.0f);
     *(unsigned *)colors[1] = *(unsigned *)color;
 
-    xyzw[2][0] = x1; xyzw[2][1] = y1; xyzw[2][2] = 131072.0f; xyzw[2][3] = 1.0f;
-    VectorSet(normal[2], 0.0f, 0.0f, 1.0f);
+    xyzw[2][0] = x + 8.0f; xyzw[2][1] = y + 8.0f; xyzw[2][2] = 131072.0f; xyzw[2][3] = 1.0f;
     st[2][0] = 1.0f; st[2][1] = 1.0f;
+    VectorSet(normal[2], 0.0f, 0.0f, 1.0f);
     *(unsigned *)colors[2] = *(unsigned *)color;
 
-    xyzw[3][0] = x0; xyzw[3][1] = y1; xyzw[3][2] = 131072.0f; xyzw[3][3] = 1.0f;
-    VectorSet(normal[3], 0.0f, 0.0f, 1.0f);
+    xyzw[3][0] = x - 8.0f; xyzw[3][1] = y + 8.0f; xyzw[3][2] = 131072.0f; xyzw[3][3] = 1.0f;
     st[3][0] = 0.0f; st[3][1] = 1.0f;
+    VectorSet(normal[3], 0.0f, 0.0f, 1.0f);
     *(unsigned *)colors[3] = *(unsigned *)color;
 
     indices[0] = 1;
@@ -2472,14 +2484,14 @@ void CXYWnd::DrawZIcon()
     indices[5] = 3;
     re.DrawTris(dword_011298c8, 3, 6, indices, 4, xyzw, normal, (const unsigned int *)colors, st);
 
-    VectorSet(verts[0].xyz, x0, y0, 131072.0f);
-    VectorSet(verts[1].xyz, x1, y0, 131072.0f);
-    VectorSet(verts[2].xyz, x1, y0, 131072.0f);
-    VectorSet(verts[3].xyz, x1, y1, 131072.0f);
-    VectorSet(verts[4].xyz, x1, y1, 131072.0f);
-    VectorSet(verts[5].xyz, x0, y1, 131072.0f);
-    VectorSet(verts[6].xyz, x0, y1, 131072.0f);
-    VectorSet(verts[7].xyz, x0, y0, 131072.0f);
+    VectorSet(verts[0].xyz, x - 8.0f, y - 8.0f, 131072.0f);
+    VectorSet(verts[1].xyz, x + 8.0f, y - 8.0f, 131072.0f);
+    VectorSet(verts[2].xyz, x + 8.0f, y - 8.0f, 131072.0f);
+    VectorSet(verts[3].xyz, x + 8.0f, y + 8.0f, 131072.0f);
+    VectorSet(verts[4].xyz, x + 8.0f, y + 8.0f, 131072.0f);
+    VectorSet(verts[5].xyz, x - 8.0f, y + 8.0f, 131072.0f);
+    VectorSet(verts[6].xyz, x - 8.0f, y + 8.0f, 131072.0f);
+    VectorSet(verts[7].xyz, x - 8.0f, y - 8.0f, 131072.0f);
     VectorSet(verts[8].xyz, x - 4.0f, y + 4.0f, 131072.0f);
     VectorSet(verts[9].xyz, x + 4.0f, y + 4.0f, 131072.0f);
     VectorSet(verts[10].xyz, x + 4.0f, y + 4.0f, 131072.0f);
@@ -3163,21 +3175,21 @@ void DrawConnectionArrow(int nDim1, int nDim2, CXYWnd *wnd, const float *p1, con
 void CXYWnd::DrawLightRadiusIcon(const float *center, int width, float radius, int segments, unsigned *color)
 {
     GfxPointVertex verts[0x400];
-    vec3_t axis[2], prev, cur;
+    vec3_t axis0, axis1, prev, cur;
 
     switch (m_nViewType)
     {
     case YZ:
-        axis[0][0] = 0; axis[0][1] = radius; axis[0][2] = 0;
-        axis[1][0] = 0; axis[1][1] = 0; axis[1][2] = radius;
+        axis0[0] = 0; axis0[1] = radius; axis0[2] = 0;
+        axis1[0] = 0; axis1[1] = 0; axis1[2] = radius;
         break;
     case XZ:
-        axis[0][0] = radius; axis[0][1] = 0; axis[0][2] = 0;
-        axis[1][0] = 0; axis[1][1] = 0; axis[1][2] = radius;
+        axis0[0] = radius; axis0[1] = 0; axis0[2] = 0;
+        axis1[0] = 0; axis1[1] = 0; axis1[2] = radius;
         break;
     case XY:
-        axis[0][0] = radius; axis[0][1] = 0; axis[0][2] = 0;
-        axis[1][0] = 0; axis[1][1] = radius; axis[1][2] = 0;
+        axis0[0] = radius; axis0[1] = 0; axis0[2] = 0;
+        axis1[0] = 0; axis1[1] = radius; axis1[2] = 0;
         break;
     }
     float step = 6.2831855f / (float)segments;
@@ -3186,19 +3198,15 @@ void CXYWnd::DrawLightRadiusIcon(const float *center, int width, float radius, i
     float sn = 0.0f;
     float cs = 1.0f;
     int n = 0;
-    VectorAdd(axis[1], center, cur);
+    VectorAdd(axis1, center, cur);
     for (int i = 0; i < segments; i++)
     {
         VectorCopy(cur, prev);
         float ns = cs * s + sn * c;
         cs = cs * c - sn * s;
         sn = ns;
-        cur[0] = axis[0][0] * sn + center[0];
-        cur[1] = axis[0][1] * sn + center[1];
-        cur[2] = axis[0][2] * sn + center[2];
-        cur[0] += axis[1][0] * cs;
-        cur[1] += axis[1][1] * cs;
-        cur[2] += axis[1][2] * cs;
+        VectorMA(center, sn, axis0, cur);
+        VectorMA(cur, cs, axis1, cur);
         n = R_Add3DLine(verts, prev, cur, color, width, n, 0x400);
     }
     if (n)

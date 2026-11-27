@@ -1160,8 +1160,8 @@ void FUN_00470ef0(int axis, float deg, bool bUpdate, bool bMouse)
     {
         matrix[1][2] = -s;
         matrix[2][1] = s;
-        matrix[2][2] = c;
         matrix[1][1] = c;
+        matrix[2][2] = c;
     }
     else if (axis == 1)
     {
@@ -2166,15 +2166,13 @@ void FUN_00474710(float value, int axis)
             float angles[3];
             if (FUN_00465d80(ent, "angles"))
                 sscanf(ValueForKey(ent->epairs, "angles"), "%f %f %f", &angles[0], &angles[1], &angles[2]);
-            else
-                angles[0] = angles[1] = angles[2] = 0;
+            else { angles[0] = 0; angles[1] = 0; angles[2] = 0; }
             angles[axis] = value;
             FUN_00465bf0(ent, "angles", va("%g %g %g", angles[0], angles[1], angles[2]));
         }
     }
     Undo_End();
 }
-
 // 0x00474880 (286 B): set the angles key of the selected entities
 void FUN_00474880(const float *angles)
 {

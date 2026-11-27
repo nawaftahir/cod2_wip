@@ -382,44 +382,45 @@ VertEditRgb FUN_00447410(VertEditHsl hsl)
     float h = hsl.h / 240.0;
     float s = hsl.s / 240.0;
     float l = hsl.l / 240.0;
-    float tb, tg, tr, q;
+    float r, g, b;
     if (s == 0.0f)
     {
-        tr = l;
-        tg = l;
-        tb = l;
+        b = l;
+        g = l;
+        r = l;
     }
     else
     {
+        float q;
         if (l < 0.5)
             q = (s + 1.0f) * l;
         else
             q = l + s - l * s;
-        l = 2.0f * l - q;
-        tr = h + 1.0 / 3.0;
+        float p = 2.0f * l - q;
+        float tr = h + 1.0 / 3.0;
         if (tr > 1.0)
             tr -= 1.0f;
-        tg = h;
-        tb = h - 1.0 / 3.0;
+        float tg = h;
+        float tb = h - 1.0 / 3.0;
         if (tb < 0.0)
             tb += 1.0f;
-#define VERTEDIT_CHANNEL(t) \
+#define VERTEDIT_CHANNEL(t, outv) \
     if (t < 1.0 / 6.0) \
-        t = (q - l) * t * 6.0 + l; \
+        outv = (q - p) * t * 6.0 + p; \
     else if (t < 0.5) \
-        t = q; \
+        outv = q; \
     else if (t < 2.0 / 3.0) \
-        t = (q - l) * (2.0 / 3.0 - t) * 6.0 + l; \
+        outv = (q - p) * (2.0 / 3.0 - t) * 6.0 + p; \
     else \
-        t = l;
-        VERTEDIT_CHANNEL(tr)
-        VERTEDIT_CHANNEL(tg)
-        VERTEDIT_CHANNEL(tb)
+        outv = p;
+        VERTEDIT_CHANNEL(tr, r)
+        VERTEDIT_CHANNEL(tg, g)
+        VERTEDIT_CHANNEL(tb, b)
 #undef VERTEDIT_CHANNEL
     }
     VertEditRgb out;
-    out.r = (int)(tr * 255.0);
-    out.g = (int)(tg * 255.0);
-    out.b = (int)(tb * 255.0);
+    out.r = (int)(r * 255.0);
+    out.g = (int)(g * 255.0);
+    out.b = (int)(b * 255.0);
     return out;
 }
