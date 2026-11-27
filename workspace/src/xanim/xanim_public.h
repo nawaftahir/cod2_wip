@@ -295,6 +295,45 @@ typedef struct XModelParts_s
 static_assert((sizeof(XModelParts) == 100), "ERROR: XModelParts size is invalid!");
 #endif
 
+#undef IS_NAN
+#define IS_NAN(x) (((*(int *)&(x)) & (255 << 23)) == (255 << 23))
+inline void ConvertQuatToMat( const DObjAnimMat *mat, float axis[3][3] )
+{
+	float xx;
+	float xy;
+	float xz;
+	float xw;
+	float yy;
+	float yz;
+	float yw;
+	float zz;
+	float zw;
+	vec3_t scaledQuat;
+	VectorScale(mat->quat, mat->transWeight, scaledQuat);
+	xx = scaledQuat[0] * mat->quat[0];
+	xy = scaledQuat[0] * mat->quat[1];
+	xz = scaledQuat[0] * mat->quat[2];
+	xw = scaledQuat[0] * mat->quat[3];
+	yy = scaledQuat[1] * mat->quat[1];
+	yz = scaledQuat[1] * mat->quat[2];
+	yw = scaledQuat[1] * mat->quat[3];
+	zz = scaledQuat[2] * mat->quat[2];
+	zw = scaledQuat[2] * mat->quat[3];
+	axis[0][0] = 1.0f - (yy + zz);
+	axis[0][1] = xy + zw;
+	axis[0][2] = xz - yw;
+	axis[1][0] = xy - zw;
+	axis[1][1] = 1.0f - (xx + zz);
+	axis[1][2] = yz + xw;
+	axis[2][0] = xz + yw;
+	axis[2][1] = yz - xw;
+	axis[2][2] = 1.0f - (xx + yy);
+
+	assert(!IS_NAN((axis[0])[0]) && !IS_NAN((axis[0])[1]) && !IS_NAN((axis[0])[2]));
+	assert(!IS_NAN((axis[1])[0]) && !IS_NAN((axis[1])[1]) && !IS_NAN((axis[1])[2]));
+	assert(!IS_NAN((axis[2])[0]) && !IS_NAN((axis[2])[1]) && !IS_NAN((axis[2])[2]));
+}
+
 typedef struct XModelSurfs_s
 {
 	struct XSurface *surf; // !!! Not loaded in server binary
@@ -459,41 +498,6 @@ void DObjAbort();
 
 int DObjSetControlTagAngles(const DObj_s *obj, int *partBits, unsigned int boneIndex, float *angles);
 int DObjSetLocalTag(const DObj_s *obj, int *partBits, unsigned int boneIndex, const float *trans, const float *angles);
-inline void ConvertQuatToMat( const DObjAnimMat *mat, float axis[3][3] )
-{
-	float xx;
-	float xy;
-	float xz;
-	float xw;
-	float yy;
-	float yz;
-	float yw;
-	float zz;
-	float zw;
-	vec3_t scaledQuat;
-
-	VectorScale(mat->quat, mat->transWeight, scaledQuat);
-
-	xx = scaledQuat[0] * mat->quat[0];
-	xy = scaledQuat[0] * mat->quat[1];
-	xz = scaledQuat[0] * mat->quat[2];
-	xw = scaledQuat[0] * mat->quat[3];
-	yy = scaledQuat[1] * mat->quat[1];
-	yz = scaledQuat[1] * mat->quat[2];
-	yw = scaledQuat[1] * mat->quat[3];
-	zz = scaledQuat[2] * mat->quat[2];
-	zw = scaledQuat[2] * mat->quat[3];
-
-	axis[0][0] = 1.0f - (yy + zz);
-	axis[0][1] = xy + zw;
-	axis[0][2] = xz - yw;
-	axis[1][0] = xy - zw;
-	axis[1][1] = 1.0f - (xx + zz);
-	axis[1][2] = yz + xw;
-	axis[2][0] = xz + yw;
-	axis[2][1] = yz - xw;
-	axis[2][2] = 1.0f - (xx + yy);
-}
 
 inline void MatrixTransformVectorQuatTrans( const float *in, const DObjAnimMat *mat, float *out )
 {

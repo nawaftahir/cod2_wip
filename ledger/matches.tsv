@@ -461,6 +461,7 @@ addr	size	source	symbol	name	tag
 0x004115a0	3	src/radiant/MainFrm.cpp	_FUN_004115a0@8	FUN_004115a0	UNNAMED
 0x004115b0	2091	src/radiant/MainFrm.cpp	?FUN_004115b0@CMainFrame@@QAEXXZ	CMainFrame::FUN_004115b0	UNNAMED
 0x00412060	123	src/radiant/MainFrm.cpp	?FUN_00412060@@YAHPAPAD@Z	FUN_00412060	UNNAMED
+0x00412a90	861	src/radiant/MainFrm.cpp	?FUN_00412a90@@YAXXZ	LoadCommandMap	SUPPORTED
 0x00412df0	9	src/radiant/MainFrm.cpp	?PreCreateWindow@CMainFrame@@UAEHAAUtagCREATESTRUCTA@@@Z	CMainFrame::PreCreateWindow	SUPPORTED
 0x00412e00	544	src/radiant/MainFrm.cpp	?CreateQEChildren@@YGXPAVCMainFrame@@@Z	CreateQEChildren	SUPPORTED
 0x00413020	9	src/radiant/MainFrm.cpp	?OnCommand@CMainFrame@@UAEHIJ@Z	CMainFrame::OnCommand	SUPPORTED
@@ -539,6 +540,7 @@ addr	size	source	symbol	name	tag
 0x00415e60	21	src/radiant/MainFrm.cpp	_FUN_00415e60	FUN_00415e60	UNNAMED
 0x00415e80	21	src/radiant/MainFrm.cpp	_FUN_00415e80	FUN_00415e80	UNNAMED
 0x00415ea0	80	src/radiant/MainFrm.cpp	_FUN_00415ea0	FUN_00415ea0	UNNAMED
+0x00415ef0	319	src/radiant/MainFrm.cpp	?FUN_00415ef0@@YAXPBDH@Z	FUN_00415ef0	SUPPORTED
 0x00416090	146	src/radiant/MainFrm.cpp	_FUN_00416090	FUN_00416090	UNNAMED
 0x00416130	146	src/radiant/MainFrm.cpp	_FUN_00416130	FUN_00416130	UNNAMED
 0x004161d0	146	src/radiant/MainFrm.cpp	_FUN_004161d0	FUN_004161d0	UNNAMED
@@ -950,6 +952,8 @@ addr	size	source	symbol	name	tag
 0x00422f70	3	src/radiant/ModelDlg.cpp	?DoDataExchange@CModelDlg@@MAEXPAVCDataExchange@@@Z	CModelDlg::DoDataExchange	SUPPORTED
 0x00422f80	6	src/radiant/ModelDlg.cpp	?GetMessageMap@CModelDlg@@MBEPBUAFX_MSGMAP@@XZ	CModelDlg::GetMessageMap	SUPPORTED
 0x00422f90	231	src/radiant/ModelDlg.cpp	?OnShowWindow@CModelDlg@@IAEXHI@Z	CModelDlg::OnShowWindow	SUPPORTED
+0x00423080	1128	src/radiant/ModelDlg.cpp	?FUN_00423080@CModelDlg@@IAEXXZ	CModelDlg::FUN_00423080	SUPPORTED
+0x004234f0	1128	src/radiant/ModelDlg.cpp	?FUN_004234f0@CModelDlg@@IAEXXZ	CModelDlg::FUN_004234f0	SUPPORTED
 0x00423960	87	src/radiant/ModelDlg.cpp	?FUN_00423960@CModelDlg@@IAEXXZ	CModelDlg::FUN_00423960	SUPPORTED
 0x004239c0	186	src/radiant/ModelDlg.cpp	?FUN_004239c0@CModelDlg@@IAEXXZ	CModelDlg::FUN_004239c0	SUPPORTED
 0x00423a80	87	src/radiant/ModelDlg.cpp	?FUN_00423a80@CModelDlg@@IAEXXZ	CModelDlg::FUN_00423a80	SUPPORTED
@@ -957,6 +961,7 @@ addr	size	source	symbol	name	tag
 0x00423d20	387	src/radiant/ModelDlg.cpp	?FUN_00423d20@CModelDlg@@IAEXXZ	CModelDlg::FUN_00423d20	SUPPORTED
 0x00423eb0	16	src/radiant/ModelDlg.cpp	?OnClose@CModelDlg@@IAEXXZ	CModelDlg::OnClose	SUPPORTED
 0x00423ef0	78	src/radiant/ModelDlg.cpp	?MakeLower@?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAEAAV12@XZ	ATL::CStringT::MakeLower	SUPPORTED
+0x00423f40	99	src/radiant/ModelDlg.cpp	?Right@?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QBE?AV12@H@Z	ATL::CStringT::Right(int)	SUPPORTED
 0x00424010	10	src/radiant/ModelDlg.cpp	?StringLowercase@?$ChTraitsCRT@D@ATL@@SAPADPAD@Z	ATL::ChTraitsCRT::StringLowercase	SUPPORTED
 0x00424020	101	src/radiant/ModelDlg.cpp	??0?$CSimpleStringT@D$0A@@ATL@@QAE@PBDHPAUIAtlStringMgr@1@@Z	ATL::CSimpleStringT::CSimpleStringT(const char *, int, IAtlStringMgr *)	SUPPORTED
 0x00424090	183	src/radiant/NameDlg.cpp	??0CNameDlg@@QAE@PBDPAVCWnd@@@Z	CNameDlg::CNameDlg	SUPPORTED
@@ -1183,6 +1188,8 @@ addr	size	source	symbol	name	tag
 0x0043cd60	136	src/radiant/SurfaceDlg.cpp	?FUN_0043cd60@@YAMXZ	FUN_0043cd60	SUPPORTED
 0x0043cdf0	45	src/radiant/SurfaceDlg.cpp	?FUN_0043cdf0@@YAMPAUselFace_t@@@Z	FUN_0043cdf0	SUPPORTED
 0x0043ce20	254	src/radiant/SurfaceDlg.cpp	?FUN_0043ce20@@YAMXZ	FUN_0043ce20	SUPPORTED
+0x0043cf20	89	src/radiant/SurfaceDlg.cpp	?FUN_0043cf20@@YGXPADM@Z	FUN_0043cf20	SUPPORTED
+0x0043d400	557	src/radiant/SurfaceDlg.cpp	?FUN_0043d400@@YGXPAVCSurfaceDlg@@@Z	FUN_0043d400	SUPPORTED
 0x0043ddf0	501	src/radiant/SurfaceDlg.cpp	?FUN_0043ddf0@CSurfaceDlg@@IAEXIPAVCScrollBar@@@Z	CSurfaceDlg::FUN_0043ddf0	UNNAMED
 0x0043dff0	509	src/radiant/SurfaceDlg.cpp	?FUN_0043dff0@@YAXXZ	FUN_0043dff0	SUPPORTED
 0x0043e1f0	514	src/radiant/SurfaceDlg.cpp	?FUN_0043e1f0@@YAXXZ	FUN_0043e1f0	UNNAMED
@@ -1442,6 +1449,7 @@ addr	size	source	symbol	name	tag
 0x00449b80	75	src/radiant/XYWnd.cpp	?FUN_00449b80@@YAXPAM@Z	FUN_00449b80	UNNAMED
 0x00449c40	29	src/radiant/XYWnd.cpp	?OnMButtonDown@CXYWnd@@IAEXIVCPoint@@@Z	CXYWnd::OnMButtonDown	SUPPORTED
 0x00449c60	37	src/radiant/XYWnd.cpp	?CleanList@@YAXPAUbrush_t@@@Z	CleanList	SUPPORTED
+0x00449c90	860	src/radiant/XYWnd.cpp	?FUN_00449c90@@YAXXZ	FUN_00449c90	SUPPORTED
 0x00449ff0	51	src/radiant/XYWnd.cpp	?FUN_00449ff0@@YAXPAUbrush_t@@0@Z	FUN_00449ff0	UNNAMED
 0x0044a0d0	89	src/radiant/XYWnd.cpp	?OnLButtonUp@CXYWnd@@IAEXIVCPoint@@@Z	CXYWnd::OnLButtonUp	SUPPORTED
 0x0044a130	55	src/radiant/XYWnd.cpp	?OnMButtonUp@CXYWnd@@IAEXIVCPoint@@@Z	CXYWnd::OnMButtonUp	SUPPORTED
@@ -1601,7 +1609,7 @@ addr	size	source	symbol	name	tag
 0x0045a150	201	src/radiant/brush.cpp	?FUN_0045a150@@YAHPAUbrushdef_t@@PBHQBMHPAX3@Z	FUN_0045a150	SUPPORTED
 0x0045a600	548	src/radiant/brush.cpp	?FUN_0045a600@@YAXPAUbrush_t@@@Z	FUN_0045a600	UNNAMED
 0x0045a830	226	src/radiant/brush.cpp	?FUN_0045a830@@YAXPAUbrush_t@@@Z	FUN_0045a830	UNNAMED
-0x0045a920	1502	src/radiant/brush.cpp	?FUN_0045a920@@YAXPAUbrush_t@@PAU_iobuf@@_N2HM@Z	FUN_0045a920	UNNAMED
+0x0045a920	1502	src/radiant/brush.cpp	?FUN_0045a920@@YAXPAUbrush_t@@PAU_iobuf@@_N22M@Z	FUN_0045a920	UNNAMED
 0x0045af00	192	src/radiant/brush.cpp	?FUN_0045af00@@YAXPAUbrush_t@@@Z	FUN_0045af00	UNNAMED
 0x0045b310	260	src/radiant/brush.cpp	?FUN_0045b310@@YAXPAUbrushdef_t@@QBM1@Z	FUN_0045b310	UNNAMED
 0x0045b630	36	src/radiant/brush.cpp	?FUN_0045b630@@YA_NPAUbrush_t@@@Z	FUN_0045b630	SUPPORTED
@@ -1643,6 +1651,7 @@ addr	size	source	symbol	name	tag
 0x004634f0	98	src/radiant/eclass.cpp	?FUN_004634f0@@YAXXZ	FUN_004634f0	SUPPORTED
 0x00463560	429	src/radiant/eclass.cpp	?FUN_00463560@@YAXPAUeclass_t@@@Z	FUN_00463560	PINNED
 0x00463710	326	src/radiant/eclass.cpp	?setSpecialLoad@@YAXPAUeclass_t@@PBDAAPAD@Z	setSpecialLoad	SUPPORTED
+0x00463860	907	src/radiant/eclass.cpp	?FUN_00463860@@YAPAUeclass_t@@PAD@Z	Eclass_InitFromText	SUPPORTED
 0x00463d60	221	src/radiant/eclass.cpp	?FUN_00463d60@@YA_NPAUeclass_t@@@Z	FUN_00463d60	UNNAMED
 0x00463e40	75	src/radiant/eclass.cpp	?FUN_00463e40@@YAXPAUeclass_t@@PAPAU1@@Z	FUN_00463e40	SUPPORTED
 0x00463e90	13	src/radiant/eclass.cpp	?FUN_00463e90@@YAXPAUeclass_t@@@Z	FUN_00463e90	SUPPORTED
@@ -1717,6 +1726,7 @@ addr	size	source	symbol	name	tag
 0x00468100	175	src/radiant/map.cpp	?FUN_00468100@@YAXXZ	FUN_00468100	UNNAMED
 0x004681b0	27	src/radiant/map.cpp	?FUN_004681b0@@YAPAUentity_t@@XZ	FUN_004681b0	UNNAMED
 0x004681d0	134	src/radiant/map.cpp	?FUN_004681d0@@YAHPAPBD@Z	FUN_004681d0	UNNAMED
+0x00468260	373	src/radiant/map.cpp	?FUN_00468260@@YAHPBDPAUentity_t@@@Z	FUN_00468260	SUPPORTED
 0x00468d10	238	src/radiant/map.cpp	?Map_New@@YAXXZ	Map_New	SUPPORTED
 0x004690d0	37	src/radiant/map.cpp	?FUN_004690d0@@YAXXZ	FUN_004690d0	UNNAMED
 0x00469100	53	src/radiant/map.cpp	?Map_IsBrushFiltered@@YA_NPAUbrushDef_t@@@Z	Map_IsBrushFiltered	SUPPORTED
@@ -1789,6 +1799,7 @@ addr	size	source	symbol	name	tag
 0x0046e460	50	src/radiant/qe3.cpp	?FUN_0046e460@@YAHPBD@Z	FUN_0046e460	UNNAMED
 0x0046e4a0	55	src/radiant/select.cpp	?FUN_0046e4a0@@YAXXZ	FUN_0046e4a0	SUPPORTED
 0x0046e4e0	51	src/radiant/select.cpp	?FUN_0046e4e0@@YAXH@Z	FUN_0046e4e0	SUPPORTED
+0x0046f0b0	522	src/radiant/select.cpp	?FUN_0046f0b0@@YAXPAUbrush_t@@_N11@Z	Select_Brush	SUPPORTED
 0x0046f2c0	367	src/radiant/select.cpp	?FUN_0046f2c0@@YAXPAUbrush_t@@@Z	FUN_0046f2c0	SUPPORTED
 0x0046f430	188	src/radiant/select.cpp	?FUN_0046f430@@YAXPAUbrush_t@@@Z	FUN_0046f430	SUPPORTED
 0x0046fbe0	355	src/radiant/select.cpp	?FUN_0046fbe0@@YAX_N@Z	FUN_0046fbe0	SUPPORTED
@@ -1807,13 +1818,19 @@ addr	size	source	symbol	name	tag
 0x00471dd0	972	src/radiant/select.cpp	?FUN_00471dd0@@YAXXZ	FUN_00471dd0	UNNAMED
 0x004721a0	224	src/radiant/select.cpp	?FUN_004721a0@@YAXHH@Z	FUN_004721a0	UNNAMED
 0x00472280	224	src/radiant/select.cpp	?FUN_00472280@@YAXHH@Z	FUN_00472280	UNNAMED
+0x00472360	370	src/radiant/select.cpp	?FUN_00472360@@YAXPAUbrush_t@@PAU_iobuf@@_N22M@Z	FUN_00472360	SUPPORTED
+0x004724e0	698	src/radiant/select.cpp	?FUN_004724e0@@YAX_N0M0@Z	FUN_004724e0	SUPPORTED
 0x004727a0	18	src/radiant/select.cpp	?FUN_004727a0@@YAXXZ	FUN_004727a0	UNNAMED
 0x004727c0	21	src/radiant/select.cpp	?FUN_004727c0@@YAXXZ	FUN_004727c0	UNNAMED
 0x004727e0	18	src/radiant/select.cpp	?FUN_004727e0@@YAXXZ	FUN_004727e0	UNNAMED
 0x00472800	18	src/radiant/select.cpp	?FUN_00472800@@YAXXZ	FUN_00472800	UNNAMED
 0x00472820	18	src/radiant/select.cpp	?FUN_00472820@@YAXXZ	FUN_00472820	UNNAMED
 0x00472840	18	src/radiant/select.cpp	?FUN_00472840@@YAXXZ	FUN_00472840	UNNAMED
+0x00472860	870	src/radiant/select.cpp	?FUN_00472860@@YAXMM@Z	FUN_00472860	SUPPORTED
+0x00472bd0	1055	src/radiant/select.cpp	?FUN_00472bd0@@YAXH@Z	FUN_00472bd0	SUPPORTED
+0x00472ff0	1012	src/radiant/select.cpp	?FUN_00472ff0@@YAXHH@Z	FUN_00472ff0	SUPPORTED
 0x00473940	136	src/radiant/select.cpp	?FindReplaceTextures@@YA_NPBD0_N11@Z	FindReplaceTextures	SUPPORTED
+0x00473f50	649	src/radiant/select.cpp	?FUN_00473f50@@YAXXZ	FUN_00473f50	SUPPORTED
 0x004741e0	65	src/radiant/select.cpp	?FUN_004741e0@@YAXH@Z	FUN_004741e0	SUPPORTED
 0x00474540	1	src/radiant/select.cpp	_FUN_00474540	FUN_00474540	UNNAMED
 0x00474550	18	src/radiant/select.cpp	?FUN_00474550@@YAXPAUbrush_t@@_N@Z	FUN_00474550	UNNAMED
@@ -1848,6 +1865,7 @@ addr	size	source	symbol	name	tag
 0x004766b0	29	src/radiant/win_dlg.cpp	?DoRotate@@YAXXZ	DoRotate	SUPPORTED
 0x004766d0	312	src/radiant/win_dlg.cpp	?SidesDlgProc@@YGHPAUHWND__@@IIJ@Z	SidesDlgProc	SUPPORTED
 0x00476810	40	src/radiant/win_dlg.cpp	?DoSides@@YAX_N00@Z	DoSides	SUPPORTED
+0x00476aa0	572	src/radiant/win_dlg.cpp	?FUN_00476aa0@@YGHPAUHWND__@@IIJ@Z	FUN_00476aa0	SUPPORTED
 0x00476ce0	32	src/radiant/win_dlg.cpp	?FUN_00476ce0@@YAXXZ	FUN_00476ce0	UNNAMED
 0x00476d00	76	src/radiant/win_dlg.cpp	?AboutDlgProc@@YGHPAUHWND__@@IIJ@Z	AboutDlgProc	SUPPORTED
 0x00476d50	29	src/radiant/win_dlg.cpp	?DoAbout@@YAXXZ	DoAbout	SUPPORTED
@@ -2025,6 +2043,8 @@ addr	size	source	symbol	name	tag
 0x00482600	105	src/universal/com_files.cpp	?FUN_00482600@@YAHQBM@Z	FUN_00482600	UNNAMED
 0x00482670	39	src/universal/com_files.cpp	?VectorScale4@@YAXQBMMQAM@Z	VectorScale4	SUPPORTED
 0x004826a0	63	src/universal/com_files.cpp	?Vec4LengthSq@@YAMQBM@Z	Vec4LengthSq	SUPPORTED
+0x004826e0	548	src/universal/com_files.cpp	?ConvertQuatToMat@@YAXPBUDObjAnimMat@@QAY02M@Z	ConvertQuatToMat	PINNED
+0x00482910	105	src/universal/com_files.cpp	?MatrixTransformVectorQuatTrans@@YAXPBMPBUDObjAnimMat@@PAM@Z	MatrixTransformVectorQuatTrans	SUPPORTED
 0x00482980	31	src/universal/com_math.cpp	?randomf@@YAMXZ	randomf	SUPPORTED
 0x004829a0	39	src/universal/com_math.cpp	?crandom@@YAMXZ	crandom	SUPPORTED
 0x004829d0	308	src/universal/com_math.cpp	?GaussianRandom@@YAXPAM0@Z	GaussianRandom	PINNED
@@ -2627,6 +2647,7 @@ addr	size	source	symbol	name	tag
 0x004a1540	11	src/xanim/dobj.cpp	?DObjAbort@@YAXXZ	DObjAbort	SUPPORTED
 0x004a1550	342	src/xanim/dobj.cpp	?DObjDumpInfo@@YAXPBUDObj_s@@@Z	DObjDumpInfo	SUPPORTED
 0x004a16b0	19	src/xanim/dobj.cpp	?DObjIgnoreCollision@@YA_NPBUDObj_s@@H@Z	DObjIgnoreCollision	SUPPORTED
+0x004a16d0	114	src/xanim/dobj.cpp	?MatrixTransformVectorQuatTransEquals@@YAXPAMPAUDObjAnimMat@@@Z	MatrixTransformVectorQuatTransEquals	SUPPORTED
 0x004a1750	151	src/xanim/dobj.cpp	?QuatMultiplyReverseEquals@@YAXPAM0@Z	QuatMultiplyReverseEquals	SUPPORTED
 0x004a17f0	151	src/xanim/dobj.cpp	?QuatMultiplyEquals@@YAXPBMPAM@Z	QuatMultiplyEquals	SUPPORTED
 0x004a1890	265	src/xanim/dobj.cpp	?FUN_004a1890@@YAHPBUDObj_s@@I@Z	FUN_004a1890	PINNED
@@ -2661,6 +2682,7 @@ addr	size	source	symbol	name	tag
 0x004a5a10	67	src/xanim/dobj.cpp	?DObjGetTree@@YAPAUXAnimTree_s@@PBUDObj_s@@@Z	DObjGetTree	PINNED
 0x004a5a60	117	src/xanim/dobj.cpp	_FUN_004a5a60	FUN_004a5a60	UNNAMED
 0x004a5ae0	12	src/xanim/dobj.cpp	?DObjNumBones@@YAHPBUDObj_s@@@Z	DObjNumBones	SUPPORTED
+0x004a5af0	120	src/xanim/dobj.cpp	?InvMatrixTransformVectorQuatTrans@@YAXPBMPBUDObjAnimMat@@PAM@Z	InvMatrixTransformVectorQuatTrans	SUPPORTED
 0x004a6a40	299	src/xanim/dobj.cpp	?DObjGeomTraceline@@YAXPAUDObj_s@@PAM1HPAUDObjTrace_s@@@Z	DObjGeomTraceline	PINNED
 0x004a6b70	28	src/xanim/dobj.cpp	?DObjGetModelLodForDist@@YAHPBUDObj_s@@HM@Z	DObjGetModelLodForDist	SUPPORTED
 0x004a6b90	356	src/xanim/dobj.cpp	?DObjGetMaxLodOutDist@@YAMPBUDObj_s@@@Z	DObjGetMaxLodOutDist	SUPPORTED

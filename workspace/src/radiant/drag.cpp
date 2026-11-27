@@ -683,10 +683,8 @@ void MoveSelection(vec3_t move)
 }
 
 // patch select modes 0xc..0x11 skip the axis lock and the move
-static bool IsPatchSelectMode(int mode)
-{
-    return mode == 0xe || mode == 0xf || mode == 0x10 || mode == 0x11 || mode == 0xc || mode == 0xd;
-}
+#define IsPatchSelectMode(mode) ((mode) == 0xf || (mode) == 0x11 || (mode) == 0xd || (mode) == 0xe || (mode) == 0x10 || (mode) == 0xc)
+#define IsPatchSelectMode2(mode) ((mode) == 0xe || (mode) == 0xf || (mode) == 0x10 || (mode) == 0x11 || (mode) == 0xc || (mode) == 0xd)
 
 // 0x004623e0
 void Drag_MouseMoved(int x, int y, int buttons, float *origin, float *dir)
@@ -713,13 +711,14 @@ void Drag_MouseMoved(int x, int y, int buttons, float *origin, float *dir)
 
     if (DAT_0112993c || DAT_0112993d)
     {
-        if (g_qeglobals.d_select_mode != 4 && !IsPatchSelectMode(g_qeglobals.d_select_mode))
+        if (g_qeglobals.d_select_mode != 4 && !IsPatchSelectMode2(g_qeglobals.d_select_mode))
         {
             if (buttons == 5)
                 return;
             if (buttons == 9)
             {
-                if (GetAsyncKeyState(VK_MENU) & 0x8000)
+                bool altDown = (GetAsyncKeyState(VK_MENU) & 0x8000) != 0;
+                if (altDown)
                     return;
             }
             else if (buttons == 0xd)
@@ -744,7 +743,8 @@ void Drag_MouseMoved(int x, int y, int buttons, float *origin, float *dir)
 
     if (g_qeglobals.d_select_mode == 10)
     {
-        if (!(GetAsyncKeyState(VK_MENU) & 0x8000))
+        bool altDown = (GetAsyncKeyState(VK_MENU) & 0x8000) != 0;
+        if (!altDown)
         {
             int mode = g_qeglobals.d_select_mode;
             g_qeglobals.d_select_mode = 0;
@@ -764,7 +764,8 @@ void Drag_MouseMoved(int x, int y, int buttons, float *origin, float *dir)
         move[i] = drag_yvec[i] * (y - pressy) + drag_xvec[i] * (x - pressx);
         if (DAT_0109fe5f || DAT_012334ba)
         {
-            move[i] *= g_pParentWnd->ActiveXY()->field_60;
+            float scale = g_pParentWnd->ActiveXY()->field_60;
+            move[i] *= scale;
             if (FUN_00449760() == 1)
                 move[i] *= 0.5;
             else if (FUN_00449760() == 2)
@@ -780,12 +781,14 @@ void Drag_MouseMoved(int x, int y, int buttons, float *origin, float *dir)
     VectorSubtract(move, pressdelta, delta);
     VectorCopy(move, pressdelta);
 
-    if (g_qeglobals.d_select_mode == 5 || IsPatchSelectMode(g_qeglobals.d_select_mode))
+    if (g_qeglobals.d_select_mode == 5 || IsPatchSelectMode2(g_qeglobals.d_select_mode))
     {
-        DAT_011298dc = x;
-        DAT_011298e4 = y;
-        return;
+        DAT_011298e0 = x;
+        DAT_011298e8 = y;
     }
-    MoveSelection(delta);
+    else
+    {
+        MoveSelection(delta);
+    }
 }
 

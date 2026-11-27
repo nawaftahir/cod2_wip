@@ -260,11 +260,47 @@ float FUN_0043ce20()
     return v;
 }
 
+#pragma auto_inline(off)
+// Retail 0x0043cf20 (89 B): out of line in retail; 11 call sites in 0x43cf80/0x43d400/0x43d630 (e.g. 0x43d1bc, 0x43d51a, 0x43d89f)
+void __stdcall FUN_0043cf20(char *buf, float f)
+{
+    if (fabs(f) < 0.0001f)
+        sprintf(buf, "%.6f", f);
+    else
+        sprintf(buf, "%.6g", f);
+}
+#pragma auto_inline(on)
+
+// Retail 0x0043d400 (557 B): read the patch texdef fields back from the controls.
+void __stdcall FUN_0043d400(CSurfaceDlg *dlg)
+{
+    char buf[128];
+    GetWindowText(dlg->GetDlgItem(0x4ab)->GetSafeHwnd(), buf, 127);
+    surfDlgGlob.patchTexdef.shift[0] = (float)atof(buf);
+    GetWindowText(dlg->GetDlgItem(0x4ac)->GetSafeHwnd(), buf, 127);
+    surfDlgGlob.patchTexdef.shift[1] = (float)atof(buf);
+    GetWindowText(dlg->GetDlgItem(0x4bb)->GetSafeHwnd(), buf, 127);
+    surfDlgGlob.patchTexdef.scale[0] = (float)atof(buf);
+    if (!dlg->pad70)
+        surfDlgGlob.patchTexdef.scale[0] = (float)surfDlgGlob.patchTexdef.radMat->size[0] * surfDlgGlob.patchTexdef.scale[0];
+    FUN_0043cf20(buf, surfDlgGlob.patchTexdef.scale[0]);
+    FUN_0043cb00(dlg->GetDlgItem(0x618)->GetSafeHwnd(), buf);
+    GetWindowText(dlg->GetDlgItem(0x4bd)->GetSafeHwnd(), buf, 127);
+    surfDlgGlob.patchTexdef.scale[1] = (float)atof(buf);
+    if (!dlg->pad70)
+        surfDlgGlob.patchTexdef.scale[1] = (float)surfDlgGlob.patchTexdef.radMat->size[1] * surfDlgGlob.patchTexdef.scale[1];
+    FUN_0043cf20(buf, surfDlgGlob.patchTexdef.scale[1]);
+    FUN_0043cb00(dlg->GetDlgItem(0x61a)->GetSafeHwnd(), buf);
+    GetWindowText(dlg->GetDlgItem(0x4c1)->GetSafeHwnd(), buf, 127);
+    surfDlgGlob.patchTexdef.rotate = (float)atof(buf);
+    GetWindowText(dlg->GetDlgItem(0x40b)->GetSafeHwnd(), buf, 127);
+    surfDlgGlob.field_40 = (float)atof(buf);
+}
+
 void * __stdcall FUN_0043d630(CSurfaceDlg *dlg);
 void FUN_0046ff10(const texdef_t *td, int flags);
 extern int g_nUpdateBits;
 
-void __stdcall FUN_0043d400(CSurfaceDlg *dlg);
 void FUN_00470690(int value);
 void * __stdcall FUN_0043d630(CSurfaceDlg *dlg);
 void FUN_00433910(texdef_t *td);

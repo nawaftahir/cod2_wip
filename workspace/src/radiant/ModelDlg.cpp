@@ -141,13 +141,12 @@ void CModelDlg::FUN_00423080()
         base.MakeLower();
         ConvertDOSToUnixName(path.GetBuffer(0), path.GetBuffer(0));
         ConvertDOSToUnixName(base.GetBuffer(0), base.GetBuffer(0));
-        if (base.GetLength() > 0)
+        if (path.Find(base) == 0)
         {
-            if (path.Find(base) == 0)
-                path = path.Mid(path.GetLength() - base.GetLength());
+            path = path.Right(path.GetLength() - base.GetLength());
             int n = path.Find("/");
             if (n != 0)
-                path = path.Mid(path.GetLength() - n - 1);
+                path = path.Right(path.GetLength() - n - 1);
         }
         CWnd *list = GetDlgItem(1566);
         if (::SendMessageA(list->m_hWnd, LB_FINDSTRINGEXACT, (WPARAM)-1, (LPARAM)(LPCSTR)path) == LB_ERR)
@@ -176,13 +175,12 @@ void CModelDlg::FUN_004234f0()
         base.MakeLower();
         ConvertDOSToUnixName(path.GetBuffer(0), path.GetBuffer(0));
         ConvertDOSToUnixName(base.GetBuffer(0), base.GetBuffer(0));
-        if (base.GetLength() > 0)
+        if (path.Find(base) == 0)
         {
-            if (path.Find(base) == 0)
-                path = path.Mid(path.GetLength() - base.GetLength());
+            path = path.Right(path.GetLength() - base.GetLength());
             int n = path.Find("/");
             if (n != 0)
-                path = path.Mid(path.GetLength() - n - 1);
+                path = path.Right(path.GetLength() - n - 1);
         }
         CWnd *list = GetDlgItem(1564);
         if (::SendMessageA(list->m_hWnd, LB_FINDSTRINGEXACT, (WPARAM)-1, (LPARAM)(LPCSTR)path) == LB_ERR)

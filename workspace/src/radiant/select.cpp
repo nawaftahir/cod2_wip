@@ -71,7 +71,7 @@ struct brushdef_t
 struct faceInst_t { int field_00, field_04, field_08; };
 struct eclass_t { int pad_00; const char *name; int fixedsize; unsigned char pad_0c[0x148]; int *model; unsigned char pad_158[8]; int nShowFlags; };
 struct epair_t;
-struct entity_t { unsigned char pad_00[0x50]; eclass_t *eclass; eclass_t *modelClass; unsigned char pad_58[0x64 - 0x58]; epair_t *epairs; };
+struct entity_t { unsigned char pad_00[0x50]; eclass_t *eclass; eclass_t *modelClass; float origin[3]; epair_t *epairs; };
 struct brush_t;
 struct prefab_t;
 struct entityInst_t
@@ -258,14 +258,14 @@ bool FUN_0046e520(const float *org, const float *dir, brush_t *brush, float *dis
     if (count == 0)
         return true;
     entity_t *ent = brush->owner->def;
-    if (!FUN_00465d80(ent, "angles"))
+    if (FUN_00465d80(ent, "angles"))
+        sscanf(ValueForKey(ent->epairs, "angles"), "%f %f %f", &angles[0], &angles[1], &angles[2]);
+    else
     {
         angles[0] = 0;
         angles[1] = 0;
         angles[2] = 0;
     }
-    else
-        sscanf(ValueForKey(ent->epairs, "angles"), "%f %f %f", &angles[0], &angles[1], &angles[2]);
     AngleVectors(angles, orient.axis[0], tmp, orient.axis[2]);
     orient.origin[0] = ((float *)ent)[22];
     orient.origin[1] = ((float *)ent)[23];
@@ -456,35 +456,30 @@ trace_t FUN_0046ef10(const float *origin, const float *dir, int flags)
     float o[3];
 
     t = FUN_0046eca0(origin, dir, flags);
-    if (!t.brush)
-    {
-        o[0] = origin[0] + 1;
-        o[1] = origin[1] + 1;
-        o[2] = origin[2];
-        t = FUN_0046eca0(o, dir, flags);
-        if (!t.brush)
-        {
-            o[0] = origin[0] + 1;
-            o[1] = origin[1] - 1;
-            o[2] = origin[2];
-            t = FUN_0046eca0(o, dir, flags);
-            if (!t.brush)
-            {
-                o[0] = origin[0] - 1;
-                o[1] = origin[1] + 1;
-                o[2] = origin[2];
-                t = FUN_0046eca0(o, dir, flags);
-                if (!t.brush)
-                {
-                    o[0] = origin[0] - 1;
-                    o[1] = origin[1] - 1;
-                    o[2] = origin[2];
-                    return FUN_0046eca0(o, dir, flags);
-                }
-            }
-        }
-    }
-    return t;
+    if (t.brush)
+        return t;
+    VectorCopy(origin, o);
+    o[0] += 1.0f;
+    o[1] += 1.0f;
+    t = FUN_0046eca0(o, dir, flags);
+    if (t.brush)
+        return t;
+    VectorCopy(origin, o);
+    o[0] += 1.0f;
+    o[1] -= 1.0f;
+    t = FUN_0046eca0(o, dir, flags);
+    if (t.brush)
+        return t;
+    VectorCopy(origin, o);
+    o[0] -= 1.0f;
+    o[1] += 1.0f;
+    t = FUN_0046eca0(o, dir, flags);
+    if (t.brush)
+        return t;
+    VectorCopy(origin, o);
+    o[0] -= 1.0f;
+    o[1] -= 1.0f;
+    return FUN_0046eca0(o, dir, flags);
 }
 
 // Q3 Select_Brush
@@ -521,11 +516,10 @@ void FUN_0046f0b0(brush_t *brush, bool bComplete, bool bStatus, bool bPositionVi
     }
     if (bStatus)
     {
+        vec3_t size;
         FUN_00470a50(mins, maxs);
+        VectorSubtract(maxs, mins, size);
         CString strStatus;
-        size[0] = maxs[0] - mins[0];
-        size[1] = maxs[1] - mins[1];
-        size[2] = maxs[2] - mins[2];
         strStatus.Format("Selection X:: %.1f  Y:: %.1f  Z:: %.1f", size[0], size[1], size[2]);
         dword_01233488->SetStatusText(2, strStatus);
     }
@@ -1826,6 +1820,106 @@ void FUN_00472280(int clear, int set)
     g_nUpdateBits = -1;
 }
 
+extern int dword_01129980;
+extern int dword_01129984;
+extern CString g_strAppPath;
+void FUN_0042d270(FILE *file, patch_t *pm, bool bBrush, bool bUV, bool bFacets);
+void FUN_0045a920(brush_t *b, FILE *file, bool merge, bool writeUV, bool a4, float scale);
+bool FUN_00465d80(entity_t *ent, const char *key);
+
+// 0x00472360 (370 B): export a prefab brush tree to Maya MEL
+void FUN_00472360(brush_t *b, FILE *file, bool merge, bool writeUV, bool b3, float scale)
+{
+    prefab_t *prefab = b->owner->prefab;
+    fprintf(file, "\t{\r\n");
+    fprintf(file, "\t\t$iCurGroup++;\r\n");
+    fprintf(file, "\t\t$strGroups[$iCurGroup] = `group -em`;\r\n");
+    for (brush_t *p = prefab->head.next; p != &prefab->head; p = p->next)
+    {
+        if (p->owner->prefab)
+            FUN_00472360(p, file, merge, writeUV, b3, scale);
+        else if (p->patch)
+            FUN_0042d270(file, p->patch, merge, writeUV, b3);
+        else
+            FUN_0045a920(p, file, merge, writeUV, b3, scale);
+    }
+    fprintf(file, "\t\tmove -x %f -y %f -z %f ($strGroups[$iCurGroup]);\r\n",
+        b->owner->def->origin[0], b->owner->def->origin[1], b->owner->def->origin[2]);
+    if (FUN_00465d80(b->owner->def, "angles"))
+    {
+        vec3_t angles;
+        if (FUN_00465d80(b->owner->def, "angles"))
+            sscanf(ValueForKey(b->owner->def->epairs, "angles"), "%f %f %f", &angles[0], &angles[1], &angles[2]);
+        else
+        {
+            angles[0] = 0.0f;
+            angles[1] = 0.0f;
+            angles[2] = 0.0f;
+        }
+        fprintf(file, "\t\trotate -os %f %f %f ($strGroups[$iCurGroup]);\r\n", angles[2], angles[0], angles[1]);
+    }
+    fprintf(file, "\t\tparent $strGroups[$iCurGroup] $strGroups[$iCurGroup - 1];\r\n");
+    fprintf(file, "\t\t$iCurGroup--;\r\n");
+    fprintf(file, "\t}\r\n");
+}
+
+// 0x004724e0 (698 B): export selected brushes/patches/prefabs to Maya MEL
+void FUN_004724e0(bool merge, bool writeUV, float scale, bool b3)
+{
+    CString filename;
+    filename = g_strAppPath;
+    filename += "\\Maya\\";
+    filename += "dryRun.mel";
+    FILE *file = fopen(filename, "wt");
+    if (!file)
+        return;
+    dword_01129980 = dword_01129984;
+    dword_01129984 = 0;
+    fprintf(file, "{\r\n");
+    fprintf(file, "\tstring $strGroups[];\r\n");
+    fprintf(file, "\t$iCurGroup = 0;\r\n");
+    fprintf(file, "\t$strGroups[$iCurGroup] = `group -em`;\r\n");
+    fprintf(file, "\tprogressWindow -min 0 -max 1;\r\n");
+    for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+    {
+        if (b->owner->prefab)
+            FUN_00472360(b, file, merge, writeUV, b3, scale);
+        else if (b->patch)
+            FUN_0042d270(file, b->patch, merge, writeUV, b3);
+        else
+            FUN_0045a920(b, file, merge, writeUV, b3, scale);
+    }
+    fprintf(file, "\tprogressWindow -edit -ep;\r\n");
+    fprintf(file, "}\r\n");
+    fclose(file);
+
+    filename = g_strAppPath;
+    filename += "\\Maya\\";
+    filename += *(CString *)((char *)dword_01233b64 + 0x2f0);
+    file = fopen(filename, "wt");
+    if (!file)
+        return;
+    fprintf(file, "{\r\n");
+    fprintf(file, "\tstring $strGroups[];\r\n");
+    fprintf(file, "\t$iCurGroup = 0;\r\n");
+    fprintf(file, "\t$strGroups[$iCurGroup] = `group -em`;\r\n");
+    fprintf(file, "\tprogressWindow -min 0 -max %d;\r\n", dword_01129984);
+    dword_01129980 = dword_01129984;
+    dword_01129984 = 0;
+    for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+    {
+        if (b->owner->prefab)
+            FUN_00472360(b, file, merge, writeUV, b3, scale);
+        else if (b->patch)
+            FUN_0042d270(file, b->patch, merge, writeUV, b3);
+        else
+            FUN_0045a920(b, file, merge, writeUV, b3, scale);
+    }
+    fprintf(file, "\tprogressWindow -edit -ep;\r\n");
+    fprintf(file, "}\r\n");
+    fclose(file);
+}
+
 void FUN_004727a0()
 {
     FUN_004721a0(0x8002084, 0);
@@ -1913,14 +2007,16 @@ void FUN_00472860(float x, float y)
         }
         for (int i = 0; i < b->faceCount; i++)
         {
-            b->def->faces[i].texdef[DAT_01128d94].shift[0] += dx;
-            b->def->faces[i].texdef[DAT_01128d94].shift[1] += dy;
+            face_t *f = &b->def->faces[i];
+            f->texdef[DAT_01128d94].shift[0] += dx;
+            f->texdef[DAT_01128d94].shift[1] += dy;
         }
-        FUN_0045a220(b->def, true);
+        brushdef_t *d = b->def;
+        FUN_0045a220(d, true);
         if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
             FUN_00475350();
         Sys_MarkMapModified();
-        b->def->version++;
+        d->version++;
         if (b->patch)
         {
 #line 1959
@@ -1928,25 +2024,28 @@ void FUN_00472860(float x, float y)
             FUN_00432800((patchMesh_t *)b->patch->def, dx, dy);
         }
     }
-    for (int i = 0; i < selCount; i++)
+    if (selCount > 0)
     {
-        SelFace selFace = g_SelectedFaces[i];
+        for (int i = 0; i < selCount; i++)
+        {
+            SelFace selFace = g_SelectedFaces[i];
 #line 1969
-        assert(selFace.face == &selFace.brush->faces[selFace.index]);
-        assert(selFace.brush->version == selFace.brush->def->version);
-        face_t *f = &selFace.brush->def->faces[selFace.index];
-        f->texdef[DAT_01128d94].shift[0] += x;
-        f->texdef[DAT_01128d94].shift[1] += y;
-        brushdef_t *d = selFace.brush->def;
-        FUN_0045a220(d, true);
-        if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
-            FUN_00475350();
-        Sys_MarkMapModified();
-        d->version++;
-        FUN_0045a830(selFace.brush);
+            assert(selFace.face == &selFace.brush->faces[selFace.index]);
+            assert(selFace.brush->version == selFace.brush->def->version);
+            face_t *f = &selFace.brush->def->faces[selFace.index];
+            f->texdef[DAT_01128d94].shift[0] += x;
+            f->texdef[DAT_01128d94].shift[1] += y;
+            brushdef_t *d = selFace.brush->def;
+            FUN_0045a220(d, true);
+            if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
+                FUN_00475350();
+            Sys_MarkMapModified();
+            d->version++;
+            FUN_0045a830(selFace.brush);
 #line 1978
-        assert(selFace.face == &selFace.brush->faces[selFace.index]);
-        assert(selFace.brush->version == selFace.brush->def->version);
+            assert(selFace.face == &selFace.brush->faces[selFace.index]);
+            assert(selFace.brush->version == selFace.brush->def->version);
+        }
     }
     dword_0123348c |= 1;
 }
@@ -1956,15 +2055,9 @@ void FUN_00472bd0(int axis)
 {
     if (selected_brushes.next == &selected_brushes && g_SelectedFaces.GetSize() == 0)
         return;
-    const char *name;
-    if (axis == 0)
-        name = "flip texture x";
-    else
-    {
 #line 2000
-        assert(axis == 0 || axis == 1);
-        name = "flip texture y";
-    }
+    assert(axis == 0 || axis == 1);
+    const char *name = (axis == 0) ? "flip texture x" : "flip texture y";
     FUN_004433b0();
     Undo_GeneralStart((char *)name);
     Undo_AddBrushList((selbrush_t *)&selected_brushes);
@@ -1972,15 +2065,16 @@ void FUN_00472bd0(int axis)
     {
         for (int i = 0; i < b->faceCount; i++)
         {
-            texdef_t *td = &b->def->faces[i].texdef[DAT_01128d94];
-            td->scale[axis] = -td->scale[axis];
-            td->shift[axis] = 1.0f - td->shift[axis];
+            face_t *f = &b->def->faces[i];
+            f->texdef[DAT_01128d94].scale[axis] = -f->texdef[DAT_01128d94].scale[axis];
+            f->texdef[DAT_01128d94].shift[axis] = 1.0f - f->texdef[DAT_01128d94].shift[axis];
         }
-        FUN_0045a220(b->def, true);
+        brushdef_t *d = b->def;
+        FUN_0045a220(d, true);
         if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
             FUN_00475350();
         Sys_MarkMapModified();
-        b->def->version++;
+        d->version++;
         if (b->patch)
         {
 #line 2014
@@ -1990,29 +2084,26 @@ void FUN_00472bd0(int axis)
     }
     FUN_00443f80((selbrush_t *)&selected_brushes);
     int selCount = g_SelectedFaces.GetSize();
-    if (selCount > 0)
+    for (int i = 0; i < selCount; i++)
     {
-        for (int i = 0; i < selCount; i++)
-        {
-            SelFace selFace = g_SelectedFaces[i];
+        SelFace selFace = g_SelectedFaces[i];
 #line 2024
-            assert(selFace.face == &selFace.brush->faces[selFace.index]);
-            assert(selFace.brush->version == selFace.brush->def->version);
-            Undo_AddBrush(selFace.brush->def);
-            texdef_t *td = &selFace.brush->def->faces[selFace.index].texdef[DAT_01128d94];
-            td->scale[axis] = -td->scale[axis];
-            brushdef_t *d = selFace.brush->def;
-            FUN_0045a220(d, true);
-            if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
-                FUN_00475350();
-            Sys_MarkMapModified();
-            d->version++;
-            FUN_00443f50(selFace.brush->def);
-            FUN_0045a830(selFace.brush);
+        assert(selFace.face == &selFace.brush->faces[selFace.index]);
+        assert(selFace.brush->version == selFace.brush->def->version);
+        Undo_AddBrush(selFace.brush->def);
+        face_t *f = &selFace.brush->def->faces[selFace.index];
+        f->texdef[DAT_01128d94].scale[axis] = -f->texdef[DAT_01128d94].scale[axis];
+        brushdef_t *d = selFace.brush->def;
+        FUN_0045a220(d, true);
+        if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
+            FUN_00475350();
+        Sys_MarkMapModified();
+        d->version++;
+        FUN_00443f50(selFace.brush->def);
+        FUN_0045a830(selFace.brush);
 #line 2034
-            assert(selFace.face == &selFace.brush->faces[selFace.index]);
-            assert(selFace.brush->version == selFace.brush->def->version);
-        }
+        assert(selFace.face == &selFace.brush->faces[selFace.index]);
+        assert(selFace.brush->version == selFace.brush->def->version);
     }
     Undo_End();
     dword_0123348c |= 1;
@@ -2030,15 +2121,16 @@ void FUN_00472ff0(int x, int y)
     {
         for (int i = 0; i < b->faceCount; i++)
         {
-            texdef_t *td = &b->def->faces[i].texdef[DAT_01128d94];
-            td->scale[0] += (float)x;
-            td->scale[1] += (float)y;
+            face_t *f = &b->def->faces[i];
+            f->texdef[DAT_01128d94].scale[0] += (float)x;
+            f->texdef[DAT_01128d94].scale[1] += (float)y;
         }
-        FUN_0045a220(b->def, true);
+        brushdef_t *d = b->def;
+        FUN_0045a220(d, true);
         if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
             FUN_00475350();
         Sys_MarkMapModified();
-        b->def->version++;
+        d->version++;
         if (b->patch)
         {
 #line 2069
@@ -2048,30 +2140,27 @@ void FUN_00472ff0(int x, int y)
     }
     FUN_00443f80((selbrush_t *)&selected_brushes);
     int selCount = g_SelectedFaces.GetSize();
-    if (selCount > 0)
+    for (int i = 0; i < selCount; i++)
     {
-        for (int i = 0; i < selCount; i++)
-        {
-            SelFace selFace = g_SelectedFaces[i];
+        SelFace selFace = g_SelectedFaces[i];
 #line 2079
-            assert(selFace.face == &selFace.brush->faces[selFace.index]);
-            assert(selFace.brush->version == selFace.brush->def->version);
-            Undo_AddBrush(selFace.brush->def);
-            texdef_t *td = &selFace.brush->def->faces[selFace.index].texdef[DAT_01128d94];
-            td->scale[0] += (float)x;
-            td->scale[1] += (float)y;
-            brushdef_t *d = selFace.brush->def;
-            FUN_0045a220(d, true);
-            if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
-                FUN_00475350();
-            Sys_MarkMapModified();
-            d->version++;
-            FUN_00443f50(selFace.brush->def);
-            FUN_0045a830(selFace.brush);
+        assert(selFace.face == &selFace.brush->faces[selFace.index]);
+        assert(selFace.brush->version == selFace.brush->def->version);
+        Undo_AddBrush(selFace.brush->def);
+        face_t *f = &selFace.brush->def->faces[selFace.index];
+        f->texdef[DAT_01128d94].scale[0] += (float)x;
+        f->texdef[DAT_01128d94].scale[1] += (float)y;
+        brushdef_t *d = selFace.brush->def;
+        FUN_0045a220(d, true);
+        if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
+            FUN_00475350();
+        Sys_MarkMapModified();
+        d->version++;
+        FUN_00443f50(selFace.brush->def);
+        FUN_0045a830(selFace.brush);
 #line 2090
-            assert(selFace.face == &selFace.brush->faces[selFace.index]);
-            assert(selFace.brush->version == selFace.brush->def->version);
-        }
+        assert(selFace.face == &selFace.brush->faces[selFace.index]);
+        assert(selFace.brush->version == selFace.brush->def->version);
     }
     Undo_End();
     dword_0123348c |= 1;
@@ -2080,23 +2169,26 @@ void FUN_00472ff0(int x, int y)
 // 0x004733f0 (1043 B): rotate the texture of the selection by an angle in degrees, with undo
 void FUN_004733f0(int angle)
 {
-    if (selected_brushes.next == &selected_brushes && g_SelectedFaces.GetSize() == 0)
+    int i;
+    int selCount = g_SelectedFaces.GetSize();
+    if (selected_brushes.next == &selected_brushes && selCount == 0)
         return;
     FUN_004433b0();
     Undo_GeneralStart("rotate texture");
     Undo_AddBrushList((selbrush_t *)&selected_brushes);
     for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
     {
-        for (int i = 0; i < b->faceCount; i++)
+        for (i = 0; i < b->faceCount; i++)
         {
-            texdef_t *td = &b->def->faces[i].texdef[DAT_01128d94];
-            td->rotate = (float)(I_fround((float)angle + td->rotate) % 360);
+            face_t *f = &b->def->faces[i];
+            f->texdef[DAT_01128d94].rotate = (float)(I_fround((float)angle + f->texdef[DAT_01128d94].rotate) % 360);
         }
-        FUN_0045a220(b->def, true);
+        brushdef_t *d = b->def;
+        FUN_0045a220(d, true);
         if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
             FUN_00475350();
         Sys_MarkMapModified();
-        b->def->version++;
+        d->version++;
         if (b->patch)
         {
 #line 2124
@@ -2105,30 +2197,26 @@ void FUN_004733f0(int angle)
         }
     }
     FUN_00443f80((selbrush_t *)&selected_brushes);
-    int selCount = g_SelectedFaces.GetSize();
-    if (selCount > 0)
+    for (int i = 0; i < selCount; i++)
     {
-        for (int i = 0; i < selCount; i++)
-        {
-            SelFace selFace = g_SelectedFaces[i];
+        SelFace selFace = g_SelectedFaces[i];
 #line 2133
-            assert(selFace.face == &selFace.brush->faces[selFace.index]);
-            assert(selFace.brush->version == selFace.brush->def->version);
-            Undo_AddBrush(selFace.brush->def);
-            texdef_t *td = &selFace.brush->def->faces[selFace.index].texdef[DAT_01128d94];
-            td->rotate = (float)(I_fround((float)angle + td->rotate) % 360);
-            brushdef_t *d = selFace.brush->def;
-            FUN_0045a220(d, true);
-            if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
-                FUN_00475350();
-            Sys_MarkMapModified();
-            d->version++;
-            FUN_00443f50(selFace.brush->def);
-            FUN_0045a830(selFace.brush);
+        assert(selFace.face == &selFace.brush->faces[selFace.index]);
+        assert(selFace.brush->version == selFace.brush->def->version);
+        Undo_AddBrush(selFace.brush->def);
+        face_t *f = &selFace.brush->def->faces[selFace.index];
+        f->texdef[DAT_01128d94].rotate = (float)(I_fround((float)angle + f->texdef[DAT_01128d94].rotate) % 360);
+        brushdef_t *d = selFace.brush->def;
+        FUN_0045a220(d, true);
+        if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
+            FUN_00475350();
+        Sys_MarkMapModified();
+        d->version++;
+        FUN_00443f50(selFace.brush->def);
+        FUN_0045a830(selFace.brush);
 #line 2143
-            assert(selFace.face == &selFace.brush->faces[selFace.index]);
-            assert(selFace.brush->version == selFace.brush->def->version);
-        }
+        assert(selFace.face == &selFace.brush->faces[selFace.index]);
+        assert(selFace.brush->version == selFace.brush->def->version);
     }
     Undo_End();
     dword_0123348c |= 1;
@@ -2227,7 +2315,9 @@ void FUN_00473c70(int includePrefabs)
 {
     CString unusedA, unusedB;
     radmat_t *mat;
-    if (g_SelectedFaces.GetSize() != 0)
+    if (g_SelectedFaces.GetSize() == 0)
+        mat = DAT_01128da8;
+    else
     {
         SelFace selFace = g_SelectedFaces[0];
 #line 2271
@@ -2235,8 +2325,6 @@ void FUN_00473c70(int includePrefabs)
         assert(selFace.brush->version == selFace.brush->def->version);
         mat = selFace.brush->def->faces[selFace.index].texdef[DAT_01128d90].mat;
     }
-    else
-        mat = DAT_01128da8;
     const char *name = mat->name;
     FUN_0046fbe0(true);
     brush_t *next;
@@ -2278,35 +2366,34 @@ void FUN_00473f50()
 {
     CString strKey, strVal;
     brush_t *b = selected_brushes.next;
-    if (b->owner != DAT_012334ec)
-    {
+    if (b->owner == DAT_012334ec)
+        return;
 #line 2333
-        assert(b->owner->def == b->def->owner);
-        const char *classname = b->owner->def->eclass->name;
-        bool hasKey = FUN_00478090(strKey, strVal) != 0;
-        Sys_Printf("Selecting all %s(s)\n", classname);
-        FUN_0046fbe0(true);
-        brush_t *next;
-        for (b = active_brushes.next; b != &active_brushes; b = next)
-        {
-            next = b->next;
-            if (b->hiddenBrush || FUN_0044f630(b->def))
-                continue;
+    assert(b->owner->def == b->def->owner);
+    const char *classname = b->owner->def->eclass->name;
+    bool hasKey = FUN_00478090(strKey, strVal) != 0;
+    Sys_Printf("Selecting all %s(s)\n", classname);
+    FUN_0046fbe0(true);
+    brush_t *next;
+    for (b = active_brushes.next; b != &active_brushes; b = next)
+    {
+        next = b->next;
+        if (b->hiddenBrush || FUN_0044f630(b->def))
+            continue;
 #line 2346
-            assert(b->owner);
-            assert(b->owner->def == b->def->owner);
-            entity_t *ent = b->owner->def;
-            if (_stricmp(ent->eclass->name, classname) == 0)
+        assert(b->owner);
+        assert(b->owner->def == b->def->owner);
+        entity_t *ent = b->owner->def;
+        if (_stricmp(ent->eclass->name, classname) == 0)
+        {
+            if (!hasKey || _stricmp(strVal, ValueForKey(ent->epairs, strKey)) == 0)
             {
-                if (!hasKey || _stricmp(strVal, ValueForKey(ent->epairs, strKey)) == 0)
-                {
-                    FUN_004592f0(b);
-                    FUN_00459210(b, &selected_brushes);
-                }
+                FUN_004592f0(b);
+                FUN_00459210(b, &selected_brushes);
             }
         }
-        dword_0123348c = -1;
     }
+    dword_0123348c = -1;
 }
 
 
@@ -2351,8 +2438,9 @@ void FUN_00474230(float width, float height, bool flag)
             assert(selFace.face == &selFace.brush->faces[selFace.index]);
             assert(selFace.brush->version == selFace.brush->def->version);
             Undo_AddBrush(selFace.brush->def);
+            face_t *f = &selFace.brush->def->faces[selFace.index];
+            FUN_0045ebf0(f, height, width, flag);
             brushdef_t *d = selFace.brush->def;
-            FUN_0045ebf0(&d->faces[selFace.index], height, width, flag);
             FUN_0045a220(d, true);
             if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
                 FUN_00475350();

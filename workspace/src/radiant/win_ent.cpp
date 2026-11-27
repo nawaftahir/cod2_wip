@@ -756,12 +756,12 @@ void FUN_004786c0(const char *subdir, const char *key, const char *filter, bool 
         ConvertDOSToUnixName(strBasePath.GetBuffer(0), strBasePath.GetBuffer(0));
         if (str.Find(strBasePath) == 0)
         {
-            str = str.Mid(str.GetLength() - strBasePath.GetLength());
+            str = str.Right(str.GetLength() - strBasePath.GetLength());
             if (bStrip)
             {
                 int n = str.Find("/");
                 if (n != 0)
-                    str = str.Mid(str.GetLength() - n - 1);
+                    str = str.Right(str.GetLength() - n - 1);
             }
         }
         SendMessage(hwndEnt[EntValueField], WM_SETTEXT, 0, (LPARAM)str.GetBuffer(0));

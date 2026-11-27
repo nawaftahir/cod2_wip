@@ -11,7 +11,7 @@ struct QEGlobals_t { int d_showgrid; int d_gridsize; int d_num_entities; entity_
 class CXYWnd { public: unsigned char pad00[0x70]; float m_vOrigin[3]; protected: friend BOOL CALLBACK FUN_00476110(HWND, UINT, WPARAM, LPARAM); void PositionView(); };
 struct CamWndView { unsigned char pad00[0x60]; float origin[3]; };
 struct MainFrameView { unsigned char pad00[0x788]; CXYWnd *m_pXYWnd; CamWndView *m_pCamWnd; };
-class CPrefsDlg { public: unsigned char pad00[0x2ec]; CString field_2ec; void SavePrefs(); };
+class CPrefsDlg { public: unsigned char pad00[0x2ec]; CString field_2ec; CString field_2f0; void SavePrefs(); };
 extern QEGlobals_t g_qeglobals; extern HWND dword_010bcd70; extern CString dword_012345c0;
 extern entityInst_t entityInsts; extern entityInst_t *world_entity; extern brush_t selected_brushes;
 extern MainFrameView *dword_01233488; extern int g_nUpdateBits; extern CPrefsDlg *dword_01233b64;
@@ -453,6 +453,60 @@ BOOL CALLBACK FUN_00476840(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
 void FUN_00476a80(void)
 {
     DialogBox(g_qeglobals.d_hInstance, (LPCSTR)217, g_qeglobals.d_hwndMain, FUN_00476840);
+}
+
+void FUN_004724e0(bool b1, bool b2, float scale, bool b3);
+BOOL CALLBACK FUN_00476aa0(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+    char sz[256];
+    CString str;
+
+    switch (uMsg)
+    {
+    case WM_INITDIALOG:
+    {
+        HWND h = GetDlgItem(hwndDlg, 0x5ee);
+        GetWindowText(GetDlgItem(hwndDlg, 0x5ee), sz, 255);
+        if (dword_01233b64->field_2f0.GetLength() == 0)
+            SetDlgItemText(hwndDlg, 0x5ee, "radiantImport.mel");
+        else
+            SetDlgItemText(hwndDlg, 0x5ee, dword_01233b64->field_2f0);
+        CheckDlgButton(hwndDlg, 0x415, 1);
+        CheckDlgButton(hwndDlg, 0x5ef, 0);
+        CheckDlgButton(hwndDlg, 0x5f0, 1);
+        CheckDlgButton(hwndDlg, 0x5f1, 1);
+        SetFocus(h);
+        return FALSE;
+    }
+
+    case WM_COMMAND:
+        switch (LOWORD(wParam))
+        {
+        case IDOK:
+            GetWindowText(GetDlgItem(hwndDlg, 0x5ee), sz, 255);
+            str = sz;
+            if (str.GetLength() > 0)
+            {
+                dword_01233b64->field_2f0 = sz;
+                dword_01233b64->SavePrefs();
+                bool b1 = IsDlgButtonChecked(hwndDlg, 0x415) != 0;
+                bool b2 = IsDlgButtonChecked(hwndDlg, 0x5ef) != 0;
+                bool b3 = IsDlgButtonChecked(hwndDlg, 0x3ee) != 0;
+                float scale = 1.0f;
+                if (IsDlgButtonChecked(hwndDlg, 0x5f1))
+                    scale = 2.54f;
+                FUN_004724e0(b1, b2, scale, b3);
+                g_nUpdateBits = -1;
+            }
+            EndDialog(hwndDlg, 1);
+            break;
+
+        case IDCANCEL:
+            EndDialog(hwndDlg, 0);
+            break;
+        }
+    }
+    return FALSE;
 }
 
 /* CoD2 Maya export dialog (224), target callback 0x00476aa0. */

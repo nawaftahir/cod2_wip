@@ -459,14 +459,14 @@ int FUN_004681d0(const char **data)
 }
 
 // 0x00468260 (373 B), entList in eax, filename in ecx
-int FUN_00468260(entity_t *entList, const char *filename)
+int FUN_00468260(const char *filename, entity_t *entList)
 {
 	void *buf;
-	int count = 0;
 
 #line 231
 	map_assert1(entList->next == entList);
 	map_assert1(entList->prev == entList);
+	int count = 0;
 	if (LoadFile(filename, &buf) != -1)
 	{
 		Com_BeginParseSession(filename);
@@ -518,7 +518,7 @@ void Map_LoadFile(const char *filename)
 		p->field08 = 0;
 	dword_011298d4 = 0;
 	strcpy(currentmap, filename);
-	DAT_010bcd30 = FUN_00468260(&entities, filename);
+	DAT_010bcd30 = FUN_00468260(filename, &entities);
 
 
 	map_assert2(DAT_012334ec == NULL);

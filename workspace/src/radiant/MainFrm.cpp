@@ -123,11 +123,11 @@ void CleanUpEntities(void);
 // partial views for the shutdown path; instance and entity lists link through prev/next
 struct entity_t;
 struct entityInst_t;
-struct brushdef_t { brushdef_t *oprev; brushdef_t *onext; entity_t *owner; unsigned char pad0c[0x10]; int refCount; };
+struct brushdef_t { brushdef_t *oprev; brushdef_t *onext; entity_t *owner; unsigned char pad0c[0x10]; int refCount; unsigned char pad20[0x22]; short version; };
 struct brush_t { brush_t *prev; brush_t *next; entityInst_t *owner; brush_t *ownerNext; brush_t *ownerPrev; brushdef_t *def; unsigned char pad18[14]; bool field_26; };
 struct entityInst_t { entityInst_t *prev; entityInst_t *next; entity_t *def; brush_t brushes; };
 struct epair_t;
-struct eclass_t { unsigned char pad00[4]; char *name; unsigned char pad08[0x158]; unsigned flags; };
+struct eclass_t { unsigned char pad00[4]; char *name; int fixedsize; unsigned char pad0c[0x154]; unsigned flags; };
 struct entity_t { entity_t *prev; entity_t *next; unsigned char pad08[0x48]; eclass_t *eclass; unsigned char pad54[0x10]; epair_t *epairs; };
 void FUN_0041d930(entityInst_t *list, const char *msg);
 void FUN_004678c0(entityInst_t *e);
@@ -633,6 +633,71 @@ int FUN_00412060(char **arg)
     }
   }
   return 0;
+}
+
+extern CString g_strAppPath;
+void FindReplace(CString &strContents, const char *pTag, const char *pValue);
+
+// 0x00412a90 (861 B): LoadCommandMap
+void FUN_00412a90()
+{
+  CString strINI;
+  CString &strCommands = *(CString *)((char *)dword_01233b64 + 0x254);
+  if (strCommands.GetLength() > 0)
+  {
+    strINI = strCommands;
+  }
+  else
+  {
+    strINI = g_strAppPath;
+    strINI += "\\radiant.ini";
+  }
+
+  for (int i = 0; i < g_nCommandCount; i++)
+  {
+    char cBuff[1024];
+    if ((int)GetPrivateProfileString("Commands", g_Commands[i].m_strCommand, "", cBuff, 1024, strINI) > 0)
+    {
+      CString str(cBuff);
+      str.TrimLeft();
+      str.TrimRight();
+      int nPos = str.Find("+alt");
+      g_Commands[i].m_nModifiers = 0;
+      if (nPos >= 0)
+      {
+        g_Commands[i].m_nModifiers |= RAD_ALT;
+        FindReplace(str, "+alt", "");
+      }
+      if (str.Find("+ctrl") >= 0)
+      {
+        g_Commands[i].m_nModifiers |= RAD_CONTROL;
+        FindReplace(str, "+ctrl", "");
+      }
+      if (str.Find("+shift") >= 0)
+      {
+        g_Commands[i].m_nModifiers |= RAD_SHIFT;
+        FindReplace(str, "+shift", "");
+      }
+      str.TrimLeft();
+      str.TrimRight();
+      str.MakeUpper();
+      if (str.GetLength() == 1 && isalnum(str[0]))
+      {
+        g_Commands[i].m_nKey = str[0] & 0x7f;
+      }
+      else
+      {
+        for (int j = 0; j < g_nKeyCount; j++)
+        {
+          if (str.CompareNoCase(g_Keys[j].m_strName) == 0)
+          {
+            g_Commands[i].m_nKey = g_Keys[j].m_nVKKey;
+            break;
+          }
+        }
+      }
+    }
+  }
 }
 
 BOOL CMainFrame::PreCreateWindow(CREATESTRUCT &cs)
@@ -1700,6 +1765,48 @@ extern "C" void FUN_00415ea0()
   DAT_012334f6 = false;
   DialogBox(g_qeglobals.d_hInstance, (LPCSTR)113, g_qeglobals.d_hwndMain, SidesDlgProc);
   FUN_00443f80(&selected_selbrushes);
+  Undo_End();
+}
+
+void FUN_00470d30(int axis);
+bool FUN_00465d80(entity_t *ent, const char *key);
+void FUN_00465bf0(entity_t *e, const char *key, const char *value);
+void FUN_0045a220(brushdef_t *b, bool snap);
+void FUN_00475350();
+void Sys_MarkMapModified();
+extern int DAT_011298b0;
+
+// 0x00415ef0 (319 B): flip selection on axis and rotate fixedsize entity angles by 180
+void FUN_00415ef0(const char *name, int axis)
+{
+  FUN_004433b0();
+  Undo_GeneralStart((char *)name);
+  Undo_AddBrushList((selbrush_t *)&selected_brushes);
+  FUN_00470d30(axis);
+  for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+  {
+    entity_t *e = b->owner->def;
+    if (!e->eclass->fixedsize)
+      continue;
+    float angles[3];
+    if (FUN_00465d80(e, "angles"))
+      sscanf(ValueForKey(e->epairs, "angles"), "%f %f %f", &angles[0], &angles[1], &angles[2]);
+    else
+    {
+      angles[0] = 0.0f;
+      angles[1] = 0.0f;
+      angles[2] = 0.0f;
+    }
+    angles[axis] = (float)((int)(angles[axis] * (65536.0f / 360.0f) + 32768.0f) & 0xffff) * (360.0f / 65536.0f);
+    FUN_00465bf0(b->owner->def, "angles", va("%g %g %g", angles[0], angles[1], angles[2]));
+    brushdef_t *bd = b->def;
+    FUN_0045a220(bd, true);
+    if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
+      FUN_00475350();
+    Sys_MarkMapModified();
+    bd->version++;
+  }
+  FUN_00443f80((selbrush_t *)&selected_brushes);
   Undo_End();
 }
 

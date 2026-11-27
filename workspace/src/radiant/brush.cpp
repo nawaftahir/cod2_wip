@@ -118,7 +118,7 @@ void MatrixTransformVectorCols(const vec3_t in, const vec3_t mat[3], vec3_t out)
 void FUN_0045e1a0(brushdef_t *b, const vec3_t move, bool bSnap);
 void FUN_0045d7f0(brush_t *b, int viewType, int a3, int a4, int a5, int a6, const unsigned int *color, int a8, int a9);
 void VectorRotate(const vec3_t vIn, const vec3_t vRotation, vec3_t out);
-extern int dword_011298d4;
+int dword_011298d4;
 extern int DAT_011298b4;
 struct ContentFlag_t;
 extern ContentFlag_t dword_0053d944[], dword_0053d964[];
@@ -2101,7 +2101,7 @@ void FUN_00459ae0(brushdef_t *b, face_t *f, bool shear)
             face_t *f2 = &def2->faces[j];
             for (i = 0; i < 3; i++)
             {
-                if (fabs(f2->planepts[i][0] * f->plane.normal[0] + f2->planepts[i][2] * f->plane.normal[2] + f->plane.normal[1] * f2->planepts[i][1] - f->plane.dist) > 0.01)
+                if (fabs(DotProduct(f2->planepts[i], f->plane.normal) - f->plane.dist) > 0.01)
                     break;
             }
             if (i == 3)
@@ -2124,7 +2124,7 @@ void FUN_00459ae0(brushdef_t *b, face_t *f, bool shear)
             continue;
         for (i = 0; i < w->pointCount; i++)
         {
-            d = (float)(w->points[i][2] * f->plane.normal[2] + (w->points[i][0] * f->plane.normal[0] + f->plane.normal[1] * w->points[i][1]) - f->plane.dist);
+            d = (float)(DotProduct(w->points[i], f->plane.normal) - f->plane.dist);
             if (d > -0.01 && d < 0.01)
                 break;
         }
@@ -2133,7 +2133,7 @@ void FUN_00459ae0(brushdef_t *b, face_t *f, bool shear)
             if (i == 0)
             {
                 const float *p = w->points[w->pointCount - 1];
-                d = (float)(p[2] * f->plane.normal[2] + (p[0] * f->plane.normal[0] + f->plane.normal[1] * p[1]) - f->plane.dist);
+                d = (float)(DotProduct(p, f->plane.normal) - f->plane.dist);
                 if (d > -0.01 && d < 0.01)
                     i = w->pointCount - 1;
             }
@@ -2293,7 +2293,7 @@ void FUN_0045a830(brush_t *b)
 
 // 0x0045a920 (1502 B): write one brush as Maya mel
 #line 2499
-void FUN_0045a920(brush_t *b, FILE *file, bool merge, bool writeUV, int a4, float scale)
+void FUN_0045a920(brush_t *b, FILE *file, bool merge, bool writeUV, bool a4, float scale)
 {
     assert(b);
     assert(b->def);
@@ -2323,7 +2323,7 @@ void FUN_0045a920(brush_t *b, FILE *file, bool merge, bool writeUV, int a4, floa
     }
     else
         orient = &QE_ORIENT;
-    int *keep = &a4; // keeps the unused param in the frame (LTCG would drop it)
+    bool *keep = &a4; // keeps the unused param in the frame (LTCG would drop it)
     fprintf(file, "\t{\r\n");
     fprintf(file, "\t\tstring $strPolyInfo[];\r\n");
     if (merge)
@@ -2958,8 +2958,7 @@ void FUN_0045ca10()
                     continue;
 #line 3262
                 assert(match->def->owner == match->owner->def);
-                const char *val = value;
-                if (FUN_00465e10((entity_t *)match->owner->def, *(const char **)(dword_01233b64 + 0x2ec), val))
+                if (FUN_00465e10((entity_t *)match->owner->def, *(const char **)(dword_01233b64 + 0x2ec), value))
                 {
                     FUN_004592f0(match);
                     FUN_00459210(match, &selected_brushes);

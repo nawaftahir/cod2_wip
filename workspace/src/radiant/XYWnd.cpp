@@ -544,26 +544,13 @@ void FUN_00455cf0(brushdef_t *in, const face_t *f, brushdef_t **front, brushdef_
 // 0x00449c90: Q3Radiant CXYWnd::ProduceSplitLists
 void FUN_00449c90(void)
 {
-    bool bFixed = false;
     bool bPatches = false;
+    bool bFixed = false;
     brush_t *pBrush = selected_brushes.next;
     while (pBrush != &selected_brushes)
     {
         brush_t *pNext = pBrush->next;
-        if (!pBrush->patch)
-        {
-            if (pBrush->owner->def->eclass->field_08 != 0)
-            {
-                if (!bFixed)
-                {
-                    bFixed = true;
-                    Sys_Printf("Deslecting fixed size entities for clip operation.\n");
-                }
-                FUN_004592f0(pBrush);
-                FUN_00459210(pBrush, &active_brushes);
-            }
-        }
-        else
+        if (pBrush->patch)
         {
             if (!bPatches)
             {
@@ -575,14 +562,23 @@ void FUN_00449c90(void)
             if (g_PatchDialog.GetSafeHwnd())
                 g_PatchDialog.GetPatchInfo();
         }
+        else if (pBrush->owner->def->eclass->field_08 != 0)
+        {
+            if (!bFixed)
+            {
+                bFixed = true;
+                Sys_Printf("Deslecting fixed size entities for clip operation.\n");
+            }
+            FUN_004592f0(pBrush);
+            FUN_00459210(pBrush, &active_brushes);
+        }
         pBrush = pNext;
     }
-    bool clipMode = g_bClipMode;
     CleanList(&g_brBackSplits);
     CleanList(&g_brFrontSplits);
     g_brBackSplits.next = &g_brBackSplits;
     g_brFrontSplits.next = &g_brFrontSplits;
-    if (!clipMode || !g_Clip1.m_bSet || !g_Clip2.m_bSet)
+    if (!g_bClipMode || !g_Clip1.m_bSet || !g_Clip2.m_bSet)
         return;
     for (pBrush = selected_brushes.next; pBrush != NULL && pBrush != &selected_brushes; pBrush = pBrush->next)
     {
@@ -598,24 +594,30 @@ void FUN_00449c90(void)
         face.texdef[1].radMat = gray;
         face.texdef[1].scale[0] = (float)gray->width * 16.0f;
         face.texdef[1].scale[1] = (float)gray->height * 16.0f;
-        for (int i = 0; i < 3; i++)
-        {
-            face.planepts[0][i] = g_Clip1.m_ptClip[i];
-            face.planepts[1][i] = g_Clip2.m_ptClip[i];
-            face.planepts[2][i] = g_Clip3.m_ptClip[i];
-        }
+        VectorCopy(g_Clip1.m_ptClip, face.planepts[0]);
+        VectorCopy(g_Clip2.m_ptClip, face.planepts[1]);
+        VectorCopy(g_Clip3.m_ptClip, face.planepts[2]);
         if (!g_Clip3.m_bSet)
         {
             int viewType = reinterpret_cast<CMainFrameXYView *>(g_pParentWnd)->m_pActiveXY->m_nViewType;
-            face.planepts[2][0] = g_Clip1.m_ptClip[0];
-            face.planepts[2][1] = g_Clip1.m_ptClip[1];
-            face.planepts[2][2] = g_Clip1.m_ptClip[2];
             if (viewType == XY)
-                face.planepts[2][2] = g_Clip1.m_ptClip[2] + 32.0f;
-            else if (viewType == XZ)
-                face.planepts[2][1] = g_Clip1.m_ptClip[1] + 32.0f;
+            {
+                face.planepts[2][0] = face.planepts[0][0];
+                face.planepts[2][1] = face.planepts[0][1];
+                face.planepts[2][2] = face.planepts[0][2] + 32.0f;
+            }
+            else if (viewType == YZ)
+            {
+                face.planepts[2][0] = face.planepts[0][0] + 32.0f;
+                face.planepts[2][1] = face.planepts[0][1];
+                face.planepts[2][2] = face.planepts[0][2];
+            }
             else
-                face.planepts[2][0] = g_Clip1.m_ptClip[0] + 32.0f;
+            {
+                face.planepts[2][0] = face.planepts[0][0];
+                face.planepts[2][1] = face.planepts[0][1] + 32.0f;
+                face.planepts[2][2] = face.planepts[0][2];
+            }
         }
         FUN_00455cf0(pBrush->def, &face, &back, &front);
         if (front)
@@ -2947,19 +2949,36 @@ static void EntityColor(entityInst_t *e, brush_t *b, unsigned *out)
     (*FUN_0059c468)(color, out);
 }
 
+static inline void Vec3Mid_XY(const float *a, const float *b, float *out)
+{
+    out[0] = (a[0] + b[0]) * 0.5f;
+    out[1] = (a[1] + b[1]) * 0.5f;
+    out[2] = (a[2] + b[2]) * 0.5f;
+}
+
+static inline void Vec3Mid_Loop(const float *a, const float *b, float *out)
+{
+    for (int k = 0; k < 3; k++)
+        out[k] = (a[k] + b[k]) * 0.5f;
+}
+
+static inline void Vec3Mad_XY(const float *start, float scale, const float *dir, float *out)
+{
+    out[0] = start[0] + dir[0] * scale;
+    out[1] = start[1] + dir[1] * scale;
+    out[2] = start[2] + dir[2] * scale;
+}
+
 // 0x004501f0: draws arrows from every entity to the entities its "target" names
 void ConnectEntitiesByTargetname(void)
 {
     const char *names[0x8000];
     entityInst_t *named[0x8000];
     GfxPointVertex verts[0x552];
-    unsigned color;
-    int count = 0;
-    int n = 0;
-    int numLines = 0;
 
     if (*(unsigned char *)0x1129888 & 4)
         return;
+    int n = 0;
     for (entityInst_t *e = (entityInst_t *)entities.next; e != &entities && n != 0x8000; e = (entityInst_t *)e->next)
     {
         const char *name = ValueForKey(*(epair_t **)((char *)e->def + 100), "targetname");
@@ -2967,13 +2986,13 @@ void ConnectEntitiesByTargetname(void)
         if (*name && e->brushes.onext != &e->brushes)
             named[n++] = e;
     }
-    count = n;
+    int numLines = 0;
     for (entityInst_t *e = (entityInst_t *)entities.next; e != &entities; e = (entityInst_t *)e->next)
     {
-        const char *target = ValueForKey(*(epair_t **)((char *)e->def + 100), "target");
+        const char *psz = ValueForKey(*(epair_t **)((char *)e->def + 100), "target");
 #line 3091
-        assert(target);
-        if (!*target)
+        assert(psz);
+        if (!*psz)
             continue;
         brush_t *b = e->brushes.onext;
         if (b == &e->brushes)
@@ -2981,55 +3000,67 @@ void ConnectEntitiesByTargetname(void)
         if (FUN_0044f5d0(b))
             continue;
         bool found = false;
-        for (int i = 0; i < count; i++)
+        float a[3], c[3], col[4];
+        for (int i = 0; i < n; i++)
         {
-            if (strcmp(names[i], target))
+            if (strcmp(names[i], psz))
                 continue;
             entityInst_t *te = named[i];
             brush_t *tb = te->brushes.onext;
             found = true;
             if (FUN_0044f5d0(tb))
                 continue;
-            float a[3], c[3], d[3], arrow[6];
-            BrushCenter(b, c);
-            BrushCenter(tb, a);
+            Vec3Mid_XY(b->def->mins, b->def->maxs, c);
+            Vec3Mid_XY(tb->def->mins, tb->def->maxs, a);
+            float d[3];
             d[0] = c[0] - a[0];
             d[1] = c[1] - a[1];
             d[2] = c[2] - a[2];
             float len = Vec3Normalize(d);
             float px = d[0] * 8.0f;
             float py = d[1] * 8.0f;
-            arrow[0] = px - py;
-            arrow[1] = px + py;
-            arrow[3] = px + py;
-            arrow[4] = py - px;
+            float arrow0[3], arrow1[3];
+            arrow0[0] = px - py;
+            arrow0[1] = py + px;
+            arrow0[2] = 0.0f;
+            arrow1[0] = py + px;
+            arrow1[1] = py - px;
+            arrow1[2] = 0.0f;
 #line 3124
             assert(tb->owner && tb->owner == te);
-            EntityColor(te, tb, &color);
+            unsigned color;
+            const float *ec = te->def->eclass->color;
+            col[0] = ec[0];
+            col[1] = ec[1];
+            col[2] = ec[2];
+            col[3] = 1.0f;
+            FUN_0045d090(tb->def, col, col);
+            (*FUN_0059c468)(col, &color);
             numLines = R_Add3DLine(verts, a, c, &color, 1, numLines, 0x552);
             int steps = 1 - (int)(len / -256.0f);
             for (int s = 0; s < steps; s++)
             {
-                float t = ((float)s + 0.5f) * len / (float)steps;
-                float m[3], w[3];
-                m[0] = t * d[0] + a[0];
-                m[1] = t * d[1] + a[1];
-                m[2] = d[2] * t + a[2];
-                w[0] = m[0] + arrow[0];
-                w[1] = m[1] + arrow[1];
-                w[2] = m[2];
-                float v[3] = { m[0] + arrow[3], m[1] + arrow[4], m[2] };
-                numLines = R_Add3DLine(verts, m, w, &color, 1, numLines, 0x552);
-                numLines = R_Add3DLine(verts, m, v, &color, 1, numLines, 0x552);
+                float t = (float)((s + 0.5) * len / steps);
+                c[0] = t * d[0] + a[0];
+                c[1] = t * d[1] + a[1];
+                c[2] = d[2] * t + a[2];
+                float w[3], v[3];
+                w[0] = c[0] + arrow0[0];
+                w[1] = c[1] + arrow0[1];
+                w[2] = c[2] + arrow0[2];
+                v[0] = c[0] + arrow1[0];
+                v[1] = c[1] + arrow1[1];
+                v[2] = c[2] + arrow1[2];
+                numLines = R_Add3DLine(verts, c, w, &color, 1, numLines, 0x552);
+                numLines = R_Add3DLine(verts, c, v, &color, 1, numLines, 0x552);
             }
         }
         if (!found)
         {
-            float a[3], c[3];
-            BrushCenter(b, a);
+            Vec3Mid_XY(b->def->mins, b->def->maxs, a);
             for (int i = 0; i < 3; i++)
                 c[i] = (float)rand() / 32768.0f * 150.0f + a[i] - 75.0f;
-            float col[4];
+            unsigned color;
             col[0] = (float)rand() / 32768.0f;
             col[1] = (float)rand() / 32768.0f;
             col[2] = (float)rand() / 32768.0f;
@@ -3050,11 +3081,10 @@ void ConnectEntitiesByScriptLinkName(void)
     GfxPointVertex verts[0x552];
     unsigned color;
     int linkTo[34];
-    int n = 0;
-    int numLines = 0;
 
     if (*(unsigned char *)0x1129888 & 4)
         return;
+    int n = 0;
     for (entityInst_t *e = (entityInst_t *)entities.next; e != &entities && n != 0x8000; e = (entityInst_t *)e->next)
     {
         int id = atol(ValueForKey(*(epair_t **)((char *)e->def + 100), "script_linkName"));
@@ -3062,6 +3092,7 @@ void ConnectEntitiesByScriptLinkName(void)
         if (id && e->brushes.onext != &e->brushes)
             named[n++] = e;
     }
+    int numLines = 0;
     for (entityInst_t *e = (entityInst_t *)entities.next; e != &entities; e = (entityInst_t *)e->next)
     {
         const char *tokens = ValueForKey(*(epair_t **)((char *)e->def + 100), "script_linkTo");
@@ -3077,22 +3108,31 @@ void ConnectEntitiesByScriptLinkName(void)
         FUN_0046d710(linkTo, tokens); int numLinks = linkTo[32];
         for (int i = 0; i < n; i++)
         {
-            int j = 0;
-            while (j < numLinks && linkTo[j] != names[i])
-                j++;
-            if (j >= numLinks)
-                continue;
-            entityInst_t *te = named[i];
-            brush_t *tb = te->brushes.onext;
-            if (FUN_0044f5d0(tb))
-                continue;
-            float from[3], to[3];
-            BrushCenter(b, from);
-            BrushCenter(tb, to);
+            for (int j = 0; j < numLinks; j++)
+            {
+                if (linkTo[j] == names[i])
+                {
+                    entityInst_t *te = named[i];
+                    brush_t *tb = te->brushes.onext;
+                    if (FUN_0044f5d0(tb))
+                        break;
+                    float from[3], to[3];
+                    Vec3Mid_Loop(b->def->mins, b->def->maxs, from);
+                    Vec3Mid_Loop(tb->def->mins, tb->def->maxs, to);
 #line 3248
-            assert(tb->owner && tb->owner == te);
-            EntityColor(te, tb, &color);
-            numLines = R_Add3DLine(verts, to, from, &color, 1, numLines, 0x552);
+                    assert(tb->owner && tb->owner == te);
+                    float col[4];
+                    const float *ec = te->def->eclass->color;
+                    col[0] = ec[0];
+                    col[1] = ec[1];
+                    col[2] = ec[2];
+                    col[3] = 1.0f;
+                    FUN_0045d090(tb->def, col, col);
+                    (*FUN_0059c468)(col, &color);
+                    numLines = R_Add3DLine(verts, to, from, &color, 1, numLines, 0x552);
+                    break;
+                }
+            }
         }
     }
     if (numLines)
@@ -3924,12 +3964,13 @@ void CXYWnd::Paste()
         g_Clipboard.SeekToBegin();
         long lSize = (long)g_Clipboard.GetLength();
         char *buf = new char[lSize + 1];
+        const char *p;
         g_Clipboard.Read(buf, lSize);
         buf[lSize] = 0;
-        const char *p = buf;
         Com_BeginParseSession("paste from clipboard");
         Com_SetSpaceDelimited(0);
         Com_SetParseNegativeNumbers(1);
+        p = buf;
         FUN_004699b0(&p, 4);
         Com_EndParseSession();
         delete[] buf;

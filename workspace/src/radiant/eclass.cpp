@@ -71,7 +71,7 @@ extern eclass_t *eclass;
 extern eclass_t *eclass_bad;
 extern eclass_t *g_modelClasses;
 extern char com_token[];
-extern char *debugname;
+char *debugname;
 struct XModel;
 int XModelBad(XModel *model);
 extern XModel *(__cdecl *dword_0059c308)(const char *);
@@ -83,7 +83,7 @@ char *FUN_0046cb10(const char *str);
 void Sys_Printf(const char *fmt, ...);
 void FUN_0045a220(brushdef_t *b, bool snap);
 void FUN_00475350();
-int FUN_00468260(entity_t *list, const char *path);
+int FUN_00468260(const char *path, entity_t *list);
 char *ValueForKey(entity_t *ent, const char *key);
 extern entity_t *dword_010bcd34;
 qtexture_s *__fastcall FUN_00440840(char *name);
@@ -165,7 +165,7 @@ bool FUN_00463240(entitymodel_t **pm, const char *path)
 {
 	entity_t *list = (entity_t *)&(*pm)->entities;
 	list->prev = list->next = list;
-	if (!FUN_00468260(list, path))
+	if (!FUN_00468260(path, list))
 	{
 		list->prev = list->next = 0;
 		return false;
@@ -327,7 +327,7 @@ eclass_t *FUN_00463860(char *text)
 	e->name = new char[strlen(com_token) + 1];
 	strcpy(e->name, com_token);
 	debugname = e->name;
-	e->color[0] = e->color[1] = e->color[2] = 1.0f;
+	e->color[0] = 1.0f; e->color[1] = 1.0f; e->color[2] = 1.0f;
 	e->f30 = 1.0f;
 	r = sscanf(text, " (%g %g %g)", &e->color[0], &e->color[1], &e->color[2]);
 	if (r != 3)
