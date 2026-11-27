@@ -3,6 +3,9 @@
 #include <string.h>
 #include "../universal/assertive.h"
 #include <stdio.h>
+#include <sys/stat.h>
+#include <direct.h>
+#include <time.h>
 
 // 0x0046cb10 (111 B)
 char *FUN_0046cb10(const char *str)
@@ -148,6 +151,114 @@ bool FUN_0046cbd0(const char *pBuff, long &lSize)
 	return false;
 }
 
+struct QEPrefsView
+{
+	unsigned char pad0[0x1dc];
+	CString m_strLastProject;
+	unsigned char pad1[0x0c];
+	BOOL m_bAutoSave;
+	unsigned char pad2[0x10];
+	BOOL m_bSnapShots;
+	unsigned char pad3[0x28];
+	BOOL field_22c;
+	unsigned char pad4[0x8c];
+	int m_nAutoSave;
+};
+extern QEPrefsView *dword_01233b64;
+extern char dword_010a4508[];
+extern HWND dword_010bcd54;
+extern int DAT_010a4908;
+bool FUN_0047ad20(const char *pPath, CString &strPath, CString &strFile);
+void FUN_00468910(const char *filename, bool use_region);
+
+// 0x0046cc60 (694 B): Map_Snapshot
+void Map_Snapshot(void)
+{
+	CString strMsg;
+	CString strOrgPath, strOrgFile;
+	FUN_0047ad20(dword_010a4508, strOrgPath, strOrgFile);
+	if (strOrgPath.GetLength() > 0 && strOrgPath[strOrgPath.GetLength() - 1] != '\\')
+		strOrgPath += '\\';
+	strOrgPath += "snapshots";
+	bool bGo = true;
+	struct _stat Stat;
+	if (_stat(strOrgPath, &Stat) == -1)
+	{
+		bGo = (_mkdir(strOrgPath) != -1);
+	}
+	if (strOrgPath.GetLength() > 0 && strOrgPath[strOrgPath.GetLength() - 1] != '\\')
+		strOrgPath += '\\';
+	if (bGo)
+	{
+		int nCount = 0;
+		long lSize = 0;
+		CString strNewPath = strOrgPath;
+		strNewPath += strOrgFile;
+		CString strFile;
+		while (bGo)
+		{
+			strFile.Format("%s.%i", strNewPath, nCount);
+			bGo = FUN_0046cbd0(strFile, lSize);
+			nCount++;
+		}
+		FUN_00468910(strFile.GetBuffer(0), false);
+		SetWindowText(dword_010bcd54, dword_010a4508);
+		if (lSize > 12 * 1024 * 1024)
+		{
+			Sys_Printf("The snapshot files in the [%s] directory total more than 4 megabytes. You might consider cleaning the directory up.", strOrgPath);
+		}
+	}
+	else
+	{
+		strMsg.Format("Snapshot save failed.. unabled to create directory\n%s", strOrgPath);
+		((CWnd *)dword_01233488)->MessageBox(strMsg);
+	}
+}
+
+// 0x0046cf20 (396 B): QE_CheckAutoSave
+void QE_CheckAutoSave(void)
+{
+	static clock_t s_start;
+	clock_t now;
+
+	now = clock();
+
+	if (DAT_010a4908 != 1 || !s_start)
+	{
+		s_start = now;
+		return;
+	}
+
+	if (now - s_start > (CLOCKS_PER_SEC * 60 * dword_01233b64->m_nAutoSave))
+	{
+		if (dword_01233b64->m_bAutoSave)
+		{
+			CString strMsg = dword_01233b64->m_bSnapShots ? "Autosaving snapshot..." : "Autosaving...";
+			Sys_Printf(strMsg.GetBuffer(0));
+			Sys_Printf("\n");
+			SendMessage(dword_010bcd70, WM_USER + 1, 0, (LPARAM)strMsg.GetBuffer(0));
+
+			if (dword_01233b64->m_bSnapShots && _stricmp(dword_010a4508, "unnamed.map") != 0)
+			{
+				Map_Snapshot();
+			}
+			else
+			{
+				FUN_00468910(ValueForKey(dword_010bcd34->epairs, "autosave"), false);
+			}
+
+			SendMessage(dword_010bcd70, WM_USER + 1, 0, (LPARAM)"Autosaving...Saved.");
+			DAT_010a4908 = 2;
+		}
+		else
+		{
+			Sys_Printf("Autosave skipped...\n");
+			SendMessage(dword_010bcd70, WM_USER + 1, 0, (LPARAM)"Autosave skipped...");
+		}
+		s_start = now;
+	}
+}
+
 // 0x0046d0b0
 void FUN_0046d0b0(char *out, const char *in, int size)
 {
@@ -157,6 +268,102 @@ void FUN_0046d0b0(char *out, const char *in, int size)
 		strcpy(out, in);
 }
 
+struct qtexture_s;
+void FUN_0047a760(const char *fmt, ...);
+int LoadFileNoCrash(const char *filename, void **bufferptr);
+void Com_BeginParseSession(const char *filename);
+void Com_EndParseSession(void);
+void FUN_00465bf0(entity_t *e, const char *key, const char *value);
+void Dvar_SetStringByName(const char *dvarName, const char *value);
+qtexture_s *__fastcall FUN_00440840(char *name);
+void FUN_004426e0(void);
+void FUN_004409a0(void);
+void Dvar_Shutdown(void);
+void FS_Shutdown(int closemfp);
+extern "C" void FUN_00410e00();
+extern "C" {
+void FUN_00410c40(void);
+}
+void FUN_00408f50(const char *basepath, const char *game, const char *basegame);
+entity_t *FUN_00466440(const char **data, int a, bool b);
+void FUN_00440ca0(void);
+void FUN_00464170(char *path);
+void FUN_00463ea0(const char *path, int a);
+void FUN_00440fa0(void);
+void Map_New(void);
+void FUN_00477270(void);
+enum FsListBehavior { FS_LIST_PURE_ONLY = 0x0, FS_LIST_ALL = 0x1 };
+char **FS_ListFiles(const char *path, const char *extension, FsListBehavior behavior, int *numfiles, int allocType);
+void FS_FreeFileList(char **list, int allocType);
+int FS_ReadFile(const char *qpath, void **buffer);
+void FS_FreeFile(void *buffer);
+int Com_sprintf(char *dest, unsigned int size, const char *fmt, ...);
+const char *Info_ValueForKey(const char *s, const char *key);
+void FUN_00463e40(eclass_t *e, eclass_t **head);
+extern "C" eclass_t *FUN_00463860(const char *text);
+extern eclass_t *dword_012334dc;
+struct qeglobals_proj_t { unsigned char pad[0x20]; entity_t *d_project_entity; };
+extern qeglobals_proj_t g_qeglobals;
+extern CString dword_012345c0;
+extern const char *DAT_00591cf4[3];
+extern int DAT_01128d90;
+extern int DAT_01128d94;
+extern float DAT_01128dc4;
+extern qtexture_s *DAT_01128da8;
+
+// 0x0046d0f0 (159 B)
+void FUN_0046d0f0(const char *folder, const char *ext)
+{
+	int numFiles;
+	char path[1024];
+	char **files = FS_ListFiles(folder, ext, FS_LIST_PURE_ONLY, &numFiles, 10);
+	Sys_Printf("Scanning AI types folder: %s/*%s\n", folder, ext);
+	for (int i = 0; i < numFiles; i++)
+	{
+		sprintf(path, "%s\\%s", folder, files[i]);
+		FUN_00463ea0(path, 1);
+	}
+	if (files)
+		FS_FreeFileList(files, 10);
+}
+
+// 0x0046d190 (503 B)
+void FUN_0046d190(const char *folder)
+{
+	char displayName[1024];
+	char def[1024];
+	char name[1024];
+	char path[1024];
+	char model[64];
+	int numFiles;
+	char *buf;
+	const char *tag = "WEAPONFILE";
+	int len = strlen(tag);
+	char **files = FS_ListFiles(folder, "", FS_LIST_PURE_ONLY, &numFiles, 10);
+	for (int i = 0; i < numFiles; i++)
+	{
+		sprintf(path, "%s\\%s", folder, files[i]);
+		Sys_Printf("ScanWeapon: %s\n", path);
+		if (FS_ReadFile(path, (void **)&buf) > len && !strncmp(buf, tag, len))
+		{
+			const char *info = buf + len;
+			if (!strchr(info, '"') && !strchr(info, ';'))
+			{
+				Com_sprintf(name, sizeof(name), "weapon_%s", files[i]);
+				strcpy(displayName, Info_ValueForKey(info, "displayName"));
+				strcpy(model, Info_ValueForKey(info, "worldModel"));
+				sprintf(def, "/*QUAKED %s (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SPIN - RESPAWN\ndefaultmdl=\"%s\"\n%s\nInternal(script) name:%s\n\"count\" - Specifies a specific amount of ammo to include with the weapon. Amount is capped to ammo max.", name, model, displayName, path);
+				eclass_t *e = FUN_00463860(def);
+				if (e)
+					FUN_00463e40(e, &dword_012334dc);
+			}
+		}
+		FS_FreeFile(buf);
+	}
+	if (files)
+		FS_FreeFileList(files, 10);
+}
+
 // 0x0046d390
 void FUN_0046d390(void)
 {
@@ -164,6 +371,66 @@ void FUN_0046d390(void)
 	FUN_0046d190("weapons/sp");
 	Sys_Printf("Scanning multiplayer weapons: %s/*\n", "weapons/mp");
 	FUN_0046d190("weapons/mp");
+}
+
+// 0x0046d3d0 (674 B)
+int QE_LoadProject(const char *projectfile)
+{
+	char path[1024];
+	void *data;
+
+	Sys_Printf("QE_LoadProject (%s)\n", projectfile);
+	{
+		void *file;
+		if (LoadFileNoCrash(projectfile, &file) == -1)
+			return 0;
+		data = file;
+	}
+	dword_012345c0 = projectfile;
+	{
+		const char *buf = (const char *)data;
+		Com_BeginParseSession(projectfile);
+		g_qeglobals.d_project_entity = FUN_00466440(&buf, 4, true);
+	}
+	Com_EndParseSession();
+	free(data);
+	if (!g_qeglobals.d_project_entity)
+		FUN_0047a760("Couldn't parse %s", projectfile);
+	dword_01233b64->m_strLastProject = projectfile;
+
+	for (int i = 0; i < 3; i++)
+	{
+		const char *value = ValueForKey(g_qeglobals.d_project_entity->epairs, DAT_00591cf4[i]);
+		if (value[0] != '\\' && value[0] != '/' && GetFullPathName(value, sizeof(path), path, 0))
+			FUN_00465bf0(g_qeglobals.d_project_entity, DAT_00591cf4[i], path);
+	}
+
+	FUN_004426e0();
+	FUN_00410e00();
+	FS_Shutdown(1);
+	Dvar_Shutdown();
+	FUN_00408f50(
+		ValueForKey(g_qeglobals.d_project_entity->epairs, "basepath"),
+		ValueForKey(g_qeglobals.d_project_entity->epairs, "game"),
+		ValueForKey(g_qeglobals.d_project_entity->epairs, "basegame"));
+	FUN_00410c40();
+	FUN_004409a0();
+	DAT_01128d90 = 0;
+	DAT_01128d94 = 0;
+	DAT_01128dc4 = 0.25f;
+	DAT_01128da8 = FUN_00440840("$default");
+	FUN_00440ca0();
+	FUN_00464170(ValueForKey(g_qeglobals.d_project_entity->epairs, "entitypath"));
+	FUN_0046d0f0("aitype", "gsc");
+	FUN_0046d0f0("maps/mp/gametypes", "gsc");
+	Sys_Printf("Scanning single player weapons: %s/*\n", "weapons/sp");
+	FUN_0046d190("weapons/sp");
+	Sys_Printf("Scanning multiplayer weapons: %s/*\n", "weapons/mp");
+	FUN_0046d190("weapons/mp");
+	FUN_00477270();
+	Map_New();
+	FUN_00440fa0();
+	return 1;
 }
 
 // 0x0046d680: writes the project entity key/values
@@ -235,6 +502,95 @@ struct LinkList
 extern char *va(const char *format, ...);
 void FUN_00465bf0(entity_t *e, const char *key, const char *value);
 bool FUN_0046dab0(entity_t *src, entity_t *dst);
+
+// 0x0046d820 (648 B): link entity e0 to entity e1 through script_linkTo/script_linkName
+void FUN_0046d820(entity_t *e0, entity_t *e1)
+{
+	LinkList links;
+	char buf[32];
+	int linkName;
+	int i;
+
+	if (FUN_0046dab0(e0, e1))
+		return;
+	if (FUN_0046dab0(e1, e0))
+		return;
+	const char *name = ValueForKey(e1, "script_linkName");
+	if (name && *name)
+		linkName = atol(ValueForKey(e1, "script_linkName"));
+	else
+	{
+		int highest = 0;
+		for (entity_t *e = entities.next; e != &entities; e = e->next)
+		{
+			const char *n = ValueForKey(e, "script_linkName");
+			if (n && *n)
+			{
+				int id = atol(n);
+				if (id > highest)
+					highest = id;
+			}
+		}
+		linkName = highest + 1;
+	}
+	sprintf(buf, "%i", linkName);
+	FUN_00465bf0(e1, "script_linkName", buf);
+	const char *newName = ValueForKey(e1, "script_linkName");
+	const char *linkTo = ValueForKey(e0, "script_linkTo");
+	if (!linkTo || !*linkTo)
+	{
+		FUN_00465bf0(e0, "script_linkTo", newName);
+		return;
+	}
+	FUN_0046d710(links.id, linkTo);
+	if (links.full)
+		Sys_Printf("Exceeded maximum links\n");
+	for (i = 0; i < links.size; i++)
+	{
+		if (links.id[i] == linkName)
+			goto linked;
+	}
+	links.id[links.size] = linkName;
+	links.size++;
+linked:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	assert(links.size > 0);
+	sprintf(buf, "%i", links.id[0]);
+	for (i = 1; i < links.size; i++)
+		strcat(buf, va(" %i", links.id[i]));
+	FUN_00465bf0(e0, "script_linkTo", buf);
+}
 
 // 0x0046dab0 (389 B): drop the link from src to dst, true when it existed
 bool FUN_0046dab0(entity_t *src, entity_t *dst)
@@ -336,6 +692,119 @@ bool FUN_0046e0c0(bool quiet)
 		return false;
 	}
 	return true;
+}
+
+extern brush_t *DAT_011298a0;
+void FUN_0046fbe0(bool bDeselectFaces);
+void FUN_0046f0b0(brush_t *brush, bool bComplete, bool bStatus, bool bPositionView);
+extern "C" void FUN_00417e00(unsigned v);
+
+// 0x0046ddc0 (511 B): ConnectEntities
+void FUN_0046ddc0(void)
+{
+	entity_t *e1, *e2, *e;
+	const char *target;
+	char newtarget[32];
+
+	if (DAT_01129898 != 2)
+	{
+		SendMessage(dword_010bcd70, WM_USER + 1, 0, (LPARAM)"Must have two brushes selected.");
+		Sys_Printf("Must have two brushes selected.\n");
+		MessageBeep(0x40);
+		return;
+	}
+
+	if (DAT_0112989c->owner == DAT_012334ec || DAT_011298a0->owner == DAT_012334ec)
+	{
+		SendMessage(dword_010bcd70, WM_USER + 1, 0, (LPARAM)"Can't connect to the world.");
+		Sys_Printf("Can't connect to the world.\n");
+		MessageBeep(0x40);
+		return;
+	}
+
+	e1 = DAT_0112989c->owner->def;
+	e2 = DAT_011298a0->owner->def;
+
+	if (e1 == e2)
+	{
+		SendMessage(dword_010bcd70, WM_USER + 1, 0, (LPARAM)"Brushes are from same entity.");
+		MessageBeep(0x40);
+		return;
+	}
+
+	target = ValueForKey(e1->epairs, "target");
+	if (target && target[0])
+	{
+		strcpy(newtarget, target);
+	}
+	else
+	{
+		target = ValueForKey(e2->epairs, "targetname");
+		if (target && target[0])
+		{
+			strcpy(newtarget, target);
+		}
+		else
+		{
+			int maxtarget = 0;
+			for (e = entities.next; e != &entities; e = e->next)
+			{
+				const char *tn = ValueForKey(e->epairs, "targetname");
+				if (tn && tn[0])
+				{
+					int i = atoi(tn + 4);
+					if (i > maxtarget)
+						maxtarget = i;
+				}
+			}
+			sprintf(newtarget, "auto%i", maxtarget + 1);
+		}
+	}
+
+	FUN_00465bf0(e1, "target", newtarget);
+	FUN_00465bf0(e2, "targetname", newtarget);
+	FUN_00417e00(3);
+	if (!dword_01233b64->field_22c)
+		FUN_0046fbe0(true);
+	FUN_0046f0b0(DAT_011298a0, true, true, false);
+}
+
+// 0x0046dfc0 (253 B): ConnectLinkEntities
+void FUN_0046dfc0(void)
+{
+	entity_t *e1, *e2;
+
+	if (DAT_01129898 != 2)
+	{
+		SendMessage(dword_010bcd70, WM_USER + 1, 0, (LPARAM)"Must have two entities selected.");
+		Sys_Printf("Must have two entities selected.\n");
+		MessageBeep(0x40);
+		return;
+	}
+
+	if (DAT_0112989c->owner == DAT_012334ec || DAT_011298a0->owner == DAT_012334ec)
+	{
+		SendMessage(dword_010bcd70, WM_USER + 1, 0, (LPARAM)"Can't connect to the world.");
+		Sys_Printf("Can't connect to the world.\n");
+		MessageBeep(0x40);
+		return;
+	}
+
+	e1 = DAT_0112989c->owner->def;
+	e2 = DAT_011298a0->owner->def;
+
+	if (e1 == e2)
+	{
+		SendMessage(dword_010bcd70, WM_USER + 1, 0, (LPARAM)"Brushes are from same entity.");
+		MessageBeep(0x40);
+		return;
+	}
+
+	FUN_0046d820(e1, e2);
+	FUN_00417e00(3);
+	if (!dword_01233b64->field_22c)
+		FUN_0046fbe0(true);
+	FUN_0046f0b0(DAT_011298a0, true, true, false);
 }
 
 // 0x0046e120 (61 B)

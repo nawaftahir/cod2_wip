@@ -797,33 +797,33 @@ void Com_TouchMemory( void );
 
 
 
-void Com_InitHunkMemory(void);
+void Com_InitHunkMemory( void )
+{
+	assert( !s_hunkData );
 
+	if ( g_largeLocalPos )
+		Com_Error( ERR_FATAL, "Hunk initialization failed. File system load stack not zero" );
 
+	const dvar_t *com_hunkMegs = Dvar_RegisterInt(
+		"com_hunkMegs",
+		176,
+		128,
+		512,
+		DVAR_ARCHIVE | DVAR_LATCH | DVAR_CHANGEABLE_RESET );
 
+	s_hunkTotal = com_hunkMegs->current.integer << 20;
+	s_hunkData = (byte *)VirtualAlloc( NULL, s_hunkTotal, MEM_COMMIT, PAGE_READWRITE );
+	if ( !s_hunkData )
+		Com_Error( ERR_FATAL, va( "EXE_ERR_HUNK_ALLOC_FAILED%i", s_hunkTotal / 0x100000 ) );
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	memset( s_hunkData, 0xce, s_hunkTotal );
+	hunk_low.permanent = 0;
+	hunk_low.temp = 0;
+	hunk_high.permanent = 0;
+	hunk_high.temp = 0;
+	s_origHunkData = s_hunkData;
+	Hunk_ClearData();
+}
 
 
 

@@ -225,8 +225,7 @@ void FUN_00421150(mesh_t *in)
             {
                 if (!good[k] || !good[(k + 1) & 7])
                     continue;
-                const float *a = around[(k + 1) & 7];
-                CrossProduct(a, around[k], normal);
+                CrossProduct(around[(k + 1) & 7], around[k], normal);
                 if (Vec3Normalize(normal) == 0.0f)
                     continue;
                 VectorAdd(normal, sum, sum);

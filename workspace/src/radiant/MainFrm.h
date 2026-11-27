@@ -101,6 +101,7 @@ public:
   void FUN_00419fc0();
   void FUN_00419fd0();
   void FUN_00419ff0();
+  void FUN_0041a010(int nDirection, int nAmount);
   void FUN_0041a330();
   void FUN_0041b070();
   void FUN_0041b0b0();

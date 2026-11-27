@@ -128,13 +128,13 @@ bool FUN_00465d80(entity_t *ent, const char *key);
 void FUN_00464c80(entityInst_t *e, float *mins, float *maxs);
 entityInst_t *FUN_00467770(entity_t *entDef, entityInst_t *list, brush_t *brushList);
 void FUN_00467640(entity_t *ent, float *vec);
-void FUN_004671b0(brushdef_t *b, entity_t *owner);
+void FUN_004671b0(entity_t *owner, brushdef_t *b);
 
 extern entity_t entities;
 extern int DAT_011298b0;
 extern int DAT_00591cd8;
 extern char *FUN_0046cb10(const char *str);
-extern eclass_t *FUN_00464770(int a, const char *name);
+extern eclass_t *FUN_00464770(const char *name, int a);
 extern void Brush_InitSolid(brushdef_t *b, const vec3_t mins, const vec3_t maxs, eclass_t *eclass);
 extern void FUN_0045a220(brushdef_t *b, bool snap);
 extern void FUN_00457bd0(brushdef_t *b);
@@ -406,7 +406,7 @@ void FUN_004656b0(entity_t *e, const char *key, const char *value)
 {
 	if (!_stricmp(key, "classname") && e->eclass && e->eclass->fixedsize)
 	{
-		eclass_t *ec = FUN_00464770(0, value);
+		eclass_t *ec = FUN_00464770(value, 0);
 
 		if (ec->fixedsize)
 		{
@@ -817,7 +817,7 @@ entity_t *FUN_00466440(const char **data, int version, bool flag)
 			brushdef_t *b = FUN_00457270(data, version);
 			if (!b)
 				break;
-			FUN_004671b0(b, ent);
+			FUN_004671b0(ent, b);
 		}
 		else
 		{
@@ -855,12 +855,14 @@ entity_t *FUN_00466440(const char **data, int version, bool flag)
 		}
 	}
 
-	if (!strcmp(ValueForKey(ent->epairs, "classname"), "group_info") || flag)
+	if (!strcmp(ValueForKey(ent->epairs, "classname"), "group_info"))
+		return ent;
+	if (flag)
 		return ent;
 
 	bool hasBrushes = ent->brushes.onext != &ent->brushes;
 	GetVectorForKey(ent, "origin", ent->origin);
-	eclass_t *ec = FUN_00464770(hasBrushes, ValueForKey(ent->epairs, "classname"));
+	eclass_t *ec = FUN_00464770(ValueForKey(ent->epairs, "classname"), hasBrushes);
 	ent->eclass = ec;
 	if (!ec->fixedsize)
 	{
@@ -877,18 +879,16 @@ entity_t *FUN_00466440(const char **data, int version, bool flag)
 	FUN_00467510(ent);
 
 	float mins[3], maxs[3], angles[3];
-	mins[0] = ec->mins[0] + ent->origin[0];
-	mins[1] = ec->mins[1] + ent->origin[1];
-	mins[2] = ec->mins[2] + ent->origin[2];
-	maxs[0] = ec->maxs[0] + ent->origin[0];
-	maxs[1] = ec->maxs[1] + ent->origin[1];
-	maxs[2] = ec->maxs[2] + ent->origin[2];
+	VectorAdd(ec->mins, ent->origin, mins);
+	VectorAdd(ec->maxs, ent->origin, maxs);
 	angles[0] = 0;
 	angles[1] = 0;
 	angles[2] = 0;
 	if (ec->flags & 8)
 	{
 		char *modelName = ValueForKey(ent->epairs, "model");
+
+
 
 
 
@@ -911,12 +911,12 @@ entity_t *FUN_00466440(const char **data, int version, bool flag)
 	if (angles[0] != 0 || angles[1] != 0 || angles[2] != 0)
 	{
 		float rot[3];
-		rot[1] = angles[0];
 		rot[0] = angles[2];
+		rot[1] = angles[0];
 		rot[2] = angles[1];
 		FUN_0045b260(b, rot, ent->origin);
 	}
-	FUN_004671b0(b, ent);
+	FUN_004671b0(ent, b);
 	return ent;
 }
 
@@ -972,19 +972,293 @@ struct brushDef_t;
 bool Map_IsBrushFiltered(brushDef_t *b);
 void FUN_004579e0(brushdef_t *b, AbstractFileWrapper *f);
 
+// 0x00466c00 (383 B), stream in ecx
+extern entityInst_t *world_entity;
+extern brush_t selected_brushes;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void FUN_00466c00(entity_t *e, AbstractFileWrapper *f)
+{
+	brush_t *b;
+	char text[128];
+
+	assert(world_entity);
+	if (world_entity->def != e)
+	{
+		for (b = selected_brushes.next; b != &selected_brushes; b = b->next)
+		{
+			if (b->owner->def == e)
+				break;
+		}
+		if (b == &selected_brushes)
+			return;
+	}
+	if (e->eclass->fixedsize)
+	{
+		sprintf(text, "%.0f %.0f %.0f", e->origin[0], e->origin[1], e->origin[2]);
+		FUN_00465bf0(e, "origin", text);
+	}
+	f->FUN_00467df0("{\n");
+	for (epair_t *ep = e->epairs; ep; ep = ep->next)
+		f->FUN_00467df0("\"%s\" \"%s\"\n", ep->key, ep->value);
+	if (!e->eclass->fixedsize)
+	{
+		int count = 0;
+		for (b = selected_brushes.next; b != &selected_brushes; b = b->next)
+		{
+			if (b->owner->def == e)
+			{
+				f->FUN_00467df0("// brush %i\n", count++);
+				FUN_004579e0(b->def, f);
+			}
+		}
+	}
+	f->FUN_00467df0("}\n");
+}
+
+// 0x00466d80 (1059 B)
+void Sys_Printf(const char *fmt, ...);
+extern entityInst_t entityInsts;
+extern brush_t active_brushes;
+extern int DAT_0123348c;
+void Brush_RemoveFromEntity(brush_t *b, entity_t *owner);
+void FUN_0046fb30();
+void Entity_AddToList(entity_t *e, entity_t *list);
+bool FUN_00465e10(entity_t *ent, const char *key, const char *value);
+void FUN_00467240(brushdef_t *b);
+brushdef_t *Brush_CreateFromTexdef(eclass_t *eclass, const texdef_t *td);
+extern "C" __declspec(dllimport) int __stdcall MessageBeep(unsigned int uType);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+entity_t *FUN_00466d80(eclass_t *ec)
+{
+	vec3_t mins;
+	vec3_t maxs;
+	entity_t *e = NULL;
+	entityInst_t *inst = NULL;
+	bool found = false;
+
+	for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+	{
+		if (b->owner == world_entity)
+			continue;
+		if (ec->fixedsize)
+		{
+			Sys_Printf("Entity NOT created, can't make a point entity out of brushes\n");
+			MessageBeep(0x40);
+			return NULL;
+		}
+		if (found && e != b->def->owner)
+		{
+			Sys_Printf("Can't merge entities\n");
+			MessageBeep(0x40);
+			return NULL;
+		}
+		e = b->def->owner;
+		inst = b->owner;
+		found = true;
+		if (!FUN_00465e10(e, "classname", ec->unk04))
+		{
+			Sys_Printf("Can't change entity type from %s to %s; ungroup first\n", ValueForKey(e->epairs, "classname"), ec->unk04);
+			MessageBeep(0x40);
+			return NULL;
+		}
+	}
+	if (!found)
+	{
+		e = new entity_t;
+		memset(e, 0, sizeof(entity_t));
+		e->entityId = DAT_00591cd8++;
+		e->brushes.onext = e->brushes.oprev = &e->brushes;
+		FUN_00465bf0(e, "classname", ec->unk04);
+		e->eclass = ec;
+		Entity_AddToList(e, &entities);
+		inst = FUN_00467770(e, &entityInsts, &active_brushes);
+		if (ec->fixedsize)
+		{
+			const float *sel = selected_brushes.next->def->mins;
+			e->origin[0] = sel[0] - ec->mins[0];
+			e->origin[1] = sel[1] - ec->mins[1];
+			e->origin[2] = sel[2] - ec->mins[2];
+			mins[0] = e->origin[0] + ec->mins[0];
+			mins[1] = ec->mins[1] + e->origin[1];
+			mins[2] = ec->mins[2] + e->origin[2];
+			maxs[0] = ec->maxs[0] + e->origin[0];
+			maxs[1] = ec->maxs[1] + e->origin[1];
+			maxs[2] = ec->maxs[2] + e->origin[2];
+			brushdef_t *def = Brush_CreateFromTexdef(ec, (const texdef_t *)ec->texdef);
+			Brush_InitSolid(def, mins, maxs, ec);
+			FUN_004671b0(e, def);
+			FUN_0045a220(def, true);
+			if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
+				FUN_00475350();
+			Sys_MarkMapModified();
+			def->version++;
+			FUN_0046fb30();
+			FUN_00459210(FUN_00458440(def, (entity_t *)inst), &selected_brushes);
+			DAT_0123348c = -1;
+			return (entity_t *)inst;
+		}
+		for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+		{
+			FUN_00467240(b->def);
+			FUN_004671b0(e, b->def);
+			brushdef_t *bd = b->def;
+			FUN_0045a220(bd, true);
+			if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
+				FUN_00475350();
+			Sys_MarkMapModified();
+			bd->version++;
+			Brush_RemoveFromEntity(b, (entity_t *)inst);
+		}
+		DAT_0123348c = -1;
+		return (entity_t *)inst;
+	}
+	assert1(inst);
+	for (brush_t *b = selected_brushes.next; b != &selected_brushes; b = b->next)
+	{
+		if (b->owner != world_entity)
+		{
+
+			assert1(b->owner == inst);
+			assert1(b->def->owner == e);
+		}
+		else
+		{
+			FUN_00467240(b->def);
+			FUN_004671b0(e, b->def);
+			brushdef_t *bd = b->def;
+			FUN_0045a220(bd, true);
+			if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
+				FUN_00475350();
+			Sys_MarkMapModified();
+			bd->version++;
+			Brush_RemoveFromEntity(b, (entity_t *)inst);
+		}
+	}
+	DAT_0123348c = -1;
+	return (entity_t *)inst;
+}
+
 // 0x00466970 (649 B)
 extern float DAT_00591cdc[3];
 extern float DAT_00591ce8[3];
 
-extern entityInst_t *world_entity;
-extern brush_t selected_brushes;
-void FUN_004579e0(brushdef_t *b, AbstractFileWrapper *f);
+void FUN_00466970(entity_t *e, bool use_region, FILE *f)
+{
+	char buf[128];
+	NormalFileWrapper wrapper(f);
 
-// 0x00466c00 (383 B), stream in ecx
+	if (use_region)
+	{
+		if (!strcmp(ValueForKey(e->epairs, "classname"), "info_player_start"))
+		{
+			float origin[3];
+			const float *camOrigin = dword_01233488->camWnd->origin;
+			origin[0] = camOrigin[0];
+			origin[1] = camOrigin[1];
+			origin[2] = camOrigin[2];
+			fprintf(f, "{\n");
+			fprintf(f, "\"classname\" \"info_player_start\"\n");
+			fprintf(f, "\"origin\" \"%.0f %.0f %.0f\"\n", origin[0], origin[1], origin[2]);
+			fprintf(f, "\"angles\" \"0 %.0f 0\"\n", dword_01233488->camWnd->angles[1]);
+			fprintf(f, "}\n");
+			return;
+		}
+		brushdef_t *b = e->brushes.onext;
+		while (b != &e->brushes && Map_IsBrushFiltered((brushDef_t *)b))
+			b = b->onext;
+		if (b == &e->brushes)
+			return;
+	}
+	if (e->eclass->fixedsize)
+	{
+		sprintf(buf, "%.0f %.0f %.0f", e->origin[0], e->origin[1], e->origin[2]);
+		FUN_00465bf0(e, "origin", buf);
+	}
+	fprintf(f, "{\n");
+	for (epair_t *ep = e->epairs; ep; ep = ep->next)
+		FUN_00466940(ep->key, f, ep->value);
+	if (!e->eclass->fixedsize)
+	{
+		int count = 0;
+		for (brushdef_t *b = e->brushes.onext; b != &e->brushes; b = b->onext)
+		{
+			if (use_region)
+			{
+				int i;
+				for (i = 0; i < 3; i++)
+				{
+					if (b->mins[i] > DAT_00591ce8[i] || b->maxs[i] < DAT_00591cdc[i])
+						break;
+				}
+				if (i < 3)
+					continue;
+			}
+			fprintf(f, "// brush %i\n", count);
+			count++;
+			FUN_004579e0(b, &wrapper);
+		}
+	}
+	fprintf(f, "}\n");
+}
 
 
 // 0x004671b0 (142 B)
-void FUN_004671b0(brushdef_t *b, entity_t *owner)
+void FUN_004671b0(entity_t *owner, brushdef_t *b)
 {
 	if (b->oprev || b->onext)
 		FUN_0047a760("Entity_LinkBrush: Allready linked");

@@ -15,62 +15,62 @@ struct qeglobals_t { unsigned char pad0[0x18]; int d_gridsize; unsigned char pad
 extern qeglobals_t g_qeglobals;
 extern selbrush_t selected_brushes;
 extern int g_nUpdateBits;
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
-// padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
+struct brushdef_t; struct entity_t;
+void FUN_00455cf0(brushdef_t *b, const face_t *f, brushdef_t **front, brushdef_t **back);
+void FUN_00467240(brushdef_t *b);
+void FUN_00458af0(brushdef_t *b);
+brush_t *FUN_00458440(brushdef_t *def, entity_t *owner);
+void FUN_00459210(brush_t *b, brush_t *list);
+void Brush_Free(brush_t *b);
+void FUN_0045f8b0()
+{
+    selbrush_t *b, *next;
+    for (b = selected_brushes.next; b != &selected_brushes; b = next)
+    {
+        next = b->next;
+        entity_s *owner = b->owner;
+        brush_t *def = b->def;
+        assert(b->owner->def == b->def->owner);
+        if (def->owner->eclass->fixedsize || b->patch || b->hiddenBrush)
+            continue;
+        for (int i = 0; i < def->faceCount; i++)
+        {
+            face_t *f = &def->faces[i];
+            float grid = (float)g_qeglobals.d_gridsize;
+            face_t split = *f;
+            float move[3];
+            move[0] = grid * f->plane.normal[0];
+            move[1] = grid * f->plane.normal[1];
+            move[2] = grid * f->plane.normal[2];
+            for (int j = 0; j < 3; j++)
+            {
+                split.planepts[j][0] -= move[0];
+                split.planepts[j][1] -= move[1];
+                split.planepts[j][2] -= move[2];
+            }
+            brushdef_t *front, *back;
+            FUN_00455cf0((brushdef_t *)def, &split, &front, &back);
+            if (back)
+            {
+                FUN_00467240(back);
+                FUN_00458af0(back);
+            }
+            if (front)
+            {
+                FUN_00459210(FUN_00458440(front, (entity_t *)owner), (brush_t *)&selected_brushes);
+            }
+        }
+        Brush_Free((brush_t *)b);
+    }
+    g_nUpdateBits = -1;
+}
+
+
+
+
+
+
+
 // padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
 // padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge
 // padding for deferred CSG_MakeHollow, Brush_MergeList, CSG_Merge

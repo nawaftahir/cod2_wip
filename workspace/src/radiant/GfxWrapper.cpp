@@ -458,7 +458,7 @@ extern void *DAT_011298c4;
 extern void *DAT_011298c8;
 extern void *DAT_011298cc;
 extern void *DAT_011298d0;
-void FUN_00489ea0();
+void Com_InitHunkMemory();
 
 // 0x00410c40 (445 B): load the renderer DLL and hand it the editor windows
 extern "C" void FUN_00410c40()
@@ -466,7 +466,7 @@ extern "C" void FUN_00410c40()
 	int config[11];
 
 	FUN_004105f0();
-	FUN_00489ea0();
+	Com_InitHunkMemory();
 	((void (*)(int *))re.fn[1])(config);
 #line 439
 	assert(g_qeglobals.d_hwndCamera);

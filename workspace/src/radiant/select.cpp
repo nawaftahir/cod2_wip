@@ -114,6 +114,7 @@ class CXYWnd
 public:
     unsigned char pad_00[0xf4];
     int m_nViewType;
+    void Copy();
 protected:
     friend void FUN_0046f0b0(brush_t *brush, bool bComplete, bool bStatus, bool bPositionView);
     void PositionView();
@@ -131,6 +132,7 @@ public:
         }
     }
     CXYWnd *ActiveXY() { return m_pActiveXY; }
+    void FUN_0041a010(int nDirection, int nAmount);
 
     unsigned char pad_00[0x788];
     CXYWnd *field_0788;
@@ -200,7 +202,6 @@ void FUN_0042f5d0();
 void Brush_Free(brush_t *b);
 void FUN_004678c0(entityInst_t *e);
 int FUN_00477ba0(int iItem, eclass_t *pec);
-void FUN_0041a010(int dir, int grid);
 void FUN_00470a50(float mins[3], float maxs[3]);
 trace_t FUN_0046eca0(const float *origin, const float *dir, int flags);
 
@@ -521,10 +522,10 @@ void FUN_0046f0b0(brush_t *brush, bool bComplete, bool bStatus, bool bPositionVi
     if (bStatus)
     {
         FUN_00470a50(mins, maxs);
+        CString strStatus;
         size[0] = maxs[0] - mins[0];
         size[1] = maxs[1] - mins[1];
         size[2] = maxs[2] - mins[2];
-        CString strStatus;
         strStatus.Format("Selection X:: %.1f  Y:: %.1f  Z:: %.1f", size[0], size[1], size[2]);
         dword_01233488->SetStatusText(2, strStatus);
     }
@@ -821,8 +822,8 @@ void ClearBounds(float mins[3], float maxs[3]);
 void ExpandBounds(const float addedmins[3], const float addedmaxs[3], float mins[3], float maxs[3]);
 
 extern bool DAT_0058fbed;
-void FUN_00452e30(CXYWnd *xy);
-void FUN_00452f50(CXYWnd *xy);
+void __stdcall FUN_00452e30(CXYWnd *xy);
+void __stdcall FUN_00452f50(CXYWnd *xy);
 
 void FUN_0045e0b0(brushdef_t *b);
 void FUN_0045a220(brushdef_t *b, bool snap);
@@ -981,10 +982,10 @@ void FUN_0046fe50()
 #line 793
     assert(dword_01233488->ActiveXY());
     DAT_0058fbed = false;
-    FUN_00452e30(dword_01233488->ActiveXY());
+    dword_01233488->ActiveXY()->Copy();
     FUN_00452f50(dword_01233488->ActiveXY());
-    FUN_0041a010(2, g_qeglobals.d_gridsize);
-    FUN_0041a010(3, g_qeglobals.d_gridsize);
+    dword_01233488->FUN_0041a010(2, g_qeglobals.d_gridsize);
+    dword_01233488->FUN_0041a010(3, g_qeglobals.d_gridsize);
     DAT_0058fbed = true;
     g_nUpdateBits = -1;
 }
@@ -998,7 +999,32 @@ void FUN_00470a50(float mins[3], float maxs[3])
 
 class CPrefsDlg { public: unsigned char pad_00[0x248]; BOOL m_bNoClamp; };
 extern CPrefsDlg *dword_01233b64;
-void FUN_0046fb30();
+void FUN_00458c00(brush_t *b);
+void FUN_004678c0(entityInst_t *e);
+void FUN_0046fb30()
+{
+    int mode;
+
+    ((SelArrAccess &)g_SelectedFaces).Free();
+    mode = g_qeglobals.d_select_mode;
+    g_qeglobals.d_select_mode = 0;
+    if (mode == 11)
+        FUN_0041b190(dword_01233488);
+    else if (mode == 10)
+        FUN_0042beb0();
+    g_qeglobals.selectObject = NULL;
+    g_qeglobals.d_select_count = 0;
+    g_qeglobals.d_num_move_points = 0;
+    brush_t *b;
+    while ((b = selected_brushes.next) != &selected_brushes)
+    {
+        entityInst_t *e = b->owner;
+        FUN_00458c00(b);
+        if (e->ownerHead() == e->ownerEnd() && e != DAT_012334ec)
+            FUN_004678c0(e);
+    }
+    g_nUpdateBits = -1;
+}
 void FUN_00470c00(float mid[3]);
 void FUN_0045f340(brush_t *b, float *matrix, int a, int c, float d, bool flip, float *origin);
 void FUN_00470c50(float *mid);
@@ -1145,13 +1171,15 @@ void FUN_00470ef0(int axis, float deg, bool bUpdate, bool bMouse)
 
     if (deg == 0.0f)
         return;
-    if (!bMouse)
-        FUN_00470c50(origin);
-    else
+    if (bMouse)
     {
         origin[0] = DAT_0109fdfc[0];
         origin[1] = DAT_0109fdfc[1];
         origin[2] = DAT_0109fdfc[2];
+    }
+    else
+    {
+        FUN_00470c50(origin);
     }
     deg = -deg;
     SinCosDegrees(deg, &s, &c);
@@ -1233,7 +1261,7 @@ void FUN_00470ff0()
 
 bool FUN_0044f630(brushdef_t *b);
 void FUN_00467240(brushdef_t *b);
-void FUN_004671b0(brushdef_t *b, entity_t *owner);
+void FUN_004671b0(entity_t *owner, brushdef_t *b);
 void Brush_RemoveFromEntity(brush_t *b, entity_t *e);
 char *ValueForKey(epair_t *&e, const char *key);
 bool FUN_00465e10(entity_t *e, const char *key, const char *value);
@@ -1424,6 +1452,41 @@ void FUN_00471530()
     g_nUpdateBits = -1;
 }
 
+void FUN_00467240(brushdef_t *b); void FUN_004671b0(entity_t *owner, brushdef_t *b); void FUN_0045a220(brushdef_t *b, bool bSnap); void FUN_00475350(); void Brush_RemoveFromEntity(brush_t *b, entity_t *owner);
+#define sel_assert2(expr, txt) do { static bool s_assertDisable; if (!(expr) && !s_assertDisable) { switch (FUN_0047d980(txt, __FILE__, __LINE__, 1, 1)) { case 0: DebugBreak(); break; case 2: s_assertDisable = true; break; } } } while (0)
+void FUN_00471670()
+{
+    int num = 0;
+    for (brush_t *sb = selected_brushes.next; sb != &selected_brushes; sb = sb->next)
+    {
+        assert(sb->owner);
+        assert(sb->def);
+        assert(sb->owner->def == sb->def->owner);
+        entityInst_t *e = sb->owner;
+        if (e == DAT_012334ec || e->def->eclass->fixedsize) continue;
+        while (e->ownerHead() != e->ownerEnd())
+        {
+            brush_t *b = e->ownerHead();
+            FUN_00467240(b->def);
+            FUN_004671b0(DAT_012334ec->def, b->def);
+            brushdef_t *bd = b->def; FUN_0045a220(bd, true);
+            if (g_qeglobals.d_select_mode == 1 || g_qeglobals.d_select_mode == 2) FUN_00475350();
+            Sys_MarkMapModified(); bd->version++;
+            Brush_RemoveFromEntity(b, (entity_t *)DAT_012334ec);
+        }
+        sel_assert2(e->ownerHead() == e->ownerEnd(), "e->brushes.ownerNext == &e->brushes");
+        FUN_004678c0(e);
+        num++;
+    }
+    if (num <= 0)
+    {
+        Sys_Printf("No grouped entities selected.\n");
+        return;
+    }
+    Sys_Printf("Ungrouped %d entit%s.\n", num, (num == 1) ? "y" : "ies");
+    g_nUpdateBits = -1;
+}
+
 // select every brush whose entity has the same value for a key as the selected one
 void FUN_004718b0(const char *key)
 {
@@ -1471,6 +1534,255 @@ void FUN_00471a70()
 void FUN_00471a80()
 {
     FUN_004718b0("classname");
+}
+
+
+
+
+
+
+
+
+
+class CKeyValueSelectDlg : public CDialog { public: CKeyValueSelectDlg(CWnd *pParent = NULL); enum { IDD = 188 }; CString m_strValue; CString m_strKey; BOOL m_bKeySub; BOOL m_bValSub; protected: virtual void DoDataExchange(CDataExchange *pDX); DECLARE_MESSAGE_MAP() };
+bool FUN_00465d80(entity_t *ent, const char *key); bool FUN_00465de0(entity_t *ent, const char *key); bool FUN_00465eb0(entity_t *ent, const char *key, const char *value); bool FUN_00465f20(entity_t *ent, const char *key, const char *value);
+bool FUN_00465f90(entity_t *ent, const char *key, const char *value); bool FUN_00465fd0(entity_t *ent, const char *value); bool FUN_00466030(entity_t *ent, const char *value); void FUN_0046d710(int *out, const char *linkTo);
+void FUN_00471a90()
+{
+    CKeyValueSelectDlg dlg;
+    if (dlg.DoModal() != IDOK) return;
+    bool hasKey = (dlg.m_strKey.GetLength() != 0);
+    bool hasVal = (dlg.m_strValue.GetLength() != 0);
+    if (!hasKey && !hasVal) return;
+
+    if (!hasKey)
+    {
+        if (dlg.m_bValSub)
+            Sys_Printf("Selecting entities that have a key substring value of '%s'\n", (const char *)dlg.m_strValue);
+        else
+            Sys_Printf("Selecting entities that have a key value of '%s'\n", (const char *)dlg.m_strValue);
+    }
+    else if (!hasVal)
+    {
+        if (dlg.m_bKeySub)
+            Sys_Printf("Selecting entities that have a substring key of '%s'\n", (const char *)dlg.m_strKey);
+        else
+            Sys_Printf("Selecting entities that have the key '%s'\n", (const char *)dlg.m_strKey);
+    }
+    else
+    {
+        if (dlg.m_bKeySub && dlg.m_bValSub)
+            Sys_Printf("Selecting entities that have a substring key of '%s' with a substring value of '%s'\n", (const char *)dlg.m_strKey, (const char *)dlg.m_strValue);
+        else if (dlg.m_bValSub)
+            Sys_Printf("Selecting entities that have the key '%s' with a substring value of '%s'\n", (const char *)dlg.m_strKey, (const char *)dlg.m_strValue);
+        else if (dlg.m_bKeySub)
+            Sys_Printf("Selecting entities that have a substring key of '%s' with the value '%s'\n", (const char *)dlg.m_strKey, (const char *)dlg.m_strValue);
+        else
+            Sys_Printf("Selecting entities that have the key '%s' with the value '%s'\n", (const char *)dlg.m_strKey, (const char *)dlg.m_strValue);
+    }
+
+
+
+
+
+
+    FUN_0046fbe0(true);
+    brush_t *next;
+    for (brush_t *brush = active_brushes.next; brush != &active_brushes; brush = next)
+    {
+        next = brush->next;
+        if (FUN_0044f5d0(brush))
+            continue;
+        if (brush->owner == DAT_012334ec)
+            continue;
+        assert(brush->owner->def == brush->def->owner);
+        entity_t *ent = brush->owner->def;
+        bool match;
+        if (!hasKey)
+        {
+            if (dlg.m_bValSub)
+                match = FUN_00466030(ent, dlg.m_strValue);
+            else
+                match = FUN_00465fd0(ent, dlg.m_strValue);
+        }
+        else if (!hasVal)
+        {
+            if (dlg.m_bKeySub)
+                match = FUN_00465de0(ent, dlg.m_strKey);
+            else
+                match = FUN_00465d80(ent, dlg.m_strKey);
+        }
+        else if (dlg.m_bValSub)
+        {
+            if (dlg.m_bKeySub)
+                match = FUN_00465f90(ent, dlg.m_strKey, dlg.m_strValue);
+            else
+                match = FUN_00465f20(ent, dlg.m_strValue, dlg.m_strKey);
+        }
+        else
+        {
+            if (dlg.m_bKeySub)
+                match = FUN_00465eb0(ent, dlg.m_strKey, dlg.m_strValue);
+            else
+                match = FUN_00465e10(ent, dlg.m_strKey, dlg.m_strValue);
+        }
+        if (match)
+        {
+            FUN_004592f0(brush);
+            FUN_00459210(brush, &selected_brushes);
+        }
+    }
+    g_nUpdateBits = -1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x00471dd0 (972 B)
+void FUN_00471dd0()
+{
+    if (selected_brushes.next == &selected_brushes)
+        return;
+
+    FUN_0046e4a0();
+
+    bool found;
+    brush_t *brush;
+    brush_t *next;
+    const char *val;
+    do
+    {
+        found = false;
+        for (brush = selected_brushes.next; brush != &selected_brushes; brush = brush->next)
+        {
+            if (brush->owner == DAT_012334ec)
+                continue;
+            assert(brush->def->owner == brush->owner->def);
+            entity_t *ent = brush->owner->def;
+
+            if (FUN_00465d80(ent, "targetname"))
+            {
+                val = ValueForKey(ent->epairs, "targetname");
+                for (brush_t *b = active_brushes.next; b != &active_brushes; b = next)
+                {
+                    next = b->next;
+                    if (b->owner == DAT_012334ec)
+                        continue;
+                    if (FUN_0044f5d0(b))
+                        continue;
+                    if (FUN_00465e10(b->owner->def, "target", val))
+                    {
+                        FUN_004592f0(b);
+                        FUN_00459210(b, &selected_brushes);
+                        found = true;
+                    }
+                }
+            }
+
+            if (FUN_00465d80(ent, "script_linkTo"))
+            {
+                int links[34];
+                FUN_0046d710(links, ValueForKey(ent->epairs, "script_linkTo"));
+                for (brush_t *b = active_brushes.next; b != &active_brushes; b = next)
+                {
+                    next = b->next;
+                    if (b->owner == DAT_012334ec)
+                        continue;
+                    if (FUN_0044f5d0(b))
+                        continue;
+                    const char *ln = ValueForKey(b->owner->def->epairs, "script_linkName");
+                    if (ln && ln[0])
+                    {
+                        int id = atoi(ln);
+                        for (int i = 0; i < links[32]; i++)
+                        {
+                            if (id == links[i])
+                            {
+                                FUN_004592f0(b);
+                                FUN_00459210(b, &selected_brushes);
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (FUN_00465d80(ent, "script_linkName"))
+            {
+                int myId = atoi(ValueForKey(ent->epairs, "script_linkName"));
+                for (brush_t *b = active_brushes.next; b != &active_brushes; b = next)
+                {
+                    next = b->next;
+                    if (b->owner == DAT_012334ec)
+                        continue;
+                    if (FUN_0044f5d0(b))
+                        continue;
+                    const char *lt = ValueForKey(b->owner->def->epairs, "script_linkTo");
+                    if (lt && lt[0])
+                    {
+                        int links2[34];
+                        FUN_0046d710(links2, lt);
+                        for (int i = 0; i < links2[32]; i++)
+                        {
+                            if (myId == links2[i])
+                            {
+                                FUN_004592f0(b);
+                                FUN_00459210(b, &selected_brushes);
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (FUN_00465d80(ent, "target"))
+            {
+                val = ValueForKey(ent->epairs, "target");
+                for (brush_t *b = active_brushes.next; b != &active_brushes; b = next)
+                {
+                    next = b->next;
+                    if (b->owner == DAT_012334ec)
+                        continue;
+                    if (FUN_0044f5d0(b))
+                        continue;
+                    if (FUN_00465e10(b->owner->def, "targetname", val))
+                    {
+                        FUN_004592f0(b);
+                        FUN_00459210(b, &selected_brushes);
+                    }
+                }
+            }
+        }
+    } while (found);
+
+    g_nUpdateBits = -1;
 }
 
 
@@ -2039,8 +2351,8 @@ void FUN_00474230(float width, float height, bool flag)
             assert(selFace.face == &selFace.brush->faces[selFace.index]);
             assert(selFace.brush->version == selFace.brush->def->version);
             Undo_AddBrush(selFace.brush->def);
-            FUN_0045ebf0(&selFace.brush->def->faces[selFace.index], height, width, flag);
             brushdef_t *d = selFace.brush->def;
+            FUN_0045ebf0(&d->faces[selFace.index], height, width, flag);
             FUN_0045a220(d, true);
             if (DAT_011298b0 == 1 || DAT_011298b0 == 2)
                 FUN_00475350();

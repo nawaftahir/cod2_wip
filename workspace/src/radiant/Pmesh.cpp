@@ -112,7 +112,7 @@ struct entity_t;
 brushdef_t *Brush_CreateFromTexdef(eclass_t *eclass, const texdef_t *td);
 void Brush_InitSolid(brushdef_t *b, const vec3_t mins, const vec3_t maxs, eclass_t *eclass);
 void FUN_0045a220(brushdef_t *b, bool snap);
-void FUN_004671b0(brushdef_t *b, entity_t *owner);
+void FUN_004671b0(entity_t *owner, brushdef_t *b);
 brush_t *FUN_00458440(brushdef_t *def, entity_t *owner);
 void FUN_00459210(brush_t *b, brush_t *list);
 void FUN_00475350();
@@ -339,7 +339,7 @@ extern const int DAT_0053dab8[][2];
 extern const int DAT_0053dab0[][2];
 brush_t *FUN_004275a0(patchMesh_t *pm, bool bByColumn, bool bFirst);
 brush_t *FUN_00427ef0(patchMesh_t *pm, int nType, bool bFirst);
-eclass_t *FUN_00464770(int a, const char *name);
+eclass_t *FUN_00464770(const char *name, int a);
 entity_t *FUN_00466d80(eclass_t *ec);
 void FUN_00444110(entity_t *e);
 void FUN_00428b80();
@@ -883,7 +883,7 @@ brushdef_t *AddBrushForPatch(patchMesh_t *pm, entity_t *owner)
 
     if (owner)
     {
-        FUN_004671b0(b, owner);
+        FUN_004671b0(owner, b);
         FUN_0045a220(b, true);
         if (g_qeglobals.d_select_mode == 1 || g_qeglobals.d_select_mode == 2)
             FUN_00475350();
@@ -993,7 +993,7 @@ void FUN_00426f20(patchMesh_t *p, int layer, float scale)
     int y2[512];
     int x1[512];
     int y1[512];
-    vec3_t normal;
+    float normal[4];
 
     mesh_t *m = FUN_004267d0(p, layer, x1, y1);
     mesh_t *m2 = FUN_00422900(m, scale, 512, x2, y2, x1, y1);
@@ -1486,7 +1486,7 @@ void FUN_00428b80()
         }
         if (pb->owner == DAT_012334ec)
         {
-            eclass_t *ec = FUN_00464770(0, "func_group");
+            eclass_t *ec = FUN_00464770("func_group", 0);
             if (ec)
             {
                 entity_t *e = FUN_00466d80(ec);
@@ -5406,13 +5406,12 @@ void FUN_00436170()
         Sys_Printf("can only connect patch vertices if only patches are selected\n");
         return;
     }
-    brush_t *b = DAT_010a44b4.next;
-    if (b == &DAT_010a44b4)
+    if (DAT_010a44b4.next == &DAT_010a44b4)
     {
         Sys_Printf("can only connect patch vertices if only patches are selected\n");
         return;
     }
-    for (b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
     {
         if (!b->patch)
         {
@@ -5485,13 +5484,12 @@ void FUN_004364b0()
         Sys_Printf("can only connect patch vertices if only patches are selected\n");
         return;
     }
-    brush_t *b = DAT_010a44b4.next;
-    if (b == &DAT_010a44b4)
+    if (DAT_010a44b4.next == &DAT_010a44b4)
     {
         Sys_Printf("can only connect patch vertices if only patches are selected\n");
         return;
     }
-    for (b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
+    for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
     {
         if (!b->patch)
         {
@@ -5836,7 +5834,7 @@ void FUN_00437400()
 void FUN_00437730(const float *origin, const float *dir)
 {
     float t, bestT = 3.402823466e+38f;
-    int bestY = 0, x, y;
+    int bestY = 0, y, x;
     patchMesh_t *best = NULL;
     int bestX = 0;
     for (brush_t *b = DAT_010a44b4.next; b != &DAT_010a44b4; b = b->next)
