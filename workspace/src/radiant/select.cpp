@@ -1204,30 +1204,30 @@ void FUN_00470ef0(int axis, float deg, bool bUpdate, bool bMouse)
         g_nUpdateBits = -1;
 }
 
-// Q3 Select_CompleteTall: select every brush inside the volume of the single selected brush
+int FUN_0046e0c0(bool quiet); // Q3 Select_CompleteTall: select every brush inside the volume of the single selected brush
 void FUN_00470ff0()
 {
     float mins[3], maxs[3];
     brush_t *b, *next;
     int d1, d2, mode;
 
-    b = selected_brushes.next;
-    if (b == &selected_brushes || b->next != &selected_brushes)
-    {
-        Sys_Printf("Error: you must have a single brush selected\n");
+    if (!FUN_0046e0c0(false))
         return;
-    }
-    if (b->owner->def->eclass->fixedsize)
-    {
-        Sys_Printf("Error: you cannot manipulate fixed size entities\n");
-        return;
-    }
+
+
+
+
+
+
+
+
     mode = g_qeglobals.d_select_mode;
     g_qeglobals.d_select_mode = 0;
     if (mode == 11)
         FUN_0041b190(dword_01233488);
     else if (mode == 10)
         FUN_0042beb0();
+    b = selected_brushes.next;
     g_qeglobals.selectObject = NULL;
     mins[0] = b->def->mins[0];
     mins[1] = b->def->mins[1];
@@ -1304,23 +1304,23 @@ void FUN_00471270()
     int mode;
     int d1, d2;
 
-    b = selected_brushes.next;
-    if (b == &selected_brushes || b->next != &selected_brushes)
-    {
-        Sys_Printf("Error: you must have a single brush selected\n");
+    if (!FUN_0046e0c0(false))
         return;
-    }
-    if (b->owner->def->eclass->fixedsize)
-    {
-        Sys_Printf("Error: you cannot manipulate fixed size entities\n");
-        return;
-    }
+
+
+
+
+
+
+
+
     mode = g_qeglobals.d_select_mode;
     g_qeglobals.d_select_mode = 0;
     if (mode == 11)
         FUN_0041b190(dword_01233488);
     else if (mode == 10)
         FUN_0042beb0();
+    b = selected_brushes.next;
     g_qeglobals.selectObject = NULL;
     mins[0] = b->def->mins[0];
     mins[1] = b->def->mins[1];
@@ -1354,23 +1354,23 @@ void FUN_004713e0()
     int mode;
     int i;
 
-    b = selected_brushes.next;
-    if (b == &selected_brushes || b->next != &selected_brushes)
-    {
-        Sys_Printf("Error: you must have a single brush selected\n");
+    if (!FUN_0046e0c0(false))
         return;
-    }
-    if (b->owner->def->eclass->fixedsize)
-    {
-        Sys_Printf("Error: you cannot manipulate fixed size entities\n");
-        return;
-    }
+
+
+
+
+
+
+
+
     mode = g_qeglobals.d_select_mode;
     g_qeglobals.d_select_mode = 0;
     if (mode == 11)
         FUN_0041b190(dword_01233488);
     else if (mode == 10)
         FUN_0042beb0();
+    b = selected_brushes.next;
     g_qeglobals.selectObject = NULL;
     mins[0] = b->def->mins[0];
     mins[1] = b->def->mins[1];
@@ -1404,23 +1404,23 @@ void FUN_00471530()
     int mode;
     int i;
 
-    b = selected_brushes.next;
-    if (b == &selected_brushes || b->next != &selected_brushes)
-    {
-        Sys_Printf("Error: you must have a single brush selected\n");
+    if (!FUN_0046e0c0(false))
         return;
-    }
-    if (b->owner->def->eclass->fixedsize)
-    {
-        Sys_Printf("Error: you cannot manipulate fixed size entities\n");
-        return;
-    }
+
+
+
+
+
+
+
+
     mode = g_qeglobals.d_select_mode;
     g_qeglobals.d_select_mode = 0;
     if (mode == 11)
         FUN_0041b190(dword_01233488);
     else if (mode == 10)
         FUN_0042beb0();
+    b = selected_brushes.next;
     g_qeglobals.selectObject = NULL;
     mins[0] = b->def->mins[0];
     mins[1] = b->def->mins[1];

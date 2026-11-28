@@ -678,20 +678,21 @@ found:
 }
 
 // 0x0046e0c0
-bool FUN_0046e0c0(bool quiet)
+int FUN_0046e0c0(bool quiet)
 {
 	if (selected_brushes.next == &selected_brushes || selected_brushes.next->next != &selected_brushes)
 	{
 		if (!quiet)
 			Sys_Printf("Error: you must have a single brush selected\n");
-		return false;
+		return 0;
 	}
-	if (selected_brushes.next->owner->def->eclass->fixedsize && !quiet)
+	if (selected_brushes.next->owner->def->eclass->fixedsize)
 	{
-		Sys_Printf("Error: you cannot manipulate fixed size entities\n");
-		return false;
+		if (!quiet)
+			Sys_Printf("Error: you cannot manipulate fixed size entities\n");
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 extern brush_t *DAT_011298a0;

@@ -299,10 +299,6 @@
 0x00470ce0	bulk-d2	2026-11-19	FUN_00470ce0 (Select_ApplyMatrix loop): bulk draft: 50%, sizes 64/65, first diff +0x3. origin in eax and flip in ebx in retail; callee Brush_Rotate 0x45f340 unwritten.
 0x00470d80	bulk-d2	2026-11-19	FUN_00470d80 (Select_Scale): bulk draft: 30%, sizes 388/359, first diff +0x5. callees 0x470c50 (eax out), 0x42f840 (ecx patch), 0x45a220 unmatched.
 0x00470ef0	bulk-d2	2026-11-19	FUN_00470ef0 (Select_RotateAxis): bulk draft: 41%, sizes 251/248, first diff +0x18. axis in eax, float and two bools on stack; callees 0x470c50/0x470ce0 conventions.
-0x00470ff0	bulk-d2	2026-11-19	FUN_00470ff0 (Select_CompleteTall): bulk draft: 45%, sizes 370/358, first diff +0x6. shared start with 0x471270/0x4713e0/0x471530 written inline; callee 0x46fb30 body is only a draft (flips FUN_00465550).
-0x00471270	bulk-d2	2026-11-19	FUN_00471270 (Select_PartialTall): bulk draft: 45%, sizes 370/358, first diff +0x6. same shared start as 0x470ff0.
-0x004713e0	bulk-d2	2026-11-19	FUN_004713e0 (Select_Touching): bulk draft: 51%, sizes 329/327, first diff +0x6. same shared start as 0x470ff0; filter test 0x44f630 on the def.
-0x00471530	bulk-d2	2026-11-19	FUN_00471530 (Select_Inside): bulk draft: 49%, sizes 317/315, first diff +0x6. same shared start as 0x470ff0.
 0x004718b0	claude-e12	2026-11-24	FUN_004718b0 (select entities by key value): 87%, 434/434, first diff +0x4. Retail keeps esi=&first->owner (lea esi,[eax+8]) and loads first->owner into ecx before the compare; ours keeps esi=first. Tried first-brush local and an owner field pointer: both fold to the same code. 3 tries
 0x00462bc0	bulk-d2	2026-11-19	FUN_00462bc0 (idList<int>/idPointListInterface instance): bulk draft: not written. splines.h/util_list.h template members (Resize, Find, RemoveIndex, selectPointByRay x2, selectPoint, isPointSelected, Remove, Append): needs util_list.h in drag.cpp and out-of-line idPointListInterface members; could flip the CamWnd.cpp idList<int> matches.
 0x00462bf0	bulk-d2	2026-11-19	FUN_00462bf0 (idList<int>/idPointListInterface instance): bulk draft: not written. splines.h/util_list.h template members (Resize, Find, RemoveIndex, selectPointByRay x2, selectPoint, isPointSelected, Remove, Append): needs util_list.h in drag.cpp and out-of-line idPointListInterface members; could flip the CamWnd.cpp idList<int> matches.
@@ -332,7 +328,6 @@
 0x00463bf0	bulk-d3	2026-11-20	bulk draft: 63%, sizes 367/357, first diff +0x1a
 0x00464930	bulk-d3	2026-11-20	bulk draft: 99%, sizes 436/436, first diff +0xfd Re-sweep 11-22: eclass_t **head = &g_modelClasses before FUN_00463e40 (ebx/edi mov order) -> 46%, 428/436, worse; reverted.
 0x0046d0b0	bulk-d3	2026-11-20	bulk draft: written, not linked as its own symbol (inlined into its caller)
-0x0046e0c0	bulk-d3	2026-11-20	bulk draft: 79%, sizes 80/83, first diff +0xb
 0x004a0550	claude-d	2026-11-22	bulk draft: 46%, sizes 3332/2967, first difference at +0x1d (best candidate ?TestStringClass@@YAXXZ)
 0x0047fed0	claude-d	2026-11-22	bulk draft: 25%, sizes 1236/1194, first difference at +0x5 (?FS_LoadZipFile@@YAPAUiwd_t@@PADPBD@Z)
 0x00484520	claude-d	2026-11-22	bulk draft: 65%, sizes 274/278, first difference at +0x17 (?vectosignedyaw@@YAMQAM@Z)
